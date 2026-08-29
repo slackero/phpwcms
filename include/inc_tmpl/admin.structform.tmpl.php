@@ -132,7 +132,7 @@ switch($acat_hidden) {
     <div class="form-group align-items-center">
 			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
 			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-			<a href="phpwcms.php?do=articles&amp;p=0" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+			<a href="phpwcms.php?do=articles&amp;p=6" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 </div>
@@ -703,7 +703,7 @@ switch($acat_hidden) {
     <div class="form-group align-items-center">
 			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
 			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-			<a href="phpwcms.php?do=articles&amp;p=0" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+			<a href="phpwcms.php?do=articles&amp;p=6" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 

@@ -136,50 +136,49 @@ if(empty($user_ok)) {
 		<hr />
 
 			<div class="row g-2 align-items-center">
-				<label for="be_admin_usr_realname" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_issection']  ?></label>
+				<label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_issection']  ?></label>
 				<div class="col">
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> />
-					<label class="form-check-label" for="form_feuser"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?> />
-					<label class="form-check-label" for="form_feuser1"><?php echo $BL['be_admin_usr_ifsection1'] ?></label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?> />
-					<label class="form-check-label" for="form_feuser2"><?php echo $BL['be_admin_usr_ifsection2'] ?></label>
-				</div>
+					<div class="btn-group btn-group-sm flex-wrap" role="group" aria-label="form_feuser">
+						<input class="btn-check" name="form_feuser" type="radio" id="form_feuser0" value="0" autocomplete="off"<?php is_checked($set_user_fe, 0); ?> />
+						<label class="btn btn-outline-blue" for="form_feuser0"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>
+
+						<input class="btn-check" name="form_feuser" type="radio" id="form_feuser1" value="1" autocomplete="off"<?php is_checked($set_user_fe, 1); ?> />
+						<label class="btn btn-outline-blue" for="form_feuser1"><?php echo $BL['be_admin_usr_ifsection1'] ?></label>
+
+						<input class="btn-check" name="form_feuser" type="radio" id="form_feuser2" value="2" autocomplete="off"<?php is_checked($set_user_fe, 2); ?> />
+						<label class="btn btn-outline-blue" for="form_feuser2"><?php echo $BL['be_admin_usr_ifsection2'] ?></label>
+					</div>
 				</div>
 			</div>
 
 			<div class="row g-2 align-items-center">
-				<label for="be_admin_usr_setactive" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_setactive'] ?></label>
+			<div class="row g-2 align-items-center">
+				<label for="form_active" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_setactive'] ?></label>
 				<div class="col">
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
-					<label class="form-check-label" for="form_active"><?php echo $BL['be_admin_usr_iflogin'] ?></label>
-				</div>
+					<div class="form-check">
+						<input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
+						<label class="form-check-label" for="form_active"><?php echo $BL['be_admin_usr_iflogin'] ?></label>
+					</div>
 				</div>
 			</div>
 
 			<div class="row g-2 align-items-center">
-				<label for="be_admin_usr_isadmin" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
+				<label for="form_admin" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
 				<div class="col">
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
-					<label class="form-check-label" for="form_admin"><strong><?php echo $BL['be_admin_usr_ifadmin'] ?>!</strong></label>
-				</div>
+					<div class="form-check">
+						<input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
+						<label class="form-check-label" for="form_admin"><strong><?php echo $BL['be_admin_usr_ifadmin'] ?>!</strong></label>
+					</div>
 				</div>
 			</div>
 
 			<div class="row g-2 align-items-center">
-				<label for="be_admin_usr_verify" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_verify'] ?></label>
+				<label for="verification_email" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_verify'] ?></label>
 				<div class="col">
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
-					<label class="form-check-label" for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label>
-				</div>
+					<div class="form-check">
+						<input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
+						<label class="form-check-label" for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label>
+					</div>
 				</div>
 			</div>
 
@@ -189,7 +188,7 @@ if(empty($user_ok)) {
   <div class="form-group align-items-center mt-4 mb-0">
     <input name="form_aktion" type="hidden" value="create_account" />
     <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-plus"></i> <?php echo $BL['be_admin_usr_button'] ?></button>
-    <a href="phpwcms.php?do=admin&amp;p=6" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+    <a href="phpwcms.php?do=admin" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
   </div>
 </form>
 

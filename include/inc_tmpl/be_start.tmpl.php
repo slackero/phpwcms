@@ -207,7 +207,7 @@ $_last10_article = _dbQuery($_asql_1);
               $value['notice_long'] = $value['notice'] = $value['article_title'];
           }
 
-          $value['notice'] = html(preg_replace('/\s+/', ' ', $value['notice'], false));
+          $value['notice'] = html(preg_replace('/\s+/', ' ', $value['notice']));
 
           echo '  <td class="home-cp" style="font-weight:normal">'.$value['notice'].'</td>'.LF;
           echo '  <td class="text-nowrap home-date">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;

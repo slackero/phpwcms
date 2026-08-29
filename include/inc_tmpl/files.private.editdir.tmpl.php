@@ -169,21 +169,17 @@ if(!empty($ja)) {
 				</div>
 
 				<div class="form-group align-items-center row g-2">
-					<label for="dir_aktiv" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_fpriv_status'] ?></label>
-						<div class="col-sm-auto">
-							<div class="form-check form-check-inline">
-								<label class="form-check-label">
-									<input class="form-check-input" name="dir_aktiv" type="checkbox" id="dir_aktiv" value="1"<?php is_checked("1", $dir_aktiv) ?> />
-								<?php echo $BL['be_ftptakeover_active'] ?></label>
-							</div>
+					<label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_fpriv_status'] ?></label>
+					<div class="col-sm-10">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" name="dir_aktiv" type="checkbox" id="dir_aktiv" value="1"<?php is_checked("1", $dir_aktiv) ?> />
+							<label class="form-check-label" for="dir_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label>
 						</div>
-						<div class="col-sm-auto">
-							<div class="form-check form-check-inline">
-								<label class="form-check-label">
-									<input class="form-check-input" name="dir_public" type="checkbox" id="dir_public" value="1"<?php is_checked("1", $dir_public) ?> />
-								<?php echo $BL['be_ftptakeover_public'] ?></label>
-							</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" name="dir_public" type="checkbox" id="dir_public" value="1"<?php is_checked("1", $dir_public) ?> />
+							<label class="form-check-label" for="dir_public"><?php echo $BL['be_ftptakeover_public'] ?></label>
 						</div>
+					</div>
 				</div>
 
 				<div class="form-group row mt-4 mb-0">

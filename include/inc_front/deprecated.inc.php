@@ -176,7 +176,7 @@ function nav_table_struct ($struct, $act_cat_id, $level, $nav_table_struct, $lin
 		$total_levels++;
 	}
 
-    $temp_tree = is_array($data) && count($data) ? array_reverse($data, 1) : array();
+    $temp_tree = is_array($data) && count($data) ? array_reverse($data, true) : array();
 
 	foreach($struct as $key => $value) {
 		if($struct[$key]["acat_struct"] == $act_cat_id && $key && (!$struct[$key]["acat_hidden"] || isset($GLOBALS['LEVEL_KEY'][$key]))) {
@@ -364,7 +364,7 @@ function nav_list_struct($struct, $act_cat_id, $level, $class='') {
 		$data[$start_id] = 1;
 		$start_id		 = $struct[$start_id]["acat_struct"];
 	}
-	$temp_tree = sizeof($data) ? array_reverse($data, 1) : false;
+	$temp_tree = sizeof($data) ? array_reverse($data, true) : false;
 
 	$temp_menu = build_list($struct, $level, $temp_tree, $act_cat_id, $class, $depth);
 	$temp_menu = str_replace("\n\n", LF, $temp_menu);

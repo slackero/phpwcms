@@ -366,7 +366,7 @@ if ($_files_force_rendering || $_files_count) {
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['file_cp_subtitle']));
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_html"]);
     $crow["acontent_template"] = str_replace('{ID}', $crow['acontent_id'], $crow["acontent_template"]);
-    $crow["acontent_template"] = str_replace('{FILE_COUNT}', $_files_count, $crow["acontent_template"]);
+    $crow["acontent_template"] = str_replace('{FILE_COUNT}', (string) $_files_count, $crow["acontent_template"]);
     // cleanup left over FILE_IMAGE sections
     $crow["acontent_template"] = replace_cnt_template($crow["acontent_template"], 'FILE_IMAGE', '');
     // return result

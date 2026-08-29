@@ -76,7 +76,7 @@ if ( $img_info ) {
         if ( count( $points ) ) {
             foreach ( $points as $value ) {
                 $point = explode( 'x', $value );
-                imagecopymerge( $img_source, $img_point, $point[0] - $img_val[5], $point[1] - $img_val[6], 0, 0, $img_val[1], $img_val[2], 100 );
+                imagecopymerge( $img_source, $img_point, (int) ((int) $point[0] - $img_val[5]), (int) ((int) $point[1] - $img_val[6]), 0, 0, $img_val[1], $img_val[2], 100 );
             }
         }
     }

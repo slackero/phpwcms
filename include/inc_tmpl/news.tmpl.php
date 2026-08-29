@@ -297,22 +297,21 @@ if($news->data['cnt_id']) {
   <hr />
 
   <div class="form-group align-items-center row g-2">
-      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_media_format'] ?></label>
-    <div class="form-check form-check-inline col-sm-auto">
-      <input class="form-check-input" type="radio" id="text_format0" name="cnt_textformat" value="plain"<?php is_checked('plain', $news->data['cnt_textformat']); ?> />
-      <label class="form-check-label" for="text_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
-    </div>
-    <div class="form-check form-check-inline col-sm-auto">
-      <input class="form-check-input" type="radio" id="text_format1" name="cnt_textformat" value="markdown"<?php is_checked('markdown', $news->data['cnt_textformat']); ?> />
-      <label class="form-check-label" for="text_format1">MarkDown <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank" data-bs-toggle="tooltip" title="Wikipedia: Markdown"><i class="fas fa-info-circle text-blue"></i></a></label>
-    </div>
-    <div class="form-check form-check-inline col-sm-auto">
-            <input class="form-check-input" type="radio" id="text_format2" name="cnt_textformat" value="textile" <?php is_checked('textile', $news->data['cnt_textformat']); ?> />
-            <label class="form-check-label" for="text_format2">Textile <a href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29" target="_blank" data-bs-toggle="tooltip" title="Wikipedia: Textile"><i class="fas fa-info-circle text-blue"></i></a></label>
-    </div>
-    <div class="form-check form-check-inline col">
-      <input class="form-check-input" type="radio" id="text_format3" name="cnt_textformat" value="br" <?php is_checked('br', $news->data['cnt_textformat']); ?> />
-      <label class="form-check-label" for="text_format3">BR</label>
+    <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_media_format'] ?></label>
+    <div class="col-sm-10">
+      <div class="btn-group btn-group-xs" role="group" aria-label="cnt_textformat">
+        <input class="btn-check" type="radio" id="text_format0" name="cnt_textformat" value="plain" autocomplete="off"<?php is_checked('plain', $news->data['cnt_textformat']); ?> />
+        <label class="btn btn-outline-blue" for="text_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
+
+        <input class="btn-check" type="radio" id="text_format1" name="cnt_textformat" value="markdown" autocomplete="off"<?php is_checked('markdown', $news->data['cnt_textformat']); ?> />
+        <label class="btn btn-outline-blue" for="text_format1">MarkDown</label>
+
+        <input class="btn-check" type="radio" id="text_format2" name="cnt_textformat" value="textile" autocomplete="off"<?php is_checked('textile', $news->data['cnt_textformat']); ?> />
+        <label class="btn btn-outline-blue" for="text_format2">Textile</label>
+
+        <input class="btn-check" type="radio" id="text_format3" name="cnt_textformat" value="br" autocomplete="off"<?php is_checked('br', $news->data['cnt_textformat']); ?> />
+        <label class="btn btn-outline-blue" for="text_format3">BR</label>
+      </div>
     </div>
   </div>
 
@@ -373,7 +372,7 @@ if($news->data['cnt_id']) {
         });
     </script>
     <div class="form-group align-items-center row g-2">
-      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_cnt_sort'] ?></label>
+      <label for="sort_date" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_sorting'] ?></label>
       <div class="col-sm-auto">
         <div class="input-group input-group-sm datetime-picker-group">
           <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_sort_date" id="sort_date" value="<?php echo $news->data['cnt_date_sort']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
@@ -488,14 +487,16 @@ if($news->data['cnt_id']) {
     </div>
 
   <div class="form-group align-items-center row g-2">
-    <label class="col-sm-2 col-form-label text-end"></label>
-    <div class="form-check form-check-inline col-sm-auto">
-            <input class="form-check-input" type="checkbox" id="cnt_image_zoom" name="cnt_image_zoom" value="1"<?php is_checked(1, $news->data['cnt_image']['zoom']); ?> />
-            <label class="form-check-label" for="cnt_image_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
-    </div>
-    <div class="form-check form-check-inline col-sm-auto">
-            <input class="form-check-input" type="checkbox" id="cnt_image_lightbox" name="cnt_image_lightbox" value="1"<?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> />
-            <label class="form-check-label" for="cnt_image_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
+    <span class="col-sm-2"></span>
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="cnt_image_zoom" name="cnt_image_zoom" value="1"<?php is_checked(1, $news->data['cnt_image']['zoom']); ?> />
+        <label class="form-check-label" for="cnt_image_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="cnt_image_lightbox" name="cnt_image_lightbox" value="1"<?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> />
+        <label class="form-check-label" for="cnt_image_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
+      </div>
     </div>
   </div>
 
@@ -576,15 +577,17 @@ if($news->data['cnt_id']) {
       </div>
   </div>
 
-  <div class="form-group align-items-center row g-2 mb-3">
-    <label class="col-sm-2 col-form-label text-end"></label>
-    <div class="form-check form-check-inline col-sm-auto">
-            <input class="form-check-input" type="checkbox" id="cnt_file_gallery" name="cnt_file_gallery" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery']); ?> />
-            <label class="form-check-label" for="cnt_file_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label>
-    </div>
-    <div class="form-check form-check-inline col-sm-auto">
-            <input class="form-check-input" type="checkbox" id="cnt_file_gallery_download" name="cnt_file_gallery_download" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery_download']); ?> />
-            <label class="form-check-label" for="cnt_file_gallery_download"><?php echo $BL['be_gallerydownload'] ?></label>
+  <div class="form-group align-items-center row g-2">
+    <span class="col-sm-2"></span>
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="cnt_file_gallery" name="cnt_file_gallery" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery']); ?> />
+        <label class="form-check-label" for="cnt_file_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="cnt_file_gallery_download" name="cnt_file_gallery_download" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery_download']); ?> />
+        <label class="form-check-label" for="cnt_file_gallery_download"><?php echo $BL['be_gallerydownload'] ?></label>
+      </div>
     </div>
   </div>
 

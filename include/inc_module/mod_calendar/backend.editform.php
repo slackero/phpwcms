@@ -307,12 +307,12 @@ $(function(){
 function setCalendarAllDay() {
 
     if($('#calendar_allday').is(':checked')) {
-      $('#calendar_start_time, #calendar_start_time + .input-group-append').hide();
-      $('#calendar_end_time, #calendar_end_time + .input-group-append').hide();
+      $('#calendar_start_time, #calendar_start_time + .input-group-text').hide();
+      $('#calendar_end_time, #calendar_end_time + .input-group-text').hide();
       $('.datetime-picker-group').addClass('all-day-active');
     } else {
-      $('#calendar_start_time, #calendar_start_time + .input-group-append').show();
-      $('#calendar_end_time, #calendar_end_time + .input-group-append').show();
+      $('#calendar_start_time, #calendar_start_time + .input-group-text').show();
+      $('#calendar_end_time, #calendar_end_time + .input-group-text').show();
       $('.datetime-picker-group').removeClass('all-day-active');
     }
 

@@ -49,18 +49,16 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group align-items-center row g-2">
   <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_media_format']; ?></label>
   <div class="col">
-  	<div class="form-check form-check-inline">
-      <input name="ctext_format" type="radio" id="ctext_format0" value="plain" class="form-check-input" <?php is_checked('plain', $content['ctext_format']); ?> />
-      <label class="form-check-label" for="ctext_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
-		</div>
-		<div class="form-check form-check-inline">
-			<input name="ctext_format" type="radio" id="ctext_format1" value="markdown" class="form-check-input" <?php is_checked('markdown', $content['ctext_format']); ?> />
-			<label class="form-check-label" for="ctext_format1">MarkDown <a href="http://en.wikipedia.org/wiki/Markdown" data-bs-toggle="tooltip" target="_blank" title="Wikipedia: Markdown"><i class="fa fa-info-circle text-blue" aria-hidden="true"></i></a></label>
-		</div>
-		<div class="form-check form-check-inline">
-    	<input name="ctext_format" type="radio" id="ctext_format2" value="textile" class="form-check-input" <?php is_checked('textile', $content['ctext_format']); ?> />
-      <label class="form-check-label" for="ctext_format2">Textile <a href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29" data-bs-toggle="tooltip" target="_blank" title="Wikipedia: Textile"><i class="fa fa-info-circle text-blue" aria-hidden="true"></i></a></label>
-		</div>
+    <div class="btn-group btn-group-xs" role="group" aria-label="ctext_format">
+      <input name="ctext_format" type="radio" id="ctext_format0" value="plain" class="btn-check" autocomplete="off" <?php is_checked('plain', $content['ctext_format']); ?> />
+      <label class="btn btn-outline-blue" for="ctext_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
+
+      <input name="ctext_format" type="radio" id="ctext_format1" value="markdown" class="btn-check" autocomplete="off" <?php is_checked('markdown', $content['ctext_format']); ?> />
+      <label class="btn btn-outline-blue" for="ctext_format1">MarkDown</label>
+
+      <input name="ctext_format" type="radio" id="ctext_format2" value="textile" class="btn-check" autocomplete="off" <?php is_checked('textile', $content['ctext_format']); ?> />
+      <label class="btn btn-outline-blue" for="ctext_format2">Textile</label>
+    </div>
   </div>
 </div>
 

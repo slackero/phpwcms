@@ -324,8 +324,8 @@ if($image['template']) {
             $img_a = str_replace('{IMAGE_ID}', $image['images'][$key][0], $img_a);
             $img_a = str_replace('{IMAGE_HASH}', $image['images'][$key][2], $img_a);
             $img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key][1]), $img_a);
-            $img_a = str_replace('{ENTRY_ID}', $total-1, $img_a);
-            $img_a = str_replace('{ENTRY_NUM}', $total, $img_a);
+            $img_a = str_replace('{ENTRY_ID}', (string) ($total-1), $img_a);
+            $img_a = str_replace('{ENTRY_NUM}', (string) $total, $img_a);
 
             // replace thumbnail and zoom image information
             $img_a = str_replace('{THUMB_NAME}',    $img_thumb_name, $img_a);
@@ -409,7 +409,7 @@ if($image['template']) {
     $image['template'] = str_replace('{THUMB_WIDTH_MAX}', $image['tmpl_thumb_width_max'], $image['template']);
     $image['template'] = str_replace('{THUMB_HEIGHT_MAX}', $image['tmpl_thumb_height_max'], $image['template']);
     $image['template'] = str_replace('{THUMB_COLUMNS}', $image['col'], $image['template']);
-    $image['template'] = str_replace('{IMAGE_COUNT}', $total, $image['template']);
+    $image['template'] = str_replace('{IMAGE_COUNT}', (string) $total, $image['template']);
 
     $image['template'] = render_cnt_template($image['template'], 'IMAGE_CLASS_CENTER', $image['center_image_class']);
     $image['template'] = render_cnt_template($image['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));

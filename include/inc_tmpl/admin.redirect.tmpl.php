@@ -404,7 +404,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
       <button type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $rid ? $BL['be_article_cnt_button3'] : $BL['be_article_cnt_button2'] ?></button>
       <button type="reset" class="btn btn-sm btn-secondary ms-1"><i class="fa fa-undo"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
       <a href="phpwcms.php?do=admin&amp;p=14" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
-      <?php if($rid): ?><button type="submit" class="btn btn-sm btn-danger ms-1" name="delete_<?php echo md5($rid) ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');"><i class="far fa-trash-alt me-1"></i> <?php echo $BL['be_cnt_delete'] ?></button><?php endif; ?>
+      <?php if($rid): ?><button type="submit" class="btn btn-sm btn-danger ms-1" name="delete_<?php echo md5((string) $rid) ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');"><i class="far fa-trash-alt me-1"></i> <?php echo $BL['be_cnt_delete'] ?></button><?php endif; ?>
     </div>
 </form>
 

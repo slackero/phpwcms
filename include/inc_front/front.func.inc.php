@@ -251,7 +251,7 @@ function get_breadcrumb($start_id, $struct_array, $key="acat_name") {
     if(!empty($struct_array[$start_id][$key])) {
         $data[$start_id] = $struct_array[$start_id][$key];
     }
-    return ($GLOBALS['content'][$hash] = array_reverse($data, 1));
+    return ($GLOBALS['content'][$hash] = array_reverse($data, true));
 }
 
 // wrapper for breadcrumb frontend render
@@ -296,7 +296,7 @@ function breadcrumb($start_id, $struct_array, $end_id=0, $spacer=' &gt; ', $cat_
         $start_id        = $struct_array[$start_id]["acat_struct"];
     }
     $data[$start_id]    = $struct_array[$start_id]["acat_name"];
-    $data               = array_reverse($data, 1);
+    $data               = array_reverse($data, true);
 
     // decide how to handle when in article detail or list mode
     $with_article       = !$cat_only && !$GLOBALS['content']['list_mode'] && $GLOBALS['content']["article_list_count"] > 1;
@@ -936,11 +936,11 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
         $page_article_at  = $page_article_at + 1;
         if($page_article_max > $max_articles) $page_article_max = $max_articles;
 
-        $paginate_navi = str_replace('#####',   $max_articles,          $paginate_navi);
-        $paginate_navi = str_replace('####',    $page_article_max,      $paginate_navi);
-        $paginate_navi = str_replace('###',     $page_article_at,       $paginate_navi);
-        $paginate_navi = str_replace('##',      $max_pages,             $paginate_navi);
-        $paginate_navi = str_replace('#',       $page_current,          $paginate_navi);
+        $paginate_navi = str_replace('#####',   (string) $max_articles,          $paginate_navi);
+        $paginate_navi = str_replace('####',    (string) $page_article_max,      $paginate_navi);
+        $paginate_navi = str_replace('###',     (string) $page_article_at,       $paginate_navi);
+        $paginate_navi = str_replace('##',      (string) $max_pages,             $paginate_navi);
+        $paginate_navi = str_replace('#',       (string) $page_current,          $paginate_navi);
 
         $GLOBALS['paginate_temp'] = array('next' => '', 'prev' => '', 'navi' => '');
 
@@ -4501,7 +4501,7 @@ function render_if_category($matches) {
         $id = intval($id);
 
         if($id === $current) {
-            return str_replace('{IF_CAT_ID}', $id, $matches[2]);
+            return str_replace('{IF_CAT_ID}', (string) $id, $matches[2]);
         }
 
     }
@@ -4528,7 +4528,7 @@ function render_if_not_category($matches) {
 
     }
 
-    return $return === true ? str_replace('{IF_NOTCAT_ID}', $current, $matches[2]) : '';
+    return $return === true ? str_replace('{IF_NOTCAT_ID}', (string) $current, $matches[2]) : '';
 }
 
 function get_css_keywords($text, $return_as_string=true) {

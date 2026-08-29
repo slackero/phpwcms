@@ -62,7 +62,7 @@ function phpwcms_form_encode($in_str, $charset) {
        // determine length of encoded text within chunks
        // and ensure length is even
        $length = 75 - strlen($start) - strlen($end);
-       $length = floor($length/2) * 2;
+       $length = (int) (floor($length/2) * 2);
 
        // encode the string and split it into chunks
        // with spacers after each chunk

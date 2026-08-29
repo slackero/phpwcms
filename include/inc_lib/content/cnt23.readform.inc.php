@@ -134,10 +134,10 @@ $content['form']["template_copy"]           = slweg($_POST["cform_template_copy"
 $content['form']["function_to"] = preg_replace('/[^a-zA-Z0-9_]/', '', $_POST["cform_function_to"]);
 $content['form']["function_cc"] = preg_replace('/[^a-zA-Z0-9_]/', '', $_POST["cform_function_cc"]);
 if(is_callable($content['form']["function_to"])) {
-    $content['form']["function_to"] = '_Proof_'.$content['form']["function_to"];
+    $content['form']["function_to"] = '_Proof_' . (string) $content['form']["function_to"];
 }
 if(is_callable($content['form']["function_cc"])) {
-    $content['form']["function_cc"] = '_Proof_'.$content['form']["function_cc"];
+    $content['form']["function_cc"] = '_Proof_' . (string) $content['form']["function_cc"];
 }
 
 $content['form']["template_equal"] = empty($_POST["cform_template_equal"]) ? 0 : 1;

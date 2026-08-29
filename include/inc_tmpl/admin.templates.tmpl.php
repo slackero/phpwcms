@@ -810,22 +810,28 @@ if(!isset($_GET["s"])) {
                                         <input type="text" name="template_ga_id" id="template_ga_id" class="form-control form-control-sm" placeholder="UA-XXXXX-Y" value="<?php echo html($template['tracking_ga']['id']) ?>"/>
                                     </div>
 
-                                    <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
-                                        <input class="form-check-input" type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> />
-                                        <label for="template_ga_anonymize" class="form-check-label"><?php echo $BL['be_tracking_anonymize']; ?></label>
+                                    <div class="col-sm-10 offset-sm-2 mt-1">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> />
+                                            <label for="template_ga_anonymize" class="form-check-label"><?php echo $BL['be_tracking_anonymize']; ?></label>
+                                        </div>
                                     </div>
 
-                                    <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
-                                        <input class="form-check-input" type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked($template['tracking_ga']['optout'] ?? 0, 1); ?> />
-                                        <label for="template_ga_optout" class="form-check-label"><?php echo $BL['be_tracking_optout']; ?></label>
+                                    <div class="col-sm-10 offset-sm-2 mt-1">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked($template['tracking_ga']['optout'] ?? 0, 1); ?> />
+                                            <label for="template_ga_optout" class="form-check-label"><?php echo $BL['be_tracking_optout']; ?></label>
+                                        </div>
                                     </div>
 
-                                    <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
-                                        <input class="form-check-input" type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked($template['tracking_ga']['cookie_flags'] ?? 0, 1); ?> />
-                                        <label for="template_ga_cookie_flags" class="form-check-label"><?php echo $BL['be_tracking_cookie_flags']; ?></label>
+                                    <div class="col-sm-10 offset-sm-2 mt-1">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked($template['tracking_ga']['cookie_flags'] ?? 0, 1); ?> />
+                                            <label for="template_ga_cookie_flags" class="form-check-label"><?php echo $BL['be_tracking_cookie_flags']; ?></label>
+                                        </div>
                                     </div>
 
-                                    <div class="form-check col-sm-10 offset-sm-2 my-1">
+                                    <div class="col-sm-10 offset-sm-2 my-1">
                                         <label class="col-form-label fw-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
                                         <textarea name="template_ga_custom_properties" id="template_ga_custom_properties" class="form-control text-monospace autosize code-editor" data-mode="javascript" data-min-lines="4" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
                                     </div>

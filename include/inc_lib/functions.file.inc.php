@@ -174,7 +174,7 @@ function rangeDownload($file) {
         if (substr($range, 0, 1) === '-') {
 
             // The n-number of the last bytes is requested
-            $c_start = $size - substr($range, 1);
+            $c_start = $size - (int) substr($range, 1);
         }
         else {
 
@@ -234,7 +234,7 @@ function rangeDownload($file) {
  *
  * @param   string  $filename The file to generate ETAG for.
  * @param   bool    $quote    Optional.
- * @return  string            The ETAG.
+ * @return  string|false       The ETAG, or false if the file is unreadable.
  */
 function phpwcms_etag($filename, $quote = true) {
     if(!is_file($filename) || !($info = stat($filename))) {

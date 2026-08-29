@@ -419,7 +419,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     $content['alink']['tr'][$key]   = str_replace('{ARTICLEID}', $row['article_id'], $content['alink']['tr'][$key]);
                     $content['alink']['tr'][$key]   = str_replace('{CATEGORYID}', $row['article_cid'], $content['alink']['tr'][$key]);
                     $content['alink']['tr'][$key]   = str_replace('{COLUMN}', $content['alink']['column_current'], $content['alink']['tr'][$key]);
-                    $content['alink']['tr'][$key]   = str_replace('{ROW}', $content['alink']['row']-$content['alink']['row_minus'], $content['alink']['tr'][$key]);
+                    $content['alink']['tr'][$key]   = str_replace('{ROW}', (string)($content['alink']['row']-$content['alink']['row_minus']), $content['alink']['tr'][$key]);
 
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'MENUTITLE', html($row['article_menutitle']));
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'TITLE', html($row['article_title']));

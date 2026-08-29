@@ -168,7 +168,7 @@ if($content['custom_field_items']): ?>
                         $cnt_fieldgroup['fields'][$custom_field]['step'] = ceil($cnt_fieldgroup['fields'][$custom_field]['step']);
                     } else {
                         $cnt_fieldgroup['fields'][$custom_field]['step'] = floatval($cnt_fieldgroup['fields'][$custom_field]['step']);
-                        $cnt_fieldgroup['fields'][$custom_field]['step'] = rtrim(number_format($cnt_fieldgroup['fields'][$custom_field]['step'], 14 - log10($cnt_fieldgroup['fields'][$custom_field]['step'])), '0');
+                        $cnt_fieldgroup['fields'][$custom_field]['step'] = rtrim(number_format($cnt_fieldgroup['fields'][$custom_field]['step'], (int) (14 - log10($cnt_fieldgroup['fields'][$custom_field]['step']))), '0');
                     }
                     echo $cnt_fieldgroup['fields'][$custom_field]['step'];
                 ?>"

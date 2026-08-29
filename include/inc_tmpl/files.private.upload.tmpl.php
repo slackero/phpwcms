@@ -373,10 +373,12 @@ document.getElementById("file").onchange = function(e) {
 <hr />
 	<div class="form-group row g-2 align-items-center">
 		<label for="file_iptc_as_caption" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_iptc_data'] ?></label>
-			<div class="col form-check form-check-inline">
+		<div class="col-sm-10">
+			<div class="form-check form-check-inline">
 				<input class="form-check-input" name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> />
 				<label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
 			</div>
+		</div>
 		<div id="iptc-info"></div>
 	</div>
 
@@ -498,7 +500,7 @@ document.getElementById("file").onchange = function(e) {
                 $k_rows .= html($row["fcat_name"]) . '</label>';
                 $k_rows .= '  </td>' . LF;
                 $k_rows .= '  <td class="align-middle py-1">' . LF;
-                $k_rows .= '    <select name="file_keywords[' . $row["fcat_id"] . ']" id="file_keywords_' . $row["fcat_id"] . '" class="form-select form-select-sm' . ($has_error ? ' is-invalid' : '')" style="max-width: 350px;">' . LF;
+                $k_rows .= '    <select name="file_keywords[' . $row["fcat_id"] . ']" id="file_keywords_' . $row["fcat_id"] . '" class="form-select form-select-sm' . ($has_error ? ' is-invalid' : '') . '" style="max-width: 350px;">' . LF;
                 $k_rows .= '      <option value="' . ($row["fcat_needed"] ? "0_".$row["fcat_needed"] : "0") . '">' . ($row["fcat_needed"] ? $BL['be_ftptakeover_needed'] : $BL['be_ftptakeover_optional']) . '</option>' . LF;
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";

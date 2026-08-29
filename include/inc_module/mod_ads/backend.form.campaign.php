@@ -199,28 +199,24 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 				</div>
 			</div>
 
-			<div class="form-group row">
+			<div class="form-group row align-items-center">
 				<label class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BLM['ad_type'] ?></label>
-				<div class="col-sm-9 pt-1">
-					<div class="form-check form-check-inline">
-						<input type="radio" id="adcampaign_type_0" name="adcampaign_type" class="form-check-input" value="0"<?php is_checked(0, $plugin['data']['adcampaign_type']) ?> />
-						<label class="form-check-label" for="adcampaign_type_0"><?php echo $BLM['ad_type_0'] ?></label>
-					</div>
-					<div class="form-check form-check-inline">
-						<input type="radio" id="adcampaign_type_1" name="adcampaign_type" class="form-check-input" value="1"<?php is_checked(1, $plugin['data']['adcampaign_type']) ?> />
-						<label class="form-check-label" for="adcampaign_type_1"><?php echo $BLM['ad_type_1'] ?></label>
-					</div>
-					<div class="form-check form-check-inline">
-						<input type="radio" id="adcampaign_type_2" name="adcampaign_type" class="form-check-input" value="2"<?php is_checked(2, $plugin['data']['adcampaign_type']) ?> />
-						<label class="form-check-label" for="adcampaign_type_2"><?php echo $BLM['ad_type_2'] ?></label>
-					</div>
-					<div class="form-check form-check-inline">
-						<input type="radio" id="adcampaign_type_3" name="adcampaign_type" class="form-check-input" value="3"<?php is_checked(3, $plugin['data']['adcampaign_type']) ?> />
-						<label class="form-check-label" for="adcampaign_type_3"><?php echo $BLM['ad_type_3'] ?></label>
-					</div>
-					<div class="form-check form-check-inline">
-						<input type="radio" id="adcampaign_type_4" name="adcampaign_type" class="form-check-input" value="4"<?php is_checked(4, $plugin['data']['adcampaign_type']) ?> />
-						<label class="form-check-label" for="adcampaign_type_4"><?php echo $BLM['ad_type_6'] ?></label>
+				<div class="col-sm-9">
+					<div class="btn-group btn-group-sm flex-wrap" role="group" aria-label="adcampaign_type">
+						<input type="radio" class="btn-check" name="adcampaign_type" id="adcampaign_type_0" value="0" autocomplete="off"<?php is_checked(0, $plugin['data']['adcampaign_type']) ?> />
+						<label class="btn btn-outline-blue" for="adcampaign_type_0"><?php echo $BLM['ad_type_0'] ?></label>
+
+						<input type="radio" class="btn-check" name="adcampaign_type" id="adcampaign_type_1" value="1" autocomplete="off"<?php is_checked(1, $plugin['data']['adcampaign_type']) ?> />
+						<label class="btn btn-outline-blue" for="adcampaign_type_1"><?php echo $BLM['ad_type_1'] ?></label>
+
+						<input type="radio" class="btn-check" name="adcampaign_type" id="adcampaign_type_2" value="2" autocomplete="off"<?php is_checked(2, $plugin['data']['adcampaign_type']) ?> />
+						<label class="btn btn-outline-blue" for="adcampaign_type_2"><?php echo $BLM['ad_type_2'] ?></label>
+
+						<input type="radio" class="btn-check" name="adcampaign_type" id="adcampaign_type_3" value="3" autocomplete="off"<?php is_checked(3, $plugin['data']['adcampaign_type']) ?> />
+						<label class="btn btn-outline-blue" for="adcampaign_type_3"><?php echo $BLM['ad_type_3'] ?></label>
+
+						<input type="radio" class="btn-check" name="adcampaign_type" id="adcampaign_type_4" value="4" autocomplete="off"<?php is_checked(4, $plugin['data']['adcampaign_type']) ?> />
+						<label class="btn btn-outline-blue" for="adcampaign_type_4"><?php echo $BLM['ad_type_6'] ?></label>
 					</div>
 				</div>
 			</div>
@@ -308,16 +304,12 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 						<a href="#" onclick="showImageAds();return false;" title="Preview"><?php echo $BLM['ad_type_0'] ?> <i class="fas fa-external-link-alt small"></i></a>
 					</label>
 					<div class="col-sm-9">
-						<div class="row g-2 align-items-center">
-							<div class="col-auto">
-								<select name="adcampaign_image" id="adcampaign_image" class="form-select form-select-sm" style="width: 200px;">
-									<option value="">&nbsp;</option>
-									<?php echo $plugin['data']['image'] ?>
-								</select>
-							</div>
-							<div class="col-auto upload newimage">
-								<input type="file" name="adcampaign_upload_image" id="adcampaign_upload_image" class="form-control-file form-control-sm" title="<?php echo $BLM['ad_upload_image'] ?>" accept="image/png,image/jpeg,image/gif,image/webp,.gif,.png,.webp,.jpeg,.jpg" />
-							</div>
+						<div class="input-group input-group-sm" style="max-width: 540px;">
+							<select name="adcampaign_image" id="adcampaign_image" class="form-select" style="max-width: 220px;">
+								<option value="">&nbsp;</option>
+								<?php echo $plugin['data']['image'] ?>
+							</select>
+							<input type="file" name="adcampaign_upload_image" id="adcampaign_upload_image" class="form-control" title="<?php echo $BLM['ad_upload_image'] ?>" accept="image/png,image/jpeg,image/gif,image/webp,.gif,.png,.webp,.jpeg,.jpg" />
 						</div>
 					</div>
 				</div>
@@ -334,16 +326,12 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 						<a href="#" onclick="showVideoAds();return false;" title="Preview"><?php echo $BLM['ad_type_1'] ?> <i class="fas fa-external-link-alt small"></i></a>
 					</label>
 					<div class="col-sm-9">
-						<div class="row g-2 align-items-center">
-							<div class="col-auto">
-								<select name="adcampaign_video" id="adcampaign_video" class="form-select form-select-sm" style="width: 200px;">
-									<option value="">&nbsp;</option>
-									<?php echo $plugin['data']['video'] ?>
-								</select>
-							</div>
-							<div class="col-auto upload newvideo">
-								<input type="file" name="adcampaign_upload_video" id="adcampaign_upload_video" class="form-control-file form-control-sm" title="<?php echo $BLM['ad_upload_video'] ?>" accept="video/mp4,video/webm,.mp4,.webm" />
-							</div>
+						<div class="input-group input-group-sm" style="max-width: 540px;">
+							<select name="adcampaign_video" id="adcampaign_video" class="form-select" style="max-width: 220px;">
+								<option value="">&nbsp;</option>
+								<?php echo $plugin['data']['video'] ?>
+							</select>
+							<input type="file" name="adcampaign_upload_video" id="adcampaign_upload_video" class="form-control" title="<?php echo $BLM['ad_upload_video'] ?>" accept="video/mp4,video/webm,.mp4,.webm" />
 						</div>
 					</div>
 				</div>
@@ -360,16 +348,12 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 						<a href="#" onclick="showHtml5Ads();return false;" title="Preview"><?php echo $BLM['ad_type_3'] ?> <i class="fas fa-external-link-alt small"></i></a>
 					</label>
 					<div class="col-sm-9">
-						<div class="row g-2 align-items-center">
-							<div class="col-auto">
-								<select name="adcampaign_html5" id="adcampaign_html5" class="form-select form-select-sm" style="width: 200px;">
-									<option value="">&nbsp;</option>
-									<?php echo $plugin['data']['html5_options'] ?>
-								</select>
-							</div>
-							<div class="col-auto upload newhtml5">
-								<input type="file" name="adcampaign_upload_html5" id="adcampaign_upload_html5" class="form-control-file form-control-sm" title="<?php echo $BLM['ad_upload_html5'] ?>" accept=".zip,application/zip" />
-							</div>
+						<div class="input-group input-group-sm" style="max-width: 540px;">
+							<select name="adcampaign_html5" id="adcampaign_html5" class="form-select" style="max-width: 220px;">
+								<option value="">&nbsp;</option>
+								<?php echo $plugin['data']['html5_options'] ?>
+							</select>
+							<input type="file" name="adcampaign_upload_html5" id="adcampaign_upload_html5" class="form-control" title="<?php echo $BLM['ad_upload_html5'] ?>" accept=".zip,application/zip" />
 						</div>
 					</div>
 				</div>
@@ -384,16 +368,12 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 				<div class="form-group row">
 					<label class="col-sm-3 col-form-label text-sm-end fw-bold">CSS</label>
 					<div class="col-sm-9">
-						<div class="row g-2 align-items-center">
-							<div class="col-auto">
-								<select name="adcampaign_css" id="adcampaign_css" class="form-select form-select-sm" style="width: 200px;">
-									<option value="">&nbsp;</option>
-									<?php echo $plugin['data']['css'] ?>
-								</select>
-							</div>
-							<div class="col-auto upload newcss">
-								<input type="file" name="adcampaign_upload_css" id="adcampaign_upload_css" class="form-control-file form-control-sm" title="<?php echo $BLM['ad_upload_css'] ?>" accept="text/css,.css" />
-							</div>
+						<div class="input-group input-group-sm" style="max-width: 540px;">
+							<select name="adcampaign_css" id="adcampaign_css" class="form-select" style="max-width: 220px;">
+								<option value="">&nbsp;</option>
+								<?php echo $plugin['data']['css'] ?>
+							</select>
+							<input type="file" name="adcampaign_upload_css" id="adcampaign_upload_css" class="form-control" title="<?php echo $BLM['ad_upload_css'] ?>" accept="text/css,.css" />
 						</div>
 					</div>
 				</div>

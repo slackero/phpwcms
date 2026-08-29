@@ -284,7 +284,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 
     <div class="form-group row g-2 align-items-center">
     	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
-    	<div class="col form-check-inline">
+    	<div class="col-sm-10">
     		<div class="form-check form-check-inline">
 					<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> />
           <label class="form-check-label" for="file_aktiv">
@@ -495,12 +495,10 @@ $(function () {
                 var errorId = "dz-err-" + (file.upload ? file.upload.uuid : Math.random().toString(36).substr(2, 9));
 
                 if ($("#" + errorId).length === 0) {
-                    var alertHtml = '<div id="' + errorId + '" class="alert alert-danger fade show d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">' +
-                        '<i class="fas fa-exclamation-triangle me-2 mt-1 flex-shrink-0"></i>' +
-                        '<div>' + errText + '</div>' +
-                        '<button type="button" class="btn-close ms-auto ps-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
-                        '<span aria-hidden="true">&times;</span>' +
-                        '</button>' +
+                    var alertHtml = '<div id="' + errorId + '" class="alert alert-danger fade show d-flex align-items-center mt-2 mb-0 py-2 px-3 small" role="alert">' +
+                        '<i class="fas fa-exclamation-triangle me-2 flex-shrink-0"></i>' +
+                        '<div class="me-auto">' + errText + '</div>' +
+                        '<button type="button" class="btn-close ms-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close"></button>' +
                         '</div>';
                     $("#dropzone-errors").append(alertHtml);
 

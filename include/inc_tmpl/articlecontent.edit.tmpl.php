@@ -705,32 +705,26 @@ echo $_save_close_buttons;
             });
         });
     </script>
-    <div class="form-inline form-group align-items-center row g-2">
+    <div class="form-group align-items-center row g-2">
       <span class="col-sm-2 col-form-label text-end d-block"><?php echo $BL['be_ftptakeover_status'] ?></span>
-        <div class="col-sm-auto">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="cvisible" name="cvisible" value="1"<?php is_checked(1, $content["visible"]); ?>/>
-            <label class="form-check-label" for="cvisible"><?php echo $BL['be_admin_struct_visible'] ?></label>
-          </div>
+      <div class="col-sm-10">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="cvisible" name="cvisible" value="1"<?php is_checked(1, $content["visible"]); ?> />
+          <label class="form-check-label" for="cvisible"><?php echo $BL['be_admin_struct_visible'] ?></label>
         </div>
-        <div class="col-sm-auto">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="cgranted" name="cgranted" value="1"<?php is_checked(1, $content["granted"]); ?> />
-            <label class="form-check-label" for="cgranted"><?php echo $BL['be_granted_feuser'] ?></label>
-          </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="cgranted" name="cgranted" value="1"<?php is_checked(1, $content["granted"]); ?> />
+          <label class="form-check-label" for="cgranted"><?php echo $BL['be_granted_feuser'] ?></label>
         </div>
-        <div class="col-sm-auto">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> />
-            <label class="form-check-label" for="ctop"><?php echo $BL['be_article_cnt_toplink'] ?></label>
-          </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> />
+          <label class="form-check-label" for="ctop"><?php echo $BL['be_article_cnt_toplink'] ?></label>
         </div>
-        <div class="col-sm-auto">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); echo $anchor_title ?> />
-            <label class="form-check-label" for="canchor"><?php echo $BL['be_article_cnt_anchor'] ?></label>
-          </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); echo $anchor_title ?> />
+          <label class="form-check-label" for="canchor"><?php echo $BL['be_article_cnt_anchor'] ?></label>
         </div>
+      </div>
     </div>
 
 

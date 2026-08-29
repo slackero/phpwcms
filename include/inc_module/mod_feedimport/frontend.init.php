@@ -212,7 +212,7 @@ if(!empty($_getVar['feedimport'])) {
                             $oldmask    = umask(0);
                             $insert     = false;
 
-							if($dir = @opendir(PHPWCMS_STORAGE) && copy($article_thumbnail, $article_thumbnail_store)) {
+							if(($dir = @opendir(PHPWCMS_STORAGE)) && copy($article_thumbnail, $article_thumbnail_store)) {
 
 								if($article_thumbnail_size = filesize($article_thumbnail_store)) {
 

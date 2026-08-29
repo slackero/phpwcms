@@ -571,8 +571,8 @@ if($BE['LANG'] === 'ar') {
                   switch (!empty($_GET['s']) ? (int)$_GET['s'] : 0) {
                       case 1: include PHPWCMS_ROOT.'/include/inc_tmpl/admin.newuser.tmpl.php';  break; //New User
                       case 2: include PHPWCMS_ROOT.'/include/inc_tmpl/admin.edituser.tmpl.php'; break; //Edit User
+                      default: include PHPWCMS_ROOT.'/include/inc_tmpl/admin.listuser.tmpl.php';
                   }
-                  include PHPWCMS_ROOT.'/include/inc_tmpl/admin.listuser.tmpl.php';
               }
               break;
 

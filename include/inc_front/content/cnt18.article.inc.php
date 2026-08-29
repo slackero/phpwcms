@@ -207,7 +207,7 @@ if($guestbook['visible']) {
 
             } elseif(!empty($_POST['guestbook_hiddenfile'])) { //same file was just uploaded
 
-                $guestbook['hidden'] = unserialize(base64_decode($_POST['guestbook_hiddenfile'], ['allowed_classes' => false]));
+                $guestbook['hidden'] = unserialize(base64_decode($_POST['guestbook_hiddenfile']), ['allowed_classes' => false]);
 
                 $guestbook['image']['name'] = $guestbook['hidden']['name'];
                 $guestbook['image']['hash'] = $guestbook['hidden']['hash'];
@@ -408,7 +408,7 @@ if($guestbook['visible']) {
 
                 $guestbook['readform'] = 1;
                 if($guestbook['cookie'] && $guestbook['time']) {
-                    setcookie('phpwcms_guestbook'.$guestbook['cid'], time(), time()+intval($guestbook['time']), '/', getCookieDomain(), PHPWCMS_SSL, true);
+                    setcookie('phpwcms_guestbook'.$guestbook['cid'], (string) time(), time()+intval($guestbook['time']), '/', getCookieDomain(), PHPWCMS_SSL, true);
                 }
 
                 // check if notify email should be sent

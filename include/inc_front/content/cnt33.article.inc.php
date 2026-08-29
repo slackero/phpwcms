@@ -548,8 +548,8 @@ if($news['template']) {
 
                             } elseif($newsimage_is_file && ($newsimage_file_detail = @getimagesize($newsimage_file))) {
 
-                                $news['entries'][$key] = str_replace('{IMAGE_WIDTH}', $newsimage_file_detail[0], $news['entries'][$key]);
-                                $news['entries'][$key] = str_replace('{IMAGE_HEIGHT}', $newsimage_file_detail[1], $news['entries'][$key]);
+                                $news['entries'][$key] = str_replace('{IMAGE_WIDTH}', (string) $newsimage_file_detail[0], $news['entries'][$key]);
+                                $news['entries'][$key] = str_replace('{IMAGE_HEIGHT}', (string) $newsimage_file_detail[1], $news['entries'][$key]);
 
                             } else {
 
@@ -763,7 +763,7 @@ if($news['template']) {
                                             $ivalue['tmpl'] = str_replace('{IMAGE_WIDTH}', $ivalue['f_image_width'], $ivalue['tmpl']);
                                             $ivalue['tmpl'] = str_replace('{IMAGE_HEIGHT}', $ivalue['f_image_height'], $ivalue['tmpl']);
                                         } elseif($ivalue['is_file'] && ($ivalue['imageinfo'] = @getimagesize($ivalue['file']))) {
-                                            $ivalue['tmpl'] = str_replace('{IMAGE_WIDTH}', $ivalue['imageinfo'][0], $ivalue['tmpl']);
+                                            $ivalue['tmpl'] = str_replace('{IMAGE_WIDTH}', (string) $ivalue['imageinfo'][0], $ivalue['tmpl']);
                                             $ivalue['tmpl'] = str_replace('{IMAGE_HEIGHT}', $ivalue['imageinfo'][1], $ivalue['tmpl']);
                                         } else {
                                             $ivalue['tmpl'] = str_replace('{IMAGE_WIDTH}', '0', $ivalue['tmpl']);

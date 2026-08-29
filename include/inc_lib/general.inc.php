@@ -426,7 +426,7 @@ function is_ext_true($extension) {
                 $ext = 'jpg';
                 break;
             case 'gif':
-                $ext = (imagetypes() && IMG_GIF) ? 'gif' : 'png';
+                $ext = (imagetypes() & IMG_GIF) ? 'gif' : 'png';
                 break;
             case 'png':
                 $ext = 'png';
@@ -1308,7 +1308,7 @@ function return_bytes_shorten($val, $round = 2, $return_bytes = 0) {
 
         return $val;
     }
-    $val = ceil($val);
+    $val = ceil((float) $val);
     if ($val >= (1024 * 1024 * 1024 * 1024)) {
         //T
         $val = round($val / (1024 * 1024 * 1024 * 1024), $round);
@@ -2409,7 +2409,7 @@ function getBytes($size) {
             if (preg_match('/.*?' . $key . '$/i', $size)) {
                 $num = trim(preg_replace('/(.*?)' . $key . '$/i', '$1', $size));
 
-                return ceil($num * $value);
+                return ceil((float) $num * $value);
             }
         }
     }

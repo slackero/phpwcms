@@ -551,9 +551,9 @@ class phpwcmsCalendar {
                 $this->date_end = ceil((int)$this->date_start + ((int)$match['date_end'] * 24 * 3600));
 
                 // Get Seconds of this day and match against 23:59:59
-                $today_hours    = date('G', $this->date_end) * 3600;
-                $today_minutes  = intval(date('i', $this->date_end)) * 60;
-                $today_seconds  = intval(date('s', $this->date_end));
+                $today_hours    = date('G', (int) $this->date_end) * 3600;
+                $today_minutes  = intval(date('i', (int) $this->date_end)) * 60;
+                $today_seconds  = intval(date('s', (int) $this->date_end));
                 $total_seconds  = $today_hours + $today_minutes + $today_seconds;
                 $this->date_end += (24*3600) - $total_seconds - 1;
 

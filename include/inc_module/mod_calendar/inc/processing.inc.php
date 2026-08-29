@@ -208,7 +208,7 @@ if(empty($plugin['data'])) {
         $plugin['default_date'][1]  = empty($plugin['default_date'][1]) ? gmdate('m') : $plugin['default_date'][1];
         $plugin['default_date'][2]  = empty($plugin['default_date'][2]) ? gmdate('Y') : $plugin['default_date'][2];
 
-        $plugin['default_date']     = gmmktime(0, 0, 0, $plugin['default_date'][1], $plugin['default_date'][0], $plugin['default_date'][2]);
+        $plugin['default_date']     = gmmktime(0, 0, 0, (int) $plugin['default_date'][1], (int) $plugin['default_date'][0], (int) $plugin['default_date'][2]);
         $plugin['default_date_end'] = $plugin['default_date']+3600;
 
         $plugin['default_date']     = gmdate('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y', $plugin['default_date']);

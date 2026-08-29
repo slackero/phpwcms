@@ -140,7 +140,7 @@ if($dir_pid) {
 
   <div class="form-group align-items-center row g-2">
     <label for="dir_aktiv" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_fpriv_status'] ?></label>
-    <div class="col-sm-auto">
+    <div class="col-sm-10">
     	<div class="form-check form-check-inline">
 				<input class="form-check-input" name="dir_aktiv" type="checkbox" id="dir_aktiv" value="1"<?php is_checked("1", $dir_aktiv) ?> />
 				<label class="form-check-label" for="dir_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label>

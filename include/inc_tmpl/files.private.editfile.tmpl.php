@@ -56,7 +56,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
     // Set file info based on IPTC for all languages
     if(!empty($_POST['file_iptc_as_caption']) && !empty($_POST['file_image_iptc'])) {
 
-        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc'], ['allowed_classes' => false]));
+        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc']), ['allowed_classes' => false]);
         $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
 
         if($file_title === '') {
@@ -507,7 +507,7 @@ if($ja) {
                 $k_rows .= html($row["fcat_name"]) . '</label>';
                 $k_rows .= '  </td>' . LF;
                 $k_rows .= '  <td class="align-middle py-1">' . LF;
-                $k_rows .= '    <select name="file_keywords[' . $row["fcat_id"] . ']" id="file_keywords_' . $row["fcat_id"] . '" class="form-select form-select-sm' . ($has_error ? ' is-invalid' : '')" style="max-width: 350px;">' . LF;
+                $k_rows .= '    <select name="file_keywords[' . $row["fcat_id"] . ']" id="file_keywords_' . $row["fcat_id"] . '" class="form-select form-select-sm' . ($has_error ? ' is-invalid' : '') . '" style="max-width: 350px;">' . LF;
                 $k_rows .= '      <option value="' . ($row["fcat_needed"] ? "0_".$row["fcat_needed"] : "0") . '">' . ($row["fcat_needed"] ? $BL['be_ftptakeover_needed'] : $BL['be_ftptakeover_optional']) . '</option>' . LF;
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";

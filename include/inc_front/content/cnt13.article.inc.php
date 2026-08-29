@@ -568,11 +568,11 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                 $crow['template']['paginate_custom'] = true;
             }
 
-            $crow['template']['pagination'] = str_replace('#####', $_search_results, $crow['template']['pagination']);
-            $crow['template']['pagination'] = str_replace('####', $_search_end_at, $crow['template']['pagination']);
-            $crow['template']['pagination'] = str_replace('###', $_search_start_at+1, $crow['template']['pagination']);
-            $crow['template']['pagination'] = str_replace('##', $_search_max_pages, $crow['template']['pagination']);
-            $crow['template']['pagination'] = str_replace('#', $_search_current_page, $crow['template']['pagination']);
+            $crow['template']['pagination'] = str_replace('#####', (string) $_search_results, $crow['template']['pagination']);
+            $crow['template']['pagination'] = str_replace('####', (string) $_search_end_at, $crow['template']['pagination']);
+            $crow['template']['pagination'] = str_replace('###', (string) ($_search_start_at+1), $crow['template']['pagination']);
+            $crow['template']['pagination'] = str_replace('##', (string) $_search_max_pages, $crow['template']['pagination']);
+            $crow['template']['pagination'] = str_replace('#', (string) $_search_current_page, $crow['template']['pagination']);
 
             $GLOBALS['_search_next_link_t'] = '';
             $GLOBALS['_search_prev_link_t'] = '';
@@ -594,7 +594,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
             $_search_link_disabled_class = $template_default['classes']['search-paginate-link-disabled'] ? ' class="' . $template_default['classes']['search-paginate-link-disabled'] .'"' : '';
 
             if($_search_next_page !== $_search_current_page) {
-                $_search_next_link .= '<a href="' . str_replace('___SEARCHSTART___', ($_search_current_page + 1), $_search_page_link) . '"';
+                $_search_next_link .= '<a href="' . str_replace('___SEARCHSTART___', (string) ($_search_current_page + 1), $_search_page_link) . '"';
                 $_search_next_link .= $_search_link_class . '>' . $GLOBALS['_search_next_link_t'] . '</a>';
             } elseif($content["search"]["show_next"]) {
                 $_search_next_link .= '<a ';
@@ -605,7 +605,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                 $_search_next_link .= $GLOBALS['_search_next_link_t'] . '</a>';
             }
             if($_search_prev_page !== $_search_current_page) {
-                $_search_prev_link .= '<a href="' . str_replace('___SEARCHSTART___', ($_search_current_page - 1), $_search_page_link) . '"';
+                $_search_prev_link .= '<a href="' . str_replace('___SEARCHSTART___', (string) ($_search_current_page - 1), $_search_page_link) . '"';
                 $_search_prev_link .= $_search_link_class . '>' . $GLOBALS['_search_prev_link_t'] . '</a>';
             } elseif($content["search"]["show_prev"]) {
                 $_search_prev_link .= '<a ';
@@ -632,7 +632,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                 for($_search_page_i = 1; $_search_page_i <= $_search_max_pages; $_search_page_i++) {
 
                     $_search_navi_x[$_search_page_i]  = $GLOBALS['_search_navi'][1][1];
-                    $_search_navi_x[$_search_page_i] .= '<a href="' . str_replace('___SEARCHSTART___', $_search_page_i, $_search_page_link) . '"';
+                    $_search_navi_x[$_search_page_i] .= '<a href="' . str_replace('___SEARCHSTART___', (string) $_search_page_i, $_search_page_link) . '"';
                     $_search_navi_x[$_search_page_i] .= $_search_current_page === $_search_page_i ? $_search_link_active_class : $_search_link_class;
                     $_search_navi_x[$_search_page_i] .= '>' . $_search_page_i . '</a>';
                     $_search_navi_x[$_search_page_i] .= $GLOBALS['_search_navi'][1][2];
@@ -657,7 +657,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                     }
                     $_search_page_i_start++;
 
-                    $_search_navi_x[$_search_page_i] .= '<a href="' . str_replace('___SEARCHSTART___', $_search_page_i, $_search_page_link) . '"';
+                    $_search_navi_x[$_search_page_i] .= '<a href="' . str_replace('___SEARCHSTART___', (string) $_search_page_i, $_search_page_link) . '"';
                     $_search_navi_x[$_search_page_i] .= $_search_current_page === $_search_page_i ? $_search_link_active_class : $_search_link_class;
                     $_search_navi_x[$_search_page_i] .= '>' . $_search_page_i_start . '&ndash;' . $_search_page_i_end . '</a>';
                     $_search_navi_x[$_search_page_i] .= $GLOBALS['_search_navi'][1][2];

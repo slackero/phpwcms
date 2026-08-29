@@ -219,7 +219,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
             if ($count_readmsg && $msg_folder == 1) { //Wenn Count > 0 dann Listing der bereits gelesenen Nachrichten
             ?>
-            <h6 class="fw-bold text-muted mb-2"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastread']); ?></h6>
+            <h6 class="fw-bold text-muted mb-2"><?php echo str_replace('{VAL}', (string) $msg_list, $BL['be_msg_lastread']); ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
                     <thead class="thead-light">
@@ -272,7 +272,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
             if ($count_sentmsg && $msg_folder == 2) { //Wenn Count > 0 dann Listing der neuen Nachrichten
             ?>
-            <h6 class="fw-bold text-muted mb-2"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastsent']); ?></h6>
+            <h6 class="fw-bold text-muted mb-2"><?php echo str_replace('{VAL}', (string) $msg_list, $BL['be_msg_lastsent']); ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
                     <thead class="thead-light">

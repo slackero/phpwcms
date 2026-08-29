@@ -464,7 +464,7 @@ if($value['custom_field_items']):
                         $tab_fieldgroup['fields'][$custom_field]['step'] = ceil($tab_fieldgroup['fields'][$custom_field]['step']);
                     } else {
                         $tab_fieldgroup['fields'][$custom_field]['step'] = floatval($tab_fieldgroup['fields'][$custom_field]['step']);
-                        $tab_fieldgroup['fields'][$custom_field]['step'] = rtrim(number_format($tab_fieldgroup['fields'][$custom_field]['step'], 14 - log10($tab_fieldgroup['fields'][$custom_field]['step'])), '0');
+                        $tab_fieldgroup['fields'][$custom_field]['step'] = rtrim(number_format($tab_fieldgroup['fields'][$custom_field]['step'], (int) (14 - log10($tab_fieldgroup['fields'][$custom_field]['step']))), '0');
                     }
                     echo $tab_fieldgroup['fields'][$custom_field]['step'];
                 ?>"

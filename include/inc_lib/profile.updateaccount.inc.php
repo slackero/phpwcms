@@ -36,7 +36,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
     if ($_POST["form_password"] === $_POST["form_password2"]) {
         if(strlen($_POST["form_password"]) > 0) {
         $new_password = slweg($_POST["form_password"]);
-        if ( strlen($new_password) < 5) $err .= str_replace('{VAL}', strlen($new_password), $BL['be_profile_account_err2'])."\n";
+        if ( strlen($new_password) < 5) $err .= str_replace('{VAL}', (string)strlen($new_password), $BL['be_profile_account_err2'])."\n";
         }
     } else {
         $err .= $BL['be_profile_account_err3']."\n";

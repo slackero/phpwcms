@@ -552,7 +552,7 @@ function update_404redirect() {
         )
     );
 
-    if(!$data['data']['aid'] && !$data['data']['alias'] && $data['data']['id'] == '' && !isset($_POST['delete_'.md5($data['data']['rid'])])) {
+    if(!$data['data']['aid'] && !$data['data']['alias'] && $data['data']['id'] == '' && !isset($_POST['delete_'.md5((string) $data['data']['rid'])])) {
         $data['error'][] = $GLOBALS['BL']['be_redirect_error1'];
     }
     if($data['data']['type'] && $data['data']['target'] === '') {
@@ -570,7 +570,7 @@ function update_404redirect() {
         unset($data['data']['rid']);
         if($rid) {
             // Mark for deletion
-            if(isset($_POST['delete_'.md5($rid)])) {
+            if(isset($_POST['delete_'.md5((string) $rid)])) {
                 $data['data']['active'] = 9;
                 $result = _dbQuery('DELETE FROM '.DB_PREPEND.'phpwcms_redirect WHERE rid='.$rid, 'DELETE');
             } else {

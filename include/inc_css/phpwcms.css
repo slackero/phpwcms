@@ -17,17 +17,18 @@ body.filebrowser {
 }
 
 a {
+    text-decoration: none;
     color: #30709b;
-    cursor: pointer;
+}
+a:hover,
+a:focus {
+    text-decoration: none;
+    color: #1f4f72;
 }
 
 .text-blue {
     color: #30709b !important;
     cursor: pointer;
-}
-
-a:hover {
-    text-decoration: none;
 }
 
 td label {
@@ -86,6 +87,14 @@ textarea {
     font-size: 1rem;
 }
 
+.btn-xs,
+.btn-group-xs > .btn {
+    padding: .125rem .375rem;
+    font-size: .8125rem;
+    line-height: 1.35;
+    border-radius: .2rem;
+}
+
 .form-control-sm,
 .custom-select-sm,
 .input-group-sm > .form-control,
@@ -121,6 +130,18 @@ select.form-control-sm:not([size]):not([multiple]),
 
 .col-form-label {
     font-weight: 600;
+}
+
+label a,
+.col-form-label a {
+    color: #30709b;
+}
+
+label a:hover,
+label a:focus,
+.col-form-label a:hover,
+.col-form-label a:focus {
+    color: #1f4f72;
 }
 
 .badge-align {
@@ -473,6 +494,42 @@ html[data-theme="dark"] .badge.badge-light {
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
     appearance: none !important;
+}
+
+.btn-outline-blue {
+    --bs-btn-color: #31709b;
+    --bs-btn-border-color: #31709b;
+    --bs-btn-hover-color: #1f4f72;
+    --bs-btn-hover-bg: #e8f1f7;
+    --bs-btn-hover-border-color: #255e86;
+    --bs-btn-focus-shadow-rgb: 49, 112, 155;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #31709b;
+    --bs-btn-active-border-color: #31709b;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #31709b;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #31709b;
+    --bs-gradient: none;
+    color: var(--bs-btn-color);
+    border-color: var(--bs-btn-border-color);
+    background-color: transparent;
+}
+
+.btn-outline-blue:hover,
+.btn-check + .btn-outline-blue:hover {
+    color: var(--bs-btn-hover-color) !important;
+    background-color: var(--bs-btn-hover-bg) !important;
+    border-color: var(--bs-btn-hover-border-color) !important;
+}
+
+.btn-check:checked + .btn-outline-blue,
+.btn-check:active + .btn-outline-blue,
+.btn-outline-blue:active,
+.btn-outline-blue.active {
+    color: var(--bs-btn-active-color) !important;
+    background-color: var(--bs-btn-active-bg) !important;
+    border-color: var(--bs-btn-active-border-color) !important;
 }
 
 .btn-light {
@@ -1693,16 +1750,6 @@ div#images td.backend_preview_img img {
     margin: 5px 0 3px;
 }
 
-div.checkbox-list {
-    background-color: #fff;
-    border: 1px solid #dee9ec;
-    padding: 2px;
-}
-
-div.checkbox-list.checkbox-list-darker {
-    border-color: #ccc;
-}
-
 ul.checkbox-list, ul.radio-list {
     list-style: none;
     margin: 0;
@@ -1713,95 +1760,86 @@ ul.checkbox-list ul, ul.radio-list ul {
     margin-left: 20px;
 }
 
-.checkbox-list label, .radio-list label {
-    display: block;
-    font-size: 12px !important;
-}
-
-.checkbox-list label:hover, .radio-list label:hover {
-    background-color: #f3f5f8;
-    color: #2b6183;
-    cursor: pointer;
-    font-weight: 700;
-}
-
-.checkbox-list label.disabled, .radio-list label.disabled {
-    color: #ccc;
-}
-
-.checkbox-list label.disabled:hover, .radio-list label.disabled:hover {
-    background-color: transparent;
-    color: #ccc;
-    cursor: default;
-    font-weight: 400;
-}
-
-/* phpwcms Bootstrap 4 Dropzone Overrides */
-body .dropzone {
-  background-color: #f8f9fa;
-  border: 2px dashed #b8c2cc;
-  border-radius: 0.35rem;
+/* phpwcms Dropzone Overrides (Bootstrap 5) */
+.dropzone {
+  background-color: var(--bs-tertiary-bg, #f8f9fa);
+  border: 2px dashed var(--bs-border-color, #dee2e6);
+  border-radius: var(--bs-border-radius, 0.375rem);
   min-height: 80px;
   padding: 0.75rem 1rem;
-  transition: all 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
-body .dropzone:hover,
-body .dropzone.dz-drag-hover {
-  background-color: #eef5ff;
-  border-color: #007bff;
+.dropzone:hover,
+.dropzone.dz-drag-hover {
+  background-color: var(--bs-primary-bg-subtle, #cfe2ff);
+  border-color: var(--bs-primary, #0d6efd);
 }
-body .dropzone .dz-message {
-  color: #6c757d;
+.dropzone .dz-message {
+  color: var(--bs-secondary-color, #6c757d);
   margin: 0.5rem 0;
   text-align: center;
 }
-body .dropzone .dz-message i {
-  color: #007bff;
+.dropzone .dz-message .dz-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-size: inherit;
+  color: inherit;
 }
-body .dropzone .dz-preview {
+.dropzone .dz-message .dz-button br {
+  display: none;
+}
+.dropzone .dz-message i {
+  color: var(--bs-primary, #0d6efd);
+}
+.dropzone .dz-preview {
   min-height: auto;
   margin: 0;
+  display: block;
+  vertical-align: top;
 }
-body .dropzone .dz-preview .dz-remove {
+.dropzone .dz-preview .dz-remove {
   font-size: inherit;
   display: inline-block;
   text-align: left;
 }
-body .dropzone .dz-preview-bs4 {
-  background: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
-  padding: 0.6rem 0.85rem;
-  margin-top: 0.35rem;
-  margin-bottom: 0.35rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+
+/* Custom BS5 file preview row */
+.dropzone .dz-preview-bs4 {
+  background: var(--bs-body-bg, #fff);
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: var(--bs-border-radius, 0.375rem);
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+  box-shadow: var(--bs-box-shadow-sm, 0 1px 2px rgba(0,0,0,.04));
 }
-body .dropzone .dz-preview-bs4 .dz-thumbnail {
+.dropzone .dz-preview-bs4 .dz-thumbnail {
   width: 48px;
   height: 48px;
   object-fit: cover;
-  border-radius: 0.25rem;
+  border-radius: var(--bs-border-radius-sm, 0.25rem);
 }
-body .dropzone .dz-preview-bs4 .dz-icon-placeholder {
+.dropzone .dz-preview-bs4 .dz-icon-placeholder {
   width: 48px;
   height: 48px;
-  background: #e9ecef;
-  color: #6c757d;
+  background: var(--bs-secondary-bg, #e9ecef);
+  color: var(--bs-secondary-color, #6c757d);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
+  border-radius: var(--bs-border-radius-sm, 0.25rem);
   font-size: 1.25rem;
 }
-body .dropzone .dz-preview-bs4 .progress {
+.dropzone .dz-preview-bs4 .progress {
   height: 5px;
   margin-top: 0.25rem;
 }
 
-.dz-alert-close > span {
-  position: relative;
-  line-height: 0.75;
-  top: -.2rem;
+/* Dropzone error alert close button fix (btn-close handles its own styling in BS5) */
+.dz-alert-close {
+  line-height: 1;
 }
 
 /* File Manager Preview Image Constraints */

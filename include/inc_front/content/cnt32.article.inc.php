@@ -69,7 +69,7 @@ if($tabs['template']) {
 
         $tab_id = $key+1;
 
-        $tabs['entries'][$key] = str_replace('{TABID}', $tab_id, $tabs['tmpl_entry']);
+        $tabs['entries'][$key] = str_replace('{TABID}', (string) $tab_id, $tabs['tmpl_entry']);
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'FIRST', $tab_id > 1 ? '' : $tab_id);
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'LAST', $tab_id === $tabs['total_entries'] ? $tab_id : '');
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABTITLE', $entry['tabtitle'] === '-' ? '' : html_specialchars($entry['tabtitle']));
@@ -176,7 +176,7 @@ if($tabs['template']) {
 
     $tabs['entries_count'] = count($tabs['entries']);
     $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', $tabs['entries_count'] ? implode('', $tabs['entries']) : '');
-    $tabs['template'] = str_replace('{TAB_COUNT}', $tabs['entries_count'], $tabs['template']);
+    $tabs['template'] = str_replace('{TAB_COUNT}', (string) $tabs['entries_count'], $tabs['template']);
     $CNT_TMP .= str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
 
 } else {

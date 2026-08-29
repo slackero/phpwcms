@@ -83,13 +83,13 @@ if ($action == 'edit') {
             $plugin['data']['shop_pref_shipping'][$x]['vat'] = clean_slweg($_POST['pref_shipping_vat'][$x]);
 
             $plugin['data']['shop_pref_shipping'][$x]['weight'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['weight']);
-            $plugin['data']['shop_pref_shipping'][$x]['weight'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['weight']), 3);
+            $plugin['data']['shop_pref_shipping'][$x]['weight'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['weight']), 3);
 
             $plugin['data']['shop_pref_shipping'][$x]['net'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['net']);
-            $plugin['data']['shop_pref_shipping'][$x]['net'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['net']), 3);
+            $plugin['data']['shop_pref_shipping'][$x]['net'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['net']), 3);
 
             $plugin['data']['shop_pref_shipping'][$x]['vat'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['vat']);
-            $plugin['data']['shop_pref_shipping'][$x]['vat'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['vat']), 2);
+            $plugin['data']['shop_pref_shipping'][$x]['vat'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['vat']), 2);
 
             // Price based
             $plugin['data']['shop_pref_shipping'][$x]['price'] = clean_slweg($_POST['pref_shipping_price'][$x]);
@@ -97,13 +97,13 @@ if ($action == 'edit') {
             $plugin['data']['shop_pref_shipping'][$x]['price_vat'] = clean_slweg($_POST['pref_shipping_price_vat'][$x]);
 
             $plugin['data']['shop_pref_shipping'][$x]['price'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['price']);
-            $plugin['data']['shop_pref_shipping'][$x]['price'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['price']), 3);
+            $plugin['data']['shop_pref_shipping'][$x]['price'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['price']), 3);
 
             $plugin['data']['shop_pref_shipping'][$x]['price_net'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['price_net']);
-            $plugin['data']['shop_pref_shipping'][$x]['price_net'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['price_net']), 3);
+            $plugin['data']['shop_pref_shipping'][$x]['price_net'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['price_net']), 3);
 
             $plugin['data']['shop_pref_shipping'][$x]['price_vat'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['price_vat']);
-            $plugin['data']['shop_pref_shipping'][$x]['price_vat'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['price_vat']), 2);
+            $plugin['data']['shop_pref_shipping'][$x]['price_vat'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['price_vat']), 2);
 
             // Zone based
             $plugin['data']['shop_pref_shipping'][$x]['zone'] = intval($_POST['pref_shipping_zone'][$x]);
@@ -114,10 +114,10 @@ if ($action == 'edit') {
             $plugin['data']['shop_pref_shipping'][$x]['zone'] = empty($plugin['data']['shop_pref_shipping'][$x]['zone']) ? '' : intval($plugin['data']['shop_pref_shipping'][$x]['zone']);
 
             $plugin['data']['shop_pref_shipping'][$x]['zone_net'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['zone_net']);
-            $plugin['data']['shop_pref_shipping'][$x]['zone_net'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['zone_net']), 3);
+            $plugin['data']['shop_pref_shipping'][$x]['zone_net'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['zone_net']), 3);
 
             $plugin['data']['shop_pref_shipping'][$x]['zone_vat'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['zone_vat']);
-            $plugin['data']['shop_pref_shipping'][$x]['zone_vat'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['zone_vat']), 2);
+            $plugin['data']['shop_pref_shipping'][$x]['zone_vat'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['zone_vat']), 2);
         }
 
         $plugin['data']['shop_pref_payment'] = array(
@@ -150,19 +150,19 @@ if ($action == 'edit') {
             'freeshipping_pickup' => empty($_POST['pref_freeshipping_pickup']) ? 0 : 1
         );
         $plugin['data']['shop_pref_discount']['percent'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_discount']['percent']);
-        $plugin['data']['shop_pref_discount']['percent'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['percent']), 2);
+        $plugin['data']['shop_pref_discount']['percent'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['percent']), 2);
         $plugin['data']['shop_pref_discount']['amount'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_discount']['amount']);
-        $plugin['data']['shop_pref_discount']['amount'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['amount']), 2);
+        $plugin['data']['shop_pref_discount']['amount'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['amount']), 2);
 
         $plugin['data']['shop_pref_discount']['percent_1'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_discount']['percent_1']);
-        $plugin['data']['shop_pref_discount']['percent_1'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['percent_1']), 2);
+        $plugin['data']['shop_pref_discount']['percent_1'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['percent_1']), 2);
         $plugin['data']['shop_pref_discount']['amount_1'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_discount']['amount_1']);
-        $plugin['data']['shop_pref_discount']['amount_1'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['amount_1']), 2);
+        $plugin['data']['shop_pref_discount']['amount_1'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['amount_1']), 2);
 
         $plugin['data']['shop_pref_discount']['percent_2'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_discount']['percent_2']);
-        $plugin['data']['shop_pref_discount']['percent_2'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['percent_2']), 2);
+        $plugin['data']['shop_pref_discount']['percent_2'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['percent_2']), 2);
         $plugin['data']['shop_pref_discount']['amount_2'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_discount']['amount_2']);
-        $plugin['data']['shop_pref_discount']['amount_2'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['amount_2']), 2);
+        $plugin['data']['shop_pref_discount']['amount_2'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['amount_2']), 2);
 
         // Low Order
         $plugin['data']['shop_pref_loworder'] = array(
@@ -172,11 +172,11 @@ if ($action == 'edit') {
             'vat' => clean_slweg($_POST['pref_loworder_vat'])
         );
         $plugin['data']['shop_pref_loworder']['under'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_loworder']['under']);
-        $plugin['data']['shop_pref_loworder']['under'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_loworder']['under']), 2);
+        $plugin['data']['shop_pref_loworder']['under'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_loworder']['under']), 2);
         $plugin['data']['shop_pref_loworder']['charge'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_loworder']['charge']);
-        $plugin['data']['shop_pref_loworder']['charge'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_loworder']['charge']), 2);
+        $plugin['data']['shop_pref_loworder']['charge'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_loworder']['charge']), 2);
         $plugin['data']['shop_pref_loworder']['vat'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_loworder']['vat']);
-        $plugin['data']['shop_pref_loworder']['vat'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_loworder']['vat']), 2);
+        $plugin['data']['shop_pref_loworder']['vat'] = round((float) str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_loworder']['vat']), 2);
 
         if (empty($plugin['error'])) {
 

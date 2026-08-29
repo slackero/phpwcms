@@ -1087,7 +1087,7 @@ function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=','
 function setItemsPerPage($default=25) {
     if( isset($_GET['showipp']) ) {
         $ipp = intval(is_numeric($_GET['showipp']) ? $_GET['showipp'] : $default);
-        setcookie('phpwcmsBEItemsPerPage', $ipp, time()+157680000, '/', getCookieDomain(), PHPWCMS_SSL, true);
+        setcookie('phpwcmsBEItemsPerPage', (string) $ipp, time()+157680000, '/', getCookieDomain(), PHPWCMS_SSL, true);
     } elseif(isset($_SESSION['PAGE_FILTER'])) {
         $ipp = $_SESSION['PAGE_FILTER']['IPP'];
     } elseif( isset($_COOKIE['phpwcmsBEItemsPerPage']) ) {

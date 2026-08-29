@@ -367,7 +367,7 @@ class IPTC {
 	 * @param array $date The date tag
 	 * @param array $time The time tag
 	 * @param string $c The charset
-	 * @return string Date in EXIF format.
+	 * @return string|null Date in EXIF format, or null on invalid/missing date.
 	 */
 	private static function timeHelper( $date, $time, $c ) {
 		if ( count( $date ) === 1 ) {
