@@ -90,17 +90,43 @@ if (isset($_POST['adcampaign_title'])) {
             $plugin['error']['image'] = $plugin['data']['upload']['error'];
         }
     }
-    if ($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_flash']['name'])) {
-        // flash upload
-        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_flash', PHPWCMS_CONTENT . PHPWCMS_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/', 'swf', '', '1,4');
+    if ($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_video']['name'])) {
+        // video upload (mp4, webm)
+        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_video', PHPWCMS_CONTENT . PHPWCMS_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/', 'mp4,webm', '', '1,4');
         if ($plugin['data']['upload']['status']) {
-            $plugin['data']['adcampaign_data']['flash'] = $plugin['data']['upload']['rename'];
+            $plugin['data']['adcampaign_data']['video'] = $plugin['data']['upload']['rename'];
             if (!is_file(PHPWCMS_CONTENT . PHPWCMS_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess')) {
                 @file_put_contents(PHPWCMS_CONTENT . PHPWCMS_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess', "<Files *.php>\nOrder allow,deny\nDeny from all\n</Files>");
             }
             unset($_POST['save']);
         } else {
-            $plugin['error']['flash'] = $plugin['data']['upload']['error'];
+            $plugin['error']['video'] = $plugin['data']['upload']['error'];
+        }
+    }
+    if ($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_html5']['name'])) {
+        // html5 zip bundle upload
+        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_html5', PHPWCMS_CONTENT . PHPWCMS_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/', 'zip', '', '1,4');
+        if ($plugin['data']['upload']['status']) {
+            $target_dir = PHPWCMS_CONTENT . PHPWCMS_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/';
+            $zip_file = $target_dir . $plugin['data']['upload']['rename'];
+            $html5_folder = cut_ext($plugin['data']['upload']['rename']);
+            $extract_path = $target_dir . $html5_folder;
+
+            if (class_exists('ZipArchive')) {
+                $zip = new ZipArchive();
+                if ($zip->open($zip_file) === true) {
+                    @_mkdir($extract_path);
+                    $zip->extractTo($extract_path);
+                    $zip->close();
+                }
+            }
+            $plugin['data']['adcampaign_data']['html5'] = $html5_folder . '/index.html';
+            if (!is_file(PHPWCMS_CONTENT . PHPWCMS_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess')) {
+                @file_put_contents(PHPWCMS_CONTENT . PHPWCMS_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess', "<Files *.php>\nOrder allow,deny\nDeny from all\n</Files>");
+            }
+            unset($_POST['save']);
+        } else {
+            $plugin['error']['html5'] = $plugin['data']['upload']['error'];
         }
     }
     if ($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_css']['name'])) {
@@ -201,6 +227,8 @@ if ($plugin['id'] && !isset($plugin['error'])) {
             'url' => '',
             'target' => '_blank',
             'image' => '',
+            'video' => '',
+            'html5' => '',
             'flash' => '',
             'html' => '',
             'alt_text' => '',
@@ -208,7 +236,6 @@ if ($plugin['id'] && !isset($plugin['error'])) {
             'css' => '',
             'bgcolor' => '',
             'bordercolor' => '',
-            'flashversion' => '7',
         );
     }
 }
@@ -228,6 +255,8 @@ if (empty($plugin['data'])) {
             'url' => '',
             'target' => '_blank',
             'image' => '',
+            'video' => '',
+            'html5' => '',
             'flash' => '',
             'html' => '',
             'alt_text' => '',
@@ -235,7 +264,6 @@ if (empty($plugin['data'])) {
             'css' => '',
             'bgcolor' => '',
             'bordercolor' => '',
-            'flashversion' => '7',
         ),
         'adcampaign_status' => 0,
         'adcampaign_date_start' => '',

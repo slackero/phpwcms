@@ -227,7 +227,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 
 			<?php
 			// try to load image files
-			$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'], 'gif,jpg,png');
+			$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'], 'gif,jpg,jpeg,png,webp');
 			$plugin['data']['image'] = '';
 			if(is_array($plugin['data']['files']) && count($plugin['data']['files'])) {
 				foreach($plugin['data']['files'] as $_entry['value']) {
@@ -239,17 +239,37 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 					$plugin['data']['image'] .= '>'.$c.'</option>'.LF;
 				}
 			}
-			// try to load flash files
-			$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'], 'swf');
-			$plugin['data']['flash'] = '';
+			// try to load video files
+			$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'], 'mp4,webm');
+			$plugin['data']['video'] = '';
 			if(is_array($plugin['data']['files']) && count($plugin['data']['files'])) {
 				foreach($plugin['data']['files'] as $_entry['value']) {
 					$c = html($_entry['value']['filename']);
-					$plugin['data']['flash'] .= '			<option value="'.$c.'"';
-					if($_entry['value']['filename'] == $plugin['data']['adcampaign_data']['flash']) {
-						$plugin['data']['flash'] .= ' selected="selected"';
+					$plugin['data']['video'] .= '			<option value="'.$c.'"';
+					if($_entry['value']['filename'] == $plugin['data']['adcampaign_data']['video']) {
+						$plugin['data']['video'] .= ' selected="selected"';
 					}
-					$plugin['data']['flash'] .= '>'.$c.'</option>'.LF;
+					$plugin['data']['video'] .= '>'.$c.'</option>'.LF;
+				}
+			}
+			// try to find html5 index.html files inside extracted subfolders or root
+			$plugin['data']['html5_options'] = '';
+			$_camp_dir = PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'];
+			if(!empty($plugin['data']['adcampaign_id']) && is_dir($_camp_dir)) {
+				$_h_dirs = glob($_camp_dir . '/*/index.html');
+				if(is_file($_camp_dir . '/index.html')) {
+					$_h_dirs[] = $_camp_dir . '/index.html';
+				}
+				if(is_array($_h_dirs) && count($_h_dirs)) {
+					foreach($_h_dirs as $_h_file) {
+						$_rel_file = str_replace($_camp_dir . '/', '', $_h_file);
+						$c = html($_rel_file);
+						$plugin['data']['html5_options'] .= '			<option value="'.$c.'"';
+						if($_rel_file == $plugin['data']['adcampaign_data']['html5']) {
+							$plugin['data']['html5_options'] .= ' selected="selected"';
+						}
+						$plugin['data']['html5_options'] .= '>'.$c.'</option>'.LF;
+					}
 				}
 			}
 			// try to load css files
@@ -302,27 +322,53 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 					</div>
 				</div>
 
-				<?php if(isset($plugin['error']['flash'])): ?>
+				<?php if(isset($plugin['error']['video'])): ?>
 					<div class="form-group row">
 						<div class="col-sm-9 offset-sm-3 text-danger">
-							<?php echo $plugin['error']['flash'] ?>
+							<?php echo $plugin['error']['video'] ?>
 						</div>
 					</div>
 				<?php endif; ?>
 				<div class="form-group row">
 					<label class="col-sm-3 col-form-label text-sm-end fw-bold">
-						<a href="#" onclick="showFlashAds();return false;" title="Preview"><?php echo $BLM['ad_type_1'] ?> <i class="fas fa-external-link-alt small"></i></a>
+						<a href="#" onclick="showVideoAds();return false;" title="Preview"><?php echo $BLM['ad_type_1'] ?> <i class="fas fa-external-link-alt small"></i></a>
 					</label>
 					<div class="col-sm-9">
 						<div class="row g-2 align-items-center">
 							<div class="col-auto">
-								<select name="adcampaign_flash" id="adcampaign_flash" class="form-select form-select-sm" style="width: 200px;">
+								<select name="adcampaign_video" id="adcampaign_video" class="form-select form-select-sm" style="width: 200px;">
 									<option value="">&nbsp;</option>
-									<?php echo $plugin['data']['flash'] ?>
+									<?php echo $plugin['data']['video'] ?>
 								</select>
 							</div>
-							<div class="col-auto upload newflash">
-								<input type="file" name="adcampaign_upload_flash" id="adcampaign_upload_flash" class="form-control-file form-control-sm" title="<?php echo $BLM['ad_upload_flash'] ?>" accept=".swf" />
+							<div class="col-auto upload newvideo">
+								<input type="file" name="adcampaign_upload_video" id="adcampaign_upload_video" class="form-control-file form-control-sm" title="<?php echo $BLM['ad_upload_video'] ?>" accept="video/mp4,video/webm,.mp4,.webm" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<?php if(isset($plugin['error']['html5'])): ?>
+					<div class="form-group row">
+						<div class="col-sm-9 offset-sm-3 text-danger">
+							<?php echo $plugin['error']['html5'] ?>
+						</div>
+					</div>
+				<?php endif; ?>
+				<div class="form-group row">
+					<label class="col-sm-3 col-form-label text-sm-end fw-bold">
+						<a href="#" onclick="showHtml5Ads();return false;" title="Preview"><?php echo $BLM['ad_type_3'] ?> <i class="fas fa-external-link-alt small"></i></a>
+					</label>
+					<div class="col-sm-9">
+						<div class="row g-2 align-items-center">
+							<div class="col-auto">
+								<select name="adcampaign_html5" id="adcampaign_html5" class="form-select form-select-sm" style="width: 200px;">
+									<option value="">&nbsp;</option>
+									<?php echo $plugin['data']['html5_options'] ?>
+								</select>
+							</div>
+							<div class="col-auto upload newhtml5">
+								<input type="file" name="adcampaign_upload_html5" id="adcampaign_upload_html5" class="form-control-file form-control-sm" title="<?php echo $BLM['ad_upload_html5'] ?>" accept=".zip,application/zip" />
 							</div>
 						</div>
 					</div>
@@ -392,12 +438,6 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 								<span class="input-group-text"><?php echo $BLM['ad_bordercolor'] ?></span>
 								<input type="text" name="adcampaign_bordercolor" id="adcampaign_bordercolor" value="<?php echo $plugin['data']['adcampaign_data']['bordercolor'] ?>" class="form-control" style="width: 80px;" maxlength="7" />
 								<span class="input-group-text colorfield" id="bordercolor"<?php if(!empty($plugin['data']['adcampaign_data']['bordercolor'])) echo ' style="background-color:'.$plugin['data']['adcampaign_data']['bordercolor'].'"' ?>>&nbsp;&nbsp;&nbsp;</span>
-							</div>
-						</div>
-						<div class="col-auto">
-							<div class="input-group input-group-sm">
-								<span class="input-group-text"><?php echo $BLM['ad_flashversion'] ?></span>
-								<input type="text" name="adcampaign_flashversion" id="adcampaign_flashversion" value="<?php echo $plugin['data']['adcampaign_data']['flashversion'] ?>" class="form-control text-center" style="width: 60px;" />
 							</div>
 						</div>
 					</div>

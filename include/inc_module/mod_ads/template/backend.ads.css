@@ -98,12 +98,12 @@ td.upload input {
 	width: 220px;
 }
 
-td.newimage, td.newflash, td.newcss, td.warning, td.warning1 {
+td.newimage, td.newvideo, td.newhtml5, td.newcss, td.newflash, td.warning, td.warning1 {
 	position: relative;
 	padding-left: 23px;
 }
 td.newimage::before {
-	font-family: "Font Awesome 5 Free";
+	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
 	font-weight: 900;
 	content: "\f302";
 	position: absolute;
@@ -112,8 +112,28 @@ td.newimage::before {
 	transform: translateY(-50%);
 	color: #6c757d;
 }
+td.newvideo::before {
+	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
+	font-weight: 900;
+	content: "\f03d";
+	position: absolute;
+	left: 4px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #6c757d;
+}
+td.newhtml5::before {
+	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
+	font-weight: 900;
+	content: "\f1c6";
+	position: absolute;
+	left: 4px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #6c757d;
+}
 td.newflash::before {
-	font-family: "Font Awesome 5 Free";
+	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
 	font-weight: 900;
 	content: "\f008";
 	position: absolute;
@@ -123,7 +143,7 @@ td.newflash::before {
 	color: #6c757d;
 }
 td.newcss::before {
-	font-family: "Font Awesome 5 Free";
+	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
 	font-weight: 900;
 	content: "\f13b";
 	position: absolute;

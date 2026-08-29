@@ -114,51 +114,37 @@ function renderAds($match) {
 				$ad_media	.= '><img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE.'</a>';
 				break;
 
-		case 1:	//Flash
-				$ad['adcampaign_data']['url'] = urlencode($ad['adcampaign_data']['url']);
-				$ad_flashID  = 'adsBannerFlash'.$adID;
-				$ad_so		 = 'adsInnerFlash'.$ad['adcampaign_id'];
-				$ad_media	.= '<a href="index.php?adclickval='.$ad['adcampaign_id'].'&amp;url='.$ad['adcampaign_data']['url'].$ad_urldata.'"';
-				$ad_media	.= $ad_title;
-				if($ad['adcampaign_data']['target']) {
-					$ad_media	.= ' target="'.$ad['adcampaign_data']['target'].'"';
+		case 1:	//Video (MP4 / WebM)
+				$_videosrc = '';
+				if(!empty($ad['adcampaign_data']['video']) && is_file($ad['dir'].$ad['adcampaign_data']['video'])) {
+					$_videosrc = $ad['content_dir'].$ad['adcampaign_data']['video'];
 				}
-				$ad_media	.= ' id="'.$ad_so.'">';
-				if(is_file($ad['dir'].$ad['adcampaign_data']['image'])) {
-					$ad_media	.= '<img src="'. html_specialchars($ad_imgsrc) .'" '.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
-				} else {
-					$ad_media	.= $ad_title;
-				}
-				$ad_media	.= '</a>';
-				$ad_media    = '<div id="'.$ad_flashID.'">'.$ad_media.'</div>';
-
-				if(!empty($ad['adcampaign_data']['flash']) && is_file($ad['dir'].$ad['adcampaign_data']['flash'])) {
-
-					initSwfObject();
-
-					$ad_urldata	 = urldecode(str_replace('&amp;', '&', $ad_urldata));
-					$ad_flash	 = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
-
-					$ad_flash	.= '	var flashvars_'.$ad_so.'	= {clickTag: "'.urlencode('index.php?adclickval='.$ad['adcampaign_id'].'&url='.$ad['adcampaign_data']['url'].$ad_urldata).'", ';
-					$ad_flash	.= 'clickTarget: "'.urlencode($ad['adcampaign_data']['target']).'"};' . LF;
-					$ad_flash	.= '	var params_'.$ad_so.'		= {wmode: "opaque", autoplay: true, quality: "autohigh", ';
-					$ad_flash	.= 'play: true, menu: false, allowscriptaccess: "always", swliveconnect: true, scale: "exactfit"';
-					if($ad['adcampaign_data']['bgcolor']) {
-						$ad_flash	.= ', bgcolor: "'.$ad['adcampaign_data']['bgcolor'].'"';
+				if(empty($_videosrc)) {
+					if(!empty($ad['adcampaign_data']['image']) && is_file($ad['dir'].$ad['adcampaign_data']['image'])) {
+						$ad_imgsrc = html_specialchars($ad_imgsrc);
+						$ad_media .= '<a href="index.php?adclickval='.$ad['adcampaign_id'].'&amp;url='.urlencode($ad['adcampaign_data']['url']).$ad_urldata.'"';
+						$ad_media .= $ad_title;
+						if($ad['adcampaign_data']['target']) {
+							$ad_media .= ' target="'.$ad['adcampaign_data']['target'].'"';
+						}
+						$ad_media .= '><img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE.'</a>';
 					}
-					$ad_flash	.= '};' . LF;
-					$ad_flash	.= '	var attributes_'.$ad_so.'	= {};' . LF;
-
-					$ad_flash	.= '	swfobject.embedSWF("'.$ad_swfsrc.'", "'.$ad_so.'", ';
-					$ad_flash	.= '"'.$ad['adplace_width'].'", "'.$ad['adplace_height'].'", ';
-					$ad_flash	.= '"'.$ad['adcampaign_data']['flashversion'].'", false, ';
-					$ad_flash	.= 'flashvars_'.$ad_so.', params_'.$ad_so.', attributes_'.$ad_so.');';
-
-					$ad_flash	.= LF.SCRIPT_CDATA_END.LF.'  </script>';
-
-					$GLOBALS['block']['custom_htmlhead'][$ad_so] = $ad_flash;
-
+					break;
 				}
+
+				$_videotype = (which_ext($_videosrc) === 'webm') ? 'video/webm' : 'video/mp4';
+				$_poster = (!empty($ad['adcampaign_data']['image']) && is_file($ad['dir'].$ad['adcampaign_data']['image'])) ? ' poster="'.html_specialchars($ad_imgsrc).'"' : '';
+				
+				$ad_media .= '<a href="index.php?adclickval='.$ad['adcampaign_id'].'&amp;url='.urlencode($ad['adcampaign_data']['url']).$ad_urldata.'"';
+				$ad_media .= $ad_title;
+				if($ad['adcampaign_data']['target']) {
+					$ad_media .= ' target="'.$ad['adcampaign_data']['target'].'"';
+				}
+				$ad_media .= ' style="display:block;position:relative;width:'.$ad['adplace_width'].'px;height:'.$ad['adplace_height'].'px;overflow:hidden;">';
+				$ad_media .= '<video autoplay muted loop playsinline'.$_poster.' style="width:100%;height:100%;object-fit:contain;pointer-events:none;">';
+				$ad_media .= '<source src="'.html_specialchars($_videosrc).'" type="'.$_videotype.'" />';
+				$ad_media .= '</video>';
+				$ad_media .= '</a>';
 				break;
 
 		case 2:	//HTML
@@ -184,49 +170,28 @@ function renderAds($match) {
 
 				break;
 
-		case 3:	//Flash Layer
-				$ad['adcampaign_data']['url']		= urlencode($ad['adcampaign_data']['url']);
-				$ad_flashID  = 'adsBannerFL'.$adID;
-				$ad_so		 = 'adsInnerFlash'.$ad['adcampaign_id'];
-				if(!empty($ad['adcampaign_data']['flash']) && is_file($ad['dir'].$ad['adcampaign_data']['flash'])) {
+		case 3:	//HTML5 Package (Zip/iframe)
+				$_html5_src = '';
+				if(!empty($ad['adcampaign_data']['html5']) && is_file($ad['dir'].$ad['adcampaign_data']['html5'])) {
+					$_html5_src = $ad['content_dir'].$ad['adcampaign_data']['html5'];
+				} elseif(is_file($ad['dir'].'index.html')) {
+					$_html5_src = $ad['content_dir'].'index.html';
+				}
 
-					$ad_media    = '<div id="'.$ad_flashID.'" style="width:'.$ad['adplace_width'].'px;height:'.$ad['adplace_height'].'px;display:none;">';
-					$ad_media   .= '<div id="'.$ad_so.'"></div></div>';
+				if(!empty($_html5_src)) {
+					$_click_url = 'index.php?adclickval='.$ad['adcampaign_id'].'&amp;url='.urlencode($ad['adcampaign_data']['url']).$ad_urldata;
+					$_sep = (strpos($_html5_src, '?') !== false) ? '&amp;' : '?';
+					$_iframe_src = $_html5_src . $_sep . 'clickTag=' . urlencode($_click_url);
 
-					initSwfObject();
-
-					$ad_urldata	 = urldecode(str_replace('&amp;', '&', $ad_urldata));
-
-
-					$ad_flash	 = '  <!--[if gte IE 5]><script type="text/javascript" event="FSCommand(command,args)" for="'.$ad_so.'">';
-					$ad_flash	.= $ad_so.'_DoFSCommand(command, args);</script><![endif]-->'.LF;
-
-					$ad_flash	.= '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
-
-					$ad_flash	.= '	function '.$ad_so.'_DoFSCommand(command,args){if(command=="adlayerhider")toggleLayerDisplay("'.$ad_flashID.'","none");}'.LF;
-					$ad_flash	.= '	function show'.$ad_so.'(){toggleLayerDisplay("'.$ad_flashID.'", "block");}'.LF;
-
-					$ad_flash	.= '	var flashvars_'.$ad_so.'	= {clickTag: "'.urlencode('index.php?adclickval='.$ad['adcampaign_id'].'&current='.$ad_random.'&u='.PHPWCMS_USER_KEY.'&url='.$ad['adcampaign_data']['url']).'", ';
-					$ad_flash	.= 'clickTarget: "'.urlencode($ad['adcampaign_data']['target']).'"};' . LF;
-					$ad_flash	.= '	var params_'.$ad_so.'		= {wmode: "transparent", autoplay: true, quality: "autohigh", ';
-					$ad_flash	.= 'play: true, menu: false, allowscriptaccess: "always", swliveconnect: true, scale: "exactfit"';
-					if($ad['adcampaign_data']['bgcolor']) {
-						$ad_flash	.= ', bgcolor: "'.$ad['adcampaign_data']['bgcolor'].'"';
+					$ad_media .= '<iframe src="'.html_specialchars($_iframe_src).'" style="width:'.$ad['adplace_width'].'px;height:'.$ad['adplace_height'].'px;border:0;overflow:hidden;" scrolling="no" frameborder="0"></iframe>';
+				} elseif(!empty($ad['adcampaign_data']['image']) && is_file($ad['dir'].$ad['adcampaign_data']['image'])) {
+					$ad_imgsrc = html_specialchars($ad_imgsrc);
+					$ad_media .= '<a href="index.php?adclickval='.$ad['adcampaign_id'].'&amp;url='.urlencode($ad['adcampaign_data']['url']).$ad_urldata.'"';
+					$ad_media .= $ad_title;
+					if($ad['adcampaign_data']['target']) {
+						$ad_media .= ' target="'.$ad['adcampaign_data']['target'].'"';
 					}
-					$ad_flash	.= '};' . LF;
-					$ad_flash	.= '	var attributes_'.$ad_so.'	= {name: "'.$ad_so.'"};' . LF;
-
-					$ad_flash	.= '	swfobject.embedSWF("'.$ad_swfsrc.'", "'.$ad_so.'", ';
-					$ad_flash	.= '"'.$ad['adplace_width'].'", "'.$ad['adplace_height'].'", ';
-					$ad_flash	.= '"'.$ad['adcampaign_data']['flashversion'].'", false, ';
-					$ad_flash	.= 'flashvars_'.$ad_so.', params_'.$ad_so.', attributes_'.$ad_so.');' . LF;
-
-					$ad_flash	.= '	window.setTimeout("show'.$ad_so.'()", 1000);';
-
-					$ad_flash	.= LF.SCRIPT_CDATA_END.LF.'  </script>';
-
-					$GLOBALS['block']['custom_htmlhead'][$ad_so] = $ad_flash;
-
+					$ad_media .= '><img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE.'</a>';
 				}
 				break;
 
