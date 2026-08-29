@@ -1305,11 +1305,20 @@ function initPhpwcmsTheme() {
         });
     }
 
+    function resolveTheme(theme) {
+        if (theme === 'auto') {
+            theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+        }
+        return theme === 'dark' ? 'dark' : 'light';
+    }
+
     function setTheme(theme, saveRemote = true) {
         if (!['light', 'dark', 'auto'].includes(theme)) {
             theme = 'auto';
         }
         document.documentElement.setAttribute('data-theme', theme);
+        // bootstrap 5.3 native dark mode: resolved theme for auto
+        document.documentElement.setAttribute('data-bs-theme', resolveTheme(theme));
         try {
             localStorage.setItem('phpwcms_theme', theme);
         } catch (e) {}
@@ -1329,6 +1338,16 @@ function initPhpwcmsTheme() {
     setTheme(currentTheme, false);
 
     if (!phpwcmsThemeInitialized) {
+        phpwcmsThemeInitialized = true;
+
+        // keep auto theme in sync with OS color scheme changes
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                if (getStoredTheme() === 'auto') {
+                    setTheme('auto', false);
+                }
+            });
+        }
         phpwcmsThemeInitialized = true;
 
         document.addEventListener('click', e => {
@@ -1353,8 +1372,7 @@ function initPhpwcmsTheme() {
 window.phpwcmsAceEditors = window.phpwcmsAceEditors || [];
 
 function getPhpwcmsAceTheme() {
-    const rootTheme = document.documentElement.getAttribute('data-theme') || 'auto';
-    const isDark = rootTheme === 'dark' || (rootTheme === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
     return isDark ? 'ace/theme/one_dark' : 'ace/theme/chrome';
 }
 

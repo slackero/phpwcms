@@ -245,7 +245,12 @@ header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
     (function() {
         var storedTheme = localStorage.getItem('phpwcms_theme');
         var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
+        if (theme !== 'light' && theme !== 'dark' && theme !== 'auto') { theme = 'auto'; }
         document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'auto') {
+            theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-bs-theme', theme === 'dark' ? 'dark' : 'light');
         if (localStorage.getItem('phpwcms_sidebar_collapsed') === 'true') {
             document.documentElement.classList.add('sidebar-collapsed');
         }

@@ -656,7 +656,12 @@ $reason_types = array(
 	(function() {
 		var storedTheme = localStorage.getItem('phpwcms_theme');
 		var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
+		if (theme !== 'light' && theme !== 'dark' && theme !== 'auto') { theme = 'auto'; }
 		document.documentElement.setAttribute('data-theme', theme);
+		if (theme === 'auto') {
+			theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+		}
+		document.documentElement.setAttribute('data-bs-theme', theme === 'dark' ? 'dark' : 'light');
 	})();
 	</script>
 	<link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
