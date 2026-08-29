@@ -103,7 +103,7 @@ td.newimage, td.newvideo, td.newhtml5, td.newcss, td.newflash, td.warning, td.wa
 	padding-left: 23px;
 }
 td.newimage::before {
-	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
+	font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free";
 	font-weight: 900;
 	content: "\f302";
 	position: absolute;
@@ -113,7 +113,7 @@ td.newimage::before {
 	color: #6c757d;
 }
 td.newvideo::before {
-	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
+	font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free";
 	font-weight: 900;
 	content: "\f03d";
 	position: absolute;
@@ -123,7 +123,7 @@ td.newvideo::before {
 	color: #6c757d;
 }
 td.newhtml5::before {
-	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
+	font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free";
 	font-weight: 900;
 	content: "\f1c6";
 	position: absolute;
@@ -133,7 +133,7 @@ td.newhtml5::before {
 	color: #6c757d;
 }
 td.newflash::before {
-	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
+	font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free";
 	font-weight: 900;
 	content: "\f008";
 	position: absolute;
@@ -143,7 +143,7 @@ td.newflash::before {
 	color: #6c757d;
 }
 td.newcss::before {
-	font-family: "Font Awesome 5 Free", "Font Awesome 6 Free", "Font Awesome 7 Free";
+	font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "Font Awesome 5 Free";
 	font-weight: 900;
 	content: "\f13b";
 	position: absolute;
@@ -156,7 +156,7 @@ td.warning, td.warning1 {
 	color: #CC3300;
 }
 td.warning::before, td.warning1::before {
-	font-family: "Font Awesome 5 Free";
+	font-family: "Font Awesome 7 Free";
 	font-weight: 900;
 	content: "\f071";
 	position: absolute;

@@ -10,7 +10,7 @@ a.fe-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-family: "Font Awesome 5 Free";
+    font-family: "Font Awesome 7 Free";
     font-weight: 900;
     font-size: 14px;
     line-height: 1;
@@ -26,6 +26,19 @@ a.fe-link:hover {
     background-color: transparent;
     color: #0d6efd;
     transform: scale(1.15);
+}
+
+/* visually hidden label — icon only, still accessible */
+a.fe-link span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 a.fe-link.fe-article::before   { content: "\f15c"; }
@@ -52,7 +65,7 @@ a.fe-link.fe-structure::before { content: "\f07c"; }
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Font Awesome 5 Free";
+    font-family: "Font Awesome 7 Free";
     font-weight: 900;
     font-size: 12px;
     line-height: 1;
