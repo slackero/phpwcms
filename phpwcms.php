@@ -200,29 +200,29 @@ if (isset($result[0])) {
 
 switch ($do) {
 
-    case 'articles':    //articles
+    case 'articles': //articles
         include PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php';
         include PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'; //load article funtions
         break;
 
-    case 'files':       //files
+    case 'files': //files
         break;
 
-    case 'modules':        //modules
+    case 'modules': //modules
         break;
 
-    case 'profile':        //profile
+    case 'profile': //profile
         if (!empty($_POST['form_aktion']) && in_array($_POST['form_aktion'], ['update_account', 'enable_2fa', 'disable_2fa'], true)) {
             //Aktualisieren der wcs account & profile Daten
             include PHPWCMS_ROOT . '/include/inc_lib/profile.updateaccount.inc.php';
         }
         break;
 
-    case 'logout':      //Logout
+    case 'logout': //Logout
         logout_user();
         break;
 
-    case 'admin':       //Admin
+    case 'admin': //Admin
         if(!empty($_SESSION['wcs_user_admin'])) {
             include PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php';
         }
@@ -237,30 +237,32 @@ ob_start(); //without Compression
 header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
 
 ?><!DOCTYPE HTML>
-<html lang="<?php echo $BE['LANG']; ?>" data-theme="<?php echo html(get_backend_theme()); ?>">
+<html lang="<?= $BE['LANG'] ?>" data-theme="<?= html(get_backend_theme()) ?>"<?= in_array($BE['LANG'], ['ar','ur','he','fa']) ? ' dir="rtl"' : '' ?>>
 <head><?php printf(PHPWCMS_HEADER_COMMENT, ''); ?>
     <title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
-    <script>
-    (function() {
-        var storedTheme = localStorage.getItem('phpwcms_theme');
-        var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
-        if (theme !== 'light' && theme !== 'dark' && theme !== 'auto') { theme = 'auto'; }
-        document.documentElement.setAttribute('data-theme', theme);
-        if (theme === 'auto') {
-            theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-        }
-        document.documentElement.setAttribute('data-bs-theme', theme === 'dark' ? 'dark' : 'light');
-        if (localStorage.getItem('phpwcms_sidebar_collapsed') === 'true') {
-            document.documentElement.classList.add('sidebar-collapsed');
-        }
-    })();
-    </script>
-    <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
+    <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- phpwcms CSP -->
-    <script>const CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';</script>
+    <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
+    <script>
+        const CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';
+        (function() {
+            const storedTheme = localStorage.getItem('phpwcms_theme');
+            let theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
+            if (theme !== 'light' && theme !== 'dark' && theme !== 'auto') {
+                theme = 'auto';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+            if (theme === 'auto') {
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('data-bs-theme', theme === 'dark' ? 'dark' : 'light');
+            if (localStorage.getItem('phpwcms_sidebar_collapsed') === 'true') {
+                document.documentElement.classList.add('sidebar-collapsed');
+            }
+        })();
+    </script>
 <?php
 
 $BE['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js');
@@ -272,10 +274,6 @@ $BE['HEADER']['alias_slash_var'] = ' <script>
 $BE['HEADER']['phpwcms-lang.js'] = getJavaScriptTranslations();
 $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
 
-if($BE['LANG'] === 'ar') {
-    $BE['HEADER'][] = '<style>' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '// -->' . LF . '</style>';
-}
-
 ?>
 <!-- phpwcms HEADER -->
 </head>
@@ -283,10 +281,19 @@ if($BE['LANG'] === 'ar') {
 <div id="container">
   <header id="header" class="navbar navbar-expand navbar-static-top">
     <div class="container-fluid px-0 px-sm-3">
-      <div id="header-logo" class="navbar-header d-none d-md-flex align-items-center"><a href="phpwcms.php?<?php echo get_token_get_string(); ?>" class="navbar-brand"><img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System"></a></div>
+      <div id="header-logo" class="navbar-header d-none d-md-flex align-items-center ms-1">
+          <a href="phpwcms.php?<?php echo get_token_get_string(); ?>" class="navbar-brand">
+              <img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System">
+          </a>
+      </div>
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
       <ul class="nav navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="<?php echo PHPWCMS_URL ?>" target="_blank"><i class="fa fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo PHPWCMS_URL ?>" target="_blank">
+                <i class="fa fa-eye fa-fw"></i>
+                <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span>
+            </a>
+        </li>
         <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-search fa-fw"></i>
@@ -302,11 +309,9 @@ if($BE['LANG'] === 'ar') {
                         echo html($_SESSION['phpwcms_backend_search']);
                     }
                     ?>" class="form-control" aria-describedby="basic-search" />
-                    
                         <button class="btn btn-blue">
                             <i class="fa fa-search fa-fw"></i>
                         </button>
-                    
                 </div>
             </form>
         </li>
