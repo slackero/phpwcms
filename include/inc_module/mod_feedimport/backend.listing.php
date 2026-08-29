@@ -10,7 +10,7 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
 <h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
-<div class="form-group mb-3 text-center text-sm-left">
+<div class="form-group mb-3 text-center text-sm-start">
 	<a class="btn btn-sm btn-blue" href="<?php echo MODULE_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fas fa-rss fa-fw"></i> <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 
@@ -23,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 						<th style="width: 40px;" class="text-center">&nbsp;</th>
 						<th>Name</th>
 						<th>Source Host</th>
-						<th style="width: 120px;" class="text-right">Actions</th>
+						<th style="width: 120px;" class="text-end">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,9 +36,9 @@ if (!defined('PHPWCMS_ROOT')) {
 						$url = parse_url($row['cnt_text'], PHP_URL_HOST);
 						echo '<tr>';
 						echo '<td class="text-center"><i class="fas fa-rss text-muted"></i></td>';
-						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="text-dark font-weight-bold">' . html($row['cnt_name']) . '</a></td>';
+						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="text-dark fw-bold">' . html($row['cnt_name']) . '</a></td>';
 						echo '<td>' . html($url) . '</td>';
-						echo '<td class="text-right text-nowrap">';
+						echo '<td class="text-end text-nowrap">';
 						echo '<div class="btn-group btn-group-sm" role="group" aria-label="feed-actions-' . $row["cnt_id"] . '">';
 						
 						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
@@ -47,7 +47,7 @@ if (!defined('PHPWCMS_ROOT')) {
 						echo '<i class="fas ' . (($row["cnt_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
 						echo '</div>';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["cnt_id"] . '" class="btn btn-sm btn-danger ml-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row['cnt_name']) . '"';
+						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["cnt_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row['cnt_name']) . '"';
 						echo ' onclick="event.stopPropagation(); return confirm(\'' . js_singlequote($BLM['delete_entry'] . ' ' . $row['cnt_name']) . '\');">';
 						echo '<i class="far fa-trash-alt"></i></a>';
 						echo '</td>';

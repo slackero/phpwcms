@@ -32,7 +32,7 @@ if (isset($image_list['images']) && is_array($image_list['images'])) {
     foreach ($image_list['images'] as $img_info) {
         $img_id = !empty($img_info['thumb_id']) ? $img_info['thumb_id'] : (!empty($img_info['zoom_id']) ? $img_info['zoom_id'] : 0);
         if ($img_id) {
-            $image_data .= '<img class="img-thumbnail rounded mr-1 mb-1" src="' . PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/' . $phpwcms['img_list_width'] . 'x' . $phpwcms['img_list_height'] . '/' . $img_id . '" alt="" />';
+            $image_data .= '<img class="img-thumbnail rounded me-1 mb-1" src="' . PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/' . $phpwcms['img_list_width'] . 'x' . $phpwcms['img_list_height'] . '/' . $img_id . '" alt="" />';
         }
     }
 }

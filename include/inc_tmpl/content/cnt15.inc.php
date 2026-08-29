@@ -57,8 +57,8 @@ if(empty($content["alist"]["label"])) {
 }
 ?>
 
-<div class="form-group align-items-center form-row">
-	<label class="col-sm-2 col-form-label text-right" for="calist_cat_0"><?php echo $BL['be_cnt_sitelevel'] ?></label>
+<div class="form-group align-items-center row g-2">
+	<label class="col-sm-2 col-form-label text-end" for="calist_cat_0"><?php echo $BL['be_cnt_sitelevel'] ?></label>
 	<div class="col">
 		<div class="form-check form-check-inline">
 			<input class="form-check-input" name="calist_cat" id="calist_cat_0" type="radio" value="0" <?php is_checked(0, intval($content["alist"]["cat"])) ?>>
@@ -67,13 +67,13 @@ if(empty($content["alist"]["label"])) {
 	</div>
 </div>
 
-<div class="form-group align-items-center form-row">
+<div class="form-group align-items-center row g-2">
 	<label class="col-sm-2 col-form-label"></label>
 	<div class="col">
 		<div class="form-check">
 			<input class="form-check-input mt-2" name="calist_cat" id="calist_cat_1" type="radio" value="1" <?php is_checked(1, intval($content["alist"]["cat"])) ?>>
 			<label class="form-check-label" for="calist_cat_1">
-				<select name="calist_catid" class="custom-select form-control form-control-sm">
+				<select name="calist_catid" class="form-select form-select-sm">
 					<?php echo "<option value='0'".((!$content["alist"]["catid"])?" selected":"").">".$BL['be_admin_struct_index']."</option>\n"; struct_select_menu(0, 0, $content["alist"]["catid"]); ?>
 				</select>
 			</label>
@@ -81,8 +81,8 @@ if(empty($content["alist"]["label"])) {
   </div>
 </div>
 
-<div class="form-group align-items-center form-row my-sm-3">
-	<label class="col-sm-2 col-form-label text-right" for="calist_ul1"><?php echo $BL['be_show_content'] ?></label>
+<div class="form-group align-items-center row g-2 my-sm-3">
+	<label class="col-sm-2 col-form-label text-end" for="calist_ul1"><?php echo $BL['be_show_content'] ?></label>
 	<div class="col-sm-auto">
 		<div class="form-check form-check-inline">
 			<input class="form-check-input" type="radio" name="calist_ul" id="calist_ul1" value="1" <?php is_checked(1, intval($content["alist"]["ul"])) ?>>
@@ -106,15 +106,15 @@ if(empty($content["alist"]["label"])) {
 		</div>
 	</div>
 	<div class="col">
-		<div class="form-group align-items-center form-row mb-0 ml-sm-3">
-  			<label class="col-form-label font-weight-normal" for="calist_class"><?php echo $BL['be_cnt_css_class'] ?></label>
+		<div class="form-group align-items-center row g-2 mb-0 ms-sm-3">
+  			<label class="col-form-label fw-normal" for="calist_class"><?php echo $BL['be_cnt_css_class'] ?></label>
     		<div class="col-sm-auto"><input type="text" name="calist_class" id="calist_class" class="form-control form-control-sm" value="<?php echo html($content["alist"]["class"]) ?>" ></div>
   		</div>
 	</div>
 </div>
 
 
-<div class="form-group form-row align-items-center">
+<div class="form-group row g-2 align-items-center">
 	<label class="col-sm-2 col-form-label"></label>
     <div class="col-sm-auto">
     	<div class="form-check mb-2 mb-sm-0">
@@ -123,20 +123,20 @@ if(empty($content["alist"]["label"])) {
      	</div>
     </div>
     <div class="col-sm-auto">
-    	<div class="form-row form-inline ml-sm-3">
-			<label class="col-form-label font-weight-normal" for="calist_label"><?php echo $BL['be_cnt_label'] ?></label>
+    	<div class="row g-2 form-inline ms-sm-3">
+			<label class="col-form-label fw-normal" for="calist_label"><?php echo $BL['be_cnt_label'] ?></label>
 			<input type="text" name="calist_label" id="calist_label" class="form-control form-control-sm" value="<?php echo html($content["alist"]["label"]) ?>">
 		</div>
     </div>
     <div class="col-sm-auto">
-    	<div class="form-row form-inline ml-sm-3">
-			<label class="col-form-label font-weight-normal" for="calist_break"><?php echo $BL['be_cnt_field']['break'] ?></label>
+    	<div class="row g-2 form-inline ms-sm-3">
+			<label class="col-form-label fw-normal" for="calist_break"><?php echo $BL['be_cnt_field']['break'] ?></label>
 			<input type="text" name="calist_break" id="calist_break" class="form-control form-control-sm" value="<?php echo html($content["alist"]["break"]) ?>">
 		</div>
     </div>
 </div>
 
-<div class="form-group form-row align-items-center">
+<div class="form-group row g-2 align-items-center">
 	<label class="col-sm-2 col-form-label"></label>
     <div class="col-sm-auto">
     	<div class="form-check mb-2 mb-sm-0">
@@ -145,23 +145,23 @@ if(empty($content["alist"]["label"])) {
      	</div>
     </div>
     <div class="col-sm-auto">
-    	<div class="form-row form-inline ml-sm-3">
-			<label class="col-form-label font-weight-normal" for="calist_maxchar"><?php echo $BL['be_cnt_articlemenu_maxchar'] ?></label>
+    	<div class="row g-2 form-inline ms-sm-3">
+			<label class="col-form-label fw-normal" for="calist_maxchar"><?php echo $BL['be_cnt_articlemenu_maxchar'] ?></label>
 			<input type="text" name="calist_maxchar" id="calist_maxchar" class="form-control form-control-sm" value="<?php echo $content["alist"]["maxchar"] ?>">
 		</div>
     </div>
     <div class="col-sm-auto">
-    	<div class="form-row form-inline ml-sm-3">
-			<label class="col-form-label font-weight-normal" for="calist_morelink"><?php echo $BL['be_article_morelink'] ?></label>
+    	<div class="row g-2 form-inline ms-sm-3">
+			<label class="col-form-label fw-normal" for="calist_morelink"><?php echo $BL['be_article_morelink'] ?></label>
 			<input type="text" name="calist_morelink" id="calist_morelink" class="form-control form-control-sm" value="<?php echo html($content["alist"]["morelink"]) ?>">
 		</div>
     </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-	<label class="col-sm-2 col-form-label text-right" for="calist_titlewrap"><?php echo $BL['be_title_wrap'] ?></label>
+<div class="form-group align-items-center row g-2">
+	<label class="col-sm-2 col-form-label text-end" for="calist_titlewrap"><?php echo $BL['be_title_wrap'] ?></label>
 	<div class="col-sm-auto">
-		<select name="calist_titlewrap" id="calist_titlewrap" class="custom-select form-control form-control-sm">
+		<select name="calist_titlewrap" id="calist_titlewrap" class="form-select form-select-sm">
 		<?php
     	echo '  <option value=""';
     	is_selected(0, $content["alist"]["titlewrap"]);

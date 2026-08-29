@@ -122,17 +122,17 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
                         }
                         echo '<tr'.$row_class.'>'."\n";
                         echo '<td width="30">';
-                        echo '<span class="admin-slist" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].' <br>Sort: '.$file_row["f_sort"].'"><i class="fa fa-'.extimg($file_row["f_ext"]).'"></i></span>';
+                        echo '<span class="admin-slist" data-bs-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].' <br>Sort: '.$file_row["f_sort"].'"><i class="fa fa-'.extimg($file_row["f_ext"]).'"></i></span>';
                         echo "</td>\n";
                         echo "<td>";
                         echo "<a href=\"fileinfo.php?public&amp;fid=".$file_row["f_id"];
                         echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
                         echo $filename."</a>";
                         echo "</td>\n";
-                        echo '<td class="text-right text-nowrap px-0">';
+                        echo '<td class="text-end text-nowrap px-0">';
                         echo "<a href=\"include/inc_act/act_download.php?pl=1&dl=".$file_row["f_id"];
                         echo "\" target=\"_blank\" title=\"".$BL['be_fprivfunc_dlfile'].": ".$filename."\">";
-                        echo '<i class="btn btn-sm btn-blue mr-1 fa fa-download" aria-hidden="true"></i></a>';
+                        echo '<i class="btn btn-sm btn-blue me-1 fa fa-download" aria-hidden="true"></i></a>';
                         echo "</td>\n";
                         echo "</tr>\n";
 

@@ -90,10 +90,10 @@ if($file_id && !$file_alias) {
     <div class="col-sm-3"><?php echo $imagesrc ?></div>
     <div class="col-sm-9 mb-2 mb-sm-0"><b><?php echo $BL['be_fprivedit_filename'] ?>: <?php echo html_specialchars($file_name) ?></b></div>
 
-		<div class="col col-sm-6 input-group my-2">
+		<div class="col col-sm-6 input-group">
 			<input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias<?php echo html_specialchars($file_id) ?>" value="<?php echo html_specialchars($f_alias) ?>"  maxlength="230" onfocus="set_file_alias(true, 'file_alias<?php echo html_specialchars($file_id) ?>');" onchange="this.value=create_alias(this.value, null, null, false);" />
-			<div class="input-group-append">
-				<button name="senden" type="button" onclick="AjaxSubmit(<?php echo "'#alias-".$file_id."', '".$file_id."', document.editfileinfo.file_alias".$file_id.".value"; ?>)" class="btn btn-blue btn-sm"><i class="fa fa-save"></i> <?php echo $BL['be_save_btn'] ?></button></div>
+			
+				<button name="senden" type="button" onclick="AjaxSubmit(<?php echo "'#alias-".$file_id."', '".$file_id."', document.editfileinfo.file_alias".$file_id.".value"; ?>)" class="btn btn-blue btn-sm"><i class="fa fa-check"></i> <?php echo $BL['be_save_btn'] ?></button>
 			</div>
 		</div>
 

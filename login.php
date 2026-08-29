@@ -676,15 +676,15 @@ $reason_types = array(
                 <div id="header-logo" class="navbar-header d-flex align-items-center">
                     <a href="index.php" class="navbar-brand"><img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System" /></a>
                 </div>
-                <ul class="nav navbar-nav ml-auto">
+                <ul class="nav navbar-nav ms-auto">
                     <li class="nav-item dropdown theme-switcher">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
-                            <i class="theme-icon-active fa fa-adjust fa-fw mr-1"></i> <span><?php echo html($BL['be_theme']); ?></span>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
+                            <i class="theme-icon-active fa fa-adjust fa-fw me-1"></i> <span><?php echo html($BL['be_theme']); ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="themeDropdown">
-                            <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="auto"><i class="fa fa-adjust fa-fw mr-2"></i> <?php echo html($BL['be_theme_auto']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="light"><i class="fa fa-sun fa-fw mr-2"></i> <?php echo html($BL['be_theme_light']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
-                            <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="dark"><i class="fa fa-moon fa-fw mr-2"></i> <?php echo html($BL['be_theme_dark']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
+                            <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="auto"><i class="fa fa-adjust fa-fw me-2"></i> <?php echo html($BL['be_theme_auto']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
+                            <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="light"><i class="fa fa-sun fa-fw me-2"></i> <?php echo html($BL['be_theme_light']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
+                            <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="dark"><i class="fa fa-moon fa-fw me-2"></i> <?php echo html($BL['be_theme_dark']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
                         </div>
                     </li>
                 </ul>
@@ -767,19 +767,19 @@ if ($step_2fa):
 ?>
 
 <div class="form-group">
-    <label class="sr-only" for="form_2fa_code"><?php echo $BL['login_2fa_code'] ?? 'Authentication Code'; ?></label>
+    <label class="visually-hidden" for="form_2fa_code"><?php echo $BL['login_2fa_code'] ?? 'Authentication Code'; ?></label>
     <div class="input-group">
-        <div class="input-group-prepend">
+        
             <span class="input-group-text"><i class="fa fa-shield-alt fa-fw"></i></span>
-        </div>
+        
         <input name="form_2fa_code" type="text" id="form_2fa_code" class="form-control" placeholder="<?php echo $BL['login_2fa_placeholder'] ?? '6-digit code or backup code'; ?>" autofocus="autofocus" required="required" maxlength="20" autocomplete="one-time-code" />
     </div>
 </div>
 
-<button name="submit_2fa" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL['login_2fa_button'] ?? 'Verify Code'; ?> <i class="fa fa-arrow-right"></i></button>
+<button name="submit_2fa" type="submit" class="btn btn-blue w-100 mt-4"><?php echo $BL['login_2fa_button'] ?? 'Verify Code'; ?> <i class="fa fa-arrow-right"></i></button>
 
 <div class="text-center mt-3">
-    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" class="small text-muted"><i class="fa fa-arrow-left mr-1"></i> <?php echo $BL['login_2fa_back'] ?? 'Back to Login'; ?></a>
+    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" class="small text-muted"><i class="fa fa-arrow-left me-1"></i> <?php echo $BL['login_2fa_back'] ?? 'Back to Login'; ?></a>
 </div>
 </form>
 <?php
@@ -799,30 +799,30 @@ elseif ($step_reset_set):
 
 <?php if ($reset_token_valid): ?>
     <div class="form-group">
-        <label class="sr-only" for="form_new_password"><?php echo $BL['login_reset_new_password'] ?? 'New password'; ?></label>
+        <label class="visually-hidden" for="form_new_password"><?php echo $BL['login_reset_new_password'] ?? 'New password'; ?></label>
         <div class="input-group">
-            <div class="input-group-prepend">
+            
                 <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
-            </div>
+            
             <input name="form_new_password" type="password" id="form_new_password" class="form-control" placeholder="<?php echo $BL['login_reset_new_password'] ?? 'New password'; ?>" autofocus="autofocus" required="required" autocomplete="new-password" />
         </div>
     </div>
 
     <div class="form-group">
-        <label class="sr-only" for="form_repeat_password"><?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?></label>
+        <label class="visually-hidden" for="form_repeat_password"><?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?></label>
         <div class="input-group">
-            <div class="input-group-prepend">
+            
                 <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
-            </div>
+            
             <input name="form_repeat_password" type="password" id="form_repeat_password" class="form-control" placeholder="<?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?>" required="required" autocomplete="new-password" />
         </div>
     </div>
 
-    <button name="submit_set_password" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL['login_reset_set_new_title'] ?? 'Set New Password'; ?> <i class="fa fa-arrow-right"></i></button>
+    <button name="submit_set_password" type="submit" class="btn btn-blue w-100 mt-4"><?php echo $BL['login_reset_set_new_title'] ?? 'Set New Password'; ?> <i class="fa fa-arrow-right"></i></button>
 <?php endif; ?>
 
 <div class="text-center mt-3">
-    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" class="small text-muted"><i class="fa fa-arrow-left mr-1"></i> <?php echo $BL['login_reset_back'] ?? 'Back to Login'; ?></a>
+    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" class="small text-muted"><i class="fa fa-arrow-left me-1"></i> <?php echo $BL['login_reset_back'] ?? 'Back to Login'; ?></a>
 </div>
 </form>
 <?php
@@ -835,23 +835,23 @@ elseif ($step_reset_request):
 <p class="small text-muted mb-3"><?php echo $BL['login_reset_desc'] ?? 'Enter your username or email address. We will send you a secure link to reset your password.'; ?></p>
 
 <?php if ($reset_sent_success): ?>
-    <div class="alert alert-success" role="alert"><i class="fa fa-check-circle mr-1"></i> <?php echo $BL['login_reset_sent'] ?? 'If an active account with matching credentials exists, an email with instructions to reset your password has been sent.'; ?></div>
+    <div class="alert alert-success" role="alert"><i class="fa fa-check-circle me-1"></i> <?php echo $BL['login_reset_sent'] ?? 'If an active account with matching credentials exists, an email with instructions to reset your password has been sent.'; ?></div>
 <?php else: ?>
     <div class="form-group">
-        <label class="sr-only" for="form_reset_account"><?php echo $BL['login_username'] . ' / ' . ($BL['be_newsletter_email'] ?? 'Email'); ?></label>
+        <label class="visually-hidden" for="form_reset_account"><?php echo $BL['login_username'] . ' / ' . ($BL['be_newsletter_email'] ?? 'Email'); ?></label>
         <div class="input-group">
-            <div class="input-group-prepend">
+            
                 <span class="input-group-text"><i class="fa fa-envelope fa-fw"></i></span>
-            </div>
+            
             <input name="form_reset_account" type="text" id="form_reset_account" class="form-control" placeholder="<?php echo $BL['login_username'] . ' / ' . ($BL['be_newsletter_email'] ?? 'Email'); ?>" autofocus="autofocus" required="required" />
         </div>
     </div>
 
-    <button name="submit_reset" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL['login_reset_button'] ?? 'Send Reset Link'; ?> <i class="fa fa-arrow-right"></i></button>
+    <button name="submit_reset" type="submit" class="btn btn-blue w-100 mt-4"><?php echo $BL['login_reset_button'] ?? 'Send Reset Link'; ?> <i class="fa fa-arrow-right"></i></button>
 <?php endif; ?>
 
 <div class="text-center mt-3">
-    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" class="small text-muted"><i class="fa fa-arrow-left mr-1"></i> <?php echo $BL['login_reset_back'] ?? 'Back to Login'; ?></a>
+    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" class="small text-muted"><i class="fa fa-arrow-left me-1"></i> <?php echo $BL['login_reset_back'] ?? 'Back to Login'; ?></a>
 </div>
 </form>
 <?php
@@ -867,7 +867,7 @@ else:
 <?php
 
     if ($reset_done_success) {
-        echo '<div class="alert alert-success" role="alert"><i class="fa fa-check-circle mr-1"></i> ' . ($BL['login_reset_success'] ?? 'Your password has been reset successfully. You can now log in.') . '</div>';
+        echo '<div class="alert alert-success" role="alert"><i class="fa fa-check-circle me-1"></i> ' . ($BL['login_reset_success'] ?? 'Your password has been reset successfully. You can now log in.') . '</div>';
     }
 
     if(file_exists(PHPWCMS_ROOT.'/setup')) {
@@ -900,35 +900,35 @@ else:
 
 ?>
 <div class="form-group">
-	<label class="sr-only" for="form_loginname"><?php echo $BL["login_username"] ?></label>
+	<label class="visually-hidden" for="form_loginname"><?php echo $BL["login_username"] ?></label>
 	<div class="input-group">
-        <div class="input-group-prepend">
+        
             <span class="input-group-text"><i class="fa fa-user fa-fw"></i></span>
-        </div>
+        
 		<input name="form_loginname" type="text" id="form_loginname" class="form-control" placeholder="<?php echo $BL["login_username"] ?>" value="<?php echo html_specialchars($wcs_user); ?>" required="required" />
 	</div>
 </div>
 
 <div class="form-group">
-	<label class="sr-only" for="form_password"><?php echo $BL["login_userpass"] ?></label>
+	<label class="visually-hidden" for="form_password"><?php echo $BL["login_userpass"] ?></label>
     <div class="input-group">
-	    <div class="input-group-prepend">
+	    
             <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
-        </div>
+        
         <input name="form_password" type="password" id="form_password" placeholder="<?php echo $BL["login_userpass"] ?>" class="form-control" required="required"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="new-password"<?php endif; ?> />
 	</div>
 </div>
 
 <div class="d-flex justify-content-end mt-2 mb-3">
-    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>?reset=1" class="small text-muted"><i class="fa fa-question-circle mr-1"></i> <?php echo $BL['login_forgot_password'] ?? 'Forgot password?'; ?></a>
+    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>?reset=1" class="small text-muted"><i class="fa fa-question-circle me-1"></i> <?php echo $BL['login_forgot_password'] ?? 'Forgot password?'; ?></a>
 </div>
 
 <hr class="mt-2 mb-3" />
-<div class="form-row">
+<div class="row g-2">
     <div class="form-group col-6 mb-0">
         <label for="form_lang"><?php echo $BL['login_lang'] ?></label>
         <div class="input-group">
-            <select class="custom-select form-control-sm m-0" name="form_lang" id="form_lang" onchange="document.getElementById('json').value='2';login(this.form);">
+            <select class="form-select form-select-sm m-0" name="form_lang" id="form_lang" onchange="document.getElementById('json').value='2';login(this.form);">
             <?php
             // check available languages installed and build language selector menu
             $lang_dirs = opendir(PHPWCMS_ROOT.'/include/inc_lang/backend');
@@ -954,7 +954,7 @@ else:
     <div class="form-group col-6 mb-0">
         <label for="form_theme"><?php echo $BL['be_theme'] ?></label>
         <div class="input-group">
-            <select class="custom-select form-control-sm m-0" name="form_theme" id="form_theme">
+            <select class="form-select form-select-sm m-0" name="form_theme" id="form_theme">
                 <option value="auto"<?php if(get_backend_theme() === 'auto'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_auto']; ?></option>
                 <option value="light"<?php if(get_backend_theme() === 'light'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_light']; ?></option>
                 <option value="dark"<?php if(get_backend_theme() === 'dark'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_dark']; ?></option>
@@ -962,7 +962,7 @@ else:
         </div>
     </div>
 </div>
-<button name="submit_form" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL['login_button'] ?> <i class="fa fa-arrow-right"></i></button></form>
+<button name="submit_form" type="submit" class="btn btn-blue w-100 mt-4"><?php echo $BL['login_button'] ?> <i class="fa fa-arrow-right"></i></button></form>
 <?php
 endif;
 

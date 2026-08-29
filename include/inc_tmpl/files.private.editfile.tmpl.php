@@ -283,7 +283,7 @@ if($file_id) {
 
 if($ja) {
 ?>
-<h2 class="text-center text-sm-left"><?php echo $BL['be_fprivedit_title'] ?></h2>
+<h2 class="text-center text-sm-start"><?php echo $BL['be_fprivedit_title'] ?></h2>
 
 <form action="phpwcms.php?do=files&amp;f=0" method="post" name="editfileinfo" id="editfileinfo">
   <div class="form-group row">
@@ -313,10 +313,10 @@ if($ja) {
     </div>
   </div>
 
-  <div class="form-group form-row align-items-center">
-    <label for="file_pid" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="file_pid" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_directory'] ?></label>
     <div class="col">
-      <select name="file_pid" id="file_pid" class="custom-select form-control form-control-sm">
+      <select name="file_pid" id="file_pid" class="form-select form-select-sm">
           <option value="0" <?php if($file_pid == 0) echo "selected"; ?>><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
           <?php dir_menu(0, $file_pid, "+", $_SESSION["wcs_user_id"], "+"); ?>
       </select>
@@ -330,15 +330,15 @@ if($ja) {
 
     <?php } ?>
 
-  <div class="form-group form-row align-items-center">
-    <label for="file_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fprivedit_filename'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="file_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_fprivedit_filename'] ?></label>
     <div class="col">
       <input name="file_name" type="text" class="form-control form-control-sm" id="file_name" value="<?php echo html($file_name) ?>" maxlength="230">
     </div>
   </div>
 
-  <div class="form-group form-row align-items-center">
-    <label for="file_alias" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_alias'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="file_alias" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_alias'] ?></label>
     <div class="col">
       <input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias" value="<?php echo html($file_alias) ?>" maxlength="230" onfocus="set_file_alias(true);" onchange="this.value=create_alias(this.value, null, null, false);document.getElementById('file_alias_changed').value='changed';"><input name="file_alias_changed" type="hidden" id="file_alias_changed" value="" /><input name="file_alias_old" type="hidden" id="file_alias_old" value="<?php echo $file_alias ?>" />
     </div>
@@ -347,7 +347,7 @@ if($ja) {
 <?php   if(count($phpwcms['allowed_lang']) > 1): ?>
      <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#<?php echo $phpwcms['default_lang'] ?>"  title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" role="tab">
+        <a class="nav-link active" data-bs-toggle="tab" href="#<?php echo $phpwcms['default_lang'] ?>"  title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" role="tab">
                 <span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?>"></span> <?php echo $BL['be_admin_tmpl_default'] ?>
         </a>
       </li>
@@ -361,7 +361,7 @@ if($ja) {
 
             ?>
       <li class="nav-item">
-        <a href="#<?php echo $lang ?>" data-toggle="tab" title="<?php echo get_language_name($lang) ?>" class="nav-link" role="tab">
+        <a href="#<?php echo $lang ?>" data-bs-toggle="tab" title="<?php echo get_language_name($lang) ?>" class="nav-link" role="tab">
             <span class="flag-icon flag-icon-<?php echo $lang ?>"></span> <?php echo strtoupper($lang) ?>
         </a>
       </li>
@@ -373,25 +373,25 @@ if($ja) {
 <?php   endif; ?>
 
       <div class="tab-pane active" id="<?php echo $phpwcms['default_lang'] ?>" role="tabpanel">
-        <div class="form-group form-row align-items-center">
-          <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
+        <div class="form-group row g-2 align-items-center">
+          <label for="file_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_attr_title'] ?></label>
           <div class="col"><input name="file_title" type="text" id="file_title" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_title) ?>" /></div>
         </div>
 
-      <div class="form-group form-row">
-        <label for="file_longinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+      <div class="form-group row g-2">
+        <label for="file_longinfo" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_description'] ?></label>
         <div class="col">
           <textarea name="file_longinfo" cols="40" rows="4" class="form-control form-control-sm" id="file_longinfo"><?php echo html($file_longinfo) ?></textarea>
         </div>
       </div>
-      <div class="form-group form-row align-items-center">
-        <label for="file_copyright" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label for="file_copyright" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_copyright'] ?></label>
         <div class="col">
           <input name="file_copyright" type="text" id="file_copyright" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_copyright) ?>" />
         </div>
       </div>
-      <div class="form-group form-row align-items-center">
-        <label for="file_alt" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label for="file_alt" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_attr_alt'] ?></label>
         <div class="col">
           <input name="file_alt" type="text" id="file_alt" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_alt) ?>" />
         </div>
@@ -423,26 +423,26 @@ if($ja) {
 
 ?>
     <div class="tab-pane" id="<?php echo $lang ?>" role="tabpanel">
-      <div class="form-group form-row align-items-center">
-        <label for="file_title_<?php echo $lang ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label for="file_title_<?php echo $lang ?>" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_attr_title'] ?></label>
         <div class="col">
           <input name="file_title_<?php echo $lang ?>" type="text" id="file_title_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_vars[$lang]['title']) ?>" />
         </div>
       </div>
-      <div class="form-group form-row">
-        <label for="file_longinfo_<?php echo $lang ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+      <div class="form-group row g-2">
+        <label for="file_longinfo_<?php echo $lang ?>" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_description'] ?></label>
         <div class="col">
           <textarea name="file_longinfo_<?php echo $lang ?>" cols="40" rows="4" class="form-control autosize" id="file_longinfo_<?php echo $lang ?>"><?php echo html($file_vars[$lang]['longinfo']) ?></textarea>
         </div>
       </div>
-      <div class="form-group form-row align-items-center">
-        <label for="file_copyright_<?php echo $lang ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label for="file_copyright_<?php echo $lang ?>" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_copyright'] ?></label>
         <div class="col">
           <input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_vars[$lang]['copyright']) ?>" />
         </div>
       </div>
-      <div class="form-group form-row align-items-center">
-        <label for="file_alt_<?php echo $lang ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label for="file_alt_<?php echo $lang ?>" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_attr_alt'] ?></label>
         <div class="col">
           <input name="file_alt_<?php echo $lang ?>" type="text" id="file_alt_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_vars[$lang]['alt']) ?>" />
        </div>
@@ -462,12 +462,12 @@ if($ja) {
     if(!empty($file_image_iptc)):
 ?>
 
-<div class="form-group form-row align-items-center mb-3">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data']; ?></label>
+<div class="form-group row g-2 align-items-center mb-3">
+    <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_iptc_data']; ?></label>
     <div class="col">
-        <div class="custom-control custom-checkbox mb-2">
-            <input class="custom-control-input" name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> />
-            <label class="custom-control-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption']; ?></label>
+        <div class="form-check mb-2">
+            <input class="form-check-input" name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> />
+            <label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption']; ?></label>
             <input type="hidden" name="file_image_iptc" value="<?php echo base64_encode(serialize($file_image_iptc)); ?>" />
         </div>
         <div class="d-flex flex-wrap align-items-center">
@@ -476,7 +476,7 @@ if($ja) {
             foreach($file_image_iptc as $iptc_key => $iptc_value):
                 $label = isset($BL['iptc_'.$iptc_key]) ? $BL['iptc_'.$iptc_key] : $iptc_key;
                 $val = html(is_array($iptc_value) ? implode(', ', $iptc_value) : $iptc_value);
-                echo '<span class="badge badge-light border p-2 mr-2 mb-2"><strong class="text-secondary">' . $label . ':</strong> ' . $val . '</span>';
+                echo '<span class="badge badge-light border p-2 me-2 mb-2"><strong class="text-secondary">' . $label . ':</strong> ' . $val . '</span>';
             endforeach;
         ?>
         </div>
@@ -499,15 +499,15 @@ if($ja) {
             if(get_filecat_childcount($row["fcat_id"])) {
                 $has_error = isset($file_error["keywords"][$row["fcat_id"]]);
                 $k_rows .= '<tr class="mb-2">' . LF;
-                $k_rows .= '  <td class="pr-3 text-nowrap align-middle" style="width: 1%;">';
+                $k_rows .= '  <td class="pe-3 text-nowrap align-middle" style="width: 1%;">';
                 $k_rows .= '    <label for="file_keywords_' . $row["fcat_id"] . '" class="col-form-label py-1">';
                 if ($has_error) {
-                    $k_rows .= '<span class="text-danger mr-1"><i class="fa fa-exclamation-circle"></i></span>';
+                    $k_rows .= '<span class="text-danger me-1"><i class="fa fa-exclamation-circle"></i></span>';
                 }
                 $k_rows .= html($row["fcat_name"]) . '</label>';
                 $k_rows .= '  </td>' . LF;
                 $k_rows .= '  <td class="align-middle py-1">' . LF;
-                $k_rows .= '    <select name="file_keywords[' . $row["fcat_id"] . ']" id="file_keywords_' . $row["fcat_id"] . '" class="custom-select custom-select-sm' . ($has_error ? ' is-invalid' : '') . '" style="max-width: 350px;">' . LF;
+                $k_rows .= '    <select name="file_keywords[' . $row["fcat_id"] . ']" id="file_keywords_' . $row["fcat_id"] . '" class="form-select form-select-sm' . ($has_error ? ' is-invalid' : '')" style="max-width: 350px;">' . LF;
                 $k_rows .= '      <option value="' . ($row["fcat_needed"] ? "0_".$row["fcat_needed"] : "0") . '">' . ($row["fcat_needed"] ? $BL['be_ftptakeover_needed'] : $BL['be_ftptakeover_optional']) . '</option>' . LF;
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
@@ -527,8 +527,8 @@ if($ja) {
 
         if ($k_rows !== '') {
 ?>
-    <div class="form-group form-row align-items-start mb-2">
-        <label class="col-sm-2 col-form-label text-right pt-1">
+    <div class="form-group row g-2 align-items-start mb-2">
+        <label class="col-sm-2 col-form-label text-end pt-1">
             <?php echo $BL['be_ftptakeover_keywords']; ?>
         </label>
         <div class="col">
@@ -545,16 +545,16 @@ if($ja) {
     ?>
 
 
-    <div class="form-group form-row align-items-center">
-        <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional']; ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="file_shortinfo" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_additional']; ?></label>
         <div class="col">
             <input name="file_shortinfo" type="text" class="form-control form-control-sm" id="file_shortinfo" value="<?php echo html($file_shortinfo); ?>" maxlength="750">
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-right">
-            <?php echo $BL['be_tags']; ?> <i class="fas fa-info-circle text-blue ml-1" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab']; ?>"></i>
+    <div class="form-group row g-2 align-items-center">
+        <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-end">
+            <?php echo $BL['be_tags']; ?> <i class="fas fa-info-circle text-blue ms-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab']; ?>"></i>
         </label>
         <div class="col">
             <input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']); ?>" />
@@ -562,34 +562,34 @@ if($ja) {
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="file_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting']; ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="file_sort" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_sorting']; ?></label>
         <div class="col-auto">
             <input name="file_sort" type="number" id="file_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($file_sort); ?>" />
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status']; ?></span>
+    <div class="form-group row g-2 align-items-center">
+        <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status']; ?></span>
         <div class="col d-flex flex-wrap align-items-center">
 
 
 
-            <div class="custom-control custom-checkbox mr-3">
-                <input class="custom-control-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv); ?> />
-                <label class="custom-control-label font-weight-bold" for="file_aktiv"><?php echo $BL['be_ftptakeover_active']; ?></label>
+            <div class="form-check me-3">
+                <input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv); ?> />
+                <label class="form-check-label fw-bold" for="file_aktiv"><?php echo $BL['be_ftptakeover_active']; ?></label>
             </div>
-            <div class="custom-control custom-checkbox mr-3">
-                <input class="custom-control-input" name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted); ?> />
-                <label class="custom-control-label font-weight-bold" for="file_granted"><?php echo $BL['be_granted_download']; ?></label>
+            <div class="form-check me-3">
+                <input class="form-check-input" name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted); ?> />
+                <label class="form-check-label fw-bold" for="file_granted"><?php echo $BL['be_granted_download']; ?></label>
             </div>
-            <div class="custom-control custom-checkbox mr-3">
-                <input class="custom-control-input" name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public); ?> />
-                <label class="custom-control-label" for="file_public"><?php echo $BL['be_ftptakeover_public']; ?></label>
+            <div class="form-check me-3">
+                <input class="form-check-input" name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public); ?> />
+                <label class="form-check-label" for="file_public"><?php echo $BL['be_ftptakeover_public']; ?></label>
             </div>
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1"<?php is_checked(1, $file_gallerydownload); ?> />
-                <label class="custom-control-label" for="file_gallerydownload"><?php echo $BL['be_gallerydownload']; ?></label>
+            <div class="form-check">
+                <input class="form-check-input" name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1"<?php is_checked(1, $file_gallerydownload); ?> />
+                <label class="form-check-label" for="file_gallerydownload"><?php echo $BL['be_gallerydownload']; ?></label>
             </div>
         </div>
     </div>
@@ -598,8 +598,8 @@ if($ja) {
   <div class="form-group row mt-4 mb-0">
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
-      <button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_fprivedit_button'] ?></button>
-      <a class="btn btn-danger btn-sm ml-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
+      <button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_fprivedit_button'] ?></button>
+      <a class="btn btn-danger btn-sm ms-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
     </div>
   </div>
 

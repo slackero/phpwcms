@@ -35,14 +35,14 @@ foreach($plugin['fields'] as $key => $value) {
 
 		case 'STRING':
 			echo '<div class="form-group row align-items-center">';
-			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>';
+			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>';
 			echo '  <div class="col-sm-10"><input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm" value="'.html_specialchars($plugin['data'][$key]).'" maxlength="200" /></div>';
 			echo '</div>';
 			break;
 
 		case 'TEXTAREA':
 			echo '<div class="form-group row">';
-			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>';
+			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>';
 			echo '  <div class="col-sm-10"><textarea name="'.$key.'" id="'.$key.'" class="form-control form-control-sm" rows="4">'.html_specialchars($plugin['data'][$key]).'</textarea></div>';
 			echo '</div>';
 			break;
@@ -52,24 +52,24 @@ foreach($plugin['fields'] as $key => $value) {
 				break;
 			}
 			echo '<div class="form-group row align-items-center">';
-			echo '  <label class="col-sm-2 col-form-label text-sm-right font-weight-bold">' . $BLM['geo_pos'] . '</label>';
+			echo '  <label class="col-sm-2 col-form-label text-sm-end fw-bold">' . $BLM['geo_pos'] . '</label>';
 			echo '  <div class="col-sm-10">';
-			echo '    <div class="form-row align-items-center">';
+			echo '    <div class="row g-2 align-items-center">';
 			echo '      <div class="col-sm-3 mb-sm-1">';
 			echo '        <div class="input-group input-group-sm">';
-			echo '          <div class="input-group-prepend"><span class="input-group-text">Lat</span></div>';
+			echo '          <span class="input-group-text">Lat</span>';
 			echo '          <input name="detail_float1" type="text" id="detail_float1" class="form-control" value="'.html_specialchars($plugin['data']['detail_float1']).'" maxlength="200" />';
 			echo '        </div>';
 			echo '      </div>';
 			echo '      <div class="col-sm-3 mb-sm-1">';
 			echo '        <div class="input-group input-group-sm">';
-			echo '          <div class="input-group-prepend"><span class="input-group-text">Lng</span></div>';
+			echo '          <span class="input-group-text">Lng</span>';
 			echo '          <input name="detail_float2" type="text" id="detail_float2" class="form-control" value="'.html_specialchars($plugin['data']['detail_float2']).'" maxlength="200" />';
 			echo '        </div>';
 			echo '      </div>';
 			echo '      <div class="col-auto mb-sm-1">';
-			echo '        <button type="button" class="btn btn-sm btn-outline-secondary mr-1" onclick="getLocation(true);return false;"><i class="fas fa-map-marker-alt mr-1"></i> '.$BLM['get_coordinates'].'</button>';
-			echo '        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="showMap();return false;"><i class="fas fa-globe mr-1"></i> '.$BLM['show_map'].'</button>';
+			echo '        <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="getLocation(true);return false;"><i class="fas fa-map-marker-alt me-1"></i> '.$BLM['get_coordinates'].'</button>';
+			echo '        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="showMap();return false;"><i class="fas fa-globe me-1"></i> '.$BLM['show_map'].'</button>';
 			echo '      </div>';
 			echo '    </div>';
 			echo '  </div>';
@@ -78,7 +78,7 @@ foreach($plugin['fields'] as $key => $value) {
 
  		case 'INT':
 			echo '<div class="form-group row align-items-center">';
-			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>';
+			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>';
 			echo '  <div class="col-auto"><input name="'.$key.'" type="number" id="'.$key.'" class="form-control form-control-sm" value="'.html_specialchars($plugin['data'][$key]).'" maxlength="10" /></div>';
 			echo '</div>';
 			break;
@@ -86,11 +86,11 @@ foreach($plugin['fields'] as $key => $value) {
 		case 'CHECK':
 			echo '<div class="form-group row">';
 			echo '  <div class="col-sm-10 offset-sm-2">';
-			echo '    <div class="custom-control custom-checkbox">';
-			echo '      <input type="checkbox" class="custom-control-input" name="'.$key.'" id="'.$key.'" value="1"';
+			echo '    <div class="form-check">';
+			echo '      <input type="checkbox" class="form-check-input" name="'.$key.'" id="'.$key.'" value="1"';
 			is_checked($plugin['data'][$key], 1);
 			echo ' />';
-			echo '      <label class="custom-control-label" for="'.$key.'">'.$BLM[$key].'</label>';
+			echo '      <label class="form-check-label" for="'.$key.'">'.$BLM[$key].'</label>';
 			echo '    </div>';
 			echo '  </div>';
 			echo '</div>';
@@ -119,12 +119,12 @@ foreach($plugin['fields'] as $key => $value) {
 			}
 
 			echo '<div class="form-group row">';
-			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>';
+			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>';
 			echo '  <div class="col-sm-10">';
 			if ($value === 'MULTISELECT') {
 				echo '    <select id="' . $key . '" class="form-control form-control-sm" style="min-width:75px;" name="' . $key . '[]" multiple="multiple" size="6">';
 			} else {
-				echo '    <select id="' . $key . '" class="custom-select form-control form-control-sm" style="min-width:75px;" name="' . $key . '">';
+				echo '    <select id="' . $key . '" class="form-select form-select-sm" style="min-width:75px;" name="' . $key . '">';
 			}
 
 			$_options_pre = array();
@@ -190,7 +190,7 @@ foreach($plugin['fields'] as $key => $value) {
 			}
 
 			echo '<div class="form-group row">';
-			echo '  <label class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>';
+			echo '  <label class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>';
 			echo '  <div class="col-sm-10">';
 			echo '    <ul class="multicheck list-unstyled p-2 border bg-white rounded" style="height: 21em; overflow: auto; max-width: 450px;">';
 
@@ -200,14 +200,14 @@ foreach($plugin['fields'] as $key => $value) {
 			foreach($plugin['multicheck'] as $item => $row) {
 
 				$_selected = false;
-				$_option  = '   <li><div class="custom-control custom-checkbox">';
-				$_option .= '     <input type="checkbox" class="custom-control-input" id="'.$key.'_'.html_specialchars($item).'" name="'.$key.'[]" value="' . html_specialchars($item) .'"';
+				$_option  = '   <li><div class="form-check">';
+				$_option .= '     <input type="checkbox" class="form-check-input" id="'.$key.'_'.html_specialchars($item).'" name="'.$key.'[]" value="' . html_specialchars($item) .'"';
 				if( in_array($item, $plugin['data'][$key]) ) {
 						$_option .= ' checked="checked"';
 						$_selected = true;
 				}
 				$_option .= ' />';
-				$_option .= '     <label class="custom-control-label" for="'.$key.'_'.html_specialchars($item).'">' . html_specialchars(trim($row)) . '</label>';
+				$_option .= '     <label class="form-check-label" for="'.$key.'_'.html_specialchars($item).'">' . html_specialchars(trim($row)) . '</label>';
 				$_option .= '   </div></li>';
 
 				if($_selected) {
@@ -229,9 +229,9 @@ foreach($plugin['fields'] as $key => $value) {
 			$plugin['count_file_items'] = (isset($plugin['data'][$key]['files']) && is_array($plugin['data'][$key]['files'])) ? count($plugin['data'][$key]['files']) : 0;
 
 			echo '<div class="form-group row">';
-			echo '  <label for="cfile_list" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>';
+			echo '  <label for="cfile_list" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>';
 			echo '  <div class="col-sm-10">';
-			echo '    <div class="form-row">';
+			echo '    <div class="row g-2">';
 			echo '      <div class="col mb-2 mb-sm-0">';
 			echo '        <select name="'.$key.'[]" size="'.max(5, 3 + $plugin['count_file_items']).'" multiple class="form-control form-control-sm" id="cfile_list">';
 			if($plugin['count_file_items']) {
@@ -251,7 +251,7 @@ foreach($plugin['fields'] as $key => $value) {
 			echo '        </select>';
 			echo '      </div>';
 			echo '      <div class="col-sm-auto">';
-			echo '          <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" title="'.$BL['be_cnt_openfilebrowser'].'"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br>';
+			echo '          <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" title="'.$BL['be_cnt_openfilebrowser'].'"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br>';
 			echo '          <button type="button" class="btn btn-sm btn-secondary mb-1" title="'.$BL['be_cnt_sortup'].'" onclick="moveOptionUp(document.articlecontent[\''.$key.'[]\']);return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br>';
 			echo '          <button type="button" class="btn btn-sm btn-secondary mb-1" title="'.$BL['be_cnt_sortdown'].'" onclick="moveOptionDown(document.articlecontent[\''.$key.'[]\']);return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br>';
 			echo '          <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent[\''.$key.'[]\']);return false;" title="'.$BL['be_cnt_delfile'].'"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>';
@@ -261,7 +261,7 @@ foreach($plugin['fields'] as $key => $value) {
 			echo '</div>';
 
 			echo '<div class="form-group row">';
-			echo '  <label for="'.$key.'_description" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BL['be_cnt_description'].'</label>';
+			echo '  <label for="'.$key.'_description" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BL['be_cnt_description'].'</label>';
 			echo '  <div class="col-sm-10">';
 			echo '    <textarea name="'.$key.'_description" id="'.$key.'_description" class="form-control form-control-sm autosize" rows="'.max(5, 3 + $plugin['count_file_items']).'" cols="40" >';
 			if(isset($plugin['data'][$key]['descriptions']) && is_array($plugin['data'][$key]['descriptions']) && count($plugin['data'][$key]['descriptions'])) {
@@ -281,11 +281,11 @@ foreach($plugin['fields'] as $key => $value) {
 ?>
 			<div class="form-group row mt-4 mb-0">
 				<div class="col-sm-10 offset-sm-2">
-					<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fa fa-save mr-1"></i> <?php echo empty($plugin['data']['detail_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-					<button name="save" type="submit" class="btn btn-sm btn-blue ml-1"><i class="fa fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-					<a href="<?php echo MODULE_HREF ?>&amp;edit=0" class="btn btn-sm btn-blue ml-3"><i class="fa fa-plus mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
-					<a href="<?php echo MODULE_HREF ?>" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
-					<button type="reset" class="btn btn-sm btn-dark ml-1"><i class="fa fa-undo mr-1"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
+					<button name="submit" type="submit" class="btn btn-sm btn-blue me-1"><i class="fa fa-rotate me-1"></i> <?php echo empty($plugin['data']['detail_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+					<button name="save" type="submit" class="btn btn-sm btn-blue ms-1"><i class="fa fa-check me-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+					<a href="<?php echo MODULE_HREF ?>&amp;edit=0" class="btn btn-sm btn-blue ms-3"><i class="fa fa-plus me-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+					<a href="<?php echo MODULE_HREF ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times me-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+					<button type="reset" class="btn btn-sm btn-dark ms-1"><i class="fa fa-undo me-1"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
 				</div>
 			</div>
 		</form>
@@ -313,7 +313,7 @@ function showLoader() {
     var loader = document.createElement('div');
     loader.id = 'geoLoader';
     loader.setAttribute('style', 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;');
-    loader.innerHTML = '<div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only">Loading...</span></div>';
+    loader.innerHTML = '<div class="spinner-border text-light" style="width: 3rem; height: 3rem;" role="status"><span class="visually-hidden">Loading...</span></div>';
     document.body.appendChild(loader);
 }
 

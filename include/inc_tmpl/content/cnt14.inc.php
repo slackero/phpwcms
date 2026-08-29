@@ -34,10 +34,10 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
 
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
-    <select name="template" id="template"<?php if(count($cnt_fieldgroups)): ?> onchange="return toggleTabsTemplate(this);"<?php endif; ?> class="custom-select form-control form-control-sm">
+    <select name="template" id="template"<?php if(count($cnt_fieldgroups)): ?> onchange="return toggleTabsTemplate(this);"<?php endif; ?> class="form-select form-control form-control-sm">
 		<?php
     echo '<option value=""'.(empty($content["template"]) ? ' selected="selected"' : '').'>'.$BL['be_admin_tmpl_default'].'</option>'.LF;
     $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/wysiwyg');
@@ -64,8 +64,8 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="chtml" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_htmltext']; ?></label>
+<div class="form-group row g-2">
+  <label for="chtml" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_htmltext']; ?></label>
   <div class="col">
 <?php
 
@@ -134,8 +134,8 @@ if($content['custom_field_items']): ?>
         $is_wysiwyg = $cnt_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($cnt_fieldgroup['fields'][$custom_field]['render']) && $cnt_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg' ? true : false;
         $custom_field_class = empty($cnt_fieldgroup['fields'][$custom_field]['class']) ? '' : ' ' . $cnt_fieldgroup['fields'][$custom_field]['class'];
 ?>
-        <div class="form-group align-items-center form-row<?= $custom_field_class; ?>">
-           <label class="col-sm-2 col-form-label text-right">
+        <div class="form-group align-items-center row g-2<?= $custom_field_class; ?>">
+           <label class="col-sm-2 col-form-label text-end">
             <?php
                 if($cnt_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                     if(isset($cnt_fieldgroup['fields'][$custom_field]['legend'])) {
@@ -201,12 +201,12 @@ if($content['custom_field_items']): ?>
                         if(isset($content['custom_fields'][$custom_field]) && $content['custom_fields'][$custom_field] === $option_key):
                     ?> checked="checked"<?php
                         elseif(empty($content['custom_fields'][$custom_field]) && !empty($cnt_fieldgroup['fields'][$custom_field]['default']) && $cnt_fieldgroup['fields'][$custom_field]['default'] === $option_key):
-                    ?> checked="checked"<?php endif; ?> /> <label class="form-check-label mr-3"><?php echo html($option_label); ?>
+                    ?> checked="checked"<?php endif; ?> /> <label class="form-check-label me-3"><?php echo html($option_label); ?>
                 </label>
               	</div>
 <?php       endforeach; ?>
 <?php   elseif($cnt_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($cnt_fieldgroup['fields'][$custom_field]['values'])): ?>
-                <select name="customfield[<?php echo $custom_field; ?>]" class="custom-select form-control form-control-sm">
+                <select name="customfield[<?php echo $custom_field; ?>]" class="form-select form-control form-control-sm">
 <?php       foreach($cnt_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
                     <option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
                         if(isset($content['custom_fields'][$custom_field]) && $content['custom_fields'][$custom_field] === $option_key):

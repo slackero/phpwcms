@@ -525,7 +525,7 @@ function custom_field_render_input($field_key, $field_def, $value = null, $name_
     }
 
     $out .= '<div class="form-group row align-items-center mb-2">' . LF;
-    $out .= '  <label for="' . html($input_id) . '" class="col-sm-3 col-form-label text-sm-right">' . html($legend) . '</label>' . LF;
+    $out .= '  <label for="' . html($input_id) . '" class="col-sm-3 col-form-label text-sm-end">' . html($legend) . '</label>' . LF;
     $out .= '  <div class="col-sm-9">' . LF;
 
     switch ($type) {
@@ -549,7 +549,7 @@ function custom_field_render_input($field_key, $field_def, $value = null, $name_
         case 'option':
         case 'select':
             $values = $field_def['values'] ?? array();
-            $out .= '    <select name="' . html($input_name) . '" id="' . html($input_id) . '" class="custom-select form-control form-control-sm ' . html($class) . '">' . LF;
+            $out .= '    <select name="' . html($input_name) . '" id="' . html($input_id) . '" class="form-select form-select-sm ' . html($class) . '">' . LF;
             if (is_array($values)) {
                 foreach ($values as $val_k => $val_label) {
                     if (function_exists('i18n_substitute_text')) {
@@ -564,9 +564,9 @@ function custom_field_render_input($field_key, $field_def, $value = null, $name_
 
         case 'bool':
             $checked = !empty($value) ? ' checked="checked"' : '';
-            $out .= '    <div class="custom-control custom-checkbox">' . LF;
-            $out .= '      <input type="checkbox" name="' . html($input_name) . '" id="' . html($input_id) . '" value="1" class="custom-control-input ' . html($class) . '"' . $checked . '>' . LF;
-            $out .= '      <label class="custom-control-label" for="' . html($input_id) . '">' . html($legend) . '</label>' . LF;
+            $out .= '    <div class="form-check">' . LF;
+            $out .= '      <input type="checkbox" name="' . html($input_name) . '" id="' . html($input_id) . '" value="1" class="form-check-input ' . html($class) . '"' . $checked . '>' . LF;
+            $out .= '      <label class="form-check-label" for="' . html($input_id) . '">' . html($legend) . '</label>' . LF;
             $out .= '    </div>' . LF;
             break;
 
@@ -595,9 +595,9 @@ function custom_field_render_input($field_key, $field_def, $value = null, $name_
             $opt = ($type === 'image') ? 1 : 4;
             $out .= '    <div class="input-group input-group-sm">' . LF;
             $out .= '      <input type="text" name="' . html($input_name) . '" id="' . html($input_id) . '" value="' . html($file_val) . '" class="form-control form-control-sm ' . html($class) . '" placeholder="' . html($placeholder ?: ($type === 'image' ? 'Image ID / Path' : 'File ID / Path')) . '">' . LF;
-            $out .= '      <div class="input-group-append">' . LF;
-            $out .= '        <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=' . $opt . '&amp;target=nolist"><i class="fa fa-folder-open"></i></button>' . LF;
-            $out .= '      </div>' . LF;
+            $out .= '      ' . LF;
+            $out .= '        <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=' . $opt . '&amp;target=nolist"><i class="fa fa-folder-open"></i></button>' . LF;
+            $out .= '      ' . LF;
             $out .= '    </div>' . LF;
             break;
 

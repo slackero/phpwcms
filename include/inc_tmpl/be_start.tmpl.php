@@ -79,9 +79,9 @@ $_last10_article = _dbQuery($_asql_1);
 		<div class="col">
 			<h2><?php echo $BL['be_cnt_articles'] .' <span class="smalltext">('. $_be_search . ')</span>' ?></h2>
 		</div>
-		<div class="col-sm-auto text-right">
+		<div class="col-sm-auto text-end">
 			<form class="formRightInput" action="phpwcms.php?<?php echo get_token_get_string(); ?>" id="setHomeMaxArticles" name="setHomeMaxArticles" method="post">
-				<select class="custom-select form-control form-control-sm" name="homeMaxArticles" onchange="this.form.submit();">
+				<select class="form-select form-select-sm" name="homeMaxArticles" onchange="this.form.submit();">
 					<?php foreach (array(5,10,15,25,50,75,100,150) as $x): ?>
 					<option value="<?php echo $x ?>"<?php is_selected($_phpwcms_home['homeMaxArticles'], $x) ?>><?php echo $x ?></option>
 					<?php endforeach; ?>
@@ -96,7 +96,7 @@ $_last10_article = _dbQuery($_asql_1);
 <table class="table table-sm table-valign-middle mb-0">
   <thead class="thead-default">
   <tr class="bg-grey">
-    <th class="text-left home-title"><?php echo $BL['be_article_atitle'] ?></th>
+    <th class="text-start home-title"><?php echo $BL['be_article_atitle'] ?></th>
     <th class="text-nowrap home-date"><?php echo $BL['be_cnt_last_edited'] ?></th>
     <th class="home-actions">&nbsp;</th>
   </tr>
@@ -113,13 +113,13 @@ $_last10_article = _dbQuery($_asql_1);
           }
           echo '</td>';
           echo '  <td class="text-nowrap home-date">&nbsp;'.$value['article_date'].'&nbsp;</td>';
-          echo '  <td class="text-right text-nowrap home-actions">';
+          echo '  <td class="text-end text-nowrap home-actions">';
           if(count($phpwcms['allowed_lang'])) {
-              echo '<span class="mr-3 flag-icon flag-icon-' . ($lang = strtolower(empty($value["article_lang"]) ? $phpwcms['default_lang'] : $value["article_lang"])) . '" title="' . get_language_name($lang) . '"></span>';
+              echo '<span class="me-3 flag-icon flag-icon-' . ($lang = strtolower(empty($value["article_lang"]) ? $phpwcms['default_lang'] : $value["article_lang"])) . '" title="' . get_language_name($lang) . '"></span>';
           }
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="home-article-'.$value['article_id'].'">';
-          echo '<button id="abtnarticle'.$value['article_id'].'" class="btn fa btn-sm visible '.($value['article_aktiv'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['article_id'].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
-          echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.html($BL['be_func_struct_edit']).'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<button id="abtnarticle'.$value['article_id'].'" class="btn fa btn-sm visible '.($value['article_aktiv'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['article_id'].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
+          echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.html($BL['be_func_struct_edit']).'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil-alt"></i></a>';
           echo '</div>';
           echo '</td>';
           echo '</tr>';
@@ -131,8 +131,8 @@ $_last10_article = _dbQuery($_asql_1);
 </table>
 </div>
     <div class="mt-3">
-      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles" class="btn btn-sm btn-blue"><i class="fa fa-list mr-1"></i> <?php echo $BL['be_subnav_article_center'] ?></a>
-      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles&amp;p=1&amp;struct=0" class="btn btn-sm btn-blue ml-1"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_subnav_article_new'] ?></a>
+      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles" class="btn btn-sm btn-blue"><i class="fa fa-list me-1"></i> <?php echo $BL['be_subnav_article_center'] ?></a>
+      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles&amp;p=1&amp;struct=0" class="btn btn-sm btn-blue ms-1"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_subnav_article_new'] ?></a>
     </div>
   </div>
 </div>
@@ -144,10 +144,10 @@ $_last10_article = _dbQuery($_asql_1);
   			<h2><?php echo $BL['be_ctype'] .' <span class="smalltext">('. $_be_search .')</span>' ?></h2>
   		</div>
   		<div class="col">
-		<form class="formRightInput float-right" action="phpwcms.php?<?php echo get_token_get_string(); ?>" id="setHomeMaxCntParts" name="setHomeMaxCntParts" method="post">
-		<div class="form-row">
+		<form class="formRightInput float-end" action="phpwcms.php?<?php echo get_token_get_string(); ?>" id="setHomeMaxCntParts" name="setHomeMaxCntParts" method="post">
+		<div class="row g-2">
 			<div class="col">
-			<select class="custom-select form-control form-control-sm" name="homeCntType" onChange="this.form.submit();">
+			<select class="form-select form-select-sm" name="homeCntType" onChange="this.form.submit();">
 				<option value="">&#8211;</option>
 				<?php foreach ($wcs_content_type as $key => $value): ?>
 				<option value="<?php echo $key ?>"<?php is_selected($_phpwcms_home['homeCntType'], $key) ?>><?php echo $value ?></option>
@@ -155,7 +155,7 @@ $_last10_article = _dbQuery($_asql_1);
 			</select>
 			</div>
 			<div class="col">
-			<select class="custom-select form-control form-control-sm" name="homeMaxCntParts" onchange="this.form.submit();">
+			<select class="form-select form-select-sm" name="homeMaxCntParts" onchange="this.form.submit();">
 				<?php foreach (array(5,10,15,25,50,75,100,150,200,250) as $x): ?>
 				<option value="<?php echo $x ?>"<?php is_selected($_phpwcms_home['homeMaxCntParts'], $x) ?>><?php echo $x ?></option>
 				<?php endforeach; ?>
@@ -211,10 +211,10 @@ $_last10_article = _dbQuery($_asql_1);
 
           echo '  <td class="home-cp" style="font-weight:normal">'.$value['notice'].'</td>'.LF;
           echo '  <td class="text-nowrap home-date">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
-          echo '  <td class="text-right text-nowrap home-actions">';
+          echo '  <td class="text-end text-nowrap home-actions">';
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="home-cp-'.$value['acontent_id'].'">';
-          echo '<button id="abtnacontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['acontent_id'].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
-          echo '<a class="btn btn-sm btn-blue" title="'.html($BL['be_func_content_edit']).'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<button id="abtnacontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['acontent_id'].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
+          echo '<a class="btn btn-sm btn-blue" title="'.html($BL['be_func_content_edit']).'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'"><i class="fa fa-pencil-alt"></i></a>';
           echo '</div>';
           echo '</td>'.LF;
           echo '</tr>'.LF;

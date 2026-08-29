@@ -50,7 +50,7 @@ switch ($media['media_player']) {
 $media_src = $media['media_id'] ? 'INTERNAL SOURCE' : 'EXTERNAL SOURCE';
 $cinfo_media = '';
 if (!empty($media['media_cnt'])) {
-    $cinfo_media = '<i class="' . $player_icon . ' mr-1" title="' . $type_label . '"></i> ';
+    $cinfo_media = '<i class="' . $player_icon . ' me-1" title="' . $type_label . '"></i> ';
     $cinfo_media .= '<strong>' . $media_src . ' [' . $type_label . ']</strong>';
 }
 

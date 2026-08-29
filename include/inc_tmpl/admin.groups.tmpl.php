@@ -44,11 +44,11 @@ foreach($phpwcms['modules'] as $value) {
 ?>
 
 <div class="row align-items-center">
-  <div class="col col-sm-auto text-center text-sm-left">
+  <div class="col col-sm-auto text-center text-sm-start">
     <h1><?php echo $BL['be_subnav_admin_groups'] ;?></h1>
   </div>
-  <div class="col-12 col-sm text-center text-sm-right mb-3">
-    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
+  <div class="col-12 col-sm text-center text-sm-end mb-3">
+    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
   </div>
 </div>
 
@@ -134,8 +134,8 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 	<?php } ?>
 
 	<fieldset>
-		<div class="form-group align-items-center form-row" >
-			<label for="be_fpriv_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_name'] ?></label>
+		<div class="form-group align-items-center row g-2" >
+			<label for="be_fpriv_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_fpriv_name'] ?></label>
 			<div class="col">
 					<input name="group_name" class="form-control form-control-sm" id="group_name" value="<?php echo empty($group["name"]) ? '' : html($group["name"]) ?>" size="40" maxlength="250" type="text" <?php echo ($group["syskey"] ? 'readonly' : '') ?> />
 			</div>
@@ -143,8 +143,8 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 	</fieldset>
 
 	<fieldset>
-		<div class="form-group form-row">
-				<label for="be_cnt_description" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+		<div class="form-group row g-2">
+				<label for="be_cnt_description" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_description'] ?></label>
 				<div class="col">
 					<textarea name="group_value" rows="4" class="form-control form-control-sm" id="group_value" <?php echo ($group["syskey"] ? 'readonly' : '') ?>><?php echo html($group["value"]) ?></textarea>
 				</div>
@@ -152,8 +152,8 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 	</fieldset>
 
     <!-- USER RIGHTS enym.com   -->
-    <div class="form-group form-row" >
-      <label for="be_selection" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_selection'] ?></label>
+    <div class="form-group row g-2" >
+      <label for="be_selection" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_selection'] ?></label>
         <div class="col">
             <?php
             // list all available frontend users and put into temp array
@@ -170,7 +170,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
                 }
             }
             ?>
-            <select name="acat_access[]" id="acat_access" size="12" multiple="multiple" class="custom-select form-control form-control-sm" onDblClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);">
+            <select name="acat_access[]" id="acat_access" size="12" multiple="multiple" class="form-select form-select-sm" onDblClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);">
                 <?php
                 if (count($_temp_usr)) {
                     // list all fe_users
@@ -193,13 +193,13 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             </select>
         </div>
       <div class="col-sm-auto">
-          <button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br />
-          <button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br />
-          <button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br />
-          <button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br />
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br />
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br />
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
       </div>
       <div class="col">
-        <select name="acat_feusers" size="12" multiple="multiple" id="acat_feusers" class="custom-select form-control form-control-sm" onDblClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);">
+        <select name="acat_feusers" size="12" multiple="multiple" id="acat_feusers" class="form-select form-select-sm" onDblClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);">
             <?php
                 // list all available fe_users
             if (count($_temp_usr)) {
@@ -218,8 +218,8 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
       </div>
       </div>
       <!-- USER RIGHTS -->
-      <div class="form-group form-row align-items-center">
-				<label for="be_ftptakeover_status" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+				<label for="be_ftptakeover_status" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
 				<div class="col">
 					<div class="form-check">
 						<input class="form-check-input" name="group_active" type="checkbox" id="group_active" value="1" <?php is_checked(1, empty($group["active"]) ? 0 : $group["active"]); ?> <?php echo ($group["syskey"] ? 'disabled="disabled"' : '') ?> />
@@ -228,13 +228,13 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 				</div>
       </div>
 
-	<div class="form-group form-row align-items-center mt-4 mb-4">
+	<div class="form-group row g-2 align-items-center mt-4 mb-4">
 		<div class="col-sm-2"></div>
 		<div class="col">
           <input name="group_id" type="hidden" id="group_id" value="<?php echo $group["id"] ?>" />
           <input name="group_aktion" type="hidden" id="group_aktion" value="1" />
-          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $sendbutton ?></button>
-          <a href="phpwcms.php?do=admin&amp;p=1" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_fcat_exit'] ?></a>
+          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $sendbutton ?></button>
+          <a href="phpwcms.php?do=admin&amp;p=1" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_fcat_exit'] ?></a>
           <input type="hidden" value="<?php echo $group["syskey"] ?>" name="group_syskey" id="group_syskey" />
     </div>
   </div>
@@ -278,23 +278,23 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             echo $grouplist["group_name"] ? html($grouplist["group_name"]).' <span class="text-muted">('.$total_member.' '.$BL['be_cnt_rssfeed_item'].')</span>' : 'n.a.';
 
           ?></a></td>
-          <td class="text-right text-nowrap">
+          <td class="text-end text-nowrap">
             <div class="btn-group btn-group-sm" role="group" aria-label="group-actions-<?php echo $grouplist['group_id']; ?>">
             <?php if ($grouplist["group_syskey"]) {
-                echo '<button class="btn fa btn-sm visible btn-success disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5; min-width: 32px;" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
+                echo '<button class="btn fa btn-sm visible btn-success disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5; min-width: 32px;" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
               } else {
-                echo '<button id="abtngroup'.$grouplist["group_id"].'" class="btn fa btn-sm visible '.($grouplist["group_active"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$grouplist["group_id"].'" data-type="group" data-table="usergroup" data-field="group_active" data-fieldid="group_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
+                echo '<button id="abtngroup'.$grouplist["group_id"].'" class="btn fa btn-sm visible '.($grouplist["group_active"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$grouplist["group_id"].'" data-type="group" data-table="usergroup" data-field="group_active" data-fieldid="group_id" aria-disabled="true" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
               }
             ?>
             <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php
                 echo $BL['be_admin_group_edit'].": ".html($grouplist["group_name"])
-            ?>" data-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa fa-pencil-alt fa-fw"></i></a>
+            ?>" data-bs-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa fa-pencil-alt fa-fw"></i></a>
             </div>
             <?php if ($grouplist["group_syskey"]) {
-            echo '<button class="btn btn-sm btn-danger ml-1 disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5;" title="'.$BL['be_admin_group_ldel'].' '.html($grouplist["group_name"]).'" data-toggle="tooltip"><i class="far fa-trash-alt fa-fw"></i></button>';
+            echo '<button class="btn btn-sm btn-danger ms-1 disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5;" title="'.$BL['be_admin_group_ldel'].' '.html($grouplist["group_name"]).'" data-bs-toggle="tooltip"><i class="far fa-trash-alt fa-fw"></i></button>';
             } else {
             ?>
-            <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
+            <a class="btn btn-sm btn-danger ms-1" role="button" aria-disabled="true" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-bs-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
                 echo urlencode($grouplist["group_id"].":".$grouplist["group_name"]);
             ?>" data-confirm-danger="Delete group <?php echo html($grouplist["group_name"]) ?>"><i class="far fa-trash-alt fa-fw"></i></a>
             <?php } ?></td>
@@ -312,6 +312,6 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
   </div>
 </div>
 
-<div class="form-group text-center text-sm-right mt-3 mb-0">
-  <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
+<div class="form-group text-center text-sm-end mt-3 mb-0">
+  <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
 </div>

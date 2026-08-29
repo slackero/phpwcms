@@ -28,64 +28,48 @@ initJsCalendar();
 			<input type="hidden" name="adcampaign_id" value="<?php echo $plugin['data']['adcampaign_id'] ?>" />
 
 			<div class="form-group row align-items-center">
-				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_cnt_last_edited'] ?></label>
+				<label class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BL['be_cnt_last_edited'] ?></label>
 				<div class="col-sm-9">
 					<span class="text-muted"><?php echo html(phpwcms_strtotime($plugin['data']['adcampaign_changed'], $BL['be_fprivedit_dateformat'], '')) ?></span>
 					<?php if(!empty($plugin['data']['adcampaign_created'])): ?>
-						<span class="text-muted ml-3 small">(<?php echo $BL['be_fprivedit_created'] ?>: <?php echo html(phpwcms_strtotime($plugin['data']['adcampaign_created'], $BL['be_fprivedit_dateformat'], '')) ?>)</span>
+						<span class="text-muted ms-3 small">(<?php echo $BL['be_fprivedit_created'] ?>: <?php echo html(phpwcms_strtotime($plugin['data']['adcampaign_created'], $BL['be_fprivedit_dateformat'], '')) ?>)</span>
 					<?php endif; ?>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_title" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['campaign_entry'] ?></label>
+				<label for="adcampaign_title" class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BLM['campaign_entry'] ?></label>
 				<div class="col-sm-9">
 					<input name="adcampaign_title" type="text" id="adcampaign_title" class="form-control form-control-sm<?php if(!empty($plugin['error']['adcampaign_title'])) echo ' is-invalid'; ?>" value="<?php echo html($plugin['data']['adcampaign_title']) ?>" maxlength="200" />
 				</div>
 			</div>
 
 			<div class="form-group row align-items-center">
-				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['calendar_start'] ?></label>
+				<label class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BLM['calendar_start'] ?></label>
 				<div class="col-sm-9">
-					<div class="d-flex flex-wrap align-items-center">
-						<div class="my-1 mr-sm-3 mb-2 mb-sm-0">
-							<div class="input-group input-group-sm datetime-picker-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
-								</div>
-								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
-								<div class="input-group-append">
-									<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_start')._flatpickr&&document.getElementById('adcampaign_date_start')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
-								</div>
-								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
-								<div class="input-group-append">
-									<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_start')._flatpickr&&document.getElementById('adcampaign_time_start')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
-								</div>
-							</div>
+					<div class="d-flex flex-wrap flex-lg-nowrap align-items-center gap-2">
+						<div class="input-group input-group-sm datetime-picker-group">
+							<span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
+							<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
+							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_start')._flatpickr&&document.getElementById('adcampaign_date_start')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+							<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
+							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_start')._flatpickr&&document.getElementById('adcampaign_time_start')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
 						</div>
-						<div class="my-1">
-							<div class="input-group input-group-sm datetime-picker-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
-								</div>
-								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
-								<div class="input-group-append">
-									<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_end')._flatpickr&&document.getElementById('adcampaign_date_end')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
-								</div>
-								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
-								<div class="input-group-append">
-									<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_end')._flatpickr&&document.getElementById('adcampaign_time_end')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
-								</div>
-							</div>
+						<div class="input-group input-group-sm datetime-picker-group">
+							<span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
+							<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
+							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_end')._flatpickr&&document.getElementById('adcampaign_date_end')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+							<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
+							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_end')._flatpickr&&document.getElementById('adcampaign_time_end')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_format" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_format'] ?></label>
+				<label for="adcampaign_format" class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BLM['ad_format'] ?></label>
 				<div class="col-sm-9">
-					<select name="adcampaign_format" id="adcampaign_format" class="custom-select form-control form-control-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
+					<select name="adcampaign_format" id="adcampaign_format" class="form-select form-select-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
 						<?php
 						$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_formats WHERE adformat_status=1';
 						$plugin['ad_formats']		= _dbQuery($sql);
@@ -114,19 +98,19 @@ initJsCalendar();
 
 			<div class="form-group row">
 				<div class="col-sm-9 offset-sm-3">
-					<div class="form-row align-items-center">
+					<div class="row g-2 align-items-center">
 						<div class="col-auto">
-							<span class="small text-muted font-weight-bold mr-1"><?php echo $BL['be_admin_page_width'] ?>:</span>
+							<span class="small text-muted fw-bold me-1"><?php echo $BL['be_admin_page_width'] ?>:</span>
 							<input type="text" name="adcampaign_width" id="adcampaign_width" value="<?php echo $plugin['data']['adcampaign_data']['width'] ?>" class="form-control form-control-sm d-inline-block text-center" style="width: 60px;" readonly onfocus="this.blur()" />
-							<span class="small text-muted ml-1"><?php echo $BLM['pixel'] ?></span>
+							<span class="small text-muted ms-1"><?php echo $BLM['pixel'] ?></span>
 						</div>
 						<div class="col-auto">
-							<span class="small text-muted font-weight-bold mx-2">/</span>
+							<span class="small text-muted fw-bold mx-2">/</span>
 						</div>
 						<div class="col-auto">
-							<span class="small text-muted font-weight-bold mr-1"><?php echo $BL['be_admin_page_height'] ?>:</span>
+							<span class="small text-muted fw-bold me-1"><?php echo $BL['be_admin_page_height'] ?>:</span>
 							<input type="text" name="adcampaign_height" id="adcampaign_height" value="<?php echo $plugin['data']['adcampaign_data']['height'] ?>" class="form-control form-control-sm d-inline-block text-center" style="width: 60px;" readonly onfocus="this.blur()" />
-							<span class="small text-muted ml-1"><?php echo $BLM['pixel'] ?></span>
+							<span class="small text-muted ms-1"><?php echo $BLM['pixel'] ?></span>
 						</div>
 					</div>
 					<script type="text/javascript">
@@ -143,24 +127,20 @@ initJsCalendar();
 				</div>
 			</div>
 
-			<div class="form-group row">
-				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['tracking_base'] ?></label>
+			<div class="form-group row align-items-center">
+				<label class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BLM['tracking_base'] ?></label>
 				<div class="col-sm-9">
-					<div class="form-row">
+					<div class="row g-2 align-items-center">
 						<div class="col-auto">
 							<div class="input-group input-group-sm">
-								<input type="number" name="adcampaign_max_views" id="adcampaign_max_views" value="<?php echo empty($plugin['data']['adcampaign_data']['max_views']) ? '' : $plugin['data']['adcampaign_data']['max_views'] ?>" class="form-control" />
-								<div class="input-group-append">
-									<span class="input-group-text"><?php echo $BLM['max_view'] ?></span>
-								</div>
+								<span class="input-group-text"><?php echo $BLM['max_view'] ?></span>
+								<input type="number" name="adcampaign_max_views" id="adcampaign_max_views" value="<?php echo empty($plugin['data']['adcampaign_data']['max_views']) ? '' : $plugin['data']['adcampaign_data']['max_views'] ?>" class="form-control" style="width: 80px;" />
 							</div>
 						</div>
 						<div class="col-auto">
 							<div class="input-group input-group-sm">
-								<input type="number" name="adcampaign_max_click" id="adcampaign_max_click" value="<?php echo empty($plugin['data']['adcampaign_data']['max_click']) ? '' : $plugin['data']['adcampaign_data']['max_click'] ?>" class="form-control" />
-								<div class="input-group-append">
-									<span class="input-group-text"><?php echo $BLM['max_click'] ?></span>
-								</div>
+								<span class="input-group-text"><?php echo $BLM['max_click'] ?></span>
+								<input type="number" name="adcampaign_max_click" id="adcampaign_max_click" value="<?php echo empty($plugin['data']['adcampaign_data']['max_click']) ? '' : $plugin['data']['adcampaign_data']['max_click'] ?>" class="form-control" style="width: 80px;" />
 							</div>
 						</div>
 					</div>
@@ -168,16 +148,16 @@ initJsCalendar();
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_url" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['target_url'] ?></label>
+				<label for="adcampaign_url" class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BLM['target_url'] ?></label>
 				<div class="col-sm-9">
 					<input type="text" name="adcampaign_url" id="adcampaign_url" value="<?php echo empty($plugin['data']['adcampaign_data']['max_views']) ? '' : $plugin['data']['adcampaign_data']['url'] ?>" class="form-control form-control-sm" />
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_target" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['open_in'] ?></label>
+				<label for="adcampaign_target" class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BLM['open_in'] ?></label>
 				<div class="col-sm-9">
-					<select name="adcampaign_target" id="adcampaign_target" class="custom-select form-control form-control-sm" style="max-width: 200px;">
+					<select name="adcampaign_target" id="adcampaign_target" class="form-select form-select-sm" style="max-width: 200px;">
 						<option value=""<?php is_selected('', $plugin['data']['adcampaign_data']['target']) ?>>&nbsp;</option>
 						<option value="_blank"<?php is_selected('_blank', $plugin['data']['adcampaign_data']['target']) ?>>_blank</option>
 						<option value="_top"<?php is_selected('_top', $plugin['data']['adcampaign_data']['target']) ?>>_top</option>
@@ -188,7 +168,7 @@ initJsCalendar();
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_comment" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['comment'] ?></label>
+				<label for="adcampaign_comment" class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BLM['comment'] ?></label>
 				<div class="col-sm-9">
 					<textarea name="adcampaign_comment" id="adcampaign_comment" rows="5" class="form-control form-control-sm"><?php echo html($plugin['data']['adcampaign_comment']) ?></textarea>
 				</div>
@@ -196,19 +176,19 @@ initJsCalendar();
 
 			<div class="form-group row">
 				<div class="col-sm-9 offset-sm-3">
-					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input" name="adcampaign_status" id="adcampaign_status" value="1"<?php is_checked($plugin['data']['adcampaign_status'], 1) ?> />
-						<label class="custom-control-label" for="adcampaign_status"><?php echo $BL['be_cnt_activated'] ?></label>
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" name="adcampaign_status" id="adcampaign_status" value="1"<?php is_checked($plugin['data']['adcampaign_status'], 1) ?> />
+						<label class="form-check-label" for="adcampaign_status"><?php echo $BL['be_cnt_activated'] ?></label>
 					</div>
 				</div>
 			</div>
 
 			<div class="form-group row mt-4 mb-0">
 				<div class="col-sm-9 offset-sm-3">
-					<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fa fa-save mr-1"></i> <?php echo empty($plugin['data']['adcampaign_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-					<button name="save" type="submit" class="btn btn-sm btn-blue ml-1"><i class="fa fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;campaign=1&amp;edit=0" class="btn btn-sm btn-blue ml-3"><i class="fa fa-plus mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
-					<a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+					<button name="submit" type="submit" class="btn btn-sm btn-blue me-1"><i class="fa fa-rotate me-1"></i> <?php echo empty($plugin['data']['adcampaign_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+					<button name="save" type="submit" class="btn btn-sm btn-blue ms-1"><i class="fa fa-check me-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;campaign=1&amp;edit=0" class="btn btn-sm btn-blue ms-3"><i class="fa fa-plus me-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times me-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
 				</div>
 			</div>
 		</form>

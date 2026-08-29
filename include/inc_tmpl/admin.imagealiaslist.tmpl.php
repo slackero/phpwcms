@@ -15,7 +15,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-echo '<h1 class="text-center text-sm-left">'.$BL['be_imagealias'].'</h1>';
+echo '<h1 class="text-center text-sm-start">'.$BL['be_imagealias'].'</h1>';
 
 // check if file alias field exists
 $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_file LIKE 'f_alias'", 'COUNT_SHOW');
@@ -69,15 +69,15 @@ if(isset($_POST['keyword'])) {
   <form action="phpwcms.php?do=admin&amp;p=12" method="post" name="aliasform">
     <div class="input-group input-group-sm">
       <input class="form-control" type="text" name="keyword" id="keyword" size="30" value="<?php echo (isset($_POST['keyword']) ? htmlentities($_POST['keyword']) : ''); ?>" />
-       <select name="limit" size="1" class="custom-select">
+       <select name="limit" size="1" class="form-select">
             <?php foreach (array(10,25,50,75,100,150) as $x): ?>
           <option value="<?php echo $x ?>"><?php echo $x ?></option>
           <?php endforeach; ?>
           <option value="99999"><?php echo $BL['be_ftptakeover_all'] ?></option>
        </select>
-       <span class="input-group-append">
-          <button class="btn btn-secondary" name="gofilter" type="submit"><i class="fa fa-cogs mr-1"></i> Verarbeiten</button>
-      </span>
+       
+          <button class="btn btn-secondary" name="gofilter" type="submit"><i class="fa fa-cogs me-1"></i> Verarbeiten</button>
+      
     </div>
   </form>
 

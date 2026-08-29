@@ -109,7 +109,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 ?>
 <h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
-<div class="form-group mb-3 text-center text-sm-left">
+<div class="form-group mb-3 text-center text-sm-start">
     <a class="btn btn-sm btn-blue" href="<?php echo MODULE_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fas fa-address-card fa-fw"></i> <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 
@@ -119,7 +119,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 			<input type="hidden" name="do_pagination" value="1" />
 			<input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
 			<input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
-			<div class="form-row align-items-center mb-3">
+			<div class="row g-2 align-items-center mb-3">
 				<div class="col-auto">
 					<div class="btn-group btn-group-sm">
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
@@ -134,22 +134,22 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 				<?php if($_entry['pages_total'] > 1): ?>
 					<div class="col-auto">
 						<div class="input-group input-group-sm">
-							<div class="input-group-prepend">
+							
 								<?php if($_SESSION['userdetail_page'] > 1): ?>
 									<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;page=<?php echo ($_SESSION['userdetail_page']-1) ?>" class="btn btn-secondary"><i class="fas fa-chevron-left"></i></a>
 								<?php else: ?>
 									<button class="btn btn-secondary" disabled><i class="fas fa-chevron-left"></i></button>
 								<?php endif; ?>
-							</div>
+							
 							<input type="number" name="page" id="page" value="<?php echo $_SESSION['userdetail_page'] ?>" class="form-control text-center w-25" />
-							<div class="input-group-append">
+							
 								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 								<?php if($_SESSION['userdetail_page'] < $_entry['pages_total']): ?>
 									<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;page=<?php echo ($_SESSION['userdetail_page']+1) ?>" class="btn btn-secondary"><i class="fas fa-chevron-right"></i></a>
 								<?php else: ?>
 									<button class="btn btn-secondary" disabled><i class="fas fa-chevron-right"></i></button>
 								<?php endif; ?>
-							</div>
+							
 						</div>
 					</div>
 				<?php else: ?>
@@ -167,14 +167,14 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 							<option value="-">- <?php echo $BLM['detail_country'] ?> -</option>
 							<?php echo list_country( isset($_SESSION['filter_country']) ? $_SESSION['filter_country'] : '-'  ); ?>
 						</select>
-						<div class="input-group-append">
+						
 							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
-						</div>
+						
 					</div>
 				</div>
 
-				<div class="col text-right">
-					<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo decode_entities(MODULE_HREF) ?>&amp;c=' + this.value;">
+				<div class="col text-end">
+					<select class="form-select form-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo decode_entities(MODULE_HREF) ?>&amp;c=' + this.value;">
 						<?php foreach([10, 25, 50, 100] as $c): ?>
 							<option value="<?php echo $c ?>"<?php if($_SESSION['list_user_count'] == $c) echo ' selected'; ?>><?php echo $c ?></option>
 						<?php endforeach; ?>
@@ -193,7 +193,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						<th><?php echo $BLM['detail_city'] ?></th>
 						<th>C</th>
 						<th>S</th>
-						<th style="width: 120px;" class="text-right">Actions</th>
+						<th style="width: 120px;" class="text-end">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -210,11 +210,11 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						$row['listname'] = trim($row["detail_company"] . ', ' . trim($row["detail_firstname"] . ' ' . $row["detail_lastname"]), ', ');
 						echo '<tr>';
 						echo '<td class="text-center"><i class="fas fa-address-card text-muted"></i></td>';
-						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="text-dark font-weight-bold">' . html($row['listname']) . '</a></td>';
+						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="text-dark fw-bold">' . html($row['listname']) . '</a></td>';
 						echo '<td>' . html($row["detail_city"] . ($row["detail_zip"] ? ', ' . $row["detail_zip"] : '')) . '</td>';
 						echo '<td>' . html($row["detail_country"]) . '</td>';
 						echo '<td>' . (intval($row["detail_int2"]) ? $row["detail_int2"] : '') . '</td>';
-						echo '<td class="text-right text-nowrap">';
+						echo '<td class="text-end text-nowrap">';
 						echo '<div class="btn-group btn-group-sm" role="group" aria-label="address-actions-' . $row["detail_id"] . '">';
 						
 						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
@@ -223,7 +223,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						echo '<i class="fas ' . (($row["detail_aktiv"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
 						echo '</div>';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["detail_id"] . '" class="btn btn-sm btn-danger ml-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row["detail_name"]) . '"';
+						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["detail_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row["detail_name"]) . '"';
 						echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["detail_name"]) . '\');">';
 						echo '<i class="far fa-trash-alt"></i></a>';
 						echo '</td>';

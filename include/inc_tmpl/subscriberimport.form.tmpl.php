@@ -78,8 +78,8 @@ ORIGINAL
   </div>
 
 -->
-  <div class="form-group form-row align-items-center">
-      <label class="col-sm-2 col-form-label text-right">
+  <div class="form-group row g-2 align-items-center">
+      <label class="col-sm-2 col-form-label text-end">
         <?php echo $BL['be_newsletter_selectCSV']; echo '<input type="hidden" name="MAX_FILE_SIZE" value="'.$_userInfo['max_file_size'].'" />'; ?>
       </label>
       <div class="col-sm-3">
@@ -88,8 +88,8 @@ ORIGINAL
       </div>
   </div>
 
-  <div class="form-group align-items-center form-row has-danger">
-      <label for="delimeter" class="col-sm-2 col-form-label text-right">
+  <div class="form-group align-items-center row g-2 has-danger">
+      <label for="delimeter" class="col-sm-2 col-form-label text-end">
         <?php echo $BL['be_newsletter_delimeter'] ?>
       </label>
     <div class="col-sm-auto">
@@ -104,13 +104,13 @@ ORIGINAL
 
 <?php
 if($_userInfo['select_subscr']) {
-  echo '<div class="form-group form-row">'.LF.'<div class="col-form-label col-sm-2 text-right pt-0">'.$BL['be_cnt_subscription'].'</div>'.LF;
+  echo '<div class="form-group row g-2">'.LF.'<div class="col-form-label col-sm-2 text-end pt-0">'.$BL['be_cnt_subscription'].'</div>'.LF;
   echo '<div class="col">'.$_userInfo['select_subscr'].'</div>'.LF.'</div>';
 }
 ?>
 
-  <div class="form-group form-row align-items-center">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
       <div class="col">
       	<div class="form-check">
 					<input class="form-check-input" name="subscribe_active" id="subscribe_active" type="checkbox" value="1" <?php is_checked($_userInfo['subscribe_active'], 1) ?>/>
@@ -119,9 +119,9 @@ if($_userInfo['select_subscr']) {
       </div>
     </div>
 
-    <div class="form-group align-items-center mt-4 mb-0 text-center text-sm-left">
-      <button type="submit" name="submitimport" id="submitimport" value="1" class="btn btn-sm btn-blue"><i class="fa fa-file-import mr-1"></i> <?php echo $BL['be_newsletter_newimport'] ?></button>
-      <a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+    <div class="form-group align-items-center mt-4 mb-0 text-center text-sm-start">
+      <button type="submit" name="submitimport" id="submitimport" value="1" class="btn btn-sm btn-blue"><i class="fa fa-file-import me-1"></i> <?php echo $BL['be_newsletter_newimport'] ?></button>
+      <a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
     </div>
 
   </div>

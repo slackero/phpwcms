@@ -87,7 +87,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
                     }
                     echo '<tr'.$row_class.'>'."\n";
                     echo '<td width="30">';
-                    echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'"></i>';
+                    echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'"></i>';
                     echo '</td>'."\n";
                     echo "<td>";
                     echo "<a href=\"fileinfo.php?public&amp;fid=".$file_row["f_id"];
@@ -96,7 +96,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
                     echo "</td>\n<td></td>\n<td width=\"15\" align=\"right\">";
                     echo "<a href=\"include/inc_act/act_download.php?pl=1&dl=".$file_row["f_id"];
                     echo "\" target=\"_blank\" title=\"".$GLOBALS['BL']['be_fprivfunc_dlfile'].": ".$filename."\">";
-                    echo '<i class="btn btn-sm btn-blue mr-1 fa fa-download" aria-hidden="true"></i></a>'; //target='_blank'
+                    echo '<i class="btn btn-sm btn-blue me-1 fa fa-download" aria-hidden="true"></i></a>'; //target='_blank'
                     echo "</td>\n";
                     echo "</tr>\n";
 
@@ -154,9 +154,9 @@ function on_off($wert, $string, $art=1, $counter=0) {
     //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
     //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
     if($wert) {
-        return ($art == 1) ? '+' : '<i class="fa fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
+        return ($art == 1) ? '+' : '<i class="fa fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
     } else {
-        return ($art == 1) ? '-' : '<i class="fa fa-caret-down fa-fw slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
+        return ($art == 1) ? '-' : '<i class="fa fa-caret-down fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
     }
 }
 

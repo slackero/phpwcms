@@ -67,7 +67,7 @@ if($form_detail_aktion == 'create_detail') {
 
 ?><form action="phpwcms.php?do=profile&amp;p=1" method="post" name="formprofiledetail" id="formprofiledetail">
 <div class="card shadow-sm mb-4">
-    <div class="card-header font-weight-bold py-2">
+    <div class="card-header fw-bold py-2">
         <?php echo $BL['be_profile_data_title']; ?>
     </div>
     <div class="card-body">
@@ -80,35 +80,35 @@ if($form_detail_aktion == 'create_detail') {
         <?php endif; ?>
 
         <div class="form-group row">
-            <label for="form_title" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_title']; ?>:</label>
+            <label for="form_title" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_title']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_title" type="text" id="form_title" class="form-control form-control-sm" value="<?php echo html($detail["detail_title"]); ?>" maxlength="50">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_firstname" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_firstname']; ?>:</label>
+            <label for="form_firstname" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_firstname']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_firstname" type="text" id="form_firstname" class="form-control form-control-sm" value="<?php echo html($detail["detail_firstname"]); ?>" maxlength="100">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_lastname" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_name']; ?>:</label>
+            <label for="form_lastname" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_name']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_lastname" type="text" id="form_lastname" class="form-control form-control-sm" value="<?php echo html($detail["detail_lastname"]); ?>" maxlength="100">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_company" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_company']; ?>:</label>
+            <label for="form_company" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_company']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_company" type="text" id="form_company" class="form-control form-control-sm" value="<?php echo html($detail["detail_company"]); ?>" maxlength="100">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_street" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_street']; ?>:</label>
+            <label for="form_street" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_street']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_street" type="text" id="form_street" class="form-control form-control-sm mb-2" value="<?php echo html($detail["detail_street"]); ?>" maxlength="100">
                 <input name="form_add" type="text" id="form_add" class="form-control form-control-sm" value="<?php echo html($detail["detail_add"]); ?>" maxlength="100">
@@ -116,30 +116,30 @@ if($form_detail_aktion == 'create_detail') {
         </div>
 
         <div class="form-group row">
-            <label for="form_city" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_city']; ?>:</label>
+            <label for="form_city" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_city']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_city" type="text" id="form_city" class="form-control form-control-sm" value="<?php echo html($detail["detail_city"]); ?>" maxlength="100">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_region" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_state']; ?>:</label>
+            <label for="form_region" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_state']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_region" type="text" id="form_region" class="form-control form-control-sm" value="<?php echo html($detail["detail_region"]); ?>" maxlength="100">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_zip" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_zip']; ?>:</label>
+            <label for="form_zip" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_zip']; ?>:</label>
             <div class="col-sm-3">
                 <input name="form_zip" type="text" id="form_zip" class="form-control form-control-sm" value="<?php echo html($detail["detail_zip"]); ?>" maxlength="50">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_country" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_country']; ?>:</label>
+            <label for="form_country" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_country']; ?>:</label>
             <div class="col-sm-6">
-                <select name="form_country" id="form_country" class="custom-select custom-select-sm">
+                <select name="form_country" id="form_country" class="form-select form-select-sm">
                     <?php echo list_country($detail["detail_country"]); ?>
                 </select>
             </div>
@@ -148,21 +148,21 @@ if($form_detail_aktion == 'create_detail') {
         <hr class="my-4">
 
         <div class="form-group row">
-            <label for="form_fon" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_phone']; ?>:</label>
+            <label for="form_fon" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_phone']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_fon" type="text" id="form_fon" class="form-control form-control-sm" value="<?php echo html($detail["detail_fon"]); ?>" maxlength="30">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_fax" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_fax']; ?>:</label>
+            <label for="form_fax" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_fax']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_fax" type="text" id="form_fax" class="form-control form-control-sm" value="<?php echo html($detail["detail_fax"]); ?>" maxlength="30">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_mobile" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_cellphone']; ?>:</label>
+            <label for="form_mobile" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_cellphone']; ?>:</label>
             <div class="col-sm-6">
                 <input name="form_mobile" type="text" id="form_mobile" class="form-control form-control-sm" value="<?php echo html($detail["detail_mobile"]); ?>" maxlength="30">
             </div>
@@ -171,23 +171,23 @@ if($form_detail_aktion == 'create_detail') {
         <hr class="my-4">
 
         <div class="form-group row">
-            <label for="form_signature" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_signature']; ?>:</label>
+            <label for="form_signature" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_signature']; ?>:</label>
             <div class="col-sm-8">
                 <textarea name="form_signature" cols="30" rows="3" id="form_signature" class="form-control form-control-sm"><?php echo html($detail["detail_signature"]); ?></textarea>
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="form_notes" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_notes']; ?>:</label>
+            <label for="form_notes" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_notes']; ?>:</label>
             <div class="col-sm-8">
                 <textarea name="form_notes" cols="30" rows="5" id="form_notes" class="form-control form-control-sm"><?php echo html($detail["detail_notes"]); ?></textarea>
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="select2" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_profile_label_profession']; ?>:</label>
+            <label for="select2" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_profile_label_profession']; ?>:</label>
             <div class="col-sm-6">
-                <select name="form_prof" id="select2" class="custom-select custom-select-sm">
+                <select name="form_prof" id="select2" class="form-select form-select-sm">
                     <?php list_profession($detail["detail_prof"]); ?>
                 </select>
             </div>
@@ -196,34 +196,34 @@ if($form_detail_aktion == 'create_detail') {
         <hr class="my-4">
 
         <div class="form-group row">
-            <div class="col-sm-3 text-sm-right font-weight-bold">
+            <div class="col-sm-3 text-sm-end fw-bold">
                 <?php echo $BL['be_profile_label_newsletter']; ?>:
             </div>
             <div class="col-sm-9">
-                <div class="custom-control custom-checkbox">
-                    <input name="form_newsletter" type="checkbox" id="form_newsletter" value="1" class="custom-control-input" <?php is_checked($detail["detail_newsletter"], "1"); ?>>
-                    <label class="custom-control-label" for="form_newsletter"><?php echo $BL['be_profile_text_newsletter']; ?></label>
+                <div class="form-check">
+                    <input name="form_newsletter" type="checkbox" id="form_newsletter" value="1" class="form-check-input" <?php is_checked($detail["detail_newsletter"], "1"); ?>>
+                    <label class="form-check-label" for="form_newsletter"><?php echo $BL['be_profile_text_newsletter']; ?></label>
                 </div>
             </div>
         </div>
 
         <div class="form-group row">
-            <div class="col-sm-3 text-sm-right font-weight-bold">
+            <div class="col-sm-3 text-sm-end fw-bold">
                 <?php echo $BL['be_profile_label_public']; ?>:
             </div>
             <div class="col-sm-9">
-                <div class="custom-control custom-checkbox">
-                    <input name="form_public" type="checkbox" id="form_public" value="1" class="custom-control-input" <?php is_checked($detail["detail_public"], "1"); ?>>
-                    <label class="custom-control-label" for="form_public"><?php echo $BL['be_profile_text_public']; ?></label>
+                <div class="form-check">
+                    <input name="form_public" type="checkbox" id="form_public" value="1" class="form-check-input" <?php is_checked($detail["detail_public"], "1"); ?>>
+                    <label class="form-check-label" for="form_public"><?php echo $BL['be_profile_text_public']; ?></label>
                 </div>
             </div>
         </div>
 
         <input name="form_aktion" type="hidden" id="form_aktion" value="<?php echo $form_detail_aktion; ?>">
     </div>
-    <div class="card-footer text-right">
-        <button type="submit" name="Submit" class="btn btn-sm btn-blue font-weight-bold">
-            <i class="fa fa-save mr-1"></i><?php echo $BL['be_profile_label_button']; ?>
+    <div class="card-footer text-end">
+        <button type="submit" name="Submit" class="btn btn-sm btn-blue fw-bold">
+            <i class="fa fa-rotate me-1"></i><?php echo $BL['be_profile_label_button']; ?>
         </button>
     </div>
 </div>

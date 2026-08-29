@@ -428,7 +428,7 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
     $option['formname']     = empty($option['formname']) ? 'document.forms[0]' : 'document.getElementById(\''.$option['formname'].'\')';
     $table .= '<div class="row">'.LF;
     // left select list
-    $table .= '<div class="col"><select class="custom-select" name="'.$id_left_box.'" id="'.$id_left_box.'" size="'.$option['rows'].'" multiple="multiple"';
+    $table .= '<div class="col"><select class="form-select" name="'.$id_left_box.'" id="'.$id_left_box.'" size="'.$option['rows'].'" multiple="multiple"';
     $table .= $option['style'].str_replace('#SIDE#', 'leftSide', $option['class']).' ondblclick="'.$option_object.'.transferRight()">'.LF;
     if(!empty($leftData) && is_array($leftData)) {
         foreach($leftData as $key => $value) {
@@ -436,14 +436,14 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
         }
     }
     $table .= '</select>'.LF;
-    $table .= '<div class="btn btn-sm btn-secondary mr-1" onclick="moveOptionUp('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></div>';
-    $table .= '<div class="btn btn-sm btn-secondary mr-1" onclick="moveOptionDown('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></div>';
-    $table .= '<div class="btn btn-sm btn-secondary mr-1" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_this'].'" onclick="'.$option_object.'.transferRight();" /><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></div>';
-    $table .= '<div class="btn btn-sm btn-secondary" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_all'].'" onclick="'.$option_object.'.transferAllRight();" /><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary me-1" onclick="moveOptionUp('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary me-1" onclick="moveOptionDown('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary me-1" data-bs-toggle="tooltip" title="'.$BL['be_admin_struct_remove_this'].'" onclick="'.$option_object.'.transferRight();" /><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="'.$BL['be_admin_struct_remove_all'].'" onclick="'.$option_object.'.transferAllRight();" /><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></div>';
     $table .= '</div>'.LF;
 
     // right select list
-    $table .= '<div class="col"><select class="custom-select" name="'.$id_right_box.'" id="'.$id_right_box.'" size="'.$option['rows'].'" multiple="multiple"';
+    $table .= '<div class="col"><select class="form-select" name="'.$id_right_box.'" id="'.$id_right_box.'" size="'.$option['rows'].'" multiple="multiple"';
     $table .= $option['style'].str_replace('#SIDE#', 'rightSide', $option['class']).' ondblclick="'.$option_object.'.transferLeft()">'.LF;
     if(!empty($rightData) && is_array($rightData)) {
         foreach($rightData as $key => $value) {
@@ -451,8 +451,8 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
         }
     }
     $table .= '</select>'.LF;
-    $table .= '<div class="btn btn-sm btn-secondary mr-1" data-toggle="tooltip" title="'.$BL['be_admin_struct_adduser_all'].'" onclick="'.$option_object.'.transferAllLeft();" /><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></div>';
-    $table .= '<div class="btn btn-sm btn-secondary" data-toggle="tooltip" title="'.$BL['be_admin_struct_adduser_this'].'" onclick="'.$option_object.'.transferLeft();" /><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary me-1" data-bs-toggle="tooltip" title="'.$BL['be_admin_struct_adduser_all'].'" onclick="'.$option_object.'.transferAllLeft();" /><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="'.$BL['be_admin_struct_adduser_this'].'" onclick="'.$option_object.'.transferLeft();" /><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></div>';
     $table .= '</div></div>'.LF;
 
     $table .= '<input type="hidden" name="'.$id_left.'" id="'.$id_left.'" value="" />';
@@ -1124,7 +1124,7 @@ function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separato
         $menu[$x] .= '</option>';
     }
 
-    return '<select class="custom-select form-control-sm" id="news-paginate">' . implode($separator, $menu) . '</select>';
+    return '<select class="form-select form-select-sm" id="news-paginate">' . implode($separator, $menu) . '</select>';
 }
 
 function initJsCalendar() {
@@ -1521,7 +1521,7 @@ function get_template_file_select($block='', $name='', $selected='', $path='') {
         if(is_dir($path)) {
             $files = get_tmpl_files($path, 'tmpl,html,tpl');
             if(count($files)) {
-                $select = '<select name="' . $name .'" class="custom-select form-control form-control-sm mb-1">';
+                $select = '<select name="' . $name .'" class="form-select form-select-sm mb-1">';
                 $select .= '<option value=""';
                 if($selected === '') {
                     $select .= ' selected="selected"';

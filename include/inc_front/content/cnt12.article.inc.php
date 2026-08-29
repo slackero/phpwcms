@@ -253,7 +253,7 @@ if($content["newsletter"]["success"]) {
 
     switch($content["newsletter"]["pos"]) {
         case 1:
-            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' float-left');
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' float-start');
             break;
 
         case 2:
@@ -261,7 +261,7 @@ if($content["newsletter"]["success"]) {
             break;
 
         case 3:
-            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' float-right');
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' float-end');
             break;
 
         default:

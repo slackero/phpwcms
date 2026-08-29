@@ -20,8 +20,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 ?>
 
-<div class="form-group form-row">
-  <label for="cvar" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_vars'] ?></label>
+<div class="form-group row g-2">
+  <label for="cvar" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_vars'] ?></label>
   <div class="col">
     <textarea name="cvar" rows="20" wrap="VIRTUAL" class="form-control form-control-sm" id="cvar"><?php echo isset($content["var"]) ? html($content["var"]) : '' ?></textarea>
     </div>

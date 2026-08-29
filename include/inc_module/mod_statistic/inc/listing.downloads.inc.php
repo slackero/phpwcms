@@ -94,26 +94,26 @@ $result = _dbQuery($sql);
 
 <form action="<?php echo statistic_url('controller=downloads') ?>" method="post" name="paginate" id="paginate">
 	<input type="hidden" name="do_pagination" value="1" />
-	<div class="form-row align-items-center mb-3">
+	<div class="row g-2 align-items-center mb-3">
 		<?php if($_entry['pages_total'] > 1): ?>
 			<div class="col-auto">
 				<div class="input-group input-group-sm">
-					<div class="input-group-prepend">
+					
 						<?php if($_SESSION['downloads_page'] > 1): ?>
 							<a href="<?php echo statistic_url('controller=downloads') ?>&amp;page=<?php echo ($_SESSION['downloads_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
 						<?php else: ?>
 							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
 						<?php endif; ?>
-					</div>
+					
 					<input type="number" name="page" id="page" value="<?php echo $_SESSION['downloads_page'] ?>" class="form-control form-control-sm text-center w-25" />
-					<div class="input-group-append">
+					
 						<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 						<?php if($_SESSION['downloads_page'] < $_entry['pages_total']): ?>
 							<a href="<?php echo statistic_url('controller=downloads') ?>&amp;page=<?php echo ($_SESSION['downloads_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
 						<?php else: ?>
 							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
 						<?php endif; ?>
-					</div>
+					
 				</div>
 			</div>
 		<?php else: ?>
@@ -134,14 +134,14 @@ $result = _dbQuery($sql);
 					<option value="f_dlfinal" <?php echo ($_SESSION['list_search'] == 'f_dlfinal' ? ' selected' : '') ?>><?php echo $BLM['downloads_end'] ?></option>
 					<option value="f_created" <?php echo ($_SESSION['list_search'] == 'f_created' ? ' selected' : '') ?>><?php echo $BLM['erstellt'] ?></option>
 				</select>
-				<div class="input-group-append">
+				
 					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
-				</div>
+				
 			</div>
 		</div>
 
-		<div class="col text-right">
-			<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo statistic_url('controller=downloads') ?>&amp;c=' + this.value;">
+		<div class="col text-end">
+			<select class="form-select form-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo statistic_url('controller=downloads') ?>&amp;c=' + this.value;">
 				<?php foreach([10, 25, 50, 100, 250] as $c): ?>
 					<option value="<?php echo $c ?>"<?php if($_SESSION['list_user_count'] == $c) echo ' selected'; ?>><?php echo $c ?></option>
 				<?php endforeach; ?>

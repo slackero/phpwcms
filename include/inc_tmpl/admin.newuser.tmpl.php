@@ -102,15 +102,15 @@ if(empty($user_ok)) {
 				} //Ende Fehler New User
 				?>
 
-				<div class="form-group form-row align-items-center">
-					<label for="form_newloginname" class="col-sm-2 col-form-label text-right"><?php echo $BL["login_username"]  ?></label>
+				<div class="form-group row g-2 align-items-center">
+					<label for="form_newloginname" class="col-sm-2 col-form-label text-end"><?php echo $BL["login_username"]  ?></label>
 					<div class="col">
 						<input type="text" class="form-control form-control-sm col-sm-5" name="form_newloginname" id="form_newloginname" value="<?php echo html($new_login); ?>" maxlength="200" autocomplete="off" required="required" />
 					</div>
 				</div>
 
-				<div class="form-group form-row">
-					<label for="form_newpassword" class="col-sm-2 col-form-label text-right"><?php echo $BL["login_userpass"] ?></label>
+				<div class="form-group row g-2">
+					<label for="form_newpassword" class="col-sm-2 col-form-label text-end"><?php echo $BL["login_userpass"] ?></label>
 					<div class="col">
 						<input type="password" class="form-control form-control-sm col-sm-5" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password" />
 						<span class="text-blue small" onclick="this.innerText = (togglePasswordVisibility('form_newpassword') === 'hide') ? '<?php echo $BL['be_password_hide']; ?>' : '<?php echo $BL['be_password_show']; ?>';" style="cursor:pointer">
@@ -119,15 +119,15 @@ if(empty($user_ok)) {
 					</div>
 				</div>
 
-				<div class="form-group form-row align-items-center">
-					<label for="form_newemail" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_email'] ?></label>
+				<div class="form-group row g-2 align-items-center">
+					<label for="form_newemail" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_email'] ?></label>
 					<div class="col">
 						<input type="email" class="form-control form-control-sm col-sm-5" name="form_newemail" id="form_newemail" value="<?php echo html($new_email); ?>" maxlength="250" autocomplete="off" required="required" />
 					</div>
 				</div>
 
-				<div class="form-group form-row align-items-center">
-					<label for="form_newrealname" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_realname'] ?></label>
+				<div class="form-group row g-2 align-items-center">
+					<label for="form_newrealname" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_usr_realname'] ?></label>
 					<div class="col">
 						<input type="text" class="form-control form-control-sm col-sm-5" name="form_newrealname" id="form_newrealname" value="<?php echo html($new_name); ?>" maxlength="200" autocomplete="off" required="required" />
 					</div>
@@ -135,8 +135,8 @@ if(empty($user_ok)) {
 
 		<hr />
 
-			<div class="form-row align-items-center">
-				<label for="be_admin_usr_realname" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_issection']  ?></label>
+			<div class="row g-2 align-items-center">
+				<label for="be_admin_usr_realname" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_issection']  ?></label>
 				<div class="col">
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> />
@@ -153,8 +153,8 @@ if(empty($user_ok)) {
 				</div>
 			</div>
 
-			<div class="form-row align-items-center">
-				<label for="be_admin_usr_setactive" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_setactive'] ?></label>
+			<div class="row g-2 align-items-center">
+				<label for="be_admin_usr_setactive" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_setactive'] ?></label>
 				<div class="col">
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
@@ -163,8 +163,8 @@ if(empty($user_ok)) {
 				</div>
 			</div>
 
-			<div class="form-row align-items-center">
-				<label for="be_admin_usr_isadmin" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
+			<div class="row g-2 align-items-center">
+				<label for="be_admin_usr_isadmin" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
 				<div class="col">
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
@@ -173,8 +173,8 @@ if(empty($user_ok)) {
 				</div>
 			</div>
 
-			<div class="form-row align-items-center">
-				<label for="be_admin_usr_verify" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_verify'] ?></label>
+			<div class="row g-2 align-items-center">
+				<label for="be_admin_usr_verify" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_verify'] ?></label>
 				<div class="col">
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
@@ -189,7 +189,7 @@ if(empty($user_ok)) {
   <div class="form-group align-items-center mt-4 mb-0">
     <input name="form_aktion" type="hidden" value="create_account" />
     <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-plus"></i> <?php echo $BL['be_admin_usr_button'] ?></button>
-    <a href="phpwcms.php?do=admin&amp;p=6" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+    <a href="phpwcms.php?do=admin&amp;p=6" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
   </div>
 </form>
 

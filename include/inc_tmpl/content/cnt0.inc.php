@@ -25,10 +25,10 @@ $ace_mode = ($content['ctext_format'] === 'markdown') ? 'markdown' : (($content[
 
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
-    <select name="template" id="template" class="custom-select form-control form-control-sm">
+    <select name="template" id="template" class="form-select form-select-sm">
 <?php
   echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 
@@ -46,8 +46,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_media_format']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_media_format']; ?></label>
   <div class="col">
   	<div class="form-check form-check-inline">
       <input name="ctext_format" type="radio" id="ctext_format0" value="plain" class="form-check-input" <?php is_checked('plain', $content['ctext_format']); ?> />
@@ -55,17 +55,17 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		</div>
 		<div class="form-check form-check-inline">
 			<input name="ctext_format" type="radio" id="ctext_format1" value="markdown" class="form-check-input" <?php is_checked('markdown', $content['ctext_format']); ?> />
-			<label class="form-check-label" for="ctext_format1">MarkDown <a href="http://en.wikipedia.org/wiki/Markdown" data-toggle="tooltip" target="_blank" title="Wikipedia: Markdown"><i class="fa fa-info-circle text-blue" aria-hidden="true"></i></a></label>
+			<label class="form-check-label" for="ctext_format1">MarkDown <a href="http://en.wikipedia.org/wiki/Markdown" data-bs-toggle="tooltip" target="_blank" title="Wikipedia: Markdown"><i class="fa fa-info-circle text-blue" aria-hidden="true"></i></a></label>
 		</div>
 		<div class="form-check form-check-inline">
     	<input name="ctext_format" type="radio" id="ctext_format2" value="textile" class="form-check-input" <?php is_checked('textile', $content['ctext_format']); ?> />
-      <label class="form-check-label" for="ctext_format2">Textile <a href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29" data-toggle="tooltip" target="_blank" title="Wikipedia: Textile"><i class="fa fa-info-circle text-blue" aria-hidden="true"></i></a></label>
+      <label class="form-check-label" for="ctext_format2">Textile <a href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29" data-bs-toggle="tooltip" target="_blank" title="Wikipedia: Textile"><i class="fa fa-info-circle text-blue" aria-hidden="true"></i></a></label>
 		</div>
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_plaintext']; ?></label>
+<div class="form-group row g-2">
+  <label for="ctext" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_plaintext']; ?></label>
   <div class="col">
     <textarea name="ctext" rows="12" class="form-control form-control-sm field-sizing-content field-sizing-content-10 code-editor" data-mode="<?php echo $ace_mode; ?>" id="ctext"><?php
     if(empty($content["text"])) {

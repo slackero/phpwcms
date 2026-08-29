@@ -43,21 +43,21 @@ $content["alias"]['alias_toplink']  = empty($content["alias"]['alias_toplink']) 
 $content["alias"]['alias_status']   = empty($content["alias"]['alias_status']) ? 0 : 1;
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="calias_id" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_alias_ID'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="calias_id" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_alias_ID'] ?></label>
   <div class="col-sm-4">
     <div class="input-group">
-      <span class="input-group-prepend">
-        <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="articlebrowser.php?opt=5" ></button>
-      </span>
-      	<input type="text" name="calias" id="calias_id" value="<?php echo $content["alias"]['alias_ID'] ?>" class="form-control form-control-sm" maxlength="250" data-toggle="tooltip" title="<?php echo $BL['be_alias_ID'] ?>" />
+      
+        <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=5" ></button>
+      
+      	<input type="text" name="calias" id="calias_id" value="<?php echo $content["alias"]['alias_ID'] ?>" class="form-control form-control-sm" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_alias_ID'] ?>" />
     </div>
     <?php echo $content['alias_link']; ?>
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_setting'] ?></label>
+<div class="form-group row g-2">
+  <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_setting'] ?></label>
   <div class="col">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" name="cablock" id="cablock" value="1" <?php is_checked(1, $content["alias"]['alias_block']); ?>>

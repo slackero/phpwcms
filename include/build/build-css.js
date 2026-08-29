@@ -7,7 +7,8 @@ const includeDir = path.dirname(__dirname); // include/
 const cssFiles = [
     path.join(__dirname, '../../node_modules/bootstrap/dist/css/bootstrap.min.css'),
     path.join(__dirname, '../../node_modules/flag-icons/css/flag-icons.min.css'),
-    path.join(includeDir, 'inc_css/phpwcms-fontawesome.css'),
+    path.join(__dirname, '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css'),
+    path.join(__dirname, '../../node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css'),
     path.join(includeDir, 'inc_css/phpwcms.css')
 ];
 
@@ -40,7 +41,7 @@ const copyMap = [
     { src: '../../node_modules/dropzone/dist/min/dropzone.min.css', dest: 'inc_css/dropzone.min.css' },
     { src: '../../node_modules/flatpickr/dist/flatpickr.min.css', dest: 'inc_css/flatpickr.min.css' },
     { src: '../../node_modules/flatpickr/dist/themes/material_blue.css', dest: 'inc_css/flatpickr-material.min.css' },
-    { src: '../../node_modules/tom-select/dist/css/tom-select.bootstrap4.css', dest: 'inc_css/tom-select.bootstrap4.css' },
+    { src: '../../node_modules/tom-select/dist/css/tom-select.bootstrap5.css', dest: 'inc_css/tom-select.bootstrap5.css' },
     { src: '../../node_modules/video.js/dist/video-js.min.css', dest: '../template/lib/video-js/video-js.min.css' },
     { src: '../../node_modules/glightbox/dist/css/glightbox.min.css', dest: '../template/lib/glightbox/glightbox.min.css' },
     { src: '../../node_modules/vanilla-cookieconsent/dist/cookieconsent.css', dest: '../template/lib/cookieconsent3/cookieconsent.css' },
@@ -69,6 +70,13 @@ const fontDestDir = path.join(includeDir, 'webfonts');
 
 if (fs.existsSync(fontSrcDir)) {
     fs.mkdirSync(fontDestDir, { recursive: true });
+    // Clean old font files in webfonts dir
+    const existingFonts = fs.readdirSync(fontDestDir);
+    for (const f of existingFonts) {
+        if (f.startsWith('fa-')) {
+            fs.unlinkSync(path.join(fontDestDir, f));
+        }
+    }
     const fonts = fs.readdirSync(fontSrcDir);
     for (const font of fonts) {
         fs.copyFileSync(path.join(fontSrcDir, font), path.join(fontDestDir, font));

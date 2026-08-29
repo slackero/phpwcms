@@ -309,10 +309,10 @@ if ($per_page !== 25) {
 
 ?>
 <div class="row align-items-center mb-3">
-    <div class="col col-sm-auto text-center text-sm-left">
+    <div class="col col-sm-auto text-center text-sm-start">
         <h1 class="mb-0"><?php echo html($BL['be_admin_template_lang'] ?? 'Template Translations'); ?></h1>
     </div>
-    <div class="col-12 col-sm text-center text-sm-right mt-2 mt-sm-0">
+    <div class="col-12 col-sm text-center text-sm-end mt-2 mt-sm-0">
         <span class="badge badge-secondary py-1 px-2"><?php echo html($total_items . ' ' . ($BL['be_admin_template_lang_items'] ?? 'Items')); ?></span>
     </div>
 </div>
@@ -322,7 +322,7 @@ if ($per_page !== 25) {
 <?php if (!empty($action_msg)): ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <?php echo html($action_msg); ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -331,7 +331,7 @@ if ($per_page !== 25) {
 <?php if (!empty($action_error)): ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <?php echo html($action_error); ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -341,14 +341,14 @@ if ($per_page !== 25) {
 <div class="card mb-3">
     <div class="card-body py-2">
         <?php $csrf_get = get_token_get_array(); ?>
-        <form method="get" action="phpwcms.php" class="form-inline d-flex flex-wrap align-items-center" data-csrf="off">
+        <form method="get" action="phpwcms.php" class="d-flex flex-wrap align-items-center" data-csrf="off">
             <input type="hidden" name="<?php echo html($csrf_get['name']); ?>" value="<?php echo html($csrf_get['value']); ?>" />
             <input type="hidden" name="do" value="admin" />
             <input type="hidden" name="p" value="17" />
 
             <!-- Language selector -->
-            <label class="mr-2 font-weight-bold" for="sel_lang"><i class="fa fa-globe mr-1"></i> <?php echo html($BL['login_lang'] ?? 'Language'); ?>:</label>
-            <select name="lang" id="sel_lang" class="form-control form-control-sm mr-3 mb-2 mb-md-0" onchange="this.form.submit();">
+            <label class="me-2 fw-bold" for="sel_lang"><i class="fa fa-globe me-1"></i> <?php echo html($BL['login_lang'] ?? 'Language'); ?>:</label>
+            <select name="lang" id="sel_lang" class="form-select form-select-sm w-auto me-3 mb-2 mb-md-0" onchange="this.form.submit();">
                 <?php foreach ($allowed_langs as $code): ?>
                     <?php
                         $code_upper = strtoupper($code);
@@ -365,27 +365,25 @@ if ($per_page !== 25) {
             </select>
 
             <!-- Status filter -->
-            <label class="mr-2 font-weight-bold" for="sel_status"><?php echo html($BL['be_admin_template_lang_filter'] ?? 'Filter'); ?>:</label>
-            <select name="status" id="sel_status" class="form-control form-control-sm mr-3 mb-2 mb-md-0" onchange="this.form.submit();">
+            <label class="me-2 fw-bold" for="sel_status"><?php echo html($BL['be_admin_template_lang_filter'] ?? 'Filter'); ?>:</label>
+            <select name="status" id="sel_status" class="form-select form-select-sm w-auto me-3 mb-2 mb-md-0" onchange="this.form.submit();">
                 <option value="all" <?php is_selected($status_filter, 'all'); ?>><?php echo html($BL['be_admin_template_lang_all'] ?? 'All'); ?></option>
                 <option value="missing" <?php is_selected($status_filter, 'missing'); ?>><?php echo html($BL['be_admin_template_lang_missing'] ?? 'Missing translation'); ?></option>
                 <option value="translated" <?php is_selected($status_filter, 'translated'); ?>><?php echo html($BL['be_admin_template_lang_translated'] ?? 'Translated'); ?></option>
             </select>
 
             <!-- Search input -->
-            <div class="input-group input-group-sm mr-3 mb-2 mb-md-0 flex-grow-1" style="max-width: 320px;">
+            <div class="input-group input-group-sm me-3 mb-2 mb-md-0 flex-grow-1" style="max-width: 320px;">
                 <input type="text" name="q" class="form-control" placeholder="<?php echo html($BL['be_admin_template_lang_search'] ?? 'Search tokens or translations…'); ?>" value="<?php echo html($search_query); ?>" />
-                <div class="input-group-append">
-                    <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-                    <?php if ($search_query !== '' || $status_filter !== 'all'): ?>
-                        <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=17&amp;lang=<?php echo urlencode($current_lang); ?>" class="btn btn-outline-secondary" title="<?php echo html($BL['be_cnt_delete'] ?? 'Reset'); ?>"><i class="fa fa-times"></i></a>
-                    <?php endif; ?>
-                </div>
+                <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+                <?php if ($search_query !== '' || $status_filter !== 'all'): ?>
+                    <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=17&amp;lang=<?php echo urlencode($current_lang); ?>" class="btn btn-outline-secondary" title="<?php echo html($BL['be_cnt_delete'] ?? 'Reset'); ?>"><i class="fa fa-times"></i></a>
+                <?php endif; ?>
             </div>
 
             <!-- Per page selector -->
-            <label class="mr-2 text-muted" for="sel_per_page"><?php echo html($BL['be_subnav_msg_subscribers'] ?? 'Per page'); ?>:</label>
-            <select name="per_page" id="sel_per_page" class="form-control form-control-sm mr-2 mb-2 mb-md-0" onchange="this.form.submit();">
+            <label class="me-2 text-muted" for="sel_per_page"><?php echo html($BL['be_subnav_msg_subscribers'] ?? 'Per page'); ?>:</label>
+            <select name="per_page" id="sel_per_page" class="form-select form-select-sm w-auto me-2 mb-2 mb-md-0" onchange="this.form.submit();">
                 <option value="25" <?php is_selected($per_page, 25); ?>>25</option>
                 <option value="50" <?php is_selected($per_page, 50); ?>>50</option>
                 <option value="100" <?php is_selected($per_page, 100); ?>>100</option>
@@ -400,8 +398,8 @@ $current_lang_upper = strtoupper($current_lang);
 $current_lang_name = $BL[$current_lang_upper] ?? '';
 $default_lang_upper = strtoupper($default_lang);
 $default_lang_name = $BL[$default_lang_upper] ?? '';
-$current_flag_img = _tpl_lang_get_flag_img($current_lang, 'mr-1');
-$default_flag_img = _tpl_lang_get_flag_img($default_lang, 'mr-1');
+$current_flag_img = _tpl_lang_get_flag_img($current_lang, 'me-1');
+$default_flag_img = _tpl_lang_get_flag_img($default_lang, 'me-1');
 ?>
 
 <!-- Main Table Card -->
@@ -412,11 +410,11 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'mr-1');
         <h2 class="mb-0">
             <i class="fa fa-language"></i>
             <code>template/template_lang/<?php echo html($current_lang); ?>.php</code>
-            <span class="badge badge-info ml-2 font-weight-normal badge-align badge-align-t2"><?php echo $current_flag_img; ?><?php echo html($current_lang_upper . ($current_lang_name !== '' ? ' - ' . $current_lang_name : '')); ?></span>
+            <span class="badge badge-info ms-2 fw-normal badge-align badge-align-t2"><?php echo $current_flag_img; ?><?php echo html($current_lang_upper . ($current_lang_name !== '' ? ' - ' . $current_lang_name : '')); ?></span>
         </h2>
         <?php if (!empty($page_keys)): ?>
             <button type="submit" name="btn_save_top" value="1" class="btn btn-sm btn-blue">
-                <i class="fa fa-save mr-1"></i> <?php echo html($BL['be_save_btn'] ?? 'Save'); ?>
+                <i class="fa fa-check me-1"></i> <?php echo html($BL['be_save_btn'] ?? 'Save'); ?>
             </button>
         <?php endif; ?>
     </div>
@@ -433,7 +431,7 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'mr-1');
                     <tr>
                         <th style="width: 40%;"><?php echo html($BL['be_admin_template_lang_token'] ?? 'Token / Default Text'); ?></th>
                         <th style="width: 52%;"><?php echo html($BL['be_admin_template_lang_trans'] ?? 'Translation'); ?> (<?php echo $current_flag_img; ?><?php echo html($current_lang_upper . ($current_lang_name !== '' ? ' - ' . $current_lang_name : '')); ?>)</th>
-                        <th class="text-right" style="width: 8%;"><?php echo html($BL['be_article_action'] ?? 'Action'); ?></th>
+                        <th class="text-end" style="width: 8%;"><?php echo html($BL['be_article_action'] ?? 'Action'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -445,12 +443,12 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'mr-1');
                         ?>
                         <tr>
                             <td>
-                                <div class="font-weight-bold text-break">
+                                <div class="fw-bold text-break">
                                     <code>@@<?php echo html($t_key); ?>@@</code>
                                 </div>
                                 <?php if ($current_lang !== $default_lang && isset($default_tokens[$t_key])): ?>
                                     <div class="small text-muted text-break mt-1">
-                                        <span class="badge badge-light border mr-1 badge-align"><?php echo $default_flag_img; ?><?php echo html($default_lang_upper . ($default_lang_name !== '' ? ' - ' . $default_lang_name : '')); ?></span> <?php echo html($default_tokens[$t_key]); ?>
+                                        <span class="badge badge-light border me-1 badge-align"><?php echo $default_flag_img; ?><?php echo html($default_lang_upper . ($default_lang_name !== '' ? ' - ' . $default_lang_name : '')); ?></span> <?php echo html($default_tokens[$t_key]); ?>
                                     </div>
                                 <?php endif; ?>
                             </td>
@@ -461,10 +459,10 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'mr-1');
                                        value="<?php echo html($val); ?>"
                                        placeholder="<?php echo html($t_key); ?>" />
                             </td>
-                            <td class="text-right text-nowrap">
+                            <td class="text-end text-nowrap">
                                 <a class="btn btn-danger btn-sm"
                                    role="button"
-                                   data-toggle="tooltip"
+                                   data-bs-toggle="tooltip"
                                    href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=17&amp;lang=<?php echo urlencode($current_lang); ?>&amp;action=delete&amp;token=<?php echo rawurlencode($t_key); ?>&amp;page=<?php echo $current_page; ?>&amp;status=<?php echo urlencode($status_filter); ?>&amp;q=<?php echo urlencode($search_query); ?>"
                                    title="<?php echo html($BL['be_cnt_delete'] ?? 'Delete'); ?>"
                                    data-confirm-danger="<?php echo html(($BL['be_cnt_delete'] ?? 'Delete') . ":\n[@@" . $t_key . '@@] ?'); ?>">
@@ -482,8 +480,8 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'mr-1');
     <div class="card-footer d-flex flex-wrap justify-content-between align-items-center">
         <div>
             <?php if (!empty($page_keys)): ?>
-                <button type="submit" name="btn_save_bottom" value="1" class="btn btn-sm btn-blue mr-2">
-                    <i class="fa fa-save mr-1"></i> <?php echo html($BL['be_save_btn'] ?? 'Save'); ?>
+                <button type="submit" name="btn_save_bottom" value="1" class="btn btn-sm btn-blue me-2">
+                    <i class="fa fa-check me-1"></i> <?php echo html($BL['be_save_btn'] ?? 'Save'); ?>
                 </button>
             <?php endif; ?>
         </div>
@@ -541,18 +539,18 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'mr-1');
         <h2 class="mb-0"><i class="fa fa-plus-circle"></i> <?php echo html($BL['be_admin_template_lang_add'] ?? 'Add Token'); ?></h2>
     </div>
     <div class="card-body">
-        <form method="post" action="phpwcms.php?do=admin&amp;p=17&amp;lang=<?php echo urlencode($current_lang); ?>" class="form-row align-items-end">
+        <form method="post" action="phpwcms.php?do=admin&amp;p=17&amp;lang=<?php echo urlencode($current_lang); ?>" class="row g-2 align-items-end">
             <div class="col-12 col-md-5 mb-2 mb-md-0">
-                <label for="new_token_key" class="font-weight-bold"><?php echo html($BL['be_admin_template_lang_token'] ?? 'Token / Default Text'); ?>:</label>
+                <label for="new_token_key" class="fw-bold"><?php echo html($BL['be_admin_template_lang_token'] ?? 'Token / Default Text'); ?>:</label>
                 <input type="text" name="new_token_key" id="new_token_key" class="form-control form-control-sm" placeholder="e.g. Read more" required />
             </div>
             <div class="col-12 col-md-5 mb-2 mb-md-0">
-                <label for="new_token_val" class="font-weight-bold"><?php echo html($BL['be_admin_template_lang_trans'] ?? 'Translation'); ?> (<?php echo $current_flag_img; ?><?php echo html($current_lang_upper . ($current_lang_name !== '' ? ' - ' . $current_lang_name : '')); ?>):</label>
+                <label for="new_token_val" class="fw-bold"><?php echo html($BL['be_admin_template_lang_trans'] ?? 'Translation'); ?> (<?php echo $current_flag_img; ?><?php echo html($current_lang_upper . ($current_lang_name !== '' ? ' - ' . $current_lang_name : '')); ?>):</label>
                 <input type="text" name="new_token_val" id="new_token_val" class="form-control form-control-sm" placeholder="e.g. Mehr erfahren" />
             </div>
             <div class="col-12 col-md-2">
-                <button type="submit" name="add_token" value="1" class="btn btn-sm btn-success btn-block">
-                    <i class="fa fa-plus mr-1"></i> <?php echo html($BL['be_admin_template_lang_add'] ?? 'Add Token'); ?>
+                <button type="submit" name="add_token" value="1" class="btn btn-sm btn-success w-100">
+                    <i class="fa fa-plus me-1"></i> <?php echo html($BL['be_admin_template_lang_add'] ?? 'Add Token'); ?>
                 </button>
             </div>
         </form>

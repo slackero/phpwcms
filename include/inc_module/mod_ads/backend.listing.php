@@ -25,8 +25,8 @@ $_entry['query']			= '';
 ?>
 <h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
-<div class="form-group mb-3 text-center text-sm-left">
-	<a class="btn btn-sm btn-blue mr-2" href="<?php echo MODULE_HREF ?>&amp;campaign=1&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fas fa-bullhorn fa-fw"></i> <span><?php echo $BLM['create_new'] ?></span></a>
+<div class="form-group mb-3 text-center text-sm-start">
+	<a class="btn btn-sm btn-blue me-2" href="<?php echo MODULE_HREF ?>&amp;campaign=1&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fas fa-bullhorn fa-fw"></i> <span><?php echo $BLM['create_new'] ?></span></a>
 	<a class="btn btn-sm btn-secondary" href="<?php echo MODULE_HREF ?>&amp;adplace=1&amp;edit=0" title="<?php echo $BLM['new_adplace'] ?>"><i class="fas fa-th-large fa-fw"></i> <span><?php echo $BLM['new_adplace'] ?></span></a>
 </div>
 

@@ -44,10 +44,10 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 ?>
 
 <?php if(count($content['recipe']['all_keywords'])): ?>
-	<div class="form-group form-row">
+	<div class="form-group row g-2">
 		<div class="col-sm-10 offset-sm-2">
 			<div class="form-inline">
-				<select name="ph1" id="ph1" class="custom-select custom-select-sm mr-2" onchange="insertAtCursorPos(document.articlecontent.recipe_category, ', ' + document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);">
+				<select name="ph1" id="ph1" class="form-select form-select-sm me-2" onchange="insertAtCursorPos(document.articlecontent.recipe_category, ', ' + document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);">
 					<?php
 					foreach($content['recipe']['all_keywords'] as $temp_val) {
 						$temp_val = html($temp_val);
@@ -61,17 +61,17 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 	</div>
 <?php endif; ?>
 
-<div class="form-group form-row">
-	<label for="recipe_category" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_keywords']; ?></label>
+<div class="form-group row g-2">
+	<label for="recipe_category" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_keywords']; ?></label>
 	<div class="col-sm-10">
 		<textarea name="recipe_category" id="recipe_category" rows="2" class="form-control form-control-sm field-sizing-content field-sizing-content-2"><?php echo html($content['recipe']['category']); ?></textarea>
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label for="recipe_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group row g-2">
+	<label for="recipe_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
 	<div class="col-sm-4">
-		<select name="recipe_template" id="recipe_template" class="custom-select form-control form-control-sm">
+		<select name="recipe_template" id="recipe_template" class="form-select form-select-sm">
 			<?php
 			$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE . 'inc_cntpart/recipe');
 			if (is_array($tmpllist) && count($tmpllist)) {
@@ -92,37 +92,37 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 
 <hr />
 
-<div class="form-group form-row">
-	<label for="recipe_ingredients" class="col-sm-2 col-form-label text-right">Zutaten</label>
+<div class="form-group row g-2">
+	<label for="recipe_ingredients" class="col-sm-2 col-form-label text-end">Zutaten</label>
 	<div class="col-sm-10">
 		<textarea name="recipe_ingredients" id="recipe_ingredients" rows="6" class="form-control form-control-sm field-sizing-content field-sizing-content-6"><?php echo html($content['recipe']['ingredients']); ?></textarea>
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label for="recipe_time" class="col-sm-2 col-form-label text-right">Zuber.Zeit</label>
+<div class="form-group row g-2">
+	<label for="recipe_time" class="col-sm-2 col-form-label text-end">Zuber.Zeit</label>
 	<div class="col-sm-10">
 		<div class="form-inline">
-			<input name="recipe_time" type="text" id="recipe_time" class="form-control form-control-sm mr-1" style="width: 50px;" value="<?php echo empty($content['recipe']['time']) ? '' : intval($content['recipe']['time']) ?>" onkeyup="this.value=this.value.replace(/\D/g,'');" size="5" />
-			<span class="mr-2 text-muted small"><?php echo $BL['be_date_minutes'] ?></span>
+			<input name="recipe_time" type="text" id="recipe_time" class="form-control form-control-sm me-1" style="width: 50px;" value="<?php echo empty($content['recipe']['time']) ? '' : intval($content['recipe']['time']) ?>" onkeyup="this.value=this.value.replace(/\D/g,'');" size="5" />
+			<span class="me-2 text-muted small"><?php echo $BL['be_date_minutes'] ?></span>
 			<input name="recipe_time_add" type="text" id="recipe_time_add" class="form-control form-control-sm" style="width: 120px;" value="<?php echo html($content['recipe']['time_add']) ?>" placeholder="<?php echo $BL['be_cnt_additional'] ?>" />
 		</div>
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label for="recipe_calorificvalue" class="col-sm-2 col-form-label text-right">N&auml;hrwert</label>
+<div class="form-group row g-2">
+	<label for="recipe_calorificvalue" class="col-sm-2 col-form-label text-end">N&auml;hrwert</label>
 	<div class="col-sm-10">
 		<div class="form-inline">
-			<input name="recipe_calorificvalue" type="text" id="recipe_calorificvalue" class="form-control form-control-sm mr-1" style="width: 50px;" value="<?php echo empty($content['recipe']['calorificvalue']) ? '' : intval($content['recipe']['calorificvalue']) ?>" size="5" onkeyup="this.value=this.value.replace(/\D/g,'');" />
-			<span class="mr-2 text-muted small">kJ</span>
+			<input name="recipe_calorificvalue" type="text" id="recipe_calorificvalue" class="form-control form-control-sm me-1" style="width: 50px;" value="<?php echo empty($content['recipe']['calorificvalue']) ? '' : intval($content['recipe']['calorificvalue']) ?>" size="5" onkeyup="this.value=this.value.replace(/\D/g,'');" />
+			<span class="me-2 text-muted small">kJ</span>
 			<input name="recipe_calorificvalue_add" type="text" id="recipe_calorificvalue_add" class="form-control form-control-sm" style="width: 120px;" value="<?php echo html($content['recipe']['calorificvalue_add']) ?>" placeholder="<?php echo $BL['be_cnt_additional'] ?>" />
 		</div>
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label class="col-sm-2 col-form-label text-right">Schwierigkeit</label>
+<div class="form-group row g-2">
+	<label class="col-sm-2 col-form-label text-end">Schwierigkeit</label>
 	<div class="col-sm-10">
 		<?php for ($i = 1; $i <= 5; $i++): ?>
 			<div class="form-check form-check-inline">
@@ -135,8 +135,8 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 
 <hr />
 
-<div class="form-group form-row">
-	<label class="col-sm-2 col-form-label text-right">Zubereitung</label>
+<div class="form-group row g-2">
+	<label class="col-sm-2 col-form-label text-end">Zubereitung</label>
 	<div class="col-sm-10">
 		<?php
 		$wysiwyg_editor = array(

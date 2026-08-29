@@ -71,15 +71,15 @@ if($subscription["id"]) {
     <div class="card-header"><h2><?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_titleedit']) ?></h2></div>
     <div class="card-body">
 
-      <div class="form-group form-row align-items-center">
-          <label for="subscription_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_name'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+          <label for="subscription_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_newsletter_name'] ?></label>
           <div class="col-sm-10">
             <input type="text" class="form-control form-control-sm" name="subscription_name" id="subscription_name" value="<?php echo  empty($subscription["name"]) ? '' : html($subscription["name"]) ?>" size="50" maxlength="250"  required />
           </div>
       </div>
 
-      <div class="form-group form-row">
-          <label for="subscription_info" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_info'] ?></label>
+      <div class="form-group row g-2">
+          <label for="subscription_info" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_newsletter_info'] ?></label>
           <div class="col-sm-10">
             <textarea name="subscription_info" cols="35" rows="6" class="form-control form-control-sm autosize" id="subscription_info"><?php echo empty($subscription["info"]) ? '' : html($subscription["info"]); ?></textarea>
           </div>
@@ -88,8 +88,8 @@ if($subscription["id"]) {
       <div class="form-group row mt-4 mb-0">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
-          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_button_save']) ?></button>
-          <a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=2"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_button_save']) ?></button>
+          <a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=2"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
         </div>
       </div>
 

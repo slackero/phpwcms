@@ -105,8 +105,8 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 ?>
 <h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
-<div class="form-group mb-3 text-center text-sm-left">
-	<a class="btn btn-sm btn-blue" href="<?php echo GLOSSARY_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fa fa-plus mr-1"></i> <span><?php echo $BLM['create_new'] ?></span></a>
+<div class="form-group mb-3 text-center text-sm-start">
+	<a class="btn btn-sm btn-blue" href="<?php echo GLOSSARY_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fa fa-plus me-1"></i> <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 
 <div class="card">
@@ -115,7 +115,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 			<input type="hidden" name="do_pagination" value="1" />
 			<input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
 			<input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
-			<div class="form-row align-items-center mb-3">
+			<div class="row g-2 align-items-center mb-3">
 				<div class="col-auto">
 					<div class="btn-group btn-group-sm">
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
@@ -130,22 +130,22 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 				<?php if($_entry['pages_total'] > 1): ?>
 					<div class="col-auto">
 						<div class="input-group input-group-sm">
-							<div class="input-group-prepend">
+							
 								<?php if($_SESSION['glossary_page'] > 1): ?>
 									<a href="<?php echo GLOSSARY_HREF ?>&amp;page=<?php echo ($_SESSION['glossary_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
 								<?php else: ?>
 									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
 								<?php endif; ?>
-							</div>
+							
 							<input type="number" name="page" id="page" value="<?php echo $_SESSION['glossary_page'] ?>" class="form-control form-control-sm text-center w-25" />
-							<div class="input-group-append">
+							
 								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 								<?php if($_SESSION['glossary_page'] < $_entry['pages_total']): ?>
 									<a href="<?php echo GLOSSARY_HREF ?>&amp;page=<?php echo ($_SESSION['glossary_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
 								<?php else: ?>
 									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
 								<?php endif; ?>
-							</div>
+							
 						</div>
 					</div>
 				<?php else: ?>
@@ -159,14 +159,14 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 							echo html(implode(' ', $_POST['filter']));
 						}
 						?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
-						<div class="input-group-append">
+						
 							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
-						</div>
+						
 					</div>
 				</div>
 
-				<div class="col text-right">
-					<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo decode_entities(GLOSSARY_HREF) ?>&amp;c=' + this.value;">
+				<div class="col text-end">
+					<select class="form-select form-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo decode_entities(GLOSSARY_HREF) ?>&amp;c=' + this.value;">
 						<?php foreach([10, 25, 50, 100, 250] as $c): ?>
 							<option value="<?php echo $c ?>"<?php if($_SESSION['list_user_count'] == $c) echo ' selected'; ?>><?php echo $c ?></option>
 						<?php endforeach; ?>
@@ -184,7 +184,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						<th>Title</th>
 						<th>Keyword</th>
 						<th>Tag</th>
-						<th style="width: 120px;" class="text-right">Actions</th>
+						<th style="width: 120px;" class="text-end">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -208,7 +208,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						echo '<td>' . html($row["glossary_title"]) . '</td>';
 						echo '<td>' . html($row["glossary_keyword"]) . '</td>';
 						echo '<td>' . html($row["glossary_tag"]) . '</td>';
-						echo '<td class="text-right text-nowrap">';
+						echo '<td class="text-end text-nowrap">';
 						echo '<div class="btn-group btn-group-sm" role="group" aria-label="glossary-actions-' . $row["glossary_id"] . '">';
 						
 						echo '<a href="' . GLOSSARY_HREF . '&amp;edit=' . $row["glossary_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
@@ -217,7 +217,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						echo '<i class="fas ' . (($row["glossary_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
 						echo '</div>';
 						
-						echo '<a href="' . GLOSSARY_HREF . '&amp;delete=' . $row["glossary_id"] . '" class="btn btn-sm btn-danger ml-1" title="Delete"';
+						echo '<a href="' . GLOSSARY_HREF . '&amp;delete=' . $row["glossary_id"] . '" class="btn btn-sm btn-danger ms-1" title="Delete"';
 						echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["glossary_title"]) . '\');">';
 						echo '<i class="far fa-trash-alt"></i></a>';
 						echo '</td>';

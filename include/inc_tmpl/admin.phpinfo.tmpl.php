@@ -31,7 +31,7 @@ if (preg_match('/<body>(.*?)<\/body>/s', $phpinfo_raw, $matches)) {
 ?>
 
 <div class="row align-items-center">
-  <div class="col col-sm-auto text-center text-sm-left">
+  <div class="col col-sm-auto text-center text-sm-start">
     <h1>phpinfo()</h1>
   </div>
 </div>

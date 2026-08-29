@@ -22,10 +22,10 @@ initAceEditor();
 
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
-    <select name="template" id="template" class="custom-select form-control form-control-sm">
+    <select name="template" id="template" class="form-select form-select-sm">
 <?php
 
     echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -45,8 +45,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="chtml" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_plainhtml']; ?></label>
+<div class="form-group row g-2">
+  <label for="chtml" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_plainhtml']; ?></label>
   <div class="col">
     <textarea name="chtml" rows="20" class="form-control form-control-sm code-editor" data-mode="html" id="chtml"><?php echo html($content["html"], true) ?></textarea>
   </div>

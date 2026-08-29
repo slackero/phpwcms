@@ -27,7 +27,7 @@ if (!defined('PHPWCMS_ROOT')) {
 						<th><?php echo $BLM['ad_format'] ?></th>
 						<th>RT</th>
 						<th><?php echo $BLM['ad_wxh'] ?></th>
-						<th style="width: 120px;" class="text-right">Actions</th>
+						<th style="width: 120px;" class="text-end">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -51,7 +51,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					echo '<td>' . html($_format_title) . '</td>';
 					echo '<td>{ADS_' . $row["adplace_id"] . '}</td>';
 					echo '<td>' . $row["adplace_width"] . 'x' . $row["adplace_height"] . '</td>';
-					echo '<td class="text-right text-nowrap">';
+					echo '<td class="text-end text-nowrap">';
 					echo '<div class="btn-group btn-group-sm" role="group" aria-label="adplace-actions-' . $row["adplace_id"] . '">';
 					
 					echo '<a href="' . MODULE_HREF . '&amp;adplace=1&amp;edit=' . $row["adplace_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
@@ -62,9 +62,9 @@ if (!defined('PHPWCMS_ROOT')) {
 					
 					$adcount = _dbCount($sql . intval($row['adplace_id']));
 					if ($adcount > 0) {
-						echo '<button class="btn btn-sm btn-danger ml-1" disabled title="Delete"><i class="far fa-trash-alt"></i></button>';
+						echo '<button class="btn btn-sm btn-danger ms-1" disabled title="Delete"><i class="far fa-trash-alt"></i></button>';
 					} else {
-						echo '<a href="' . MODULE_HREF . '&amp;adplace=1&amp;delete=' . $row["adplace_id"] . '" class="btn btn-sm btn-danger ml-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adplace_title"]) . '"';
+						echo '<a href="' . MODULE_HREF . '&amp;adplace=1&amp;delete=' . $row["adplace_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adplace_title"]) . '"';
 						echo ' onclick="return confirm(\'' . js_singlequote($BLM['delete_adplace']) . ' \n' . js_singlequote($BLM['adplace_title'] . ': ' . html('"' . $row["adplace_title"] . '"')) . '\');">';
 						echo '<i class="far fa-trash-alt"></i></a>';
 					}

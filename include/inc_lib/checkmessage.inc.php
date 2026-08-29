@@ -21,7 +21,7 @@ $sql = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE msg_uid=".intva
 if(($check = _dbQuery($sql, 'COUNT'))) {
 
     $wcsnav["navspace1"]  = '<a href="phpwcms.php?do=messages" title="'.$check.' new messages waiting!">'.
-    $wcsnav["navspace1"] .= '<i class="fas fa-envelope text-warning ml-1"></i></a>';
+    $wcsnav["navspace1"] .= '<i class="fas fa-envelope text-warning ms-1"></i></a>';
     $new_mail_waiting = 1;
 
 }

@@ -16,41 +16,41 @@ $_SESSION['admin_set'] = false;
 $setup_recommend = true;
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">2. System Requirements &amp; Environment Check</h2>
+<h2 class="h4 text-primary fw-normal mb-3">2. System Requirements &amp; Environment Check</h2>
 <p class="text-muted">Please review the system requirements and environment checks below before proceeding with the installation (PHP 8.2+, MySQL 5.6+ recommended).</p>
 
 <div class="card mb-4 border">
-    <div class="card-header bg-light font-weight-bold">Core Environment</div>
+    <div class="card-header bg-light fw-bold">Core Environment</div>
     <div class="list-group list-group-flush">
         <div class="list-group-item d-flex justify-content-between align-items-center py-3">
             <div>
-                <h6 class="mb-0 font-weight-bold">Web Server</h6>
+                <h6 class="mb-0 fw-bold">Web Server</h6>
                 <small class="text-muted"><?php echo empty($_SERVER['SERVER_SOFTWARE']) ? 'Unavailable' : html_specialchars($_SERVER['SERVER_SOFTWARE']) ?></small>
             </div>
-            <span class="badge badge-success badge-pill">OK</span>
+            <span class="badge badge-success rounded-pill">OK</span>
         </div>
 
         <div class="list-group-item d-flex justify-content-between align-items-center py-3">
             <div>
-                <h6 class="mb-0 font-weight-bold">PHP Version</h6>
+                <h6 class="mb-0 fw-bold">PHP Version</h6>
                 <small class="text-muted"><?php echo html_specialchars(phpversion()) ?></small>
             </div>
             <?php if (version_compare(phpversion(), '8.2.0', '>=')): ?>
-                <span class="badge badge-success badge-pill">OK (<?php echo html_specialchars(phpversion()) ?>)</span>
+                <span class="badge badge-success rounded-pill">OK (<?php echo html_specialchars(phpversion()) ?>)</span>
             <?php else: $setup_recommend = false; ?>
-                <span class="badge badge-danger badge-pill">Requires PHP 8.2+</span>
+                <span class="badge badge-danger rounded-pill">Requires PHP 8.2+</span>
             <?php endif; ?>
         </div>
 
         <div class="list-group-item d-flex justify-content-between align-items-center py-3">
             <div>
-                <h6 class="mb-0 font-weight-bold">MySQLi Extension</h6>
+                <h6 class="mb-0 fw-bold">MySQLi Extension</h6>
                 <small class="text-muted">PHP MySQLi database driver</small>
             </div>
             <?php if (function_exists('mysqli_connect')): ?>
-                <span class="badge badge-success badge-pill">Installed</span>
+                <span class="badge badge-success rounded-pill">Installed</span>
             <?php else: $setup_recommend = false; ?>
-                <span class="badge badge-danger badge-pill">Not Installed</span>
+                <span class="badge badge-danger rounded-pill">Not Installed</span>
             <?php endif; ?>
         </div>
 
@@ -59,10 +59,10 @@ $setup_recommend = true;
                 <?php
                 $mysql_version = function_exists('mysqli_get_client_info') ? mysqli_get_client_info() : 'Unavailable';
                 ?>
-                <h6 class="mb-0 font-weight-bold">MySQL Client Driver</h6>
+                <h6 class="mb-0 fw-bold">MySQL Client Driver</h6>
                 <small class="text-muted"><?php echo html_specialchars($mysql_version) ?></small>
             </div>
-            <span class="badge badge-success badge-pill">OK</span>
+            <span class="badge badge-success rounded-pill">OK</span>
         </div>
     </div>
 </div>
@@ -74,16 +74,16 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
 }
 ?>
 <div class="card mb-4 border">
-    <div class="card-header bg-light font-weight-bold d-flex justify-content-between align-items-center">
+    <div class="card-header bg-light fw-bold d-flex justify-content-between align-items-center">
         <span>Image Processing &amp; Graphics Tools</span>
-        <small class="text-muted font-weight-normal">At least one graphics library is required for thumbnail generation</small>
+        <small class="text-muted fw-normal">At least one graphics library is required for thumbnail generation</small>
     </div>
     <div class="list-group list-group-flush">
         <!-- Imagick PECL Extension -->
         <div class="list-group-item py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h6 class="mb-0 font-weight-bold">Imagick (PHP Extension)</h6>
+                    <h6 class="mb-0 fw-bold">Imagick (PHP Extension)</h6>
                     <small class="text-muted">
                         <?php if ($img_tools['imagick']['installed']): ?>
                             v<?php echo html_specialchars($img_tools['imagick']['version']) ?>
@@ -96,9 +96,9 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
                     </small>
                 </div>
                 <?php if ($img_tools['imagick']['installed']): ?>
-                    <span class="badge badge-success badge-pill">Installed</span>
+                    <span class="badge badge-success rounded-pill">Installed</span>
                 <?php else: ?>
-                    <span class="badge badge-light text-muted badge-pill">Not Installed</span>
+                    <span class="badge badge-light text-muted rounded-pill">Not Installed</span>
                 <?php endif; ?>
             </div>
             <?php if ($img_tools['imagick']['installed']): ?>
@@ -113,7 +113,7 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
         <div class="list-group-item py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h6 class="mb-0 font-weight-bold">ImageMagick (CLI)</h6>
+                    <h6 class="mb-0 fw-bold">ImageMagick (CLI)</h6>
                     <small class="text-muted">
                         <?php if ($img_tools['imagemagick']['installed']): ?>
                             <code><?php echo html_specialchars($img_tools['imagemagick']['path']) ?></code>
@@ -126,9 +126,9 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
                     </small>
                 </div>
                 <?php if ($img_tools['imagemagick']['installed']): ?>
-                    <span class="badge badge-success badge-pill">Available</span>
+                    <span class="badge badge-success rounded-pill">Available</span>
                 <?php else: ?>
-                    <span class="badge badge-light text-muted badge-pill">Not Found</span>
+                    <span class="badge badge-light text-muted rounded-pill">Not Found</span>
                 <?php endif; ?>
             </div>
             <?php if ($img_tools['imagemagick']['installed']): ?>
@@ -143,7 +143,7 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
         <div class="list-group-item py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h6 class="mb-0 font-weight-bold">GraphicsMagick (CLI)</h6>
+                    <h6 class="mb-0 fw-bold">GraphicsMagick (CLI)</h6>
                     <small class="text-muted">
                         <?php if ($img_tools['graphicsmagick']['installed']): ?>
                             <code><?php echo html_specialchars($img_tools['graphicsmagick']['path']) ?></code>
@@ -156,9 +156,9 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
                     </small>
                 </div>
                 <?php if ($img_tools['graphicsmagick']['installed']): ?>
-                    <span class="badge badge-success badge-pill">Available</span>
+                    <span class="badge badge-success rounded-pill">Available</span>
                 <?php else: ?>
-                    <span class="badge badge-light text-muted badge-pill">Not Found</span>
+                    <span class="badge badge-light text-muted rounded-pill">Not Found</span>
                 <?php endif; ?>
             </div>
             <?php if ($img_tools['graphicsmagick']['installed']): ?>
@@ -173,13 +173,13 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
         <div class="list-group-item py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h6 class="mb-0 font-weight-bold">GD Graphics Library</h6>
+                    <h6 class="mb-0 fw-bold">GD Graphics Library</h6>
                     <small class="text-muted"><?php echo html_specialchars($img_tools['gd']['version'] ?: 'PHP Extension') ?></small>
                 </div>
                 <?php if ($img_tools['gd']['installed']): ?>
-                    <span class="badge badge-success badge-pill">Installed</span>
+                    <span class="badge badge-success rounded-pill">Installed</span>
                 <?php else: ?>
-                    <span class="badge badge-warning badge-pill">Not Installed</span>
+                    <span class="badge badge-warning rounded-pill">Not Installed</span>
                 <?php endif; ?>
             </div>
             <?php if ($img_tools['gd']['installed']): ?>
@@ -194,7 +194,7 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
         <div class="list-group-item py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h6 class="mb-0 font-weight-bold">Ghostscript (PDF &amp; EPS Engine)</h6>
+                    <h6 class="mb-0 fw-bold">Ghostscript (PDF &amp; EPS Engine)</h6>
                     <small class="text-muted">
                         <?php if ($img_tools['ghostscript']['installed']): ?>
                             <code><?php echo html_specialchars($img_tools['ghostscript']['path']) ?></code>
@@ -207,9 +207,9 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
                     </small>
                 </div>
                 <?php if ($img_tools['ghostscript']['installed']): ?>
-                    <span class="badge badge-success badge-pill">Available (PDF &amp; EPS Enabled)</span>
+                    <span class="badge badge-success rounded-pill">Available (PDF &amp; EPS Enabled)</span>
                 <?php else: ?>
-                    <span class="badge badge-light text-muted badge-pill">Not Found (Optional for PDF/EPS)</span>
+                    <span class="badge badge-light text-muted rounded-pill">Not Found (Optional for PDF/EPS)</span>
                 <?php endif; ?>
             </div>
         </div>
@@ -218,7 +218,7 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
         <div class="list-group-item py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h6 class="mb-0 font-weight-bold">NetPBM Tools (CLI)</h6>
+                    <h6 class="mb-0 fw-bold">NetPBM Tools (CLI)</h6>
                     <small class="text-muted">
                         <?php if ($img_tools['netpbm']['installed']): ?>
                             <code><?php echo html_specialchars($img_tools['netpbm']['path']) ?></code>
@@ -231,9 +231,9 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
                     </small>
                 </div>
                 <?php if ($img_tools['netpbm']['installed']): ?>
-                    <span class="badge badge-success badge-pill">Available</span>
+                    <span class="badge badge-success rounded-pill">Available</span>
                 <?php else: ?>
-                    <span class="badge badge-light text-muted badge-pill">Not Found</span>
+                    <span class="badge badge-light text-muted rounded-pill">Not Found</span>
                 <?php endif; ?>
             </div>
         </div>
@@ -241,11 +241,11 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
 </div>
 
 <div class="card mb-4 border">
-    <div class="card-header bg-light font-weight-bold">PHP Extensions &amp; Environment Settings</div>
+    <div class="card-header bg-light fw-bold">PHP Extensions &amp; Environment Settings</div>
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6 mb-3 mb-sm-0">
-                <h6 class="font-weight-bold text-muted small text-uppercase mb-2">Recommended Extensions</h6>
+                <h6 class="fw-bold text-muted small text-uppercase mb-2">Recommended Extensions</h6>
                 <ul class="list-unstyled mb-0 small">
                     <?php
                     $exts = array(
@@ -267,7 +267,7 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
                 </ul>
             </div>
             <div class="col-sm-6">
-                <h6 class="font-weight-bold text-muted small text-uppercase mb-2">PHP Configuration Directives</h6>
+                <h6 class="fw-bold text-muted small text-uppercase mb-2">PHP Configuration Directives</h6>
                 <ul class="list-unstyled mb-0 small">
                     <li class="d-flex justify-content-between align-items-center py-1">
                         <span>Memory Limit</span>

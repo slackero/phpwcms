@@ -72,14 +72,14 @@ if(is_array($tmpllist) && count($tmpllist)) {
 }
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
-    <select name="template" id="template" class="custom-select form-control"<?php if(count($tab_fieldgroups)): ?> onchange="return toggleTabsTemplate(this);"<?php endif; ?>>
+    <select name="template" id="template" class="form-select"<?php if(count($tab_fieldgroups)): ?> onchange="return toggleTabsTemplate(this);"<?php endif; ?>>
       <?php echo $tab_template_options; ?>
     </select>
   </div>
-  <label class="col-sm-2 col-form-label text-right"></label>
+  <label class="col-sm-2 col-form-label text-end"></label>
   <div class="col-sm-4">
   	<div class="form-check form-check-inline col-sm-auto">
       <input class="form-check-input" type="checkbox" name="tabwysiwygoff" id="tabwysiwygoff" value="1"<?php is_checked(1, $content['tabwysiwygoff']) ?> />
@@ -90,8 +90,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <hr />
 
-<div class="form-group align-items-center form-row">
-	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tab_name'] ?></label>
+<div class="form-group align-items-center row g-2">
+	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tab_name'] ?></label>
 	<div class="col">
 		<button type="button" class="btn btn-sm btn-blue" id="btn_add_tab_top" onclick="return addNewTab('top');">
 			<i class="fa fa-plus"></i>
@@ -141,14 +141,14 @@ if(is_array($tmpllist) && count($tmpllist)) {
         <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
           <div class="row align-items-center">
             <div class="col-sm-auto">
-              <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary">
+              <em data-bs-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary">
                   <i class="fa fa-grip-vertical"></i>
               </em>
             </div>
             <div class="col">
               <h2><strong>#<?php echo $key + 1 ?></strong></h2>
             </div>
-            <div class="col text-right">
+            <div class="col text-end">
                 <?php
                 // Fallback for old entries
                 if (!isset($value['tabactive'])) {
@@ -159,7 +159,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
                     <i class="fa <?= $value['tabactive'] ? 'fa-eye' : 'fa-eye-slash'; ?>" id="tabactive<?php echo $key ?>-icon"></i>
                     <input type="hidden" name="tabactive[<?php echo $key ?>]" id="tabactive<?php echo $key ?>" value="<?php echo $value['tabactive']; ?>">
                 </a>
-                <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>">
+                <a class="btn btn-sm btn-blue" data-bs-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>">
                     <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                 </a>
                 <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteTab('tab_<?php echo $key ?>');">
@@ -170,30 +170,30 @@ if(is_array($tmpllist) && count($tmpllist)) {
         </div>
 
         <div class="card-body pb-1">
-            <div class="form-group align-items-center form-row">
-                <label class="col-sm-2 col-form-label text-right" for="tabtitle<?php echo $key ?>"><?php echo $BL['be_tab_name']; ?></label>
+            <div class="form-group align-items-center row g-2">
+                <label class="col-sm-2 col-form-label text-end" for="tabtitle<?php echo $key ?>"><?php echo $BL['be_tab_name']; ?></label>
                 <div class="col"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html($value['tabtitle']); ?>" class="form-control form-control-sm" /></div>
             </div>
 
             <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#tabs">
-                <div class="form-group align-items-center form-row">
-					<label for="tabheadline<?php echo $key ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_headline'] ?></label>
+                <div class="form-group align-items-center row g-2">
+					<label for="tabheadline<?php echo $key ?>" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_headline'] ?></label>
 					<div class="col-sm-4">
 						<input type="text" name="tabheadline[<?php echo $key ?>]" id="tabheadline<?php echo $key ?>" value="<?php echo html($value['tabheadline']); ?>" class="form-control form-control-sm" />
 					</div>
-					<label for="tablink<?php echo $key ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_link'] ?></label>
+					<label for="tablink<?php echo $key ?>" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_link'] ?></label>
 					<div class="col-sm-4">
 						<input type="text" name="tablink[<?php echo $key ?>]" id="tablink<?php echo $key ?>" value="<?php echo (isset($value['tablink']) ? html($value['tablink']) : ''); ?>" class="form-control form-control-sm" />
 					</div>
 				</div>
-				<div class="form-group form-row">
+				<div class="form-group row g-2">
 					<?php if($content['tabwysiwygoff']): ?>
-					<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_wysiwyg']; ?></label>
+					<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ctype_wysiwyg']; ?></label>
                     <div class="col">
                         <textarea class="form-control autosize" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="5"><?php echo html($value['tabtext']); ?></textarea>
                     </div>
                     <?php else: ?>
-                    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_field']['textarea'] ?></label>
+                    <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_field']['textarea'] ?></label>
                     <div class="col">
                         <textarea class="form-control" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="5"><?php echo html($value['tabtext']); ?></textarea>
                     </div>
@@ -225,8 +225,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
            $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
            $custom_field_class = empty($cnt_fieldgroup['fields'][$custom_field]['class']) ? '' : ' ' . $cnt_fieldgroup['fields'][$custom_field]['class'];
 ?>
- 			<div class="form-group align-items-center form-row tab-collapsable-row<?= $custom_field_class; ?>">
-                <label class="col-sm-2 col-form-label text-right"><?php
+ 			<div class="form-group align-items-center row g-2 tab-collapsable-row<?= $custom_field_class; ?>">
+                <label class="col-sm-2 col-form-label text-end"><?php
                   if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                     if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
                       echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
@@ -279,7 +279,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
               </div>
       <?php   endforeach; ?>
       <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
-              <select class="custom-select form-control form-control-sm" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]">
+              <select class="form-select form-select-sm" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]">
       <?php   foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
                 <option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
                   if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
@@ -298,9 +298,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
       <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
           <div class="input-group mb-3">
-              <span class="input-group-prepend">
-                  <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>" ></button>
-              </span>
+              
+                  <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>" ></button>
+              
               <input
                   name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][id]"
                   type="hidden"
@@ -324,17 +324,17 @@ if(is_array($tmpllist) && count($tmpllist)) {
                   size="40"
                   onfocus="this.blur()"
               />
-              <span class="input-group-append ">
+              
                   <a class="btn btn-sm btn-danger trash"
                      href="#"
                      type="button"
-                     data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
+                     data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
                      onclick="document.getElementById('customfield_<?php
                      echo $custom_field.'_'.$key; ?>_name').value='';document.getElementById('customfield_<?php
                      echo $custom_field.'_'.$key; ?>_id').value='';document.getElementById('customfield_<?php
                      echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
                   ></a>
-              </span>
+              
           </div>
 
           <textarea
@@ -394,19 +394,19 @@ function addNewTab(pos) {
         <div class="card-header p-2 border-1" role="tab" id="heading_${entries}">
             <div class="row align-items-center">
                 <div class="col-sm-auto">
-                    <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary">
+                    <em data-bs-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary">
                         <i class="fa fa-grip-vertical"></i>
                     </em>
                 </div>
                 <div class="col">
                     <h2><strong>#${tab_index}</strong></h2>
                 </div>
-                <div class="col text-right">
+                <div class="col text-end">
                     <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return setTabActive(this, 'tabactive${entries}')">
                         <i class="fa fa-eye-slash" id="tabactive${entries}-icon"></i>
                         <input type="hidden" name="tabactive[${entries}]" id="tabactive${entries}" value="0">
                     </a>
-                    <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_${entries}">
+                    <a class="btn btn-sm btn-blue" data-bs-toggle="collapse" href="#collapse_${entries}">
                         <i class="fa fa-ellipsis-h"></i>
                     </a>
                     <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteTab('tab_${entries}');">
@@ -416,23 +416,23 @@ function addNewTab(pos) {
             </div>
         </div>
         <div class="card-body pb-1">
-            <div class="form-group align-items-center form-row">
-                <label class="col-sm-2 col-form-label text-right" for="tabtitle${entries}"><?php echo $BL['be_tab_name']; ?></label>
+            <div class="form-group align-items-center row g-2">
+                <label class="col-sm-2 col-form-label text-end" for="tabtitle${entries}"><?php echo $BL['be_tab_name']; ?></label>
                 <div class="col"><input type="text" name="tabtitle[${entries}]" id="tabtitle${entries}" value="" class="form-control form-control-sm" /></div>
             </div>
             <div id="collapse_${entries}" class="collapse show" role="tabpanel" aria-labelledby="heading_${entries}" data-parent="#tabs">
-                <div class="form-group align-items-center form-row">
-					<label for="tabheadline${entries}" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_headline'] ?></label>
+                <div class="form-group align-items-center row g-2">
+					<label for="tabheadline${entries}" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_headline'] ?></label>
 					<div class="col-sm-4">
 						<input type="text" name="tabheadline[${entries}]" id="tabheadline${entries}" value="" class="form-control form-control-sm" />
 					</div>
-					<label for="tablink${entries}" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_link'] ?></label>
+					<label for="tablink${entries}" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_link'] ?></label>
 					<div class="col-sm-4">
 						<input type="text" name="tablink[${entries}]" id="tablink${entries}" value="" class="form-control form-control-sm" />
 					</div>
 				</div>
-                <div class="form-group form-row">
-                    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_field']['textarea'] ?></label>
+                <div class="form-group row g-2">
+                    <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_field']['textarea'] ?></label>
                     <div class="col"><textarea class="form-control" name="tabtext[${entries}]" id="tabtext${entries}" rows="5"></textarea></div>
 				</div>
 <?php
@@ -452,8 +452,8 @@ function addNewTab(pos) {
                 }
 ?>
                 <hr />
-                <div class="form-group align-items-center form-row tab-collapsable-row">
-                    <label class="col-sm-2 col-form-label text-right">
+                <div class="form-group align-items-center row g-2 tab-collapsable-row">
+                    <label class="col-sm-2 col-form-label text-end">
                         <?php
                         if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                             echo isset($tab_fieldgroup['fields'][$custom_field]['legend']) ? html($tab_fieldgroup['fields'][$custom_field]['legend']) : $BL['be_custom_textfield'] . ' #' . ($custom_field_key + 1);
@@ -493,7 +493,7 @@ function addNewTab(pos) {
                             endforeach; ?>
 
                         <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
-                            <select class="custom-select form-control form-control-sm" name="customfield[${entries}][<?php echo $custom_field; ?>]">
+                            <select class="form-select form-select-sm" name="customfield[${entries}][<?php echo $custom_field; ?>]">
                             <?php foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
                                 <option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"
                                 <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> selected="selected"<?php endif; ?>>
@@ -510,17 +510,17 @@ function addNewTab(pos) {
 
                         <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
                             <div class="input-group mb-3">
-                                <span class="input-group-prepend">
-                                    <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field ?>_${entries}&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"></button>
-                                </span>
+                                
+                                    <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field ?>_${entries}&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"></button>
+                                
                                 <input type="hidden" name="customfield[${entries}][<?php echo $custom_field; ?>][id]" id="customfield_<?php echo $custom_field; ?>_${entries}_id" value="" />
                                 <input type="text" name="customfield[${entries}][<?php echo $custom_field; ?>][name]" id="customfield_<?php echo $custom_field; ?>_${entries}_name" class="form-control form-control-sm" value="" size="40" onfocus="this.blur()" />
-                                <span class="input-group-append ">
-                                    <a class="btn btn-sm btn-danger trash" href="#" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('customfield_<?php
+                                
+                                    <a class="btn btn-sm btn-danger trash" href="#" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('customfield_<?php
                                       echo $custom_field; ?>_${entries}_name').value='';document.getElementById('customfield_<?php
                                       echo $custom_field; ?>_${entries}_id').value='';document.getElementById('customfield_<?php
                                       echo $custom_field; ?>_${entries}_description').value='';this.blur();return false;"></a>
-                                </span>
+                                
                             </div>
                             <textarea name="customfield[${entries}][<?php echo $custom_field; ?>][description]" cols="40" rows="2" class="form-control form-control-sm mb-2" id="customfield_<?php echo $custom_field; ?>_${entries}_description"></textarea>
                             <span class="small">
@@ -728,8 +728,8 @@ function addNewTab(pos) {
 </div>
 
 <?php if(count($content['tabs'])): ?>
-<div class="form-group align-items-center form-row">
-	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tab_name'] ?></label>
+<div class="form-group align-items-center row g-2">
+	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tab_name'] ?></label>
 	<div class="col">
 		<button type="button" class="btn btn-sm btn-blue" id="btn_add_tab_bottom" onclick="return addNewTab('bottom');">
 			<i class="fa fa-plus"></i>

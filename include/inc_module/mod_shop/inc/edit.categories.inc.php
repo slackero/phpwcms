@@ -27,8 +27,8 @@ if (!defined('PHPWCMS_ROOT')) {
 <form action="<?php echo shop_url( array('controller=cat', 'edit='.$plugin['data']['cat_id']) ) ?>" method="post">
 <input type="hidden" name="cat_id" value="<?php echo $plugin['data']['cat_id'] ?>" />
 
-  <div class="form-group align-items-center form-row">
-            <label class="col-sm-2 col-form-label text-right"></label>
+  <div class="form-group align-items-center row g-2">
+            <label class="col-sm-2 col-form-label text-end"></label>
             <div class="col"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;
                 <?php echo html_specialchars(date($BL['be_fprivedit_dateformat'], $plugin['data']['cat_changedate'])) ;
                     if(!empty($plugin['data']['cat_createdate'])) {
@@ -41,8 +41,8 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
   </div>
 
-    <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_category'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_category'] ?></label>
         <div class="col-sm-4">
             <input name="cat_name" class="form-control form-control-sm" type="text" id="cat_name" class="v12<?php
             //error class
@@ -50,10 +50,10 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_subcategory'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_subcategory'] ?></label>
         <div class="col-sm-4">
-            <select name="cat_pid" id="cat_pid" class="form-control custom-select form-control-sm">
+            <select name="cat_pid" id="cat_pid" class="form-select form-select-sm">
             <?php
             //if($plugin['data']['cat_pid'] == 0) {
                 echo '<option value="0" selected="selected">&nbsp;</option>' . LF;
@@ -76,22 +76,22 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
     </div>
 
-    <div class="form-group form-row">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_infotext'] ?></label>
+    <div class="form-group row g-2">
+        <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_infotext'] ?></label>
         <div class="col">
             <textarea name="cat_info" id="cat_info" rows="10" class="form-control form-control-sm"><?php echo html_specialchars($plugin['data']['cat_info']) ?></textarea>
         </div>
   </div>
 
-    <div class="form-group align-items-center form-row ">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
+    <div class="form-group align-items-center row g-2 ">
+    <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_sorting'] ?></label>
     <div class="col-sm-auto form-check form-check-inline">
             <input name="cat_sort" type="text" id="cat_sort" class="form-control form-control-sm" value="<?php echo empty($plugin['data']['cat_sort']) ? 0 : intval($plugin['data']['cat_sort']) ?>" />
     </div>
   </div>
 
-    <div class="form-group align-items-center form-row ">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    <div class="form-group align-items-center row g-2 ">
+    <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
     <div class="col-sm-auto form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="cat_status" id="cat_status" value="1"<?php is_checked($plugin['data']['cat_status'], 1) ?> />
             <label class="form-check-label" for="cat_status"><?php echo $BL['be_cnt_activated'] ?></label>
@@ -99,9 +99,9 @@ if (!defined('PHPWCMS_ROOT')) {
   </div>
 
     <div class="form-group align-items-center mt-4 mb-0">
-        <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($plugin['data']['cat_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-        <button name="save" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-        <a href="<?php echo shop_url(array('controller=cat')) ?>" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+        <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($plugin['data']['cat_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+        <button name="save" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+        <a href="<?php echo shop_url(array('controller=cat')) ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
     </div>
 
 </form>

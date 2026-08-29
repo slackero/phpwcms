@@ -39,7 +39,7 @@ if (isset($image_list['images']) && is_array($image_list['images']) && count($im
             ]);
 
             if ($thumb_image !== false) {
-                $cinfo_img .= '<img src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="' . html($image_list['images'][$key][1] ?? '') . '" class="img-thumbnail rounded mr-1 mb-1">';
+                $cinfo_img .= '<img src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="' . html($image_list['images'][$key][1] ?? '') . '" class="img-thumbnail rounded me-1 mb-1">';
             }
         }
     }

@@ -44,7 +44,7 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 			<tr>
 				<th width="40" class="text-center"><?php echo $BL['be_ftptakeover_mark'] ?></th>
 				<th><?php echo $BL['be_ftptakeover_available'] ?></th>
-				<th width="150" class="text-right"><?php echo $BL['be_ftptakeover_size'] ?></th>
+				<th width="150" class="text-end"><?php echo $BL['be_ftptakeover_size'] ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -69,7 +69,7 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 						<tr>
 							<td class="text-center align-middle"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
 							<td class="align-middle"><?php echo $filename ?></td>
-							<td class="text-right align-middle">
+							<td class="text-end align-middle">
 									<?php echo fsizelong($fxs) ?>
 									<input name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_base64 ?>" />
 									<input name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
@@ -93,8 +93,8 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 		<tfoot class="bg-light border-top">
 			<tr>
 				<td class="text-center align-middle"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
-				<td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fas fa-trash-alt mr-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
-				<td class="text-right align-middle font-weight-bold"><?php echo fsizelong($fxsg) ?></td>
+				<td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fas fa-trash-alt me-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
+				<td class="text-end align-middle fw-bold"><?php echo fsizelong($fxsg) ?></td>
 			</tr>
 		</tfoot>
 	<?php } ?>

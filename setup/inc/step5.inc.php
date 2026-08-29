@@ -16,11 +16,11 @@ $_SERVER['DOCUMENT_ROOT'] = $phpwcms['DOC_ROOT'];
 $phpwcms["root"] = !empty($phpwcms["root"]) ? "/" . $phpwcms["root"] : "";
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">7. Finalization &amp; Permissions Check</h2>
+<h2 class="h4 text-primary fw-normal mb-3">7. Finalization &amp; Permissions Check</h2>
 <p class="text-muted">Review directory permissions and finalize installation.</p>
 
 <div class="card mb-4 border">
-    <div class="card-header bg-light font-weight-bold">Directory Permissions</div>
+    <div class="card-header bg-light fw-bold">Directory Permissions</div>
     <div class="list-group list-group-flush">
         <?php
         $dir_checks = array(
@@ -49,9 +49,9 @@ $phpwcms["root"] = !empty($phpwcms["root"]) ? "/" . $phpwcms["root"] : "";
                     <strong><?php echo html_specialchars($label) ?>:</strong> <code><?php echo html_specialchars($path) ?></code>
                 </div>
                 <?php if ($is_ok): ?>
-                    <span class="badge badge-success badge-pill">Writable (OK)</span>
+                    <span class="badge badge-success rounded-pill">Writable (OK)</span>
                 <?php else: ?>
-                    <span class="badge badge-danger badge-pill">Not Writable</span>
+                    <span class="badge badge-danger rounded-pill">Not Writable</span>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
@@ -82,7 +82,7 @@ if (!is_file($this_root . '/include/config/conf.inc.php')) {
 ?>
 
 <div class="card mb-4 border">
-    <div class="card-header bg-light font-weight-bold">Configuration Status</div>
+    <div class="card-header bg-light fw-bold">Configuration Status</div>
     <div class="card-body">
         <?php if ($result): ?>
             <div class="alert alert-success"><i class="fa fa-check-circle"></i> The configuration file <code>conf.inc.php</code> was successfully written to <code>include/config/</code>.</div>
@@ -115,7 +115,7 @@ if (!is_file($this_root . '/include/config/conf.inc.php')) {
     </div>
 </div>
 
-<div class="alert alert-danger font-weight-bold py-3 my-4">
+<div class="alert alert-danger fw-bold py-3 my-4">
     <i class="fa fa-exclamation-triangle"></i> ATTENTION: Delete or secure the <code>setup</code> directory before using phpwcms in production!
 </div>
 

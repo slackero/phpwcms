@@ -108,17 +108,17 @@ if(isset($_POST["file_search"])) {
             }
     ?></div>
     <?php   } //fehler suche ende   ?>
-    <form action="phpwcms.php?do=files&amp;f=3" method="post" enctype="multipart/form-data" name="searchfile" id="searchfile" class="form-inline mb-2">
+    <form action="phpwcms.php?do=files&amp;f=3" method="post" enctype="multipart/form-data" name="searchfile" id="searchfile" class="d-flex flex-wrap align-items-center mb-2">
 
-      <label class="form-label mr-2" for="file_search"><?php echo $BL['be_fsearch_searchlabel'] ?></label>
-      <input name="file_search" type="search" id="file_search" class="form-control form-control-sm mr-2 my-2 my-sm-0" value="<?php
+      <label class="form-label me-2 mb-0" for="file_search"><?php echo $BL['be_fsearch_searchlabel'] ?></label>
+      <input name="file_search" type="search" id="file_search" class="form-control form-control-sm w-auto me-2 my-2 my-sm-0" value="<?php
                     if(!empty($_SESSION['file_search_query']['file_search'])) {
                         echo html($_SESSION['file_search_query']['file_search']);
                     }
                 ?>" maxlength="250" />
       <script type="text/javascript"> document.searchfile.file_search.focus(); </script>
 
-      <select name="file_andor" id="file_andor" class="custom-select form-control form-control-sm mr-2 my-2 my-sm-0">
+      <select name="file_andor" id="file_andor" class="form-select form-select-sm w-auto me-2 my-2 my-sm-0">
         <?php
 
         $s1 = $_POST['file_andor'] ?? 1;
@@ -128,12 +128,12 @@ if(isset($_POST["file_search"])) {
           <option value="1" <?php is_selected("1", $s1) ?>><?php echo $BL['be_fsearch_and'] ?></option>
           <option value="0" <?php is_selected("0", $s1) ?>><?php echo $BL['be_fsearch_or'] ?></option>
         </select>
-        <select name="file_which" id="file_which" class="custom-select form-control form-control-sm mr-2 my-2 my-sm-0">
+        <select name="file_which" id="file_which" class="form-select form-select-sm w-auto me-2 my-2 my-sm-0">
           <option value="2" <?php is_selected("2", $s2) ?>><?php echo $BL['be_fsearch_all'] ?></option>
           <option value="0" <?php is_selected("0", $s2) ?>><?php echo $BL['be_fsearch_personal'] ?></option>
           <option value="1" <?php is_selected("1", $s2) ?>><?php echo $BL['be_fsearch_public'] ?></option>
       </select>
-      <button name="submit" type="submit" id="submit" class="btn btn-sm btn-blue"><i class="fa fa-search mr-1"></i> <?php echo $BL['be_fsearch_startsearch'] ?></button>
+      <button name="submit" type="submit" id="submit" class="btn btn-sm btn-blue"><i class="fa fa-search me-1"></i> <?php echo $BL['be_fsearch_startsearch'] ?></button>
     </form>
 
 <?php
@@ -177,7 +177,7 @@ if(isset($search["result"])) {
 
             echo '<tr'.$row_class.'>';
             echo '<td width="30">';
-            echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
+            echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
             echo "</td>";
             echo "<td>";
             if(empty($_SESSION["wcs_user_admin"]) && $file_row["f_uid"] != $_SESSION["wcs_user_id"]) {
@@ -185,29 +185,29 @@ if(isset($search["result"])) {
                 echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
                 $file_row['edit'] = '';
             } else {
-                $file_row['edit'] = '<a href="phpwcms.php?do=files&amp;f=0&amp;editfile='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
+                $file_row['edit'] = '<a href="phpwcms.php?do=files&amp;f=0&amp;editfile='.$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
                 echo $file_row['edit'];
 
             }
             echo $filename."</a>";
-            echo "</td><td></td><td class=\"text-right text-nowrap\">";
+            echo "</td><td></td><td class=\"text-end text-nowrap\">";
 
             if($file_row['edit']) {
                 echo $file_row['edit'];
-                echo '<i class="btn btn-sm btn-blue fa fa-pencil-alt mr-1"></i></a>';
+                echo '<i class="btn btn-sm btn-blue fa fa-pencil-alt me-1"></i></a>';
             }
 
-            echo '<a href="include/inc_act/act_download.php?pl=1&dl='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'" target="_blank">';
-            echo '<i class="btn btn-sm btn-blue mr-1 fa fa-download" aria-hidden="true"></i></a>';
+            echo '<a href="include/inc_act/act_download.php?pl=1&dl='.$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'" target="_blank">';
+            echo '<i class="btn btn-sm btn-blue me-1 fa fa-download" aria-hidden="true"></i></a>';
 
             if ($has_filedelete_permission || $file_row['f_uid'] == intval($_SESSION['wcs_user_id'])) {
                 //if user is owner then delete button is active
                 echo '<a href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'%7C'.'1'.'" ';
-                echo 'data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"alert('";
+                echo 'data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"alert('";
                 echo $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
-                echo "');\">", '<i class="btn btn-sm btn-blue mr-1 fa fa-trash-alt" aria-hidden="true"></i></a>';
+                echo "');\">", '<i class="btn btn-sm btn-blue me-1 fa fa-trash-alt" aria-hidden="true"></i></a>';
             } else {
-                echo '<i class="btn btn-sm btn-blue mr-1 fa fa-trash-alt disabled" aria-hidden="true" style="pointer-events: none; opacity: 0.5;"></i>';
+                echo '<i class="btn btn-sm btn-blue me-1 fa fa-trash-alt disabled" aria-hidden="true" style="pointer-events: none; opacity: 0.5;"></i>';
             }
             echo "</td>";
             echo "</tr>";

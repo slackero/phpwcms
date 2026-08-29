@@ -7,7 +7,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 ?>
-<h1 class="title mb-3"><i class="fas fa-rss text-warning mr-2"></i><?php echo $BLM['listing_title'] ?></h1>
+<h1 class="title mb-3"><i class="fas fa-rss text-warning me-2"></i><?php echo $BLM['listing_title'] ?></h1>
 
 <div class="card">
 	<div class="card-body">
@@ -58,15 +58,15 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 
 		echo '<div class="form-group row">'.LF;
-		echo '  <label for="file_'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label for="file_'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		echo '    <div class="input-group input-group-sm" style="max-width: 450px;">'.LF;
 		echo '      <input name="file_'.$key.'" type="text" id="file_'.$key.'" class="form-control text-muted bg-light" value="'.$plugin['file_'.$key].'" readonly />'.LF;
 		echo '      <input type="hidden" name="'.$key.'" id="fileid_'.$key.'" value="'.html($plugin['data'][$key]).'" />'.LF;
-		echo '      <div class="input-group-append">'.LF;
+		echo '      '.LF;
 		echo '        <button class="btn btn-secondary" type="button" title="'.$BL['be_cnt_openfilebrowser'].'" onclick="openFileBrowser(\''.$key.'\');"><i class="fas fa-folder-open"></i></button>'.LF;
 		echo '        <button class="btn btn-danger" type="button" title="'.$BL['be_cnt_delfile'].'" onclick="deleteIdData(\''.$key.'\',this);"><i class="fas fa-trash-alt"></i></button>'.LF;
-		echo '      </div>'.LF;
+		echo '      '.LF;
 		echo '    </div>'.LF;
 		echo '  </div>'.LF;
 		echo '</div>'.LF;
@@ -85,7 +85,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 			case 'STRING':
 		echo '<div class="form-group row">'.LF;
-		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		echo '    <input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm" value="'.html($plugin['data'][$key]).'" maxlength="200" style="max-width: 450px;" />'.LF;
 		echo '  </div>'.LF;
@@ -94,7 +94,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 			case 'STRING-DISABLED':
 		echo '<div class="form-group row">'.LF;
-		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		echo '    <input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm bg-light" value="'.html($plugin['data'][$key]).'" readonly style="max-width: 450px;" />'.LF;
 		echo '  </div>'.LF;
@@ -103,7 +103,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 			case 'TEXTAREA-DISABLED':
 		echo '<div class="form-group row">'.LF;
-		echo '  <label class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		echo '    <textarea class="form-control form-control-sm bg-light" rows="2" readonly onclick="this.focus();this.select();" style="max-width: 450px;">'.html($plugin['data'][$key]).'</textarea>'.LF;
 		echo '  </div>'.LF;
@@ -113,7 +113,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 			case 'TEXTAREA':
 		echo '<div class="form-group row">'.LF;
-		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		echo '    <textarea name="'.$key.'" id="'.$key.'" class="form-control form-control-sm" rows="4" style="max-width: 450px;">'.html($plugin['data'][$key]).'</textarea>'.LF;
 		echo '  </div>'.LF;
@@ -124,7 +124,7 @@ if (!defined('PHPWCMS_ROOT')) {
 			case 'INT':
 			case 'FLOAT':
 		echo '<div class="form-group row">'.LF;
-		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		echo '    <input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm" value="'.html($plugin['data'][$key]).'" maxlength="200" style="max-width: 150px;" />'.LF;
 		echo '  </div>'.LF;
@@ -135,11 +135,11 @@ if (!defined('PHPWCMS_ROOT')) {
 			case 'CHECK':
 		echo '<div class="form-group row">'.LF;
 		echo '  <div class="col-sm-10 offset-sm-2">'.LF;
-		echo '    <div class="custom-control custom-checkbox">'.LF;
-		echo '      <input type="checkbox" class="custom-control-input" name="'.$key.'" id="'.$key.'" value="1"';
+		echo '    <div class="form-check">'.LF;
+		echo '      <input type="checkbox" class="form-check-input" name="'.$key.'" id="'.$key.'" value="1"';
 		is_checked($plugin['data'][$key], 1);
 		echo ' />';
-		echo '      <label class="custom-control-label" for="'.$key.'">'.$BLM[$key].'</label>'.LF;
+		echo '      <label class="form-check-label" for="'.$key.'">'.$BLM[$key].'</label>'.LF;
 		echo '    </div>'.LF;
 		echo '  </div>'.LF;
 		echo '</div>'.LF;
@@ -175,12 +175,12 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 
 		echo '<div class="form-group row">'.LF;
-		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		if($value == 'MULTISELECT') {
 			echo '    <select id="'.$key.'" class="form-control form-control-sm" style="max-width:450px;" name="'.$key.'[]" multiple="multiple" size="6">'.LF;
 		} else {
-			echo '    <select id="'.$key.'" class="custom-select form-control form-control-sm" style="max-width:450px;" name="'.$key.'">'.LF;
+			echo '    <select id="'.$key.'" class="form-select form-select-sm" style="max-width:450px;" name="'.$key.'">'.LF;
 		}
 
 		$_options_pre = array();
@@ -252,7 +252,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 
 		echo '<div class="form-group row">'.LF;
-		echo '  <label class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		echo '    <ul class="list-unstyled p-2 border bg-white rounded" style="max-height: 200px; overflow-y: auto; max-width: 450px;">' . LF;
 
@@ -262,14 +262,14 @@ if (!defined('PHPWCMS_ROOT')) {
 		foreach($plugin['multicheck'] as $item => $row) {
 
 			$_selected = false;
-			$_option  = '	<li><div class="custom-control custom-checkbox">';
-			$_option .= '     <input type="checkbox" class="custom-control-input" id="'.$key.'_'.html($item).'" name="'.$key.'[]" value="' . html($item) .'"';
+			$_option  = '	<li><div class="form-check">';
+			$_option .= '     <input type="checkbox" class="form-check-input" id="'.$key.'_'.html($item).'" name="'.$key.'[]" value="' . html($item) .'"';
 			if( in_array($item, $plugin['data'][$key]) ) {
 					$_option .= ' checked="checked"';
 					$_selected = true;
 			}
 			$_option .= ' />';
-			$_option .= '     <label class="custom-control-label" for="'.$key.'_'.html($item).'">' . html(trim($row)) . '</label>';
+			$_option .= '     <label class="form-check-label" for="'.$key.'_'.html($item).'">' . html(trim($row)) . '</label>';
 			$_option .= '   </div></li>';
 
 			if($_selected) {
@@ -314,18 +314,18 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 
 		echo '<div class="form-group row">'.LF;
-		echo '  <label class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10 pt-1">'.LF;
 
 		foreach($plugin['radiobutton'] as $item => $row) {
 
-			echo '    <div class="custom-control custom-radio custom-control-inline">'.LF;
-			echo '      <input type="radio" class="custom-control-input" id="'.$key.'_'.html($item).'" name="'.$key.'" value="' . html($item) .'"';
+			echo '    <div class="form-check form-check-inline">'.LF;
+			echo '      <input type="radio" class="form-check-input" id="'.$key.'_'.html($item).'" name="'.$key.'" value="' . html($item) .'"';
 			if( strval($item) == strval($plugin['data'][$key]) ) {
 					echo ' checked="checked"';
 			}
 			echo ' />'.LF;
-			echo '      <label class="custom-control-label" for="'.$key.'_'.html($item).'">' . html(trim($row)) . '</label>'.LF;
+			echo '      <label class="form-check-label" for="'.$key.'_'.html($item).'">' . html(trim($row)) . '</label>'.LF;
 			echo '    </div>'.LF;
 
 		}
@@ -341,13 +341,11 @@ if (!defined('PHPWCMS_ROOT')) {
 		initJsCalendar();
 
 		echo '<div class="form-group row align-items-center">'.LF;
-		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
-		echo '    <div class="input-group input-group-sm">'.LF;
+		echo '    <div class="input-group input-group-sm" style="max-width: 220px;">'.LF;
 		echo '      <input type="text" class="form-control datetimepicker-input" name="'.$key.'" id="'.$key.'" value="'.html($plugin['data'][$key]).'" maxlength="10" placeholder="'.$BL['default_date_format'].'" autocomplete="off" />'.LF;
-		echo '      <div class="input-group-append">'.LF;
-		echo '        <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById(\''. $key .'\')._flatpickr&&document.getElementById(\''. $key .'\')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>'.LF;
-		echo '      </div>'.LF;
+		echo '      <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById(\''. $key .'\')._flatpickr&&document.getElementById(\''. $key .'\')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>'.LF;
 		echo '    </div>'.LF;
 		echo '    <script type="text/javascript">'.LF;
 		echo '    $(function () {'.LF;
@@ -366,10 +364,10 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 
 		echo '<div class="form-group row">'.LF;
-		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		echo '    <div class="form-inline">'.LF;
-		echo '      <input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm mr-2 '.$BLM[$key.'_class'].'" value="'.html(decformat($plugin['data'][$key])).'" maxlength="200" style="max-width: 150px;" /> '.$BLM[$key.'_add'].LF;
+		echo '      <input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm me-2 '.$BLM[$key.'_class'].'" value="'.html(decformat($plugin['data'][$key])).'" maxlength="200" style="max-width: 150px;" /> '.$BLM[$key.'_add'].LF;
 		echo '    </div>'.LF;
 		echo '  </div>'.LF;
 		echo '</div>'.LF;
@@ -383,11 +381,11 @@ if (!defined('PHPWCMS_ROOT')) {
 
 			<div class="form-group row mt-4 mb-0">
 				<div class="col-sm-10 offset-sm-2">
-					<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fa fa-save mr-1"></i> <?php echo empty($plugin['data']['id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-					<button name="save" type="submit" class="btn btn-sm btn-blue ml-1"><i class="fa fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;edit=0" class="btn btn-sm btn-blue ml-3"><i class="fa fa-plus mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
-					<a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
-					<button type="reset" class="btn btn-sm btn-dark ml-1"><i class="fa fa-undo mr-1"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
+					<button name="submit" type="submit" class="btn btn-sm btn-blue me-1"><i class="fa fa-rotate me-1"></i> <?php echo empty($plugin['data']['id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+					<button name="save" type="submit" class="btn btn-sm btn-blue ms-1"><i class="fa fa-check me-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;edit=0" class="btn btn-sm btn-blue ms-3"><i class="fa fa-plus me-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times me-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+					<button type="reset" class="btn btn-sm btn-dark ms-1"><i class="fa fa-undo me-1"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
 				</div>
 			</div>
 

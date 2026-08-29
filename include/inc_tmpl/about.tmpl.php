@@ -48,7 +48,7 @@ if (!defined('PHPWCMS_ROOT')) {
         You should have received a copy of the GNU General Public License
         along with this program; if not, write to the:
     </p>
-    <p class="ml-4 font-italic">
+    <p class="ms-4 fst-italic">
         Free Software Foundation, Inc.<br/>
         59 Temple Place, Suite 330<br/>
         Boston, MA 02111-1307, USA

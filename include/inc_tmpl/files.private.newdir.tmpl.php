@@ -95,8 +95,8 @@ if($dir_pid) {
 <form action="phpwcms.php?do=files&amp;f=0" method="post" name="createnewdir" id="createnewdir">
 
 
-  <div class="form-group align-items-center form-row">
-    <label for="dir_aktiv" class="col-sm-2 col-form-label text-right"></label>
+  <div class="form-group align-items-center row g-2">
+    <label for="dir_aktiv" class="col-sm-2 col-form-label text-end"></label>
     <div class="col-sm-auto">
       <strong><?php echo $BL['be_fpriv_inside'] ?> <?php echo $dir_parent_name ?></strong>
     </div>
@@ -106,24 +106,24 @@ if($dir_pid) {
   <strong style="color:#cc0000;"><?php echo $BL['be_fpriv_error'] ?></strong>
   <?php } ?>
 
-  <div class="form-group align-items-center form-row">
-    <label for="dir_newname" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_name'] ?></label>
+  <div class="form-group align-items-center row g-2">
+    <label for="dir_newname" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_fpriv_name'] ?></label>
     <div class="col-sm-4">
       <input name="dir_newname" type="text" class="form-control form-control-sm" id="dir_newname" value="<?php echo html($dir_newname) ?>"" maxlength="250" />
     </div>
   </div>
 
-  <div class="form-group form-row">
-    <label for="dir_longinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+  <div class="form-group row g-2">
+    <label for="dir_longinfo" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
     <div class="col-sm-4">
       <textarea name="dir_longinfo" cols="40" rows="4" class="form-control form-control-sm" id="dir_longinfo"><?php echo html($dir_longinfo) ?></textarea>
     </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-    <label for="dir_gallery" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_gallery'] ?></label>
+  <div class="form-group align-items-center row g-2">
+    <label for="dir_gallery" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_gallery'] ?></label>
     <div class="col-sm-4">
-    <select name="dir_gallery" id="dir_gallery" class="custom-select form-control form-control-sm">
+    <select name="dir_gallery" id="dir_gallery" class="form-select form-select-sm">
       <option value="0"<?php is_selected(0, $dir_gallery) ?>>-</option>
       <option value="2"<?php is_selected(2, $dir_gallery) ?>><?php echo $BL['be_gallery_root'] ?></option>
       <option value="3"<?php is_selected(3, $dir_gallery) ?>><?php echo $BL['be_gallery_directory'] ?></option>
@@ -131,15 +131,15 @@ if($dir_pid) {
     </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-    <label for="dir_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
+  <div class="form-group align-items-center row g-2">
+    <label for="dir_sort" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_sorting'] ?></label>
     <div class="col-sm-auto">
       <input name="dir_sort" type="text" id="dir_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($dir_sort) ?>" />
     </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-    <label for="dir_aktiv" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_status'] ?></label>
+  <div class="form-group align-items-center row g-2">
+    <label for="dir_aktiv" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_fpriv_status'] ?></label>
     <div class="col-sm-auto">
     	<div class="form-check form-check-inline">
 				<input class="form-check-input" name="dir_aktiv" type="checkbox" id="dir_aktiv" value="1"<?php is_checked("1", $dir_aktiv) ?> />
@@ -156,7 +156,7 @@ if($dir_pid) {
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
       <button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-plus"></i> <?php echo $BL['be_fpriv_button'] ?></button>
-      <a class="btn btn-danger btn-sm ml-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
+      <a class="btn btn-danger btn-sm ms-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
     </div>
   </div>
 

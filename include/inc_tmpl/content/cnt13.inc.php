@@ -70,10 +70,10 @@ if(empty($content['search']['type'])) {
 }
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
-    <select name="template" id="template" class="custom-select form-control form-control-sm">
+    <select name="template" id="template" class="form-select form-select-sm">
 		<?php
 			echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 		// templates for search listing
@@ -90,8 +90,8 @@ if(empty($content['search']['type'])) {
   </div>
 </div>
 
-<div class="form-group form-row align-items-center">
-	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_results'] ?></label>
+<div class="form-group row g-2 align-items-center">
+	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_results'] ?></label>
 	<div class="col-sm-2">
 		<input name="csearch_result_per_page" type="text" id="csearch_result_per_page" class="form-control form-control-sm" value="<?php echo isset($content["search"]["result_per_page"]) ? $content["search"]["result_per_page"] : '' ?>" size="3" maxlength="5" />
 	</div>
@@ -106,7 +106,7 @@ if(empty($content['search']['type'])) {
 	</div>
 </div>
 
-<div class="form-group form-row align-items-center">
+<div class="form-group row g-2 align-items-center">
 	<label class="col-sm-2 col-form-label"></label>
 	<div class="col-sm-2">
 		<input name="csearch_wordlimit" type="text" id="csearch_wordlimit" class="form-control form-control-sm" value="<?php echo isset($content["search"]["wordlimit"]) ? $content["search"]["wordlimit"] : '' ?>" maxlength="5" />
@@ -122,7 +122,7 @@ if(empty($content['search']['type'])) {
 	</div>
 </div>
 
-<div class="form-group form-row align-items-center">
+<div class="form-group row g-2 align-items-center">
 	<label class="col-sm-2 col-form-label"></label>
 	<div class="col-sm-2">
 		<input name="csearch_minchar" type="text" id="csearch_minchar" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["minchar"]) ? $content["search"]["minchar"] : '3' ?>" maxlength="5" />
@@ -138,10 +138,10 @@ if(empty($content['search']['type'])) {
 	</div>
 </div>
 
-<div class="form-group form-row">
-  <label for="csearch_start_at" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_search_startlevel'] ?></label>
+<div class="form-group row g-2">
+  <label for="csearch_start_at" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_search_startlevel'] ?></label>
   <div class="col">
-    <select name="csearch_start_at[]" size="10" multiple="multiple" class="custom-select form-control form-control-sm" id="csearch_start_at">
+    <select name="csearch_start_at[]" size="10" multiple="multiple" class="form-select form-select-sm" id="csearch_start_at">
 		<?php
 			if(!isset($content["search"]["start_at"]) || !is_array($content["search"]["start_at"])) {
 				$content["search"]["start_at"] = array();
@@ -158,18 +158,18 @@ if(empty($content['search']['type'])) {
   </div>
 </div>
 
-<div class="form-group form-row align-items-center">
-  <label for="csearch_type" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_search_default_type'] ?></label>
+<div class="form-group row g-2 align-items-center">
+  <label for="csearch_type" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_search_default_type'] ?></label>
   <div class="col-sm-4">
-    <select name="csearch_type" id="csearch_type" class="custom-select form-control form-control-sm">
+    <select name="csearch_type" id="csearch_type" class="form-select form-select-sm">
       <option value="OR"<?php is_selected('OR', $content['search']['type']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
       <option value="AND"<?php is_selected('AND', $content['search']['type']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
     </select>
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="csearch_nofilenames" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_search_searchnot'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="csearch_nofilenames" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_search_searchnot'] ?></label>
   <div class="col">
   <div class="form-check form-check-inline">
 		<input class="form-check-input" name="csearch_nofilenames" type="checkbox" id="csearch_nofilenames" value="1" <?php is_checked(1, $content["search"]["no_filenames"]) ?> />
@@ -190,9 +190,9 @@ if(empty($content['search']['type'])) {
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="csearch_news" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_module_search'] ?></label>
-  <div class="col-sm-auto mr-sm-5">
+<div class="form-group row g-2">
+  <label for="csearch_news" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_module_search'] ?></label>
+  <div class="col-sm-auto me-sm-5">
   	<div class="form-check form-check-inline">
 			<input class="form-check-input" name="csearch_news" type="checkbox" id="csearch_news" value="1"<?php is_checked(1, $content['search']["search_news"]) ?> />
 			<label class="form-check-label" for="csearch_news"><?php echo $BL['be_news'] ?></label>
@@ -200,18 +200,18 @@ if(empty($content['search']['type'])) {
   </div>
 	<div class="col">
 		<div class="form-group">
-		<span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_profile_label_lang'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+		<span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_profile_label_lang'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
 		<input type="text" id="news_lang_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_profile_label_lang']) ?>" /><input type="hidden" name="csearch_news_lang" id="news_lang" value="<?php echo html(implode(', ', $content['search']["news_lang"])) ?>" class="form-control" />
 	</div>
 
     <div class="form-group">
-      <span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
-        <div class="form-row">
+      <span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+        <div class="row g-2">
           <div class="col mb-3 mb-sm-0">
             <input type="text" id="news_category_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input type="hidden" name="csearch_news_category" id="news_category" value="<?php echo html(implode(', ', $content['search']["news_category"])) ?>" class="form-control" />
           </div>
           <div class="col-sm-auto">
-            <select name="csearch_news_andor" id="news_andor" class="custom-select form-control form-control-sm">
+            <select name="csearch_news_andor" id="news_andor" class="form-select form-select-sm">
               <option value="OR"<?php is_selected('OR', $content['search']['news_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
               <option value="AND"<?php is_selected('AND', $content['search']['news_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
               <option value="NOT"<?php is_selected('NOT', $content['search']['news_andor']) ?>><?php echo $BL['be_fsearch_not'] ?></option>
@@ -223,10 +223,10 @@ if(empty($content['search']['type'])) {
     <div class="form-group">
         <label class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_cnt_target'].' ('.$BL['be_alias'] ?>/aid=1/id=3)</label>
         <div class="input-group">
-          <span class="input-group-prepend">
-            <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="articlebrowser.php?opt=6&field=csearch_news_url" ></button>
-          </span>
-          <input type="text" name="csearch_news_url" id="news_url" value="<?php echo html($content['search']["news_url"]) ?>" class="form-control form-control-sm" data-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>" />
+          
+            <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=6&field=csearch_news_url" ></button>
+          
+          <input type="text" name="csearch_news_url" id="news_url" value="<?php echo html($content['search']["news_url"]) ?>" class="form-control form-control-sm" data-bs-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>" />
         </div>
     </div>
 
@@ -268,8 +268,8 @@ foreach($phpwcms['modules'] as $value) {
 if(count($content['search']['module_search'])) {
 
   echo '';
-  echo '<div class="form-group align-items-center form-row">';
-  echo '<label class="col-sm-2 col-form-label text-right pt-0"></label>';
+  echo '<div class="form-group align-items-center row g-2">';
+  echo '<label class="col-sm-2 col-form-label text-end pt-0"></label>';
   echo '<div class="col">';
   echo '<table class="table-borderless">';
   echo implode(LF, $content['search']['module_search']) ;
@@ -279,41 +279,41 @@ if(count($content['search']['module_search'])) {
 <hr />
 <div class="bg-grey my-3 p-2"><?php echo $BL['be_cnt_searchlabeltext'] ?></div>
 
-<div class="form-group align-items-center form-row">
-  <label for="csearch_label_input" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_input'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="csearch_label_input" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_input'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_label_input" type="text" class="form-control form-control-sm" id="csearch_label_input" value="<?php echo  isset($content["search"]["label_input"]) ? $content["search"]["label_input"] : '' ?>" maxlength="250" />
     </div>
-  <label for="csearch_style_input" class="col-sm-2 col-form-label text-right font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></label>
+  <label for="csearch_style_input" class="col-sm-2 col-form-label text-end fw-normal"><?php echo $BL['be_cnt_css_class'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_style_input" type="text" id="csearch_style_input" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["style_input"]) ? $content["search"]["style_input"] : '' ?>" />
     </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="csearch_label_button" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_buttontext'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="csearch_label_button" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_buttontext'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_label_button" type="text" id="csearch_label_button" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["label_button"]) ? $content["search"]["label_button"] : '' ?>" maxlength="75" />
     </div>
-  <label for="csearch_style_button" class="col-sm-2 col-form-label text-right font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></label>
+  <label for="csearch_style_button" class="col-sm-2 col-form-label text-end fw-normal"><?php echo $BL['be_cnt_css_class'] ?></label>
     <div class="col-sm-4">
     	<input name="csearch_style_button" type="text" id="csearch_style_button" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["style_button"]) ? $content["search"]["style_button"] : '' ?>" />
     </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="csearch_label_result" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_result'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="csearch_label_result" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_result'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_label_result" type="text" id="csearch_label_result" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["label_result"]) ? html($content["search"]["label_result"]) : '' ?>" maxlength="250" />
     </div>
-  <label for="csearch_style_result" class="col-sm-2 col-form-label text-right font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></label>
+  <label for="csearch_style_result" class="col-sm-2 col-form-label text-end fw-normal"><?php echo $BL['be_cnt_css_class'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_style_result" type="text" id="csearch_style_result" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["style_result"]) ? $content["search"]["style_result"] : '' ?>" />
     </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="csearch_show_always" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_page_of_pages'] ?></label>
+<div class="form-group row g-2">
+  <label for="csearch_show_always" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_page_of_pages'] ?></label>
   <div class="col">
 		<?php
 		if(!isset($content["search"]["show_always"])) $content["search"]["show_always"] = 1;
@@ -349,15 +349,15 @@ if(count($content['search']['module_search'])) {
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="csearch_label_pages" class="col-sm-2 col-form-label text-right pt-0"></label>
+<div class="form-group align-items-center row g-2">
+  <label for="csearch_label_pages" class="col-sm-2 col-form-label text-end pt-0"></label>
   <div class="col"><textarea name="csearch_label_pages" rows="4" class="form-control form-control-sm" id="csearch_label_pages"><?php echo  isset($content["search"]["label_pages"]) ? html($content["search"]["label_pages"]) : '' ?></textarea>
   <div class="mt-1" ><?php echo $BL['be_cnt_page_of_pages_descr'] ?></div>
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="csearch_align0" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_align'] ?></label>
+<div class="form-group row g-2">
+  <label for="csearch_align0" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_align'] ?></label>
   <div class="col">
     <?php
     if(!isset($content["search"]["align"])) {
@@ -382,7 +382,7 @@ if(count($content['search']['module_search'])) {
 <hr />
 <div class="bg-grey my-3 p-2"><?php echo $BL['be_cnt_searchformtext'] ?></div>
 
-<div class="form-group form-row">
+<div class="form-group row g-2">
   <label class="col-sm-2 col-form-label"></label>
   <div class="col">
 		<div class="form-check form-check-inline">
@@ -396,22 +396,22 @@ if(count($content['search']['module_search'])) {
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="csearch_text_intro" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_intro'] ?></label>
+<div class="form-group row g-2">
+  <label for="csearch_text_intro" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_intro'] ?></label>
   <div class="col">
     <textarea name="csearch_text_intro" rows="6" class="form-control form-control-sm" id="csearch_text_intro"><?php echo isset($content["search"]["text_intro"]) ? $content["search"]["text_intro"] : '' ?></textarea>
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="csearch_text_result" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_result'] ?></label>
+<div class="form-group row g-2">
+  <label for="csearch_text_result" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_result'] ?></label>
   <div class="col">
     <textarea name="csearch_text_result" rows="6" class="form-control form-control-sm" id="csearch_text_result"><?php echo isset($content["search"]["text_result"]) ? $content["search"]["text_result"] : '' ?></textarea>
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="csearch_text_noresult" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_noresult'] ?></label>
+<div class="form-group row g-2">
+  <label for="csearch_text_noresult" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_noresult'] ?></label>
   <div class="col">
     <textarea name="csearch_text_noresult" rows="6" class="form-control form-control-sm" id="csearch_text_noresult"><?php echo isset($content["search"]["text_noresult"]) ? $content["search"]["text_noresult"] : '' ?></textarea>
   </div>

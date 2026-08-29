@@ -91,37 +91,37 @@ if(isset($_GET['open'])) {
             <?php } ?>
 
             <div class="form-group row">
-                <label for="fcat_name" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_admin_fcat_name'] ?>:</label>
+                <label for="fcat_name" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_admin_fcat_name'] ?>:</label>
                 <div class="col-sm-6">
                     <input name="fcat_name" type="text" id="fcat_name" class="form-control form-control-sm" value="<?php echo empty($fcat["name"]) ? '' : html($fcat["name"]) ?>" maxlength="250" />
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="fcat_sort" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_cnt_sorting'] ?>:</label>
+                <label for="fcat_sort" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_cnt_sorting'] ?>:</label>
                 <div class="col-sm-3">
                     <input name="fcat_sort" type="number" id="fcat_sort" class="form-control form-control-sm" value="<?php echo empty($fcat["sort"]) ? 0 : $fcat["sort"] ?>" />
                 </div>
             </div>
 
             <div class="form-group row">
-                <span class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_ftptakeover_status'] ?>:</span>
+                <span class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BL['be_ftptakeover_status'] ?>:</span>
                 <div class="col-sm-6 d-flex align-items-center">
-                    <div class="custom-control custom-checkbox mr-4">
-                        <input class="custom-control-input" name="fcat_active" type="checkbox" id="fcat_active" value="1"<?php is_checked(1, empty($fcat["active"]) ? 0 : $fcat["active"]); ?> />
-                        <label for="fcat_active" class="custom-control-label"><?php echo $BL['be_ftptakeover_active'] ?></label>
+                    <div class="form-check me-4">
+                        <input class="form-check-input" name="fcat_active" type="checkbox" id="fcat_active" value="1"<?php is_checked(1, empty($fcat["active"]) ? 0 : $fcat["active"]); ?> />
+                        <label for="fcat_active" class="form-check-label"><?php echo $BL['be_ftptakeover_active'] ?></label>
                     </div>
-                    <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" name="fcat_needed" type="checkbox" id="fcat_needed" value="1"<?php is_checked(1, empty($fcat["needed"]) ? 0 : $fcat["needed"]); ?> />
-                        <label for="fcat_needed" class="custom-control-label"><?php echo $BL['be_admin_fcat_needed'] ?></label>
+                    <div class="form-check">
+                        <input class="form-check-input" name="fcat_needed" type="checkbox" id="fcat_needed" value="1"<?php is_checked(1, empty($fcat["needed"]) ? 0 : $fcat["needed"]); ?> />
+                        <label for="fcat_needed" class="form-check-label"><?php echo $BL['be_admin_fcat_needed'] ?></label>
                     </div>
                 </div>
             </div>
 
             <div class="form-group row mb-0">
                 <div class="col-sm-9 offset-sm-3">
-                    <button name="Submit" type="submit" class="btn btn-blue btn-sm font-weight-bold" value="1"><i class="fa fa-save mr-1"></i><?php echo $sendbutton ?></button>
-                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ml-3"><i class="fa fa-times mr-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
+                    <button name="Submit" type="submit" class="btn btn-blue btn-sm fw-bold" value="1"><i class="fa fa-rotate me-1"></i><?php echo $sendbutton ?></button>
+                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ms-3"><i class="fa fa-times me-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
                 </div>
             </div>
         </div>
@@ -196,9 +196,9 @@ if(isset($_GET['open'])) {
             <?php } ?>
 
             <div class="form-group row">
-                <label for="fkey_cid" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_admin_fcat_fcat'] ?>:</label>
+                <label for="fkey_cid" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_admin_fcat_fcat'] ?>:</label>
                 <div class="col-sm-6">
-                    <select name="fkey_cid" id="fkey_cid" class="custom-select custom-select-sm">
+                    <select name="fkey_cid" id="fkey_cid" class="form-select form-select-sm">
                     <?php
                     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_name";
                     $result = _dbQuery($sql);
@@ -215,33 +215,33 @@ if(isset($_GET['open'])) {
             </div>
 
             <div class="form-group row">
-                <label for="fkey_name" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_admin_fcat_fkeyname'] ?>:</label>
+                <label for="fkey_name" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_admin_fcat_fkeyname'] ?>:</label>
                 <div class="col-sm-6">
                     <input name="fkey_name" type="text" id="fkey_name" class="form-control form-control-sm" value="<?php echo html(empty($fkey["name"]) ? '' : $fkey["name"]) ?>" maxlength="250" />
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="fkey_sort" class="col-sm-3 col-form-label text-sm-right"><?php echo $BL['be_cnt_sorting'] ?>:</label>
+                <label for="fkey_sort" class="col-sm-3 col-form-label text-sm-end"><?php echo $BL['be_cnt_sorting'] ?>:</label>
                 <div class="col-sm-3">
                     <input name="fkey_sort" type="number" id="fkey_sort" class="form-control form-control-sm" value="<?php echo empty($fkey["sort"]) ? 0 : $fkey["sort"] ?>" />
                 </div>
             </div>
 
             <div class="form-group row">
-                <span class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_ftptakeover_status'] ?>:</span>
+                <span class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BL['be_ftptakeover_status'] ?>:</span>
                 <div class="col-sm-6 d-flex align-items-center">
-                    <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" name="fkey_active" type="checkbox" id="fkey_active" value="1"<?php is_checked(1, empty($fkey["active"]) ? 0 : $fkey["active"]); ?> />
-                        <label for="fkey_active" class="custom-control-label"><?php echo $BL['be_ftptakeover_active'] ?></label>
+                    <div class="form-check">
+                        <input class="form-check-input" name="fkey_active" type="checkbox" id="fkey_active" value="1"<?php is_checked(1, empty($fkey["active"]) ? 0 : $fkey["active"]); ?> />
+                        <label for="fkey_active" class="form-check-label"><?php echo $BL['be_ftptakeover_active'] ?></label>
                     </div>
                 </div>
             </div>
 
             <div class="form-group row mb-0">
                 <div class="col-sm-9 offset-sm-3">
-                    <button name="Submit" type="submit" class="btn btn-blue btn-sm font-weight-bold" value="1"><i class="fa fa-save mr-1"></i><?php echo $sendbutton ?></button>
-                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ml-3"><i class="fa fa-times mr-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
+                    <button name="Submit" type="submit" class="btn btn-blue btn-sm fw-bold" value="1"><i class="fa fa-rotate me-1"></i><?php echo $sendbutton ?></button>
+                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ms-3"><i class="fa fa-times me-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
                 </div>
             </div>
         </div>
@@ -257,19 +257,19 @@ if(isset($_GET['open'])) {
   if(isset($result[0]['fcat_id'])) {
       echo '<div class="table-responsive mb-4">';
       echo '<table class="table table-sm table-hover table-valign-middle mb-0">';
-      echo '<thead class="thead-light"><tr><th>Category / Key</th><th class="text-right">Actions</th></tr></thead><tbody>';
+      echo '<thead class="thead-light"><tr><th>Category / Key</th><th class="text-end">Actions</th></tr></thead><tbody>';
 
       foreach($result as $row) {
 
           $child_count = get_filecat_childcount($row["fcat_id"]);
 
-          echo "<tr class=\"table-secondary font-weight-bold\">\n";
+          echo "<tr class=\"table-secondary fw-bold\">\n";
           echo "<td>";
           echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&p=7&open=".$row["fcat_id"].":".(empty($_SESSION["fcatlist"][$row["fcat_id"]])?1:0)."\">" : "";
-          echo "<i class=\"fa fa-fw fa-caret-".(($child_count) ? (empty($_SESSION["fcatlist"][$row["fcat_id"]]) ? "right" : "down") : "right")." text-muted mr-1\"></i>".(($child_count) ? "</a>" : "");
-          echo "<span".(($row["fcat_needed"])?" class=\"text-danger\"":"").">".html($row["fcat_name"])."</span> <span class=\"badge badge-light border ml-1\">".$row["fcat_sort"]."</span></td>\n";
+          echo "<i class=\"fa fa-fw fa-caret-".(($child_count) ? (empty($_SESSION["fcatlist"][$row["fcat_id"]]) ? "right" : "down") : "right")." text-muted me-1\"></i>".(($child_count) ? "</a>" : "");
+          echo "<span".(($row["fcat_needed"])?" class=\"text-danger\"":"").">".html($row["fcat_name"])."</span> <span class=\"badge badge-light border ms-1\">".$row["fcat_sort"]."</span></td>\n";
 
-          echo '<td class="text-right text-nowrap">';
+          echo '<td class="text-end text-nowrap">';
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="fcat-actions-'.$row["fcat_id"].'">';
 
           echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=0&cid=".$row["fcat_id"]."\" class=\"btn btn-sm btn-blue\" title=\"".$BL['be_admin_fcat_addkey']."\">";
@@ -282,7 +282,7 @@ if(isset($_GET['open'])) {
           echo "<i class=\"fas ".($row["fcat_aktiv"] ? 'fa-eye' : 'fa-eye-slash')."\"></i></a>";
           echo '</div>';
 
-          echo "<a href=\"include/inc_act/act_filecat.php?do=8,".$row["fcat_id"]."\" class=\"btn btn-sm btn-danger ml-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delcatmsg']." [".html($row["fcat_name"])."]\" title=\"".$BL['be_admin_fcat_delcat']."\">";
+          echo "<a href=\"include/inc_act/act_filecat.php?do=8,".$row["fcat_id"]."\" class=\"btn btn-sm btn-danger ms-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delcatmsg']." [".html($row["fcat_name"])."]\" title=\"".$BL['be_admin_fcat_delcat']."\">";
           echo "<i class=\"far fa-trash-alt\"></i></a>";
 
           echo "</td>\n</tr>\n";
@@ -294,8 +294,8 @@ if(isset($_GET['open'])) {
               if(isset($kresult[0]['fkey_id'])) {
                   foreach($kresult as $krow) {
                       echo "<tr>\n";
-                      echo "<td class=\"pl-4\"><i class=\"fa fa-key text-muted mr-2\"></i>".html($krow['fkey_name'])." <span class=\"badge badge-light border ml-1\">".$krow['fkey_sort']."</span></td>\n";
-                      echo "<td class=\"text-right text-nowrap\">";
+                      echo "<td class=\"ps-4\"><i class=\"fa fa-key text-muted me-2\"></i>".html($krow['fkey_name'])." <span class=\"badge badge-light border ms-1\">".$krow['fkey_sort']."</span></td>\n";
+                      echo "<td class=\"text-end text-nowrap\">";
                       echo '<div class="btn-group btn-group-sm" role="group" aria-label="fkey-actions-'.$krow['fkey_id'].'">';
                       echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=".$krow['fkey_id']."&cid=".$row['fcat_id']."\" class=\"btn btn-sm btn-blue\" title=\"".$BL['be_admin_fcat_editkey']."\">";
                       echo "<i class=\"fa fa-pencil-alt\"></i></a>";
@@ -303,7 +303,7 @@ if(isset($_GET['open'])) {
                       echo "<i class=\"fas ".($krow['fkey_aktiv'] ? 'fa-eye' : 'fa-eye-slash')."\"></i></a>";
                       echo '</div>';
 
-                      echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow['fkey_id'].",".($krow['fkey_cid'])."\" class=\"btn btn-sm btn-danger ml-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delmsg']." [".html($krow['fkey_name'])."]\" title=\"".$BL['be_admin_fcat_delkey']."\">";
+                      echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow['fkey_id'].",".($krow['fkey_cid'])."\" class=\"btn btn-sm btn-danger ms-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delmsg']." [".html($krow['fkey_name'])."]\" title=\"".$BL['be_admin_fcat_delkey']."\">";
                       echo "<i class=\"far fa-trash-alt\"></i></a>";
                       echo "</td>\n</tr>\n";
                   }
@@ -315,8 +315,8 @@ if(isset($_GET['open'])) {
   }
 ?>
 
-    <a href="phpwcms.php?do=admin&amp;p=7&amp;fcatid=0" class="btn btn-blue btn-sm font-weight-bold" title="<?php echo $BL['be_admin_fcat_addcat'] ?>">
-        <i class="fa fa-plus mr-1"></i><?php echo $BL['be_admin_fcat_addcat'] ?>
+    <a href="phpwcms.php?do=admin&amp;p=7&amp;fcatid=0" class="btn btn-blue btn-sm fw-bold" title="<?php echo $BL['be_admin_fcat_addcat'] ?>">
+        <i class="fa fa-plus me-1"></i><?php echo $BL['be_admin_fcat_addcat'] ?>
     </a>
 </div>
 </div>

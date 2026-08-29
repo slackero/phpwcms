@@ -132,7 +132,7 @@ $(function() {
         $("#sortable-list").append($newLi);
         reindexSortableFields();
         if (typeof $.fn.tooltip === "function") {
-            $newLi.find("[data-toggle=\'tooltip\']").tooltip();
+            $newLi.find("[data-bs-toggle=\'tooltip\']").tooltip();
         }
         $newLi.find("input[name^=\'cform_field_name\']").focus();
     });
@@ -193,7 +193,7 @@ $(function() {
     if (activeFormTab && $("#cform-tabs a[href=\'" + activeFormTab + "\']").length) {
         $("#cform-tabs a[href=\'" + activeFormTab + "\']").tab("show");
     }
-    $("#cform-tabs a[data-toggle=\'tab\']").on("shown.bs.tab", function(e) {
+    $("#cform-tabs a[data-bs-toggle=\'tab\']").on("shown.bs.tab", function(e) {
         sessionStorage.setItem("phpwcms_cform_active_tab", $(e.target).attr("href"));
         window.phpwcmsAceEditors?.forEach(function(editor) {
             editor.resize();
@@ -462,31 +462,31 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
 <ul class="nav nav-tabs mb-3" id="cform-tabs" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="cform-tab-mail" data-toggle="tab" href="#cform-pane-mail" role="tab" aria-controls="cform-pane-mail" aria-selected="true">
-            <i class="fas fa-envelope mr-1"></i> <?php echo $BL['be_cnt_recipient']; ?> &amp; <?php echo $BL['be_subnav_msg_new']; ?>
+        <a class="nav-link active" id="cform-tab-mail" data-bs-toggle="tab" href="#cform-pane-mail" role="tab" aria-controls="cform-pane-mail" aria-selected="true">
+            <i class="fas fa-envelope me-1"></i> <?php echo $BL['be_cnt_recipient']; ?> &amp; <?php echo $BL['be_subnav_msg_new']; ?>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="cform-tab-feedback" data-toggle="tab" href="#cform-pane-feedback" role="tab" aria-controls="cform-pane-feedback" aria-selected="false">
-            <i class="fas fa-comment-alt mr-1"></i> <?php echo $BL['be_cnt_texts']; ?>
+        <a class="nav-link" id="cform-tab-feedback" data-bs-toggle="tab" href="#cform-pane-feedback" role="tab" aria-controls="cform-pane-feedback" aria-selected="false">
+            <i class="fas fa-comment-alt me-1"></i> <?php echo $BL['be_cnt_texts']; ?>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="cform-tab-fields" data-toggle="tab" href="#cform-pane-fields" role="tab" aria-controls="cform-pane-fields" aria-selected="false">
-            <i class="fas fa-list mr-1"></i> <?php echo $BL['be_ctype_simpleform']; ?>
+        <a class="nav-link" id="cform-tab-fields" data-bs-toggle="tab" href="#cform-pane-fields" role="tab" aria-controls="cform-pane-fields" aria-selected="false">
+            <i class="fas fa-list me-1"></i> <?php echo $BL['be_ctype_simpleform']; ?>
             <?php if (!empty($content['form']['fields'])): ?>
-                <span class="badge badge-pill badge-secondary ml-1"><?php echo count($content['form']['fields']); ?></span>
+                <span class="badge rounded-pill badge-secondary ms-1"><?php echo count($content['form']['fields']); ?></span>
             <?php endif; ?>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="cform-tab-templates" data-toggle="tab" href="#cform-pane-templates" role="tab" aria-controls="cform-pane-templates" aria-selected="false">
-            <i class="fas fa-file-code mr-1"></i> <?php echo $BL['be_admin_struct_template']; ?>
+        <a class="nav-link" id="cform-tab-templates" data-bs-toggle="tab" href="#cform-pane-templates" role="tab" aria-controls="cform-pane-templates" aria-selected="false">
+            <i class="fas fa-file-code me-1"></i> <?php echo $BL['be_admin_struct_template']; ?>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="cform-tab-settings" data-toggle="tab" href="#cform-pane-settings" role="tab" aria-controls="cform-pane-settings" aria-selected="false">
-            <i class="fas fa-poll-h mr-1"></i> <?php echo $BL['be_cnt_result']; ?>
+        <a class="nav-link" id="cform-tab-settings" data-bs-toggle="tab" href="#cform-pane-settings" role="tab" aria-controls="cform-pane-settings" aria-selected="false">
+            <i class="fas fa-poll-h me-1"></i> <?php echo $BL['be_cnt_result']; ?>
         </a>
     </li>
 </ul>
@@ -496,10 +496,10 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
   <!-- TAB 1: MAIL & RECIPIENT SETTINGS -->
   <div class="tab-pane fade show active" id="cform-pane-mail" role="tabpanel" aria-labelledby="cform-tab-mail">
 
-    <div class="form-group align-items-center form-row">
-      <label for="cform_subjecttype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_msg_subject'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_subjecttype" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_msg_subject'] ?></label>
       <div class="col-sm-3">
-            <select name="cform_subjectselect" id="cform_subjecttype" class="custom-select form-control form-control-sm">
+            <select name="cform_subjectselect" id="cform_subjecttype" class="form-select form-select-sm">
                 <option value=""><?php echo $BL['be_msg_subject'] ?></option>
                 <?php echo $subject_option; ?>
             </select>
@@ -509,10 +509,10 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cform_recipienttype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_recipient'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_recipienttype" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_recipient'] ?></label>
       <div class="col-sm-3">
-            <select name="cform_targettype" id="cform_recipienttype" class="custom-select form-control form-control-sm">
+            <select name="cform_targettype" id="cform_recipienttype" class="form-select form-select-sm">
         <?php
             echo '<option value="email"'. is_selected('email', $content['form']['targettype'],0,0) .'>'.$BL['be_profile_label_email'].'</option>'.LF;
             echo $recipient_option;
@@ -524,10 +524,10 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cform_sendertype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_fromemail'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_sendertype" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_newsletter_fromemail'] ?></label>
       <div class="col-sm-3">
-            <select name="cform_sendertype" id="cform_sendertype" class="custom-select form-control form-control-sm">
+            <select name="cform_sendertype" id="cform_sendertype" class="form-select form-select-sm">
         <?php
             echo '<option value="email"'. is_selected('email', $content['form']['sendertype'],0,0) .'>'.$BL['be_profile_label_email'].'</option>'.LF;
             echo '<option value="system"'. is_selected('system', $content['form']['sendertype'],0,0) .'>'.$BL['be_cnt_sysadmin_system'].': '.html($phpwcms['SMTP_FROM_EMAIL']).'</option>'.LF;
@@ -540,10 +540,10 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cform_sendernametype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_fromname'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_sendernametype" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_newsletter_fromname'] ?></label>
       <div class="col-sm-3">
-            <select name="cform_sendernametype" id="cform_sendernametype" class="custom-select form-control form-control-sm">
+            <select name="cform_sendernametype" id="cform_sendernametype" class="form-select form-select-sm">
         <?php
                 echo '<option value="custom"'. is_selected('custom', $content['form']['sendernametype'],0,0) .'>'.$BL['be_cnt_ecardform_name'].'</option>'.LF;
                 echo '<option value="system"'. is_selected('system', $content['form']['sendernametype'],0,0) .'>'.$BL['be_cnt_sysadmin_system'].': '.html($phpwcms['SMTP_FROM_NAME']).'</option>'.LF;
@@ -556,16 +556,16 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cform_sendcopy" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_send_copy_to']?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_sendcopy" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_send_copy_to']?></label>
       <div class="col-sm-3">
         <div class="input-group input-group-sm">
-          <div class="input-group-prepend">
+          
             <div class="input-group-text">
               <input type="checkbox" name="cform_sendcopy" id="cform_sendcopy" title="send copy to selected field" value="1"<?php echo is_checked('1', $content['form']["sendcopy"], 0, 0) ?> />
-            </div>
+            
           </div>
-          <select name="cform_copyto" id="cform_copyto" class="custom-select form-control form-control-sm"><?php echo $cc_listing; ?></select>
+          <select name="cform_copyto" id="cform_copyto" class="form-select form-select-sm"><?php echo $cc_listing; ?></select>
         </div>
       </div>
       <div class="col">
@@ -573,7 +573,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
+    <div class="form-group align-items-center row g-2">
       <label class="col-sm-2 col-form-label"></label>
       <div class="col">
             <div class="form-check">
@@ -591,8 +591,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
   <div class="tab-pane fade" id="cform-pane-feedback" role="tabpanel" aria-labelledby="cform-tab-feedback">
 
     <!-- STARTUP (DEFAULT TEXT / HTML) -->
-    <div class="form-group align-items-center form-row">
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_default'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_tmpl_default'] ?></label>
       <div class="col">
       	<div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="cform_startup_html" id="cform_startup_html0" value="0" data-ace-target="#cform_startup" data-ace-mode="text"<?php echo is_checked('0', $content['form']["startup_html"], 0, 0) ?> />
@@ -605,7 +605,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       </div>
     </div>
 
-    <div class="form-group form-row">
+    <div class="form-group row g-2">
         <label class="col-sm-2 col-form-label" for="cform_startup"></label>
         <div class="col">
             <textarea name="cform_startup" id="cform_startup" rows="4" class="form-control form-control-sm code-editor" data-mode="<?php echo empty($content['form']['startup_html']) ? 'text' : 'html'; ?>"><?php echo html($content['form']["startup"]) ?></textarea>
@@ -615,8 +615,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <hr />
 
     <!-- ON SUCCESS -->
-    <div class="form-group align-items-center form-row">
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_onsuccess'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_onsuccess'] ?></label>
       <div class="col-sm-auto">
       	<div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect0" value="0" data-ace-target="#cform_onsuccess" data-ace-mode="text"<?php echo is_checked('0', $content['form']["onsuccess_redirect"], 0, 0) ?> />
@@ -636,23 +636,23 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     		<?php
     		if($for_select != '') {
     			echo '<div class="input-group">';
-    			echo '<select name="successInfo" id="successInfo" class="custom-select form-control form-control-sm" ';
+    			echo '<select name="successInfo" id="successInfo" class="form-select form-select-sm" ';
     			echo 'onChange="insertAtCursorPos(document.articlecontent.cform_onsuccess, ';
     			echo 'document.articlecontent.successInfo.options[document.articlecontent.successInfo.selectedIndex].value);">';
                 echo '<option value="">' . $BL['be_newsletter_placeholder'] . '</option>';
     			echo $for_select;
     			echo '<option value="{REMOTE_IP}">{REMOTE_IP}</option>'.LF;
     			echo '</select>';
-    			echo '<span class="input-group-append">';
+    			echo '';
     			echo '<a class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_onsuccess, document.articlecontent.successInfo.options[document.articlecontent.successInfo.selectedIndex].value);"></a>';
-    			echo '</span>';
+    			echo '';
     			echo '</div>';
     		}
     		?>
     	</div>
     </div>
 
-    <div class="form-group form-row">
+    <div class="form-group row g-2">
       <label class="col-sm-2 col-form-label"></label>
         <div class="col">
         	<textarea name="cform_onsuccess" id="cform_onsuccess" rows="4" class="form-control form-control-sm code-editor" data-mode="<?php echo ($content['form']['onsuccess_redirect'] == 2) ? 'html' : (($content['form']['onsuccess_redirect'] == 1) ? 'url' : 'text'); ?>"><?php echo html($content['form']["onsuccess"]) ?></textarea>
@@ -662,8 +662,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <hr />
 
     <!-- ON ERROR -->
-    <div class="form-group align-items-center form-row">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_onerror'] ?></label>
+    <div class="form-group align-items-center row g-2">
+        <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_onerror'] ?></label>
         <div class="col">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect0" value="0" data-ace-target="#cform_onerror" data-ace-mode="text"<?php echo is_checked('0', $content['form']["onerror_redirect"], 0, 0) ?> />
@@ -680,7 +680,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         </div>
     </div>
 
-    <div class="form-group form-row">
+    <div class="form-group row g-2">
         <label class="col-sm-2 col-form-label"></label>
         <div class="col">
             <textarea name="cform_onerror" id="cform_onerror" rows="4" class="form-control form-control-sm code-editor" data-mode="<?php echo ($content['form']['onerror_redirect'] == 2) ? 'html' : (($content['form']['onerror_redirect'] == 1) ? 'url' : 'text'); ?>"><?php echo html($content['form']["onerror"]) ?></textarea>
@@ -692,8 +692,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
   <!-- TAB 3: FORM & FIELDS -->
   <div class="tab-pane fade" id="cform-pane-fields" role="tabpanel" aria-labelledby="cform-tab-fields">
 
-    <div class="form-group align-items-center form-row">
-      <label for="cform_labelpos3" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_reference_basis'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_labelpos3" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_reference_basis'] ?></label>
       <div class="col">
           <?php
           if(!isset($content['form']["labelpos"])) {
@@ -704,15 +704,15 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
               // 3 = modern DIV based
           }
           ?>
-          <div class="form-check form-check-inline mr-sm-4">
+          <div class="form-check form-check-inline me-sm-4">
               <input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos3" value="3"<?php echo is_checked(3, $content['form']["labelpos"], 0, 1) ?> />
               <label class="form-check-label" for="cform_labelpos3"><img src="img/symbole/label_3.svg" width="72" height="22" alt=""/></label>
           </div>
-          <div class="form-check form-check-inline mr-sm-4">
+          <div class="form-check form-check-inline me-sm-4">
               <input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos0" value="0"<?php echo is_checked(0, $content['form']["labelpos"], 0, 1) ?> />
               <label class="form-check-label" for="cform_labelpos0"><img src="img/symbole/label_0.svg" width="72" height="22" alt=""/></label>
           </div>
-          <div class="form-check form-check-inline mr-sm-4">
+          <div class="form-check form-check-inline me-sm-4">
               <input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos1" value="1"<?php echo is_checked(1, $content['form']["labelpos"], 0, 1) ?> />
               <label class="form-check-label" for="cform_labelpos1"><img src="img/symbole/label_1.svg" width="72" height="22" alt=""/></label>
           </div>
@@ -723,51 +723,51 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cform_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_form_class'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_class" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_form_class'] ?></label>
       <div class="col-sm-4">
         <input type="text" name="cform_class" id="cform_class" class="form-control form-control-sm" value="<?php echo html($content['form']["class"]) ?>" />
       </div>
-      <label for="cform_label_wrap" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_label_wrap'] ?></label>
+      <label for="cform_label_wrap" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_label_wrap'] ?></label>
       <div class="col-sm-4">
         <input type="text" name="cform_label_wrap" id="cform_label_wrap" class="form-control form-control-sm" value="<?php echo html($content['form']["label_wrap"]) ?>" />
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-        <label for="cform_reqmark" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_req_mark'] ?></label>
+    <div class="form-group align-items-center row g-2">
+        <label for="cform_reqmark" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_req_mark'] ?></label>
         <div class="col-sm-4">
             <input type="text" name="cform_reqmark" id="cform_reqmark" class="form-control form-control-sm" value="<?php echo html($content['form']["cform_reqmark"]) ?>" />
         </div>
-        <label for="cform_error_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_error_class'] ?></label>
+        <label for="cform_error_class" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_error_class'] ?></label>
         <div class="col-sm-2">
             <input type="text" name="cform_error_class" id="cform_error_class" class="form-control form-control-sm" value="<?php echo html($content['form']["error_class"]) ?>" />
         </div>
-        <div class="form-check col-sm-2 pl-sm-5">
+        <div class="form-check col-sm-2 ps-sm-5">
             <input type="checkbox" name="cform_novalidate" id="cform_novalidate" class="form-check-input" value="1"<?php is_checked(1, $content['form']["novalidate"]) ?> />
             <label for="cform_novalidate" class="form-check-label"><strong><?php echo $BL['be_cnt_novalidate']; ?></strong></label>
         </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cform_function_validate" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_function_validate'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_function_validate" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_function_validate'] ?></label>
       <div class="col-sm-4">
         <input type="text" name="cform_function_validate" id="cform_function_validate" class="form-control form-control-sm" value="<?php echo html($content['form']["cform_function_validate"]) ?>" />
       </div>
-      <label for="cform_anchor_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_anchor'].' &ndash; '.$BL['be_cnt_target']; ?></label>
+      <label for="cform_anchor_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_cnt_anchor'].' &ndash; '.$BL['be_cnt_target']; ?></label>
       <div class="col-sm-4">
         <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
+            
                 <div class="input-group-text">
                     <input type="checkbox" name="cform_anchor_off" id="cform_anchor_off" value="0"<?php is_checked(0, $content['form']["anchor_off"]) ?> />
-                </div>
+                
             </div>
             <input type="text" name="cform_anchor_name" id="cform_anchor_name" class="form-control form-control-sm" value="<?php echo html($content['form']["anchor_name"]) ?>" placeholder="jumpForm<?php echo empty($content["id"]) ? '' : $content["id"]; ?>" />
         </div>
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
+    <div class="form-group align-items-center row g-2">
       <label class="col-sm-2 col-form-label"></label>
       <div class="col">
         <div class="form-check">
@@ -782,17 +782,17 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <hr />
 
     <div class="d-flex justify-content-between align-items-center mb-2">
-        <h5 class="mb-0 font-weight-bold text-secondary"><i class="fas fa-list mr-1"></i> <?php echo $BL['be_cnt_formfields']; ?></h5>
+        <h5 class="mb-0 fw-bold text-secondary"><i class="fas fa-list me-1"></i> <?php echo $BL['be_cnt_formfields']; ?></h5>
         <div class="btn-toolbar" role="toolbar">
-            <button type="button" class="btn btn-sm btn-success mr-2 btn-add-field-trigger">
-                <i class="fas fa-plus mr-1"></i> <?php echo $BL['be_admin_custom_cpt_add_field']; ?>
+            <button type="button" class="btn btn-sm btn-success me-2 btn-add-field-trigger">
+                <i class="fas fa-plus me-1"></i> <?php echo $BL['be_admin_custom_cpt_add_field']; ?>
             </button>
             <div class="btn-group btn-group-sm" role="group" aria-label="Field toggles">
                 <button type="button" class="btn btn-light" onclick="showAllFormFields();" title="<?php echo $BL['be_cnt_expand_all']; ?>">
-                    <i class="fas fa-angle-double-down mr-1"></i> <?php echo $BL['be_cnt_expand_all']; ?>
+                    <i class="fas fa-angle-double-down me-1"></i> <?php echo $BL['be_cnt_expand_all']; ?>
                 </button>
                 <button type="button" class="btn btn-light" onclick="hideAllFormFields();" title="<?php echo $BL['be_cnt_collapse_all']; ?>">
-                    <i class="fas fa-angle-double-up mr-1"></i> <?php echo $BL['be_cnt_collapse_all']; ?>
+                    <i class="fas fa-angle-double-up me-1"></i> <?php echo $BL['be_cnt_collapse_all']; ?>
                 </button>
             </div>
         </div>
@@ -805,14 +805,14 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         <th class="px-1" style="width: 25%;"><?php echo $BL['be_cnt_type'] ?></th>
         <th class="px-1" style="width: 25%;"><?php echo $BL['be_admin_tmpl_name'] ?></th>
         <th class="px-1" style="width: 15%;"><?php echo $BL['be_cnt_label'] ?></th>
-        <th class="px-1" style="width: 15%;"><div data-toggle="tooltip" data-placement="top" title="size/columns">S/C</div></th>
-        <th class="px-1" style="width: auto;"><div data-toggle="tooltip" data-placement="top" title="maxlength/rows">M/R</div></th>
-        <th class="px-0 text-center" style="width: 30px;"><i class="fas fa-exclamation text-danger" data-toggle="tooltip" data-placement="top" title="<?php echo $BL['be_cnt_needed'] ?>" alt="<?php echo $BL['be_cnt_needed'] ?>"></i></th>
-        <th class="px-0 text-center" style="width: 30px;"><i class="fas fa-trash text-danger" data-toggle="tooltip" data-placement="top" title="<?php echo $BL['be_cnt_delete'] ?>" alt="<?php echo $BL['be_cnt_delete'] ?>"></i></th>
+        <th class="px-1" style="width: 15%;"><div data-bs-toggle="tooltip" data-placement="top" title="size/columns">S/C</div></th>
+        <th class="px-1" style="width: auto;"><div data-bs-toggle="tooltip" data-placement="top" title="maxlength/rows">M/R</div></th>
+        <th class="px-0 text-center" style="width: 30px;"><i class="fas fa-exclamation text-danger" data-bs-toggle="tooltip" data-placement="top" title="<?php echo $BL['be_cnt_needed'] ?>" alt="<?php echo $BL['be_cnt_needed'] ?>"></i></th>
+        <th class="px-0 text-center" style="width: 30px;"><i class="fas fa-trash text-danger" data-bs-toggle="tooltip" data-placement="top" title="<?php echo $BL['be_cnt_delete'] ?>" alt="<?php echo $BL['be_cnt_delete'] ?>"></i></th>
     </tr>
     </table>
 
-    <ul id="sortable-list" class="dropable-list pl-0">
+    <ul id="sortable-list" class="dropable-list ps-0">
     <?php
     if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && count($content['form']["fields"])) {
 
@@ -836,7 +836,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             $field_js['hideAll'][$key]  = ' showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'';
 
             echo '<li class="sortme card mb-2 p-2 shadow-sm" id="sortRow_'.$field_counter.'"><table class="table-borderless w-100"><tr>';
-            echo '<td width="30" class="text-center"><em data-toggle="tooltip" title="'.$BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down'].'" class="handle text-secondary cursor-grab"><i class="fa fa-grip-vertical"></i></em></td>';
+            echo '<td width="30" class="text-center"><em data-bs-toggle="tooltip" title="'.$BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down'].'" class="handle text-secondary cursor-grab"><i class="fa fa-grip-vertical"></i></em></td>';
 
             if(!isset($field_type_count[$field_type])) {
                 $field_type_count[$field_type] = 0;
@@ -848,7 +848,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                 case 'newsletter':      // default hide/show
 
                     $field_row4  = '<tr id="formRow_'.$field_counter.'_5">';
-                    $field_row4 .= '<td colspan="3" class="text-right align-top pt-2">&nbsp;';
+                    $field_row4 .= '<td colspan="3" class="text-end align-top pt-2">&nbsp;';
                     $field_row4 .= $BL['be_cnt_bid_verifyemail'].'&nbsp;</td>'.LF;
                     $field_row4 .= '<td class="pb-2" colspan="4"><textarea name="cform_field_verifyemail" ';
                     $field_row4 .= 'id="cform_field_verifyemail" rows="5" class="form-control form-control-sm" wrap="off">';
@@ -880,7 +880,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                     if($content['form']["saveprofile"]) {
 
                         $field_row4  = '<tr id="formRow_'.$field_counter.'_5">';
-                        $field_row4 .= '<td colspan="3" class="text-right pt-2">'.$BL['be_cnt_store_in'].':&nbsp;</td>';
+                        $field_row4 .= '<td colspan="3" class="text-end pt-2">'.$BL['be_cnt_store_in'].':&nbsp;</td>';
                         $field_row4 .= '<td colspan="1" id="cform_field_profile_'.$field_counter.'_td">';
 
                         if(!empty($content['form']["fields"][$key]['profile']) && isset($content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ])) {
@@ -910,7 +910,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                     if($content['form']["saveprofile"]) {
 
                         $field_row4  = '<tr id="formRow_'.$field_counter.'_5">';
-                        $field_row4 .= '<td colspan="2" class="text-right pt-2">'.$BL['be_cnt_store_in'].':&nbsp;</td>';
+                        $field_row4 .= '<td colspan="2" class="text-end pt-2">'.$BL['be_cnt_store_in'].':&nbsp;</td>';
                         $field_row4 .= '<td colspan="6" id="cform_field_profile_'.$field_counter.'_td">';
 
                         if(!empty($content['form']["fields"][$key]['profile']) && isset($content['profile_fields_longtext'][ $content['form']["fields"][$key]['profile'] ])) {
@@ -965,7 +965,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             echo '<td width="30" class="text-center" id="formRow_'.$field_counter.'">';
             echo '<a href="#" onclick="return showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'' . $extraParam . ');"><i class="fas fa-caret-down text-primary"></i></a>';
             echo '</td><td style="width: 25%;">';
-            echo '<select name="cform_field_type['.$field_counter.']" class="custom-select form-control form-control-sm">';
+            echo '<select name="cform_field_type['.$field_counter.']" class="form-select form-select-sm">';
             echo '<option value="text"'. is_selected('text', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['text'].'</option>';
             echo '<option value="email"'. is_selected('email', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['email'].'</option>';
             echo '<option value="tel"'. is_selected('tel', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['tel'].'</option>';
@@ -1021,7 +1021,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             echo '</td><td align="right" class="align-top"><a name="field_value_'.$field_counter.'"></a>';
             echo "</td></tr>";
             echo "</table></td>";
-            echo '<td colspan="1" class="align-top py-2 text-right text-muted">&nbsp;'.$BL['be_cnt_value'].'&nbsp;</td>';
+            echo '<td colspan="1" class="align-top py-2 text-end text-muted">&nbsp;'.$BL['be_cnt_value'].'&nbsp;</td>';
             echo '<td colspan="4" class="py-2"><textarea name="cform_field_value['.$field_counter.']" ';
             echo 'id="cform_field_value_'.$field_counter.'" rows="5" class="form-control form-control-sm font-monospace">';
             echo html($content['form']["fields"][$key]['value']).'</textarea>';
@@ -1030,7 +1030,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             if($field_type === 'recaptcha' || $field_type === 'recaptchainv') {
                 echo '<a href="https://www.google.com/recaptcha/admin"
                     target="_blank"
-                    class="d-inline-block text-primary font-weight-bold my-2"><i class="fas fa-external-link-alt mr-1"></i>'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a>';
+                    class="d-inline-block text-primary fw-bold my-2"><i class="fas fa-external-link-alt me-1"></i>'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a>';
             }
 
             echo '</td>';
@@ -1038,13 +1038,13 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             echo '</tr>';
 
             echo '<tr id="formRow_'.$field_counter.'_2">';
-            echo '<td colspan="3" class="text-right pb-2 text-muted">&nbsp;'.$BL['be_newsletter_placeholder'].'&nbsp;</td>';
+            echo '<td colspan="3" class="text-end pb-2 text-muted">&nbsp;'.$BL['be_newsletter_placeholder'].'&nbsp;</td>';
             echo '<td colspan="4" class="pb-2"><input type="text" name="cform_field_placeholder['.$field_counter.']" value="';
             echo empty($content['form']["fields"][$key]['placeholder']) ? '' : html($content['form']["fields"][$key]['placeholder']);
             echo '" class="form-control form-control-sm"></td></tr>';
 
             echo '<tr id="formRow_'.$field_counter.'_3">';
-            echo '<td colspan="3" class="text-right pb-2 text-muted">&nbsp;'.$BL['be_cnt_error_text'].'&nbsp;</td>';
+            echo '<td colspan="3" class="text-end pb-2 text-muted">&nbsp;'.$BL['be_cnt_error_text'].'&nbsp;</td>';
             echo '<td colspan="4" class="pb-2"><input type="text" name="cform_field_error['.$field_counter.']" value="';
             echo  html($content['form']["fields"][$key]['error']).'" class="form-control form-control-sm"';
             if($field_type == 'upload') {
@@ -1053,12 +1053,12 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             echo '></td></tr>';
 
             echo '<tr id="formRow_'.$field_counter.'_4">';
-            echo '<td colspan="3" class="text-right pb-2 text-muted">&nbsp;'.$BL['be_cnt_css_class'].'&nbsp;</td>';
+            echo '<td colspan="3" class="text-end pb-2 text-muted">&nbsp;'.$BL['be_cnt_css_class'].'&nbsp;</td>';
             echo '<td class="pb-2"><input type="text" name="cform_field_class['.$field_counter.']" value="';
             echo  html($content['form']["fields"][$key]['class']).'" class="form-control form-control-sm"></td>';
             echo '<td colspan="3">
                  <table class="table-borderless w-100"><tr>
-                 <td style="width: 80px;" class="text-right pb-2 text-muted">&nbsp;'.$BL['be_cnt_css_style'].':&nbsp;</td>
+                 <td style="width: 80px;" class="text-end pb-2 text-muted">&nbsp;'.$BL['be_cnt_css_style'].':&nbsp;</td>
                  <td class="pb-2"><input type="text" name="cform_field_style['.$field_counter.']" value="';
             echo html($content['form']["fields"][$key]['style']).'" class="form-control form-control-sm"></td></tr></table></td>';
 
@@ -1080,8 +1080,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     ?></ul>
 
     <div class="d-flex justify-content-between align-items-center my-3">
-      <button type="button" class="btn btn-sm btn-success" id="btn-add-more-fields"><i class="fas fa-plus mr-1"></i> <?php echo $BL['be_admin_custom_cpt_add_field']; ?></button>
-      <button type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
+      <button type="button" class="btn btn-sm btn-success" id="btn-add-more-fields"><i class="fas fa-plus me-1"></i> <?php echo $BL['be_admin_custom_cpt_add_field']; ?></button>
+      <button type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
     </div>
 
     <!-- Template for dynamic additional field cards -->
@@ -1089,12 +1089,12 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       <li class="sortme card mb-2 p-2 shadow-sm new-field-card border-success" id="sortRow___KEY__">
         <table class="table-borderless w-100">
         <tr>
-          <td width="30" class="text-center"><em data-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down']; ?>" class="handle text-secondary cursor-grab"><i class="fa fa-grip-vertical"></i></em></td>
+          <td width="30" class="text-center"><em data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down']; ?>" class="handle text-secondary cursor-grab"><i class="fa fa-grip-vertical"></i></em></td>
           <td width="30" class="text-center" id="formRow___KEY__">
             <a href="#" onclick="return showHide_CntFormfieldRow('formRow___KEY__', 'none');"><i class="fas fa-caret-down text-primary"></i></a>
           </td>
           <td width="25%" style="width: 25%;">
-            <select name="cform_field_type[__KEY__]" id="cform_field_type___KEY__" class="custom-select form-control form-control-sm font-weight-bold">
+            <select name="cform_field_type[__KEY__]" id="cform_field_type___KEY__" class="form-select form-select-sm fw-bold">
               <option value="text"><?php echo $BL['be_cnt_field']['text'] ?></option>
               <option value="email"><?php echo $BL['be_cnt_field']['email'] ?></option>
               <option value="tel"><?php echo $BL['be_cnt_field']['tel'] ?></option>
@@ -1136,27 +1136,27 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
           <td class="align-top">
             <input type="hidden" name="cform_order[__KEY__]" id="cform_order___KEY__" value="__ORDER__" class="cform-order-input" />
           </td>
-          <td colspan="1" class="align-top py-2 text-right text-muted">&nbsp;<?php echo $BL['be_cnt_value'] ?>&nbsp;</td>
+          <td colspan="1" class="align-top py-2 text-end text-muted">&nbsp;<?php echo $BL['be_cnt_value'] ?>&nbsp;</td>
           <td colspan="4" class="pt-2"><textarea name="cform_field_value[__KEY__]" id="cform_field_value___KEY__" rows="4" class="form-control form-control-sm font-monospace"></textarea></td>
           <td colspan="2" class="align-bottom"></td>
         </tr>
         <tr id="formRow___KEY___2">
-          <td colspan="3" class="text-right pb-2 text-muted">&nbsp;<?php echo $BL['be_newsletter_placeholder'] ?>&nbsp;</td>
+          <td colspan="3" class="text-end pb-2 text-muted">&nbsp;<?php echo $BL['be_newsletter_placeholder'] ?>&nbsp;</td>
           <td colspan="4" class="pb-2"><input type="text" name="cform_field_placeholder[__KEY__]" class="form-control form-control-sm" /></td>
           <td colspan="2"></td>
         </tr>
         <tr id="formRow___KEY___3">
-          <td colspan="3" class="text-right pb-2 text-muted">&nbsp;<?php echo $BL['be_cnt_error_text'] ?>&nbsp;</td>
+          <td colspan="3" class="text-end pb-2 text-muted">&nbsp;<?php echo $BL['be_cnt_error_text'] ?>&nbsp;</td>
           <td colspan="4" class="pb-2"><input type="text" name="cform_field_error[__KEY__]" class="form-control form-control-sm" /></td>
           <td colspan="2"></td>
         </tr>
         <tr id="formRow___KEY___4">
-          <td colspan="3" class="text-right pb-2 text-muted">&nbsp;<?php echo $BL['be_cnt_css_class'] ?>&nbsp;</td>
+          <td colspan="3" class="text-end pb-2 text-muted">&nbsp;<?php echo $BL['be_cnt_css_class'] ?>&nbsp;</td>
           <td class="pb-2"><input type="text" name="cform_field_class[__KEY__]" class="form-control form-control-sm" /></td>
           <td colspan="3">
             <table class="table-borderless w-100">
               <tr>
-                <td style="width:80px;" class="text-right pb-2 text-muted">&nbsp;<?php echo $BL['be_cnt_css_style'] ?>:&nbsp;</td>
+                <td style="width:80px;" class="text-end pb-2 text-muted">&nbsp;<?php echo $BL['be_cnt_css_style'] ?>:&nbsp;</td>
                 <td class="pb-2"><input type="text" name="cform_field_style[__KEY__]" class="form-control form-control-sm" /></td>
               </tr>
             </table>
@@ -1172,32 +1172,32 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
   <!-- TAB 4: TEMPLATES & SETTINGS -->
   <div class="tab-pane fade" id="cform-pane-templates" role="tabpanel" aria-labelledby="cform-tab-templates">
 
-    <h6 class="font-weight-bold text-secondary mb-3"><i class="fas fa-file-code mr-1"></i> <?php echo $BL['be_admin_struct_template']; ?> (Custom HTML / Output)</h6>
+    <h6 class="fw-bold text-secondary mb-3"><i class="fas fa-file-code me-1"></i> <?php echo $BL['be_admin_struct_template']; ?> (Custom HTML / Output)</h6>
 
     <a id="anchor_customform"></a>
-    <div class="form-group align-items-center form-row">
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template'] ?></label>
       <div class="col-sm-auto">
     		<?php
     		if($for_select_2 != '') {
     				echo '<div class="input-group">';
-    				echo '<select name="ph1" id="ph1" class="form-control form-control-sm custom-select" ';
+    				echo '<select name="ph1" id="ph1" class="form-select form-select-sm" ';
     				echo 'onChange="insertAtCursorPos(document.articlecontent.cform_customform, ';
     				echo 'document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);">';
                     echo '<option value="">' . $BL['be_newsletter_placeholder'] . '</option>';
     				echo $for_select_2.'</select>';
 
-    				echo '<span class="input-group-append">';
+    				echo '';
     				echo '<a class="btn btn-sm btn-blue px-3 insert" onclick="insertAtCursorPos(document.articlecontent.cform_customform, ';
     				echo 'document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);" /></a>';
-    				echo '</span>';
+    				echo '';
     				echo '</div>';
     		}
     		?>
       </div>
     </div>
 
-    <div class="form-group form-row">
+    <div class="form-group row g-2">
       <label class="col-sm-2 col-form-label"></label>
       <div class="col">
         <textarea name="cform_customform" id="cform_customform" rows="6" class="form-control form-control-sm code-editor" data-mode="html"><?php echo html($content['form']["customform"]) ?></textarea>
@@ -1207,8 +1207,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <hr />
 
     <a name="anchor_template" id="anchor_template"></a>
-    <div class="form-group align-items-center form-row">
-        <label for="cform_template_text" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_recipient'] . ' - ' . $BL['be_admin_struct_template'] ?></label>
+    <div class="form-group align-items-center row g-2">
+        <label for="cform_template_text" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_recipient'] . ' - ' . $BL['be_admin_struct_template'] ?></label>
         <div class="col-sm-auto">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="cform_template_format" id="cform_template_text" value="0"<?php is_checked('0', $content['form']["template_format"]) ?> onchange="sessionStorage.setItem('phpwcms_cform_active_tab', '#cform-pane-templates');this.form.submit();" />
@@ -1224,7 +1224,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     		<?php
     		if($for_select != '') {
     			echo '<div class="input-group">';
-    			echo '<select name="ph" id="ph" class="form-control form-control-sm custom-select" ';
+    			echo '<select name="ph" id="ph" class="form-select form-select-sm" ';
     			echo 'onChange="insertAtCursorPos(document.articlecontent.cform_template, ';
     			echo 'document.articlecontent.ph.options[document.articlecontent.ph.selectedIndex].value);">';
                 echo '<option value="">' . $BL['be_newsletter_placeholder'] . '</option>';
@@ -1234,17 +1234,17 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     			echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>';
     			echo '</select>';
 
-    			echo '<div class="input-group-append">';
+    			echo '';
     			echo '<a type="button" class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_template, ';
     			echo 'document.articlecontent.ph.options[document.articlecontent.ph.selectedIndex].value);"></a>';
-    			echo '</div>';
+    			echo '';
     			echo '</div>';
     		}
     		?>
       </div>
     </div>
 
-    <div class="form-group form-row">
+    <div class="form-group row g-2">
     	<label class="col-sm-2 col-form-label"></label>
     	<div class="col">
     		<?php
@@ -1267,8 +1267,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     	</div>
     </div>
 
-    <div class="form-group align-items-center form-row mt-4">
-      <label for="cform_function_to" class="col-sm-2 col-form-label text-right"><?php echo $BL['php_function']?></label>
+    <div class="form-group align-items-center row g-2 mt-4">
+      <label for="cform_function_to" class="col-sm-2 col-form-label text-end"><?php echo $BL['php_function']?></label>
       <div class="col">
         <input name="cform_function_to" type="text" id="cform_function_to" class="form-control form-control-sm" value="<?php echo html($content['form']['function_to']) ?>" />
       </div>
@@ -1278,8 +1278,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
     <!-- copy mail template //-->
     <a name="anchor_template_copy" id="anchor_template_copy"></a>
-    <div class="form-group align-items-center form-row">
-      <label for="cform_template_copy" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_send_copy_to'].' - '.$BL['be_admin_struct_template'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_template_copy" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_send_copy_to'].' - '.$BL['be_admin_struct_template'] ?></label>
       <div class="col">
         <div class="form-check form-check-inline">
     			<input class="form-check-input" type="checkbox" name="cform_template_equal" id="cform_template_equal" value="1"<?php is_checked(1, $content['form']["template_equal"]) ?> onchange="showhidecopy();" />
@@ -1301,7 +1301,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
+    <div class="form-group align-items-center row g-2">
         <label class="col-sm-2 col-form-label"></label>
         <div id="copytemplate1" class="col-sm-auto">
             <div class="form-check form-check-inline">
@@ -1310,7 +1310,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="cform_template_format_copy" id="cform_template_html_copy" value="1"<?php is_checked(1, $content['form']["template_format_copy"]) ?> onchange="sessionStorage.setItem('phpwcms_cform_active_tab', '#cform-pane-templates');this.form.submit();" />
-                <label class="form-check-label pr-sm-4" for="cform_template_html_copy">HTML</label>
+                <label class="form-check-label pe-sm-4" for="cform_template_html_copy">HTML</label>
             </div>
       </div>
 
@@ -1318,7 +1318,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     		<?php
     		if($for_select != '') {
     			echo '<div class="input-group">';
-    			echo '<select name="phc" id="phc" class="form-control form-control-sm custom-select" ';
+    			echo '<select name="phc" id="phc" class="form-select form-select-sm" ';
     			echo 'onchange="insertAtCursorPos(document.articlecontent.cform_template_copy, ';
     			echo 'document.articlecontent.phc.options[document.articlecontent.phc.selectedIndex].value);">';
                 echo '<option value="">' . $BL['be_newsletter_placeholder'] . '</option>';
@@ -1328,10 +1328,10 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     			echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>';
     			echo '</select>';
 
-    			echo '<span class="input-group-append">';
+    			echo '';
     			echo '<a class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_template_copy, ';
     			echo 'document.articlecontent.phc.options[document.articlecontent.phc.selectedIndex].value);" /></a>';
-    			echo '</span>';
+    			echo '';
     			echo '</div>';
     		}
     		?>
@@ -1340,7 +1340,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
     <div id="copytemplate2"></div>
 
-    <div class="form-group form-row">
+    <div class="form-group row g-2">
     	<label class="col-sm-2 col-form-label"></label>
     	<div id="copytemplate3" class="col">
     	<?php
@@ -1364,8 +1364,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     	</div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cform_onsuccess" class="col-sm-2 col-form-label text-right"><?php echo $BL['php_function']?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cform_onsuccess" class="col-sm-2 col-form-label text-end"><?php echo $BL['php_function']?></label>
       <div class="col">
         <input name="cform_function_cc" type="text" id="cform_function_cc" class="form-control form-control-sm" value="<?php echo html($content['form']['function_cc']) ?>" />
       </div>
@@ -1376,8 +1376,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
   <!-- TAB 5: RESULT & DATABASE -->
   <div class="tab-pane fade" id="cform-pane-settings" role="tabpanel" aria-labelledby="cform-tab-settings">
 
-    <div class="form-group form-row">
-        <label for="cform_savedb" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_result'] ?></label>
+    <div class="form-group row g-2">
+        <label for="cform_savedb" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_result'] ?></label>
         <div class="col-sm-auto">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="cform_savedb" id="cform_savedb" value="1" <?php echo is_checked(1, $content['form']["savedb"], 0, 0) ?> />
@@ -1392,7 +1392,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                 <label class="form-check-label" for="cform_tracking_off"><?php echo $BL['be_cnt_field']['formtracking_off'] ?></label>
             </div>
         </div>
-        <div class="col ml-sm-5">
+        <div class="col ms-sm-5">
             <?php
             // check form entries
             $result_download_link = 'include/inc_act/act_export.php?' . CSRF_GET_TOKEN . '&amp;action=exportformresult&amp;fid=' . $content['id'];
@@ -1403,7 +1403,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                     <button class="btn btn-success text-nowrap" onclick="window.open('<?php echo $result_download_link; ?>', '_new');" class="p-3">
                         <i class="fas fa-file-excel text-light"></i>
                         <?php echo $BL['be_cnt_download']; ?>
-                        <span class="badge badge-pill badge-light"><?php echo $entries; ?></span>
+                        <span class="badge rounded-pill badge-light"><?php echo $entries; ?></span>
                     </button>
                     <?php
                 endif;
@@ -1413,19 +1413,19 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         </div>
     </div>
 
-    <div class="form-group form-row">
-        <label for="cform_savedb" class="col-sm-2 col-form-label text-right pt-1"><?php echo $BL['be_cnt_form_direct_download_apikey'] ?></label>
+    <div class="form-group row g-2">
+        <label for="cform_savedb" class="col-sm-2 col-form-label text-end pt-1"><?php echo $BL['be_cnt_form_direct_download_apikey'] ?></label>
         <div class="col-sm-auto">
             <input type="hidden" name="direct_download_apikey" id="direct_download_apikey" value="<?php echo html($content['form']['direct_download_apikey']) ?>" />
             <div class="input-group input-group-sm">
-                <div class="input-group-prepend">
+                
                     <div class="input-group-text">
                         <input type="checkbox" name="cform_direct_download" id="cform_direct_download" value="1" <?php echo is_checked(1, $content['form']["direct_download"], 0, 0) ?> />
-                    </div>
+                    
                     <label class="input-group-text" for="cform_direct_download"><?php echo $BL['be_cnt_form_direct_download'] ?></label>
                 </div>
-                <span id="direct_download_apikey_display" class="form-control form-control-sm font-weight-bold text-primary"><?php echo html($content['form']['direct_download_apikey']) ?></span>
-                <div class="input-group-append">
+                <span id="direct_download_apikey_display" class="form-control form-control-sm fw-bold text-primary"><?php echo html($content['form']['direct_download_apikey']) ?></span>
+                
                     <button class="btn btn-secondary" type="button" onclick="resetApiKey(this);">
                         <i class="fas fa-sync"></i>
                         <?php echo $BL['be_cnt_form_apikey_reset']; ?>
@@ -1434,7 +1434,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                         <i class="fas fa-clipboard"></i>
                         <?php echo $BL['be_copy_link']; ?>
                     </button>
-                </div>
+                
             </div>
         </div>
     </div>

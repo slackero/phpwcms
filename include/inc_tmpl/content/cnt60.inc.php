@@ -56,10 +56,10 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
 <input type="hidden" name="ctype_module" value="<?php echo html($content['module']); ?>" />
 
 
-<div class="form-group align-items-center form-row mb-3">
-  <label for="template" class="col-sm-2 col-form-label text-sm-right"><?php echo html($BL['be_admin_struct_template']); ?></label>
+<div class="form-group align-items-center row g-2 mb-3">
+  <label for="template" class="col-sm-2 col-form-label text-sm-end"><?php echo html($BL['be_admin_struct_template']); ?></label>
   <div class="col-sm-4">
-    <select name="template" id="template" class="custom-select form-control form-control-sm">
+    <select name="template" id="template" class="form-select form-select-sm">
       <option value=""<?php echo empty($content['custom_template']) ? ' selected="selected"' : ''; ?>><?php echo html($BL['be_admin_tmpl_default']); ?></option>
       <?php
       $cpt_key = $content['module'] ?? '';
@@ -134,7 +134,7 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
 <?php if ($cpt_mode === 'single'): // SINGLE ITEM MODE ?>
 
   <div class="card my-3 shadow-sm">
-    <div class="card-header bg-light font-weight-bold">
+    <div class="card-header bg-light fw-bold">
       <i class="fa fa-sliders-h"></i> <?php echo html($active_cpt['cpt_title'] ?? 'Fields'); ?>
     </div>
     <div class="card-body">
@@ -154,8 +154,8 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
 
 <?php else: // REPEATER / MULTI-ITEM MODE ?>
 
-  <div class="form-group align-items-center form-row mb-3">
-    <label class="col-sm-2 col-form-label text-sm-right"><?php echo html($BL['be_cnt_custom_entry'] ?? 'Entries'); ?></label>
+  <div class="form-group align-items-center row g-2 mb-3">
+    <label class="col-sm-2 col-form-label text-sm-end"><?php echo html($BL['be_cnt_custom_entry'] ?? 'Entries'); ?></label>
     <div class="col-sm-5">
       <button type="button" onclick="addNewCustomElement();" class="btn btn-blue btn-sm"><i class="fa fa-plus"></i> <?php echo html($BL['be_article_cnt_add'] ?? 'Add Element'); ?></button>
     </div>
@@ -170,14 +170,14 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
       <li id="custom_element_<?php echo $key; ?>" class="card my-3 p-0 sortme shadow-sm">
         <div class="card-header p-2 bg-light border-bottom" role="tab" id="heading_<?php echo $key; ?>">
           <div class="row align-items-center">
-            <div class="col-auto pr-0">
+            <div class="col-auto pe-0">
               <span class="handle text-muted"><i class="fa fa-grip-vertical"></i></span>
             </div>
             <div class="col">
-              <h5 class="mb-0 font-weight-bold">#<?php echo ($key + 1); ?></h5>
+              <h5 class="mb-0 fw-bold">#<?php echo ($key + 1); ?></h5>
             </div>
             <div class="col-auto">
-              <a class="btn btn-sm btn-secondary mr-1" data-toggle="collapse" href="#collapse_<?php echo $key; ?>" aria-expanded="true" aria-controls="collapse_<?php echo $key; ?>">
+              <a class="btn btn-sm btn-secondary me-1" data-bs-toggle="collapse" href="#collapse_<?php echo $key; ?>" aria-expanded="true" aria-controls="collapse_<?php echo $key; ?>">
                 <i class="fa fa-chevron-down"></i>
               </a>
               <button type="button" class="btn btn-sm btn-danger" onclick="deleteCustomElement('custom_element_<?php echo $key; ?>');">
@@ -214,14 +214,14 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
     <li id="custom_element___INDEX__" class="card my-3 p-0 sortme shadow-sm">
       <div class="card-header p-2 bg-light border-bottom" role="tab">
         <div class="row align-items-center">
-          <div class="col-auto pr-0">
+          <div class="col-auto pe-0">
             <span class="handle text-muted"><i class="fa fa-grip-vertical"></i></span>
           </div>
           <div class="col">
-            <h5 class="mb-0 font-weight-bold">#__NUM__</h5>
+            <h5 class="mb-0 fw-bold">#__NUM__</h5>
           </div>
           <div class="col-auto">
-            <a class="btn btn-sm btn-secondary mr-1" data-toggle="collapse" href="#collapse___INDEX__" aria-expanded="true">
+            <a class="btn btn-sm btn-secondary me-1" data-bs-toggle="collapse" href="#collapse___INDEX__" aria-expanded="true">
               <i class="fa fa-chevron-down"></i>
             </a>
             <button type="button" class="btn btn-sm btn-danger" onclick="deleteCustomElement('custom_element___INDEX__');">

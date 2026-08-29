@@ -280,10 +280,10 @@ if($BE['LANG'] === 'ar') {
     <div class="container-fluid px-0 px-sm-3">
       <div id="header-logo" class="navbar-header d-none d-md-flex align-items-center"><a href="phpwcms.php?<?php echo get_token_get_string(); ?>" class="navbar-brand"><img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System"></a></div>
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
-      <ul class="nav navbar-nav ml-auto">
+      <ul class="nav navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="<?php echo PHPWCMS_URL ?>" target="_blank"><i class="fa fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
         <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-search fa-fw"></i>
                 <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span>
             </a>
@@ -297,11 +297,11 @@ if($BE['LANG'] === 'ar') {
                         echo html($_SESSION['phpwcms_backend_search']);
                     }
                     ?>" class="form-control" aria-describedby="basic-search" />
-                    <div class="input-group-append" id="basic-search">
+                    
                         <button class="btn btn-blue">
                             <i class="fa fa-search fa-fw"></i>
                         </button>
-                    </div>
+                    
                 </div>
             </form>
         </li>
@@ -320,13 +320,13 @@ if($BE['LANG'] === 'ar') {
       } ?>
         <li class="nav-item"><a class="nav-link" href="phpwcms.php?do=logout" target="_top"><i class="fa fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
         <li class="nav-item dropdown theme-switcher">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
                 <i class="theme-icon-active fa fa-adjust fa-fw"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="themeDropdown">
-                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="auto"><i class="fa fa-adjust fa-fw mr-2"></i> <?php echo html($BL['be_theme_auto']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
-                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="light"><i class="fa fa-sun fa-fw mr-2"></i> <?php echo html($BL['be_theme_light']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
-                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="dark"><i class="fa fa-moon fa-fw mr-2"></i> <?php echo html($BL['be_theme_dark']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="auto"><i class="fa fa-adjust fa-fw me-2"></i> <?php echo html($BL['be_theme_auto']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="light"><i class="fa fa-sun fa-fw me-2"></i> <?php echo html($BL['be_theme_light']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="dark"><i class="fa fa-moon fa-fw me-2"></i> <?php echo html($BL['be_theme_dark']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
             </div>
         </li>
       </ul>
@@ -704,7 +704,7 @@ forward_to($forward_to_message_center, PHPWCMS_URL. 'phpwcms.php?do=messages', 2
         <iframe src="about:blank" id="infobrowser" class="iframe flex-grow-1 border-0" name="infobrowser"></iframe>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-blue" data-dismiss="modal"><?php echo $BL['be_func_struct_close'] ?></button>
+        <button type="button" class="btn btn-sm btn-blue" data-bs-dismiss="modal"><?php echo $BL['be_func_struct_close'] ?></button>
       </div>
     </div>
   </div>

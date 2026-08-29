@@ -25,10 +25,10 @@ if(!isset($content["map"])) {
 
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="cmap_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</label>
+<div class="form-group align-items-center row g-2">
+  <label for="cmap_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</label>
   <div class="col">
-    <select name="cmap_template" id="cmap_template" class="custom-select form-control form-control-sm">
+    <select name="cmap_template" id="cmap_template" class="form-select form-select-sm">
 <?php
 // templates for article listing
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/map');
@@ -45,8 +45,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="cmap_image" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_map'] ?></label>
+<div class="form-group row g-2">
+  <label for="cmap_image" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ctype_map'] ?></label>
   <div class="col"><?php
 
 // select the map image
@@ -137,8 +137,8 @@ if($map_selected) {
 
 ?>
 
-<div class="form-group form-row">
-  <label for="cmap_location_x" class="col-sm-2 col-form-label text-right"><?php echo ($map_current) ? $BL['be_cnt_map_edit'] : $BL['be_cnt_map_add']; ?></label>
+<div class="form-group row g-2">
+  <label for="cmap_location_x" class="col-sm-2 col-form-label text-end"><?php echo ($map_current) ? $BL['be_cnt_map_edit'] : $BL['be_cnt_map_add']; ?></label>
   <div class="col">
     <table class="table-borderless" bgcolor="#E7E8EB">
         <tr>
@@ -154,23 +154,23 @@ if($map_selected) {
           echo '&points='.rawurlencode(implode(':|:', $map_xy));
           ?>','map','<?php
           echo 'scrollbars=yes,resizable=yes,width='.($map_info[0]+12).',height='.($map_info[1]+15)
-          ?>',1);return document.MM_returnValue;"><i class="fa fa-map-marker-alt mr-1"></i> open map</button></td>
+          ?>',1);return document.MM_returnValue;"><i class="fa fa-map-marker-alt me-1"></i> open map</button></td>
           <td></td>
         </tr>
       </table>
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="cmap_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_title'] ?></label>
+<div class="form-group row g-2">
+  <label for="cmap_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_map_title'] ?></label>
   <div class="col">
     <input name="cmap_location_title" type="text" class="form-control" value="<?php echo  empty($content['location']["title"]) ? '' : html($content['location']["title"]) ?>" onChange="doMapChange();">
   </div>
 </div>
 
 
-<div class="form-group form-row">
-  <label for="cmap_zip" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_zip'] ?></label>
+<div class="form-group row g-2">
+  <label for="cmap_zip" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_zip'] ?></label>
   <div class="col">
     <table class="table-borderless">
       <tr>
@@ -182,8 +182,8 @@ if($map_selected) {
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="cmap_location_entry" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_info'] ?></label>
+<div class="form-group row g-2">
+  <label for="cmap_location_entry" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_map_info'] ?></label>
   <div class="col"><?php
 
 $wysiwyg_editor = array(
@@ -203,15 +203,15 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 <input type="hidden" name="cmap_location_id" value="<?php echo  empty($content['location']["id"]) ? 0 : intval($content['location']["id"]) ?>">
 <input type="hidden" id="cmap_location_edited" name="cmap_location_edited" value="1">
 
-<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_save_btn'] ?></button>
+<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_save_btn'] ?></button>
 
 <?php
     if($map_list) {
         $ck_style = ($ck > 10) ? ' style="height:200px;"' : '';
 ?>
 
-<div class="form-group form-row">
-  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_list'] ?></label>
+<div class="form-group row g-2">
+  <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_map_list'] ?></label>
   <div class="col">
     <div class="map-list-container"<?php echo $ck_style ?>>
       <table class="table-borderless w-100">
@@ -226,8 +226,8 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 }
 ?>
 
-<div class="form-group form-row">
-  <label for="cmap_text" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_text'] ?></label>
+<div class="form-group row g-2">
+  <label for="cmap_text" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_text'] ?></label>
   <div class="col">
     <textarea name="cmap_text" id="cmap_text" cols="40" rows="8" class="form-control"><?php echo empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea>
     </div>

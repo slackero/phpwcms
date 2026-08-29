@@ -77,10 +77,10 @@ if(isset($template_default['settings']['imgdiv_custom_fields']) && is_array($tem
 $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fieldgroup_templates['default'] : '';
 
 ?>
-<div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
-    <select name="template" id="template" class="custom-select form-control form-control-sm">
+    <select name="template" id="template" class="form-select form-select-sm">
         <option value=""><?php echo $BL['be_admin_tmpl_default']; ?></option>
 <?php
     // templates for frontend login
@@ -114,10 +114,10 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="cimage_center" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_image_align'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="cimage_center" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_image_align'] ?></label>
   <div class="col-sm-4">
-    <select name="cimage_center" id="cimage_center" class="custom-select form-control form-control-sm">
+    <select name="cimage_center" id="cimage_center" class="form-select form-select-sm">
         <option value="0"<?php is_selected(0, $content['image_list']['center_image']); ?>><?php echo $BL['be_cnt_imagenocenter'] ?></option>
         <option value="1"<?php is_selected(1, $content['image_list']['center_image']); ?>><?php echo $BL['be_cnt_imagecenter'] ?></option>
         <option value="2"<?php is_selected(2, $content['image_list']['center_image']); ?>><?php echo $BL['be_cnt_imagecenterh'] ?></option>
@@ -126,25 +126,25 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-    <label for="template" class="col-sm-2 col-form-label text-right">
+<div class="form-group align-items-center row g-2">
+    <label for="template" class="col-sm-2 col-form-label text-end">
         <?php echo $BL['be_ftptakeover_size'] ?>
     </label>
-    <div class="col-sm-auto my-2 my-sm-0">
+    <div class="col-sm-auto">
         <div class="input-group input-group-sm">
-            <div class="input-group-prepend"><span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span></div>
+            <span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
             <input name="cimage_width" type="text" class="form-control form-control-sm width50" id="cimage_width" size="4" maxlength="4" onkeyup="setCimageCenterInactive();" value="<?php echo empty($content['image_list']['width']) ? $template_default['imagegallery_default_width'] : $content['image_list']['width']; ?>" />
-            <div class="input-group-append"><span class="input-group-text">px</span></div>
+            <span class="input-group-text">px</span>
         </div>
     </div>
-    <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+    <div class="col-sm-auto">
         <div class="input-group input-group-sm">
-            <div class="input-group-prepend"><span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span></div>
+            <span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
             <input name="cimage_height" type="text" class="form-control form-control-sm width50" id="cimage_height" size="4" maxlength="4" onkeyup="setCimageCenterInactive();" value="<?php echo empty($content['image_list']['height']) ? $template_default['imagegallery_default_height'] : $content['image_list']['height']; ?>" />
-            <div class="input-group-append"><span class="input-group-text">px</span></div>
+            <span class="input-group-text">px</span>
         </div>
     </div>
-    <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+    <div class="col-sm-auto">
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_list']['crop']); ?> />
             <label class="form-check-label" for="cimage_crop"><?php echo $BL['be_image_crop'] ?></label>
@@ -152,8 +152,8 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
     </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-    <label for="cimage_limit" class="col-sm-2 col-form-label text-right"><?php echo $BL['limit_image_from_list'] ?></label>
+<div class="form-group align-items-center row g-2">
+    <label for="cimage_limit" class="col-sm-2 col-form-label text-end"><?php echo $BL['limit_image_from_list'] ?></label>
     <div class="col-sm-auto">
 		<input name="cimage_limit" type="text" class="form-control form-control-sm" id="cimage_limit" maxlength="3" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['limit']) ? '' : $content['image_list']['limit']; ?>" />
 	</div>
@@ -165,10 +165,10 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
 	</div>
 </div>
 
-<div class="form-group align-items-center form-row">
-    <label for="cimage_col" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_column'] ?></label>
+<div class="form-group align-items-center row g-2">
+    <label for="cimage_col" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_column'] ?></label>
     <div class="col-sm-auto">
-		<select class="custom-select form-control form-control-sm" name="cimage_col" id="cimage_col">
+		<select class="form-select form-select-sm" name="cimage_col" id="cimage_col">
 		<?php
 		// list select menu for max image columns
 		for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
@@ -179,11 +179,11 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
 		?>
 		</select>
 	</div>
-	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+	<div class="col-sm-auto">
         <div class="input-group input-group-sm">
-			<div class="input-group-prepend"><span class="input-group-text"><?php echo $BL['be_cnt_imagespace'] ?></span></div>
+			<span class="input-group-text"><?php echo $BL['be_cnt_imagespace'] ?></span>
             <input name="cimage_space" type="text" class="form-control form-control-sm" id="cimage_space" maxlength="3" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['space']) ? $template_default['imagegallery_default_space'] : $content['image_list']['space']; ?>" />
-			<div class="input-group-append"><span class="input-group-text">px</span></div>
+			<span class="input-group-text">px</span>
 		</div>
     </div>
 </div>
@@ -202,8 +202,8 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
     setCimageCenterInactive();
 </script>
 
-<div class="form-group align-items-center form-row">
-    <label for="cimage_zoom" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_behavior'] ?></label>
+<div class="form-group align-items-center row g-2">
+    <label for="cimage_zoom" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_behavior'] ?></label>
     <div class="col">
         <div class="form-check form-check-inline">
 			<input name="cimage_zoom" class="form-check-input" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, $content['image_list']['zoom']); ?> />
@@ -220,12 +220,12 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
     </div>
 </div>
 
-<div class="form-group form-row">
-    <label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?></label>
+<div class="form-group row g-2">
+    <label for="cimage_list" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_image'] ?></label>
     <div class="col">
-        <div class="form-row">
+        <div class="row g-2">
             <div class="col">
-                <select name="cimage_list[]" size="<?php echo $img_count+6 ?>" multiple="multiple" class="custom-select form-control form-control-sm" id="cimage_list">
+                <select name="cimage_list[]" size="<?php echo $img_count+6 ?>" multiple="multiple" class="form-select form-control form-control-sm" id="cimage_list">
 <?php
 if($img_count) {
 
@@ -253,7 +253,7 @@ if($img_count) {
             if($imgx) {
                 $img_thumbs .= '';
             }
-            $img_thumbs .= '<img class="mt-2 mr-2 img-fluid" src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.$img_name.'" data-toggle="tooltip" title="'.$img_name.'" />';
+            $img_thumbs .= '<img class="mt-2 me-2 img-fluid" src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.$img_name.'" data-bs-toggle="tooltip" title="'.$img_name.'" />';
             $caption_box[] = html($content['image_list']['images'][$key][6]);
             $imgx++;
         }
@@ -264,18 +264,18 @@ if($img_count) {
                 </select>
             </div>
             <div class="col-sm-auto">
-                <span data-toggle="tooltip" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>">
-                    <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=1&amp;target=nolist">
+                <span data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>">
+                    <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=1&amp;target=nolist">
                         <i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>
                     </button>
                 </span><br>
-                <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list)">
+                <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list)">
                     <i class="fa fa-angle-up fa-fw" aria-hidden="true"></i>
                 </button><br>
-                <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list)">
+                <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list)">
                     <i class="fa fa-angle-down fa-fw" aria-hidden="true"></i>
                 </button><br>
-                <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cimage_list)" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>">
+                <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cimage_list)" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>">
                     <i class="far fa-trash-alt fa-fw" aria-hidden="true"></i>
                 </button>
             </div>
@@ -284,8 +284,8 @@ if($img_count) {
    </div>
 </div>
 
-<div class="form-group form-row">
-    <label for="cimage_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption'] ?></label>
+<div class="form-group row g-2">
+    <label for="cimage_caption" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_caption'] ?></label>
     <div class="col">
         <textarea name="cimage_caption" cols="40" rows="3" class="form-control form-control-sm" id="cimage_caption"><?php echo implode(' '.LF, $caption_box) ?></textarea>
         <div class="my-2">
@@ -353,8 +353,8 @@ if($content['custom_field_items']):
         $is_wysiwyg = $cnt_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($cnt_fieldgroup['fields'][$custom_field]['render']) && $cnt_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg' ? true : false;
         $custom_field_class = empty($cnt_fieldgroup['fields'][$custom_field]['class']) ? '' : ' ' . $cnt_fieldgroup['fields'][$custom_field]['class'];
 ?>
-    <div class="form-group form-row<?php if($cnt_fieldgroup['fields'][$custom_field]['type'] !== 'file' && (empty($cnt_fieldgroup['fields'][$custom_field]['rows']) || $cnt_fieldgroup['fields'][$custom_field]['rows'] < 2)): ?> align-items-center<?php endif; ?><?= $custom_field_class; ?>">
-        <label class="col-sm-2 col-form-label text-right"><?php
+    <div class="form-group row g-2<?php if($cnt_fieldgroup['fields'][$custom_field]['type'] !== 'file' && (empty($cnt_fieldgroup['fields'][$custom_field]['rows']) || $cnt_fieldgroup['fields'][$custom_field]['rows'] < 2)): ?> align-items-center<?php endif; ?><?= $custom_field_class; ?>">
+        <label class="col-sm-2 col-form-label text-end"><?php
             if($cnt_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                 if(isset($cnt_fieldgroup['fields'][$custom_field]['legend'])) {
                     echo html($cnt_fieldgroup['fields'][$custom_field]['legend']);
@@ -424,12 +424,12 @@ if($content['custom_field_items']):
                             ?> checked="checked"<?php
                         elseif(empty($content['custom_fields'][$custom_field]) && !empty($cnt_fieldgroup['fields'][$custom_field]['default']) && $cnt_fieldgroup['fields'][$custom_field]['default'] === $option_key):
                             ?> checked="checked"<?php endif; ?> />
-                        <label class="form-check-label mr-3"><?php echo html($option_label); ?></label>
+                        <label class="form-check-label me-3"><?php echo html($option_label); ?></label>
                     </div><?php
                 endforeach;
 
             elseif($cnt_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($cnt_fieldgroup['fields'][$custom_field]['values'])): ?>
-                <select name="customfield[<?php echo $custom_field; ?>]" class="custom-select form-control form-control-sm"><?php
+                <select name="customfield[<?php echo $custom_field; ?>]" class="form-select form-control form-control-sm"><?php
                 foreach($cnt_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
                     <option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
                         if(isset($content['custom_fields'][$custom_field]) && $content['custom_fields'][$custom_field] === $option_key): ?> selected="selected"<?php
@@ -452,12 +452,12 @@ if($content['custom_field_items']):
             elseif($cnt_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
                 <div class="input-group mb-2">
-                    <span class="input-group-prepend">
+                    
                         <button class="modalButton btn btn-sm btn-blue folder-open" type="button"
-                                data-toggle="modal" data-target="#browserModal"
+                                data-bs-toggle="modal" data-bs-target="#browserModal"
                                 data-src="filebrowser.php?opt=19&field=<?php echo $custom_field; ?>&allowed=<?php echo $cnt_fieldgroup['fields'][$custom_field]['filetypes']; ?>">
                         </button>
-                    </span>
+                    
                     <input name="customfield[<?php echo $custom_field; ?>][id]" type="hidden" id="customfield_<?php echo $custom_field; ?>_id" value="<?php
                         if(isset($content['custom_fields'][$custom_field]['id'])) {
                             echo $content['custom_fields'][$custom_field]['id'];
@@ -472,15 +472,15 @@ if($content['custom_field_items']):
                             echo ' placeholder="' . $BL['be_allowed_filetypes'] . ': '. html(str_replace(',', ', ', $cnt_fieldgroup['fields'][$custom_field]['filetypes'])) . '"';
                         } ?>
                     />
-                    <span class="input-group-append ">
+                    
                         <a class="btn btn-sm btn-danger trash" href="#" type="button"
-                           data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
+                           data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
                            onclick="document.getElementById('customfield_<?php
                             echo $custom_field; ?>_name').value='';document.getElementById('customfield_<?php
                             echo $custom_field; ?>_id').value='';document.getElementById('customfield_<?php
                             echo $custom_field; ?>_description').value='';this.blur();return false;"
                         ></a>
-                    </span>
+                    
                 </div>
                 <textarea name="customfield[<?php echo $custom_field; ?>][description]"
                           cols="40"

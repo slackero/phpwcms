@@ -52,12 +52,12 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a  = "<tr class=\"hover-success bg-row-grey-medium\">\n";
     $a .= '<td class="w-80">'.LF;
     $a .= '<table class="table-borderless"'.">\n<tr>\n";
-    $a .= '<td class="text-right here text-nowrap">'.LF;
+    $a .= '<td class="text-end here text-nowrap">'.LF;
     $a .= ($child_count) ? "<a href=\"phpwcms.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
 
     $a .= '<i class="fa fa-caret-'.(($child_count) ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? "right" : "down") : "right").' fa-fw alist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
-    $info  = '<table class="text-left">';
+    $info  = '<table class="text-start">';
     $info .= '<tr><td>ID:</td><td><b>'.$struct[$key]["acat_id"].'</b></td></tr>';
     $info .= '<tr><td>'.$BL['be_alias'].':</td><td>'.$struct[$key]["acat_alias"].'</td></tr>';
     $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$struct[$key]["acat_sort"].'</td></tr>';
@@ -78,14 +78,14 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     if($struct[$key]["acat_regonly"]) {
         $a .= '-lock';
     }
-    $a .= ' fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
+    $a .= ' fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
 
     $a .= '</td>'.LF;
     $a .= '<td class="dir" width="95%"><strong><a href="';
     $a .= rel_url(array('phpwcms-preview'=>1), array(), empty($struct[$key]["acat_alias"]) ? 'id='.$struct[$key]["acat_id"] : $struct[$key]["acat_alias"]);
-    $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$an.'">';
-    $a .= $an . '</a></strong></td></tr></table></td><td class="text-nowrap text-right">'.LF;
-    $a .= '<span class="mr-3 flag-icon flag-icon-'.$struct[$key]['acat_lang'].'" data-toggle="tooltip" title="" data-original-title="'.$struct[$key]['acat_lang'].'"></span>';
+    $a .= '" target="_blank" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$an.'">';
+    $a .= $an . '</a></strong></td></tr></table></td><td class="text-nowrap text-end">'.LF;
+    $a .= '<span class="me-3 flag-icon flag-icon-'.$struct[$key]['acat_lang'].'" data-bs-toggle="tooltip" title="" data-original-title="'.$struct[$key]['acat_lang'].'"></span>';
 
     $a .= listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
 
@@ -226,7 +226,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             $a .= '<div class="alist-'.($counter).'" ></div>';
         }
 
-        $info = '<table class="text-left">';
+        $info = '<table class="text-start">';
         $info .= '<tr><td>'.$BL['be_func_struct_articleID'].':</td><td><b>'.$article[$akey]["article_id"].'</b></td></tr>';
         if(!empty($article[$akey]["article_alias"])) {
             $info .= '<tr><td>ALIAS:</td><td><b>'.$article[$akey]["article_alias"].'</b></td></tr>';
@@ -247,31 +247,31 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         }
         $info .= '</table>';
 
-        $a .= '<i class="fa fa-file fa-fw" aria-hidden="true" data-html="true" data-toggle="tooltip" title="'.html($info).'" ></i></td>'.LF;
+        $a .= '<i class="fa fa-file fa-fw" aria-hidden="true" data-html="true" data-bs-toggle="tooltip" title="'.html($info).'" ></i></td>'.LF;
         $a .= '<td class="dir" width="95%"><a href="';
         $a .= rel_url(array('phpwcms-preview'=>1), array(), empty($article[$akey]["article_alias"]) ? 'aid='.$article[$akey]["article_id"] : $article[$akey]["article_alias"]);
-        $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$at.'">';
-        $a .= $at.'</a></td></tr></table></td><td class="text-nowrap text-right">';
+        $a .= '" target="_blank" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$at.'">';
+        $a .= $at.'</a></td></tr></table></td><td class="text-nowrap text-end">';
         if (!empty($article[$akey]["article_lang"])) {
-            $a .= '<span class="mr-3 flag-icon flag-icon-' . $article[$akey]["article_lang"] . '" data-toggle="tooltip" title="" data-original-title="' . $article[$akey]["article_lang"] . '"></span>';
+            $a .= '<span class="me-3 flag-icon flag-icon-' . $article[$akey]["article_lang"] . '" data-bs-toggle="tooltip" title="" data-original-title="' . $article[$akey]["article_lang"] . '"></span>';
         }
         if($cut_article_content) {
-            $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do='.rawurlencode('7|'.$cut_article_content.'|'.$article[$akey]["article_id"].'|-10');
-            $a .= '" data-toggle="tooltip" title="'.$BL['be_func_content_paste0'];
+            $a .= '<a class="btn btn-xs btn-warning me-1" href="include/inc_act/act_structure.php?do='.rawurlencode('7|'.$cut_article_content.'|'.$article[$akey]["article_id"].'|-10');
+            $a .= '" data-bs-toggle="tooltip" title="'.$BL['be_func_content_paste0'];
             $a .= "\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
         } elseif($copy_article_content) {
-            $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do='.rawurlencode('8|'.$copy_article_content.'|'.$article[$akey]["article_id"].'|-10');
-            $a .= '" data-toggle="tooltip" title="'.$BL['be_func_content_paste0'];
+            $a .= '<a class="btn btn-xs btn-warning me-1" href="include/inc_act/act_structure.php?do='.rawurlencode('8|'.$copy_article_content.'|'.$article[$akey]["article_id"].'|-10');
+            $a .= '" data-bs-toggle="tooltip" title="'.$BL['be_func_content_paste0'];
             $a .= "\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
         }
 
         $a .= '<div class="btn-group" role="group" aria-label="group'.$article[$akey]["article_id"].'">';
         //edit article
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-          $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_func_struct_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$article[$akey]["article_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
+          $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$article[$akey]["article_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
         }
         $a .= '<div class="btn-group" role="group">';
-        $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownAcontentLink'.$article[$akey]["article_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
+        $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownAcontentLink'.$article[$akey]["article_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
 
         $a .= '<div class="dropdown-menu" aria-labelledby="dropdownAcontentLink'.$article[$akey]["article_id"].'">';
         $a .= '<h6 class="dropdown-header">'.$at.'</h6>';
@@ -296,7 +296,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
           $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].'</a>';
         }
         $a .= '</div></div>';
-        $a .= '<button id="abtnarticle'.$article[$akey]["article_id"].'" class="btn fa btn-xs visible '.($article[$akey]["article_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$article[$akey]["article_id"].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
+        $a .= '<button id="abtnarticle'.$article[$akey]["article_id"].'" class="btn fa btn-xs visible '.($article[$akey]["article_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$article[$akey]["article_id"].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
         $a .= '</div></td></tr>'.LF;
         echo $a;
 
@@ -348,7 +348,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
                 continue;
             }
 
-            $info = '<table class="text-left"><tr><td>ID:</td><td>'.$article_content["acontent_id"].'</td></tr>';
+            $info = '<table class="text-start"><tr><td>ID:</td><td>'.$article_content["acontent_id"].'</td></tr>';
             if($article_content['acontent_title']) {
                 $info .= '<tr><td>' . $GLOBALS['BL']['be_article_cnt_ctitle'].':</td><td>'.$article_content['acontent_title'].'</td></tr>';
             }
@@ -367,7 +367,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             } else {
                 $a .= "<tr class=\"hover-amber border-bottom-light bg-row-white\">\n";
             }
-            $a .= '<td><i class="fa fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>&nbsp;';
+            $a .= '<td><i class="fa fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-bs-toggle="tooltip" data-html="true" title="'.html($info).'"></i>&nbsp;';
 
             $ab  = '[ID:'.$article_content["acontent_id"].'] ';
             $ab .= $GLOBALS["wcs_content_type"][$article_content["acontent_type"]];
@@ -377,27 +377,27 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= $ab;
 
             $a .= "&nbsp;".html(' {'.$article_content['acontent_block'].'} ').'</td>';
-            $a .= '<td class="text-right text-nowrap cell-actions">';
+            $a .= '<td class="text-end text-nowrap cell-actions">';
             $at = ' ' . $ab . ' ';
 
             if($cut_article_content) {
                 if($cut_article_content != $article_content["acontent_id"]) {
-                    $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do='.rawurlencode('7|'.$cut_article_content."|".$article_content["acontent_aid"]."|".$article_content["acontent_sorting"]);
-                    $a .= '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_paste'];
+                    $a .= '<a class="btn btn-xs btn-warning me-1" href="include/inc_act/act_structure.php?do='.rawurlencode('7|'.$cut_article_content."|".$article_content["acontent_aid"]."|".$article_content["acontent_sorting"]);
+                    $a .= '" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_paste'];
                     $a .= " [".$at."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                 } else {
-                    $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"phpwcms.php?do=articles\" title=\"";
+                    $a .= "<a class=\"btn btn-xs btn-danger me-1\" href=\"phpwcms.php?do=articles\" title=\"";
                     $a .= $GLOBALS['BL']['be_func_content_paste_cancel']." [".$at."]";
                     $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
                 }
             }
             if($copy_article_content) {
                 if($copy_article_content != $article_content["acontent_id"]) {
-                    $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do='.rawurlencode('8|'.$copy_article_content.'|'.$article_content["acontent_aid"].'|'.$article_content["acontent_sorting"]);
-                    $a .= '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_paste'];
+                    $a .= '<a class="btn btn-xs btn-warning me-1" href="include/inc_act/act_structure.php?do='.rawurlencode('8|'.$copy_article_content.'|'.$article_content["acontent_aid"].'|'.$article_content["acontent_sorting"]);
+                    $a .= '" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_paste'];
                     $a .= " [".$at."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                 } else {
-                    $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"phpwcms.php?do=articles\" title=\"";
+                    $a .= "<a class=\"btn btn-xs btn-danger me-1\" href=\"phpwcms.php?do=articles\" title=\"";
                     $a .= $GLOBALS['BL']['be_func_content_paste_cancel']." [".$at."]";
                     $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
                 }
@@ -406,10 +406,10 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= '<div class="btn-group" role="group" aria-label="group'.$article_content["acontent_id"].'">';
             //edit content part
             if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-              $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article[$akey]["article_id"].'&amp;acid='.$article_content["acontent_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
+              $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article[$akey]["article_id"].'&amp;acid='.$article_content["acontent_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
             }
             $a .= '<div class="btn-group" role="group">';
-            $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownAcontentLink'.$article_content["acontent_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
+            $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownAcontentLink'.$article_content["acontent_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
 
             $a .= '<div class="dropdown-menu" aria-labelledby="dropdownAcontentLink'.$article_content["acontent_id"].'">';
             $a .= '<h6 class="dropdown-header">'.$at.'</h6>';
@@ -421,7 +421,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_article_cnt_delpart']." \\n[".js_singlequote($at)."] ?')\">";
             $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].'</a>';
             $a .= '</div></div>';
-            $a .= '<button id="abtnarticlecontent'.$article_content["acontent_id"].'" class="btn fa btn-xs visible '.($article_content["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article_content["acontent_id"].'" data-type="articlecontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
+            $a .= '<button id="abtnarticlecontent'.$article_content["acontent_id"].'" class="btn fa btn-xs visible '.($article_content["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article_content["acontent_id"].'" data-type="articlecontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
 
             $a .= "</div></td></tr>".LF;
         }
@@ -440,24 +440,24 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
 
     case 0:     //cut article
                 if($cut_article) {
-                    $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do=3'.'%7C'.$cut_article.'%7C';
-                    $a .= $struct[$key]["acat_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_paste_article']." \n[".$an;
+                    $a .= '<a class="btn btn-xs btn-warning me-1" href="include/inc_act/act_structure.php?do=3'.'%7C'.$cut_article.'%7C';
+                    $a .= $struct[$key]["acat_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_paste_article']." \n[".$an;
                     $a .= "]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                 }
                 //copy article
                 if($copy_article) {
-                    $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do=5'.'%7C'.$copy_article.'%7C';
-                    $a .= $struct[$key]["acat_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_paste_article']." \n[".$an;
+                    $a .= '<a class="btn btn-xs btn-warning me-1" href="include/inc_act/act_structure.php?do=5'.'%7C'.$copy_article.'%7C';
+                    $a .= $struct[$key]["acat_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_paste_article']." \n[".$an;
                     $a .= "]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                 }
                 //cut structure
                 if($cut_id) {
                     if($cut_id != $struct[$key]["acat_id"] && !$forbid_cut) {
-                        $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do=1'.'%7C'.$cut_id.'%7C'.$struct[$key]["acat_id"].'%7C';
-                        $a .= $child_sort.'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_paste_level'];
+                        $a .= '<a class="btn btn-xs btn-warning me-1" href="include/inc_act/act_structure.php?do=1'.'%7C'.$cut_id.'%7C'.$struct[$key]["acat_id"].'%7C';
+                        $a .= $child_sort.'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_paste_level'];
                         $a .= " [".$an."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                     } elseif($cut_id == !$forbid_cut) {
-                        $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"phpwcms.php?do=articles\" title=\"";
+                        $a .= "<a class=\"btn btn-xs btn-danger me-1\" href=\"phpwcms.php?do=articles\" title=\"";
                         $a .= $GLOBALS['BL']['be_func_content_paste_cancel']; //." [".$at."]";
                         $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
                     }
@@ -465,11 +465,11 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 //copy structure
                 if($copy_id) {
                     if($copy_id != $struct[$key]["acat_id"] && !$forbid_copy) {
-                        $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do=6'.'%7C'.$copy_id.'%7C'.$struct[$key]["acat_id"].'%7C';
-                        $a .= $child_sort.'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_paste_level'];
+                        $a .= '<a class="btn btn-xs btn-warning me-1" href="include/inc_act/act_structure.php?do=6'.'%7C'.$copy_id.'%7C'.$struct[$key]["acat_id"].'%7C';
+                        $a .= $child_sort.'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_paste_level'];
                         $a .= " [".$an."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                     } elseif($copy_id == !$forbid_copy) {
-                        $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"phpwcms.php?do=articles\" title=\"";
+                        $a .= "<a class=\"btn btn-xs btn-danger me-1\" href=\"phpwcms.php?do=articles\" title=\"";
                         $a .= $GLOBALS['BL']['be_func_content_paste_cancel']; //." [".$at."]";
                         $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
                     }
@@ -481,7 +481,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
 
                 $a .= '<div class="btn-group" role="group" aria-label="group'.$struct[$key]["acat_id"].'">';
 
-                $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" title="'.$GLOBALS['BL']['be_func_struct_sedit'].' ['.$an.']" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=6&amp;struct=';
+                $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" title="'.$GLOBALS['BL']['be_func_struct_sedit'].' ['.$an.']" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=6&amp;struct=';
                 if($struct[$key]["acat_id"]) {
                     $a .= $struct[$key]["acat_struct"]."&amp;cat=".$struct[$key]["acat_id"];
                 } else {
@@ -490,12 +490,12 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 $a .= '"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
 
                 $a .= '<div class="btn-group" role="group">';
-                $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownStrucLink'.$struct[$key]["acat_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
+                $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownStrucLink'.$struct[$key]["acat_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
 
                 $a .= '<div class="dropdown-menu" aria-labelledby="dropdownStrucLink'.$struct[$key]["acat_id"].'">';
                 $a .= '<h6 class="dropdown-header">'.$an.'</h6>';
-                $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;p=6&amp;struct='.$struct[$key]["acat_id"].'&amp;sort='.$child_sort.'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_insert_level'].' ['.$an.']"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> <i class="fa fa-folder fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_insert_level_short'].'</a>';
-                 $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;p=1&amp;struct='.$struct[$key]["acat_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_new_article'].'"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> <i class="fa fa-file fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_new_article_short'].'</a>';
+                $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;p=6&amp;struct='.$struct[$key]["acat_id"].'&amp;sort='.$child_sort.'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_insert_level'].' ['.$an.']"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> <i class="fa fa-folder fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_insert_level_short'].'</a>';
+                 $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;p=1&amp;struct='.$struct[$key]["acat_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_new_article'].'"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> <i class="fa fa-file fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_new_article_short'].'</a>';
                 //copy structur
                 if($struct[$key]["acat_id"]) {
                   $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;cop='.$struct[$key]["acat_id"].'"><i class="fa fa-copy fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_copy_level'].'</a>';
@@ -523,7 +523,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
 
                 $a .= '</div></div>'.LF;
 
-                $a .= '<button id="abtnstruct'.$struct[$key]["acat_id"].'" class="btn fa btn-xs visible '.($struct[$key]["acat_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$struct[$key]["acat_id"].'" data-type="struct" data-table="articlecat" data-field="acat_aktiv" data-fieldid="acat_id" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
+                $a .= '<button id="abtnstruct'.$struct[$key]["acat_id"].'" class="btn fa btn-xs visible '.($struct[$key]["acat_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$struct[$key]["acat_id"].'" data-type="struct" data-table="articlecat" data-field="acat_aktiv" data-fieldid="acat_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
 
                 $a .= '</div>'.LF;
                 break;

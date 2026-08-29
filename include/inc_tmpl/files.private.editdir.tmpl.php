@@ -109,8 +109,8 @@ if(!empty($ja)) {
 	<div class="card-header"><h1><?php echo $BL['be_fpriv_edittitle'] ?></h1></div>
 		<div class="card-body">
 			<form action="phpwcms.php?do=files&amp;f=0" method="post" name="editdir" id="editdir">
-				<div class="form-group align-items-center form-row">
-						<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_name'] ?></label>
+				<div class="form-group align-items-center row g-2">
+						<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_fpriv_name'] ?></label>
 						<div class="col-sm-4">
 							<strong><?php echo $dir_oldname ?></strong>
 					</div>
@@ -120,10 +120,10 @@ if(!empty($ja)) {
 				<strong style="color:#FF3300;"><?php echo $BL['be_fpriv_errordir'] ?></strong>
 					<?php } ?>
 
-				<div class="form-group align-items-center form-row">
-					<label for="dir_pid" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+				<div class="form-group align-items-center row g-2">
+					<label for="dir_pid" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_directory'] ?></label>
 					<div class="col-sm-4">
-							<select name="dir_pid" id="dir_pid" class="custom-select form-control form-control-sm">
+							<select name="dir_pid" id="dir_pid" class="form-select form-select-sm">
 									<option value="0"<?php if($dir_pid == 0) echo " selected"; ?>><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
 									<?php dir_menu(0, $dir_pid, "+", $_SESSION["wcs_user_id"], "+"); ?>
 							</select>
@@ -136,24 +136,24 @@ if(!empty($ja)) {
 
 					<?php } ?>
 
-				<div class="form-group align-items-center form-row">
-					<label for="dir_newname" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_newname'] ?></label>
+				<div class="form-group align-items-center row g-2">
+					<label for="dir_newname" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_fpriv_newname'] ?></label>
 					<div class="col-sm-4">
 							<input name="dir_newname" type="text" class="form-control form-control-sm" id="dir_newname" value="<?php echo html($dir_newname) ?>" maxlength="250" />
 					</div>
 				</div>
 
-				<div class="form-group form-row">
-					<label for="dir_longinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+				<div class="form-group row g-2">
+					<label for="dir_longinfo" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
 					<div class="col-sm-4">
 							<textarea name="dir_longinfo" cols="40" rows="4" class="form-control form-control-sm" id="dir_longinfo"><?php echo html($dir_longinfo) ?></textarea>
 					</div>
 				</div>
 
-				<div class="form-group align-items-center form-row">
-						<label for="dir_gallery" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_gallery'] ?></label>
+				<div class="form-group align-items-center row g-2">
+						<label for="dir_gallery" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_gallery'] ?></label>
 						<div class="col-sm-4">
-							<select name="dir_gallery" id="dir_gallery" class="custom-select form-control form-control-sm">
+							<select name="dir_gallery" id="dir_gallery" class="form-select form-select-sm">
 									<option value="0"<?php is_selected(0, $dir_gallery) ?>>-</option>
 									<option value="2"<?php is_selected(2, $dir_gallery) ?>><?php echo $BL['be_gallery_root'] ?></option>
 									<option value="3"<?php is_selected(3, $dir_gallery) ?>><?php echo $BL['be_gallery_directory'] ?></option>
@@ -161,15 +161,15 @@ if(!empty($ja)) {
 					</div>
 				</div>
 
-				<div class="form-group align-items-center form-row">
-					<label for="dir_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
+				<div class="form-group align-items-center row g-2">
+					<label for="dir_sort" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_sorting'] ?></label>
 					<div class="col-sm-4">
 							<input name="dir_sort" type="text" id="dir_sort" size="10" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($dir_sort) ?>" />
 					</div>
 				</div>
 
-				<div class="form-group align-items-center form-row">
-					<label for="dir_aktiv" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_fpriv_status'] ?></label>
+				<div class="form-group align-items-center row g-2">
+					<label for="dir_aktiv" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_fpriv_status'] ?></label>
 						<div class="col-sm-auto">
 							<div class="form-check form-check-inline">
 								<label class="form-check-label">
@@ -189,8 +189,8 @@ if(!empty($ja)) {
 				<div class="form-group row mt-4 mb-0">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-10">
-							<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_fpriv_updatebutton'] ?></button>
-							<a class="btn btn-danger btn-sm ml-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
+							<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_fpriv_updatebutton'] ?></button>
+							<a class="btn btn-danger btn-sm ms-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
 					</div>
 				</div>
 

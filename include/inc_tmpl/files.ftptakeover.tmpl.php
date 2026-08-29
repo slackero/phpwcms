@@ -29,7 +29,7 @@ $GLOBALS['BE']['HEADER']['dropzone.css'] = '<link href="include/inc_css/dropzone
 $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_js/dropzone.min.js');
 ?>
 
-<h1 class="text-center text-sm-left"><?php echo $BL['be_nav_files'] ?></h1>
+<h1 class="text-center text-sm-start"><?php echo $BL['be_nav_files'] ?></h1>
 <div class="card mb-4">
   <div class="card-header"><h2><?php echo $BL['be_file_multiple_upload'] ?></h2></div>
   <div class="card-body">
@@ -49,7 +49,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
             <tr>
               <th width="40" class="text-center"><?php echo $BL['be_ftptakeover_mark'] ?></th>
               <th><?php echo $BL['be_ftptakeover_available'] ?></th>
-              <th width="150" class="text-right"><?php echo $BL['be_ftptakeover_size'] ?></th>
+              <th width="150" class="text-end"><?php echo $BL['be_ftptakeover_size'] ?></th>
             </tr>
           </thead>
           <tbody>
@@ -79,7 +79,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
           <tr>
             <td class="text-center align-middle"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
             <td class="align-middle"><?php echo $filename ?></td>
-            <td class="text-right align-middle">
+            <td class="text-end align-middle">
                 <?php echo fsizelong($file['filesize']) ?>
                 <input class="form-control" name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_base64 ?>" />
                 <input class="form-control" name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
@@ -104,8 +104,8 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
           <tfoot class="bg-light border-top">
             <tr>
               <td class="text-center align-middle"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
-              <td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fas fa-trash-alt mr-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
-              <td class="text-right align-middle font-weight-bold"><?php echo fsizelong($fxsg) ?></td>
+              <td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fas fa-trash-alt me-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
+              <td class="text-end align-middle fw-bold"><?php echo fsizelong($fxsg) ?></td>
             </tr>
           </tfoot>
 <?php } ?>
@@ -116,33 +116,33 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 
     <div  id="showform" style="display: <?php echo ($fx) ? 'block' : 'none'; ?>;">
 
-        <div class="form-group form-row align-items-center">
-            <label for="be_ftptakeover_directory" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+        <div class="form-group row g-2 align-items-center">
+            <label for="be_ftptakeover_directory" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_directory'] ?></label>
             <div class="col">
-                <select name="file_dir" class="custom-select form-control form-control-sm" id="file_dir">
+                <select name="file_dir" class="form-select form-select-sm" id="file_dir">
                     <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
                     <?php dir_menu(0, 0, "-", $_SESSION["wcs_user_id"], "-"); ?>
                 </select>
             </div>
         </div>
 
-        <div class="form-group form-row align-items-center">
-            <label for="file_dir_new" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_new_folder']; ?></label>
+        <div class="form-group row g-2 align-items-center">
+            <label for="file_dir_new" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_new_folder']; ?></label>
             <div class="col">
                 <input type="text" name="file_dir_new" id="file_dir_new" class="form-control form-control-sm" placeholder="<?php echo $BL['be_ftptakeover_new_folder_placeholder']; ?>">
             </div>
         </div>
 
-        <div class="form-group form-row align-items-center">
-            <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
+        <div class="form-group row g-2 align-items-center">
+            <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_iptc_data'] ?></label>
             <div class="col form-check-inline">
                 <input class="form-check-input" type="checkbox" name="file_iptc_as_caption" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> >
                 <label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
             </div>
         </div>
 
-        <div class="form-group form-row align-items-center">
-            <label for="template_jsonload" class="col-sm-2 col-form-label text-right">JS onload</label>
+        <div class="form-group row g-2 align-items-center">
+            <label for="template_jsonload" class="col-sm-2 col-form-label text-end">JS onload</label>
             <div class="col">
                 <input class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="" type="text">
             </div>
@@ -154,7 +154,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#<?php echo $phpwcms['default_lang'] ?>"  title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" role="tab">
+        <a class="nav-link active" data-bs-toggle="tab" href="#<?php echo $phpwcms['default_lang'] ?>"  title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" role="tab">
                 <span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?>"></span> <?php echo $BL['be_admin_tmpl_default'] ?>
         </a>
       </li>
@@ -165,7 +165,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
             }
         ?>
       <li class="nav-item">
-        <a href="#<?php echo $lang ?>" data-toggle="tab" title="<?php echo get_language_name($lang) ?>" class="nav-link" role="tab">
+        <a href="#<?php echo $lang ?>" data-bs-toggle="tab" title="<?php echo get_language_name($lang) ?>" class="nav-link" role="tab">
             <span class="flag-icon flag-icon-<?php echo $lang ?>"></span> <?php echo strtoupper($lang) ?>
         </a>
       </li>
@@ -176,21 +176,21 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 <?php   endif; ?>
 
     <div class="tab-pane active" id="<?php echo $phpwcms['default_lang'] ?>" role="tabpanel">
-      <div class="form-group form-row align-items-center">
-        <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label for="file_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_attr_title'] ?></label>
         <div class="col"><input name="file_title" type="text" id="file_title" class="form-control form-control-sm" maxlength="1000" value="" /></div>
       </div>
 
-      <div class="form-group form-row">
-          <label for="file_longinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+      <div class="form-group row g-2">
+          <label for="file_longinfo" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_description'] ?></label>
           <div class="col"><textarea name="file_longinfo" cols="40" rows="4" class="form-control form-control-sm autosize" id="file_longinfo"></textarea></div>
       </div>
-      <div class="form-group form-row align-items-center">
-        <label for="file_copyright" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label for="file_copyright" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_copyright'] ?></label>
         <div class="col"><input name="file_copyright" type="text" id="file_copyright" class="form-control form-control-sm" maxlength="1000" value="" /></div>
       </div>
-      <div class="form-group form-row align-items-center">
-          <label for="file_alt" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+          <label for="file_alt" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_attr_alt'] ?></label>
           <div class="col"><input name="file_alt" type="text" id="file_alt" class="form-control form-control-sm" maxlength="1000" value="" /></div>
       </div>
     </div>
@@ -205,20 +205,20 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
           }
 ?>
     <div class="tab-pane" id="<?php echo $lang ?>" role="tabpanel">
-      <div class="form-group form-row align-items-center">
-          <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+          <label for="file_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_attr_title'] ?></label>
           <div class="col"><input name="file_title_<?php echo $lang ?>" type="text" id="file_title_<?php echo $lang ?>"  class="form-control form-control-sm" maxlength="1000" value="" /></div>
       </div>
-      <div class="form-group form-row">
-          <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+      <div class="form-group row g-2">
+          <label for="file_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_description'] ?></label>
           <div class="col"><textarea name="file_longinfo_<?php echo $lang ?>" rows="4" class="form-control form-control-sm autosize" id="file_longinfo_<?php echo $lang ?>"></textarea></div>
       </div>
-      <div class="form-group form-row align-items-center">
-          <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+          <label for="file_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_copyright'] ?></label>
           <div class="col"><input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="" /></div>
       </div>
-      <div class="form-group form-row align-items-center">
-          <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+          <label for="file_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_attr_alt'] ?></label>
           <div class="col"><input name="file_alt_<?php echo $lang ?>" type="text" id="file_alt_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="" /></div>
       </div>
     </div>
@@ -242,10 +242,10 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
 
-                $ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : '<i class="fas fa-exclamation-circle text-danger mr-1"></i>';
-                $k .= "<div class=\"form-group form-row align-items-center\">\n";
-                $k .= "<label for=\"be_ftptakeover_additional\" class=\"col-sm-2 col-form-label text-right\">".$ke.html($row["fcat_name"]).":&nbsp;</label>\n";
-                $k .= "<div class=\"col-sm-5\"><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"custom-select form-control form-control-sm\">\n";
+                $ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : '<i class="fas fa-exclamation-circle text-danger me-1"></i>';
+                $k .= "<div class=\"form-group row g-2 align-items-center\">\n";
+                $k .= "<label for=\"be_ftptakeover_additional\" class=\"col-sm-2 col-form-label text-end\">".$ke.html($row["fcat_name"]).":&nbsp;</label>\n";
+                $k .= "<div class=\"col-sm-5\"><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"form-select form-control form-control-sm\">\n";
                 $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
@@ -267,23 +267,23 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 
 	<?php if($k) echo $k; ?>
 
-    <div class="form-group form-row align-items-center">
-      <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+      <label for="file_shortinfo" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_additional'] ?></label>
       <div class="col">
      	<input name="file_shortinfo" type="text" class="form-control form-control-sm" id="file_shortinfo" value="" maxlength="250" />
       </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+    <div class="form-group row g-2 align-items-center">
+      <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
       <div class="col">
      	<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
      	<input name="file_tags" type="hidden" id="file_tags" value="" />
       </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-    	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+    	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
     	<div class="col form-check-inline">
     		<div class="form-check form-check-inline">
 					<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> />
@@ -306,9 +306,9 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
       </div>
     </div>
 
-    <div class="form-group mt-4 mb-0 text-center text-sm-right">
+    <div class="form-group mt-4 mb-0 text-center text-sm-end">
 		<input name="file_aktion" type="hidden" id="file_aktion" value="1" />
-        <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-cogs mr-1"></i> <?php echo $BL['be_ftptakeover_button'] ?></button>
+        <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-cogs me-1"></i> <?php echo $BL['be_ftptakeover_button'] ?></button>
 	</div>
 
 </div>
@@ -342,21 +342,21 @@ $(function () {
     ?>;
 
     var bs4PreviewTemplate = '<div class="dz-preview dz-file-preview dz-preview-bs4 d-flex align-items-center justify-content-between">' +
-        '<div class="d-flex align-items-center overflow-hidden mr-3" style="min-width: 0;">' +
-            '<div class="mr-3 flex-shrink-0 dz-thumb-container">' +
+        '<div class="d-flex align-items-center overflow-hidden me-3" style="min-width: 0;">' +
+            '<div class="me-3 flex-shrink-0 dz-thumb-container">' +
                 '<img data-dz-thumbnail class="dz-thumbnail d-none" />' +
                 '<div class="dz-icon-placeholder"><i class="fas fa-file"></i></div>' +
             '</div>' +
             '<div class="overflow-hidden" style="min-width: 0;">' +
-                '<div class="font-weight-bold text-truncate text-dark" data-dz-name></div>' +
+                '<div class="fw-bold text-truncate text-dark" data-dz-name></div>' +
                 '<div class="small text-muted d-flex align-items-center">' +
-                    '<span data-dz-size class="mr-2"></span>' +
+                    '<span data-dz-size class="me-2"></span>' +
                 '</div>' +
                 '<div class="progress dz-progress-bar d-none"><div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" data-dz-uploadprogress></div></div>' +
             '</div>' +
         '</div>' +
-        '<div class="flex-shrink-0 ml-2">' +
-            '<button class="btn btn-outline-danger py-1 px-3" data-dz-remove><i class="fas fa-times mr-1"></i><?php echo str_replace("'", "\\'", $BL["be_newsletter_button_cancel"]); ?></button>' +
+        '<div class="flex-shrink-0 ms-2">' +
+            '<button class="btn btn-outline-danger py-1 px-3" data-dz-remove><i class="fas fa-times me-1"></i><?php echo str_replace("'", "\\'", $BL["be_newsletter_button_cancel"]); ?></button>' +
         '</div>' +
     '</div>';
 
@@ -496,9 +496,9 @@ $(function () {
 
                 if ($("#" + errorId).length === 0) {
                     var alertHtml = '<div id="' + errorId + '" class="alert alert-danger fade show d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">' +
-                        '<i class="fas fa-exclamation-triangle mr-2 mt-1 flex-shrink-0"></i>' +
+                        '<i class="fas fa-exclamation-triangle me-2 mt-1 flex-shrink-0"></i>' +
                         '<div>' + errText + '</div>' +
-                        '<button type="button" class="close ml-auto pl-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
+                        '<button type="button" class="btn-close ms-auto ps-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
                         '<span aria-hidden="true">&times;</span>' +
                         '</button>' +
                         '</div>';

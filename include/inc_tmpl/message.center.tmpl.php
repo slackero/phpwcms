@@ -61,7 +61,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
 ?><div class="card shadow-sm mb-4">
     <div class="card-header d-flex flex-column flex-sm-row justify-content-between align-items-sm-center py-2">
-        <span class="font-weight-bold mb-2 mb-sm-0"><?php echo $BL['be_msg_title']; ?></span>
+        <span class="fw-bold mb-2 mb-sm-0"><?php echo $BL['be_msg_title']; ?></span>
         <ul class="nav nav-pills card-header-pills small">
             <li class="nav-item">
                 <a class="nav-link py-1 px-2 <?php echo ($msg_folder == 0) ? 'active' : ''; ?>" href="phpwcms.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=0"; ?>">
@@ -86,7 +86,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         </ul>
     </div>
     <div class="card-body">
-        <div class="text-right small text-muted mb-3">
+        <div class="text-end small text-muted mb-3">
             <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=10".$msg_get["msg"]; ?>">10</a> | 
             <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=25".$msg_get["msg"]; ?>">25</a> | 
             <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=50".$msg_get["msg"]; ?>">50</a> | 
@@ -133,12 +133,12 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                         }
       ?>
       <div class="card bg-light mb-4">
-        <div class="card-header bg-warning font-weight-bold d-flex justify-content-between align-items-center py-2">
+        <div class="card-header bg-warning fw-bold d-flex justify-content-between align-items-center py-2">
             <span><?php echo $BL['be_msg_from']; ?>: <?php echo gib_part($msg_user_list[$msgdetail["msg_from"]], 1, "###")." (".gib_part($msg_user_list[$msgdetail["msg_from"]], 0, "###").")"; ?></span>
             <span class="small"><?php echo $BL['be_msg_date']; ?>: <?php echo $msgdetail["msg_date"]; ?></span>
         </div>
         <div class="card-body">
-            <h6 class="card-title font-weight-bold mb-3"><?php echo html($msgdetail["msg_subject"]); ?></h6>
+            <h6 class="card-title fw-bold mb-3"><?php echo html($msgdetail["msg_subject"]); ?></h6>
             <div class="card-text mb-4"><?php echo auto_link(nl2br(html($msgdetail["msg_text"]))); ?></div>
             <div class="btn-group btn-group-sm" role="group">
                 <a href="phpwcms.php?do=messages<?php echo $msg_get["all"]; ?>" class="btn btn-secondary" title="<?php echo $BL['be_msg_close']; ?>">
@@ -165,7 +165,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
             if ($count_newmsg && $msg_folder == 0) { //Wenn Count > 0 dann Listing der neuen Nachrichten
             ?>
-            <h6 class="font-weight-bold text-primary mb-2"><?php echo $BL['be_msg_unread']; ?></h6>
+            <h6 class="fw-bold text-primary mb-2"><?php echo $BL['be_msg_unread']; ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
                     <thead class="thead-light">
@@ -173,7 +173,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                             <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
                             <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
                             <th scope="col" style="width: 130px;"><?php echo $BL['be_msg_date']; ?></th>
-                            <th scope="col" class="text-right" style="width: 80px;"></th>
+                            <th scope="col" class="text-end" style="width: 80px;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -199,7 +199,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
           <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
           <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40); ?></a></td>
           <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
-          <td class="text-right">
+          <td class="text-end">
               <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_reply']; ?>"><i class="fa fa-reply fa-fw"></i></a>
               <a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
           </td>
@@ -219,7 +219,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
             if ($count_readmsg && $msg_folder == 1) { //Wenn Count > 0 dann Listing der bereits gelesenen Nachrichten
             ?>
-            <h6 class="font-weight-bold text-muted mb-2"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastread']); ?></h6>
+            <h6 class="fw-bold text-muted mb-2"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastread']); ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
                     <thead class="thead-light">
@@ -227,7 +227,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                             <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
                             <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
                             <th scope="col" style="width: 130px;"><?php echo $BL['be_msg_date']; ?></th>
-                            <th scope="col" class="text-right" style="width: 80px;"></th>
+                            <th scope="col" class="text-end" style="width: 80px;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -252,7 +252,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
           <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
           <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40); ?></a></td>
           <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
-          <td class="text-right">
+          <td class="text-end">
               <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_reply']; ?>"><i class="fa fa-reply fa-fw"></i></a>
               <a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
           </td>
@@ -272,7 +272,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
             if ($count_sentmsg && $msg_folder == 2) { //Wenn Count > 0 dann Listing der neuen Nachrichten
             ?>
-            <h6 class="font-weight-bold text-muted mb-2"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastsent']); ?></h6>
+            <h6 class="fw-bold text-muted mb-2"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastsent']); ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
                     <thead class="thead-light">
@@ -280,7 +280,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                             <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
                             <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
                             <th scope="col" style="width: 130px;"><?php echo $BL['be_msg_date']; ?></th>
-                            <th scope="col" class="text-right" style="width: 80px;"></th>
+                            <th scope="col" class="text-end" style="width: 80px;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -305,7 +305,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
         <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40); ?></a></td>
         <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
-        <td class="text-right">
+        <td class="text-end">
             <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_reply']; ?>"><i class="fa fa-reply fa-fw"></i></a>
             <a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
         </td>
@@ -324,7 +324,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
     if ($count_delmsg && $msg_folder == 3) { //Wenn Count > 0 dann Listing der neuen Nachrichten
             ?>
-            <h6 class="font-weight-bold text-muted mb-2"><?php echo $BL['be_msg_marked']; ?></h6>
+            <h6 class="fw-bold text-muted mb-2"><?php echo $BL['be_msg_marked']; ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
                     <thead class="thead-light">
@@ -332,7 +332,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                             <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
                             <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
                             <th scope="col" style="width: 130px;"><?php echo $BL['be_msg_date']; ?></th>
-                            <th scope="col" class="text-right" style="width: 80px;"></th>
+                            <th scope="col" class="text-end" style="width: 80px;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -365,7 +365,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
           <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
           <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40); ?></a></td>
           <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
-          <td class="text-right">
+          <td class="text-end">
               <a href="include/inc_act/act_message.php?do=<?php echo $do_undo; ?>.<?php echo $row["msg_id"]; ?>.0" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_undo']; ?>"><i class="fa fa-undo fa-fw"></i></a>
               <a href="include/inc_act/act_message.php?do=<?php echo $do_del; ?>.<?php echo $row["msg_id"]; ?>.9" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_del']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
           </td>

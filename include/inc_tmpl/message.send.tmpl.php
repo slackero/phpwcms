@@ -101,7 +101,7 @@ if ($msg_send_ok) {
 ?>
 <form name="sendmsg" action="phpwcms.php?do=messages&amp;p=1" method="post">
 <div class="card shadow-sm mb-4">
-    <div class="card-header font-weight-bold py-2">
+    <div class="card-header fw-bold py-2">
         <?php echo $BL['be_msg_newmsgtitle']; ?>
     </div>
     <div class="card-body">
@@ -114,7 +114,7 @@ if ($msg_send_ok) {
 
         <div class="form-group row">
             <div class="col-md-5">
-                <label for="msg_send_to" class="font-weight-bold"><?php echo $BL['be_msg_sendto']; ?>:</label>
+                <label for="msg_send_to" class="fw-bold"><?php echo $BL['be_msg_sendto']; ?>:</label>
                 <select name="msg_send_to" size="10" multiple="multiple" class="form-control" onDblClick="opt.transferRight()">
 <?php
     $where1 = 'WHERE usr_aktiv=1 ';
@@ -143,7 +143,7 @@ if ($msg_send_ok) {
                 </select>
             </div>
 
-            <div class="col-md-2 d-flex flex-column align-items-center justify-content-center my-2 my-md-0">
+            <div class="col-md-2 d-flex flex-column align-items-center justify-content-center my-md-0">
                 <button type="button" class="btn btn-sm btn-secondary mb-2" onclick="opt.transferRight();" title="Remove selected">
                     <i class="fa fa-arrow-right d-none d-md-inline"></i>
                     <i class="fa fa-arrow-down d-inline d-md-none"></i>
@@ -158,7 +158,7 @@ if ($msg_send_ok) {
             </div>
 
             <div class="col-md-5">
-                <label for="msg_send_list" class="font-weight-bold"><?php echo $BL['be_msg_available']; ?>:</label>
+                <label for="msg_send_list" class="fw-bold"><?php echo $BL['be_msg_available']; ?>:</label>
                 <select name="msg_send_list" size="10" multiple="multiple" id="msg_send_list" class="form-control" onDblClick="opt.transferLeft()">
 <?php
     //Create the list of possible recipients
@@ -176,18 +176,18 @@ if ($msg_send_ok) {
         </div>
 
         <div class="form-group">
-            <label for="msg_send_subject" class="font-weight-bold"><?php echo $BL['be_msg_subject']; ?>:</label>
+            <label for="msg_send_subject" class="fw-bold"><?php echo $BL['be_msg_subject']; ?>:</label>
             <input name="msg_send_subject" type="text" id="msg_send_subject" class="form-control form-control-sm" value="<?php echo html($msg_subject); ?>" maxlength="125">
         </div>
 
         <div class="form-group mb-0">
-            <label for="msg_send_msg" class="font-weight-bold"><?php echo $BL['be_msg_msg']; ?>:</label>
+            <label for="msg_send_msg" class="fw-bold"><?php echo $BL['be_msg_msg']; ?>:</label>
             <textarea name="msg_send_msg" cols="40" rows="10" id="msg_send_msg" class="form-control form-control-sm autosize"><?php echo html($msg_message); ?></textarea>
         </div>
     </div>
-    <div class="card-footer text-right">
-        <button type="submit" name="submit" class="btn btn-sm btn-blue font-weight-bold">
-            <i class="fa fa-paper-plane mr-1"></i><?php echo $BL['be_msg_all']; ?>
+    <div class="card-footer text-end">
+        <button type="submit" name="submit" class="btn btn-sm btn-blue fw-bold">
+            <i class="fa fa-paper-plane me-1"></i><?php echo $BL['be_msg_all']; ?>
         </button>
     </div>
 </div>

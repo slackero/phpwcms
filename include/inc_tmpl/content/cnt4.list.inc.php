@@ -28,7 +28,7 @@ if (!empty($row['acontent_subtitle'])) {
 $cbullet_lines = array_filter(array_map('trim', explode("\n", $row['acontent_text'])));
 $cbullet_preview = '';
 if (count($cbullet_lines)) {
-    $cbullet_preview = '<ul class="mb-0 pl-3">';
+    $cbullet_preview = '<ul class="mb-0 ps-3">';
     $count = 0;
     foreach ($cbullet_lines as $b_line) {
         $cbullet_preview .= '<li>' . html(getCleanSubString($b_line, 80, '&#8230;')) . '</li>';

@@ -420,7 +420,7 @@ $phpwcms['default_template_classes'] = [
     'newsletter-table-subscription' => 'table table-subscriptions',
     'newsletter-input-email' => 'form-control',
     'newsletter-input-name' => 'form-control',
-    'newsletter-checkbox-item' => 'form-row-checkbox',
+    'newsletter-checkbox-item' => 'row g-2-checkbox',
     'newsletter-submit-button' => 'btn btn-primary',
 ];
 
@@ -430,7 +430,7 @@ $phpwcms['search_highlight'] = [
 ];
 
 $phpwcms['default_template_attributes'] = [
-    'navlist-bs-dropdown-data' => 'data-toggle="dropdown"',
+    'navlist-bs-dropdown-data' => 'data-bs-toggle="dropdown"',
     'navlist-bs-dropdown-caret' => ' <b class="caret"></b>',
     'cpgroup' => 'data', // data = <span>, href = <a>
     'cp-paginate' => [

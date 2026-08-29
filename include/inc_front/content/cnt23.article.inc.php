@@ -708,7 +708,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 //
 
                 $form_field .= '<select name="'.$form_name.'" id="'.$form_name.'" ';
-                $form_field .= 'class="' . ($cnt_form["fields"][$key]['class'] ? $cnt_form["fields"][$key]['class'] : 'form-control custom-select') . '"';
+                $form_field .= 'class="' . ($cnt_form["fields"][$key]['class'] ? $cnt_form["fields"][$key]['class'] : 'form-control form-select') . '"';
                 if($cnt_form["fields"][$key]['style']) {
                     $form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
                 }
@@ -824,7 +824,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                 }
                 //
-                $form_field .= '<select class="custom-select" id="'.$form_name.'"';
+                $form_field .= '<select class="form-select" id="'.$form_name.'"';
                 if($cnt_form["fields"][$key]['size']) {
                     $form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';
                 }
@@ -2455,7 +2455,7 @@ if($form_cnt) {
         $CNT_TMP .= 'enctype="multipart/form-data" ';
     }
     //add data-toggle
-    $CNT_TMP .= 'method="post" data-toggle="validator" role="form"';
+    $CNT_TMP .= 'method="post" data-bs-toggle="validator" role="form"';
     if(!empty($cnt_form['novalidate'])) {
         $CNT_TMP .= ' novalidate';
     }

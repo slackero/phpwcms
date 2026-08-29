@@ -80,10 +80,10 @@ initJsAutocompleter();
 
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="calink_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="calink_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template'] ?></label>
   <div class="col-sm-4">
-    <select name="calink_template" id="calink_template" class="custom-select form-control form-control-sm">
+    <select name="calink_template" id="calink_template" class="form-select form-select-sm">
 <?php
     echo '<option value="">'.$BL['be_admin_tmpl_default'].' &lt;ul&gt;&lt;li&gt;</option>'.LF;
 
@@ -105,22 +105,22 @@ initJsAutocompleter();
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="calink_unique" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_rendering'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="calink_unique" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_rendering'] ?></label>
   <div class="col-sm-auto">
     <div class="form-check-inline">
       <input class="form-check-input" type="checkbox" name="calink_unique" id="calink_unique" value="1"<?php is_checked(1, $content['alink']['alink_unique']) ?> />
       <label class="form-check-label" for="calink_unique"><?php echo $BL['be_unique_teaser_entry'] ?></label>
     </div>
   </div>
-  <div class="col form-inline ml-sm-3">
-    <label for="calink_columns" class="col-form-label text-right mx-sm-3"><?php echo $BL['be_cnt_column'] ?></label>
+  <div class="col form-inline">
+    <label for="calink_columns" class="col-form-label text-end mx-sm-3"><?php echo $BL['be_cnt_column'] ?></label>
     <input name="calink_columns" type="text" id="calink_columns" class="form-control form-control-sm" value="<?php echo $content['alink']['alink_columns']; ?>" maxlength="3" />
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="calink_categoryalias" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_morelink'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="calink_categoryalias" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_morelink'] ?></label>
   <div class="col-sm-auto">
     <div class="form-check-inline">
       <input class="form-check-input" type="checkbox" name="calink_categoryalias" id="calink_categoryalias" value="1"<?php is_checked(1, $content['alink']['alink_categoryalias']) ?> />
@@ -129,59 +129,59 @@ initJsAutocompleter();
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="calink_wordlimit" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asummary'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="calink_wordlimit" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_asummary'] ?></label>
   <div class="col-sm-auto">
     <div class="form-inline">
-      <input name="calink_wordlimit" type="text" id="calink_wordlimit" class="form-control form-control-sm mr-sm-3" value="<?php echo empty($content['alink']['alink_wordlimit']) ? '' : $content['alink']['alink_wordlimit']; ?>" maxlength="5" />
+      <input name="calink_wordlimit" type="text" id="calink_wordlimit" class="form-control form-control-sm me-sm-3" value="<?php echo empty($content['alink']['alink_wordlimit']) ? '' : $content['alink']['alink_wordlimit']; ?>" maxlength="5" />
       <?php echo $BL['be_cnt_results_wordlimit'] ?>
     </div>
   </div>
   <div class="col mt-2 mt-sm-0">
     <div class="form-inline">
-			<input class="form-check-input ml-sm-3" name="calink_hidesummary" type="checkbox" id="calink_hidesummary" value="1"<?php is_checked(1, $content['alink']['alink_hidesummary']); ?> />
+			<input class="form-check-input ms-sm-3" name="calink_hidesummary" type="checkbox" id="calink_hidesummary" value="1"<?php is_checked(1, $content['alink']['alink_hidesummary']); ?> />
 			<label class="form-check-label" for="calink_hidesummary"><?php echo $BL['be_article_nosummary'] ?></label>
     </div>
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="calink_allowedtags" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_allowed_tags'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="calink_allowedtags" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_allowed_tags'] ?></label>
   <div class="col-sm-4">
     <input name="calink_allowedtags" type="text" id="calink_allowedtags" class="form-control form-control-sm" value="<?php echo html($content['alink']['alink_allowedtags']); ?>" />
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="calink_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="calink_width" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_size'] ?></label>
 
-  <div class="col-sm-auto my-2 my-sm-0">
+  <div class="col-sm-auto">
     <div class="input-group input-group-sm">
-			<div class="input-group-prepend">
+			
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
-			</div>
+			
 			<input name="calink_width" type="text" class="form-control form-control-sm" id="calink_width" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['alink']['alink_width']) ? '' : $content['alink']['alink_width']; ?>" />
-			<div class="input-group-append">
+			
 				<span class="input-group-text">px</span>
-			</div>
+			
 		</div>
   </div>
 
-  <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+  <div class="col-sm-auto">
     <div class="input-group input-group-sm">
-			<div class="input-group-prepend">
+			
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
-			</div>
+			
 			<input name="calink_height" type="text" class="form-control form-control-sm" id="calink_height" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['alink']['alink_height']) ? '' : $content['alink']['alink_height']; ?>" />
-			<div class="input-group-append">
+			
 				<span class="input-group-text">px</span>
-			</div>
+			
 		</div>
   </div>
 
-  <div class="col my-2 my-sm-0 ml-sm-3">
+  <div class="col">
     <div class="form-check form-check-inline">
-			<input class="form-check-input ml-sm-3" name="calink_crop" type="checkbox" id="calink_crop" value="1"<?php is_checked(1, $content['alink']['alink_crop']); ?> />
+			<input class="form-check-input ms-sm-3" name="calink_crop" type="checkbox" id="calink_crop" value="1"<?php is_checked(1, $content['alink']['alink_crop']); ?> />
 			<label class="form-check-label" for="calink_crop"><?php echo $BL['be_image_crop'] ?></label>
 		</div>
 	</div>
@@ -189,10 +189,10 @@ initJsAutocompleter();
 
 <hr />
 
-<div class="form-group align-items-center form-row">
-  <label for="calink_wordlimit" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardform_selector'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="calink_wordlimit" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_ecardform_selector'] ?></label>
   <div class="col-sm-auto">
-    <select name="calink_type" id="calink_type"  class="custom-select form-control form-control-sm" onchange="showHide_TeaserArticleSelection(this.options[this.selectedIndex].value)">
+    <select name="calink_type" id="calink_type"  class="form-select form-select-sm" onchange="showHide_TeaserArticleSelection(this.options[this.selectedIndex].value)">
         <optgroup label="<?php echo $BL['be_sorted']; ?>">
             <option value="0"<?php is_selected(0, $content['alink']['alink_type']) ?>><?php echo $BL['be_admin_struct_ordermanual'] ?></option>
             <option value="1"<?php is_selected(1, $content['alink']['alink_type']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
@@ -231,16 +231,16 @@ initJsAutocompleter();
   </div>
   <div class="col mt-2 mt-sm-0">
     <div class="form-check form-check-inline" id="prio0">
-			<input class="form-check-input ml-sm-3" type="checkbox" name="calink_prio" id="calink_prio" value="1"<?php is_checked(1, $content['alink']['alink_prio']) ?> />
+			<input class="form-check-input ms-sm-3" type="checkbox" name="calink_prio" id="calink_prio" value="1"<?php is_checked(1, $content['alink']['alink_prio']) ?> />
 			<label class="form-check-label" for="calink_prio"><?php echo $BL['be_use_prio'] ?></label>
     </div>
   </div>
 </div>
 
-<div class="form-group form-row" id="calink_manual_0"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-  <label for="calink_categoryalias" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_selection'] ?></label>
+<div class="form-group row g-2" id="calink_manual_0"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label for="calink_categoryalias" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_selection'] ?></label>
   <div class="col">
-    <select name="calink[]" size="15" multiple="multiple" class="custom-select form-control form-control-sm" id="calink" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
+    <select name="calink[]" size="15" multiple="multiple" class="form-select form-select-sm" id="calink" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
     <?php
         //Auslesen der kompletten Public Artikel
         $sql  = "SELECT article_id, article_title, acat_name, acat_alias, article_cid, article_aktiv, article_keyword ";
@@ -312,10 +312,10 @@ initJsAutocompleter();
   </div>
 </div>
 
-<div class="form-group form-row" id="calink_manual_1"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-  <label for="calinklist" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_articles'] ?></label>
+<div class="form-group row g-2" id="calink_manual_1"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label for="calinklist" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_articles'] ?></label>
   <div class="col">
-    <select name="calinklist" size="15" multiple="multiple" class="custom-select form-control form-control-sm" id="calinklist" ondblclick="moveSelectedOptions(source_items,teaser_items,false);">
+    <select name="calinklist" size="15" multiple="multiple" class="form-select form-select-sm" id="calinklist" ondblclick="moveSelectedOptions(source_items,teaser_items,false);">
           <?php echo $carticle_list; ?>
     </select>
   </div>
@@ -324,10 +324,10 @@ initJsAutocompleter();
   </div>
 </div>
 
-<div class="form-group align-items-center form-row" id="calink_manual_2"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-  <label for="teaser_filter_category" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_filter'] ?></label>
+<div class="form-group align-items-center row g-2" id="calink_manual_2"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label for="teaser_filter_category" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_filter'] ?></label>
   <div class="col-sm-auto">
-    <select name="teaser_filter_category" id="teaser_filter_category" class="custom-select form-control form-control-sm">
+    <select name="teaser_filter_category" id="teaser_filter_category" class="form-select form-select-sm">
       <option value=""><?php echo $BL['be_filter_not_selected'] ?></option>
       <option value="0"<?php
         if($content['alink']['filter_category'] !== null) {
@@ -342,14 +342,14 @@ initJsAutocompleter();
   </div>
   <div class="col">
     <div class="form-inline">
-			<input class="form-check-input ml-sm-3" type="checkbox" name="teaser_filter_category_by_tags" id="filter_category_by_tags" value="1"<?php if($content['alink']['filter_tags'] !== null) echo ' checked="checked"'; ?> />
-			<label class="form-check-label" for="filter_category_by_tags"><?php echo $BL['be_filter_with_tags'] ?><button class="btn btn-blue btn-sm ml-sm-1" name="Submit"><i class="fa fa-search"></i></button></label>
+			<input class="form-check-input ms-sm-3" type="checkbox" name="teaser_filter_category_by_tags" id="filter_category_by_tags" value="1"<?php if($content['alink']['filter_tags'] !== null) echo ' checked="checked"'; ?> />
+			<label class="form-check-label" for="filter_category_by_tags"><?php echo $BL['be_filter_with_tags'] ?><button class="btn btn-blue btn-sm ms-sm-1" name="Submit"><i class="fa fa-search"></i></button></label>
     </div>
   </div>
 </div>
 
-<div class="form-group form-row" id="calink_auto_0"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-  <label class="col-sm-2 col-form-label text-right"></label>
+<div class="form-group row g-2" id="calink_auto_0"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label class="col-sm-2 col-form-label text-end"></label>
   <div class="col">
     <div class="form-inline">
       <?php echo $BL['be_cnt_rssfeed_max'] ?>
@@ -359,10 +359,10 @@ initJsAutocompleter();
   </div>
 </div>
 
-<div class="form-group form-row" id="calink_auto_1"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sitelevel'] ?></label>
+<div class="form-group row g-2" id="calink_auto_1"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_sitelevel'] ?></label>
   <div class="col">
-    <select name="calink_level[]" size="15" multiple="multiple" class="custom-select optionhover form-control form-control-sm" id="calink_level">
+    <select name="calink_level[]" size="15" multiple="multiple" class="form-select form-select-sm optionhover" id="calink_level">
       <?php
         echo '<option value="0"';
         if(in_array(0, $content['alink']['alink_level'])) {
@@ -377,14 +377,14 @@ initJsAutocompleter();
 
 <hr />
 
-<div class="form-group form-row">
-  <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+<div class="form-group row g-2">
+  <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
   <div class="col">
     <input type="text" id="calink_category_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
     <input type="hidden" name="calink_category" id="calink_category" value="<?php echo html(implode(', ', $content['alink']['alink_category'])) ?>" />
   </div>
   <div class="col-sm-auto">
-    <select name="calink_andor" id="calink_andor" class="custom-select form-control form-control-sm">
+    <select name="calink_andor" id="calink_andor" class="form-select form-select-sm">
       <option value="OR"<?php is_selected('OR', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
       <option value="AND"<?php is_selected('AND', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
       <option value="NOT"<?php is_selected('NOT', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_not'] ?></option>

@@ -39,7 +39,7 @@ $_controller_link =  statistic_url('controller=subscriptions');
         <thead>
           <tr>
             <th><?php echo $BLM['subscriptionsname'] ?></th>
-            <th class="text-right" style="width: 150px;"><?php echo $BLM['subscriptionscounts'] ?></th>
+            <th class="text-end" style="width: 150px;"><?php echo $BLM['subscriptionscounts'] ?></th>
           </tr>
         </thead>
         <tbody>
@@ -51,13 +51,13 @@ $_controller_link =  statistic_url('controller=subscriptions');
         foreach($result as $data) {
           echo '  <tr title="'.html_specialchars('[ID:'.$data["subscription_id"].'] '.$data["subscription_name"]).'">';
           echo '    <td><a href="phpwcms.php?do=messages&amp;p=4" target="_blank">' . html_specialchars($data["subscription_name"]). "</a>&nbsp;</td>" . LF;
-          echo '    <td class="text-right">'.countNewsletterRecipients(array("0" =>$data["subscription_id"]))."&nbsp;</td>" . LF;
+          echo '    <td class="text-end">'.countNewsletterRecipients(array("0" =>$data["subscription_id"]))."&nbsp;</td>" . LF;
           echo '    </tr>' . LF;
           $x++;
         }
         echo '  <tr title="'.html_specialchars('[ID:'.$data["subscription_id"].'] '.$BLM['subscriptionsall']).'">';
         echo '    <td><a href="phpwcms.php?do=messages&amp;p=4" target="_blank">' . $BLM['subscriptionsall']. "</a>&nbsp;</td>" . LF;
-        echo '    <td class="text-right">'.countNewsletterRecipients(0)."&nbsp;</td>" . LF;
+        echo '    <td class="text-end">'.countNewsletterRecipients(0)."&nbsp;</td>" . LF;
         echo '  </tr>' . LF;
         ?>
         </tbody>
@@ -74,20 +74,20 @@ $_controller_link =  statistic_url('controller=subscriptions');
         <thead>
           <tr>
             <th><?php echo $BLM['subscriptionstatus'] ?></th>
-            <th class="text-right" style="width: 150px;"><?php echo $BLM['subscriptionscounts'] ?></th>
+            <th class="text-end" style="width: 150px;"><?php echo $BLM['subscriptionscounts'] ?></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><?php echo $BLM['subscriptionactiv'] ?></td>
-            <td class="text-right"><?php
+            <td class="text-end"><?php
               $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_address WHERE address_verified=1";
               echo _dbQuery($sql, 'COUNT');
             ?></td>
           </tr>
           <tr>
             <td><?php echo $BLM['subscriptioninactiv'] ?></td>
-            <td class="text-right"><?php
+            <td class="text-end"><?php
               $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_address WHERE address_verified=0";
               echo _dbQuery($sql, 'COUNT');
             ?></td>
@@ -117,7 +117,7 @@ $_controller_link =  statistic_url('controller=subscriptions');
             <th><?php echo $BLM['subscriptionslogdate'] ?></th>
             <th class="text-center" style="width: 80px;"><?php echo $BLM['subscriptionslogtyp'] ?></th>
             <th><?php echo $BLM['subscriptionslogart'] ?></th>
-            <th class="text-right" style="width: 150px;">Aktionen</th>
+            <th class="text-end" style="width: 150px;">Aktionen</th>
           </tr>
         </thead>
         <tbody>
@@ -132,18 +132,18 @@ $_controller_link =  statistic_url('controller=subscriptions');
           echo '    <td class="align-middle text-center">'.$data["log_type"]."&nbsp;</td>" . LF;
           if ($data["log_type"] == 1) {
             echo '    <td width="70%" class="align-middle"><a href="phpwcms.php?do=messages&amp;p=4&amp;s='.$data["log_user_id"].'&amp;edit=1" target="_blank">' . html_specialchars($data["log_msg"]). "</a>&nbsp;</td>" . LF;
-            echo '    <td class="text-right p-1 align-middle text-nowrap">';
+            echo '    <td class="text-end p-1 align-middle text-nowrap">';
             echo '      <a class="btn btn-sm '.($data["address_verified"] ? 'btn-success' : 'btn-warning').'" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$data["address_id"].'&amp;verify='.($data["address_verified"] ? '0' : '1').'" title="set '.$data["address_email"].' verified/not verified"><i class="fas '.($data["address_verified"] ? 'fa-check' : 'fa-clock').'"></i></a>';
           } else {
             echo '    <td width="70%" class="align-middle">' . html_specialchars($data["log_msg"]). "&nbsp;</td>" . LF;
-            echo '    <td class="text-right p-1 align-middle text-nowrap">';
+            echo '    <td class="text-end p-1 align-middle text-nowrap">';
           }
 
-          echo '      <a class="btn btn-sm btn-danger ml-1" href="'.$_controller_link.'&amp;delete='.$data["log_id"].'" title="delete: '.html_specialchars($data["log_msg"]).'" onclick="return confirm(\''.$BLM['log_delete_entry'].' \');"><i class="fas fa-trash-alt"></i></a>';
+          echo '      <a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$data["log_id"].'" title="delete: '.html_specialchars($data["log_msg"]).'" onclick="return confirm(\''.$BLM['log_delete_entry'].' \');"><i class="fas fa-trash-alt"></i></a>';
 
           if (stristr($data["log_msg"], '::')) {
             $email_array = explode('::', $data["log_msg"]);
-            echo '    <a class="btn btn-sm btn-dark ml-1" href="'.$_controller_link.'&amp;blacklist='.$email_array[1].'" title="Add to blacklist: '.html_specialchars($email_array[1]).'" onclick="return confirm(\''.html_specialchars($email_array[1]).' '.$BLM['log_insert_blacklist'].' \');"><i class="fas fa-ban"></i></a>';
+            echo '    <a class="btn btn-sm btn-dark ms-1" href="'.$_controller_link.'&amp;blacklist='.$email_array[1].'" title="Add to blacklist: '.html_specialchars($email_array[1]).'" onclick="return confirm(\''.html_specialchars($email_array[1]).' '.$BLM['log_insert_blacklist'].' \');"><i class="fas fa-ban"></i></a>';
           }
           echo '    </td></tr>' . LF;
           $x++;

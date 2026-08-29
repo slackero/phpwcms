@@ -45,7 +45,7 @@ if($data) {
         if(SHOP_FELANG_SUPPORT) {
             $row['order_data']		= @unserialize($row['order_data'], ['allowed_classes' => false]);
             $row['shopprod_lang']	= empty($row['order_data']['lang']) ? '' : html_specialchars(strtolower($row['order_data']['lang']));
-            echo '<span class="mr-2 flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fa fa-globe').' mt-1" data-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
+            echo '<span class="me-2 flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fa fa-globe').' mt-1" data-bs-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
         }
 
         echo html_specialchars($row['order_number'])."&nbsp;</td>\n";
@@ -59,18 +59,18 @@ if($data) {
         $payment_name = isset($BLM[$payby_key]) ? $BLM[$payby_key] : (empty($row['order_payment']) ? '-' : $row['order_payment']);
         echo '<td class="dir" width="10%">'.html_specialchars($payment_name)."&nbsp;&nbsp;</td>\n";
 
-        echo '<td class="text-right text-nowrap" width="15%">';
+        echo '<td class="text-end text-nowrap" width="15%">';
         echo '<div class="btn-group btn-group-sm" role="group" aria-label="shop-order-actions-'.$row['order_id'].'">';
-        echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;show='.$row["order_id"].'" data-toggle="tooltip" title="'.$BLM['order_edit'].'">';
+        echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;show='.$row["order_id"].'" data-bs-toggle="tooltip" title="'.$BLM['order_edit'].'">';
         echo '<i class="fa fa-pencil-alt fa-fw"></i>';
         echo '</a>'.LF;
 
-        echo '<a class="btn btn-sm btn-blue" href="mailto:'.$row['order_email'].'?subject='.rawurlencode($BLM['shopprod_order_subject'].' #'.$row['order_number']).'" data-toggle="tooltip" title="'.$BLM['shopprod_email_customer'].'">';
+        echo '<a class="btn btn-sm btn-blue" href="mailto:'.$row['order_email'].'?subject='.rawurlencode($BLM['shopprod_order_subject'].' #'.$row['order_number']).'" data-bs-toggle="tooltip" title="'.$BLM['shopprod_email_customer'].'">';
         echo '<i class="fa fa-envelope fa-fw"></i>';
         echo '</a>';
         echo '</div>'.LF;
 
-        echo '<a class="btn btn-sm btn-danger ml-1" href="'.$_controller_link.'&amp;delete='.$row["order_id"].'" data-toggle="tooltip" title="'.$BL['be_cnt_delete'].': '.html($row['order_number']).'"';
+        echo '<a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$row["order_id"].'" data-bs-toggle="tooltip" title="'.$BL['be_cnt_delete'].': '.html($row['order_number']).'"';
         echo ' onclick="return confirm(\''.$BLM['delete_order'].js_singlequote($row['order_number']).'\');">';
         echo '<i class="far fa-trash-alt fa-fw"></i></a>';
 

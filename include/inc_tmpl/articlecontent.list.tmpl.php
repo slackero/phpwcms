@@ -16,12 +16,12 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Article List
-$buttonAction  = '<a class="btn btn-sm btn-blue mr-2" href="phpwcms.php?do=articles" title="' . html($BL['be_article_cnt_center']) . '">';
-$buttonAction .= '<i class="fa fa-list mr-1"></i>' . $BL['be_article_cnt_center'] . '</a>';
+$buttonAction  = '<a class="btn btn-sm btn-blue me-2" href="phpwcms.php?do=articles" title="' . html($BL['be_article_cnt_center']) . '">';
+$buttonAction .= '<i class="fa fa-list me-1"></i>' . $BL['be_article_cnt_center'] . '</a>';
 // Article Preview (new window)
 $buttonActionLink = rel_url(array('phpwcms-preview' => 1), array(), empty($article['article_alias']) ? 'aid=' . $article['article_id'] : $article['article_alias']);
-$buttonAction .= '<a class="btn btn-sm btn-blue" href="' . html($buttonActionLink) . '" target="articlePreviewWindows" data-toggle="tooltip" title="' . html($BL['be_func_struct_preview']) . '">';
-$buttonAction .= '<i class="far fa-eye mr-1"></i>' . $BL['be_func_struct_preview'] . '</a>';
+$buttonAction .= '<a class="btn btn-sm btn-blue" href="' . html($buttonActionLink) . '" target="articlePreviewWindows" data-bs-toggle="tooltip" title="' . html($BL['be_func_struct_preview']) . '">';
+$buttonAction .= '<i class="far fa-eye me-1"></i>' . $BL['be_func_struct_preview'] . '</a>';
 
 ?>
 <script>
@@ -76,24 +76,24 @@ $(function() {
       <div class="row align-items-center mb-3">
         <div class="col">
           <div class="d-flex align-items-center flex-wrap">
-            <h4 class="mb-0 font-weight-bold mr-2">
+            <h4 class="mb-0 fw-bold me-2">
               <a class="text-dark" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id']; ?>" title="<?php echo $BL['be_article_cnt_ledit']; ?>"><?php echo html($article['article_title']); ?></a>
             </h4>
-            <span class="badge badge-secondary font-weight-normal">AID: <?php echo $article['article_id']; ?></span>
+            <span class="badge badge-secondary fw-normal">AID: <?php echo $article['article_id']; ?></span>
             <?php if(!empty($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) > 0): ?>
-              <span class="ml-2 flag-icon flag-icon-<?php echo ($lang = strtolower(empty($article['article_lang']) ? $phpwcms['default_lang'] : $article['article_lang'])); ?>" data-toggle="tooltip" title="<?php echo get_language_name($lang); ?>"></span>
+              <span class="ms-2 flag-icon flag-icon-<?php echo ($lang = strtolower(empty($article['article_lang']) ? $phpwcms['default_lang'] : $article['article_lang'])); ?>" data-bs-toggle="tooltip" title="<?php echo get_language_name($lang); ?>"></span>
             <?php endif; ?>
           </div>
           <?php if(!empty($article['article_subtitle'])): ?>
             <div class="text-muted small mt-1"><?php echo html($article['article_subtitle']); ?></div>
           <?php endif; ?>
         </div>
-        <div class="col-auto text-right">
+        <div class="col-auto text-end">
           <div class="btn-group btn-group-sm" role="group" aria-label="article-hdr-actions">
-            <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit']; ?>" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id']; ?>"><i class="fa fa-pencil-alt"></i></a>
-            <a id="abtnarticle<?php echo $article['article_id']; ?>" class="btn fa btn-sm visible <?php echo ($article['article_aktiv'] == 0 ? 'btn-warning' : 'btn-success'); ?>" data-id="<?php echo $article['article_id']; ?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible']; ?>"></a>
+            <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit']; ?>" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id']; ?>"><i class="fa fa-pencil-alt"></i></a>
+            <a id="abtnarticle<?php echo $article['article_id']; ?>" class="btn fa btn-sm visible <?php echo ($article['article_aktiv'] == 0 ? 'btn-warning' : 'btn-success'); ?>" data-id="<?php echo $article['article_id']; ?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-bs-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible']; ?>"></a>
           </div>
-          <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '1,' . $article['article_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_ldeljs'] . "\n[" . $article['article_title'] . ']'); ?>"><i class="far fa-trash-alt"></i></a>
+          <a class="btn btn-sm btn-danger ms-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-bs-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '1,' . $article['article_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_ldeljs'] . "\n[" . $article['article_title'] . ']'); ?>"><i class="far fa-trash-alt"></i></a>
         </div>
       </div>
 
@@ -110,7 +110,7 @@ $(function() {
           <div class="table-responsive">
             <table class="table table-sm table-borderless mb-0">
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold" style="width: 140px;"><?php echo $BL['be_article_urlalias']; ?>:</td>
+                <td class="text-secondary text-nowrap fw-bold" style="width: 140px;"><?php echo $BL['be_article_urlalias']; ?>:</td>
                 <td>
                   <?php if(!empty($article['article_alias'])): ?>
                     <code><?php echo html($article['article_alias']); ?></code>
@@ -120,10 +120,10 @@ $(function() {
                 </td>
               </tr>
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_cat']; ?>:</td>
+                <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_article_cat']; ?>:</td>
                 <td>
-                    <i class="fa fa-folder-open text-muted mr-1"></i><?php echo html(!empty($article['article_cat_name']) ? $article['article_cat_name'] : $article['article_cat']); ?>
-                    <span class="badge badge-secondary font-weight-normal badge-align badge-align-t3 ml-1">ID: <?php echo $article['article_catid']; ?></span>
+                    <i class="fa fa-folder-open text-muted me-1"></i><?php echo html(!empty($article['article_cat_name']) ? $article['article_cat_name'] : $article['article_cat']); ?>
+                    <span class="badge badge-secondary fw-normal badge-align badge-align-t3 ms-1">ID: <?php echo $article['article_catid']; ?></span>
                 </td>
               </tr>
               <?php
@@ -134,7 +134,7 @@ $(function() {
                   $where = 'article_id = ' . intval($article['article_lang_id']);
                   $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
                   if (is_array($adata) && isset($adata[0]['article_id'])) {
-                    $langstr = '<span class="flag-icon flag-icon-de" data-toggle="tooltip" title="' . get_language_name('de') . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" data-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
+                    $langstr = '<span class="flag-icon flag-icon-de" data-bs-toggle="tooltip" title="' . get_language_name('de') . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" data-bs-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
                   } else {
                     $langstr = $BL['be_admin_usr_err'];
                   }
@@ -146,7 +146,7 @@ $(function() {
                     $where = 'article_lang_id = ' . intval($article['article_lang_id']) . ' AND article_lang LIKE ' . _dbEscape($lang);
                     $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
                     if (isset($adata[0]['article_id'])) {
-                      $langstr .= '<span class="flag-icon flag-icon-' . $lang . '" data-toggle="tooltip" title="' . get_language_name($lang) . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
+                      $langstr .= '<span class="flag-icon flag-icon-' . $lang . '" data-bs-toggle="tooltip" title="' . get_language_name($lang) . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-bs-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
                       unset($adata);
                     }
                   }
@@ -159,23 +159,23 @@ $(function() {
                     $where = 'article_lang_id = ' . intval($article['article_id']) . ' AND article_lang LIKE ' . _dbEscape($lang);
                     $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
                     if (isset($adata[0]['article_id'])) {
-                      $langstr .= '<span class="flag-icon flag-icon-' . $lang . '" data-toggle="tooltip" title="' . get_language_name($lang) . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
+                      $langstr .= '<span class="flag-icon flag-icon-' . $lang . '" data-bs-toggle="tooltip" title="' . get_language_name($lang) . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-bs-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
                       unset($adata);
                     }
                   }
                 }
                 if ($langstr !== '') {
-                  echo '<tr><td class="text-secondary text-nowrap font-weight-bold">' . $BL['be_article_opposite_lang'] . ':</td><td>' . $langstr . '</td></tr>';
+                  echo '<tr><td class="text-secondary text-nowrap fw-bold">' . $BL['be_article_opposite_lang'] . ':</td><td>' . $langstr . '</td></tr>';
                 }
               }
               ?>
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_akeywords']; ?>:</td>
+                <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_article_akeywords']; ?>:</td>
                 <td><?php
                 if (!empty($article['article_keyword'])) {
                     $keywords = convertStringToArray($article['article_keyword'], ',');
                     foreach ($keywords as $keyword) {
-                        echo '<span class="badge badge-light border font-weight-normal mr-1">' . html($keyword) . '</span>';
+                        echo '<span class="badge badge-light border fw-normal me-1">' . html($keyword) . '</span>';
                     }
                 } else {
                     echo '<span class="text-muted">–</span>';
@@ -184,13 +184,13 @@ $(function() {
               </tr>
               <?php if(!empty($article['article_canonical'])): ?>
                 <tr>
-                  <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_canonical']; ?>:</td>
+                  <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_canonical']; ?>:</td>
                   <td><code><?php echo html($article['article_canonical']); ?></code></td>
                 </tr>
               <?php endif; ?>
               <?php if(!empty($article['article_redirect'])): ?>
                 <tr>
-                  <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_cnt_redirect']; ?>:</td>
+                  <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_article_cnt_redirect']; ?>:</td>
                   <td><a href="<?php echo html($article['article_redirect']); ?>" target="_blank"><?php echo html($article['article_redirect']); ?></a></td>
                 </tr>
               <?php endif; ?>
@@ -215,11 +215,11 @@ $(function() {
 
               if($thumb_image || $thumb_list_image): ?>
                 <tr>
-                  <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_cnt_image']; ?>:</td>
+                  <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_cnt_image']; ?>:</td>
                   <td>
                     <?php
                     if($thumb_image) {
-                        echo '<img class="img-thumbnail article-thumb mr-1" src="' . $thumb_image['src'] . '" alt="" />';
+                        echo '<img class="img-thumbnail article-thumb me-1" src="' . $thumb_image['src'] . '" alt="" />';
                     }
                     if($thumb_list_image) {
                         echo '<img class="img-thumbnail article-thumb' . (!empty($article['image']['list_usesummary']) ? ' opacity-50' : '') . '" src="' . $thumb_list_image['src'] . '" alt="" />';
@@ -229,7 +229,7 @@ $(function() {
                 </tr>
               <?php endif; ?>
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_ftptakeover_status']; ?>:</td>
+                <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_ftptakeover_status']; ?>:</td>
                 <td>
                   <div class="d-flex flex-wrap" style="gap: 4px;">
                     <span class="badge <?php echo empty($article['article_nositemap']) ? 'badge-success' : 'badge-secondary'; ?>"><?php echo $BL['be_ctype_sitemap']; ?></span>
@@ -258,31 +258,31 @@ $(function() {
           <div class="table-responsive">
             <table class="table table-sm table-borderless mb-0">
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold" style="width: 140px;"><?php echo $BL['be_article_username']; ?>:</td>
-                <td><i class="fa fa-user text-muted mr-1"></i><?php echo html($article['article_username']); ?></td>
+                <td class="text-secondary text-nowrap fw-bold" style="width: 140px;"><?php echo $BL['be_article_username']; ?>:</td>
+                <td><i class="fa fa-user text-muted me-1"></i><?php echo html($article['article_username']); ?></td>
               </tr>
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_created_at']; ?>:</td>
-                <td><i class="fa fa-calendar-plus text-muted mr-1"></i><?php echo date($BL['be_longdatetime'], $article['article_created']); ?></td>
+                <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_article_created_at']; ?>:</td>
+                <td><i class="fa fa-calendar-plus text-muted me-1"></i><?php echo date($BL['be_longdatetime'], $article['article_created']); ?></td>
               </tr>
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_updated_at']; ?>:</td>
-                <td><i class="fa fa-history text-muted mr-1"></i><?php echo phpwcms_strtotime($article['article_date'], $BL['be_longdatetime'], ''); ?></td>
+                <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_article_updated_at']; ?>:</td>
+                <td><i class="fa fa-history text-muted me-1"></i><?php echo phpwcms_strtotime($article['article_date'], $BL['be_longdatetime'], ''); ?></td>
               </tr>
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_cnt_start']; ?>:</td>
-                <td><?php echo $set_begin ? '<i class="fa fa-clock text-muted mr-1"></i>' . phpwcms_strtotime($article['article_begin'], $BL['be_longdatetime'], '') : '<span class="text-muted">' . $BL['be_not_set'] . '</span>'; ?></td>
+                <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_article_cnt_start']; ?>:</td>
+                <td><?php echo $set_begin ? '<i class="fa fa-clock text-muted me-1"></i>' . phpwcms_strtotime($article['article_begin'], $BL['be_longdatetime'], '') : '<span class="text-muted">' . $BL['be_not_set'] . '</span>'; ?></td>
               </tr>
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_cnt_end']; ?>:</td>
-                <td><?php echo $set_end ? '<i class="fa fa-clock text-muted mr-1"></i>' . phpwcms_strtotime($article['article_end'], $BL['be_longdatetime'], '') : '<span class="text-muted">' . $BL['be_not_set'] . '</span>'; ?></td>
+                <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_article_cnt_end']; ?>:</td>
+                <td><?php echo $set_end ? '<i class="fa fa-clock text-muted me-1"></i>' . phpwcms_strtotime($article['article_end'], $BL['be_longdatetime'], '') : '<span class="text-muted">' . $BL['be_not_set'] . '</span>'; ?></td>
               </tr>
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_cnt_sortvalue']; ?>:</td>
+                <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_cnt_sortvalue']; ?>:</td>
                 <td><span class="badge badge-light border"><?php echo (int) $article['article_sort']; ?></span></td>
               </tr>
               <tr>
-                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_priorize']; ?>:</td>
+                <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_priorize']; ?>:</td>
                 <td><span class="badge badge-light border"><?php echo (int) $article['article_priorize']; ?></span></td>
               </tr>
             </table>
@@ -293,9 +293,9 @@ $(function() {
 
 <!-- New Content start-->
       <div class="card-header border-0 mt-3 pt-3 border-top">
-        <div class="form-row align-items-center">
+        <div class="row g-2 align-items-center">
           <div class="col-sm-auto">
-            <select name="ctype" class="custom-select form-control form-control-sm" id="ctype" onchange="this.form.submit();">
+            <select name="ctype" class="form-select form-select-sm" id="ctype" onchange="this.form.submit();">
               <?php
 
               $temp_count = 0;
@@ -378,7 +378,7 @@ $(function() {
                           $sbutton[$key]["top"] = "<a class=\"btn btn-xs btn-light py-0 px-1\" href=\"include/inc_act/act_articlecontent.php?sort=".
                           $sbutton[$key]["id"].":".$sbutton[$key-1]["sort"]."|".
                           $sbutton[$key-1]["id"].":".$sbutton[$key]["sort"].
-                          "\" data-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_up']."\"><i class=\"fa fa-chevron-up fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
+                          "\" data-bs-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_up']."\"><i class=\"fa fa-chevron-up fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
                       }
                       if($key == $sc) {
                           // if this is the last content part in list
@@ -390,7 +390,7 @@ $(function() {
                           $sbutton[$key]["bottom"] = "<a class=\"btn btn-xs btn-light py-0 px-1\" href=\"include/inc_act/act_articlecontent.php?sort=".
                           $sbutton[$key]["id"].":".$sbutton[$key+1]["sort"]."|".
                           $sbutton[$key+1]["id"].":".$sbutton[$key]["sort"].
-                          "\" data-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_down']."\"><i class=\"fa fa-chevron-down fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
+                          "\" data-bs-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_down']."\"><i class=\"fa fa-chevron-down fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
                       }
                       $sbutton_string[$sbutton[$key]["id"]] = '<div class="btn-group" role="group">' . $sbutton[$key]["top"] . $sbutton[$key]["bottom"] . '</div>';
               }
@@ -439,7 +439,7 @@ $(function() {
                     case 'CONTENT':
                       $contentpart_block_name = $BL['be_main_content'].$contentpart_block_name;
                       if($article['article_paginate']) {
-                        $contentpart_block_name .= ' / <i class="fas fa-indent text-muted mr-1"></i>';
+                        $contentpart_block_name .= ' / <i class="fas fa-indent text-muted me-1"></i>';
                         $contentpart_block_name .= $BL['be_cnt_pagination'];
                       }
                       $contentpart_block_class = 'cp-block-content';
@@ -466,12 +466,12 @@ $(function() {
                       break;
 
                     case 'CPSET':
-                      $contentpart_block_name = $BL['be_settings'].' <span class="font-weight-normal">('.$BL['be_system_container_norender'].')</span>';
+                      $contentpart_block_name = $BL['be_settings'].' <span class="fw-normal">('.$BL['be_system_container_norender'].')</span>';
                       $contentpart_block_class = 'cp-block-cpset';
                       break;
 
                     case 'SYSTEM':
-                      $contentpart_block_name = $BL['be_system_container'].' <span class="font-weight-normal">('.$BL['be_system_container_norender'].')</span>';
+                      $contentpart_block_name = $BL['be_system_container'].' <span class="fw-normal">('.$BL['be_system_container_norender'].')</span>';
                       $contentpart_block_class = 'cp-block-system';
                       break;
                   }
@@ -481,11 +481,11 @@ $(function() {
           ?>
       <div class="card articlelist rounded-0 my-3">
         <div class="card-header border-0 py-1 cp-block-hdr <?php echo $contentpart_block_class ?>">
-          <span class="font-weight-bold"><i class="fa fa-<?php echo $contentpart_block === 'CPSET' ? 'list-ul' : 'columns' ?>" aria-hidden="true"></i> <?php echo $contentpart_block_name ?></span>
+          <span class="fw-bold"><i class="fa fa-<?php echo $contentpart_block === 'CPSET' ? 'list-ul' : 'columns' ?>" aria-hidden="true"></i> <?php echo $contentpart_block_name ?></span>
         </div>
     <?php
     if ($listingflag == 0) {
-      echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list pl-0">';
+      echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list ps-0">';
     } else {
       echo '<script>
       $(function() {
@@ -493,7 +493,7 @@ $(function() {
         if (el) { initSortableList(el, "sortable-list-' . $listingflag . '"); }
       });
       </script>';
-      echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list pl-0 '. $listingflag .'">';
+      echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list ps-0 '. $listingflag .'">';
     }
       $listingflag = $listingflag+1;
     }
@@ -508,7 +508,7 @@ $(function() {
       $contentpart_tab_number = intval($contentpart_tab_number[0]);
 
       ?>
-      <div class="cp-block-subhdr <?php echo $contentpart_block_class ?>"><div class="pl-3 py-1"><small>{<?php
+      <div class="cp-block-subhdr <?php echo $contentpart_block_class ?>"><div class="ps-3 py-1"><small>{<?php
             if($contentpart_tab_type == 2) {
               echo $BL['be_ctype_accordion'];
             } elseif(isset($template_default['attributes']['cpgroup_custom'][$contentpart_tab_type])) {
@@ -533,11 +533,11 @@ $(function() {
   <li class="rounded-0 list-group-item" id="<?php echo $row["acontent_id"]; ?>">
     <div class="row">
       <div class="col-sm-auto align-self-center">
-        <span data-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down'] ?>" class="handle text-muted"><i class="fa fa-grip-vertical"></i></span>
+        <span data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down'] ?>" class="handle text-muted"><i class="fa fa-grip-vertical"></i></span>
       </div>
       <div class="col">
         <div class="row">
-          <div class="col small font-weight-bold text-uppercase"><?php
+          <div class="col small fw-bold text-uppercase"><?php
             $cntpart_title = $wcs_content_type[$row["acontent_type"]];
             if(!empty($row["acontent_module"])) {
               if($row["acontent_type"] == 30 && isset($BL['modules'][$row["acontent_module"]]['listing_title'])) {
@@ -578,10 +578,10 @@ $(function() {
             echo '</span></small>';
           }
           if($row['acontent_top']) {
-            echo '<small><i class="far fa-caret-square-up fa-fw mx-1" aria-hidden="true" data-toggle="tooltip" title="TOP"></i></small>';
+            echo '<small><i class="far fa-caret-square-up fa-fw mx-1" aria-hidden="true" data-bs-toggle="tooltip" title="TOP"></i></small>';
           }
           if($row['acontent_anchor']) {
-            echo '<small><i class="fa fa-anchor fa-fw mx-1" aria-hidden="true" data-toggle="tooltip" title="Anchor"></i></small>';
+            echo '<small><i class="fa fa-anchor fa-fw mx-1" aria-hidden="true" data-bs-toggle="tooltip" title="Anchor"></i></small>';
           }
           ?>
           </div>
@@ -591,7 +591,7 @@ $(function() {
           </div>
 
           <div class="col-sm-auto align-self-center justify-content-end">
-            <span class="badge badge-secondary font-weight-normal badge-align">ID: <?php echo $row['acontent_id']; ?></span>
+            <span class="badge badge-secondary fw-normal badge-align">ID: <?php echo $row['acontent_id']; ?></span>
           </div>
 
           <div class="col-sm-auto align-self-center justify-content-end text-nowrap">
@@ -599,7 +599,7 @@ $(function() {
                   echo date($BL['be_shortdatetime'], $row['acontent_date']) . '&nbsp;';
                   if($contentpart_block !== 'CPSET' && $article['article_paginate']) {
                       //Display cp paginate page number
-                      echo '<i class="fas fa-indent text-muted" data-toggle="tooltip" title="subsection"></i>';
+                      echo '<i class="fas fa-indent text-muted" data-bs-toggle="tooltip" title="subsection"></i>';
                       echo $row['acontent_paginate_page'] == 0 ? 1 : $row['acontent_paginate_page'];
                   }
               ?>
@@ -607,17 +607,17 @@ $(function() {
 
           <div class="col-sm-auto align-self-center justify-content-end">
             <div class="btn-group btn-group-sm" role="group" aria-label="cp-actions-<?php echo $row['acontent_id']; ?>">
-              <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_edit']; ?>" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $article['article_id'] . '&amp;acid=' . $row['acontent_id']; ?>">
+              <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" data-bs-toggle="tooltip" title="<?php echo $BL['be_article_cnt_edit']; ?>" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $article['article_id'] . '&amp;acid=' . $row['acontent_id']; ?>">
                 <i class="fa fa-pencil-alt"></i>
               </a>
               <?php
               // duplicate content part
-              echo '<a href="include/inc_act/act_structure.php?do=8%7C' . $row['acontent_id'] . '%7C' . $article['article_id'] . '%7C' . ($row['acontent_sorting'] + 5) . '" class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="' . $BL['be_func_content_copy'] . ' [ID:' . $row['acontent_id'] . ']" data-toggle="tooltip" data-confirm-type="info" data-confirm-action="' . html($BL['be_func_content_copy']) . '" data-confirm="' . html($BL['be_func_content_copy'] . ': ' . $cntpart_title . ' [ID:' . $row['acontent_id'] . ']') . '"><i class="fa fa-copy"></i></a>';
+              echo '<a href="include/inc_act/act_structure.php?do=8%7C' . $row['acontent_id'] . '%7C' . $article['article_id'] . '%7C' . ($row['acontent_sorting'] + 5) . '" class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="' . $BL['be_func_content_copy'] . ' [ID:' . $row['acontent_id'] . ']" data-bs-toggle="tooltip" data-confirm-type="info" data-confirm-action="' . html($BL['be_func_content_copy']) . '" data-confirm="' . html($BL['be_func_content_copy'] . ': ' . $cntpart_title . ' [ID:' . $row['acontent_id'] . ']') . '"><i class="fa fa-copy"></i></a>';
 
-              echo '<a id="abtnacontent' . $row['acontent_id'] . '" class="btn fa btn-sm visible ' . ($row['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $row['acontent_id'] . '" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></a>';
+              echo '<a id="abtnacontent' . $row['acontent_id'] . '" class="btn fa btn-sm visible ' . ($row['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $row['acontent_id'] . '" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"></a>';
               ?>
             </div>
-            <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '9,' . $article['article_id'] . ',' . $row['acontent_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_delpartjs'] . ' [ID: ' . $row['acontent_id'] . ']'); ?>"><i class="far fa-trash-alt"></i></a>
+            <a class="btn btn-sm btn-danger ms-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-bs-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '9,' . $article['article_id'] . ',' . $row['acontent_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_delpartjs'] . ' [ID: ' . $row['acontent_id'] . ']'); ?>"><i class="far fa-trash-alt"></i></a>
           </div>
         </div>
         <?php

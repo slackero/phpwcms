@@ -219,11 +219,11 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
         <h1 class="h3 mb-0 text-gray-800"><i class="fa fa-cubes"></i> <?php echo html($BL['be_admin_custom_cpt'] ?? 'Custom Content Parts'); ?></h1>
         <div>
           <?php if ($edit_id !== 0): ?>
-            <button type="submit" form="cptForm" name="save_only" value="1" class="btn btn-sm btn-blue"><i class="fa fa-save"></i> <?php echo html($sendbutton); ?></button>
-            <button type="submit" form="cptForm" name="save_and_close" value="1" class="btn btn-sm btn-blue ml-1"><i class="fa fa-check"></i> <?php echo html($BL['be_article_cnt_button3'] ?? 'Save & close'); ?></button>
-            <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel'] ?? 'Cancel'); ?></a>
+            <button type="submit" form="cptForm" name="save_only" value="1" class="btn btn-sm btn-blue"><i class="fa fa-rotate"></i> <?php echo html($sendbutton); ?></button>
+            <button type="submit" form="cptForm" name="save_and_close" value="1" class="btn btn-sm btn-blue ms-1"><i class="fa fa-check"></i> <?php echo html($BL['be_article_cnt_button3'] ?? 'Save & close'); ?></button>
+            <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel'] ?? 'Cancel'); ?></a>
           <?php else: ?>
-            <button type="button" class="btn btn-sm btn-secondary mr-2" data-toggle="modal" data-target="#importModal"><i class="fa fa-upload"></i> <?php echo html($BL['be_admin_custom_cpt_import'] ?? 'Import JSON'); ?></button>
+            <button type="button" class="btn btn-sm btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#importModal"><i class="fa fa-upload"></i> <?php echo html($BL['be_admin_custom_cpt_import'] ?? 'Import JSON'); ?></button>
             <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;new=1" class="btn btn-sm btn-blue"><i class="fa fa-plus"></i> <?php echo html($BL['be_admin_custom_cpt_add'] ?? 'New Custom Content Part'); ?></a>
           <?php endif; ?>
         </div>
@@ -240,7 +240,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
           <input type="hidden" name="cpt_id" value="<?php echo $edit_cpt['cpt_id'] ?? 0; ?>">
 
           <div class="card mb-4">
-            <div class="card-header font-weight-bold">
+            <div class="card-header fw-bold">
               <?php echo ($edit_id > 0) ? html($BL['be_admin_custom_cpt_edit'] ?? 'Edit Custom Content Part') : html($BL['be_admin_custom_cpt_new'] ?? 'Create Custom Content Part'); ?>
             </div>
             <div class="card-body">
@@ -253,7 +253,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                   <label for="cpt_key">
                     <strong><?php echo html($BL['be_admin_custom_cpt_key'] ?? 'Identifier Key / Alias'); ?></strong>
                     <?php if ($usage_count > 0): ?>
-                      <span class="badge badge-warning ml-1" data-toggle="tooltip" title="<?php echo html(sprintf($BL['be_admin_custom_cpt_key_in_use'] ?? 'Key is locked because %d content part(s) are using it.', $usage_count)); ?>">
+                      <span class="badge badge-warning ms-1" data-bs-toggle="tooltip" title="<?php echo html(sprintf($BL['be_admin_custom_cpt_key_in_use'] ?? 'Key is locked because %d content part(s) are using it.', $usage_count)); ?>">
                         <i class="fa fa-lock"></i> <?php echo $usage_count; ?>
                       </span>
                     <?php endif; ?>
@@ -265,7 +265,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                 </div>
                 <div class="col-md-2 form-group">
                   <label for="cpt_mode"><strong><?php echo html($BL['be_admin_custom_cpt_mode'] ?? 'Mode'); ?></strong></label>
-                  <select name="cpt_mode" id="cpt_mode" class="form-control custom-select">
+                  <select name="cpt_mode" id="cpt_mode" class="form-select">
                     <option value="repeater"<?php echo (($edit_cpt['cpt_mode'] ?? '') === 'repeater') ? ' selected' : ''; ?>><?php echo html($BL['be_admin_custom_cpt_repeater'] ?? 'Repeater (List)'); ?></option>
                     <option value="single"<?php echo (($edit_cpt['cpt_mode'] ?? '') === 'single') ? ' selected' : ''; ?>><?php echo html($BL['be_admin_custom_cpt_single'] ?? 'Single Item'); ?></option>
                   </select>
@@ -282,9 +282,9 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                   <input type="text" name="cpt_icon" id="cpt_icon" class="form-control" value="<?php echo html($edit_cpt['cpt_icon'] ?? 'fa-cube'); ?>">
                 </div>
                 <div class="col-md-2 form-group d-flex align-items-end pb-2">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" name="cpt_active" id="cpt_active" value="1" class="custom-control-input"<?php echo (!isset($edit_cpt['cpt_active']) || !empty($edit_cpt['cpt_active'])) ? ' checked' : ''; ?>>
-                    <label class="custom-control-label" for="cpt_active"><strong><?php echo html($BL['be_admin_struct_active'] ?? 'Active'); ?></strong></label>
+                  <div class="form-check">
+                    <input type="checkbox" name="cpt_active" id="cpt_active" value="1" class="form-check-input"<?php echo (!isset($edit_cpt['cpt_active']) || !empty($edit_cpt['cpt_active'])) ? ' checked' : ''; ?>>
+                    <label class="form-check-label" for="cpt_active"><strong><?php echo html($BL['be_admin_struct_active'] ?? 'Active'); ?></strong></label>
                   </div>
                 </div>
               </div>
@@ -294,7 +294,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
           <!-- Field Builder Card -->
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-              <span class="font-weight-bold"><i class="fa fa-list"></i> <?php echo html($BL['be_admin_custom_cpt_fields'] ?? 'Field Definitions'); ?></span>
+              <span class="fw-bold"><i class="fa fa-list"></i> <?php echo html($BL['be_admin_custom_cpt_fields'] ?? 'Field Definitions'); ?></span>
               <button type="button" class="btn btn-sm btn-blue" onclick="addFieldRow();"><i class="fa fa-plus"></i> <?php echo html($BL['be_admin_custom_cpt_add_field'] ?? 'Add Field'); ?></button>
             </div>
             <div class="card-body p-0">
@@ -324,29 +324,29 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
           <!-- Template File Options & Actions Card -->
           <div class="card mb-4">
             <div class="card-body">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" name="create_template_file" id="create_template_file" value="1" class="custom-control-input"<?php echo ($edit_id < 0 || !$tpl_exists) ? ' checked' : ''; ?>>
-                <label class="custom-control-label" for="create_template_file">
+              <div class="form-check">
+                <input type="checkbox" name="create_template_file" id="create_template_file" value="1" class="form-check-input"<?php echo ($edit_id < 0 || !$tpl_exists) ? ' checked' : ''; ?>>
+                <label class="form-check-label" for="create_template_file">
                   <?php echo $tpl_exists ? html($BL['be_admin_custom_cpt_overwrite_template'] ?? 'Overwrite template file:') : html($BL['be_admin_custom_cpt_create_template_help'] ?? 'Automatically create starter template file:'); ?>
                   <code>template/inc_cntpart/custom/<strong class="tpl-key-preview" id="tplKeyPreview"><?php echo html(!empty($edit_cpt['cpt_key']) ? $edit_cpt['cpt_key'] : '{KEY}'); ?></strong>/default.tmpl</code>
                 </label>
               </div>
             </div>
             <div class="card-footer">
-              <button name="save_only" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo html($sendbutton); ?></button>
-              <button name="save_and_close" type="submit" class="btn btn-sm btn-blue ml-1" value="1"><i class="fa fa-check"></i> <?php echo html($BL['be_article_cnt_button3'] ?? 'Save & close'); ?></button>
-              <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel'] ?? 'Cancel'); ?></a>
+              <button name="save_only" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo html($sendbutton); ?></button>
+              <button name="save_and_close" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa fa-check"></i> <?php echo html($BL['be_article_cnt_button3'] ?? 'Save & close'); ?></button>
+              <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel'] ?? 'Cancel'); ?></a>
             </div>
           </div>
 
           <!-- Template Scaffold Helper -->
           <?php if ($edit_id !== 0): ?>
             <div class="card mb-4">
-              <div class="card-header d-flex justify-content-between align-items-center font-weight-bold">
+              <div class="card-header d-flex justify-content-between align-items-center fw-bold">
                 <span><i class="fa fa-code"></i> <?php echo html($BL['be_admin_custom_cpt_scaffold'] ?? 'Starter Template Boilerplate'); ?></span>
                 <div>
                   <?php if ($tpl_exists): ?>
-                    <span class="badge badge-success mr-2"><i class="fa fa-check"></i> <?php echo html($existing_tpl_path); ?></span>
+                    <span class="badge badge-success me-2"><i class="fa fa-check"></i> <?php echo html($existing_tpl_path); ?></span>
                   <?php endif; ?>
                   <button type="button" class="btn btn-sm btn-secondary" onclick="copyTemplateScaffold(this);" title="<?php echo html($BL['be_admin_custom_cpt_copy'] ?? 'Copy to Clipboard'); ?>">
                     <i class="far fa-copy"></i> <?php echo html($BL['be_admin_custom_cpt_copy'] ?? 'Copy to Clipboard'); ?>
@@ -437,12 +437,12 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                 <input type="text" name="field_placeholder[]" class="form-control form-control-sm mt-1" value="${def.placeholder || ''}" placeholder="Placeholder...">
               </td>
               <td>
-                <select name="field_type[]" class="form-control form-control-sm custom-select" onchange="toggleFieldConfig(this);">
+                <select name="field_type[]" class="form-select form-select-sm" onchange="toggleFieldConfig(this);">
                   ${typeOptions}
                 </select>
-                <div class="custom-control custom-checkbox mt-2">
-                  <input type="checkbox" name="field_hr[]" value="1" class="custom-control-input" id="hr_${idx}" ${def.hr ? 'checked' : ''}>
-                  <label class="custom-control-label" for="hr_${idx}"><?php echo html($BL['be_admin_custom_cpt_divider'] ?? 'Divider'); ?> <code>&lt;hr&gt;</code></label>
+                <div class="form-check mt-2">
+                  <input type="checkbox" name="field_hr[]" value="1" class="form-check-input" id="hr_${idx}" ${def.hr ? 'checked' : ''}>
+                  <label class="form-check-label" for="hr_${idx}"><?php echo html($BL['be_admin_custom_cpt_divider'] ?? 'Divider'); ?> <code>&lt;hr&gt;</code></label>
                 </div>
               </td>
               <td>
@@ -773,7 +773,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
       <?php else: // SHOW LISTING OF CUSTOM CPTS ?>
 
         <div class="card shadow-sm mb-4">
-          <div class="card-header font-weight-bold">
+          <div class="card-header fw-bold">
             <?php echo html($BL['be_admin_custom_cpt_registered'] ?? 'Configured Custom Content Parts'); ?>
           </div>
           <div class="card-body p-0">
@@ -786,7 +786,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                     <th><?php echo html($BL['be_admin_custom_cpt_key'] ?? 'Identifier Key'); ?></th>
                     <th><?php echo html($BL['be_admin_custom_cpt_mode'] ?? 'Mode'); ?></th>
                     <th><?php echo html($BL['be_admin_custom_cpt_fields'] ?? 'Fields'); ?></th>
-                    <th class="text-right text-nowrap" style="width: 140px;"><?php echo html($BL['be_admin_custom_cpt_actions'] ?? 'Actions'); ?></th>
+                    <th class="text-end text-nowrap" style="width: 140px;"><?php echo html($BL['be_admin_custom_cpt_actions'] ?? 'Actions'); ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -799,16 +799,16 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                           <?php elseif (strpos((string)$cpt['cpt_id'], 'legacy_') === 0): ?>
                             <span class="badge badge-secondary" title="Legacy Config Array"><?php echo html($BL['be_admin_custom_cpt_legacy'] ?? 'Legacy'); ?></span>
                           <?php else: ?>
-                            <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;toggle=<?php echo $cpt['cpt_id']; ?>" class="btn btn-sm <?php echo !empty($cpt['cpt_active']) ? 'btn-success' : 'btn-warning'; ?>" data-toggle="tooltip" title="<?php echo html($BL['be_tooltip_visibility'] ?? 'Activate/Deactivate'); ?>">
+                            <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;toggle=<?php echo $cpt['cpt_id']; ?>" class="btn btn-sm <?php echo !empty($cpt['cpt_active']) ? 'btn-success' : 'btn-warning'; ?>" data-bs-toggle="tooltip" title="<?php echo html($BL['be_tooltip_visibility'] ?? 'Activate/Deactivate'); ?>">
                               <i class="fa fa-<?php echo !empty($cpt['cpt_active']) ? 'check' : 'times'; ?>"></i>
                             </a>
                           <?php endif; ?>
                         </td>
-                        <td class="font-weight-bold">
-                          <i class="fa <?php echo html($cpt['cpt_icon'] ?? 'fa-cube'); ?> text-primary mr-1"></i>
+                        <td class="fw-bold">
+                          <i class="fa <?php echo html($cpt['cpt_icon'] ?? 'fa-cube'); ?> text-primary me-1"></i>
                           <?php echo html($cpt['cpt_title']); ?>
                           <?php if (!empty($cpt['cpt_desc'])): ?>
-                            <div class="small text-muted font-weight-normal"><?php echo html($cpt['cpt_desc']); ?></div>
+                            <div class="small text-muted fw-normal"><?php echo html($cpt['cpt_desc']); ?></div>
                           <?php endif; ?>
                         </td>
                         <td class="font-monospace text-muted"><?php echo html($cpt['cpt_key']); ?></td>
@@ -816,15 +816,15 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                           <span class="badge badge-light border"><?php echo html($cpt['cpt_mode'] ?? 'repeater'); ?></span>
                         </td>
                         <td>
-                          <span class="badge badge-pill badge-secondary"><?php echo count($cpt['fields'] ?? []); ?></span>
+                          <span class="badge rounded-pill badge-secondary"><?php echo count($cpt['fields'] ?? []); ?></span>
                         </td>
-                        <td class="text-right text-nowrap">
+                        <td class="text-end text-nowrap">
                           <?php if (is_numeric($cpt['cpt_id'])): ?>
                             <div class="btn-group btn-group-sm" role="group" aria-label="cpt-actions-<?php echo $cpt['cpt_id']; ?>">
-                              <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;edit=<?php echo $cpt['cpt_id']; ?>" class="btn btn-blue btn-sm" role="button" data-toggle="tooltip" title="<?php echo html($BL['be_tt_edit'] ?? 'Edit'); ?>"><i class="fa fa-pencil-alt"></i></a>
-                              <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;export=<?php echo $cpt['cpt_id']; ?>" class="btn btn-blue btn-sm" role="button" data-toggle="tooltip" title="<?php echo html($BL['be_admin_custom_cpt_export'] ?? 'Export JSON'); ?>"><i class="fa fa-download"></i></a>
+                              <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;edit=<?php echo $cpt['cpt_id']; ?>" class="btn btn-blue btn-sm" role="button" data-bs-toggle="tooltip" title="<?php echo html($BL['be_tt_edit'] ?? 'Edit'); ?>"><i class="fa fa-pencil-alt"></i></a>
+                              <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;export=<?php echo $cpt['cpt_id']; ?>" class="btn btn-blue btn-sm" role="button" data-bs-toggle="tooltip" title="<?php echo html($BL['be_admin_custom_cpt_export'] ?? 'Export JSON'); ?>"><i class="fa fa-download"></i></a>
                             </div>
-                            <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;delete=<?php echo $cpt['cpt_id']; ?>" class="btn btn-danger btn-sm ml-1" role="button" data-toggle="tooltip" title="<?php echo html($BL['be_tt_delete'] ?? 'Delete') . ': ' . html($cpt['cpt_title']); ?>" data-confirm-danger="<?php echo html(($BL['be_admin_custom_cpt_delete_confirm'] ?? 'Delete this custom content part definition?') . "\n[" . $cpt['cpt_title'] . ']'); ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+                            <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;delete=<?php echo $cpt['cpt_id']; ?>" class="btn btn-danger btn-sm ms-1" role="button" data-bs-toggle="tooltip" title="<?php echo html($BL['be_tt_delete'] ?? 'Delete') . ': ' . html($cpt['cpt_title']); ?>" data-confirm-danger="<?php echo html(($BL['be_admin_custom_cpt_delete_confirm'] ?? 'Delete this custom content part definition?') . "\n[" . $cpt['cpt_title'] . ']'); ?>"><i class="far fa-trash-alt fa-fw"></i></a>
                           <?php else: ?>
                             <span class="small text-muted"><?php echo html($BL['be_admin_custom_cpt_readonly_file'] ?? 'Read-only (File)'); ?></span>
                           <?php endif; ?>
@@ -858,7 +858,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
         <input type="hidden" name="import_custom_cpt" value="1">
         <div class="modal-header">
           <h5 class="modal-title" id="importModalLabel"><i class="fa fa-upload"></i> <?php echo html($BL['be_admin_custom_cpt_modal_import'] ?? 'Import Custom Content Part'); ?></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -873,7 +873,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><?php echo html($BL['be_admin_fcat_exit'] ?? 'Cancel'); ?></button>
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><?php echo html($BL['be_admin_fcat_exit'] ?? 'Cancel'); ?></button>
           <button type="submit" class="btn btn-sm btn-blue"><?php echo html($BL['be_admin_custom_cpt_import'] ?? 'Import'); ?></button>
         </div>
       </form>

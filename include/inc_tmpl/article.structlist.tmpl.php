@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 ?>
-<h1 class="text-center text-sm-left"><?php echo $BL['be_subnav_article_center'] ?></h1>
+<h1 class="text-center text-sm-start"><?php echo $BL['be_subnav_article_center'] ?></h1>
 <div class="card">
 <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_article_title'] ?></h2></div>
 <div class="table-responsive" style="overflow-x: inherit">
@@ -74,16 +74,16 @@ $a .= ($child_count) ? '<a href="phpwcms.php?do=articles&amp;open=0:'.(empty($_S
 $a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
 $a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
-$info  = '<table class="text-left"><tr><td>ID:</td><td><b>0</b></td></tr>';
+$info  = '<table class="text-start"><tr><td>ID:</td><td><b>0</b></td></tr>';
 $info .= '<tr><td>ALIAS:</td><td>'.$indexpage["acat_alias"].'</td></tr></table>';
 
-$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
+$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
 
 $a .= "</td>\n";
 $a .= '<td width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
-echo '<td class="text-nowrap text-right">';
+echo '<td class="text-nowrap text-end">';
 
 $struct[0]["acat_id"]       = 0;
 $struct[0]["acat_aktiv"]    = 1;

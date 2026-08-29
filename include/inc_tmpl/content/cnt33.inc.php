@@ -39,10 +39,10 @@ $content['news'] = $content['id'] > 0 && is_array($content['news']) ? array_merg
 initJsAutocompleter();
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
-    <select name="template" id="template" class="custom-select form-control form-control-sm">
+    <select name="template" id="template" class="form-select form-select-sm">
     <?php
       echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
       $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/news');
@@ -58,10 +58,10 @@ initJsAutocompleter();
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="cnews_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="cnews_sort" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_sorting'] ?></label>
   <div class="col-sm-4">
-      <select name="news_sort" id="cnews_sort" class="custom-select form-control form-control-sm">
+      <select name="news_sort" id="cnews_sort" class="form-select form-select-sm">
           <option value="9"<?php is_selected(9, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
           <option value="10"<?php is_selected(10, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderasc'] ?></option>
           <option value="1"<?php is_selected(1, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
@@ -92,13 +92,13 @@ initJsAutocompleter();
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?></span>
+<div class="form-group align-items-center row g-2">
+  <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tags'] ?></span>
   <div class="col-sm-4">
    <input type="text" class="form-control form-control-sm" id="news_keyword_autosuggest" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input type="hidden" name="news_category" id="news_category" value="<?php echo html(implode(', ', $content['news']['news_category'])) ?>" /></td>
   </div>
   <div class="col-sm-auto mt-2 mt-sm-0">
-    <select name="news_andor" id="news_andor" class="custom-select form-control form-control-sm">
+    <select name="news_andor" id="news_andor" class="form-select form-select-sm">
       <option value="OR"<?php is_selected('OR', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
       <option value="AND"<?php is_selected('AND', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
       <option value="NOT"<?php is_selected('NOT', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_not'] ?></option>
@@ -107,8 +107,8 @@ initJsAutocompleter();
 </div>
 
 <?php if(count($phpwcms['allowed_lang']) > 1):  ?>
-<div class="form-group align-items-center form-row">
-  <label for="langAll" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="langAll" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_lang'] ?></label>
   <div class="col">
     <div class="form-check form-check-inline">
         <input type="checkbox" name="news_lang[]" class="form-check-input lang-default" id="langAll" value=""<?php
@@ -116,22 +116,22 @@ initJsAutocompleter();
             echo ' checked="checked"';
           }
         ?> />
-        <label class="form-check-label mr-2" title="<?php echo $BL['be_admin_tmpl_default'] ?>"><?php echo '<span class="flag-icon flag-icon-eu mt-1" data-toggle="tooltip" title="'. $BL['be_admin_tmpl_default'].'"></span> '; ?>&nbsp;</label>
+        <label class="form-check-label me-2" title="<?php echo $BL['be_admin_tmpl_default'] ?>"><?php echo '<span class="flag-icon flag-icon-eu mt-1" data-bs-toggle="tooltip" title="'. $BL['be_admin_tmpl_default'].'"></span> '; ?>&nbsp;</label>
 				<?php foreach($phpwcms['allowed_lang'] as $key => $lang):
 					$lang = strtolower($lang);
 				?>
         <input class="form-check-input" type="checkbox" name="news_lang[]" class="allowedLang" value="<?php echo $lang ?>"<?php if(in_array($lang, $content['news']['news_lang'])): ?> checked="checked"<?php endif; ?> class="lang-opt" />
-        <label class="form-check-label mr-2" title="<?php echo get_language_name($lang) ?>"><?php echo '<span class="flag-icon flag-icon-'.$lang.' mt-1" data-toggle="tooltip" title="'. get_language_name($lang).'"></span>'; ?>&nbsp;</label>
+        <label class="form-check-label me-2" title="<?php echo get_language_name($lang) ?>"><?php echo '<span class="flag-icon flag-icon-'.$lang.' mt-1" data-bs-toggle="tooltip" title="'. get_language_name($lang).'"></span>'; ?>&nbsp;</label>
       <?php endforeach; ?>
     </div>
   </div>
 </div>
 <?php endif; ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="news_archive" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_show_content'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="news_archive" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_show_content'] ?></label>
   <div class="col-sm-4">
-    <select name="news_archive" id="news_archive" class="custom-select form-control form-control-sm">
+    <select name="news_archive" id="news_archive" class="form-select form-select-sm">
       <option value="0"<?php is_selected(0, $content['news']['news_archive']) ?>><?php echo $BL['be_archived_items'].': '.$BL['be_include'] ?></option>
       <option value="1"<?php is_selected(1, $content['news']['news_archive']) ?>><?php echo $BL['be_archived_items'].': '.$BL['be_exclude'] ?></option>
       <option value="2"<?php is_selected(2, $content['news']['news_archive']) ?>><?php echo $BL['be_archived_items'].': '.$BL['be_solely'] ?></option>
@@ -140,28 +140,28 @@ initJsAutocompleter();
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="news_limit" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_rssfeed_item'] ?></label>
-		<div class="col-sm-auto my-2 my-sm-0 mr-sm-3">
+<div class="form-group align-items-center row g-2">
+  <label for="news_limit" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_rssfeed_item'] ?></label>
+		<div class="col-sm-auto">
 			<div class="input-group input-group-sm">
 				<input type="text" name="news_limit" id="news_limit" size="5" maxlength="5" value="<?php echo html($content['news']['news_limit']) ?>" class="form-control form-control-sm" />
-				<div class="input-group-append">
+				
 					<span class="input-group-text"><?php echo $BL['be_cnt_rssfeed_max'] ?></span>
-				</div>
+				
 			</div>
 		</div>
-		<div class="col-sm-auto my-2 my-sm-0">
+		<div class="col-sm-auto">
 			<div class="input-group input-group-sm">
 				<input type="text" name="news_skip" id="news_skip" size="5" maxlength="5" value="<?php echo html($content['news']['news_skip']) ?>" class="form-control form-control-sm" />
-				<div class="input-group-append">
+				
 					<span class="input-group-text"><?php echo $BL['be_skip_first_items'] ?></span>
-				</div>
+				
 			</div>
 		</div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="news_paginate" class="col-sm-2 col-form-label text-right"></label>
+<div class="form-group align-items-center row g-2">
+  <label for="news_paginate" class="col-sm-2 col-form-label text-end"></label>
   <div class="col-sm-auto">
   	<div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" name="news_paginate" id="news_paginate" value="1"<?php is_checked(1, $content['news']['news_paginate']) ?> />
@@ -172,21 +172,21 @@ initJsAutocompleter();
   <div class="col-sm-auto">
 		<div class="input-group input-group-sm">
 			<input type="text" name="news_paginate_count" id="news_paginate_count" size="5" maxlength="5"  class="form-control form-control-sm" value="<?php echo html($content['news']['news_paginate_count']) ?>"  />
-			<div class="input-group-append">
+			
 				<span class="input-group-text"><?php echo $BL['be_cnt_rssfeed_item'] ?></span>
-			</div>
+			
 		</div>
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="news_archive_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_archive'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="news_archive_link" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_archive'] ?></label>
   <div class="col-sm-auto">
     <div class="input-group input-group-sm">
-      <input type="text" name="news_archive_link" id="news_archive_link" value="<?php echo html($content['news']['news_archive_link']) ?>" class="form-control" maxlength="250" data-toggle="tooltip" title="<?php echo $BL['be_func_struct_articleID'] ?>" />
-      <span class="input-group-append">
-        <button class="modalButton btn btn-blue sitemap-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="articlebrowser.php?opt=4&field=news_archive_link" ></button>
-      </span>
+      <input type="text" name="news_archive_link" id="news_archive_link" value="<?php echo html($content['news']['news_archive_link']) ?>" class="form-control" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_articleID'] ?>" />
+      
+        <button class="modalButton btn btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=4&field=news_archive_link" ></button>
+      
     </div>
   </div>
   <div class="col">
@@ -194,14 +194,14 @@ initJsAutocompleter();
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="news_detail_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_news_detail_link'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="news_detail_link" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_news_detail_link'] ?></label>
   <div class="col-sm-auto">
     <div class="input-group input-group-sm">
-      <input type="text" name="news_detail_link" id="news_detail_link" value="<?php echo html($content['news']['news_detail_link']) ?>" class="form-control" maxlength="250" data-toggle="tooltip" title="<?php echo $BL['be_func_struct_articleID'] ?>" />
-      <span class="input-group-append">
-        <button class="modalButton btn btn-blue sitemap-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="articlebrowser.php?opt=4&field=news_detail_link" ></button>
-      </span>
+      <input type="text" name="news_detail_link" id="news_detail_link" value="<?php echo html($content['news']['news_detail_link']) ?>" class="form-control" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_articleID'] ?>" />
+      
+        <button class="modalButton btn btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=4&field=news_detail_link" ></button>
+      
     </div>
   </div>
   <div class="col">

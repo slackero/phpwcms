@@ -187,7 +187,7 @@ if(!$ftp["error"]) {
         }
     }
 
-?><p><i class="fas fa-sync fa-spin text-primary mr-1"></i><strong class="title">Selected files will be taken over!</strong></p><?php
+?><p><i class="fas fa-sync fa-spin text-primary me-1"></i><strong class="title">Selected files will be taken over!</strong></p><?php
 
     echo '<p class="v10">';
     flush();

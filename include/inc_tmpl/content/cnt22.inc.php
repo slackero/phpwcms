@@ -27,10 +27,10 @@ if(!isset($content['rssfeed'])) {
 }
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="crss_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</label>
+<div class="form-group align-items-center row g-2">
+  <label for="crss_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</label>
   <div class="col-sm-4">
-    <select name="crss_template" id="crss_template" class="custom-select form-control form-control-sm">
+    <select name="crss_template" id="crss_template" class="form-select form-select-sm">
   <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -50,26 +50,26 @@ if(is_array($tmpllist) && count($tmpllist)) {
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="crss_url" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_rssfeed_url'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="crss_url" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_rssfeed_url'] ?></label>
   <div class="col">
     <input name="crss_url" type="text" id="crss_url" class="form-control form-control-sm" value="<?php echo html($content['rssfeed']["rssurl"]) ?>">
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-	<label for="crss_item" class="col-sm-2 col-form-label text-right"><?php echo  $BL['be_cnt_rssfeed_item'] ?></label>
+<div class="form-group align-items-center row g-2">
+	<label for="crss_item" class="col-sm-2 col-form-label text-end"><?php echo  $BL['be_cnt_rssfeed_item'] ?></label>
 	<div class="col-sm-4">
         <div class="input-group input-group-sm">
             <input name="crss_item" type="text" class="form-control form-control-sm" id="crss_item" maxlength="10" onKeyUp="if(!parseInt(this.value,10)){this.value='';}" value="<?php echo $content["rssfeed"]["item"] ?>">
-            <div class="input-group-append">
+            
                 <span class="input-group-text"><?php echo $BL['be_cnt_rssfeed_max'] ?></span>
-            </div>
+            
         </div>
 	</div>
-	<label for="crss_contenttype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_source'].' '.$BL['content_type'] ?></label>
+	<label for="crss_contenttype" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_source'].' '.$BL['content_type'] ?></label>
 	<div class="col-sm-4">
-		<select name="crss_contenttype" id="crss_contenttype" class="custom-select form-control form-control-sm">
+		<select name="crss_contenttype" id="crss_contenttype" class="form-select form-select-sm">
             <option value=""<?php
                 if(empty($content["rssfeed"]['content_type'])) {
                     echo ' selected="selected"';
@@ -88,17 +88,17 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	</div>
 </div>
 
-<div class="form-group align-items-center form-row">
-    <label for="crss_cacheoff" class="col-sm-2 col-form-label text-right"><?php echo  $BL['be_cache'] ?></label>
+<div class="form-group align-items-center row g-2">
+    <label for="crss_cacheoff" class="col-sm-2 col-form-label text-end"><?php echo  $BL['be_cache'] ?></label>
     <div class="col-sm-4">
   	    <div class="form-check form-check-inline">
 			<input class="form-check-input" name="crss_cacheoff" type="checkbox" id="crss_cacheoff" value="1"<?php echo  is_checked(1, $content['rssfeed']["cacheoff"]) ?>>
 			<label class="form-check-label" for="crss_cacheoff"><?php echo $BL['be_off'] ?></label>
         </div>
     </div>
-	<label for="crss_cachetimeout" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cache_timeout'] ?></label>
+	<label for="crss_cachetimeout" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cache_timeout'] ?></label>
 	<div class="col-sm-4">
-		<select name="crss_timeout" id="crss_cachetimeout" class="custom-select form-control form-control-sm" onChange="document.articlecontent.crss_cacheoff.checked=false;">
+		<select name="crss_timeout" id="crss_cachetimeout" class="form-select form-select-sm" onChange="document.articlecontent.crss_cacheoff.checked=false;">
             <?php
             echo '<option value="0"'.is_selected($content['rssfeed']["timeout"], '0', 0, 0).'>'.$BL['be_admin_tmpl_default']."</option>\n";
             echo '<option value="60"'.is_selected($content['rssfeed']["timeout"], '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";

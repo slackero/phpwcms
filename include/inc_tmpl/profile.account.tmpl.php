@@ -31,7 +31,7 @@ if (!empty($_SESSION['wcs_user_admin'])) {
 <div class="card">
   <div class="card-header">
       <h2>
-          <i class="fa <?php echo $profile_icon; ?> mr-1" aria-hidden="true"></i>
+          <i class="fa <?php echo $profile_icon; ?> me-1" aria-hidden="true"></i>
           <?php echo $BL['be_profile_account_title'] ?>
       </h2>
   </div>
@@ -48,37 +48,37 @@ if (!empty($_SESSION['wcs_user_admin'])) {
 
   <form action="phpwcms.php?do=profile" method="post" name="formprofiledetail" id="formprofiledetail" autocomplete="off">
     <div class="form-group row align-items-center">
-      <label for="form_loginname" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_username"]  ?></label>
+      <label for="form_loginname" class="col-sm-2 col-form-label text-end"><?php echo $BL["be_profile_label_username"]  ?></label>
       <div class="col">
         <input type="text" class="form-control form-control-sm col-sm-5" name="form_loginname" id="form_loginname" value="<?php echo html($_SESSION["wcs_user"]); ?>" autocomplete="off">
       </div>
     </div>
 
     <div class="form-group row align-items-center">
-      <label for="form_password" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_newpass"]  ?></label>
+      <label for="form_password" class="col-sm-2 col-form-label text-end"><?php echo $BL["be_profile_label_newpass"]  ?></label>
       <div class="col">
         <input type="password" class="form-control form-control-sm col-sm-5" name="form_password" id="form_password" value="" autocomplete="new-password">
       </div>
     </div>
 
     <div class="form-group row align-items-center">
-      <label for="form_password2" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_repeatpass"]  ?></label>
+      <label for="form_password2" class="col-sm-2 col-form-label text-end"><?php echo $BL["be_profile_label_repeatpass"]  ?></label>
       <div class="col">
         <input type="password" class="form-control form-control-sm col-sm-5" name="form_password2" id="form_password2" value="" autocomplete="new-password">
       </div>
     </div>
 
     <div class="form-group row align-items-center">
-      <label for="form_useremail" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_email"]  ?></label>
+      <label for="form_useremail" class="col-sm-2 col-form-label text-end"><?php echo $BL["be_profile_label_email"]  ?></label>
       <div class="col">
         <input type="text" class="form-control form-control-sm col-sm-5" name="form_useremail" id="form_useremail" value="<?php echo html($_SESSION["wcs_user_email"]); ?>" autocomplete="off">
       </div>
     </div>
 
     <div class="form-group row align-items-center">
-      <label for="form_lang" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
+      <label for="form_lang" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_lang'] ?></label>
       <div class="col-sm-3">
-        <select name="form_lang" id="form_lang" class="custom-select form-control form-control-sm">
+        <select name="form_lang" id="form_lang" class="form-select form-select-sm">
           <?php
             // check available languages installed and build language selector menu
             include_once PHPWCMS_ROOT."/include/inc_lang/code.lang.inc.php";
@@ -104,9 +104,9 @@ if (!empty($_SESSION['wcs_user_admin'])) {
     </div>
 
     <div class="form-group row align-items-center">
-      <label for="form_theme" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_theme'] ?></label>
+      <label for="form_theme" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_theme'] ?></label>
       <div class="col-sm-3">
-        <select name="form_theme" id="form_theme" class="custom-select form-control form-control-sm">
+        <select name="form_theme" id="form_theme" class="form-select form-select-sm">
           <option value="auto"<?php if(empty($_SESSION["wcs_user_theme"]) || $_SESSION["wcs_user_theme"] === 'auto'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_auto']; ?></option>
           <option value="light"<?php if(!empty($_SESSION["wcs_user_theme"]) && $_SESSION["wcs_user_theme"] === 'light'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_light']; ?></option>
           <option value="dark"<?php if(!empty($_SESSION["wcs_user_theme"]) && $_SESSION["wcs_user_theme"] === 'dark'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_dark']; ?></option>
@@ -115,9 +115,9 @@ if (!empty($_SESSION['wcs_user_admin'])) {
     </div>
 
     <div class="row align-items-center">
-      <label for="be_WYSIWYG" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_WYSIWYG'] ?></label>
+      <label for="be_WYSIWYG" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_WYSIWYG'] ?></label>
       <div class="col-sm-4">
-        <select class="custom-select form-control form-control-sm" name="form_wysiwyg" id="be_WYSIWYG">
+        <select class="form-select form-select-sm" name="form_wysiwyg" id="be_WYSIWYG">
           <option value="0"<?php if(empty($_SESSION["WYSIWYG_EDITOR"])): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_inactive']; ?></option>
           <option value="1"<?php if(isset($_SESSION["WYSIWYG_EDITOR"]) && $_SESSION["WYSIWYG_EDITOR"] == 1): ?> selected="selected"<?php endif; ?>>CKEditor (<?php echo $BL['be_legacy']; ?>)</option>
           <option value="2"<?php if(isset($_SESSION["WYSIWYG_EDITOR"]) && $_SESSION["WYSIWYG_EDITOR"] == 2): ?> selected="selected"<?php endif; ?>>TinyMCE 8 (<?php echo $BL['be_default']; ?>)</option>
@@ -129,7 +129,7 @@ if (!empty($_SESSION['wcs_user_admin'])) {
     <hr />
 
     <div class="row">
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_structform_select_cp'] ?></label>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_structform_select_cp'] ?></label>
       <div class="col-sm-10">
           <div class="row">
             <?php
@@ -165,8 +165,8 @@ if (!empty($_SESSION['wcs_user_admin'])) {
       </div>
     </div>
 
-    <div class="form-group mt-4 mb-0 text-right">
-       <button type="submit" name="Submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_profile_account_button'] ?></button>
+    <div class="form-group mt-4 mb-0 text-end">
+       <button type="submit" name="Submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_profile_account_button'] ?></button>
     </div>
 
     <input name="form_aktion" type="hidden" id="form_aktion" value="update_account">
@@ -194,17 +194,17 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
     <p><?php echo $BL['be_profile_2fa_text'] ?? 'Protect your account by requiring an additional 6-digit code from an authenticator app during login.'; ?></p>
 
     <?php if (!empty($tfa_msg)): ?>
-      <div class="alert alert-success"><i class="fa fa-check-circle mr-1"></i> <?php echo html($tfa_msg); ?></div>
+      <div class="alert alert-success"><i class="fa fa-check-circle me-1"></i> <?php echo html($tfa_msg); ?></div>
     <?php endif; ?>
     <?php if (!empty($tfa_err)): ?>
-      <div class="alert alert-danger"><i class="fa fa-exclamation-triangle mr-1"></i> <?php echo html($tfa_err); ?></div>
+      <div class="alert alert-danger"><i class="fa fa-exclamation-triangle me-1"></i> <?php echo html($tfa_err); ?></div>
     <?php endif; ?>
 
     <?php if ($has_2fa_enabled): ?>
 
       <div class="d-flex align-items-center mb-4">
-        <span class="badge badge-success px-3 py-2 mr-3" style="font-size: 0.95rem;">
-          <i class="fa fa-check-circle mr-1"></i> <?php echo $BL['be_profile_2fa_enabled'] ?? 'Enabled'; ?>
+        <span class="badge badge-success px-3 py-2 me-3" style="font-size: 0.95rem;">
+          <i class="fa fa-check-circle me-1"></i> <?php echo $BL['be_profile_2fa_enabled'] ?? 'Enabled'; ?>
         </span>
         <span class="text-muted small">
           <?php echo $stored_backup_codes > 0 ? sprintf($BL['be_profile_2fa_backup_count'] ?? '%d backup recovery codes available', $stored_backup_codes) : ($BL['be_profile_2fa_backup_none'] ?? 'No backup codes available'); ?>
@@ -213,14 +213,14 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
 
       <?php if (!empty($_SESSION['new_2fa_backup_codes'])): ?>
         <div class="alert alert-warning border p-3 mb-4">
-          <h5 class="alert-heading font-weight-bold mb-2"><i class="fa fa-key mr-1"></i> <?php echo $BL['be_profile_2fa_backup_title'] ?? 'Backup Recovery Codes'; ?></h5>
+          <h5 class="alert-heading fw-bold mb-2"><i class="fa fa-key me-1"></i> <?php echo $BL['be_profile_2fa_backup_title'] ?? 'Backup Recovery Codes'; ?></h5>
           <p class="small mb-3"><?php echo $BL['be_profile_2fa_backup_text'] ?? 'Save these single-use recovery codes in a safe place:'; ?></p>
-          <div class="row bg-white p-3 border rounded text-monospace font-weight-bold mb-2">
+          <div class="row bg-white p-3 border rounded text-monospace fw-bold mb-2">
             <?php foreach ($_SESSION['new_2fa_backup_codes'] as $bcode): ?>
               <div class="col-sm-6 col-md-3 py-1"><?php echo html($bcode); ?></div>
             <?php endforeach; ?>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('<?php echo implode('\n', $_SESSION['new_2fa_backup_codes']); ?>'); alert('Backup codes copied to clipboard!');"><i class="fa fa-copy mr-1"></i> Copy Codes</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('<?php echo implode('\n', $_SESSION['new_2fa_backup_codes']); ?>'); alert('Backup codes copied to clipboard!');"><i class="fa fa-copy me-1"></i> Copy Codes</button>
         </div>
         <?php unset($_SESSION['new_2fa_backup_codes']); ?>
       <?php endif; ?>
@@ -228,12 +228,12 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
       <form action="phpwcms.php?do=profile" method="post" class="mt-3">
         <input type="hidden" name="form_aktion" value="disable_2fa" />
         <div class="form-group row align-items-center">
-          <label for="disable_2fa_pass" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_currpass'] ?? 'Current Password'; ?></label>
+          <label for="disable_2fa_pass" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_currpass'] ?? 'Current Password'; ?></label>
           <div class="col-sm-4">
             <input type="password" class="form-control form-control-sm" name="disable_2fa_password" id="disable_2fa_pass" placeholder="<?php echo $BL['be_profile_2fa_currpass_placeholder'] ?? 'Enter current password to disable'; ?>" required="required" autocomplete="current-password" />
           </div>
           <div class="col-sm-auto mt-2 mt-sm-0">
-            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-power-off mr-1"></i> <?php echo $BL['be_profile_2fa_btn_disable'] ?? 'Disable 2FA'; ?></button>
+            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-power-off me-1"></i> <?php echo $BL['be_profile_2fa_btn_disable'] ?? 'Disable 2FA'; ?></button>
           </div>
         </div>
       </form>
@@ -257,27 +257,27 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
             </div>
           </div>
           <div class="col-md">
-            <h5 class="font-weight-bold mb-2">1. <?php echo $BL['be_profile_2fa_step1'] ?? 'Scan QR Code with Authenticator App'; ?></h5>
+            <h5 class="fw-bold mb-2">1. <?php echo $BL['be_profile_2fa_step1'] ?? 'Scan QR Code with Authenticator App'; ?></h5>
             <p class="small text-muted mb-2"><?php echo $BL['be_profile_2fa_step1_text'] ?? 'Scan this QR code with your authenticator app, or enter the secret key manually:'; ?></p>
             <p class="mb-3">
               <span class="badge badge-secondary p-2 text-monospace" style="font-size: 1rem; letter-spacing: 0.1em;"><?php echo chunk_split($setup_secret, 4, ' '); ?></span>
-              <button type="button" class="btn btn-sm btn-light border ml-2" onclick="copyToClipboard('<?php echo $setup_secret; ?>'); alert('Secret key copied!');" title="Copy Secret"><i class="fa fa-copy"></i></button>
+              <button type="button" class="btn btn-sm btn-light border ms-2" onclick="copyToClipboard('<?php echo $setup_secret; ?>'); alert('Secret key copied!');" title="Copy Secret"><i class="fa fa-copy"></i></button>
             </p>
 
             <hr />
 
-            <h5 class="font-weight-bold mb-2">2. <?php echo $BL['be_profile_2fa_step2'] ?? 'Enter Verification Code'; ?></h5>
+            <h5 class="fw-bold mb-2">2. <?php echo $BL['be_profile_2fa_step2'] ?? 'Enter Verification Code'; ?></h5>
             <p class="small text-muted mb-3"><?php echo $BL['be_profile_2fa_step2_text'] ?? 'Enter the 6-digit verification code from your authenticator app to complete setup:'; ?></p>
 
             <form action="phpwcms.php?do=profile" method="post" class="form-inline" autocomplete="off">
               <input type="hidden" name="form_aktion" value="enable_2fa" />
-              <div class="input-group input-group-sm mr-2 mb-2">
-                <div class="input-group-prepend">
+              <div class="input-group input-group-sm me-2 mb-2">
+                
                   <span class="input-group-text"><i class="fa fa-key"></i></span>
-                </div>
+                
                 <input type="text" name="verify_2fa_code" class="form-control" style="max-width: 140px;" placeholder="123456" maxlength="6" pattern="[0-9]{6}" required="required" autocomplete="one-time-code" />
               </div>
-              <button type="submit" class="btn btn-sm btn-success mb-2"><i class="fa fa-shield-alt mr-1"></i> <?php echo $BL['be_profile_2fa_btn_confirm'] ?? 'Confirm & Enable 2FA'; ?></button>
+              <button type="submit" class="btn btn-sm btn-success mb-2"><i class="fa fa-shield-alt me-1"></i> <?php echo $BL['be_profile_2fa_btn_confirm'] ?? 'Confirm & Enable 2FA'; ?></button>
             </form>
           </div>
         </div>

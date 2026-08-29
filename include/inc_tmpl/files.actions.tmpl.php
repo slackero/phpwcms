@@ -128,7 +128,7 @@ function showAction() {
 }
 </script>
 
-<h1 class="text-center text-sm-left"><?php echo $BL['be_nav_files'] ?></h1>
+<h1 class="text-center text-sm-start"><?php echo $BL['be_nav_files'] ?></h1>
 
 <div class="card">
   <div class="card-header"><h2><?php echo $BL['be_subnav_file_actions'] ?></h2></div>
@@ -139,7 +139,7 @@ function showAction() {
       <div class="card-body">
         <form action="phpwcms.php?do=files&amp;p=4" method="post" name="folderform" id="folderform">
             <legend><?php echo $BL['file_actions_step1'] ?></legend>
-            <select name="file_dir" id="file_dir" class="custom-select form-control form-control-sm col-sm-4" onchange="submit();">
+            <select name="file_dir" id="file_dir" class="form-select form-select-sm col-sm-4" onchange="submit();">
                 <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
                 <?php //get folders for user
                     dir_menu(0, $file_action["file_dir"], "+", $_SESSION["wcs_user_id"], "+");
@@ -159,7 +159,7 @@ function showAction() {
           <tr bgcolor="#e3e3e3">
               <th width="35"><?php echo $BL['be_ftptakeover_mark'] ?></th>
               <th><?php echo $BL['be_ftptakeover_available'] ?></th>
-              <th class="text-right"><?php echo $BL['be_ftptakeover_status'] ?>&nbsp;&nbsp;</th>
+              <th class="text-end"><?php echo $BL['be_ftptakeover_status'] ?>&nbsp;&nbsp;</th>
           </tr>
         <?php
         //Browse files in selected folder
@@ -176,11 +176,11 @@ function showAction() {
         ?>
           <tr<?php echo $fxb ?>>
             <td align="center"><input name="ftp_mark[<?php echo $file_row["f_id"] ?>]" type="checkbox" id="ftp_mark_<?php echo $file_row["f_id"] ?>" value="1" class="ftp_mark" /></td>
-            <td><i class="fa fa-file-image mr-2"></i> <?php echo $filename ?></td>
-            <td class="text-right text-nowrap">
+            <td><i class="fa fa-file-image me-2"></i> <?php echo $filename ?></td>
+            <td class="text-end text-nowrap">
                 <?php
                 //Icons Public/Non-Public
-                echo '<div class="btn fa btn-sm visible '.($file_row["f_aktiv"]==0 ? "btn-danger" : "btn-success").' mr-1 disabled"></div>';
+                echo '<div class="btn fa btn-sm visible '.($file_row["f_aktiv"]==0 ? "btn-danger" : "btn-success").' me-1 disabled"></div>';
                 echo '<div class="btn fa btn-sm public '.($file_row["f_public"]==0 ? "btn-danger" : "btn-success").' disabled"></div>';
                  ?>&nbsp;
                 <input name="ftp_fileid[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_row["f_id"] ?>" />
@@ -216,11 +216,11 @@ function showAction() {
         <legend><?php echo $BL['file_actions_step3'] ?></legend>
 
         <div id="div_folder" style="display: none;">
-          <div class="form-group form-row align-items-center">
+          <div class="form-group row g-2 align-items-center">
           	<div class="col-12 mb-3"><?php echo $BL['file_actions_bemfolder']; ?></div>
-						<label for="file_newdir" class="col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+						<label for="file_newdir" class="col-form-label text-end"><?php echo $BL['be_ftptakeover_directory'] ?></label>
 						<div class="col-sm-auto">
-							<select name="file_newdir" id="file_newdir" class="custom-select form-control form-control-sm">
+							<select name="file_newdir" id="file_newdir" class="form-select form-select-sm">
 								<option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
 								<?php dir_menu(0, 0, "+", $_SESSION["wcs_user_id"], "+"); ?>
 							</select>
@@ -229,8 +229,8 @@ function showAction() {
         </div>
 
         <div id="div_status" style="display: none;">
-          <div class="form-group form-row align-items-center">
-						<label class="col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+          <div class="form-group row g-2 align-items-center">
+						<label class="col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
 						<div class="col-sm-auto">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1" />
@@ -245,11 +245,11 @@ function showAction() {
         </div>
 
         <div id="div_user" style="display: none;">
-        	<div class="form-group form-row align-items-center">
+        	<div class="form-group row g-2 align-items-center">
           	<div class="col-12 mb-3"><?php echo $BL['file_actions_bemuser']; ?></div>
-						<label for="file_user" class="col-form-label text-right"><?php echo $BL["login_username"] ?></label>
+						<label for="file_user" class="col-form-label text-end"><?php echo $BL["login_username"] ?></label>
 						<div class="col">
-							<select name="file_user" id="file_user" class="custom-select form-control form-control-sm col-sm-4">
+							<select name="file_user" id="file_user" class="form-select form-select-sm col-sm-4">
               <?php
                 $sql = "SELECT usr_id, usr_name FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv=1 AND usr_id !=".intval($_SESSION["wcs_user_id"])." ORDER BY usr_name";
                 $result = _dbQuery($sql);
@@ -264,9 +264,9 @@ function showAction() {
 					</div>
         </div>
 
-				<div class="form-group align-items-center form-row mt-3">
+				<div class="form-group align-items-center row g-2 mt-3">
 					<div class="col-sm-4">
-						<select name="file_action" id="file_action" class="custom-select form-control form-control-sm" onChange="showAction()">
+						<select name="file_action" id="file_action" class="form-select form-select-sm" onChange="showAction()">
 							<option value="0">- <?php echo $BL['file_actions_pdl_empty'] ?> -</option>
 							<option value="1"><?php echo $BL['file_actions_pdl_delete'] ?></option>
 							<option value="2"><?php echo $BL['file_actions_pdl_move'] ?></option>
@@ -275,7 +275,7 @@ function showAction() {
 						</select>
 					</div>
 					<div class="col-sm-auto">
-						<div id="div_button" style="display: none;"><button name="Submit" type="submit" class="btn btn-blue btn-sm ml-2" value="1"><i class="fa fa-cogs mr-1"></i> <?php echo $BL['file_actions_button'] ?></button></div>
+						<div id="div_button" style="display: none;"><button name="Submit" type="submit" class="btn btn-blue btn-sm ms-2" value="1"><i class="fa fa-cogs me-1"></i> <?php echo $BL['file_actions_button'] ?></button></div>
           </div>
         </div>
 

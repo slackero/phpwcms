@@ -18,10 +18,10 @@ if (!defined('PHPWCMS_ROOT')) {
 //link list
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
-    <select name="template" id="template" class="custom-select form-control form-control-sm">
+    <select name="template" id="template" class="form-select form-select-sm">
 <?php
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 // templates for frontend login
@@ -38,8 +38,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_linklist']; ?></label>
+<div class="form-group row g-2">
+  <label for="ctext" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_linklist']; ?></label>
   <div class="col">
   <textarea name="ctext" rows="20" wrap="VIRTUAL" class="form-control form-control-sm field-sizing-content field-sizing-content-20" id="ctext"><?php echo  isset($content["text"]) ? html($content["text"]) : '' ?></textarea>
   </div>

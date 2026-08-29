@@ -193,11 +193,11 @@ if(isset($result[0])) {
 
     $dealer[]   = '<div class="search-select" id="address">';
         $dealer[]   = '<form action="'.rel_url(array(), array('sar1', 'sar2')).'" method="post" class="my-3">';
-            $dealer[]   = '<div class="form-row  align-items-center">';
+            $dealer[]   = '<div class="row g-2  align-items-center">';
 
         // Select Menü Kontinent
-        $dealer[]   = '<div class="col-auto d-flex flex-row my-2">';
-        $dealer[]   = ' <label class="col-form-label mr-2">@@Kontinent@@</label>';
+        $dealer[]   = '<div class="col-auto d-flex flex-row">';
+        $dealer[]   = ' <label class="col-form-label me-2">@@Kontinent@@</label>';
         $dealer[]   = ' <select class="form-control" name="continent_filter" id="continent_filter" onchange="this.form.submit()">';
         $dealer[]   = '     <option value="" style="font-style:italic"> - @@Select continent@@ - </option>';
         $dealer[]   = implode(LF, $_con);
@@ -207,8 +207,8 @@ if(isset($result[0])) {
     if(count($_cou)) {
 
         // Select Menü Land
-        $dealer[]   = '<div class="col-auto d-flex flex-row my-2">';
-        $dealer[]   = ' <label class="col-form-label mr-2">@@Land@@</label>';
+        $dealer[]   = '<div class="col-auto d-flex flex-row">';
+        $dealer[]   = ' <label class="col-form-label me-2">@@Land@@</label>';
         $dealer[]   = ' <select class="form-control" name="country_filter" id="country_filter" onchange="this.form.submit()">';
         $dealer[]   = '     <option value="" style="font-style:italic"> - @@Select country@@ - </option>';
         $dealer[]   = implode(LF, $_cou);
@@ -235,8 +235,8 @@ if(isset($result[0])) {
 
             sort($_zip);
 
-            $dealer[] = '<div class="col-auto d-flex flex-row my-2">';
-            $dealer[] = '   <label class="col-form-label mr-2 text-nowrap">@@PLZ-Gebiet@@</label>';
+            $dealer[] = '<div class="col-auto d-flex flex-row">';
+            $dealer[] = '   <label class="col-form-label me-2 text-nowrap">@@PLZ-Gebiet@@</label>';
             $dealer[] = '   <select class="form-control" name="filter_zip" class="ziparea" onchange="this.form.submit()">';
             $dealer[] = '       <option value="">- @@Select postcode area@@ -</option>';
 
@@ -251,7 +251,7 @@ if(isset($result[0])) {
     }
 
                 // Submit Button
-                $dealer[]   = '<div class="col-auto my-2"><button type="submit" class="btn btn-primary">@@Suchen@@</button></div>';
+                $dealer[]   = '<div class="col-auto"><button type="submit" class="btn btn-primary">@@Suchen@@</button></div>';
             $dealer[]   = '</div>';
         $dealer[]   = '</form>';
     $dealer[]   = '</div>';
@@ -439,7 +439,7 @@ if(isset($result[0])) {
             if(count($result_contacts)) { // && !isset($related_contacts[$arow['detail_id']])
 
                 $result[] = '   <div class="card-footer pt-0 pb-3 mt-auto">';
-                $result[] = '       <button type="button" class="btn btn-readmore-gray" data-toggle="collapse" data-target="#phpwcms-contact-section-'.$_akey.'">';
+                $result[] = '       <button type="button" class="btn btn-readmore-gray" data-bs-toggle="collapse" data-bs-target="#phpwcms-contact-section-'.$_akey.'">';
                 $result[] = '           @@Ansprechpartner zeigen@@';
                 $result[] = '       </button>';
                 $result[] = '   </div>';
@@ -630,7 +630,7 @@ if(isset($result[0])) {
 
     //$dealer[]   = '</div>';
 
-    $dealer[]   = '<div class="sr-only">';
+    $dealer[]   = '<div class="visually-hidden">';
     foreach($data_link as $row) {
         //$dealer[] = LF.'    <!-- ' . $data_title[ 'continent_'.$row['sar1'] ] . ' / ' . $data_title[ 'country_'.$row['sar2'] ] . ' = ' . abs_url($row, array(), '', 'urlencode') . ' -->';
         $dealer[] = '   <a href="'.rel_url($row).'">@@Your phpwcms contacts in@@ ' . html($data_title[ 'continent_'.$row['sar1'] ] . ' > ' . $data_title[ 'country_'.$row['sar2'] ]) . '</a>';

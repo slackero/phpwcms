@@ -19,15 +19,15 @@ if (!defined('PHPWCMS_ROOT')) {
 $files_folder = (isset($_GET["f"])) ? intval($_GET["f"]) : 0; //Ermitteln, welcher Unterreiter angezeigt wird
 
 // if cut/paste is active
-$add_paste_icon = '<a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;mkdir=0" data-toggle="tooltip" title="'.$BL['be_ftab_createnew'].
+$add_paste_icon = '<a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;mkdir=0" data-bs-toggle="tooltip" title="'.$BL['be_ftab_createnew'].
           '"><i class="fa fa-fw fa-plus"></i></a>';
 if(isset($_GET["cut"])) {
   $cutID = intval($_GET["cut"]);
-  $add_paste_icon = '<a class="btn btn-danger btn-sm" data-toggle="tooltip" href="include/inc_act/act_file.php?paste='.$cutID.'|0" title="'.$BL['be_ftab_paste'].
+  $add_paste_icon = '<a class="btn btn-danger btn-sm" data-bs-toggle="tooltip" href="include/inc_act/act_file.php?paste='.$cutID.'|0" title="'.$BL['be_ftab_paste'].
             '"><i class="fa fa-fw fa-arrow-down"></i></a>';
 } else { $cutID=0; }
 
-$change_thumbnail_icon = '<a class="btn btn-blue btn-sm" data-toggle="tooltip" href="include/inc_act/act_file.php?thumbnail=';
+$change_thumbnail_icon = '<a class="btn btn-blue btn-sm" data-bs-toggle="tooltip" href="include/inc_act/act_file.php?thumbnail=';
 if($_SESSION["wcs_user_thumb"]) {
   $change_thumbnail_icon .= '0" title="'.$BL['be_ftab_disablethumb'].'">';
   $change_thumbnail_icon .= '<i class="fa fa-fw fa-bars"></i></a>';
@@ -37,7 +37,7 @@ if($_SESSION["wcs_user_thumb"]) {
 }
 
 ?>
-<h1 class="text-center text-sm-left"><?php echo $BL['be_nav_files'] ?></h1>
+<h1 class="text-center text-sm-start"><?php echo $BL['be_nav_files'] ?></h1>
 <div class="card">
   <div class="card-header"><h2><?php echo $BL['be_subnav_file_center'] ?></h2></div>
   <div class="card-body">
@@ -59,34 +59,34 @@ if($_SESSION["wcs_user_thumb"]) {
   </ul>
   <div class="pb-1 align-self-end align-self-lg-center order-1 order-lg-2 text-nowrap">
     <?php if($files_folder == 0) { ?>
-      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;upload=0" data-toggle="tooltip" title="<?php echo $BL['be_ftab_upload'] ?>">
+      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;upload=0" data-bs-toggle="tooltip" title="<?php echo $BL['be_ftab_upload'] ?>">
         <i class="fa fa-fw fa-upload"></i>
       </a>
       <?php echo $add_paste_icon ?>
-      <a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
+      <a class="btn btn-blue btn-sm" data-bs-toggle="modal" data-bs-target="#help" style="cursor: pointer;">
         <i class="fa fa-fw fa-info"></i>
       </a>
-      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;all=open" data-toggle="tooltip" title="<?php echo $BL['be_ftab_open'] ?>">
+      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;all=open" data-bs-toggle="tooltip" title="<?php echo $BL['be_ftab_open'] ?>">
         <i class="fa fa-fw fa-folder-open"></i>
       </a>
-      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;all=close" data-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
+      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;all=close" data-bs-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
         <i class="fa fa-fw fa-folder"></i>
       </a>
       <?php echo $change_thumbnail_icon ?>
     <?php } elseif($files_folder == 1) { ?>
-      <a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
+      <a class="btn btn-blue btn-sm" data-bs-toggle="modal" data-bs-target="#help" style="cursor: pointer;">
         <i class="fa fa-fw fa-info"></i>
       </a>
-      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;all=close" data-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
+      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;all=close" data-bs-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
         <i class="fa fa-fw fa-folder"></i>
       </a>
       <?php echo $change_thumbnail_icon ?>
     <?php } elseif($files_folder == 2) { ?>
-      <a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
+      <a class="btn btn-blue btn-sm" data-bs-toggle="modal" data-bs-target="#help" style="cursor: pointer;">
         <i class="fa fa-fw fa-info"></i>
       </a>
     <?php } elseif($files_folder == 3) { ?>
-      <a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
+      <a class="btn btn-blue btn-sm" data-bs-toggle="modal" data-bs-target="#help" style="cursor: pointer;">
         <i class="fa fa-fw fa-info"></i>
       </a>
       <?php echo $change_thumbnail_icon ?>
@@ -99,74 +99,74 @@ if($_SESSION["wcs_user_thumb"]) {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h2 id="exampleModalLabel">Dateizentrale Hilfe</h2>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
 					<ul class="list-group">
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-plus"></i></button>
+							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-plus"></i></button>
 							<?php echo $BL['be_ftabhelp_add'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-upload"></i></button>
+							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-upload"></i></button>
 							<?php echo $BL['be_ftabhelp_upload'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-bars"></i></button>
+							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-bars"></i></button>
 							<?php echo $BL['be_ftabhelp_disablethumb'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-image"></i></button>
+							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-image"></i></button>
 							<?php echo $BL['be_ftabhelp_enablethumb'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-penci-alt"></i></button>
+							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-penci-alt"></i></button>
 							<?php echo $BL['be_ftabhelp_edit'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm mr-2" href="#"><i class="fa fa-fw fa-cut"></i></button>
+							<button class="btn btn-link text-dark btn-sm me-2" href="#"><i class="fa fa-fw fa-cut"></i></button>
 							<?php echo $BL['be_ftabhelp_cut'] ?>
 						</li>
 						<!--<li class="list-group-item p-1">
-							<button class="btn btn-danger btn-sm mr-2" href="#"><i class="fa fa-fw fa-cut"></i></button>
+							<button class="btn btn-danger btn-sm me-2" href="#"><i class="fa fa-fw fa-cut"></i></button>
 							<?php echo $BL['be_ftabhelp_cutmark'] ?>
 						</li>-->
 						<li class="list-group-item p-1">
-							<button class="btn btn-danger btn-sm mr-2" href="#"><i class="fa fa-fw fa-arrow-down"></i></button>
+							<button class="btn btn-danger btn-sm me-2" href="#"><i class="fa fa-fw fa-arrow-down"></i></button>
 							<?php echo $BL['be_ftabhelp_paste'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm mr-2" href="#"><i class="fa fa-fw fa-download"></i></button>
+							<button class="btn btn-link text-dark btn-sm me-2" href="#"><i class="fa fa-fw fa-download"></i></button>
 							<?php echo $BL['be_ftabhelp_download'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm mr-2" href="#"><i class="far fa-fw fa-trash-alt"></i></button>
+							<button class="btn btn-link text-dark btn-sm me-2" href="#"><i class="far fa-fw fa-trash-alt"></i></button>
 							<?php echo $BL['be_ftabhelp_delete'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm mr-2" disabled href="#"><i class="far fa-fw fa-trash-alt"></i></button>
+							<button class="btn btn-link text-dark btn-sm me-2" disabled href="#"><i class="far fa-fw fa-trash-alt"></i></button>
 							<?php echo $BL['be_ftabhelp_cantdelete'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-arrow-up"></i></button>
+							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-arrow-up"></i></button>
 							<?php echo $BL['be_ftabhelp_restore'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-folder"></i></button>
+							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-folder"></i></button>
 							<?php echo $BL['be_ftabhelp_closefolder'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-folder-open"></i></button>
+							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-folder-open"></i></button>
 							<?php echo $BL['be_ftabhelp_openfolder'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-success btn-sm mr-2" href="#"><i class="fa fa-fw fa-eye"></i></button>
+							<button class="btn btn-success btn-sm me-2" href="#"><i class="fa fa-fw fa-eye"></i></button>
 							<?php echo $BL['be_ftabhelp_active'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-danger btn-sm mr-2" href="#"><i class="fa fa-fw fa-eye-slash"></i></button>
+							<button class="btn btn-danger btn-sm me-2" href="#"><i class="fa fa-fw fa-eye-slash"></i></button>
 							<?php echo $BL['be_ftabhelp_inactive'] ?>
 						</li>
 						<li class="list-group-item p-1">
@@ -174,7 +174,7 @@ if($_SESSION["wcs_user_thumb"]) {
 							<?php echo $BL['be_ftabhelp_public'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-danger btn-sm mr-2" href="#"><i class="fa fa-fw fa-lock"></i></button>
+							<button class="btn btn-danger btn-sm me-2" href="#"><i class="fa fa-fw fa-lock"></i></button>
 							<?php echo $BL['be_ftabhelp_private'] ?>
 						</li>
 					</ul>

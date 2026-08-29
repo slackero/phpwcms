@@ -76,7 +76,7 @@ function get_customfield_select($output, $key, $custom_field ,$fields, $value, $
     if(isset($key)) {
       $srccode .= '['.$key.']';
     }
-    $srccode .= '['.$custom_field.']" class="custom-select form-control form-control-sm">';
+    $srccode .= '['.$custom_field.']" class="form-select form-select-sm">';
     foreach($fields['values'] as $option_key => $option_label) {
       $srccode .= '<option value="' . ($option_key === 'empty' ? '' : $option_key) .'"';
       if(isset($value) && $value === $option_key) {
@@ -89,7 +89,7 @@ function get_customfield_select($output, $key, $custom_field ,$fields, $value, $
     $srccode .='</select>';
   } else {
     //build javascript code
-    $srccode = "  new_entry += '<select name=\"customfield[' + entry_number + '][".$custom_field.">]\" class=\"form-control custom-select form-control-sm\">';";
+    $srccode = "  new_entry += '<select name=\"customfield[' + entry_number + '][".$custom_field.">]\" class=\"form-control form-select form-control-sm\">';";
     foreach($fields['values'] as $option_key => $option_label){
       $srccode .= "  new_entry += '<option value=\"".($option_key === 'empty' ? '' : $option_key)."\"";
       if(!empty($fields['default']) && $fields['default'] === $option_key) {

@@ -121,12 +121,12 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 
 ?>
 <div class="row align-items-center">
-  <div class="col col-sm-auto text-center text-sm-left">
+  <div class="col col-sm-auto text-center text-sm-start">
     <h1><?php echo $BL['be_links'] . ' &amp; ' . $BL['be_redirects']; ?></h1>
   </div>
-  <div class="col-12 col-sm text-center text-sm-right mb-3">
+  <div class="col-12 col-sm text-center text-sm-end mb-3">
   	<div class="form-group">
-      <a class="btn btn-sm btn-blue mr-3" href="phpwcms.php?do=admin&amp;p=14&amp;rid=0" title="<?php echo $BL['be_new_linkredirect'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_new_linkredirect'] ?></a>
+      <a class="btn btn-sm btn-blue me-3" href="phpwcms.php?do=admin&amp;p=14&amp;rid=0" title="<?php echo $BL['be_new_linkredirect'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_new_linkredirect'] ?></a>
     </div>
   </div>
 </div>
@@ -137,7 +137,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     <form action="phpwcms.php?do=admin&amp;p=14" method="post">
     <input type="hidden" name="do_pagination" value="1" />
     <?php if($_entry['pages_total'] <= 1): ?><input type="hidden" name="page" id="page" value="1" /><?php endif; ?>
-    <div class="form-row align-items-center mb-4">
+    <div class="row g-2 align-items-center mb-4">
 
       <input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
       <input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
@@ -155,22 +155,22 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
       <?php if($_entry['pages_total'] > 1): ?>
         <div class="col-12 col-sm-auto">
           <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
+            
               <?php if($_SESSION['redirect_detail_page'] > 1): ?>
                 <a class="btn btn-blue" href="phpwcms.php?do=admin&amp;p=14&amp;page=<?php echo ($_SESSION['redirect_detail_page']-1) ?>"><i class="fa fa-angle-left"></i></a>
               <?php else: ?>
                 <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-left"></i></button>
               <?php endif; ?>
-            </div>
-            <input type="number" name="page" id="page" value="<?php echo $_SESSION['redirect_detail_page'] ?>" class="form-control text-center font-weight-bold" style="width: 60px;" />
-            <div class="input-group-append">
+            
+            <input type="number" name="page" id="page" value="<?php echo $_SESSION['redirect_detail_page'] ?>" class="form-control text-center fw-bold" style="width: 60px;" />
+            
               <span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
               <?php if($_SESSION['redirect_detail_page'] < $_entry['pages_total']): ?>
                 <a class="btn btn-blue" href="phpwcms.php?do=admin&amp;p=14&amp;page=<?php echo ($_SESSION['redirect_detail_page']+1) ?>"><i class="fa fa-angle-right"></i></a>
               <?php else: ?>
                 <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-right"></i></button>
               <?php endif; ?>
-            </div>
+            
           </div>
         </div>
       <?php else: ?>
@@ -180,14 +180,14 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
       <div class="col-12 col-sm-auto">
         <div class="input-group my-3 my-sm-0">
           <input name="filter" id="filter" size="15"  class="form-control form-control-sm" value="<?php if(isset($_POST['filter']) && is_array($_POST['filter']) ) echo html(implode(' ', $_POST['filter'])); ?>" type="search">
-            <span class="input-group-append">
-                <button class="btn btn-sm btn-secondary" name="gofilter" type="button" onclick="this.form.submit();"><i class="fa fa-filter mr-1"></i> <?php echo $BL['be_filter'] ?></button>
-            </span>
+            
+                <button class="btn btn-sm btn-secondary" name="gofilter" type="button" onclick="this.form.submit();"><i class="fa fa-filter me-1"></i> <?php echo $BL['be_filter'] ?></button>
+            
         </div>
       </div>
 
-      <div class="col-12 col-sm-auto text-right">
-        <select class="form-control form-control-sm custom-select">
+      <div class="col-12 col-sm-auto text-end">
+        <select class="form-select form-select-sm">
           <option selected><?php echo $BL['be_article_rendering'] ?></option>
             <option onClick="window.location = 'phpwcms.php?do=admin&amp;p=14&amp;c=10'">10</option>
             <option onClick="window.location = 'phpwcms.php?do=admin&amp;p=14&amp;c=25'">25</option>
@@ -253,10 +253,10 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     echo '    <td>' . $data["target"] . "</td>" . LF;
     echo '    <td>' . $data["views"] . "</td>" . LF;
     echo '    <td>'.date($BL['default_date'], $data["timestamp"])."</td>" . LF;
-    echo '    <td class="text-right text-nowrap">';
+    echo '    <td class="text-end text-nowrap">';
     echo '<div class="btn-group btn-group-sm" role="group" aria-label="redirect-actions-'.$data["rid"].'">';
-    echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=14&amp;rid='.$data["rid"].'"><i class="fa fa-pencil-alt"></i></a>';
-    echo '<button id="abtnredirect'.$data['rid'].'" class="btn fa btn-sm visible '.($data['active']==0 ? "btn-warning" : "btn-success").'" data-id="'.$data['rid'].'" data-type="redirect" data-table="redirect" data-field="active" data-fieldid="rid" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactive'].'"></button>';
+    echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=14&amp;rid='.$data["rid"].'"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<button id="abtnredirect'.$data['rid'].'" class="btn fa btn-sm visible '.($data['active']==0 ? "btn-warning" : "btn-success").'" data-id="'.$data['rid'].'" data-type="redirect" data-table="redirect" data-field="active" data-fieldid="rid" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactive'].'"></button>';
     echo '</div>';
     echo '</td>'.LF;
     $x++;
@@ -308,39 +308,39 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 ?>
 
 <form action="phpwcms.php?do=admin&amp;p=14&amp;rid=<?php echo $data['rid'] ?>" method="post">
-<h1 class="text-center text-sm-left"><?php echo $BL['be_links'] . ' &amp; ' . $BL['be_redirects']; ?></h1>
+<h1 class="text-center text-sm-start"><?php echo $BL['be_links'] . ' &amp; ' . $BL['be_redirects']; ?></h1>
 <div class="card">
 <div class="card-header"><h2><?php echo ($data['rid'] ? $BL['be_cnt_guestbook_edit'] : $BL['be_article_cnt_button2']) . ': ' . $BL['be_link'] . ' &amp; ' . $BL['be_redirect'] ?></h2></div>
   <div class="card-body">
 
-  <div class="form-group form-row align-items-center">
-    <label for="be_cnt_type" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_type'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="be_cnt_type" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_type'] ?></label>
     <div class="col-sm-5">
-    <select name="shortcut" type="text" class="custom-select form-control form-control-sm" id="shortcut">
+    <select name="shortcut" type="text" class="form-select form-select-sm" id="shortcut">
       <option value="0"<?php if($data['shortcut'] != 1): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_redirect'].'/'.$BL['be_article_cnt_redirect'] ?></option>
       <option value="1"<?php echo is_selected(1, $data['shortcut']) ?>><?php echo $BL['be_shortcut'] ?></option>
     </select>
     </div>
-    <div class="col-sm-5 text-sm-right mt-3 mt-sm-0">
+    <div class="col-sm-5 text-sm-end mt-3 mt-sm-0">
       <?php echo $BL['be_views'] ?>: <strong><?php echo $data['views'] ?></strong>
     </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-    <label for="be_alias_be_shortcut" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_alias'].'/'.$BL['be_shortcut'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+    <label for="be_alias_be_shortcut" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_alias'].'/'.$BL['be_shortcut'] ?></label>
     <div class="col-sm-5">
       <input class="form-control form-control-sm" name="alias" id="alias" value="<?php echo html($data['alias']) ?>" type="text">
     </div>
   </div>
 
-  <div class="form-group form-row align-items-center">
-    <label for="be_func_struct_articleID" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_func_struct_articleID'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="be_func_struct_articleID" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_func_struct_articleID'] ?></label>
     <div class="col-sm-5">
       <input class="form-control form-control-sm col" name="aid" id="aid" value="<?php echo empty($data['aid']) ? '' : $data['aid'] ?>" type="number">
     </div>
     <div class="col-sm-5">
-      <div class="form-row align-items-center">
-        <label for="be_structure_id" class="col-sm-4 col-form-label text-right"><?php echo $BL['be_structure_id'] ?></label>
+      <div class="row g-2 align-items-center">
+        <label for="be_structure_id" class="col-sm-4 col-form-label text-end"><?php echo $BL['be_structure_id'] ?></label>
         <div class="col">
           <input class="form-control form-control-sm col" name="id" id="id" value="<?php echo empty($data['id']) ? '' : $data['id'] ?>" type="number">
         </div>
@@ -348,8 +348,8 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     </div>
   </div>
 
-  <div class="form-group form-row align-items-center">
-    <label for="be_target_type" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_target_type'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="be_target_type" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_target_type'] ?></label>
     <div class="col-sm-5">
     <select name="type" type="text" class="form-control form-control-sm" id="type">
       <option value=""<?php if(empty($data['type'])): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_admin_struct_index'] ?></option>
@@ -360,8 +360,8 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     </select>
     </div>
     <div class="col-sm-5">
-      <div class="form-row align-items-center">
-        <label for="be_http_status" class="col-sm-4 col-form-label text-right"><?php echo $BL['be_http_status'] ?></label>
+      <div class="row g-2 align-items-center">
+        <label for="be_http_status" class="col-sm-4 col-form-label text-end"><?php echo $BL['be_http_status'] ?></label>
         <div class="col">
           <select name="code" type="text" class="form-control form-control-sm" id="code">
             <option value=""<?php if(empty($data['code'])): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_admin_tmpl_default'] ?> (302)</option>
@@ -376,14 +376,14 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     </div>
   </div>
 
-	<div class="form-group form-row align-items-center">
-		<label for="be_cnt_target" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_target'] ?></label>
+	<div class="form-group row g-2 align-items-center">
+		<label for="be_cnt_target" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_target'] ?></label>
 		<div class="col-sm-5">
 			<input class="form-control form-control-sm" name="target" id="target" value="<?php echo html($data['target']) ?>" type="text">
 		</div>
 	</div>
 
-	<div class="form-group form-row align-items-center">
+	<div class="form-group row g-2 align-items-center">
 		<div class="col-sm-2"></div>
 		<div class="col-sm">
 			<div class="form-check">
@@ -391,7 +391,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 				<input class="form-check-input" type="checkbox" name="active" id="template_onepage" value="1"<?php is_checked(1, $data['active']) ?> /> <?php echo $BL['be_ftptakeover_active'] ?></label>
 			</div>
 		</div>
-		<div class="col-sm text-sm-right mt-3 mt-sm-0">
+		<div class="col-sm text-sm-end mt-3 mt-sm-0">
 			<?php echo $BL['be_newsletter_changed'] ?>: <?php echo date($BL['be_longdatetime'], $data["timestamp"]) ?>
 		</div>
 	</div>
@@ -401,10 +401,10 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 
     <div class="form-group align-items-center mt-4 mb-0">
       <input type="hidden" name="rid" value="<?php echo $data['rid'] ?>" />
-      <button type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $rid ? $BL['be_article_cnt_button3'] : $BL['be_article_cnt_button2'] ?></button>
-      <button type="reset" class="btn btn-sm btn-secondary ml-1"><i class="fa fa-undo"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
-      <a href="phpwcms.php?do=admin&amp;p=14" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
-      <?php if($rid): ?><button type="submit" class="btn btn-sm btn-danger ml-1" name="delete_<?php echo md5($rid) ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');"><i class="far fa-trash-alt mr-1"></i> <?php echo $BL['be_cnt_delete'] ?></button><?php endif; ?>
+      <button type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $rid ? $BL['be_article_cnt_button3'] : $BL['be_article_cnt_button2'] ?></button>
+      <button type="reset" class="btn btn-sm btn-secondary ms-1"><i class="fa fa-undo"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
+      <a href="phpwcms.php?do=admin&amp;p=14" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+      <?php if($rid): ?><button type="submit" class="btn btn-sm btn-danger ms-1" name="delete_<?php echo md5($rid) ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');"><i class="far fa-trash-alt me-1"></i> <?php echo $BL['be_cnt_delete'] ?></button><?php endif; ?>
     </div>
 </form>
 

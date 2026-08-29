@@ -19,10 +19,10 @@ if (!defined('PHPWCMS_ROOT')) {
 
 ?>
 
-<div class="form-group form-row">
-	<label for="faq_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group row g-2">
+	<label for="faq_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
 	<div class="col-sm-4">
-		<select name="faq_template" id="faq_template" class="custom-select form-control form-control-sm">
+		<select name="faq_template" id="faq_template" class="form-select form-select-sm">
 			<?php
 			$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE . 'inc_cntpart/faq');
 			if (is_array($tmpllist) && count($tmpllist)) {
@@ -43,15 +43,15 @@ if (!defined('PHPWCMS_ROOT')) {
 
 <hr />
 
-<div class="form-group form-row">
-	<label for="faq_question" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_question']; ?></label>
+<div class="form-group row g-2">
+	<label for="faq_question" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_question']; ?></label>
 	<div class="col-sm-10">
 		<textarea name="faq_question" rows="4" class="form-control form-control-sm field-sizing-content field-sizing-content-4" id="faq_question"><?php echo empty($content['faq_question']) ? '' : $content['faq_question']; ?></textarea>
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_answer']; ?></label>
+<div class="form-group row g-2">
+	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_answer']; ?></label>
 	<div class="col-sm-10">
 		<?php
 		$wysiwyg_editor = array(
@@ -70,59 +70,59 @@ if (!defined('PHPWCMS_ROOT')) {
 
 <hr />
 
-<div class="form-group form-row align-items-center">
-	<label for="cimage_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image']; ?></label>
+<div class="form-group row g-2 align-items-center">
+	<label for="cimage_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_image']; ?></label>
 	<div class="col-sm-4">
 		<div class="input-group">
-			<span class="input-group-prepend">
-				<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist"></button>
-			</span>
+			
+				<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist"></button>
+			
 			<input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo isset($content['image_name']) ? html($content['image_name']) : ''; ?>" maxlength="250" onfocus="this.blur()" />
-			<span class="input-group-append">
-				<a href="#" id="cimage_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($content['image_id']) ? ' disabled' : '' ?>" style="<?php echo empty($content['image_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.articlecontent.cimage_name.value ? '\n[' + document.articlecontent.cimage_name.value + ']' : ''), function() { document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
-			</span>
+			
+				<a href="#" id="cimage_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($content['image_id']) ? ' disabled' : '' ?>" style="<?php echo empty($content['image_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.articlecontent.cimage_name.value ? '\n[' + document.articlecontent.cimage_name.value + ']' : ''), function() { document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
+			
 		</div>
 		<input name="cimage_id" type="hidden" value="<?php echo isset($content['image_id']) ? $content['image_id'] : ''; ?>" />
 	</div>
 </div>
 
-<div class="form-group form-row align-items-center">
-	<label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
-	<div class="col-sm-auto my-2 my-sm-0">
+<div class="form-group row g-2 align-items-center">
+	<label for="cimage_width" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_size'] ?></label>
+	<div class="col-sm-auto">
 		<div class="input-group input-group-sm">
-			<div class="input-group-prepend">
+			
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
-			</div>
+			
 			<input name="cimage_width" type="text" class="form-control form-control-sm" id="cimage_width" style="width: 50px;" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_width']) ? $content['image_width'] : '' ?>" />
-			<div class="input-group-append">
+			
 				<span class="input-group-text">px</span>
-			</div>
+			
 		</div>
 	</div>
-	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+	<div class="col-sm-auto">
 		<div class="input-group input-group-sm">
-			<div class="input-group-prepend">
+			
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
-			</div>
+			
 			<input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" style="width: 50px;" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_height']) ? $content['image_height'] : '' ?>" />
-			<div class="input-group-append">
+			
 				<span class="input-group-text">px</span>
-			</div>
+			
 		</div>
 	</div>
-	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3 d-flex align-items-center">
-		<div class="custom-control custom-checkbox custom-control-inline">
-			<input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" class="custom-control-input" <?php is_checked(1, isset($content['image_zoom']) ? $content['image_zoom'] : 0); ?> />
-			<label class="custom-control-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
+	<div class="col-sm-auto d-flex align-items-center">
+		<div class="form-check form-check-inline">
+			<input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" class="form-check-input" <?php is_checked(1, isset($content['image_zoom']) ? $content['image_zoom'] : 0); ?> />
+			<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
 		</div>
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label for="cimage_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption']; ?></label>
+<div class="form-group row g-2">
+	<label for="cimage_caption" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_caption']; ?></label>
 	<div class="col-sm-10">
 		<div class="d-flex align-items-start">
-			<textarea name="cimage_caption" rows="4" class="form-control form-control-sm mr-3 field-sizing-content field-sizing-content-4" id="cimage_caption"><?php echo isset($content['image_caption']) ? html($content['image_caption']) : ''; ?></textarea>
+			<textarea name="cimage_caption" rows="4" class="form-control form-control-sm me-3 field-sizing-content field-sizing-content-4" id="cimage_caption"><?php echo isset($content['image_caption']) ? html($content['image_caption']) : ''; ?></textarea>
 			<div id="cimage_preview_container">
 				<?php
 				if (isset($content['image_hash'])) {

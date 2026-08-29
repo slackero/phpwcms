@@ -22,12 +22,12 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="card-header"><h2><?php echo $BLM['shopprod_order'] ?></h2></div>
 <div class="card-body">
 
-    <div class="text-right">
+    <div class="text-end">
         <a href="<?php echo shop_url('controller=order') ?>" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
     </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_order_date'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_order_date'] ?>:</label>
     <div class="col-sm-auto">
             <?php
                 echo html(date($BLM['shopprod_date_long'], $plugin['data']['order_date_unix']));
@@ -35,32 +35,32 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
   </div>
 
-  <div class="align-items-center form-row">
+  <div class="align-items-center row g-2">
         <?php
             if(SHOP_FELANG_SUPPORT) {
                 $order_lang = (is_array($plugin['data']['order_data']) && !empty($plugin['data']['order_data']['lang'])) ? html_specialchars(strtolower($plugin['data']['order_data']['lang'])) : '';
 
-                echo '<label class="col-sm-auto col-sm-2 col-form-label text-right">'.$BL['be_profile_label_lang'].':</label> ';
+                echo '<label class="col-sm-auto col-sm-2 col-form-label text-end">'.$BL['be_profile_label_lang'].':</label> ';
                 echo '<div class="col">';
 
                 echo '<span class="flag-icon flag-icon-';
                 echo $order_lang ? $order_lang : 'all';
-                echo ' mt-1" data-toggle="tooltip" title="'.$order_lang.'"></span>';
+                echo ' mt-1" data-bs-toggle="tooltip" title="'.$order_lang.'"></span>';
 
                 echo '</div>';
             }
         ?>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_ordernumber'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_ordernumber'] ?>:</label>
     <div class="col">
         <strong><?php echo html($plugin['data']['order_number']) ?></strong>
     </div>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BLM['th_payment'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BLM['th_payment'] ?>:</label>
     <div class="col">
         <?php
         $payby_key = 'shopprod_payby_'.$plugin['data']['order_payment'];
@@ -72,8 +72,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 <form action="<?php echo shop_url('controller=order').'&amp;show='.$plugin['data']['order_id'] ?>" method="post">
     <input type="hidden" name="order_status" value="<?php echo $plugin['data']['order_id'] ?>" />
-  <div class="align-items-center form-row pt-1">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?>:</label>
+  <div class="align-items-center row g-2 pt-1">
+    <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?>:</label>
     <div class="col-sm-auto">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="status_payment" id="status_payment" type="checkbox" value="PAYED"<?php echo order_status('PAYED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" />
@@ -102,65 +102,65 @@ if (!defined('PHPWCMS_ROOT')) {
 </form>
 
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['shopprod_selfpickup'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BL['shopprod_selfpickup'] ?>:</label>
     <div class="col">
         <strong><?php echo empty($plugin['data']['order_data']['shipping']['selfpickup']) ? $BLM['shopprod_isnot_selfpickup'] : $BLM['shopprod_is_selfpickup']; ?></strong>
     </div>
   </div>
 
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_firstname'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_firstname'] ?>:</label>
     <div class="col">
         <?php echo html($plugin['data']['order_firstname']) ?>
     </div>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_name'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_name'] ?>:</label>
     <div class="col">
         <strong><?php echo html($plugin['data']['order_name']) ?></strong>
     </div>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_order_address'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_order_address'] ?>:</label>
     <div class="col">
         <?php echo nl2br( html($plugin['data']['order_data']['address']['INV_ADDRESS'])) ?>
     </div>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_zip'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_zip'] ?>:</label>
     <div class="col">
         <?php echo html($plugin['data']['order_data']['address']['INV_ZIP']) ?>
     </div>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_city'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_city'] ?>:</label>
     <div class="col">
         <?php echo html($plugin['data']['order_data']['address']['INV_CITY']) ?>
     </div>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_order_region'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_order_region'] ?>:</label>
     <div class="col">
         <?php echo html($plugin['data']['order_data']['address']['INV_REGION']) ?>
     </div>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_country'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_country'] ?>:</label>
     <div class="col">
         <?php echo html($plugin['data']['order_data']['address']['INV_COUNTRY']) ?>
     </div>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_email'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_email'] ?>:</label>
     <div class="col">
         <?php
         if(is_valid_email($plugin['data']['order_data']['address']['EMAIL'])) {
@@ -174,8 +174,8 @@ if (!defined('PHPWCMS_ROOT')) {
     </div>
   </div>
 
-  <div class="align-items-center form-row">
-    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_phone'] ?>:</label>
+  <div class="align-items-center row g-2">
+    <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_phone'] ?>:</label>
     <div class="col">
         <?php echo html($plugin['data']['order_data']['address']['PHONE']) ?>
     </div>
@@ -193,8 +193,8 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>	<?php
         foreach($plugin['custom'] as $custom_key => $custom_field) {
 ?>
-    <div class="align-items-center form-row">
-        <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_custom_field'].str_replace('shop_field_', ' ', $custom_key) ?>:</label>
+    <div class="align-items-center row g-2">
+        <label class="col-sm-auto col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_custom_field'].str_replace('shop_field_', ' ', $custom_key) ?>:</label>
         <div class="col">
             <?php echo nl2br( html($custom_field) ) ?>
         </div>
@@ -218,9 +218,9 @@ if (!defined('PHPWCMS_ROOT')) {
         <th><?php echo $BLM['shopprod_quantity'] ?></th>
         <th><?php echo $BLM['th_ordnr'] ?></th>
         <th><?php echo $BLM['shopprod_name1'] ?></th>
-        <th class="text-right"><?php echo $BLM['shopprod_net'].' '.$plugin['data']['currency'] ?></th>
-        <th class="text-right"><?php echo $BLM['shopprod_vat'].'%' ?></th>
-        <th class="text-right"><?php echo $BLM['shopprod_total'].' '.$plugin['data']['currency'] ?></th>
+        <th class="text-end"><?php echo $BLM['shopprod_net'].' '.$plugin['data']['currency'] ?></th>
+        <th class="text-end"><?php echo $BLM['shopprod_vat'].'%' ?></th>
+        <th class="text-end"><?php echo $BLM['shopprod_total'].' '.$plugin['data']['currency'] ?></th>
     </tr>
 <?php
     $_controller_link =  shop_url('controller=prod');
@@ -322,9 +322,9 @@ if (!defined('PHPWCMS_ROOT')) {
                             <a href="<?php echo $_controller_link.'&amp;edit='.$plugin['product']["shopprod_id"] ?>" target="_blank"><?php echo html($plugin['product']['shopprod_name1']); ?></a>
                             <?php if(($opt1_txt.$opt2_txt)) { echo '<br />' . html(trim($opt1_txt.' '.$opt2_txt)); } ?>
                         </td>
-                        <td class="text-right"><?php echo number_format($plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-                        <td class="text-right"><?php echo number_format($plugin['product']['shopprod_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-                        <td class="text-right"><?php echo number_format($v * $plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+                        <td class="text-end"><?php echo number_format($plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+                        <td class="text-end"><?php echo number_format($plugin['product']['shopprod_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+                        <td class="text-end"><?php echo number_format($v * $plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
                     </tr>
                     <?php
                 }
@@ -339,9 +339,9 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
         <tr class="product linetop">
             <td colspan="3" class="chatlist"><?php echo $BLM['shopprod_subtotal'].' '.$plugin['data']['currency'] ?>:</td>
-            <td class="text-right"><?php echo number_format($plugin['data']['order_data']['subtotal']['subtotal_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-            <td class="text-right"><?php echo number_format($plugin['data']['order_data']['subtotal']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-            <td class="text-right"><?php echo number_format($plugin['data']['order_data']['subtotal']['subtotal_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end"><?php echo number_format($plugin['data']['order_data']['subtotal']['subtotal_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end"><?php echo number_format($plugin['data']['order_data']['subtotal']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end"><?php echo number_format($plugin['data']['order_data']['subtotal']['subtotal_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
         </tr>
 
         <tr class="product linebottom">
@@ -372,9 +372,9 @@ if (!defined('PHPWCMS_ROOT')) {
             $plugin['data']['order_data']['shipping']['vat'] = $plugin['data']['order_data']['shipping']['shipping_gross'] - $plugin['data']['order_data']['shipping']['shipping_net'];
 
             ?>:</td>
-            <td class="text-right"><?php echo number_format($plugin['data']['order_data']['shipping']['shipping_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-            <td class="text-right"><?php echo number_format($plugin['data']['order_data']['shipping']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-            <td class="text-right"><?php echo number_format($plugin['data']['order_data']['shipping']['shipping_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end"><?php echo number_format($plugin['data']['order_data']['shipping']['shipping_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end"><?php echo number_format($plugin['data']['order_data']['shipping']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end"><?php echo number_format($plugin['data']['order_data']['shipping']['shipping_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
         </tr>
 
 <?php	if(isset($plugin['data']['order_data']['discount'])):
@@ -384,9 +384,9 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
         <tr class="product linebottom">
             <td colspan="3" class="chatlist"><?php echo $BLM['shopprod_discount'].' '.number_format($plugin['data']['shop_pref_discount']['percent'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ?>%:</td>
-            <td class="text-right">-<?php echo number_format($plugin['data']['order_data']['discount']['discount_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-            <td class="text-right">-<?php echo number_format($plugin['data']['order_data']['discount']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-            <td class="text-right">-<?php echo number_format($plugin['data']['order_data']['discount']['discount_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end">-<?php echo number_format($plugin['data']['order_data']['discount']['discount_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end">-<?php echo number_format($plugin['data']['order_data']['discount']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end">-<?php echo number_format($plugin['data']['order_data']['discount']['discount_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
         </tr>
 
 <?php
@@ -397,9 +397,9 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
         <tr class="product linebottom">
             <td colspan="3" class="chatlist"><?php echo $BLM['shopprod_loworder'].' '.$plugin['data']['currency'] ?>:</td>
-            <td class="text-right"><?php echo number_format($plugin['data']['order_data']['loworder']['loworder_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-            <td class="text-right"><?php echo number_format($plugin['data']['order_data']['loworder']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-            <td class="text-right"><?php echo number_format($plugin['data']['order_data']['loworder']['loworder_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end"><?php echo number_format($plugin['data']['order_data']['loworder']['loworder_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end"><?php echo number_format($plugin['data']['order_data']['loworder']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td class="text-end"><?php echo number_format($plugin['data']['order_data']['loworder']['loworder_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
         </tr>
 <?php
         endif;
@@ -409,15 +409,15 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
         <tr class="product total">
             <td colspan="3" class="chatlist"><?php echo $BLM['shopprod_total_net'].' '.$plugin['data']['currency'] ?></td>
-            <td colspan="3" class="text-right"><?php echo number_format($plugin['data']['order_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td colspan="3" class="text-end"><?php echo number_format($plugin['data']['order_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
         </tr>
         <tr class="product total">
             <td colspan="3" class="chatlist"><?php echo $BLM['shopprod_total_vat'].' '.$plugin['data']['currency'] ?></td>
-            <td colspan="3" class="text-right"><?php echo number_format($plugin['data']['order_gross'] - $plugin['data']['order_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+            <td colspan="3" class="text-end"><?php echo number_format($plugin['data']['order_gross'] - $plugin['data']['order_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
         </tr>
         <tr class="product total end">
             <td colspan="3" class="chatlist"><?php echo $BLM['shopprod_total_gross'].' '.$plugin['data']['currency'] ?></td>
-            <td colspan="3" class="text-right"><b><?php echo number_format($plugin['data']['order_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></b></td>
+            <td colspan="3" class="text-end"><b><?php echo number_format($plugin['data']['order_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></b></td>
         </tr>
 
 </table>
@@ -453,6 +453,6 @@ if (!defined('PHPWCMS_ROOT')) {
 <?php } ?>
 </div>
 
-<div class="text-right mt-3">
+<div class="text-end mt-3">
     <a href="<?php echo shop_url('controller=order') ?>" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
 </div>

@@ -161,17 +161,17 @@ if(empty($content['article']['acat_id'])) { // Root structure
   </div>
 
   <div class="card-body">
-    <div class="form-group align-items-center form-row">
-      <div class="col-sm-2 text-right">
-        <span data-toggle="tooltip" title="<?php echo html($BL['be_article_cat'].' - '.$BL['be_article_atitle']); ?>"><i class="fas fa-info-circle text-blue"></i></span>
+    <div class="form-group align-items-center row g-2">
+      <div class="col-sm-2 text-end">
+        <span data-bs-toggle="tooltip" title="<?php echo html($BL['be_article_cat'].' - '.$BL['be_article_atitle']); ?>"><i class="fas fa-info-circle text-blue"></i></span>
       </div>
       <div class="col-sm-auto">
         <strong><?php echo html($content["article"]['acat_name'].' [ID:'.$content['article']['acat_id'].']'.' - '.$content["article"]['article_title']) ?> </strong>
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="target_ctype" class="col-sm-2 col-form-label text-right"><?php
+    <div class="form-group align-items-center row g-2">
+      <label for="target_ctype" class="col-sm-2 col-form-label text-end"><?php
         echo $BL['be_article_cnt_type'];
         $enable_disable = '';
     ?></label>
@@ -218,7 +218,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
     }
 
 ?>
-        <select name="target_ctype" id="target_ctype" class="custom-select form-control form-control-sm" data-prev-index="<?php echo $contentpart_temp_selected; ?>">
+        <select name="target_ctype" id="target_ctype" class="form-select form-select-sm" data-prev-index="<?php echo $contentpart_temp_selected; ?>">
 <?php
     echo $temp_select;
 ?>
@@ -332,24 +332,24 @@ if ($content['cp_setting_mode']):
     }
 ?>
 
-    <div class="form-group align-items-center form-row">
-      <label for="ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="ctitle" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
       <div class="col-sm-10">
         <input name="ctitle" type="text" id="ctitle" class="form-control form-control-sm" value="<?php echo html($content["title"]) ?>" maxlength="2000" />
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="csubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="csubtitle" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_asubtitle'] ?></label>
       <div class="col-sm-10">
         <input name="csubtitle" type="text" id="csubtitle" class="form-control form-control-sm" value="<?php echo html($content["subtitle"]) ?>" maxlength="2000" />
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cblock" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_show_content'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cblock" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_show_content'] ?></label>
       <div class="col-sm-4">
-        <select name="cblock" id="cblock" class="custom-select form-control form-control-sm" onchange="checkCntBlockPaginate(this);">
+        <select name="cblock" id="cblock" class="form-select form-select-sm" onchange="checkCntBlockPaginate(this);">
           <optgroup label="<?php echo $BL['be_admin_struct_template'].': '.$content['template_name'] ?>">
               <option value="CONTENT"<?php echo is_selected('CONTENT', $content["block"]) ?>><?php echo $BL['be_main_content'] ?> (CONTENT)</option>
               <option value="LEFT"<?php echo is_selected('LEFT', $content["block"]) ?>><?php echo $BL['be_cnt_left'] ?> (LEFT)</option>
@@ -362,9 +362,9 @@ if ($content['cp_setting_mode']):
 
         </select>
       </div>
-      <label for="ctab" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_paginate_subsection']; ?></label>
+      <label for="ctab" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_paginate_subsection']; ?></label>
       <div class="col">
-        <select name="ctab" id="ctab" class="custom-select form-control form-control-sm" onchange="checkTabStatus(this);"<?php if ($content["block"] == 'SYSTEM'): ?> disabled="disabled"<?php endif; ?> >
+        <select name="ctab" id="ctab" class="form-select form-select-sm" onchange="checkTabStatus(this);"<?php if ($content["block"] == 'SYSTEM'): ?> disabled="disabled"<?php endif; ?> >
 					<option value="0"<?php is_selected(0, $content["tab_type"]); ?>><?php echo $BL['be_off'] ?></option>
 					<option value="1"<?php is_selected(1, $content["tab_type"]); ?>><?php echo $BL['be_ctype_tabs'] ?></option>
 					<option value="2"<?php is_selected(2, $content["tab_type"]); ?>><?php echo $BL['be_ctype_accordion'] ?></option>
@@ -456,10 +456,10 @@ if ($content['cp_setting_mode']):
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row" id="system1"<?php if ($content["block"] !== 'SYSTEM'): ?> style="display:none;"<?php endif; ?>>
-      <label for="ctid" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_rendering'] ?></label>
+    <div class="form-group align-items-center row g-2" id="system1"<?php if ($content["block"] !== 'SYSTEM'): ?> style="display:none;"<?php endif; ?>>
+      <label for="ctid" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_rendering'] ?></label>
       <div class="col-sm-4">
-				<select name="ctid" id="ctid" class="custom-select form-control form-control-sm">
+				<select name="ctid" id="ctid" class="form-select form-select-sm">
 					<option value="0"<?php echo is_selected(0, $content['tid']) ?>><?php echo $BL['be_custom_scriptlogic'] ?></option>
 					<option value="1"<?php echo is_selected(1, $content['tid']) ?>><?php echo $BL['be_article_forlist'] ?></option>
 					<option value="2"<?php echo is_selected(2, $content['tid']) ?>><?php echo $BL['be_article_forfull'] ?></option>
@@ -469,12 +469,12 @@ if ($content['cp_setting_mode']):
     </div>
 
     <!-- ctab section -->
-    <div class="form-group align-items-center form-row" id="ctab2"<?php echo $content["tab_style"] ?>>
-      <label for="ctab_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_paginate_subsection'] ?></label>
+    <div class="form-group align-items-center row g-2" id="ctab2"<?php echo $content["tab_style"] ?>>
+      <label for="ctab_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_paginate_subsection'] ?></label>
       <div class="col-sm-4">
         <input name="ctab_title" type="text" id="ctab_title" class="form-control form-control-sm" value="<?php echo html($content["tab_title"]) ?>" maxlength="1500" />
       </div>
-      <label for="ctab_number" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_number'] ?></label>
+      <label for="ctab_number" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ctype_number'] ?></label>
       <div class="col-sm-4">
         <input name="ctab_number" type="text" id="ctab_number" class="form-control form-control-sm" value="<?php echo $content["tab_number"] ?>" maxlength="4" onkeyup="if(!parseInt(this.value,10))this.value='';" />
       </div>
@@ -513,12 +513,12 @@ if ($content['cp_setting_mode']):
     } else {
         ?>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cpaginate_page" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_paginate_subsection'] ?></label>
+    <div class="form-group align-items-center row g-2">
+      <label for="cpaginate_page" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_paginate_subsection'] ?></label>
       <div class="col-sm-auto">
         <input name="cpaginate_page" type="text" id="cpaginate_page" class="form-control form-control-sm" value="<?php echo $content["paginate_page"] ?>" maxlength="3" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
       </div>
-      <label for="cpaginate_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_subsection_tite'].' ('.$BL['be_pagination'].')' ?></label>
+      <label for="cpaginate_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_subsection_tite'].' ('.$BL['be_pagination'].')' ?></label>
       <div class="col-sm-auto">
         <input name="cpaginate_title" type="text" id="cpaginate_title" class="form-control form-control-sm" value="<?php echo html($content["paginate_title"]) ?>" maxlength="2000" />
       </div>
@@ -545,14 +545,14 @@ endif;
 
     <div class="form-group row">
       <div class="col-sm-2"></div>
-      <div class="col-sm-10 text-center text-sm-left">
+      <div class="col-sm-10 text-center text-sm-start">
 <?php
 
 // render buttons only once and save the buffer
 if (!empty($content["id"])) {
     $buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($content['article']["article_alias"]) ? (empty($content["aid"]) ? 'id='.$content["id"] : 'aid='.$content["aid"]) : $content['article']["article_alias"]);
-    $buttonAction  = '<button type="button" value="'.$BL['be_func_struct_preview'].'" class="btn btn-sm btn-info float-sm-right" title="'.$BL['be_func_struct_preview'].'" ';
-    $buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\"><i class=\"far fa-eye mr-1\"></i> ";
+    $buttonAction  = '<button type="button" value="'.$BL['be_func_struct_preview'].'" class="btn btn-sm btn-blue float-sm-end" title="'.$BL['be_func_struct_preview'].'" ';
+    $buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\"><i class=\"far fa-eye me-1\"></i> ";
     $buttonAction .= $BL['be_func_struct_preview']."</button>" . LF;
 } else {
     $buttonAction  = '';
@@ -561,9 +561,9 @@ if (!empty($content["id"])) {
 ob_start();
 
 ?>
-    <button name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo html($sendbutton); ?>"><i class="fa fa-save"></i> <?php echo html($sendbutton); ?></button>
-    <button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo html($BL['be_article_cnt_button3']); ?>"><i class="fa fa-check"></i> <?php echo html($BL['be_article_cnt_button3']); ?></button>
-    <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" onclick="return cancelContentEdit();"><i class="fa fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel']); ?></button>
+    <button name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo html($sendbutton); ?>"><i class="fa fa-rotate"></i> <?php echo html($sendbutton); ?></button>
+    <button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo html($BL['be_article_cnt_button3']); ?>"><i class="fa fa-check"></i> <?php echo html($BL['be_article_cnt_button3']); ?></button>
+    <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelContentEdit();"><i class="fa fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel']); ?></button>
     <?php echo $buttonAction; ?>
 <?php
 
@@ -599,48 +599,36 @@ echo $_save_close_buttons;
     <hr />
 
 
-    <div class="form-group align-items-center form-row">
-      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_space'] ?></span>
+    <div class="form-group align-items-center row g-2">
+      <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_cnt_space'] ?></span>
       <div class="col-sm-10">
-        <div class="d-flex flex-wrap align-items-center">
-          <div class="my-1 mr-3">
-            <div class="input-group input-group-sm">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <input name="ccb" type="checkbox" id="ccb" value="1" <?php if ($content["before"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" />
-                </div>
-                <label class="input-group-text" for="cbefore"><?php echo $BL['be_article_cnt_before'] ?></label>
-              </div>
-              <input name="cbefore" type="number" id="cbefore" class="form-control form-control-sm" value="<?php echo $content["before"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'ccb');" />
-              <div class="input-group-append">
-                <span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
-              </div>
+        <div class="d-flex flex-wrap flex-lg-nowrap align-items-center gap-2">
+          <div class="input-group input-group-sm" style="max-width: 220px;">
+            <div class="input-group-text">
+              <input name="ccb" type="checkbox" id="ccb" value="1" <?php if ($content["before"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" />
             </div>
+            <label class="input-group-text" for="cbefore"><?php echo $BL['be_article_cnt_before'] ?></label>
+            <input name="cbefore" type="number" id="cbefore" class="form-control form-control-sm" value="<?php echo $content["before"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'ccb');" />
+            <span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
           </div>
-          <div class="my-1">
-            <div class="input-group input-group-sm">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <input name="cca" type="checkbox" id="cca" value="1" <?php if ($content["after"] !== '') {echo 'checked';} ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" />
-                </div>
-                <label class="input-group-text" for="cafter"><?php echo $BL['be_article_cnt_after'] ?></label>
-              </div>
-              <input name="cafter" type="number" id="cafter" class="form-control form-control-sm" value="<?php echo $content["after"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'cca');" />
-              <div class="input-group-append">
-                <span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
-              </div>
+          <div class="input-group input-group-sm" style="max-width: 220px;">
+            <div class="input-group-text">
+              <input name="cca" type="checkbox" id="cca" value="1" <?php if ($content["after"] !== '') {echo 'checked';} ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" />
             </div>
+            <label class="input-group-text" for="cafter"><?php echo $BL['be_article_cnt_after'] ?></label>
+            <input name="cafter" type="number" id="cafter" class="form-control form-control-sm" value="<?php echo $content["after"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'cca');" />
+            <span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
           </div>
         </div>
       </div>
     </div>
 
-      <div class="form-group align-items-center form-row">
-          <label for="cattr_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_class'] ?></label>
+      <div class="form-group align-items-center row g-2">
+          <label for="cattr_class" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_attribute_class'] ?></label>
           <div class="col-sm-4">
               <input name="cattr_class" id="cattr_class" type="text" value="<?php echo html($content["attr_class"]); ?>" class="form-control form-control-sm" maxlength="255" />
           </div>
-          <label for="cattr_id" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_id']; ?></label>
+          <label for="cattr_id" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_attribute_id']; ?></label>
           <div class="col-sm-4">
               <input name="cattr_id" id="cattr_id" type="text" value="<?php echo html($content["attr_id"]); ?>" class="form-control form-control-sm" maxlength="255" />
           </div>
@@ -648,46 +636,30 @@ echo $_save_close_buttons;
 
     <hr />
 
-    <div class="form-group align-items-center form-row">
-       <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_rendering'] ?></span>
+    <div class="form-group align-items-center row g-2">
+       <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_rendering'] ?></span>
        <div class="col-sm-10">
-         <div class="d-flex flex-wrap align-items-center">
-           <div class="my-1 mr-3">
-              <div class="input-group input-group-sm" id="datetimepicker1">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> />
-                  </div>
-                  <label class="input-group-text" for="clivedate"><?php echo $BL['be_msg_from'] ?></label>
-                </div>
-                <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" autocomplete="off" />
-                <div class="input-group-append">
-                  <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue" style="cursor:pointer;" onclick="document.getElementById('clivedate')._flatpickr&&document.getElementById('clivedate')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
-                </div>
-              </div>
-            </div>
-            <div class="my-1 mr-3">
-               <div class="input-group input-group-sm" id="datetimepicker2">
-                 <div class="input-group-prepend">
-                   <div class="input-group-text">
-                     <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> />
-                   </div>
-                   <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
-                 </div>
-                 <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" autocomplete="off" />
-                 <div class="input-group-append">
-                   <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue" style="cursor:pointer;" onclick="document.getElementById('ckilldate')._flatpickr&&document.getElementById('ckilldate')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
-                 </div>
-               </div>
-            </div>
-            <div class="my-1">
-              <div class="input-group input-group-sm">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="csorting"><?php echo $BL['be_cnt_sortvalue'] ?></label>
-                </div>
-                <input class="form-control form-control-sm" name="csorting" type="number" id="csorting" value="<?php echo $content["sorting"] ?>" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
-              </div>
-            </div>
+         <div class="d-flex flex-wrap flex-lg-nowrap align-items-center gap-2">
+           <div class="input-group input-group-sm" id="datetimepicker1" style="max-width: 280px;">
+             <div class="input-group-text">
+               <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> />
+             </div>
+             <label class="input-group-text" for="clivedate"><?php echo $BL['be_msg_from'] ?></label>
+             <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" autocomplete="off" />
+             <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('clivedate')._flatpickr&&document.getElementById('clivedate')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+           </div>
+           <div class="input-group input-group-sm" id="datetimepicker2" style="max-width: 280px;">
+             <div class="input-group-text">
+               <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> />
+             </div>
+             <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
+             <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" autocomplete="off" />
+             <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('ckilldate')._flatpickr&&document.getElementById('ckilldate')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+           </div>
+           <div class="input-group input-group-sm" style="max-width: 140px;">
+             <label class="input-group-text" for="csorting"><?php echo $BL['be_cnt_sortvalue'] ?></label>
+             <input class="form-control form-control-sm text-center" name="csorting" type="number" id="csorting" value="<?php echo $content["sorting"] ?>" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
+           </div>
          </div>
        </div>
     </div>
@@ -733,8 +705,8 @@ echo $_save_close_buttons;
             });
         });
     </script>
-    <div class="form-inline form-group align-items-center form-row">
-      <span class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_ftptakeover_status'] ?></span>
+    <div class="form-inline form-group align-items-center row g-2">
+      <span class="col-sm-2 col-form-label text-end d-block"><?php echo $BL['be_ftptakeover_status'] ?></span>
         <div class="col-sm-auto">
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="cvisible" name="cvisible" value="1"<?php is_checked(1, $content["visible"]); ?>/>
@@ -766,7 +738,7 @@ echo $_save_close_buttons;
 
     <div class="form-group row">
       <div class="col-sm-2"></div>
-      <div class="col-sm-10 text-center text-sm-left">
+      <div class="col-sm-10 text-center text-sm-start">
         <input name="caktion" type="hidden" id="caktion" value="1" />
         <input name="caid" type="hidden" id="caid" value="<?php echo $article["article_id"] ?>" />
         <input name="cid" type="hidden" id="cid" value="<?php echo  $content["id"] ?>" />
@@ -777,8 +749,8 @@ echo $_save_close_buttons;
 
     <hr />
 
-    <div class="form-group form-row">
-      <label class="col-sm-2 col-form-label text-right" for="ccomment"><?php echo $BL['be_profile_label_notes'] ?></label>
+    <div class="form-group row g-2">
+      <label class="col-sm-2 col-form-label text-end" for="ccomment"><?php echo $BL['be_profile_label_notes'] ?></label>
       <div class="col-sm-10">
         <textarea name="ccomment" id="ccomment" class="form-control autosize" rows="5"><?php echo html($content["comment"]) ?></textarea>
       </div>

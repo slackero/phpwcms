@@ -125,21 +125,21 @@ switch($acat_hidden) {
 <input name="acat_id" type="hidden" id="acat_id" value="<?php echo $acat_id; ?>" />
 
 <div class="row align-items-center">
-  <div class="col-12 col-sm-auto text-center text-sm-left">
+  <div class="col-12 col-sm-auto text-center text-sm-start">
     <h1><?php echo $BL['be_admin_struct_title'] ?></h1>
   </div>
-  <div class="col text-center text-sm-right mb-3">
+  <div class="col text-center text-sm-end mb-3">
     <div class="form-group align-items-center">
-			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
-			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ml-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-			<a href="phpwcms.php?do=articles&amp;p=0" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+			<a href="phpwcms.php?do=articles&amp;p=0" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 </div>
 
 <div class="card">
   <div class="card-header"><h2>
-  <?php echo $BL['be_admin_struct_title'] ?> <span class="font-weight-normal"><?php echo $BL['be_admin_struct_child'] ?></span>: <strong class="text-danger"><?php
+  <?php echo $BL['be_admin_struct_title'] ?> <span class="fw-normal"><?php echo $BL['be_admin_struct_child'] ?></span>: <strong class="text-danger"><?php
               //Anzeigen des Kategorienamens (Menuepunkt)
               if($acat_struct) {
                   $parentStructData = getParentStructArray($acat_struct);
@@ -160,22 +160,22 @@ switch($acat_hidden) {
 
 <div class="card-body">
 
-  <div class="form-group align-items-center form-row">
-      <label for="be_admin_struct_cat" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_cat'] ?></label>
+  <div class="form-group align-items-center row g-2">
+      <label for="be_admin_struct_cat" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_cat'] ?></label>
       <div class="col">
           <input name="acat_name" class="form-control form-control-sm" id="acat_name" onchange="this.value=this.value.trim();" value="<?php echo html($acat_title) ?>" size="50" maxlength="2000" type="text">
       </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-      <label for="be_admin_struct_cat" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_alt'] ?></label>
+  <div class="form-group align-items-center row g-2">
+      <label for="be_admin_struct_cat" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_alt'] ?></label>
       <div class="col">
           <input name="acat_title" class="form-control form-control-sm" id="acat_title" onchange="this.value=this.value.trim();" value="<?php echo html($acat_title_alt) ?>" size="50" maxlength="2000" type="text">
       </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-      <label for="" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_alias']; ?></label>
+  <div class="form-group align-items-center row g-2">
+      <label for="" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_alias']; ?></label>
       <div class="col-sm-4">
           <input name="acat_alias" class="form-control form-control-sm" id="acat_alias" value="<?php echo html($acat_alias) ?>" size="50" maxlength="1000" type="text" <?php
                 if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true, 'struct');"<?php endif; ?> onchange="this.value=create_alias(this.value);" />
@@ -187,8 +187,8 @@ switch($acat_hidden) {
       </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-      <label class="col-sm-2 col-form-label text-right"></label>
+  <div class="form-group align-items-center row g-2">
+      <label class="col-sm-2 col-form-label text-end"></label>
       <div class="col">
         <input name="acat_onepage" type="checkbox" id="acat_onepage" value="1"<?php if(!empty($acat_onepage)) { echo ' checked="checked"';} ?> />
         <label for="acat_onepage"><?php echo $BL['be_onepage_id']; ?></label>
@@ -198,12 +198,12 @@ switch($acat_hidden) {
   <?php if($acat_lang_mode):
             $lang_default   = ' ('.$BL['be_admin_tmpl_default'].')';
   ?>
-  <div class="form-group form-row">
-      <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_profile_label_lang'] ?></label>
+  <div class="form-group row g-2">
+      <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_profile_label_lang'] ?></label>
       <div class="col">
         <div class="form-check form-check-inline">
 					<input class="form-check-input lang-default" type="radio" name="acat_lang" id="acat_lang" value="" <?php is_checked('', $acat_lang); ?> />
-					<label class="form-check-label"><span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?> mt-1" data-toggle="tooltip" title="<?php echo get_language_name($phpwcms['default_lang']) ?>"></span><?php echo $lang_default ?></label>
+					<label class="form-check-label"><span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?> mt-1" data-bs-toggle="tooltip" title="<?php echo get_language_name($phpwcms['default_lang']) ?>"></span><?php echo $lang_default ?></label>
         </div>
 
         <?php foreach($phpwcms['allowed_lang'] as $key => $lang):
@@ -215,7 +215,7 @@ switch($acat_hidden) {
 
         <div class="form-check form-check-inline">
 					<input class="form-check-input lang-opt" type="radio" name="acat_lang" id="acat_lang2" value="<?php echo $lang ?>"<?php is_checked($lang, $acat_lang); ?> />
-					<label class="form-check-label"><span class="flag-icon flag-icon-<?php echo $lang ?>" data-toggle="tooltip" title="<?php echo get_language_name($lang) ?>"></span></label>
+					<label class="form-check-label"><span class="flag-icon flag-icon-<?php echo $lang ?>" data-bs-toggle="tooltip" title="<?php echo get_language_name($lang) ?>"></span></label>
         </div>
 
         <?php endforeach; ?>
@@ -227,14 +227,14 @@ switch($acat_hidden) {
           </div>
           <div class="form-check form-check-inline">
 						<input class="form-check-input" type="radio" name="acat_lang_type" value="article"<?php is_checked('article', $acat_lang_type); ?> />
-						<label class="form-check-label"><?php echo $BL['be_cnt_articles'] ?> ID &nbsp;<span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?> mt-1" data-toggle="tooltip" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>"></span></label>
+						<label class="form-check-label"><?php echo $BL['be_cnt_articles'] ?> ID &nbsp;<span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?> mt-1" data-bs-toggle="tooltip" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>"></span></label>
           </div>
           <div class="form-check form-check-inline py-2 py-sm-0 px-sm-4">
 						<div class="input-group">
 							<input name="acat_lang_id" type="text" id="acat_lang_id" class="form-control form-control-sm" value="<?php echo $acat_lang_id ? $acat_lang_id : ''; ?>" maxlength="10" onfocus="this.blur()" />
-							<span class="input-group-append">
-								<button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="articlebrowser.php?opt=3" title="<?php echo $BL['be_func_open_articlebrowser'] ?>"></button>
-							</span>
+							
+								<button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=3" title="<?php echo $BL['be_func_open_articlebrowser'] ?>"></button>
+							
 						</div>
           </div>
         </div>
@@ -242,43 +242,43 @@ switch($acat_hidden) {
   </div>
   <?php endif; ?>
 
-  <div class="form-group align-items-center form-row">
-      <label for="be_admin_page_pagetitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_pagetitle'] ?></label>
+  <div class="form-group align-items-center row g-2">
+      <label for="be_admin_page_pagetitle" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_pagetitle'] ?></label>
       <div class="col">
           <input name="acat_pagetitle" class="form-control form-control-sm" id="acat_pagetitle" value="<?php echo html($acat_pagetitle) ?>" maxlength="2000" type="text">
       </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-      <label for="be_cnt_css_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_css_class'] ?></label>
+  <div class="form-group align-items-center row g-2">
+      <label for="be_cnt_css_class" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_css_class'] ?></label>
       <div class="col">
           <input name="acat_class" class="form-control form-control-sm" id="acat_class" value="<?php echo html($acat_class) ?>" maxlength="255" type="text">
       </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-      <label for="be_article_aredirect" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aredirect'] ?></label>
+  <div class="form-group align-items-center row g-2">
+      <label for="be_article_aredirect" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_aredirect'] ?></label>
       <div class="col">
           <input name="acat_redirect" class="form-control form-control-sm" id="acat_redirect" value="<?php echo html($acat_redirect) ?>" maxlength="255" type="text">
       </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-      <label for="be_canonical" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_canonical'] ?></label>
+  <div class="form-group align-items-center row g-2">
+      <label for="be_canonical" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_canonical'] ?></label>
       <div class="col">
           <input name="acat_canonical" class="form-control form-control-sm" id="acat_canonical" value="<?php echo html($acat_canonical) ?>" size="50" maxlength="2000" type="text">
       </div>
   </div>
 
-  <div class="form-group form-row">
-      <label for="be_article_akeywords" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_akeywords'] ?></label>
+  <div class="form-group row g-2">
+      <label for="be_article_akeywords" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_akeywords'] ?></label>
       <div class="col">
           <textarea name="acat_keywords" class="form-control form-control-sm" id="acat_keywords"><?php echo html($acat_keywords) ?></textarea>
       </div>
   </div>
 
-  <div class="form-group form-row">
-      <label for="be_admin_struct_info" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_info'] ?></label>
+  <div class="form-group row g-2">
+      <label for="be_admin_struct_info" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_info'] ?></label>
       <div class="col">
           <textarea name="acat_info" class="form-control form-control-sm" id="acat_info"><?php echo html($acat_info) ?></textarea>
       </div>
@@ -286,10 +286,10 @@ switch($acat_hidden) {
 
   <hr />
 
-  <div class="form-group align-items-center form-row">
-    <label for="be_admin_struct_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?></label>
+  <div class="form-group align-items-center row g-2">
+    <label for="be_admin_struct_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template'] ?></label>
       <div class="col-sm-4">
-      <select name="acat_template" id="acat_template" class="custom-select form-control form-control-sm">
+      <select name="acat_template" id="acat_template" class="form-select form-select-sm">
         <?php
         $_temp_cat = '';
 
@@ -316,10 +316,10 @@ switch($acat_hidden) {
     </div>
   </div>
 
-  <div class="form-group form-row align-items-center">
-    <label for="be_settings" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_settings'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="be_settings" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_settings'] ?></label>
       <div class="col-sm-4">
-      <select name="acat_overwrite" id="acat_overwrite" class="custom-select form-control form-control-sm">
+      <select name="acat_overwrite" id="acat_overwrite" class="form-select form-select-sm">
         <option value="" style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
         <?php
         // templates for frontend login
@@ -339,20 +339,20 @@ switch($acat_hidden) {
     </div>
     </div>
 
-  <div class="form-group form-row align-items-center">
+  <div class="form-group row g-2 align-items-center">
     <div class="col-sm-2"></div>
-    <div class="form-group col-sm-auto mr-sm-3">
+    <div class="form-group col-sm-auto">
       <label for="be_pagination"><strong><?php echo  $BL['be_pagination'] ?></strong></label>
       <div class="form-check">
         <input class="form-check-input" name="acat_paginate" type="checkbox" id="acat_paginate" value="1" <?php if($acat_paginate == 1) echo "checked"; ?> />
         <label for="acat_paginate" class="form-check-label"><?php echo $BL['be_article_pagination'] ?></label>
       </div>
     </div>
-    <div class="form-group col-sm-auto mr-sm-3">
+    <div class="form-group col-sm-auto">
       <label for="be_admin_struct_topcount"><strong><?php echo  $BL['be_admin_struct_topcount'] ?></strong></label>
       <input name="acat_topcount" type="number" id="acat_topcount" class="form-control form-control-sm" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" />
     </div>
-    <div class="form-group col-sm-auto mr-sm-3">
+    <div class="form-group col-sm-auto">
       <label for="be_article_per_page"><strong><?php echo $BL['be_article_per_page'] ?></strong></label>
       <input name="acat_maxlist" type="number" id="acat_maxlist" class="form-control form-control-sm" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" />
     </div>
@@ -366,8 +366,8 @@ switch($acat_hidden) {
 
 <hr />
 
-  <fieldset class="form-group form-row">
-    <label for="be_admin_struct_template" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_struct_orderarticle'] ?></label>
+  <fieldset class="form-group row g-2">
+    <label for="be_admin_struct_template" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_struct_orderarticle'] ?></label>
 
 			<div class="col-sm-auto">
 				<div class="form-check">
@@ -430,8 +430,8 @@ switch($acat_hidden) {
 <?php   if(!empty($phpwcms['usergroup_support'])): ?>
 
   <!-- enym group selector -->
-  <div class="form-group form-row">
-    <label for="acat_access" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_access']; ?> (<?php echo $BL['be_subnav_admin_groups']; ?>):</label>
+  <div class="form-group row g-2">
+    <label for="acat_access" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_access']; ?> (<?php echo $BL['be_subnav_admin_groups']; ?>):</label>
     <div class="col"><?php
         // list all available groups and put into temp array
         $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_active != 9 ORDER BY group_id DESC";
@@ -443,7 +443,7 @@ switch($acat_hidden) {
                 $_temp_group[$row['group_id']]['active'] = $row['group_active'];
             }
         }
-    ?><select class="custom-select" name="acat_access[]" id="acat_access" size="7"
+    ?><select class="form-select" name="acat_access[]" id="acat_access" size="7"
               ondblclick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"
               multiple="multiple" class="form-control form-control-sm">
     <?php
@@ -465,15 +465,15 @@ switch($acat_hidden) {
     ?></select>
     </div>
 
-    <div class="col-sm-auto text-center my-2 my-sm-0">
-      <button class="btn btn-sm btn-blue mb-1" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
-      <button class="btn btn-sm btn-blue mb-1" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
-      <button class="btn btn-sm btn-blue mb-1" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
-      <button class="btn btn-sm btn-blue mb-1" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
+    <div class="col-sm-auto text-center">
+      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
+      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
+      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
+      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
     </div>
 
     <div class="col">
-      <select class="custom-select" name="acat_feusers" size="7" id="acat_feusers"
+      <select class="form-select" name="acat_feusers" size="7" id="acat_feusers"
               ondblclick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"
               class="form-control form-control-sm" multiple="multiple">
         <?php
@@ -499,10 +499,10 @@ switch($acat_hidden) {
 <hr />
 
   <!-- Content Part Selection -->
-  <div class="form-group form-row">
-    <label for="be_structform_selected_cp" class="col-form-label col-sm-2 text-right"><?php echo $BL['be_structform_selected_cp'] ?></label>
+  <div class="form-group row g-2">
+    <label for="be_structform_selected_cp" class="col-form-label col-sm-2 text-end"><?php echo $BL['be_structform_selected_cp'] ?></label>
     <div class="col">
-      <select name="acat_cp[]" size="11" id="acat_cp" multiple class="custom-select form-control form-control-sm" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);">
+      <select name="acat_cp[]" size="11" id="acat_cp" multiple class="form-select form-select-sm" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);">
       <?php
       // check which content part is available
       $temp_count = 0;
@@ -521,17 +521,17 @@ switch($acat_hidden) {
       </select>
     </div>
 
-    <div class="col-sm-auto text-center my-2 my-sm-0">
-        <button class="btn btn-sm btn-blue mb-1" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button><br>
+    <div class="col-sm-auto text-center">
+        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
+        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
+        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
+        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button><br>
         <button class="btn btn-sm btn-blue mb-1" onclick="moveOptionUp(document.editsitestructure.acat_cp);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
         <button class="btn btn-sm btn-blue mb-1" onclick="moveOptionDown(document.editsitestructure.acat_cp);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button>
     </div>
 
     <div class="col">
-      <select name="acat_cpa" size="11" multiple id="acat_cpa" class="custom-select form-control form-control-sm" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);">
+      <select name="acat_cpa" size="11" multiple id="acat_cpa" class="form-select form-select-sm" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);">
         <?php
         //Menue mit Content Typen erstellen
         foreach($wcs_content_type as $key => $value) {
@@ -546,10 +546,10 @@ switch($acat_hidden) {
     </div>
   </div>
 
-   <div class="form-group align-items-center form-row">
-      <label for="be_structform_selected_cp" class="col-form-label col-sm-2 text-right"><?php echo $BL['be_admin_tmpl_default'] ?></label>
+   <div class="form-group align-items-center row g-2">
+      <label for="be_structform_selected_cp" class="col-form-label col-sm-2 text-end"><?php echo $BL['be_admin_tmpl_default'] ?></label>
       <div class="col-sm-auto">
-        <select name="acat_cpdefault" class="custom-select form-control form-control-sm">
+        <select name="acat_cpdefault" class="form-select form-select-sm">
           <?php
             foreach($wcs_content_type as $key => $value) {
               echo '<option value="'.$key.'"'.is_selected($acat_cpdefault, $key,1, 0).'>'.$value."</option>\n";
@@ -561,9 +561,9 @@ switch($acat_hidden) {
 
   <hr />
 
-  <div class="form-group align-items-center form-row">
-    <label class="col-form-label col-sm-2 text-right"><?php echo  $BL['be_cache'] ?></label>
-    <div class="col-sm-auto mr-sm-5">
+  <div class="form-group align-items-center row g-2">
+    <label class="col-form-label col-sm-2 text-end"><?php echo  $BL['be_cache'] ?></label>
+    <div class="col-sm-auto me-sm-5">
       <div class="form-check">
         <input class="form-check-input" name="acat_cacheoff" type="checkbox" id="acat_cacheoff" value="1"<?php if($acat_timeout === '0') echo "checked"; ?> />
         <label for="acat_cacheoff" class="form-check-label"> <?php echo $BL['be_off'] ?></label>
@@ -572,7 +572,7 @@ switch($acat_hidden) {
 
     <div class="col-sm-auto">
       <div class="input-group">
-        <select name="acat_timeout" class="custom-select form-control form-control-sm" onchange="document.editsitestructure.acat_cacheoff.checked=false;">
+        <select name="acat_timeout" class="form-select form-select-sm" onchange="document.editsitestructure.acat_cacheoff.checked=false;">
 					<?php
 					echo '<option value=" ">'.$BL['be_admin_tmpl_default']."</option>\n";
 					echo '<option value="60"'.is_selected($acat_timeout, '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";
@@ -590,15 +590,15 @@ switch($acat_hidden) {
 					?>
         </select>
 
-        <div class="input-group-append">
+        
           <span class="input-group-text form-control-sm py-1"><?php echo $BL['be_cache_timeout'] ?></span>
-        </div>
+        
     </div>
   </div>
   </div>
 
-  <div class="form-group align-items-center form-row">
-    <label class="col-form-label col-sm-2 text-right"><?php echo  $BL['be_ctype_search'] ?></label>
+  <div class="form-group align-items-center row g-2">
+    <label class="col-form-label col-sm-2 text-end"><?php echo  $BL['be_ctype_search'] ?></label>
     <div class="col">
       <div class="form-check">
         <label for="acat_nosearch" class="form-check-label">
@@ -612,8 +612,8 @@ switch($acat_hidden) {
     </div>
   </div>
 
-  <div class="form-group form-row align-items-center">
-    <label for="be_admin_struct_status" class="col-form-label col-sm-2 text-right"><?php echo $BL['be_admin_struct_status'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="be_admin_struct_status" class="col-form-label col-sm-2 text-end"><?php echo $BL['be_admin_struct_status'] ?></label>
     <div class="col">
       <div class="form-check form-check-inline">
 				<input class="form-check-input" type="checkbox" name="acat_hidden" id="acat_hidden" value="1"<?php is_checked($acat_hidden, 1); ?> />
@@ -653,8 +653,8 @@ switch($acat_hidden) {
     }
 ?>
 
-  <div class="form-group form-row align-items-center">
-    <label for="be_breadcrumb" class="col-form-label col-sm-2 text-right"><?php echo $BL['be_breadcrumb'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="be_breadcrumb" class="col-form-label col-sm-2 text-end"><?php echo $BL['be_breadcrumb'] ?></label>
     <div class="col">
       <div class="form-check form-check-inline">
 				<input class="form-check-input" type="checkbox" name="acat_breadcrumb_default" id="acat_breadcrumb_default" value="0"<?php is_checked($acat_breadcrumb_default_checked, 1); ?> />
@@ -671,8 +671,8 @@ switch($acat_hidden) {
     </div>
   </div>
 
-  <div class="form-group form-row align-items-center">
-    <label for="be_ftptakeover_status" class="col-form-label col-sm-2 text-right"><?php echo  $BL['be_ftptakeover_status'] ?></label>
+  <div class="form-group row g-2 align-items-center">
+    <label for="be_ftptakeover_status" class="col-form-label col-sm-2 text-end"><?php echo  $BL['be_ftptakeover_status'] ?></label>
     <div class="col">
       <div class="form-check form-check-inline">
 				<input class="form-check-input" type="checkbox" name="acat_aktiv" id="acat_aktiv" value="1"<?php if($acat_aktiv == 1) echo 'checked="checked"'; ?> />
@@ -701,9 +701,9 @@ switch($acat_hidden) {
 
   <div class="mt-4">
     <div class="form-group align-items-center">
-			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
-			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ml-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-			<a href="phpwcms.php?do=articles&amp;p=0" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+			<a href="phpwcms.php?do=articles&amp;p=0" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 

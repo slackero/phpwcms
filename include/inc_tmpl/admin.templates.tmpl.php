@@ -149,7 +149,7 @@ initJQuery();
 if(!isset($_GET["s"])) {
 
     ?>
-    <h1 class="text-center text-sm-left"><?php echo $BL['be_subnav_admin_templates'] ?></h1>
+    <h1 class="text-center text-sm-start"><?php echo $BL['be_subnav_admin_templates'] ?></h1>
     <div class="card">
         <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_admin_tmpl_title'] ?></h2></div>
         <div class="card-body">
@@ -170,16 +170,16 @@ if(!isset($_GET["s"])) {
                         if($row["template_default"]) {
                             echo " (" . $BL['be_admin_tmpl_default'] . ")";
                         }
-                        echo "</a></td>" . '<td class="text-right text-nowrap">';
+                        echo "</a></td>" . '<td class="text-end text-nowrap">';
                         echo '<div class="btn-group btn-group-sm" role="group" aria-label="tmpl-actions-' . $row["template_id"] . '">';
-                        echo '<a class="btn btn-blue btn-sm" role="button" data-toggle="tooltip" title="' . $BL['be_tt_edit'] . '" href="phpwcms.php?' . $edit_link;
+                        echo '<a class="btn btn-blue btn-sm" role="button" data-bs-toggle="tooltip" title="' . $BL['be_tt_edit'] . '" href="phpwcms.php?' . $edit_link;
                         echo '"><i class="fa fa-pencil-alt"></i></a>';
 
-                        echo '<a class="btn btn-blue btn-sm" role="button" data-toggle="tooltip" title="' . $BL['be_tt_duplicate'] . '" href="phpwcms.php?' . $edit_link . '&amp;c=1'; // c=1 -> do copy
+                        echo '<a class="btn btn-blue btn-sm" role="button" data-bs-toggle="tooltip" title="' . $BL['be_tt_duplicate'] . '" href="phpwcms.php?' . $edit_link . '&amp;c=1'; // c=1 -> do copy
                         echo '"><i class="fa fa-copy"></i></a>';
                         echo '</div>';
 
-                        echo '<a class="btn btn-danger btn-sm ml-1" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=2|' . $row["template_id"] . '" ';
+                        echo '<a class="btn btn-danger btn-sm ms-1" role="button" data-bs-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=2|' . $row["template_id"] . '" ';
                         echo 'title="' . $BL['be_cnt_delete'] . ': ' . html($row["template_name"]) . '" ';
                         echo 'data-confirm-danger="' . html($BL['be_cnt_delete'] . ":\n[" . $row["template_name"] . ']') . '">';
                         echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
@@ -191,7 +191,7 @@ if(!isset($_GET["s"])) {
 
                 ?>
             </table>
-            <a href="phpwcms.php?do=admin&amp;p=11&amp;s=0" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_tmpl_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_admin_tmpl_add'] ?></a>
+            <a href="phpwcms.php?do=admin&amp;p=11&amp;s=0" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_tmpl_add'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_admin_tmpl_add'] ?></a>
         </div>
     </div>
     <?php
@@ -419,14 +419,14 @@ if(!isset($_GET["s"])) {
     </script>
     <form action="phpwcms.php?do=admin&amp;p=11&amp;s=<?php echo $template["id"] ?>" method="post" name="blocks" target="_self" id="blocks">
         <div class="row align-items-center">
-            <div class="col col-sm-auto text-center text-sm-left">
+            <div class="col col-sm-auto text-center text-sm-start">
                 <h1><?php echo $BL['be_subnav_admin_templates'] ?></h1>
             </div>
-            <div class="col-12 col-sm text-center text-sm-right mb-3">
+            <div class="col-12 col-sm text-center text-sm-end mb-3">
                 <div class="form-group">
                     <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
-                    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
-                    <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+                    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
+                    <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
                 </div>
             </div>
         </div>
@@ -441,17 +441,17 @@ if(!isset($_GET["s"])) {
             </div>
             <div class="card-body">
                 <ul class="nav nav-tabs mb-3" id="templateTabs" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" id="tmpl-layout-tab" data-toggle="tab" href="#tmpl-layout-sect" role="tab" aria-controls="tmpl-layout-sect" aria-selected="true"><i class="fas fa-th-large mr-1"></i> <?php echo $BL['be_admin_tmpl_layout'] ?></a></li>
-                    <li class="nav-item"><a class="nav-link" id="tmpl-blocks-tab" data-toggle="tab" href="#tmpl-blocks-sect" role="tab" aria-controls="tmpl-blocks-sect" aria-selected="false"><i class="fas fa-cubes mr-1"></i> <?php echo $BL['be_admin_page_blocks'] ?></a></li>
-                    <li class="nav-item"><a class="nav-link" id="tmpl-head-tab" data-toggle="tab" href="#tmpl-head-sect" role="tab" aria-controls="tmpl-head-sect" aria-selected="false"><i class="fas fa-code mr-1"></i> <?php echo $BL['be_admin_tmpl_head'] ?></a></li>
-                    <li class="nav-item"><a class="nav-link" id="tmpl-consent-tab" data-toggle="tab" href="#tmpl-consent-sect" role="tab" aria-controls="tmpl-consent-sect" aria-selected="false"><i class="fas fa-shield-alt mr-1"></i> Tracking &amp; Cookie Consent</a></li>
+                    <li class="nav-item"><a class="nav-link active" id="tmpl-layout-tab" data-bs-toggle="tab" href="#tmpl-layout-sect" role="tab" aria-controls="tmpl-layout-sect" aria-selected="true"><i class="fas fa-th-large me-1"></i> <?php echo $BL['be_admin_tmpl_layout'] ?></a></li>
+                    <li class="nav-item"><a class="nav-link" id="tmpl-blocks-tab" data-bs-toggle="tab" href="#tmpl-blocks-sect" role="tab" aria-controls="tmpl-blocks-sect" aria-selected="false"><i class="fas fa-cubes me-1"></i> <?php echo $BL['be_admin_page_blocks'] ?></a></li>
+                    <li class="nav-item"><a class="nav-link" id="tmpl-head-tab" data-bs-toggle="tab" href="#tmpl-head-sect" role="tab" aria-controls="tmpl-head-sect" aria-selected="false"><i class="fas fa-code me-1"></i> <?php echo $BL['be_admin_tmpl_head'] ?></a></li>
+                    <li class="nav-item"><a class="nav-link" id="tmpl-consent-tab" data-bs-toggle="tab" href="#tmpl-consent-sect" role="tab" aria-controls="tmpl-consent-sect" aria-selected="false"><i class="fas fa-shield-alt me-1"></i> Tracking &amp; Cookie Consent</a></li>
                 </ul>
 
                 <div class="tab-content" id="templateTabsContent">
                     <!-- TAB 1: LAYOUT -->
                     <div class="tab-pane fade show active" id="tmpl-layout-sect" role="tabpanel" aria-labelledby="tmpl-layout-tab">
-                        <div class="form-group form-row align-items-center">
-                            <label for="template_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_name'] ?></label>
+                        <div class="form-group row g-2 align-items-center">
+                            <label for="template_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_tmpl_name'] ?></label>
                             <div class="col-sm-7">
                                 <?php
                                 if (empty($createcopy)) {
@@ -472,9 +472,9 @@ if(!isset($_GET["s"])) {
                             </div>
                         </div>
                         <hr/>
-                        <div class="form-group form-row align-items-center">
+                        <div class="form-group row g-2 align-items-center">
                             <label for="template_layout"
-                                   class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_layout'] ?></label>
+                                   class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_tmpl_layout'] ?></label>
                             <div class="col-sm-5">
                                 <?php
                                 // get available page layout list
@@ -501,7 +501,7 @@ if(!isset($_GET["s"])) {
                                     }
                                 }
                                 if ($opt) {
-                                    echo '<select name="template_layout" class="custom-select form-control form-control-sm" id="template_layout"' . $jsOnChange . '>';
+                                    echo '<select name="template_layout" class="form-select form-select-sm" id="template_layout"' . $jsOnChange . '>';
                                     echo $opt;
                                     echo '</select>';
                                 } else {
@@ -511,7 +511,7 @@ if(!isset($_GET["s"])) {
                             </div>
                         </div>
 
-                        <div class="form-group form-row align-items-center">
+                        <div class="form-group row g-2 align-items-center">
                             <div class="col-sm-2"></div>
                             <div class="col">
                                 <div class="form-check">
@@ -526,7 +526,7 @@ if(!isset($_GET["s"])) {
 
                         <hr/>
 
-                        <div class="form-group form-row">
+                        <div class="form-group row g-2">
                             <div class="col-sm-2"></div>
                             <div class="col">
                                 <?php echo $BL['be_overwrite_default'] ?><br/>
@@ -534,10 +534,10 @@ if(!isset($_GET["s"])) {
                             </div>
                         </div>
 
-                        <div class="form-group form-row align-items-center">
-                            <label for="template_overwrite" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_settings'] ?></label>
+                        <div class="form-group row g-2 align-items-center">
+                            <label for="template_overwrite" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_settings'] ?></label>
                             <div class="col-sm-5">
-                                <select name="template_overwrite" type="text" class="custom-select form-control form-control-sm" id="template_overwrite">
+                                <select name="template_overwrite" type="text" class="form-select form-select-sm" id="template_overwrite">
                                     <option value="" style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
                                     <?php
                                     // templates for frontend login
@@ -556,10 +556,10 @@ if(!isset($_GET["s"])) {
 
                         <hr/>
 
-                        <div class="form-group form-row">
-                            <label for="template_css" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_css'] ?></label>
+                        <div class="form-group row g-2">
+                            <label for="template_css" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_tmpl_css'] ?></label>
                             <div class="col">
-                                <select name="template_css[]" multiple class="custom-select form-control form-control-sm" id="template_css">
+                                <select name="template_css[]" multiple class="form-select form-select-sm" id="template_css">
                                     <?php
                                     $unselected_css = [];
                                     // get css file list
@@ -601,8 +601,8 @@ if(!isset($_GET["s"])) {
 
                         <hr/>
 
-                        <div class="form-group form-row align-items-center mb-0">
-                            <label for="template_felogin_url" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fe_login_url'] ?></label>
+                        <div class="form-group row g-2 align-items-center mb-0">
+                            <label for="template_felogin_url" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_fe_login_url'] ?></label>
                             <div class="col">
                                 <input type="text" class="form-control form-control-sm" name="template_felogin_url" id="template_felogin_url" value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>">
                             </div>
@@ -611,8 +611,8 @@ if(!isset($_GET["s"])) {
 
                     <!-- TAB 2: BLOCKS -->
                     <div class="tab-pane fade" id="tmpl-blocks-sect" role="tabpanel" aria-labelledby="tmpl-blocks-tab">
-                        <div class="form-group form-row">
-                            <label for="template_block_header" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
+                        <div class="form-group row g-2">
+                            <label for="template_block_header" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_header'] ?></label>
                             <div class="col">
                                 <?php
                                 if (!isset($template["headertext_file"])) {
@@ -623,8 +623,8 @@ if(!isset($_GET["s"])) {
                                 <textarea name="template_block_header" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
                             </div>
                         </div>
-                        <div class="form-group form-row">
-                            <label for="template_block_main" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main'] ?></label>
+                        <div class="form-group row g-2">
+                            <label for="template_block_main" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_main'] ?></label>
                             <div class="col">
                                 <?php
                                 if(!isset($template["maintext_file"])) {
@@ -635,8 +635,8 @@ if(!isset($_GET["s"])) {
                                 <textarea name="template_block_main" rows="10" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
                             </div>
                         </div>
-                        <div class="form-group form-row">
-                            <label for="template_block_footer" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
+                        <div class="form-group row g-2">
+                            <label for="template_block_footer" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_footer'] ?></label>
                             <div class="col">
                                 <?php
                                 if(!isset($template["footertext_file"])) {
@@ -647,8 +647,8 @@ if(!isset($_GET["s"])) {
                                 <textarea name="template_block_footer" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
                             </div>
                         </div>
-                        <div class="form-group form-row">
-                            <label for="template_block_left" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
+                        <div class="form-group row g-2">
+                            <label for="template_block_left" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_left'] ?></label>
                             <div class="col">
                                 <?php
                                 if(!isset($template["lefttext_file"])) {
@@ -659,8 +659,8 @@ if(!isset($_GET["s"])) {
                                 <textarea name="template_block_left" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
                             </div>
                         </div>
-                        <div class="form-group form-row">
-                            <label for="template_block_right" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
+                        <div class="form-group row g-2">
+                            <label for="template_block_right" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_right'] ?></label>
                             <div class="col">
                                 <?php
                                 if(!isset($template["righttext_file"])) {
@@ -681,8 +681,8 @@ if(!isset($_GET["s"])) {
                                 if(!isset($template['customblock_'.$value.'_file'])) {
                                     $template['customblock_'.$value.'_file'] = '';
                                 }
-                                echo '<div class="form-group form-row">';
-                                echo '  <label for="be_admin_tmpl_error" class="col-sm-2 col-form-label text-right">';
+                                echo '<div class="form-group row g-2">';
+                                echo '  <label for="be_admin_tmpl_error" class="col-sm-2 col-form-label text-end">';
                                 echo $custom_block . " <br />{" . $custom_block . "}";
                                 echo '</label>';
                                 echo '<div class="col">';
@@ -697,8 +697,8 @@ if(!isset($_GET["s"])) {
                         }
                         ?>
 
-                        <div class="form-group form-row mb-0">
-                            <label for="template_block_error" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
+                        <div class="form-group row g-2 mb-0">
+                            <label for="template_block_error" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_tmpl_error'] ?></label>
                             <div class="col">
                                 <?php
                                 if(!isset($template["errortext_file"])) {
@@ -713,8 +713,8 @@ if(!isset($_GET["s"])) {
 
                     <!-- TAB 3: HEAD & SCRIPTS -->
                     <div class="tab-pane fade" id="tmpl-head-sect" role="tabpanel" aria-labelledby="tmpl-head-tab">
-                        <div class="form-group form-row">
-                            <label for="template_htmlhead" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_head'] ?></label>
+                        <div class="form-group row g-2">
+                            <label for="template_htmlhead" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_tmpl_head'] ?></label>
                             <div class="col">
                                 <?php
                                 if (!isset($template["htmlhead_file"])) {
@@ -728,11 +728,11 @@ if(!isset($_GET["s"])) {
 
                         <hr/>
 
-                        <div class="form-group form-row align-items-center">
-                            <label for="template_jslib" class="col-sm-2 col-form-label text-right"><?php echo $BL['js_lib'] ?></label>
+                        <div class="form-group row g-2 align-items-center">
+                            <label for="template_jslib" class="col-sm-2 col-form-label text-end"><?php echo $BL['js_lib'] ?></label>
                             <div class="col">
                                 <div class="input-group input-group-sm">
-                                    <select class="custom-select form-control" name="template_jslib" id="template_jslib">
+                                    <select class="form-select" name="template_jslib" id="template_jslib">
                                         <?php
                                         $jslib_optgroup = false;
                                         $jslib_current_optgroup = '';
@@ -755,13 +755,13 @@ if(!isset($_GET["s"])) {
                                         }
                                         ?>
                                     </select>
-                                    <div class="input-group-append">
+                                    
                                         <div class="input-group-text">
-                                            <input class="mr-1" type="checkbox" name="template_jslibload" id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> />
+                                            <input class="me-1" type="checkbox" name="template_jslibload" id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> />
                                             <label for="template_jslibload" class="form-check-label mb-0"><?php echo $BL['js_lib_alwaysload'] ?></label>
-                                        </div>
+                                        
                                         <div class="input-group-text">
-                                            <input class="mr-1" type="checkbox" name="template_googleapi" id="template_googleapi" value="1" <?php is_checked($template['googleapi'], 1); ?> />
+                                            <input class="me-1" type="checkbox" name="template_googleapi" id="template_googleapi" value="1" <?php is_checked($template['googleapi'], 1); ?> />
                                             <label for="template_googleapi" class="form-check-label mb-0"><?php echo $BL['googleapi_load'] ?></label>
                                         </div>
                                     </div>
@@ -769,14 +769,14 @@ if(!isset($_GET["s"])) {
                             </div>
                         </div>
 
-                        <div class="form-group form-row align-items-center">
-                            <label for="template_jsonload" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_js'] ?></label>
+                        <div class="form-group row g-2 align-items-center">
+                            <label for="template_jsonload" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_tmpl_js'] ?></label>
                             <div class="col">
                                 <input type="text" class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>">
                             </div>
                         </div>
 
-                        <div class="form-group form-row align-items-center mb-0">
+                        <div class="form-group row g-2 align-items-center mb-0">
                             <div class="col-sm-2"></div>
                             <div class="col">
                                 <div class="form-check">
@@ -791,7 +791,7 @@ if(!isset($_GET["s"])) {
                     <div class="tab-pane fade" id="tmpl-consent-sect" role="tabpanel" aria-labelledby="tmpl-consent-tab">
                         <!-- Tracking -->
                         <div class="form-group mb-4">
-                            <label class="col-form-label font-weight-bold">Tracking</label>
+                            <label class="col-form-label fw-bold">Tracking</label>
 <?php if (!empty($template['ie8ignore'])): ?>
                             <div class="form-check">
                                 <input class="form-check-input" name="template_ie8ignore" id="template_ie8ignore" type="checkbox" value="1" checked disabled readonly>
@@ -804,8 +804,8 @@ if(!isset($_GET["s"])) {
                                     <?php echo $BL['be_google_analytics_enable']; ?>
                                 </label>
 
-                                <div id="ga-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_ga']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                    <label class="col-sm-2 col-form-label text-right" for="template_ga_id"><?php echo $BL['be_tracking_id']; ?></label>
+                                <div id="ga-tracking" class="form-group row g-2 align-items-center mt-1"<?php if (!$template['tracking_ga']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                    <label class="col-sm-2 col-form-label text-end" for="template_ga_id"><?php echo $BL['be_tracking_id']; ?></label>
                                     <div class="col-sm-4">
                                         <input type="text" name="template_ga_id" id="template_ga_id" class="form-control form-control-sm" placeholder="UA-XXXXX-Y" value="<?php echo html($template['tracking_ga']['id']) ?>"/>
                                     </div>
@@ -826,7 +826,7 @@ if(!isset($_GET["s"])) {
                                     </div>
 
                                     <div class="form-check col-sm-10 offset-sm-2 my-1">
-                                        <label class="col-form-label font-weight-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
+                                        <label class="col-form-label fw-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
                                         <textarea name="template_ga_custom_properties" id="template_ga_custom_properties" class="form-control text-monospace autosize code-editor" data-mode="javascript" data-min-lines="4" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
                                     </div>
 
@@ -839,8 +839,8 @@ if(!isset($_GET["s"])) {
                                     <?php echo $BL['be_google_tag_manager_enable']; ?>
                                 </label>
 
-                                <div id="gtm-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_gtm']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                    <label class="col-sm-2 col-form-label text-right" for="template_gtm_id"><?php echo $BL['be_tracking_id']; ?></label>
+                                <div id="gtm-tracking" class="form-group row g-2 align-items-center mt-1"<?php if (!$template['tracking_gtm']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                    <label class="col-sm-2 col-form-label text-end" for="template_gtm_id"><?php echo $BL['be_tracking_id']; ?></label>
                                     <div class="col-sm-4">
                                         <input type="text" name="template_gtm_id" id="template_gtm_id" class="form-control form-control-sm" placeholder="GTM-XXXXXXX" value="<?php echo html($template['tracking_gtm']['id']) ?>"/>
                                     </div>
@@ -853,10 +853,10 @@ if(!isset($_GET["s"])) {
                                     <?php echo $BL['be_piwik_enable']; ?>
                                 </label>
 
-                                <div id="piwik-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                    <label class="col-sm-2 col-form-label text-right" for="template_piwik_id"><?php echo $BL['be_site_id']; ?></label>
+                                <div id="piwik-tracking" class="form-group row g-2 align-items-center mt-1"<?php if (!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                    <label class="col-sm-2 col-form-label text-end" for="template_piwik_id"><?php echo $BL['be_site_id']; ?></label>
                                     <input type="text" name="template_piwik_id" class="form-control form-control-sm col-sm-2" placeholder="1" id="template_piwik_id" value="<?php echo empty($template['tracking_piwik']['id']) ? '' : $template['tracking_piwik']['id']; ?>"/>
-                                    <label class="col-sm-2 col-form-label text-right" for="template_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
+                                    <label class="col-sm-2 col-form-label text-end" for="template_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
                                     <input type="text" name="template_piwik_url" class="form-control form-control-sm col-sm-4" placeholder="piwik.example.com" id="template_piwik_url" value="<?php echo html($template['tracking_piwik']['url']) ?>"/>
                                 </div>
                             </div>
@@ -866,7 +866,7 @@ if(!isset($_GET["s"])) {
 
                         <!-- Cookie Consent -->
                         <div class="form-group mb-0">
-                            <label class="col-form-label font-weight-bold">Cookie Consent</label>
+                            <label class="col-form-label fw-bold">Cookie Consent</label>
 
                             <!-- Cookie Consent v2 -->
                             <div class="form-check">
@@ -879,31 +879,31 @@ if(!isset($_GET["s"])) {
                                 <?php if (count($phpwcms['allowed_lang'])): ?>
                                     <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></small></em>
                                 <?php endif; ?>
-                                <div class="form-group form-row my-2">
-                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_message"><?php echo $BL['be_cookie_consent_message']; ?></label>
+                                <div class="form-group row g-2 my-2">
+                                    <label class="col-sm-3 col-form-label text-end" for="be_cookie_consent_message"><?php echo $BL['be_cookie_consent_message']; ?></label>
                                     <div class="col">
                                         <textarea name="cookie_consent_message" rows="3" id="be_cookie_consent_message" class="form-control form-control-sm autosize" placeholder="<?php echo $BL['cookie_consent_message']; ?>"><?php echo html($template['cookie_consent']['message']) ?></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group form-row mt-2 mb-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_dismiss"><?php echo $BL['be_cookie_consent_dismiss']; ?></label>
+                                <div class="form-group row g-2 mt-2 mb-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="be_cookie_consent_dismiss"><?php echo $BL['be_cookie_consent_dismiss']; ?></label>
                                     <div class="col"><input type="text" name="cookie_consent_dismiss" id="be_cookie_consent_dismiss" class="form-control form-control-sm" placeholder="<?php echo $BL['cookie_consent_dismiss']; ?>" value="<?php echo html($template['cookie_consent']['dismiss']) ?>"/>
                                     </div>
                                 </div>
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_more"><?php echo $BL['be_cookie_consent_more']; ?></label>
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="be_cookie_consent_more"><?php echo $BL['be_cookie_consent_more']; ?></label>
                                     <div class="col">
                                         <input type="text" name="cookie_consent_more" id="be_cookie_consent_more" class="form-control form-control-sm" placeholder="<?php echo $BL['cookie_consent_more']; ?>" value="<?php echo html($template['cookie_consent']['more']) ?>"/>
                                     </div>
                                 </div>
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_link"><?php echo $BL['be_cookie_consent_link']; ?></label>
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="be_cookie_consent_link"><?php echo $BL['be_cookie_consent_link']; ?></label>
                                     <div class="col">
                                         <input type="text" name="cookie_consent_link" id="be_cookie_consent_link" class="form-control form-control-sm" placeholder="https://example.com/cookie-policy | cookie-policy" value="<?php echo html($template['cookie_consent']['link']) ?>"/>
                                     </div>
                                 </div>
-                                <div class="form-group form-row mt-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_theme"><?php echo $BL['be_cookie_consent_theme']; ?></label>
+                                <div class="form-group row g-2 mt-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="be_cookie_consent_theme"><?php echo $BL['be_cookie_consent_theme']; ?></label>
                                     <div class="col">
                                         <input type="text" name="cookie_consent_theme" id="be_cookie_consent_theme" class="form-control form-control-sm" placeholder="light-top, light-bottom, light-floating, dark-top&hellip;" title="<?php echo $BL['be_admin_tmpl_default']; ?>: light-top, light-bottom, light-floating, dark-top, dark-bottom, dark-floating, dark-inline, dark-floating-tada" value="<?php echo html($template['cookie_consent']['theme']) ?>"/>
                                     </div>
@@ -928,11 +928,11 @@ if(!isset($_GET["s"])) {
                                     <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></small></em>
                                 <?php endif; ?>
 
-                                <div class="form-group form-row mb-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_reload_on_change">
+                                <div class="form-group row g-2 mb-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_reload_on_change">
                                         <?php echo $BL['be_cc_v3_on_change']; ?>
                                     </label>
-                                    <div class="col mb-1 mt-2 pl-4">
+                                    <div class="col mb-1 mt-2 ps-4">
                                         <label class="form-check-label" for="cc_v3_reload_on_change">
                                             <input class="form-check-input"
                                                    name="cc_v3_reload_on_change"
@@ -945,8 +945,8 @@ if(!isset($_GET["s"])) {
                                     </div>
                                 </div>
 
-                                <div class="form-group form-row mt-1 mb-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_title">
+                                <div class="form-group row g-2 mt-1 mb-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_title">
                                         <?php echo $BL['be_cc_v3_title']; ?>
                                     </label>
                                     <div class="col">
@@ -959,8 +959,8 @@ if(!isset($_GET["s"])) {
                                         />
                                     </div>
                                 </div>
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_description">
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_description">
                                         <?php echo $BL['be_cc_v3_description']; ?>
                                     </label>
                                     <div class="col">
@@ -974,8 +974,8 @@ if(!isset($_GET["s"])) {
                                     </div>
                                 </div>
 
-                                <div class="form-group form-row mt-2 mb-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_accept_all">
+                                <div class="form-group row g-2 mt-2 mb-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_accept_all">
                                         <?php echo $BL['be_cc_v3_accept_all']; ?>
                                     </label>
                                     <div class="col-sm-6">
@@ -988,8 +988,8 @@ if(!isset($_GET["s"])) {
                                         />
                                     </div>
                                 </div>
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_accept_necessary">
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_accept_necessary">
                                         <?php echo $BL['be_cc_v3_accept_necessary']; ?>
                                     </label>
                                     <div class="col-sm-6">
@@ -1002,8 +1002,8 @@ if(!isset($_GET["s"])) {
                                         />
                                     </div>
                                 </div>
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_accept_selected">
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_accept_selected">
                                         <?php echo $BL['be_cc_v3_accept_selected']; ?>
                                     </label>
                                     <div class="col-sm-6">
@@ -1016,8 +1016,8 @@ if(!isset($_GET["s"])) {
                                         />
                                     </div>
                                 </div>
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_reject_all">
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_reject_all">
                                         <?php echo $BL['be_cc_v3_reject_all']; ?>
                                     </label>
                                     <div class="col-sm-6">
@@ -1030,8 +1030,8 @@ if(!isset($_GET["s"])) {
                                         />
                                     </div>
                                 </div>
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_customize">
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_customize">
                                         <?php echo $BL['be_cc_v3_customize']; ?>
                                     </label>
                                     <div class="col-sm-6">
@@ -1044,8 +1044,8 @@ if(!isset($_GET["s"])) {
                                         />
                                     </div>
                                 </div>
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_more">
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_more">
                                         <?php echo $BL['be_cc_v3_more']; ?>
                                     </label>
                                     <div class="col-sm-6">
@@ -1058,8 +1058,8 @@ if(!isset($_GET["s"])) {
                                         />
                                     </div>
                                 </div>
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_link">
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="cc_v3_link">
                                         <?php echo $BL['be_cc_v3_link']; ?>
                                     </label>
                                     <div class="col">
@@ -1073,19 +1073,19 @@ if(!isset($_GET["s"])) {
                                     </div>
                                 </div>
 
-                                <div class="form-group form-row mt-0 mb-2">
-                                    <div class="col-sm-3 col-form-label text-right">
+                                <div class="form-group row g-2 mt-0 mb-2">
+                                    <div class="col-sm-3 col-form-label text-end">
                                         <?php echo $BL['be_cc_v3_sections']; ?>
                                     </div>
                                     <div class="col">
                                         <div class="border rounded p-2 mt-1">
                                             <!-- General -->
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-end text-info">
                                                     <?php echo $BL['be_cc_v3_section_general']; ?>
                                                 </strong>
                                                 <div class="col">
-                                                    <label class="form-check-label ml-4" for="cc_v3_general_active">
+                                                    <label class="form-check-label ms-4" for="cc_v3_general_active">
                                                         <input class="form-check-input"
                                                                name="cc_v3_general_active"
                                                                id="cc_v3_general_active"
@@ -1096,8 +1096,8 @@ if(!isset($_GET["s"])) {
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_general_title">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_general_title">
                                                     <?php echo $BL['be_cc_v3_sections_title']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1110,8 +1110,8 @@ if(!isset($_GET["s"])) {
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_general_description">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_general_description">
                                                     <?php echo $BL['be_cc_v3_sections_description']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1128,12 +1128,12 @@ if(!isset($_GET["s"])) {
                                             <hr class="my-2">
 
                                             <!-- Strictly necessary cookies -->
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-end text-info">
                                                     <?php echo $BL['be_cc_v3_section_necessary']; ?>
                                                 </strong>
                                                 <div class="col">
-                                                    <label class="form-check-label ml-4">
+                                                    <label class="form-check-label ms-4">
                                                         <input class="form-check-input"
                                                                type="checkbox"
                                                                value="1"
@@ -1146,8 +1146,8 @@ if(!isset($_GET["s"])) {
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_necessary_title">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_necessary_title">
                                                     <?php echo $BL['be_cc_v3_sections_title']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1160,8 +1160,8 @@ if(!isset($_GET["s"])) {
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_necessary_description">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_necessary_description">
                                                     <?php echo $BL['be_cc_v3_sections_description']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1178,12 +1178,12 @@ if(!isset($_GET["s"])) {
                                             <hr class="my-2">
 
                                             <!-- Functional cookies -->
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-end text-info">
                                                     <?php echo $BL['be_cc_v3_section_functional']; ?>
                                                 </strong>
                                                 <div class="col">
-                                                    <label class="form-check-label ml-4" for="cc_v3_functionality_active">
+                                                    <label class="form-check-label ms-4" for="cc_v3_functionality_active">
                                                         <input class="form-check-input"
                                                                name="cc_v3_functionality_active"
                                                                id="cc_v3_functionality_active"
@@ -1194,8 +1194,8 @@ if(!isset($_GET["s"])) {
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_functionality_title">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_functionality_title">
                                                     <?php echo $BL['be_cc_v3_sections_title']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1208,8 +1208,8 @@ if(!isset($_GET["s"])) {
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_functionality_description">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_functionality_description">
                                                     <?php echo $BL['be_cc_v3_sections_description']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1226,12 +1226,12 @@ if(!isset($_GET["s"])) {
                                             <hr class="my-2">
 
                                             <!-- Performance and Analytics cookies -->
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-end text-info">
                                                     <?php echo $BL['be_cc_v3_section_analytics']; ?>
                                                 </strong>
                                                 <div class="col">
-                                                    <label class="form-check-label ml-4" for="cc_v3_analytics_active">
+                                                    <label class="form-check-label ms-4" for="cc_v3_analytics_active">
                                                         <input class="form-check-input"
                                                                name="cc_v3_analytics_active"
                                                                id="cc_v3_analytics_active"
@@ -1242,8 +1242,8 @@ if(!isset($_GET["s"])) {
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_analytics_title">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_analytics_title">
                                                     <?php echo $BL['be_cc_v3_sections_title']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1256,8 +1256,8 @@ if(!isset($_GET["s"])) {
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_analytics_description">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_analytics_description">
                                                     <?php echo $BL['be_cc_v3_sections_description']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1274,12 +1274,12 @@ if(!isset($_GET["s"])) {
                                             <hr class="my-2">
 
                                             <!-- Advertising and marketing cookies -->
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-end text-info">
                                                     <?php echo $BL['be_cc_v3_section_marketing']; ?>
                                                 </strong>
                                                 <div class="col">
-                                                    <label class="form-check-label ml-4" for="cc_v3_marketing_active">
+                                                    <label class="form-check-label ms-4" for="cc_v3_marketing_active">
                                                         <input class="form-check-input"
                                                                name="cc_v3_marketing_active"
                                                                id="cc_v3_marketing_active"
@@ -1290,8 +1290,8 @@ if(!isset($_GET["s"])) {
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_marketing_title">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_marketing_title">
                                                     <?php echo $BL['be_cc_v3_sections_title']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1304,8 +1304,8 @@ if(!isset($_GET["s"])) {
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_marketing_description">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_marketing_description">
                                                     <?php echo $BL['be_cc_v3_sections_description']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1322,12 +1322,12 @@ if(!isset($_GET["s"])) {
                                             <hr class="my-2">
 
                                             <!-- Social media cookies -->
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-end text-info">
                                                     <?php echo $BL['be_cc_v3_section_social']; ?>
                                                 </strong>
                                                 <div class="col">
-                                                    <label class="form-check-label ml-4" for="cc_v3_social_active">
+                                                    <label class="form-check-label ms-4" for="cc_v3_social_active">
                                                         <input class="form-check-input"
                                                                name="cc_v3_social_active"
                                                                id="cc_v3_social_active"
@@ -1338,8 +1338,8 @@ if(!isset($_GET["s"])) {
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_social_title">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_social_title">
                                                     <?php echo $BL['be_cc_v3_sections_title']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1352,8 +1352,8 @@ if(!isset($_GET["s"])) {
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_social_description">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_social_description">
                                                     <?php echo $BL['be_cc_v3_sections_description']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1370,12 +1370,12 @@ if(!isset($_GET["s"])) {
                                             <hr class="my-2">
 
                                             <!-- More information -->
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-end text-info">
                                                     <?php echo $BL['be_cc_v3_section_more']; ?>
                                                 </strong>
                                                 <div class="col">
-                                                    <label class="form-check-label ml-4" for="cc_v3_more_active">
+                                                    <label class="form-check-label ms-4" for="cc_v3_more_active">
                                                         <input class="form-check-input"
                                                                name="cc_v3_more_active"
                                                                id="cc_v3_more_active"
@@ -1386,8 +1386,8 @@ if(!isset($_GET["s"])) {
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_more_title">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_more_title">
                                                     <?php echo $BL['be_cc_v3_sections_title']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1400,8 +1400,8 @@ if(!isset($_GET["s"])) {
                                                     />
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_more_description">
+                                            <div class="form-group row g-2 my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end fw-normal" for="cc_v3_more_description">
                                                     <?php echo $BL['be_cc_v3_sections_description']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1419,8 +1419,8 @@ if(!isset($_GET["s"])) {
 
                                 </div>
 
-                                <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="be_cc_v3_theme">
+                                <div class="form-group row g-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="be_cc_v3_theme">
                                         <?php echo $BL['be_cc_v3_theme']; ?>
                                     </label>
                                     <div class="col">
@@ -1435,14 +1435,14 @@ if(!isset($_GET["s"])) {
                                     </div>
                                 </div>
 
-                                <div class="form-group form-row my-0">
-                                    <div class="col-sm-3 col-form-label text-right">
+                                <div class="form-group row g-2 my-0">
+                                    <div class="col-sm-3 col-form-label text-end">
                                         <?php echo $BL['be_cc_v3_consent_modal']; ?>
                                     </div>
                                     <div class="col">
                                         <div class="border rounded p-2 mt-1">
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right" for="cc_v3_consent_layout">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end" for="cc_v3_consent_layout">
                                                     <?php echo $BL['be_cc_v3_layout']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1457,8 +1457,8 @@ if(!isset($_GET["s"])) {
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right" for="cc_v3_consent_position">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end" for="cc_v3_consent_position">
                                                     <?php echo $BL['be_cc_v3_position']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1509,7 +1509,7 @@ if(!isset($_GET["s"])) {
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0 py-1">
+                                            <div class="form-group row g-2 my-0 py-1">
                                                 <strong class="col-4 col-md-3 col-lg-2">&nbsp;</strong>
                                                 <div class="col">
                                                     <label class="form-check-label mx-4" for="cc_v3_consent_flip">
@@ -1521,7 +1521,7 @@ if(!isset($_GET["s"])) {
                                                         />
                                                         <?php echo $BL['be_cc_v3_btn_flip'] ?>
                                                     </label>
-                                                    <label class="form-check-label ml-4" for="cc_v3_consent_equal">
+                                                    <label class="form-check-label ms-4" for="cc_v3_consent_equal">
                                                         <input class="form-check-input"
                                                                name="cc_v3_consent_equal"
                                                                id="cc_v3_consent_equal"
@@ -1536,14 +1536,14 @@ if(!isset($_GET["s"])) {
                                     </div>
                                 </div>
 
-                                <div class="form-group form-row my-0">
-                                    <div class="col-sm-3 col-form-label text-right">
+                                <div class="form-group row g-2 my-0">
+                                    <div class="col-sm-3 col-form-label text-end">
                                         <?php echo $BL['be_cc_v3_preferences_modal']; ?>
                                     </div>
                                     <div class="col">
                                         <div class="border rounded p-2 mt-1">
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right" for="cc_v3_preferences_layout">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end" for="cc_v3_preferences_layout">
                                                     <?php echo $BL['be_cc_v3_layout']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1554,8 +1554,8 @@ if(!isset($_GET["s"])) {
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0 pb-1">
-                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right" for="cc_v3_preferences_position">
+                                            <div class="form-group row g-2 my-0 pb-1">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-end" for="cc_v3_preferences_position">
                                                     <?php echo $BL['be_cc_v3_position']; ?>
                                                 </label>
                                                 <div class="col">
@@ -1571,7 +1571,7 @@ if(!isset($_GET["s"])) {
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-row my-0 py-1">
+                                            <div class="form-group row g-2 my-0 py-1">
                                                 <strong class="col-4 col-md-3 col-lg-2">&nbsp;</strong>
                                                 <div class="col">
                                                     <label class="form-check-label mx-4" for="cc_v3_preferences_flip">
@@ -1583,7 +1583,7 @@ if(!isset($_GET["s"])) {
                                                         />
                                                         <?php echo $BL['be_cc_v3_btn_flip'] ?>
                                                     </label>
-                                                    <label class="form-check-label ml-4" for="cc_v3_preferences_equal">
+                                                    <label class="form-check-label ms-4" for="cc_v3_preferences_equal">
                                                         <input class="form-check-input"
                                                                name="cc_v3_preferences_equal"
                                                                id="cc_v3_preferences_equal"
@@ -1609,8 +1609,8 @@ if(!isset($_GET["s"])) {
 
                             <div id="template-cr-form"<?php if (!$template['require_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
 
-                                <div class="form-group form-row mt-2 my-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="template_require_cookie_name">
+                                <div class="form-group row g-2 mt-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="template_require_cookie_name">
                                         <?php echo $BL['be_consent_cookie_name']; ?>
                                     </label>
                                     <div class="col-sm-9">
@@ -1624,8 +1624,8 @@ if(!isset($_GET["s"])) {
                                     </div>
                                 </div>
 
-                                <div class="form-group form-row mt-0">
-                                    <label class="col-sm-3 col-form-label text-right" for="template_require_cookie_value">
+                                <div class="form-group row g-2 mt-0">
+                                    <label class="col-sm-3 col-form-label text-end" for="template_require_cookie_value">
                                         <?php echo $BL['be_consent_cookie_value']; ?>
                                     </label>
                                     <div class="col-sm-9">
@@ -1642,15 +1642,15 @@ if(!isset($_GET["s"])) {
 
         <div class="form-group align-items-center mt-4 mb-0">
             <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
-            <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
-            <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+            <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
+            <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
         </div>
     </form>
     <script type="text/javascript">
     $(function(){
         // Tab persistence via localStorage
         const tmplTabKey = 'phpwcms_active_template_tab';
-        $('#templateTabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        $('#templateTabs a[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
             localStorage.setItem(tmplTabKey, $(e.target).attr('href'));
         });
         const activeTmplTab = localStorage.getItem(tmplTabKey);

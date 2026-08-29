@@ -29,7 +29,7 @@ $calist = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
 if (empty($calist['cat'])) {
     $cinfo[] = $BL['be_cnt_sitecurrent'];
 } else {
-    $cinfo[] = $BL['be_cnt_sitelevel'] . ' <span class="badge badge-info font-weight-normal badge-align">ID: ' . intval($calist['catid'] ?? 0) . '</span>';
+    $cinfo[] = $BL['be_cnt_sitelevel'] . ' <span class="badge badge-info fw-normal badge-align">ID: ' . intval($calist['catid'] ?? 0) . '</span>';
 }
 
 $cinfo_result = implode(' / ', $cinfo);

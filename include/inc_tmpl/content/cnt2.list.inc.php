@@ -38,7 +38,7 @@ if (is_array($image_list) && !empty($image_list['images']) && is_array($image_li
                 'thumb_name' => md5($img_entry[2] . $phpwcms['img_list_width'] . $phpwcms['img_list_height'] . $phpwcms['sharpen_level'] . $phpwcms['colorspace']),
             ]);
             if ($thumb_image !== false) {
-                $cinfo_img .= '<img class="img-thumbnail rounded mr-1 mb-1" src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="' . html($img_entry[1] ?? '') . '" />';
+                $cinfo_img .= '<img class="img-thumbnail rounded me-1 mb-1" src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="' . html($img_entry[1] ?? '') . '" />';
             }
         }
     }

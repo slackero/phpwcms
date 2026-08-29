@@ -19,10 +19,10 @@ if(empty($content["file_descr"])) $content["file_descr"] = '';
 $content['file']['direct_download'] = empty($content['file']['direct_download']) ? 0 : 1;
 
 ?>
-<div class="form-group align-items-center form-row">
-  <label for="cfile_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="cfile_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
-    <select name="cfile_template" id="cfile_template" class="custom-select form-control form-control-sm">
+    <select name="cfile_template" id="cfile_template" class="form-select form-select-sm">
 
 <?php
 
@@ -57,8 +57,8 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
    </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-	<label for="cfile_direct" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_download'] ?></label>
+<div class="form-group align-items-center row g-2">
+	<label for="cfile_direct" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_download'] ?></label>
 	<div class="col-sm-auto form-check form-check-inline">
 		<input class="form-check-input" name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php
 					is_checked(1, $content['file']['direct_download']);
@@ -77,10 +77,10 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
 	</div>
 </div>
 
-<div class="form-group form-row">
-  <label for="cfile_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
+<div class="form-group row g-2">
+  <label for="cfile_list" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_files'] ?></label>
     <div class="col">
-        <select name="cfile_list[]" size="8" multiple class="custom-select form-control form-control-sm" id="cfile_list">
+        <select name="cfile_list[]" size="8" multiple class="form-select form-select-sm" id="cfile_list">
         <?php
 
         if(isset($content["file_list"]) && is_array($content["file_list"]) && count($content["file_list"])) {
@@ -118,15 +118,15 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
         </select>
     </div>
       <div class="col-sm-auto">
-        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cfile_list)"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cfile_list)"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cfile_list)" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cfile_list)"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cfile_list)"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cfile_list)" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
       </div>
   </div>
 
-<div class="form-group form-row mb-5">
-  <label for="cfile_descr" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+<div class="form-group row g-2 mb-5">
+  <label for="cfile_descr" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_description'] ?></label>
   <div class="col">
     <textarea name="cfile_descr" cols="40" rows="5" class="form-control form-control-sm" id="cfile_descr"><?php
 

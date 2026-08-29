@@ -170,26 +170,26 @@ $count_user_files = _dbQuery($sql, 'COUNT');
 
 <div class="d-flex align-items-center justify-content-between mb-3">
   <h2 class="m-0"><?php echo ($js_aktion == 16) ? $BL['be_article_title'] : $BL['FILE_TITLE']; ?></h2>
-  <button type="button" class="btn btn-blue btn-sm" id="showuploader"><i class="fas fa-cloud-upload-alt mr-1"></i><?php echo $BL['be_file_multiple_upload'] ?></button>
+  <button type="button" class="btn btn-blue btn-sm" id="showuploader"><i class="fas fa-cloud-upload-alt me-1"></i><?php echo $BL['be_file_multiple_upload'] ?></button>
 </div>
 	<div class="uploader filebrowser-uploader" id="filebrowser-uploader" style="display:none">
       <form action="include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>" class="dropzone mb-2" id="filebrowser-dropzone"></form>
       <div id="dropzone-errors" class="mb-3"></div>
       <div class="filebrowser-form card card-body bg-light p-3 mb-3">
 			<div class="form-group mb-2">
-				<label class="font-weight-bold small mb-1" for="file_longinfo"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+				<label class="fw-bold small mb-1" for="file_longinfo"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
 				<textarea cols="40" rows="2" id="file_longinfo" class="form-control form-control-sm"></textarea>
 			</div>
 			<div class="form-group mb-2">
-				<label class="font-weight-bold small mb-1" for="file_copyright"><?php echo $BL['be_copyright'] ?></label>
+				<label class="fw-bold small mb-1" for="file_copyright"><?php echo $BL['be_copyright'] ?></label>
 				<input name="file_copyright" type="text" id="file_copyright" class="form-control form-control-sm" maxlength="255" value="" />
 			</div>
 			<div class="form-group mb-0">
-				<span class="font-weight-bold small mb-1 d-block"><?php echo $BL['be_tags'] ?></span>
+				<span class="fw-bold small mb-1 d-block"><?php echo $BL['be_tags'] ?></span>
 				<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
 			</div>
-			<div class="mt-3 text-right">
-				<button type="button" class="btn btn-success btn-sm font-weight-bold px-3" id="upload-trigger-send"><i class="fas fa-upload mr-1"></i><?php echo $BL['be_files_upload'] ?></button>
+			<div class="mt-3 text-end">
+				<button type="button" class="btn btn-success btn-sm fw-bold px-3" id="upload-trigger-send"><i class="fas fa-upload me-1"></i><?php echo $BL['be_files_upload'] ?></button>
 			</div>
       </div>
 	</div>
@@ -231,7 +231,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $bgcol      = (isset($row["f_id"]) && $row["f_id"] == $_SESSION["imgdir"]) ? ' bgcolor="#FFF5C9"' : '';
 
     echo '<tr'.$bgcol.'><td class="text-nowrap">';
-    echo $count.'<i class="fa fa-desktop fa-fw pl-1 mr-2" aria-hidden="true"></i>';
+    echo $count.'<i class="fa fa-desktop fa-fw ps-1 me-2" aria-hidden="true"></i>';
     echo $dirname.'</td></tr>'.LF;
 
     //Wenn überhaupt Ordner für User vorhanden, dann Listing
@@ -456,14 +456,14 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 // show "add all files"
                 if($file_durchlauf === 0 && $add_all) {
 
-                    echo '<tr id="addAllFilesLink"><td colspan="4"><a href="#" class="btn btn-sm btn-blue" onclick="addAllFiles();return false;" data-toggle="tooltip" title="';
+                    echo '<tr id="addAllFilesLink"><td colspan="4"><a href="#" class="btn btn-sm btn-blue" onclick="addAllFiles();return false;" data-bs-toggle="tooltip" title="';
                     echo $BL['ADD_ALL_FILES'];
                     echo '">';
                     echo $BL['ADD_ALL_FILES'];
                     echo '<i class="fa fa-plus fa-fw" aria-hidden="true"></i></a></td></tr>';
                 }
 
-                echo '<tr'.$row_class.'><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                echo '<tr'.$row_class.'><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
                         echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
                     }
@@ -473,14 +473,14 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 $js_attr = html($js);
 
                 if($js_aktion != 4 && $js_aktion != 10 && $js_aktion != 16) {
-                    echo $filename.'</td><td class="text-right py-1">';
+                    echo $filename.'</td><td class="text-end py-1">';
                 } else if($js_aktion == 16 || $js_aktion == 17) {
-                  echo '<a href="#" onclick="' . $js_attr . 'tmt_winControl(\'self\',\'close()\');">' . $filename . '</a></td><td class="text-right py-1">';
+                  echo '<a href="#" onclick="' . $js_attr . 'tmt_winControl(\'self\',\'close()\');">' . $filename . '</a></td><td class="text-end py-1">';
                 } else {
-                    echo '<a href="#" onclick="' . $js_attr . 'parent.$(\'#browserModal\').modal(\'hide\');">' . $filename . '</a></td><td class="text-right py-1">';
+                    echo '<a href="#" onclick="' . $js_attr . 'parent.$(\'#browserModal\').modal(\'hide\');">' . $filename . '</a></td><td class="text-end py-1">';
                 }
 
-                echo '<a href="#" class="btn btn-sm btn-blue" onclick="' . $js_attr . 'return false;" data-toggle="tooltip" title="' . html($BL['TAKE_IMAGE']) . '">';
+                echo '<a href="#" class="btn btn-sm btn-blue" onclick="' . $js_attr . 'return false;" data-bs-toggle="tooltip" title="' . html($BL['TAKE_IMAGE']) . '">';
                 echo '<i class="fa fa-plus" aria-hidden="true"></i></a></td>';
                 echo '</tr>';
                 if((!empty($thumb_image[0]) || $file_row['f_svg']) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
@@ -566,21 +566,21 @@ $(function() {
     ?>;
 
     var bs4PreviewTemplate = '<div class="dz-preview dz-file-preview dz-preview-bs4 d-flex align-items-center justify-content-between">' +
-        '<div class="d-flex align-items-center overflow-hidden mr-3" style="min-width: 0;">' +
-            '<div class="mr-3 flex-shrink-0 dz-thumb-container">' +
+        '<div class="d-flex align-items-center overflow-hidden me-3" style="min-width: 0;">' +
+            '<div class="me-3 flex-shrink-0 dz-thumb-container">' +
                 '<img data-dz-thumbnail class="dz-thumbnail d-none" />' +
                 '<div class="dz-icon-placeholder"><i class="fas fa-file"></i></div>' +
             '</div>' +
             '<div class="overflow-hidden" style="min-width: 0;">' +
-                '<div class="font-weight-bold text-truncate text-dark" data-dz-name></div>' +
+                '<div class="fw-bold text-truncate text-dark" data-dz-name></div>' +
                 '<div class="small text-muted d-flex align-items-center">' +
-                    '<span data-dz-size class="mr-2"></span>' +
+                    '<span data-dz-size class="me-2"></span>' +
                 '</div>' +
                 '<div class="progress dz-progress-bar d-none"><div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" data-dz-uploadprogress></div></div>' +
             '</div>' +
         '</div>' +
-        '<div class="flex-shrink-0 ml-2">' +
-            '<button class="btn btn-outline-danger py-1 px-3" data-dz-remove><i class="fas fa-times mr-1"></i><?php echo str_replace("'", "\\'", $BL["be_newsletter_button_cancel"]); ?></button>' +
+        '<div class="flex-shrink-0 ms-2">' +
+            '<button class="btn btn-outline-danger py-1 px-3" data-dz-remove><i class="fas fa-times me-1"></i><?php echo str_replace("'", "\\'", $BL["be_newsletter_button_cancel"]); ?></button>' +
         '</div>' +
     '</div>';
 
@@ -775,9 +775,9 @@ $(function() {
 
                 if ($("#" + errorId).length === 0) {
                     var alertHtml = '<div id="' + errorId + '" class="alert alert-danger fade show d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">' +
-                        '<i class="fas fa-exclamation-triangle mr-2 mt-1 flex-shrink-0"></i>' +
+                        '<i class="fas fa-exclamation-triangle me-2 mt-1 flex-shrink-0"></i>' +
                         '<div>' + errText + '</div>' +
-                        '<button type="button" class="close ml-auto pl-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
+                        '<button type="button" class="btn-close ms-auto ps-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
                         '<span aria-hidden="true">&times;</span>' +
                         '</button>' +
                         '</div>';
@@ -861,7 +861,7 @@ function folder_list($pid, $counter, $zieldatei) {
                 $count = on_off($folder_status, $dirname, 0, $counter);
             }
 
-            $dirname = '<a href="'.$zieldatei."files=".$row["f_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['SHOW_FILES1'].'">'. $dirname . '</a>';
+            $dirname = '<a href="'.$zieldatei."files=".$row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['SHOW_FILES1'].'">'. $dirname . '</a>';
 
             if($row["f_id"] == $_SESSION["imgdir"]) {
                 $bgcol = ' bgcolor="#FFF5C9"';
@@ -888,9 +888,9 @@ function on_off($wert, $string, $art=1, $counter=0) {
     //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
     //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
     if($wert) {
-        return ($art == 1) ? "+" : '<i class="far fa-plus-square fa-fw px-1 slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
+        return ($art == 1) ? "+" : '<i class="far fa-plus-square fa-fw px-1 slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
     } else {
-        return ($art == 1) ? "-" : '<i class="far fa-minus-square fa-fw px-1 slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
+        return ($art == 1) ? "-" : '<i class="far fa-minus-square fa-fw px-1 slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
     }
 }
 function true_false($wert) {

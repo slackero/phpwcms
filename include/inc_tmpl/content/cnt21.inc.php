@@ -24,8 +24,8 @@ if(!isset($content["page_file"])) {
 }
 ?>
 
-<div class="form-group align-items-center form-row">
-  <label for="cpage_source_0" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_pages_from'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="cpage_source_0" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_pages_from'] ?></label>
   <div class="col">
   <div class="form-check form-check-inline">
       <label class="form-check-label">
@@ -42,15 +42,15 @@ if(!isset($content["page_file"])) {
   </div>
 </div>
 
-<div class="form-group align-items-center form-row">
-  <label for="cpage_custom" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_pages_cust'] ?></label>
+<div class="form-group align-items-center row g-2">
+  <label for="cpage_custom" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_pages_cust'] ?></label>
   <div class="col">
     <input name="cpage_custom" type="text" class="form-control form-control-sm" id="cpage_custom" value="<?php echo  html($content["page_file"]["pfile"]) ?>">
   </div>
 </div>
 
-<div class="form-group form-row">
-  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_pages_select'] ?></label>
+<div class="form-group row g-2">
+  <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_pages_select'] ?></label>
   <div class="col">
     <div style="width:100%; height:200px; overflow:auto; border: 1px solid #d9d9d9;"><?php
 

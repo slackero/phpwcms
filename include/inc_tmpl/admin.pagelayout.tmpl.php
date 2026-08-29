@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 if(!isset($_GET["s"])) {
 // check if pagelayout should be edited or list should be shown
 ?>
-<h1 class="text-center text-sm-left"><?php echo $BL['be_subnav_admin_pagelayout'] ?></h1>
+<h1 class="text-center text-sm-start"><?php echo $BL['be_subnav_admin_pagelayout'] ?></h1>
 <div class="card">
 <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_admin_page_title'] ?></h2></div>
 <div class="card-body">
@@ -38,12 +38,12 @@ if(!isset($_GET["s"])) {
 
             echo ($row["pagelayout_default"]) ? " (".$BL['be_admin_tmpl_default'].")" : '';
 
-            echo "</a></td>\n".'<td class="text-right text-nowrap">';
+            echo "</a></td>\n".'<td class="text-end text-nowrap">';
 
-            echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"].'" title="'.$BL['be_admin_page_edit'].'">';
+            echo '<a class="btn btn-blue btn-sm me-1" role="button" data-bs-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"].'" title="'.$BL['be_admin_page_edit'].'">';
             echo '<i class="fa fa-pencil-alt"></i></a>';
 
-            echo '<a class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
+            echo '<a class="btn btn-danger btn-sm" role="button" data-bs-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
             echo 'title="'.$BL['be_tt_delete_pagelayout'].'" ';
             echo 'data-confirm-danger="'.html($BL['be_cnt_delete'].":\n[".$row["pagelayout_name"].']').'">';
             echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
@@ -56,7 +56,7 @@ if(!isset($_GET["s"])) {
 
 ?>
 </table>
-<a href="phpwcms.php?do=admin&amp;p=8&amp;s=0" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_page_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_admin_page_add'] ?></a>
+<a href="phpwcms.php?do=admin&amp;p=8&amp;s=0" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_page_add'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_admin_page_add'] ?></a>
 </div>
 </div>
 <?php
@@ -299,14 +299,14 @@ if(!isset($_GET["s"])) {
 
 
 <div class="row align-items-center">
-	<div class="col col-sm-auto text-center text-sm-left">
+	<div class="col col-sm-auto text-center text-sm-start">
 		<h1><?php echo $BL['be_subnav_admin_pagelayout'] ?></h1>
 	</div>
-<div class="col-12 col-sm text-center text-sm-right mb-3">
+<div class="col-12 col-sm text-center text-sm-end mb-3">
 	 <div class="form-group">
 		<input name="layout_id" type="hidden" value="<?php echo $pagelayout["id"] ?>">
-		<button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_page_button'] ?></button>
-		<a href="phpwcms.php?do=admin&amp;p=8" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+		<button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_page_button'] ?></button>
+		<a href="phpwcms.php?do=admin&amp;p=8" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
      </div>
 </div>
 </div>
@@ -315,8 +315,8 @@ if(!isset($_GET["s"])) {
 	<div class="card-header"><h2><?php echo $BL['be_admin_page_title'] ?></h2></div>
 	<div class="card-body pb-2">
 
-    <div class="form-group form-row align-items-center">
-      <label for="layout_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_name'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+      <label for="layout_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_name'] ?></label>
       <div class="col-sm-7">
         <input name="layout_name" type="text" class="form-control form-control-sm" id="layout_name" value="<?php echo  isset($pagelayout["layout_name"]) ? html($pagelayout["layout_name"]) : '' ?>" >
       </div>
@@ -330,8 +330,8 @@ if(!isset($_GET["s"])) {
 
 <hr>
 
-<div class="form-group form-row">
-  <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_page_render'] ?></label>
+<div class="form-group row g-2">
+  <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_page_render'] ?></label>
   <div class="col-sm-10">
     <div class="form-check">
 			<input class="form-check-input" name="layout_render" id="layout_render_2" value="2" type="radio" <?php is_checked(2, $pagelayout["layout_render"]); ?>>
@@ -348,24 +348,24 @@ if(!isset($_GET["s"])) {
   </div>
 </div>
 
-<div class="form-group form-row align-items-center">
-	<label for="layout_customblocks" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_blocks'].', '.$BL['be_admin_page_customblocks'] ?></label>
+<div class="form-group row g-2 align-items-center">
+	<label for="layout_customblocks" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_blocks'].', '.$BL['be_admin_page_customblocks'] ?></label>
 	<div class="col">
 		<input type="text" class="form-control form-control-sm" name="layout_customblocks" id="layout_customblocks" value="<?php echo isset($pagelayout["layout_customblocks"]) ? html($pagelayout["layout_customblocks"]) : '' ?>" >
 	</div>
 </div>
 
-<div class="form-group form-row align-items-center">
-	<label for="layout_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_pagetitle'] ?></label>
+<div class="form-group row g-2 align-items-center">
+	<label for="layout_title" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_pagetitle'] ?></label>
 	<div class="col">
 		<input type="text" class="form-control form-control-sm" name="layout_title" id="layout_title" value="<?php echo html($pagelayout["layout_title"]); ?>" >
 	</div>
 </div>
 
-<div class="form-group form-row align-items-center">
-	<label for="be_admin_page_addtotitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_addtotitle'] ?></label>
+<div class="form-group row g-2 align-items-center">
+	<label for="be_admin_page_addtotitle" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_addtotitle'] ?></label>
 	<div class="col-sm-5">
-		<select name="layout_title_order" type="text" class="custom-select form-control form-control-sm" id="layout_title_order" >
+		<select name="layout_title_order" type="text" class="form-select form-select-sm" id="layout_title_order" >
 					<?php
 			if(empty($pagelayout["layout_title_order"])) {
 					$pagelayout["layout_title_order"] = 0;
@@ -396,7 +396,7 @@ if(!isset($_GET["s"])) {
 		</div>
 	<div class="col-sm-5">
 		<div class="row align-items-center">
-			<label class="col-sm-3 col-form-label text-right"><?php echo $BL['be_cnt_field']['break'] ?></label>
+			<label class="col-sm-3 col-form-label text-end"><?php echo $BL['be_cnt_field']['break'] ?></label>
 				<div class="col">
 					<input class="form-control form-control-sm col" name="layout_title_spacer" type="text" id="layout_title_spacer" value="<?php echo html($pagelayout["layout_title_spacer"]); ?>">
 				</div>
@@ -407,8 +407,8 @@ if(!isset($_GET["s"])) {
 <hr class="pagelayout-editable" <?php echo  $pagelayout['editable_hidden']; ?>/>
 
 	<fieldset class="form-group pagelayout-editable"<?php echo $pagelayout['editable_hidden']; ?>>
-		<div class="form-row align-items-center">
-			<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_align']  ?></label>
+		<div class="row g-2 align-items-center">
+			<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_align']  ?></label>
 			<div class="col">
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_0" value="0" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
@@ -426,8 +426,8 @@ if(!isset($_GET["s"])) {
 		</div>
 	</fieldset>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_margin']  ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_margin']  ?></label>
       <div class="col">
         <input type="number" class="form-control form-control-sm" name="layout_border_top" id="layout_border_top" value="<?php echo $pagelayout["layout_border_top"] ?>" placeholder="<?php echo $BL['be_admin_page_top'] ?>">
       </div>
@@ -449,8 +449,8 @@ if(!isset($_GET["s"])) {
     </div>
 
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_bg'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_bg'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_bgcolor" type="text" id="layout_bgcolor2" value="<?php echo html($pagelayout["layout_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
 		</div>
@@ -459,8 +459,8 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_color'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_color'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_textcolor" type="text" id="layout_textcolor" value="<?php echo html($pagelayout["layout_textcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_text'] ?>">
 		</div>
@@ -475,9 +475,9 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-		<div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-			<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_js'] ?></label>
-			<label for="layout_name" class="col-sm-auto col-form-label text-right">onload:</label>
+		<div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+			<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_js'] ?></label>
+			<label for="layout_name" class="col-sm-auto col-form-label text-end">onload:</label>
 			<div class="col">
 				<input class="form-control form-control-sm" name="layout_jsonload" type="text" id="layout_jsonload" value="<?php echo html($pagelayout["layout_jsonload"]); ?>">
 			</div>
@@ -486,10 +486,10 @@ if(!isset($_GET["s"])) {
 <hr class="pagelayout-editable" <?php echo  $pagelayout['editable_hidden']; ?>/>
 
 		<fieldset class="form-group pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-			<div class="form-row align-items-center">
-				<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_blocks'] ?></label>
+			<div class="row g-2 align-items-center">
+				<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_blocks'] ?></label>
 				<div class="col-sm-10">
-					<div class="form-row">
+					<div class="row g-2">
 						<div class="col-sm-auto form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="layout_type" id="layout_type_0" value="0" <?php is_checked(0, $pagelayout["layout_type"]); ?>>
 							<label class="form-check-label" for="layout_type_0"><img src="img/symbole/3_column_layout.svg" alt="<?php echo $BL['be_admin_page_col1'] ?>" width="56" height="44" border="0"></label>
@@ -511,8 +511,8 @@ if(!isset($_GET["s"])) {
 			</div>
 		</fieldset>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_allblocks'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_allblocks'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_all_width" type="text" id="layout_all_width" value="<?php echo $pagelayout["layout_all_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
 		</div>
@@ -527,8 +527,8 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_left'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_left_width" type="text" id="layout_left_width" value="<?php echo $pagelayout["layout_left_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
 		</div>
@@ -543,8 +543,8 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_leftspace'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_leftspace'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_leftspace_width" type="text" id="layout_leftspace_width" value="<?php echo $pagelayout["layout_leftspace_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
 		</div>
@@ -559,8 +559,8 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main']."&nbsp;[".$phpwcms["content_width"]?>]</label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_main']."&nbsp;[".$phpwcms["content_width"]?>]</label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_content_width" type="text" id="layout_content_width" value="<?php echo $pagelayout["layout_content_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
 		</div>
@@ -575,8 +575,8 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_rightspace'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_rightspace'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_rightspace_width" type="text" id="layout_rightspace_width" value="<?php echo $pagelayout["layout_rightspace_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
 		</div>
@@ -591,8 +591,8 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_right'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_right_width" type="text" id="layout_right_width" value="<?php echo $pagelayout["layout_right_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
 		</div>
@@ -609,8 +609,8 @@ if(!isset($_GET["s"])) {
 
 <hr class="pagelayout-editable" <?php echo  $pagelayout['editable_hidden']; ?>/>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_header'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_header_height" type="text" id="layout_header_height" value="<?php echo $pagelayout["layout_header_height"] ?>" placeholder="<?php echo $BL['be_admin_page_height'] ?>">
 		</div>
@@ -625,8 +625,8 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_topspace'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_topspace'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_topspace_height" type="text" id="layout_topspace_height" value="<?php echo $pagelayout["layout_topspace_height"] ?>" placeholder="<?php echo $BL['be_admin_page_height'] ?>">
 		</div>
@@ -641,8 +641,8 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_bottomspace'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_bottomspace'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_bottomspace_height" type="text" id="layout_bottomspace_height" value="<?php echo $pagelayout["layout_bottomspace_height"] ?>" placeholder="<?php echo $BL['be_admin_page_height'] ?>">
 		</div>
@@ -657,8 +657,8 @@ if(!isset($_GET["s"])) {
 		</div>
     </div>
 
-    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
+    <div class="form-group row g-2 align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_footer'] ?></label>
         <div class="col">
          	<input class="form-control form-control-sm" name="layout_footer_height" type="text" id="layout_footer_height" value="<?php echo $pagelayout["layout_footer_height"] ?>" placeholder="<?php echo $BL['be_admin_page_height'] ?>">
 		</div>
@@ -678,8 +678,8 @@ if(!isset($_GET["s"])) {
 
 	<div class="form-group align-items-center mt-4 mb-0">
 		<input name="layout_id" type="hidden" value="<?php echo $pagelayout["id"] ?>">
-		<button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_page_button'] ?></button>
-		<a href="phpwcms.php?do=admin&amp;p=8" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+		<button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_page_button'] ?></button>
+		<a href="phpwcms.php?do=admin&amp;p=8" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
 	</div>
 
 </form>

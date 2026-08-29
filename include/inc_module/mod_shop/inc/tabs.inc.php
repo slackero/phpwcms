@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $_entry['query']			= '';
 
 ?>
-<h1 class="text-center text-sm-left"><?php echo $BLM['listing_title'] ?></h1>
+<h1 class="text-center text-sm-start"><?php echo $BLM['listing_title'] ?></h1>
 
 <div class="card">
 	<div class="card-header">

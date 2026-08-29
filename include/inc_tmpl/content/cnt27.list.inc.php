@@ -38,7 +38,7 @@ if (!empty($cinfo_image[2]) && !empty($cinfo_image[3])) {
         'thumb_name' => md5($cinfo_image[2] . $phpwcms['img_list_width'] . $phpwcms['img_list_height'] . $phpwcms['sharpen_level'] . $phpwcms['colorspace']),
     ]);
     if ($thumb_image !== false) {
-        $image_preview = '<img class="img-thumbnail rounded mr-2 mb-1" src="' . $thumb_image['src'] . '" alt="" ' . $thumb_image[3] . ' />';
+        $image_preview = '<img class="img-thumbnail rounded me-2 mb-1" src="' . $thumb_image['src'] . '" alt="" ' . $thumb_image[3] . ' />';
     }
 }
 

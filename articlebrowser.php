@@ -149,7 +149,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 <body class="filebrowser">
 <ul class="nav nav-tabs border-0 my-2">
     <li role="presentation" class="nav-item">
-        <a href="#" class="btn btn-blue mr-2">
+        <a href="#" class="btn btn-blue me-2">
             <?php echo $BL['be_article_title'] ?>
         </a>
     </li>
@@ -177,10 +177,10 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     $a .= '<i class="fa fa-caret-' . (($child_count) ? (($_SESSION['structure'][0] == 0) ? 'right' : 'down') : 'right');
     $a .= ' fa-fw" aria-hidden="true"></i>' . (($child_count) ? '</a>' : '');
 
-    $info = '<table class="text-left"><tr><td>ID:</td><td><b>0</b></td></tr>';
+    $info = '<table class="text-start"><tr><td>ID:</td><td><b>0</b></td></tr>';
     $info .= '<tr><td>ALIAS:</td><td>' . $indexpage['acat_alias'] . '</td></tr></table>';
 
-    $a .= '<i class="far fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="' . html($info) . '"></i>';
+    $a .= '<i class="far fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-html="true" title="' . html($info) . '"></i>';
 
     $a .= '</td>';
     $a .= '<td width="97%"><strong>' . $an . '</strong></td></tr></table></td>';
@@ -252,11 +252,11 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a = '<tr class="structarticle">';
     $a .= '<td width="80%">';
     $a .= '<table class="table-borderless"' . '><tr>';
-    $a .= '<td class="text-right text-nowrap">';
+    $a .= '<td class="text-end text-nowrap">';
     $a .= ($child_count) ? '<a href="articlebrowser.php?' . CSRF_GET_TOKEN . '&amp;opt=' . $js_aktion . '&amp;' . $page_val . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . (!empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 0 : 1)) . '">' : '';
     $a .= '<i class="fa fa-caret-' . ($child_count ? (empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 'right' : 'down') : 'right') . ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>' . ($child_count ? '</a>' : '');
 
-    $info = '<table class="text-left">';
+    $info = '<table class="text-start">';
     $info .= '<tr><td>ID:</td><td><b>' . $struct[$key]['acat_id'] . '</b></td></tr>';
     $info .= '<tr><td>' . $BL['be_alias'] . ':</td><td>' . $struct[$key]['acat_alias'] . '</td></tr>';
     $info .= '<tr><td>' . $BL['be_cnt_sortvalue'] . ':</td><td>' . $struct[$key]['acat_sort'] . '</td></tr>';
@@ -276,7 +276,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     if ($struct[$key]['acat_regonly']) {
         $a .= '-open';
     }
-    $a .= ' fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="' . html($info) . '"></i>';
+    $a .= ' fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-html="true" title="' . html($info) . '"></i>';
     $a .= '</td>';
     $a .= '<td width="95%"><strong>';
     if ($js_aktion == 5) {
@@ -285,7 +285,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
         $a .= '<a href="#" onclick="' . str_replace('%s', 'id=' . $struct[$key]['acat_id'], $js) . '" title="">' . $an . '</a>';
     } else {
         $a .= '<a href="#" class="structarticle" data-aid="' . ($js_aktion == 6 ? 'id=' : '') . $struct[$key]['acat_id'] . '" data-idtype="category" title="">' . $an;
-        $a .= '<span class="ml-3">' . $struct[$key]['acat_lang'] . '</span></a>';
+        $a .= '<span class="ms-3">' . $struct[$key]['acat_lang'] . '</span></a>';
     }
     $a .= '</strong></td></tr></table></td></tr>';
     echo $a;
@@ -369,7 +369,7 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
         $a .= '<i class="fa fa-caret-' . ($acontent_count ? (!empty($_SESSION['structure']['article'][$avalue['article_id']]) ? 'down' : 'right') : 'right');
         $a .= ' fa-fw alist-' . $counter . '" aria-hidden="true"></i>';
 
-        $info = '<table class="text-left">';
+        $info = '<table class="text-start">';
         $info .= '<tr><td>' . $BL['be_func_struct_articleID'] . ':</td><td><b>' . $avalue['article_id'] . '</b></td></tr>';
         if (!empty($avalue['article_alias'])) {
             $info .= '<tr><td>ALIAS:</td><td><b>' . $avalue['article_alias'] . '</b></td></tr>';
@@ -390,7 +390,7 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
         }
         $info .= '</table>';
 
-        $a .= '<i class="far fa-file fa-fw" aria-hidden="true" data-html="true" data-toggle="tooltip" title="' . html($info) . '"></i> ';
+        $a .= '<i class="far fa-file fa-fw" aria-hidden="true" data-html="true" data-bs-toggle="tooltip" title="' . html($info) . '"></i> ';
 
         if ($js_aktion == 5) {
             $a .= $at;
@@ -399,7 +399,7 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
         } else {
             $a .= '<a href="#" class="structarticle" data-aid="' . ($js_aktion == 6 ? 'aid=' : '') . $avalue['article_id'] . '" data-idtype="article" title="">';
             $a .= $at;
-            $a .= '<span class="ml-3">' . $avalue['article_lang'] . '</span></a>';
+            $a .= '<span class="ms-3">' . $avalue['article_lang'] . '</span></a>';
         }
         $a .= '</td></tr></table></td></tr>';
         echo $a;
@@ -423,7 +423,7 @@ function struct_articlecontentlist($article, $akey, $counter) {
 
         foreach ($result as $article_content) {
 
-            $info = '<table class="text-left">';
+            $info = '<table class="text-start">';
             $info .= '<tr><td>ID:</td><td>' . $article_content['acontent_id'] . '</td></tr>';
             if ($article_content['acontent_title']) {
                 $info .= '<tr><td>' . $GLOBALS['BL']['be_article_cnt_ctitle'] . ':</td><td>' . $article_content['acontent_title'] . '</td></tr>';
@@ -437,7 +437,7 @@ function struct_articlecontentlist($article, $akey, $counter) {
             $info .= '</table>';
 
             $a .= '<tr class="structarticlecontent" data-aid="' . $article_content['acontent_id'] . '" data-idtype="acontent">';
-            $a .= '<td data-toggle="tooltip" data-html="true" title="' . html($info) . '"><i class="far fa-list-alt fa-fw aclist-' . $counter . '" aria-hidden="true"></i></td>';
+            $a .= '<td data-bs-toggle="tooltip" data-html="true" title="' . html($info) . '"><i class="far fa-list-alt fa-fw aclist-' . $counter . '" aria-hidden="true"></i></td>';
             $a .= '<td width="90%" class="text-secondary">';
             $a .= '[ID:' . $article_content['acontent_id'] . '] ';
             $a .= html($article_content['acontent_title']) . ' – ';
@@ -446,7 +446,7 @@ function struct_articlecontentlist($article, $akey, $counter) {
                 $a .= ': ' . html($GLOBALS['BL']['modules'][$article_content['acontent_module']]['listing_title']);
             }
             $a .= '</td>';
-            $a .= '<td class="text-secondary text-right text-nowrap">{' . html($article_content['acontent_block']) . '}</td>';
+            $a .= '<td class="text-secondary text-end text-nowrap">{' . html($article_content['acontent_block']) . '}</td>';
             $a .= '</tr>';
         }
 

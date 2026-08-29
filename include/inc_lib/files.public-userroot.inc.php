@@ -45,8 +45,8 @@ if(isset($file_result[0]['f_id'])) {
 
         echo "<td width=\"15\" align=\"right\">";
         echo "<a href=\"include/inc_act/act_download.php?dl=".$file_row["f_id"];
-        echo '" target="_blank" data-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'\' target="_blank">';
-        echo '<i class="btn btn-sm btn-blue mr-1 fa fa-download" aria-hidden="true"></i></a>';
+        echo '" target="_blank" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'\' target="_blank">';
+        echo '<i class="btn btn-sm btn-blue me-1 fa fa-download" aria-hidden="true"></i></a>';
         echo "</td>\n";
         //Ende Aufbau
         echo "</tr>\n";

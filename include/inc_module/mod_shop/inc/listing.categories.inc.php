@@ -100,9 +100,9 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
 }
 ?>
 
-<div class="form-group mb-3 text-center text-sm-left">
-    <a class="btn btn-sm btn-blue mr-2" href="<?php echo shop_url(array('controller=cat', 'edit=0')) ?>"
-        title="<?php echo $BLM['create_new'] ?>"><i class="fa fa-plus mr-1"></i>
+<div class="form-group mb-3 text-center text-sm-start">
+    <a class="btn btn-sm btn-blue me-2" href="<?php echo shop_url(array('controller=cat', 'edit=0')) ?>"
+        title="<?php echo $BLM['create_new'] ?>"><i class="fa fa-plus me-1"></i>
         <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 
@@ -110,7 +110,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
     <input type="hidden" name="do_pagination" value="1" />
 	<input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
 	<input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
-    <div class="form-row align-items-center">
+    <div class="row g-2 align-items-center">
 		<div class="col-auto">
 			<div class="btn-group btn-group-sm">
 				<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
@@ -124,15 +124,15 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
 
         <div class="col-auto">
             <div class="input-group input-group-sm">
-                <input name="filter" id="filter" size="15" data-toggle="tooltip" title="<?php echo html($BL['be_filter']); ?>" class="form-control" value="<?php echo html($_entry['post_filter']); ?>" type="search" style="min-width: 250px;" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." />
-                <div class="input-group-append">
+                <input name="filter" id="filter" size="15" data-bs-toggle="tooltip" title="<?php echo html($BL['be_filter']); ?>" class="form-control" value="<?php echo html($_entry['post_filter']); ?>" type="search" style="min-width: 250px;" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." />
+                
                     <button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
-                </div>
+                
             </div>
         </div>
 
-        <div class="col text-right">
-            <select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='phpwcms.php?do=modules&amp;module=shop&amp;controller=cat&amp;c=' + this.value;">
+        <div class="col text-end">
+            <select class="form-select form-select-sm" style="width: auto; display: inline-block;" onchange="location.href='phpwcms.php?do=modules&amp;module=shop&amp;controller=cat&amp;c=' + this.value;">
                 <option value="5"<?php if($_SESSION['list_count'] == '5') echo ' selected'; ?>>5</option>
                 <option value="10"<?php if($_SESSION['list_count'] == '10') echo ' selected'; ?>>10</option>
                 <option value="25"<?php if($_SESSION['list_count'] == '25') echo ' selected'; ?>>25</option>
@@ -168,7 +168,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
 
                 echo '<tr';
                 if (!$row['cat_pid']) {
-                    echo ' data-toggle="tooltip" data-html="true" title="' . $BL['be_admin_page_category'] . ' ID: <b>' . $row['cat_id'] . '</b><br />' . $BL['be_cnt_sorting'] . ': <b>' . $row['cat_sort'] . '</b>)"';
+                    echo ' data-bs-toggle="tooltip" data-html="true" title="' . $BL['be_admin_page_category'] . ' ID: <b>' . $row['cat_id'] . '</b><br />' . $BL['be_cnt_sorting'] . ': <b>' . $row['cat_sort'] . '</b>)"';
                 }
                 echo '>' . LF;
 
@@ -181,16 +181,16 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
                 echo $row['cat_pid'] ? '&nbsp;&nbsp;&nbsp;&nbsp;' : '&nbsp;';
                 echo html_specialchars($row['category']) . "</td>\n";
                 echo '<td class="dir" width="3%" align="center">&nbsp;' . $row['cat_sort'] . '&nbsp;</td>';
-                echo '<td width="10%" class="text-right text-nowrap">';
+                echo '<td width="10%" class="text-end text-nowrap">';
                 echo '<div class="btn-group btn-group-sm" role="group" aria-label="shop-cat-actions-' . $row['cat_id'] . '">';
                 echo '<a class="btn btn-sm btn-blue" href="' . $_controller_link . '&amp;edit=' . $row['cat_id'] . '">';
                 echo '<i class="fa fa-pencil-alt"></i></a>';
                 echo '<button id="abtnshop' . $row['cat_id'] . '" class="btn fa btn-sm visible ';
                 echo ((int)$row['cat_status'] === 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $row['cat_id'];
-                echo '" data-type="shop" data-table="categories" data-field="cat_status" data-fieldid="cat_id" aria-disabled="true" data-toggle="tooltip" title="';
+                echo '" data-type="shop" data-table="categories" data-field="cat_status" data-fieldid="cat_id" aria-disabled="true" data-bs-toggle="tooltip" title="';
                 echo $BL['be_tooltip_visibility'] . '"></button>';
                 echo '</div>';
-                echo '<a class="btn btn-sm btn-danger ml-1" href="' . $_controller_link . '&amp;delete=' . $row['cat_id'];
+                echo '<a class="btn btn-sm btn-danger ms-1" href="' . $_controller_link . '&amp;delete=' . $row['cat_id'];
                 echo '" title="delete: ' . html_specialchars($row['cat_name']) . '"';
                 echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . js_singlequote($row['cat_name']) . '\');">';
                 echo '<i class="far fa-trash-alt"></i></a>';

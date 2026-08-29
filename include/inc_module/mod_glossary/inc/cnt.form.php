@@ -38,10 +38,10 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
 
 ?>
 
-<div class="form-group align-items-center form-row">
-	<label for="glossary_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+<div class="form-group align-items-center row g-2">
+	<label for="glossary_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
 	<div class="col-sm-4">
-		<select name="glossary_template" id="glossary_template" class="custom-select form-control form-control-sm">
+		<select name="glossary_template" id="glossary_template" class="form-select form-select-sm">
 			<?php
 			echo '			<option value="">' . $BL['be_admin_tmpl_default'] . '</option>' . LF;
 
@@ -61,33 +61,33 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label for="glossary_filter" class="col-sm-2 col-form-label text-right"><?php echo $BL['modules'][$content['module']]['input_filter']; ?></label>
+<div class="form-group row g-2">
+	<label for="glossary_filter" class="col-sm-2 col-form-label text-end"><?php echo $BL['modules'][$content['module']]['input_filter']; ?></label>
 	<div class="col-sm-10">
 		<input type="text" name="glossary_filter" id="glossary_filter" value="<?php echo html($content['glossary']['glossary_filter']); ?>" class="form-control form-control-sm" maxlength="1000" />
 		<small class="form-text text-muted"><?php echo $BL['modules'][$content['module']]['input_filter_descr']; ?></small>
 	</div>
 </div>
 
-<div class="form-group align-items-center form-row">
-	<label for="glossary_maxwords" class="col-sm-2 col-form-label text-right"><?php echo $BL['modules'][$content['module']]['listview']; ?></label>
+<div class="form-group align-items-center row g-2">
+	<label for="glossary_maxwords" class="col-sm-2 col-form-label text-end"><?php echo $BL['modules'][$content['module']]['listview']; ?></label>
 	<div class="col-sm-10">
 		<div class="form-inline">
-			<input name="glossary_maxwords" type="text" class="form-control form-control-sm mr-2" id="glossary_maxwords" style="width: 70px;" size="5" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['glossary']['glossary_maxwords']; ?>" />
+			<input name="glossary_maxwords" type="text" class="form-control form-control-sm me-2" id="glossary_maxwords" style="width: 70px;" size="5" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['glossary']['glossary_maxwords']; ?>" />
 			<span class="text-muted small"><?php echo $BL['modules'][$content['module']]['max_words']; ?></span>
 		</div>
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label for="glossary_tag" class="col-sm-2 col-form-label text-right"><?php echo $BL['modules'][$content['module']]['glossary_token']; ?></label>
+<div class="form-group row g-2">
+	<label for="glossary_tag" class="col-sm-2 col-form-label text-end"><?php echo $BL['modules'][$content['module']]['glossary_token']; ?></label>
 	<div class="col-sm-10">
 		<input type="text" name="glossary_tag" id="glossary_tag" value="<?php echo html($content['glossary']['glossary_tag']); ?>" class="form-control form-control-sm" maxlength="1000" />
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label for="glossary_noentry" class="col-sm-2 col-form-label text-right"><?php echo $BL['modules'][$content['module']]['no_entry']; ?></label>
+<div class="form-group row g-2">
+	<label for="glossary_noentry" class="col-sm-2 col-form-label text-end"><?php echo $BL['modules'][$content['module']]['no_entry']; ?></label>
 	<div class="col-sm-10">
 		<textarea name="glossary_noentry" id="glossary_noentry" class="form-control form-control-sm field-sizing-content field-sizing-content-5" rows="5"><?php echo html($content['glossary']['glossary_noentry']); ?></textarea>
 	</div>

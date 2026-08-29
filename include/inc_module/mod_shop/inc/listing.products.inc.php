@@ -105,15 +105,15 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 }
 ?>
 
-<div class="form-group mb-3 text-center text-sm-left">
-  <a class="btn btn-sm btn-blue" href="<?php echo shop_url(array('controller=prod', 'edit=0')) ?>" title="<?php echo $BLM['create_new_prod'] ?>"><i class="fa fa-plus mr-1"></i> <span><?php echo $BLM['create_new_prod'] ?></span></a>
+<div class="form-group mb-3 text-center text-sm-start">
+  <a class="btn btn-sm btn-blue" href="<?php echo shop_url(array('controller=prod', 'edit=0')) ?>" title="<?php echo $BLM['create_new_prod'] ?>"><i class="fa fa-plus me-1"></i> <span><?php echo $BLM['create_new_prod'] ?></span></a>
 </div>
 
 <form action="<?php echo shop_url('controller=prod') ?>" method="post" name="paginate" id="paginate">
 	<input type="hidden" name="do_pagination" value="1" />
 	<input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
 	<input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
-	<div class="form-row align-items-center my-2">
+	<div class="row g-2 align-items-center my-2">
 		<div class="col-auto">
 			<div class="btn-group btn-group-sm">
 				<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
@@ -127,15 +127,15 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 
 		<div class="col-auto">
 			<div class="input-group input-group-sm">
-				<input name="filter" id="filter" size="15" data-toggle="tooltip" title="<?php echo html($BL['be_filter']); ?>" class="form-control" value="<?php echo html($_entry['post_filter']); ?>" type="search" style="min-width: 250px;" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." />
-				<div class="input-group-append">
+				<input name="filter" id="filter" size="15" data-bs-toggle="tooltip" title="<?php echo html($BL['be_filter']); ?>" class="form-control" value="<?php echo html($_entry['post_filter']); ?>" type="search" style="min-width: 250px;" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." />
+				
 					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
-				</div>
+				
 			</div>
 		</div>
 
-		<div class="col text-right">
-			<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='phpwcms.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=' + this.value;">
+		<div class="col text-end">
+			<select class="form-select form-select-sm" style="width: auto; display: inline-block;" onchange="location.href='phpwcms.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=' + this.value;">
 				<option value="10"<?php if($_SESSION['list_product_count'] == '10') echo ' selected'; ?>>10</option>
 				<option value="25"<?php if($_SESSION['list_product_count'] == '25') echo ' selected'; ?>>25</option>
 				<option value="50"<?php if($_SESSION['list_product_count'] == '50') echo ' selected'; ?>>50</option>
@@ -183,15 +183,15 @@ if($data) {
     echo '<td class="dir">';
     if(SHOP_FELANG_SUPPORT) {
       $row['shopprod_lang'] = html_specialchars(strtolower($row['shopprod_lang']));
-      echo '<span class="flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fas fa-globe').' mt-1" data-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
+      echo '<span class="flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fas fa-globe').' mt-1" data-bs-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
     }
     echo '&nbsp;' . html_specialchars($row['shopprod_ordernumber']) . "</td>\n";
     echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_model'])."</td>\n";
     echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_name1'])."</td>\n";
-    echo '<td class="dir listNumber text-right">&nbsp;'.html_specialchars( number_format( round($row['shopprod_price'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
+    echo '<td class="dir listNumber text-end">&nbsp;'.html_specialchars( number_format( round($row['shopprod_price'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
     echo '<td class="dir listNumber">&nbsp;'.$row['shopprod_inventory']."&nbsp;</td>\n";
 
-    echo '<td class="text-right text-nowrap">';
+    echo '<td class="text-end text-nowrap">';
 
       echo '<div class="btn-group btn-group-sm" role="group" aria-label="shop-prod-actions-'.$row['shopprod_id'].'">';
       echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';
@@ -209,10 +209,10 @@ if($data) {
           echo "btn-success";
       }
 
-      echo '" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
+      echo '" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
       echo '</div>';
 
-      echo '<a class="btn btn-sm btn-danger ml-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
+      echo '<a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
       echo '" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';
       echo ' onclick="return confirm(\''.$BLM['delete_product'].js_singlequote($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'\');">';
       echo '<i class="far fa-trash-alt"></i></a>';

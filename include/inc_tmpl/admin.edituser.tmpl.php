@@ -134,7 +134,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
     ?><form action="phpwcms.php?do=admin&amp;s=2&amp;u=<?php echo $new_user_id ?>" method="post" name="edituser">
 
-  <h1 class="text-center text-sm-left"><?php echo $BL['be_subnav_admin_users'] ?></h1>
+  <h1 class="text-center text-sm-start"><?php echo $BL['be_subnav_admin_users'] ?></h1>
   <div class="card mb-4">
   <div class="card-header"><h2><i class="fa fa-user" aria-hidden="true"></i> <?php echo $BL['be_admin_usr_etitle'] ?></h2></div>
   <div class="card-body">
@@ -147,15 +147,15 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
     } //Ende Fehler New User
     ?>
 
-     <div class="form-group form-row align-items-center">
-      <label for="form_newloginname" class="col-sm-2 col-form-label text-right"><?php echo $BL["login_username"] ?></label>
+     <div class="form-group row g-2 align-items-center">
+      <label for="form_newloginname" class="col-sm-2 col-form-label text-end"><?php echo $BL["login_username"] ?></label>
       <div class="col">
         <input type="text" class="form-control form-control-sm col-sm-5" name="form_newloginname" id="form_newloginname" value="<?php echo html($new_login); ?>" autocomplete="off" required="required" />
       </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-      <label for="form_newpassword" class="col-sm-2 col-form-label text-right"><?php echo $BL["login_userpass"] ?></label>
+    <div class="form-group row g-2 align-items-center">
+      <label for="form_newpassword" class="col-sm-2 col-form-label text-end"><?php echo $BL["login_userpass"] ?></label>
       <div class="col">
         <input type="password" class="form-control form-control-sm col-sm-5" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password">
         <span class="text-blue small" onclick="this.innerText=(togglePasswordVisibility('form_newpassword') === 'hide' ? '<?php echo $BL['be_password_hide']; ?>' : '<?php echo $BL['be_password_show']; ?>');" style="cursor:pointer">
@@ -164,15 +164,15 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
       </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-      <label for="form_newemail" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_email'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+      <label for="form_newemail" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_email'] ?></label>
       <div class="col">
         <input type="email" class="form-control form-control-sm col-sm-5" name="form_newemail" id="form_newemail" value="<?php echo html($new_email); ?>" maxlength="250" autocomplete="off" required="required" />
       </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-      <label for="form_newrealname" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_realname'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+      <label for="form_newrealname" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_usr_realname'] ?></label>
       <div class="col">
         <input type="text" class="form-control form-control-sm col-sm-5" name="form_newrealname" id="form_newrealname" value="<?php echo html($new_name); ?>" maxlength="200" autocomplete="off" required="required" />
       </div>
@@ -180,8 +180,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
 <hr />
 
-  <div class="form-row align-items-center">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_issection']  ?></label>
+  <div class="row g-2 align-items-center">
+    <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_usr_issection']  ?></label>
     <div class="col">
     <div class="form-check form-check-inline">
       <input class="form-check-input" name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> />
@@ -198,8 +198,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
     </div>
   </div>
 
-  <div class="form-row align-items-center">
-    <label for="form_active" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_setactive'] ?></label>
+  <div class="row g-2 align-items-center">
+    <label for="form_active" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_usr_setactive'] ?></label>
     <div class="col">
     <div class="form-check form-check-inline">
       <input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
@@ -208,8 +208,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
     </div>
   </div>
 
-  <div class="form-row align-items-center">
-    <label for="form_admin" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
+  <div class="row g-2 align-items-center">
+    <label for="form_admin" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
     <div class="col">
     <div class="form-check form-check-inline">
       <input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
@@ -218,8 +218,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
     </div>
   </div>
 
-  <div class="form-row align-items-center">
-    <label for="verification_email" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_verify'] ?></label>
+  <div class="row g-2 align-items-center">
+    <label for="verification_email" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_usr_verify'] ?></label>
     <div class="col">
     <div class="form-check form-check-inline">
       <input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
@@ -229,16 +229,16 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
   </div>
 
   <?php if(!empty($set_user_2fa)): ?>
-  <div class="form-row align-items-center mt-2">
-    <label for="form_reset_2fa" class="col-sm-2 col-form-label text-right text-danger"><i class="fa fa-shield-alt"></i> 2FA</label>
+  <div class="row g-2 align-items-center mt-2">
+    <label for="form_reset_2fa" class="col-sm-2 col-form-label text-end text-danger"><i class="fa fa-shield-alt"></i> 2FA</label>
     <div class="col">
       <div class="form-check form-check-inline">
         <input class="form-check-input" name="form_reset_2fa" type="checkbox" id="form_reset_2fa" value="1" />
-        <label class="form-check-label text-danger font-weight-bold" for="form_reset_2fa">
+        <label class="form-check-label text-danger fw-bold" for="form_reset_2fa">
           <?php echo $BL['be_admin_usr_2fa_reset'] ?? 'Reset / Disable 2FA'; ?>
         </label>
       </div>
-      <small class="form-text text-muted d-inline-block ml-2">(<?php echo $BL['be_admin_usr_2fa_active'] ?? '2FA is active for this account.'; ?>)</small>
+      <small class="form-text text-muted d-inline-block ms-2">(<?php echo $BL['be_admin_usr_2fa_active'] ?? '2FA is active for this account.'; ?>)</small>
     </div>
   </div>
   <?php endif; ?>
@@ -246,18 +246,18 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
   <hr />
 
   <ul class="nav nav-tabs">
-    <li class="nav-item"><a data-toggle="tab" href="#select_cp" class="nav-link active"><?php echo $BL['be_structform_select_cp'] ?></a></li>
+    <li class="nav-item"><a data-bs-toggle="tab" href="#select_cp" class="nav-link active"><?php echo $BL['be_structform_select_cp'] ?></a></li>
     <?php
     if (isset($new_user_id)) {
-      echo '<li class="nav-item"><a data-toggle="tab" href="#admin_groups" class="nav-link">'.$BL['be_subnav_admin_groups'].'</a></li>';
-      echo '<li class="nav-item"><a data-toggle="tab" href="#log" class="nav-link">'.$BL['usr_online'].'</a></li>';
+      echo '<li class="nav-item"><a data-bs-toggle="tab" href="#admin_groups" class="nav-link">'.$BL['be_subnav_admin_groups'].'</a></li>';
+      echo '<li class="nav-item"><a data-bs-toggle="tab" href="#log" class="nav-link">'.$BL['usr_online'].'</a></li>';
     }
     ?>
   </ul>
 
       <div class="tab-content my-3">
         <div id="select_cp" class="tab-pane in active checkbox-list" role="tabpanel">
-             <div class="form-row">
+             <div class="row g-2">
 						<?php
 						$has_allowed_cp = isset($set_allowed_cp) ? count($set_allowed_cp) : 0;
 						foreach($wcs_content_type as $key => $value):
@@ -322,8 +322,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
   </div>
 
   <div class="form-group align-items-center mt-4 mb-0">
-    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_usr_ebutton'] ?></button>
-    <a href="phpwcms.php?do=admin&amp;p=6" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_usr_ebutton'] ?></button>
+    <a href="phpwcms.php?do=admin&amp;p=6" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
   </div>
 
   <input name="form_aktion" type="hidden" value="edit_account" />

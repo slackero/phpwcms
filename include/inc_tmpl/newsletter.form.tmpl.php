@@ -121,15 +121,15 @@ function insertNewsletterPlaceholder(tag) {
 
 <form action="phpwcms.php?do=messages&amp;p=3&amp;s=<?php echo $newsletter["newsletter_id"] ?>&amp;edit=1" method="post" name="newsletter" target="_self" id="newsletter" onsubmit="hideLayer('newsletterButtonsTop');hideLayer('newsletterButtonsBottom');$('#statusMessage').removeClass('d-none').addClass('d-flex');">
 <div class="row align-items-center">
-	<div class="col col-sm-auto text-center text-sm-left">
+	<div class="col col-sm-auto text-center text-sm-start">
 		<h1><?php echo $BL['be_subnav_msg_newslettersend'] ?></h1>
 	</div>
-	<div class="col-12 col-sm text-center text-sm-right mb-3" id="newsletterButtonsTop">
+	<div class="col-12 col-sm text-center text-sm-end mb-3" id="newsletterButtonsTop">
 		 <div class="form-group mb-0">
 				<input name="newsletter_id" type="hidden" value="<?php echo $newsletter["newsletter_id"] ?>" />
-				<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
-				<button name="close" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-				<a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+				<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+				<button name="close" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+				<a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
 		 </div>
 	</div>
 </div>
@@ -138,14 +138,14 @@ function insertNewsletterPlaceholder(tag) {
   <div class="card-header"><h2><?php echo $BL['be_newsletter_titleeditnl'] ?></h2></div>
   <div class="card-body">
 
-    <div class="form-group form-row align-items-center">
-      <label for="newsletter_pub" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+      <label for="newsletter_pub" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_cnt_start'] ?></label>
       <div class="col-sm-auto">
         <div class="input-group" id="newsletter_pub_wrap">
           <input name="newsletter_pub" type="text" id="newsletter_pub" class="form-control form-control-sm" placeholder="<?php echo $BL['default_date_format']; ?>" value="<?php echo phpwcms_strtotime($newsletter['newsletter_pub'], 'd.m.Y', ''); ?>" autocomplete="off" required />
-          <div class="input-group-append">
+          
             <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('newsletter_pub')._flatpickr && document.getElementById('newsletter_pub')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -158,8 +158,8 @@ function insertNewsletterPlaceholder(tag) {
       });
     </script>
 
-    <div class="form-group form-row align-items-center">
-      <label for="newsletter_subject" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_msg_subject'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+      <label for="newsletter_subject" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_msg_subject'] ?></label>
       <div class="col-sm-4">
         <input type="text" class="form-control form-control-sm" name="newsletter_subject" id="newsletter_subject" value="<?php echo html($newsletter["newsletter_subject"]) ?>"  size="50" maxlength="250" onchange="hideLayer('messagesend');" required />
       </div>
@@ -167,15 +167,15 @@ function insertNewsletterPlaceholder(tag) {
 
 <?php
     if(!empty($newsletter["newsletter_created"])) {
-      echo '<div class="form-group form-row align-items-center">';
-      echo '  <label for="newsletter_created" class="col-sm-2 col-form-label text-right">'. $BL['be_fprivedit_created'] .'</label>';
+      echo '<div class="form-group row g-2 align-items-center">';
+      echo '  <label for="newsletter_created" class="col-sm-2 col-form-label text-end">'. $BL['be_fprivedit_created'] .'</label>';
       echo '  <div class="col-sm-10">';
       echo @date($BL['be_fprivedit_dateformat'], strtotime($newsletter["newsletter_created"]));
       echo '</div></div>';
     }
 ?>
-    <div class="form-group form-row align-items-center">
-        <label for="newsletter_date" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_changed'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="newsletter_date" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_newsletter_changed'] ?></label>
          <div class="col-sm-auto"><?php
         if(isset($newsletter['error'])) $newsletter["newsletter_date"] = time();
         echo @date($BL['be_fprivedit_dateformat'], $newsletter["newsletter_date"]);
@@ -184,31 +184,31 @@ function insertNewsletterPlaceholder(tag) {
 
     <hr>
 
-    <div class="form-group form-row align-items-center">
-        <label for="newsletter_fromname" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_fromname'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="newsletter_fromname" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_newsletter_fromname'] ?></label>
         <div class="col-sm-4">
           <input type="text" class="form-control form-control-sm" name="newsletter_fromname" id="newsletter_fromname" value="<?php echo html($newsletter["newsletter_vars"]["from_name"]) ?>" size="50" maxlength="250"  required />
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="newsletter_fromemail" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_fromemail'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="newsletter_fromemail" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_newsletter_fromemail'] ?></label>
         <div class="col-sm-4">
           <input type="text" class="form-control form-control-sm" name="newsletter_fromemail" id="newsletter_fromemail" value="<?php echo html($newsletter["newsletter_vars"]['from_email']) ?>" size="50" maxlength="250" required />
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="newsletter_replyto" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_replyto'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="newsletter_replyto" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_newsletter_replyto'] ?></label>
         <div class="col-sm-4">
           <input type="text" class="form-control form-control-sm" name="newsletter_replyto" id="newsletter_replyto" value="<?php echo html($newsletter["newsletter_vars"]['replyto']) ?>" size="50" maxlength="250" required />
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="newsletter_lang" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="newsletter_lang" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_lang'] ?></label>
         <div class="col-sm-4">
-           <select name="newsletter_lang" id="newsletter_lang" class="custom-select form-control form-control-sm">
+           <select name="newsletter_lang" id="newsletter_lang" class="form-select form-select-sm">
             <?php
               foreach($phpwcms['allowed_lang'] as $key => $lang):
                 $lang = strtolower($lang);
@@ -221,8 +221,8 @@ function insertNewsletterPlaceholder(tag) {
         </div>
     </div>
 
-    <div class="form-group form-row bg-grey py-2">
-      <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_subscription'] ?></label>
+    <div class="form-group row g-2 bg-grey py-2">
+      <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_subscription'] ?></label>
       <div class="col-sm-10">
         <div class="form-check">
           <label class="form-check-label align-items-center">
@@ -318,17 +318,17 @@ function insertNewsletterPlaceholder(tag) {
 
 ?>
 
-    <div class="form-group form-row align-items-center">
-        <label for="newsletter_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="newsletter_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template'] ?></label>
         <div class="col-sm-4">
-          <select name="newsletter_template" id="newsletter_template" class="custom-select form-control form-control-sm" onchange="showNewsletterTemplateData(this.options[this.selectedIndex].value);">
+          <select name="newsletter_template" id="newsletter_template" class="form-select form-select-sm" onchange="showNewsletterTemplateData(this.options[this.selectedIndex].value);">
             <option value=""<?php if(empty($newsletter["newsletter_vars"]['template'])) echo ' selected="selected"' ?>><?php echo $BL['be_admin_tmpl_default'].' ('.$BL['be_func_struct_empty'].')' ?></option>
             <?php echo implode($tmpldata['options']) ?>
           </select>
         </div>
     </div>
 
-    <div class="form-group form-row justify-content-end">
+    <div class="form-group row g-2 justify-content-end">
         <div id="newsletterTemplateInfo" class="col-sm-10"></div>
     </div>
 
@@ -341,7 +341,7 @@ function insertNewsletterPlaceholder(tag) {
     </script>
 
     <div class="form-group mt-3">
-        <label for="newsletter_html" class="font-weight-bold"><?php echo $BL['be_newsletter_htmlpart'] ?>:</label>
+        <label for="newsletter_html" class="fw-bold"><?php echo $BL['be_newsletter_htmlpart'] ?>:</label>
         <?php
 
         $wysiwyg_editor = array(
@@ -359,20 +359,20 @@ function insertNewsletterPlaceholder(tag) {
     </div>
 
     <div class="form-group mt-4">
-        <label for="newsletter_text" class="font-weight-bold"><?php echo $BL['be_newsletter_textpart'] ?>:</label>
+        <label for="newsletter_text" class="fw-bold"><?php echo $BL['be_newsletter_textpart'] ?>:</label>
         <textarea name="newsletter_text" id="newsletter_text" rows="8" data-mode="plain" data-min-lines="8" data-max-lines="45" wrap="off" class="code-editor form-control form-control-sm"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea>
         <p class="mt-2 mb-0"><strong><?php echo $BL['be_newsletter_placeholder'] ?>:</strong>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###RECIPIENT_NAME###" title="Click to insert at cursor position">###RECIPIENT_NAME###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###RECIPIENT_EMAIL###" title="Click to insert at cursor position">###RECIPIENT_EMAIL###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###VERIFY_LINK###" title="Click to insert at cursor position">###VERIFY_LINK###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###DELETE_LINK###" title="Click to insert at cursor position">###DELETE_LINK###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###SITE_URL###" title="Click to insert at cursor position">###SITE_URL###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###OPENER###" title="Click to insert at cursor position">###OPENER###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_NAME###" title="Click to insert at cursor position">###RECIPIENT_NAME###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_EMAIL###" title="Click to insert at cursor position">###RECIPIENT_EMAIL###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###VERIFY_LINK###" title="Click to insert at cursor position">###VERIFY_LINK###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###DELETE_LINK###" title="Click to insert at cursor position">###DELETE_LINK###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###SITE_URL###" title="Click to insert at cursor position">###SITE_URL###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###OPENER###" title="Click to insert at cursor position">###OPENER###</a>
         </p>
     </div>
 
-    <div class="form-group form-row bg-grey py-2">
-      <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    <div class="form-group row g-2 bg-grey py-2">
+      <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
       <div class="col-sm-10">
         <div class="form-check">
 					<input class="form-check-input" name="newsletter_active" id="newsletter_active" type="checkbox" value="1"<?php is_checked(1, $newsletter["newsletter_active"]); ?> />
@@ -382,17 +382,17 @@ function insertNewsletterPlaceholder(tag) {
     </div>
 
     <div id="statusMessage" class="alert alert-info align-items-center mt-3 mb-0 d-none" role="status">
-      <div class="spinner-border spinner-border-sm text-primary mr-2" role="status" aria-hidden="true"></div>
-      <span class="font-weight-bold"><?php echo $BL['be_cnt_newsletter_prepare2'] ?></span>
+      <div class="spinner-border spinner-border-sm text-primary me-2" role="status" aria-hidden="true"></div>
+      <span class="fw-bold"><?php echo $BL['be_cnt_newsletter_prepare2'] ?></span>
     </div>
   </div>
 </div>
 
-     <div class="form-group align-items-center text-center text-sm-right mt-4 mb-0" id="newsletterButtonsBottom">
+     <div class="form-group align-items-center text-center text-sm-end mt-4 mb-0" id="newsletterButtonsBottom">
         <input name="newsletter_id" type="hidden" value="<?php echo $newsletter["newsletter_id"] ?>" />
-        <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
-        <button name="close" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-        <a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+        <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+        <button name="close" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+        <a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
      </div>
 
 </form>

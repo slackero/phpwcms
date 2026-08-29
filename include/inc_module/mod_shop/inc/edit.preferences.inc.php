@@ -18,13 +18,13 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
 
 <form action="<?php echo shop_url('controller=pref'); ?>" method="post">
-    <div class="form-group align-items-center text-center text-sm-right my-3 my-sm-0">
-        <button name="save" type="submit" class="btn btn-sm btn-blue" id="save_button" value="1" disabled><i class="fa fa-save"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-        <button name="reset" type="reset" class="btn btn-sm btn-secondary ml-1" onclick="disableSubmit();"><i class="fa fa-undo"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
+    <div class="form-group align-items-center text-center text-sm-end my-3 my-sm-0">
+        <button name="save" type="submit" class="btn btn-sm btn-blue" id="save_button" value="1" disabled><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+        <button name="reset" type="reset" class="btn btn-sm btn-secondary ms-1" onclick="disableSubmit();"><i class="fa fa-undo"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></span>
+    <div class="form-group row g-2 align-items-center">
+        <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_lang'] ?></span>
         <div class="col-sm-auto">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="pref_felang" id="pref_felang" type="checkbox" value="1"<?php is_checked('1', $plugin['data']['shop_pref_felang']) ?> onchange="enableSubmit();" />
@@ -33,26 +33,26 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="pref_currency" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_currency'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="pref_currency" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_currency'] ?></label>
         <div class="col col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_currency" id="pref_currency" value="<?php echo html_specialchars($plugin['data']['shop_pref_currency']) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
         </div>
-        <div class="col-sm-auto align-items-center text-left">&nbsp;CHF, EUR, USD, &#8364;, $, &pound;, &yen;</div>
+        <div class="col-sm-auto align-items-center text-start">&nbsp;CHF, EUR, USD, &#8364;, $, &pound;, &yen;</div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="pref_unit_weight" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_unit'] . ' - ' . $BLM['shopprod_weight'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="pref_unit_weight" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_unit'] . ' - ' . $BLM['shopprod_weight'] ?></label>
         <div class="col col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_unit_weight" id="pref_unit_weight" value="<?php echo html_specialchars($plugin['data']['shop_pref_unit_weight']) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
         </div>
-        <div class="col-sm-auto align-items-center text-left">&nbsp;<?php echo $BLM['shopprod_units_weight'] ?></div>
+        <div class="col-sm-auto align-items-center text-start">&nbsp;<?php echo $BLM['shopprod_units_weight'] ?></div>
     </div>
 
-    <div class="form-group form-row align-items-top">
-        <label for="pref_vat" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_vat_rates'] ?></label>
+    <div class="form-group row g-2 align-items-top">
+        <label for="pref_vat" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_vat_rates'] ?></label>
         <div class="col col-sm-4 align-items-top">
-            <textarea class="form-control form-control-sm text-right" name="pref_vat" id="pref_vat" rows="3" onchange="enableSubmit();" />
+            <textarea class="form-control form-control-sm text-end" name="pref_vat" id="pref_vat" rows="3" onchange="enableSubmit();" />
             <?php
             foreach( $plugin['data']['shop_pref_vat'] as $value ) {
                 echo number_format((float) $value, 2, $BLM['dec_point'], $BLM['thousands_sep']) . LF;
@@ -60,32 +60,32 @@ if (!defined('PHPWCMS_ROOT')) {
             ?>
             </textarea>
         </div>
-        <div class="col-sm-auto align-items-top text-left">&nbsp;%</div>
+        <div class="col-sm-auto align-items-top text-start">&nbsp;%</div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="pref_email_to" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_email_to'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="pref_email_to" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_email_to'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_email_to" id="pref_email_to" value="<?php echo html_specialchars(str_replace(';', '; ', $plugin['data']['shop_pref_email_to'])) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="pref_email_from" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_email_from'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="pref_email_from" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_email_from'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_email_from" id="pref_email_from" value="<?php echo html_specialchars($plugin['data']['shop_pref_email_from']) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="pref_shop_id" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_id_shop'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="pref_shop_id" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_id_shop'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_shop_id" id="pref_shop_id" value="<?php echo html_specialchars($plugin['data']['shop_pref_id_shop']) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <label for="pref_cart_id" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_id_cart'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="pref_cart_id" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_id_cart'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_cart_id" id="pref_cart_id" value="<?php echo html_specialchars($plugin['data']['shop_pref_id_cart']) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
@@ -93,8 +93,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
     <hr />
 
-    <div class="form-group form-row align-items-center">
-        <span class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_shipping'] ?></span>
+    <div class="form-group row g-2 align-items-center">
+        <span class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_shipping'] ?></span>
         <div class="col-sm-2">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="pref_shipping_calc" id="pref_shipping_calc_weight" type="radio" value="0"<?php is_checked(0, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();" />
@@ -115,8 +115,8 @@ if (!defined('PHPWCMS_ROOT')) {
         $plugin['data']['shop_pref_shipping'][$x] = array_merge($_checkPref['shop_pref_shipping'][$x], $plugin['data']['shop_pref_shipping'][$x]);
 
         echo '
-            <div class="form-group form-row align-items-center">
-            <span class="col-sm-2 col-form-label text-right"></span>
+            <div class="form-group row g-2 align-items-center">
+            <span class="col-sm-2 col-form-label text-end"></span>
                 <div class="col-sm-2"><input name="pref_shipping_weight['.$x.']" type="text" class="form-control form-control-sm" value="' .
                 html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['weight'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
@@ -131,8 +131,8 @@ if (!defined('PHPWCMS_ROOT')) {
         }
     ?>
 
-    <div class="form-group form-row align-items-center mt-3">
-      <span class="col-sm-2 col-form-label text-right pt-0"></span>
+    <div class="form-group row g-2 align-items-center mt-3">
+      <span class="col-sm-2 col-form-label text-end pt-0"></span>
         <div class="col-sm-2">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="pref_shipping_calc" id="pref_shipping_calc_price" type="radio" value="1"<?php is_checked(1, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();" />
@@ -151,8 +151,8 @@ if (!defined('PHPWCMS_ROOT')) {
     for( $x = 0; $x <= 4; $x++ ) {
 
         echo '
-            <div class="form-group form-row align-items-center">
-            <span class="col-sm-2 col-form-label text-right"></span>
+            <div class="form-group row g-2 align-items-center">
+            <span class="col-sm-2 col-form-label text-end"></span>
                 <div class="col-sm-2"><input name="pref_shipping_price['.$x.']" type="text" class="form-control form-control-sm" value="' .
                 html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['price'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
@@ -173,8 +173,8 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
     <?php endif; ?>
 
-    <div class="form-group form-row align-items-center mt-3">
-        <span class="col-sm-2 col-form-label text-right pt-0"></span>
+    <div class="form-group row g-2 align-items-center mt-3">
+        <span class="col-sm-2 col-form-label text-end pt-0"></span>
         <div class="col-sm-2">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="pref_shipping_calc" id="pref_shipping_calc_distance" type="radio" value="2"<?php is_checked(2, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();"<?php if(!ini_get('allow_url_fopen')): ?> disabled="disabled"<?php endif; ?> />
@@ -196,8 +196,8 @@ if (!defined('PHPWCMS_ROOT')) {
     for( $x = 0; $x <= 4; $x++ ) {
 
         echo '
-            <div class="form-group form-row align-items-center">
-            <span class="col-sm-2 col-form-label text-right"></span>
+            <div class="form-group row g-2 align-items-center">
+            <span class="col-sm-2 col-form-label text-end"></span>
                 <div class="col-sm-2"><input name="pref_shipping_zone['.$x.']" type="text" class="form-control form-control-sm" value="' .
                 $plugin['data']['shop_pref_shipping'][$x]['zone'] .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
@@ -217,8 +217,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
     <hr />
 
-    <div class="form-group form-row align-items-center">
-        <span class="col-sm-2 col-form-label text-right">
+    <div class="form-group row g-2 align-items-center">
+        <span class="col-sm-2 col-form-label text-end">
             <?php echo $BLM['shopprod_selfpickup'] ?>
         </span>
         <div class="col-sm-auto">
@@ -241,19 +241,19 @@ if (!defined('PHPWCMS_ROOT')) {
 
     <hr />
 
-    <div class="form-group form-row align-items-center">
-        <label for="pref_zone_base" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_distance_base'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="pref_zone_base" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_distance_base'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_zone_base" id="pref_zone_base" value="<?php echo html_specialchars($plugin['data']['shop_pref_zone_base']) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
     </div>
 
     <!-- Low order surcharge -->
-    <div class="form-group form-row align-items-center">
-        <label for="pref_loworder" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_loworder'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="pref_loworder" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_loworder'] ?></label>
             <div class="col-sm-auto">
                 <div class="form-check-inline">
-                    <input class="form-check-input mr-sm-3" type="checkbox" name="pref_loworder" id="pref_loworder" value="1"<?php is_checked('1', $plugin['data']['shop_pref_loworder']['loworder']) ?> onchange="enableSubmit();" />
+                    <input class="form-check-input me-sm-3" type="checkbox" name="pref_loworder" id="pref_loworder" value="1"<?php is_checked('1', $plugin['data']['shop_pref_loworder']['loworder']) ?> onchange="enableSubmit();" />
                     <label class="form-check-label" for="pref_loworder"><?php echo trim($BLM['shopprod_loworder_under'].' '.html_specialchars($plugin['data']['shop_pref_currency'])) ?></label>
                 </div>
             </div>
@@ -275,8 +275,8 @@ if (!defined('PHPWCMS_ROOT')) {
             &nbsp;%
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <span class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_inventory'] ?></span>
+    <div class="form-group row g-2 align-items-center">
+        <span class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_inventory'] ?></span>
         <div class="col-sm-auto">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" name="pref_autosubtract_off" id="pref_autosubtract_off" value="1"<?php is_checked('1', $plugin['data']['shop_pref_autosubtract_off']) ?> onchange="enableSubmit();" />
@@ -286,8 +286,8 @@ if (!defined('PHPWCMS_ROOT')) {
     </div>
 
     <!-- Discount -->
-    <div class="form-group form-row align-items-center">
-        <label for="pref_discount" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_discount'] ?></label>
+    <div class="form-group row g-2 align-items-center">
+        <label for="pref_discount" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_discount'] ?></label>
             <div class="col-sm-auto">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" name="pref_discount" id="pref_discount" value="1"<?php is_checked('1', $plugin['data']['shop_pref_discount']['discount']) ?> onchange="enableSubmit();" aria-label="<?php echo html_specialchars($BLM['shopprod_discount']) ?>" />
@@ -309,7 +309,7 @@ if (!defined('PHPWCMS_ROOT')) {
                  </div>
             </div>
     </div>
-    <div class="form-group form-row align-items-center">
+    <div class="form-group row g-2 align-items-center">
         <span class="col-sm-2 col-form-label"></span>
             <div class="col-sm-auto">
                 <div class="form-check form-check-inline">
@@ -332,7 +332,7 @@ if (!defined('PHPWCMS_ROOT')) {
                  </div>
             </div>
     </div>
-    <div class="form-group form-row align-items-center">
+    <div class="form-group row g-2 align-items-center">
         <span class="col-sm-2 col-form-label"></span>
             <div class="col-sm-auto">
                 <div class="form-check form-check-inline">
@@ -359,15 +359,15 @@ if (!defined('PHPWCMS_ROOT')) {
     <hr />
 
     <!-- Payment methods -->
-    <div class="form-group form-row align-items-center">
-        <span class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_payment_method'] ?></span>
+    <div class="form-group row g-2 align-items-center">
+        <span class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_payment_method'] ?></span>
         <div class="col-sm-2">
             <div class="form-check-inline">
                 <input class="form-check-input" name="pref_payment_paypal" id="pref_payment_paypal" type="checkbox" value="1"<?php is_checked(1, $plugin['data']['shop_pref_payment']['paypal']) ?> onchange="enableSubmit();" />
                 <label for="pref_payment_paypal" class="form-check-label"><?php echo $BLM['shopprod_payby_paypal'] ?></label>
             </div>
         </div>
-        <div class="col-sm-2 text-sm-right py-2 py-sm-0">
+        <div class="col-sm-2 text-sm-end py-2 py-sm-0">
             <?php echo $BLM['shopprod_email_paypal'] ?>
         </div>
         <div class="col-sm-auto">
@@ -375,19 +375,19 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
     </div>
 
-    <div class="form-group form-row align-items-center">
-        <span class="col-sm-2 col-form-label text-sm-right"></span>
+    <div class="form-group row g-2 align-items-center">
+        <span class="col-sm-2 col-form-label text-sm-end"></span>
         <div class="col-sm-2">
             <div class="form-check-inline">
                 <input class="form-check-input" name="pref_payment_ccard" id="pref_payment_ccard" type="checkbox" value="1"<?php is_checked(1, $plugin['data']['shop_pref_payment']['ccard']) ?> onchange="enableSubmit();" />
                 <label class="form-check-label" for="pref_payment_ccard"><?php echo $BLM['shopprod_payby_ccard'] ?></label>
       </div>
         </div>
-        <div class="col-sm-2 text-sm-right py-2 py-sm-0">
+        <div class="col-sm-2 text-sm-end py-2 py-sm-0">
             <?php echo $BLM['shopprod_supported_ccard'] ?>
         </div>
         <div class="col-sm-auto">
-            <select name="pref_supported_ccard[]" id="pref_supported_ccard" size="4" class="custom-select form-control form-control-sm" multiple="multiple" onchange="enableSubmit();" >
+            <select name="pref_supported_ccard[]" id="pref_supported_ccard" size="4" class="form-select form-select-sm" multiple="multiple" onchange="enableSubmit();" >
                 <option value="americanexpress"<?php if(in_array('americanexpress', $plugin['data']['shop_pref_payment']['accepted_ccard'])) echo ' selected="selected"'; ?> style="margin-bottom:1px">American Express</option>
                 <option value="mastercard"<?php if(in_array('mastercard', $plugin['data']['shop_pref_payment']['accepted_ccard'])) echo ' selected="selected"'; ?> style="margin-bottom:1px">MasterCard/EuroCard</option>
                 <option value="visa"<?php if(in_array('visa', $plugin['data']['shop_pref_payment']['accepted_ccard'])) echo ' selected="selected"'; ?> style="margin-bottom:1px">Visa</option>
@@ -395,7 +395,7 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
     </div>
 
-    <div class="form-group form-row">
+    <div class="form-group row g-2">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
             <div class="form-check">
@@ -419,7 +419,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
     <hr />
 
-    <div class="form-group form-row align-items-center">
+    <div class="form-group row g-2 align-items-center">
         <span class="col-sm-2 col-form-label"></span>
         <div class="col">
             <div class="form-check form-check-inline">
@@ -433,8 +433,8 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
     </div>
 
-    <div class="form-group form-row">
-        <label for="pref_terms" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_terms'] ?></label>
+    <div class="form-group row g-2">
+        <label for="pref_terms" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_terms'] ?></label>
         <div class="col">
             <textarea name="pref_terms" rows="5" class="form-control form-control-sm" id="pref_terms" onchange="enableSubmit();">
                 <?php echo $plugin['data']['shop_pref_terms_format'] ? html_entities($plugin['data']['shop_pref_terms']) : html_specialchars($plugin['data']['shop_pref_terms']); ?>
@@ -442,15 +442,15 @@ if (!defined('PHPWCMS_ROOT')) {
          </div>
     </div>
 
-  <div class="form-group form-row align-items-center mt-sm-3">
-        <label for="pref_api_access" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_api'] ?></label>
+  <div class="form-group row g-2 align-items-center mt-sm-3">
+        <label for="pref_api_access" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_api'] ?></label>
         <div class="col-sm-auto">
             <div class="form-check-inline">
         <input class="form-check-input" name="pref_api_access" id="pref_api_access" type="checkbox" value="1"<?php is_checked('1', $plugin['data']['shop_pref_api_access']); ?> onchange="enableSubmit();" />
         <label class="form-check-label" for="pref_api_access"><?php echo $BLM['shopprod_api_access']; ?></label>
       </div>
         </div>
-        <div class="col-sm-auto text-sm-right pt-2 pt-sm-0">
+        <div class="col-sm-auto text-sm-end pt-2 pt-sm-0">
             <?php echo trim($BLM['shopprod_api_key']) ?>
         </div>
         <div class="col-sm-auto">

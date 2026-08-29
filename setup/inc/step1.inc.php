@@ -13,15 +13,15 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">3. Database</h2>
+<h2 class="h4 text-primary fw-normal mb-3">3. Database</h2>
 
 <?php if (!empty($db_missing)): ?>
     <div class="alert alert-info mb-4 border">
-        <h5 class="alert-heading font-weight-bold mb-2"><i class="fa fa-database"></i> Database "<?php echo html_specialchars($phpwcms['db_table']) ?>" does not exist</h5>
+        <h5 class="alert-heading fw-bold mb-2"><i class="fa fa-database"></i> Database "<?php echo html_specialchars($phpwcms['db_table']) ?>" does not exist</h5>
         <p class="mb-2">Your database server credentials are valid, but the database <code><?php echo html_specialchars($phpwcms['db_table']) ?></code> has not been created yet.</p>
-        <div class="custom-control custom-checkbox mt-2">
-            <input type="checkbox" name="create_database" class="custom-control-input" id="create_database" value="1" checked="checked" />
-            <label class="custom-control-label font-weight-bold text-dark" for="create_database">Create database "<?php echo html_specialchars($phpwcms['db_table']) ?>" now (UTF-8 / utf8mb4)</label>
+        <div class="form-check mt-2">
+            <input type="checkbox" name="create_database" class="form-check-input" id="create_database" value="1" checked="checked" />
+            <label class="form-check-label fw-bold text-dark" for="create_database">Create database "<?php echo html_specialchars($phpwcms['db_table']) ?>" now (UTF-8 / utf8mb4)</label>
         </div>
     </div>
     <?php $_SESSION['admin_set'] = false; ?>
@@ -29,7 +29,7 @@ if (!defined('PHPWCMS_SETUP')) {
     <div class="alert alert-danger mb-4">
         <div><i class="fa fa-exclamation-triangle"></i> Please check your database connection settings below.</div>
         <?php if (!empty($db_error_message)): ?>
-            <div class="mt-2 small text-monospace font-weight-bold bg-white p-2 border rounded text-danger"><?php echo html_specialchars($db_error_message) ?></div>
+            <div class="mt-2 small text-monospace fw-bold bg-white p-2 border rounded text-danger"><?php echo html_specialchars($db_error_message) ?></div>
         <?php endif; ?>
     </div>
     <?php $_SESSION['admin_set'] = false; ?>
@@ -48,19 +48,19 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
 <form action="setup.php?step=1" method="post" autocomplete="off">
 
     <div class="card mb-4 border">
-        <div class="card-header bg-light font-weight-bold">Database Server Connection</div>
+        <div class="card-header bg-light fw-bold">Database Server Connection</div>
         <div class="card-body">
             <div class="form-group row">
-                <label for="db_host" class="col-sm-3 col-form-label font-weight-bold">Host &amp; Port</label>
+                <label for="db_host" class="col-sm-3 col-form-label fw-bold">Host &amp; Port</label>
                 <div class="col-sm-6 d-flex">
-                    <input name="db_host" type="text" class="form-control mr-2" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" />
+                    <input name="db_host" type="text" class="form-control me-2" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" />
                     <input name="db_port" type="text" class="form-control" id="db_port" style="max-width: 90px;" value="<?php echo html_specialchars($display_db_port) ?>" placeholder="3306" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center"><?php echo ($detected_db_port !== 3306) ? 'Auto-detected port: ' . $detected_db_port : 'Default: localhost / 3306' ?></div>
             </div>
 
             <div class="form-group row">
-                <label for="db_user" class="col-sm-3 col-form-label font-weight-bold">DB Username</label>
+                <label for="db_user" class="col-sm-3 col-form-label fw-bold">DB Username</label>
                 <div class="col-sm-6">
                     <input name="db_user" type="text" class="form-control" id="db_user" value="<?php echo html_specialchars($phpwcms["db_user"]) ?>" placeholder="database user" />
                 </div>
@@ -68,7 +68,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             </div>
 
             <div class="form-group row">
-                <label for="db_pass" class="col-sm-3 col-form-label font-weight-bold">DB Password</label>
+                <label for="db_pass" class="col-sm-3 col-form-label fw-bold">DB Password</label>
                 <div class="col-sm-6">
                     <input name="db_pass" type="password" class="form-control" id="db_pass" value="<?php echo html_specialchars($phpwcms["db_pass"]) ?>" placeholder="database password" />
                 </div>
@@ -76,7 +76,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             </div>
 
             <div class="form-group row">
-                <label for="db_table" class="col-sm-3 col-form-label font-weight-bold">Database Name</label>
+                <label for="db_table" class="col-sm-3 col-form-label fw-bold">Database Name</label>
                 <div class="col-sm-6">
                     <input name="db_table" type="text" class="form-control" id="db_table" value="<?php echo html_specialchars($phpwcms["db_table"]) ?>" placeholder="database name" maxlength="255" />
                 </div>
@@ -84,7 +84,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             </div>
 
             <div class="form-group row">
-                <label for="db_prepend" class="col-sm-3 col-form-label font-weight-bold">Table Prefix</label>
+                <label for="db_prepend" class="col-sm-3 col-form-label fw-bold">Table Prefix</label>
                 <div class="col-sm-6">
                     <input name="db_prepend" type="text" class="form-control" id="db_prepend" value="<?php echo html_specialchars($phpwcms["db_prepend"]) ?>" placeholder="optional" maxlength="10" />
                 </div>
@@ -92,11 +92,11 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             </div>
 
             <div class="form-group row mb-0">
-                <label for="db_pers" class="col-sm-3 col-form-label font-weight-bold">Persistent Connection</label>
+                <label for="db_pers" class="col-sm-3 col-form-label fw-bold">Persistent Connection</label>
                 <div class="col-sm-6">
-                    <div class="custom-control custom-checkbox pt-2">
-                        <input name="db_pers" type="checkbox" class="custom-control-input" id="db_pers" value="1" <?php if (!empty($phpwcms['db_pers'])) echo 'checked="checked"' ?> />
-                        <label class="custom-control-label" for="db_pers">Enable persistent connection</label>
+                    <div class="form-check pt-2">
+                        <input name="db_pers" type="checkbox" class="form-check-input" id="db_pers" value="1" <?php if (!empty($phpwcms['db_pers'])) echo 'checked="checked"' ?> />
+                        <label class="form-check-label" for="db_pers">Enable persistent connection</label>
                     </div>
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Default: Enabled (1)</div>
@@ -144,12 +144,12 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
     }
     ?>
     <div class="card mb-4 border">
-        <div class="card-header bg-light font-weight-bold">Language &amp; Charset Settings (MySQL v<?php echo html_specialchars($row[0]) ?>)</div>
+        <div class="card-header bg-light fw-bold">Language &amp; Charset Settings (MySQL v<?php echo html_specialchars($row[0]) ?>)</div>
         <div class="card-body">
             <div class="form-group row">
-                <label for="charset" class="col-sm-3 col-form-label font-weight-bold">Default Language</label>
+                <label for="charset" class="col-sm-3 col-form-label fw-bold">Default Language</label>
                 <div class="col-sm-6">
-                    <select name="charset" class="custom-select" id="charset">
+                    <select name="charset" class="form-select" id="charset">
                     <?php
                     foreach ($available_languages as $key => $value) {
                         list(, $_lang_charset)  = explode('-', $value[1], 2);
@@ -170,9 +170,9 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             </div>
 
             <div class="form-group row mb-0">
-                <label for="collation" class="col-sm-3 col-form-label font-weight-bold">Collation</label>
+                <label for="collation" class="col-sm-3 col-form-label fw-bold">Collation</label>
                 <div class="col-sm-6">
-                    <select name="collation" class="custom-select" id="collation">
+                    <select name="collation" class="form-select" id="collation">
                     <?php
                     foreach ($db_collations as $col) {
                         echo '<option value="' . html_specialchars($col) . '"';
@@ -192,7 +192,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
 
 <?php if (!empty($db_init)): ?>
     <div class="card mb-4 border">
-        <div class="card-header bg-light font-weight-bold">Database Schema Initialization</div>
+        <div class="card-header bg-light fw-bold">Database Schema Initialization</div>
         <div class="card-body">
             <?php
             if (empty($db_no_create) && !empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
@@ -227,9 +227,9 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             if (empty($db_fine)) {
                 $is_checked_sql = !empty($db_sql) || (!isset($_POST['db_sql_hidden']) && empty($_db_prepend_error));
                 ?>
-                <div class="custom-control custom-checkbox">
-                    <input name="db_sql" type="checkbox" class="custom-control-input" id="db_sql" value="1" <?php if ($is_checked_sql) echo 'checked="checked"' ?> />
-                    <label class="custom-control-label font-weight-bold" for="db_sql">Create initial phpwcms database tables</label>
+                <div class="form-check">
+                    <input name="db_sql" type="checkbox" class="form-check-input" id="db_sql" value="1" <?php if ($is_checked_sql) echo 'checked="checked"' ?> />
+                    <label class="form-check-label fw-bold" for="db_sql">Create initial phpwcms database tables</label>
                     <input type="hidden" name="db_sql_hidden" value="1" />
                 </div>
                 <?php
@@ -241,18 +241,18 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
 
 <?php if (!empty($_SESSION['admin_set'])): ?>
     <div class="card mb-4 border">
-        <div class="card-header bg-light font-weight-bold">Superuser Administrator Settings</div>
+        <div class="card-header bg-light fw-bold">Superuser Administrator Settings</div>
         <div class="card-body">
             <?php if (empty($_SESSION['admin_save'])): ?>
                 <div class="form-group row">
-                    <label for="admin_name" class="col-sm-3 col-form-label font-weight-bold">Admin Full Name</label>
+                    <label for="admin_name" class="col-sm-3 col-form-label fw-bold">Admin Full Name</label>
                     <div class="col-sm-6">
                         <input name="admin_name" type="text" id="admin_name" class="form-control" value="<?php echo empty($phpwcms["admin_name"]) ? "Webmaster" : html_specialchars($phpwcms["admin_name"]) ?>" />
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="admin_user" class="col-sm-3 col-form-label font-weight-bold">Admin Username</label>
+                    <label for="admin_user" class="col-sm-3 col-form-label fw-bold">Admin Username</label>
                     <div class="col-sm-6">
                         <input name="admin_user" type="text" id="admin_user" class="form-control" value="<?php echo empty($phpwcms["admin_user"]) ? "webmaster" : html_specialchars($phpwcms["admin_user"]) ?>" />
                     </div>
@@ -263,21 +263,21 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 <?php endif; ?>
 
                 <div class="form-group row">
-                    <label for="admin_pass" class="col-sm-3 col-form-label font-weight-bold">Password</label>
+                    <label for="admin_pass" class="col-sm-3 col-form-label fw-bold">Password</label>
                     <div class="col-sm-6">
                         <input name="admin_pass" type="password" id="admin_pass" class="form-control" autocomplete="new-password" />
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="admin_passrepeat" class="col-sm-3 col-form-label font-weight-bold">Repeat Password</label>
+                    <label for="admin_passrepeat" class="col-sm-3 col-form-label fw-bold">Repeat Password</label>
                     <div class="col-sm-6">
                         <input name="admin_passrepeat" type="password" id="admin_passrepeat" class="form-control" autocomplete="new-password" />
                     </div>
                 </div>
 
                 <div class="form-group row mb-0">
-                    <label for="admin_email" class="col-sm-3 col-form-label font-weight-bold">Admin Email</label>
+                    <label for="admin_email" class="col-sm-3 col-form-label fw-bold">Admin Email</label>
                     <div class="col-sm-6">
                         <input name="admin_email" type="email" id="admin_email" class="form-control" value="<?php echo html_specialchars($phpwcms["admin_email"]) ?>" />
                     </div>

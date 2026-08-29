@@ -16,7 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 ?>
 
-<h1 class="text-center text-sm-left"><?php echo $BL['be_alias'] ?></h1>
+<h1 class="text-center text-sm-start"><?php echo $BL['be_alias'] ?></h1>
 <div class="card mb-2">
   <div class="card-header"><h2><?php echo $BL['be_article_urlalias'] ?> <?php echo $BL['be_ftptakeover_active'] ?></h2></div>
   <div class="card-body">
@@ -39,17 +39,17 @@ if(isset($result[0]['acat_id'])) {
     // now add article URL
     echo '<tr>';
     echo '<td>';
-    echo '<div class="btn btn-sm '.(empty($data["acat_alias"]) ? "btn-danger" : "btn-success").' mr-1 py-0" data-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
-    echo '<div class="btn btn-sm '.(empty($data["acat_pagetitle"]) ? "btn-danger" : "btn-success").' mr-1 py-0" data-toggle="tooltip" title="'.$BL['be_acat_pagetitle'].'">T</div>';
+    echo '<div class="btn btn-sm '.(empty($data["acat_alias"]) ? "btn-danger" : "btn-success").' me-1 py-0" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
+    echo '<div class="btn btn-sm '.(empty($data["acat_pagetitle"]) ? "btn-danger" : "btn-success").' me-1 py-0" data-bs-toggle="tooltip" title="'.$BL['be_acat_pagetitle'].'">T</div>';
 
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 AND template_id = " . $data["acat_template"];
     $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($data["acat_template"]), '', '', 1);
-    echo '<span class="ml-2">' . $content['current_template'][0]['template_name'] . ' | ' . '</span>';
+    echo '<span class="ms-2">' . $content['current_template'][0]['template_name'] . ' | ' . '</span>';
     echo '<a href="phpwcms.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'">'.(empty($data["acat_alias"]) ? 'no alias' : html_specialchars($data["acat_alias"]) ).'</a>';
 	  echo '</td >';
 
-		echo '<td class="text-right">';
-    echo '<a href="phpwcms.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'" class="btn btn-sm btn-blue float-right" title="'.$BL['be_func_struct_sedit'].'" data-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
+		echo '<td class="text-end">';
+    echo '<a href="phpwcms.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'" class="btn btn-sm btn-blue float-end" title="'.$BL['be_func_struct_sedit'].'" data-bs-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
     echo "</td>" . LF;
     echo '</tr>';
     $x++;
@@ -81,13 +81,13 @@ if(isset($result[0]['article_id'])) {
     // now add article URL
     echo '<tr>';
     echo '<td>';
-    echo '<div class="btn btn-sm '.(empty($data["article_alias"]) ? "btn-danger" : "btn-success").' mr-1 py-0" data-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
-    echo '<div class="btn btn-sm '.(empty($data["article_description"]) ? "btn-danger" : "btn-success").' mr-1 py-0" data-toggle="tooltip" title="'.$BL['be_article_description'].'">D</div>';
-    echo '<a class="ml-2" href="phpwcms.php?do=articles&p=2&s=1&id='.$data["article_id"].'">'.(empty($data["article_alias"]) ? 'no alias' : html_specialchars($data["article_alias"]) ).'</a>';
+    echo '<div class="btn btn-sm '.(empty($data["article_alias"]) ? "btn-danger" : "btn-success").' me-1 py-0" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
+    echo '<div class="btn btn-sm '.(empty($data["article_description"]) ? "btn-danger" : "btn-success").' me-1 py-0" data-bs-toggle="tooltip" title="'.$BL['be_article_description'].'">D</div>';
+    echo '<a class="ms-2" href="phpwcms.php?do=articles&p=2&s=1&id='.$data["article_id"].'">'.(empty($data["article_alias"]) ? 'no alias' : html_specialchars($data["article_alias"]) ).'</a>';
     echo '</td >';
 
-		echo '<td class="text-right">';
-    echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$data["article_id"].'" class="btn btn-sm btn-blue" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
+		echo '<td class="text-end">';
+    echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$data["article_id"].'" class="btn btn-sm btn-blue" title="'.$BL['be_func_struct_edit'].'" data-bs-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
     echo "</td>" . LF;
     echo '</tr>';
     $x++;

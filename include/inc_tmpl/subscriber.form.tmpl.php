@@ -20,29 +20,29 @@ if (!defined('PHPWCMS_ROOT')) {
   <div class="card mb-3">
     <div class="card-body">
 
-      <div class="form-group form-row align-items-center">
-        <span class="col-sm-2 col-form-label text-right font-weight-bold"><?php echo $BL['be_cnt_last_edited'] ?></span>
+      <div class="form-group row g-2 align-items-center">
+        <span class="col-sm-2 col-form-label text-end fw-bold"><?php echo $BL['be_cnt_last_edited'] ?></span>
         <div class="col">
          <?php echo html($_userInfo['subscriber_data']['address_tstamp']) ?>
         </div>
       </div>
 
-      <div class="form-group form-row align-items-center">
-        <label for="subscribe_email" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_email'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label for="subscribe_email" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_email'] ?></label>
         <div class="col">
           <input type="email" class="form-control form-control-sm" name="subscribe_email" id="subscribe_email" value="<?php echo html($_userInfo['subscriber_data']['address_email']) ?>" maxlength="250" required />
         </div>
       </div>
 
-      <div class="form-group form-row align-items-center">
-        <label for="subscribe_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardform_name'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label for="subscribe_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_ecardform_name'] ?></label>
         <div class="col">
           <input type="text" class="form-control form-control-sm" name="subscribe_name" id="subscribe_name" value="<?php echo html($_userInfo['subscriber_data']['address_name']) ?>" maxlength="250" required />
         </div>
       </div>
 
-      <div class="form-group form-row">
-        <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_subscription'] ?></label>
+      <div class="form-group row g-2">
+        <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_subscription'] ?></label>
         <div class="col">
 
 				<?php
@@ -84,8 +84,8 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
       </div>
 
-      <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label text-right" for="subscribe_active"><?php echo $BL['be_ftptakeover_status'] ?></label>
+      <div class="form-group row g-2 align-items-center">
+        <label class="col-sm-2 col-form-label text-end" for="subscribe_active"><?php echo $BL['be_ftptakeover_status'] ?></label>
         <div class="col">
           <div class="form-check">
 						<input class="form-check-input" name="subscribe_active" type="checkbox" id="subscribe_active" value="1"<?php is_checked($_userInfo['subscriber_data']['address_verified'], 1) ?> />
@@ -95,9 +95,9 @@ if (!defined('PHPWCMS_ROOT')) {
       </div>
 
 			<div class="form-group align-items-center mt-4 mb-0">
-				<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($_userInfo['subscriber_data']['address_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-				<button name="save" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-				<a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+				<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($_userInfo['subscriber_data']['address_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+				<button name="save" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+				<a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
 			</div>
 
     </div>
