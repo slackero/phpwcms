@@ -2372,10 +2372,61 @@ body.filebrowser table img,
     color: var(--pw-text-bright) !important;
 }
 
+[data-bs-theme="dark"] .ts-control input::placeholder {
+    color: var(--pw-text-muted) !important;
+}
+
+[data-bs-theme="dark"] .focus .ts-control {
+    border-color: var(--pw-link) !important;
+}
+
+[data-bs-theme="dark"] .disabled .ts-control {
+    background-color: var(--pw-bg-raised) !important;
+}
+
+/* Multi-select item chips */
+[data-bs-theme="dark"] .ts-wrapper.multi .ts-control > div {
+    background: var(--pw-bg-raised);
+    color: var(--pw-text-bright);
+    border-color: var(--pw-border-strong);
+}
+
+[data-bs-theme="dark"] .ts-wrapper.multi .ts-control > div.active {
+    background: var(--pw-accent);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+[data-bs-theme="dark"] .ts-wrapper.multi.disabled .ts-control > div,
+[data-bs-theme="dark"] .ts-wrapper.multi.disabled .ts-control > div.active {
+    background: var(--pw-bg-hover);
+    color: var(--pw-text-muted);
+    border-color: var(--pw-border);
+}
+
+[data-bs-theme="dark"] .ts-wrapper.plugin-remove_button:not(.rtl) .item .remove,
+[data-bs-theme="dark"] .ts-wrapper.plugin-remove_button.rtl .item .remove {
+    border-color: var(--pw-border-strong);
+}
+
+[data-bs-theme="dark"] .ts-wrapper.plugin-remove_button:not(.rtl).disabled .item .remove {
+    border-left-color: var(--pw-border);
+}
+
+[data-bs-theme="dark"] .ts-wrapper.plugin-remove_button.rtl.disabled .item .remove {
+    border-right-color: var(--pw-border);
+}
+
+/* Dropdown */
 [data-bs-theme="dark"] .ts-dropdown {
     background-color: var(--pw-bg-surface) !important;
     border-color: var(--pw-border) !important;
     color: var(--pw-text) !important;
+}
+
+[data-bs-theme="dark"] .ts-dropdown:before,
+[data-bs-theme="dark"] .ts-dropdown:after {
+    border-color: var(--pw-border) transparent;
 }
 
 [data-bs-theme="dark"] .ts-dropdown .option {
@@ -2385,6 +2436,33 @@ body.filebrowser table img,
 [data-bs-theme="dark"] .ts-dropdown .active {
     background-color: var(--pw-bg-hover) !important;
     color: var(--pw-text-bright) !important;
+}
+
+[data-bs-theme="dark"] .ts-dropdown .optgroup-header {
+    color: var(--pw-text-muted);
+    background: var(--pw-bg-surface);
+}
+
+[data-bs-theme="dark"] .ts-dropdown [data-disabled] {
+    color: #545d68;
+    opacity: .6;
+}
+
+[data-bs-theme="dark"] .ts-wrapper .dropdown-header-close {
+    color: var(--pw-text-muted);
+}
+
+[data-bs-theme="dark"] .ts-wrapper .dropdown-header-close:hover {
+    color: var(--pw-text-bright);
+}
+
+[data-bs-theme="dark"] .plugin-dropdown_input.focus.dropdown-active .ts-control {
+    border-left-color: var(--pw-border-strong);
+}
+
+/* Loading spinner */
+[data-bs-theme="dark"] .input-hidden .ts-control > input {
+    border-color: var(--pw-border) transparent var(--pw-border) transparent;
 }
 
 /* Confirm modal */
