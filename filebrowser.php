@@ -139,17 +139,11 @@ $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND (
 $count_user_files = _dbQuery($sql, 'COUNT');
 
 ?><!DOCTYPE html>
-<html lang="<?php echo $user_lang; ?>" data-theme="<?php echo html(get_backend_theme()); ?>">
+<html <?php echo get_backend_html_tag_attributes($user_lang); ?>>
 <head>
     <title><?php echo $titel ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>" />
-    <script>
-    (function() {
-        var storedTheme = localStorage.getItem('phpwcms_theme');
-        var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
-        document.documentElement.setAttribute('data-theme', theme);
-    })();
-    </script>
+    <?php echo get_theme_boot_script(); ?>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/dropzone.min.css" rel="stylesheet" type="text/css">
     <script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>

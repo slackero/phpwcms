@@ -1511,3 +1511,61 @@ function get_default_article_meta() {
         'nofollow' => 0,
     ];
 }
+
+/**
+ * Return the html dir attribute for the given (or current backend) language,
+ * 'dir="rtl"' for RTL scripts or an empty string for LTR.
+ */
+function get_html_dir_attribute($lang = '') {
+    static $rtlLanguages = ['ar', 'he', 'fa', 'ur'];
+    if ($lang === '') {
+        $lang = $GLOBALS['BE']['LANG'] ?? '';
+    }
+    return in_array($lang, $rtlLanguages, true) ? ' dir="rtl"' : '';
+}
+
+/**
+ * Build the backend <html> opening tag with lang, dir and theme attributes.
+ * $lang defaults to the current backend language.
+ * Set $withTheme to false for pages without the theme switcher.
+ */
+function get_backend_html_tag_attributes($lang = '', $withTheme = true) {
+    if (empty($lang)) {
+        $lang = $GLOBALS['BE']['LANG'] ?? ($_SESSION['wcs_user_lang'] ?? 'en');
+    }
+    $attributes = 'lang="' . html($lang) . '"';
+    $attributes .= get_html_dir_attribute($lang);
+    if ($withTheme && function_exists('get_backend_theme')) {
+        $attributes .= ' data-theme="' . html(get_backend_theme()) . '"';
+    }
+    return $attributes;
+}
+
+/**
+ * Inline theme boot script, must run before the stylesheet renders
+ * to prevent a light/dark flash (FOUC). Sets both data-theme (the
+ * stored preference) and data-bs-theme (the resolved theme).
+ */
+function get_theme_boot_script() {
+    // server value (session/DB) is authoritative — localStorage only acts as
+    // fallback for a toggle whose AJAX persistence failed
+    if (function_exists('get_backend_theme')) {
+        $themeCondition = '"' . html(get_backend_theme()) . '" || ';
+    } else {
+        $themeCondition = '';
+    }
+    $themeCondition .= 'localStorage.getItem("phpwcms_theme") || "auto"';
+    return '<script>
+        (function() {
+            let theme = ' . $themeCondition . ';
+            if (theme !== "light" && theme !== "dark" && theme !== "auto") {
+                theme = "auto";
+            }
+            document.documentElement.setAttribute("data-theme", theme);
+            if (theme === "auto") {
+                theme = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+            }
+            document.documentElement.setAttribute("data-bs-theme", theme === "dark" ? "dark" : "light");
+        })();
+    </script>';
+}

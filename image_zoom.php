@@ -27,7 +27,7 @@ if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), t
 }
 
 ?><!DOCTYPE html>
-<html lang="<?php echo $phpwcms['DOCTYPE_LANG']; ?>">
+<html <?php echo get_backend_html_tag_attributes($phpwcms['DOCTYPE_LANG'], false); ?>>
 <head>
     <title><?php echo html($name); ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">

@@ -24,7 +24,7 @@ header('HTTP/1.1 503 Service Temporarily Unavailable');
 header('Retry-After: 3600');
 
 ?><!DOCTYPE html>
-<html lang="<?php echo $phpwcms['DOCTYPE_LANG']; ?>">
+<html <?php echo get_backend_html_tag_attributes($phpwcms['DOCTYPE_LANG'], false); ?>>
 <head>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>" />
     <title>Sorry</title>

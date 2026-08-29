@@ -77,7 +77,7 @@ if($file_id) {
         }
 
 ?><!DOCTYPE html>
-<html lang="<?php echo $user_lang; ?>" data-theme="<?php echo html(get_backend_theme()); ?>">
+<html <?php echo get_backend_html_tag_attributes($user_lang); ?>>
 <head>
     <title><?php echo $BL['FILEINFO_TITLE'] ?>: <?php echo $filename ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>" />
@@ -85,13 +85,7 @@ if($file_id) {
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta name="robots" content="noindex, nofollow" />
-    <script>
-    (function() {
-        var storedTheme = localStorage.getItem('phpwcms_theme');
-        var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
-        document.documentElement.setAttribute('data-theme', theme);
-    })();
-    </script>
+    <?php echo get_theme_boot_script(); ?>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css" />
     <script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>

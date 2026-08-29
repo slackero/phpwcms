@@ -98,17 +98,11 @@ define('CSRF_GET_TOKEN', get_token_get_string());
 require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 ?><!DOCTYPE html>
-<html lang="<?php echo $user_lang; ?>" data-theme="<?php echo html(get_backend_theme()); ?>">
+<html <?php echo get_backend_html_tag_attributes($user_lang); ?>>
 <head>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <title><?php echo $BL['be_articlebrowser_selector']; ?></title>
-    <script>
-    (function() {
-        var storedTheme = localStorage.getItem('phpwcms_theme');
-        var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
-        document.documentElement.setAttribute('data-theme', theme);
-    })();
-    </script>
+    <?php echo get_theme_boot_script(); ?>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <style>
         tr.struct:hover {

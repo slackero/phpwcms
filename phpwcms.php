@@ -237,31 +237,20 @@ ob_start(); //without Compression
 header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
 
 ?><!DOCTYPE HTML>
-<html lang="<?= $BE['LANG'] ?>" data-theme="<?= html(get_backend_theme()) ?>"<?= in_array($BE['LANG'], ['ar','ur','he','fa']) ? ' dir="rtl"' : '' ?>>
+<html <?php echo get_backend_html_tag_attributes($BE['LANG']); ?>>
 <head><?php printf(PHPWCMS_HEADER_COMMENT, ''); ?>
     <title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- phpwcms CSP -->
+    <?php echo get_theme_boot_script(); ?>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <script>
         const CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';
-        (function() {
-            const storedTheme = localStorage.getItem('phpwcms_theme');
-            let theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
-            if (theme !== 'light' && theme !== 'dark' && theme !== 'auto') {
-                theme = 'auto';
-            }
-            document.documentElement.setAttribute('data-theme', theme);
-            if (theme === 'auto') {
-                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            }
-            document.documentElement.setAttribute('data-bs-theme', theme === 'dark' ? 'dark' : 'light');
-            if (localStorage.getItem('phpwcms_sidebar_collapsed') === 'true') {
-                document.documentElement.classList.add('sidebar-collapsed');
-            }
-        })();
+        if (localStorage.getItem('phpwcms_sidebar_collapsed') === 'true') {
+            document.documentElement.classList.add('sidebar-collapsed');
+        }
     </script>
 <?php
 

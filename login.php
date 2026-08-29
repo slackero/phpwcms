@@ -647,27 +647,13 @@ $reason_types = array(
 );
 
 ?><!DOCTYPE html>
-<html lang="<?php echo $_SESSION["wcs_user_lang"]; ?>" data-theme="<?php echo html(get_backend_theme()); ?>">
+<html <?php echo get_backend_html_tag_attributes($_SESSION['wcs_user_lang']); ?>>
 <head>
 	<meta charset="<?php echo PHPWCMS_CHARSET ?>">
 	<title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
 	<meta name="robots" content="noindex, nofollow">
-	<script>
-	(function() {
-		var storedTheme = localStorage.getItem('phpwcms_theme');
-		var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
-		if (theme !== 'light' && theme !== 'dark' && theme !== 'auto') { theme = 'auto'; }
-		document.documentElement.setAttribute('data-theme', theme);
-		if (theme === 'auto') {
-			theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-		}
-		document.documentElement.setAttribute('data-bs-theme', theme === 'dark' ? 'dark' : 'light');
-	})();
-	</script>
+	<?php echo get_theme_boot_script(); ?>
 	<link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
-<?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($phpwcms['default_lang'] == 'ar' || $phpwcms['default_lang'] == 'he')): ?>
-    <style>* {direction: rtl;}</style>
-<?php endif; ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 	<script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
 	<script src="include/inc_js/bootstrap.bundle.min.js"></script>
@@ -774,9 +760,9 @@ if ($step_2fa):
 <div class="form-group">
     <label class="visually-hidden" for="form_2fa_code"><?php echo $BL['login_2fa_code'] ?? 'Authentication Code'; ?></label>
     <div class="input-group">
-        
+
             <span class="input-group-text"><i class="fa fa-shield-alt fa-fw"></i></span>
-        
+
         <input name="form_2fa_code" type="text" id="form_2fa_code" class="form-control" placeholder="<?php echo $BL['login_2fa_placeholder'] ?? '6-digit code or backup code'; ?>" autofocus="autofocus" required="required" maxlength="20" autocomplete="one-time-code" />
     </div>
 </div>
@@ -806,9 +792,9 @@ elseif ($step_reset_set):
     <div class="form-group">
         <label class="visually-hidden" for="form_new_password"><?php echo $BL['login_reset_new_password'] ?? 'New password'; ?></label>
         <div class="input-group">
-            
+
                 <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
-            
+
             <input name="form_new_password" type="password" id="form_new_password" class="form-control" placeholder="<?php echo $BL['login_reset_new_password'] ?? 'New password'; ?>" autofocus="autofocus" required="required" autocomplete="new-password" />
         </div>
     </div>
@@ -816,9 +802,9 @@ elseif ($step_reset_set):
     <div class="form-group">
         <label class="visually-hidden" for="form_repeat_password"><?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?></label>
         <div class="input-group">
-            
+
                 <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
-            
+
             <input name="form_repeat_password" type="password" id="form_repeat_password" class="form-control" placeholder="<?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?>" required="required" autocomplete="new-password" />
         </div>
     </div>
@@ -845,9 +831,9 @@ elseif ($step_reset_request):
     <div class="form-group">
         <label class="visually-hidden" for="form_reset_account"><?php echo $BL['login_username'] . ' / ' . ($BL['be_newsletter_email'] ?? 'Email'); ?></label>
         <div class="input-group">
-            
+
                 <span class="input-group-text"><i class="fa fa-envelope fa-fw"></i></span>
-            
+
             <input name="form_reset_account" type="text" id="form_reset_account" class="form-control" placeholder="<?php echo $BL['login_username'] . ' / ' . ($BL['be_newsletter_email'] ?? 'Email'); ?>" autofocus="autofocus" required="required" />
         </div>
     </div>
@@ -907,9 +893,9 @@ else:
 <div class="form-group">
 	<label class="visually-hidden" for="form_loginname"><?php echo $BL["login_username"] ?></label>
 	<div class="input-group">
-        
+
             <span class="input-group-text"><i class="fa fa-user fa-fw"></i></span>
-        
+
 		<input name="form_loginname" type="text" id="form_loginname" class="form-control" placeholder="<?php echo $BL["login_username"] ?>" value="<?php echo html_specialchars($wcs_user); ?>" required="required" />
 	</div>
 </div>
@@ -917,9 +903,9 @@ else:
 <div class="form-group">
 	<label class="visually-hidden" for="form_password"><?php echo $BL["login_userpass"] ?></label>
     <div class="input-group">
-	    
+
             <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
-        
+
         <input name="form_password" type="password" id="form_password" placeholder="<?php echo $BL["login_userpass"] ?>" class="form-control" required="required"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="new-password"<?php endif; ?> />
 	</div>
 </div>
