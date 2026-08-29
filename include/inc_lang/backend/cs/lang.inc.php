@@ -1643,8 +1643,8 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Opravdu odebrat položku %s?'
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Opravdu odebrat tuto položku?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'Klíč pole "%s" je vyhrazený standardní název značky a nelze jej použít.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Vyhrazený standardní název značky (např. TITLE, SUBTITLE, TEXT atd.).';
-$BL['be_cnt_expand_all']           = 'Expand all';
-$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_expand_all'] = 'Rozbalit v&scaron;e';
+$BL['be_cnt_collapse_all'] = 'Sbalit v&scaron;e';
 $BL['be_cnt_texts']                = 'Texty';
 
 // Template translations

@@ -1634,8 +1634,8 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = '%s girişi gerçekten kaldır
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Bu giriş gerçekten kaldırılsın mı?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = '"%s" alan anahtarı ayrılmış bir standart etiket adıdır ve kullanılamaz.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Ayrılmış standart etiket adı (örn. TITLE, SUBTITLE, TEXT vb.).';
-$BL['be_cnt_expand_all']           = 'Expand all';
-$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_expand_all'] = 'T&uuml;m&uuml;n&uuml; geni&scedil;let';
+$BL['be_cnt_collapse_all'] = 'T&uuml;m&uuml;n&uuml; daralt';
 $BL['be_cnt_texts']                = 'Metinler';
 
 // Template translations

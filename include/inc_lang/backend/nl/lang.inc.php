@@ -1644,5 +1644,5 @@ $BL['be_admin_template_lang_translated'] = 'Vertaald';
 $BL['be_admin_template_lang_add']    = 'Sleutel toevoegen';
 $BL['be_admin_template_lang_filter'] = 'Filter';
 $BL['be_admin_template_lang_search'] = 'Zoek sleutels of vertalingen&#8230;';
-$BL['be_admin_template_lang_items']  = 'Items';
+$BL['be_admin_template_lang_items'] = 'Items';
 

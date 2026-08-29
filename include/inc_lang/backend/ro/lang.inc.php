@@ -1651,8 +1651,8 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Sigur doriți să eliminați 
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Sigur doriți să eliminați această intrare?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'Cheia câmpului "%s" este un nume de etichetă standard rezervat și nu poate fi utilizată.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Nume de etichetă standard rezervat (de ex. TITLE, SUBTITLE, TEXT etc.).';
-$BL['be_cnt_expand_all']           = 'Expand all';
-$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_expand_all'] = 'Extinde tot';
+$BL['be_cnt_collapse_all'] = 'Restr&acirc;nge tot';
 $BL['be_cnt_texts']                = 'Texte';
 
 // Template translations

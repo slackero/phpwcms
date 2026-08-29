@@ -1661,8 +1661,8 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Vil du virkelig fjerne elemen
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Vil du virkelig fjerne dette element?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'Feltnøglen "%s" er et reserveret standard-tagnavn og kan ikke bruges.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reserveret standard-tagnavn (f.eks. TITLE, SUBTITLE, TEXT osv.).';
-$BL['be_cnt_expand_all']           = 'Expand all';
-$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_expand_all'] = 'Udfold alle';
+$BL['be_cnt_collapse_all'] = 'Fold alle sammen';
 $BL['be_cnt_texts']                = 'Tekster';
 
 // Template translations

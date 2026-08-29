@@ -1655,8 +1655,8 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Haluatko varmasti poistaa mer
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Haluatko varmasti poistaa tämän merkinnän?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'Kenttäavain "%s" on varattu vakiotunnistenimi eikä sitä voi käyttää.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Varattu vakiotunnistenimi (esim. TITLE, SUBTITLE, TEXT jne.).';
-$BL['be_cnt_expand_all']           = 'Expand all';
-$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_expand_all'] = 'Laajenna kaikki';
+$BL['be_cnt_collapse_all'] = 'Kutista kaikki';
 $BL['be_cnt_texts']                = 'Tekstit';
 
 // Template translations

@@ -1661,8 +1661,8 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Vill du verkligen ta bort pos
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Vill du verkligen ta bort denna post?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'Fältnyckeln "%s" är ett reserverat standardtaggnamn och kan inte användas.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reserverat standardtaggnamn (t.ex. TITLE, SUBTITLE, TEXT etc.).';
-$BL['be_cnt_expand_all']           = 'Expand all';
-$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_expand_all'] = 'F&auml;ll ut alla';
+$BL['be_cnt_collapse_all'] = 'F&auml;ll ihop alla';
 $BL['be_cnt_texts']                = 'Texter';
 
 // Template translations
