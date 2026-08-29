@@ -502,12 +502,47 @@ label a:focus,
 }
 
 .btn-blue {
-    color: #fff !important;
-    background-color: #31709b;
-    border-color: #31709b;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-    appearance: none !important;
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #31709b;
+    --bs-btn-border-color: #31709b;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #255e86;
+    --bs-btn-hover-border-color: #255e86;
+    --bs-btn-focus-shadow-rgb: 49, 112, 155;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #1f4f72;
+    --bs-btn-active-border-color: #1f4f72;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #31709b;
+    --bs-btn-disabled-border-color: #31709b;
+    color: var(--bs-btn-color) !important;
+    background-color: var(--bs-btn-bg) !important;
+    border-color: var(--bs-btn-border-color) !important;
+}
+
+.btn-blue:hover,
+.btn-blue:focus,
+.btn-blue.focus {
+    color: var(--bs-btn-hover-color) !important;
+    background-color: var(--bs-btn-hover-bg) !important;
+    border-color: var(--bs-btn-hover-border-color) !important;
+}
+
+.btn-blue:active,
+.btn-blue.active,
+.show > .btn-blue.dropdown-toggle {
+    color: var(--bs-btn-active-color) !important;
+    background-color: var(--bs-btn-active-bg) !important;
+    border-color: var(--bs-btn-active-border-color) !important;
+}
+
+.btn-blue:disabled,
+.btn-blue.disabled {
+    color: var(--bs-btn-disabled-color) !important;
+    background-color: var(--bs-btn-disabled-bg) !important;
+    border-color: var(--bs-btn-disabled-border-color) !important;
+    opacity: var(--bs-btn-disabled-opacity, 0.65);
 }
 
 .btn-outline-blue {
@@ -547,15 +582,47 @@ label a:focus,
 }
 
 .btn-light {
-    color: #212529;
-    background-color: #e4e4e4;
-    border-color: #e4e4e4;
+    --bs-btn-color: #212529;
+    --bs-btn-bg: #e4e4e4;
+    --bs-btn-border-color: #e4e4e4;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #c0c0c0;
+    --bs-btn-hover-border-color: #b0b0b0;
+    --bs-btn-focus-shadow-rgb: 211, 212, 213;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #b0b0b0;
+    --bs-btn-active-border-color: #a0a0a0;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #6c757d;
+    --bs-btn-disabled-bg: #e4e4e4;
+    --bs-btn-disabled-border-color: #e4e4e4;
+    color: var(--bs-btn-color);
+    background-color: var(--bs-btn-bg);
+    border-color: var(--bs-btn-border-color);
 }
 
-.btn-light:hover:not(:disabled) {
-    background-color: #c0c0c0;
-    border-color: #b0b0b0;
-    color: #000;
+.btn-light:hover,
+.btn-light:focus,
+.btn-light.focus {
+    color: var(--bs-btn-hover-color) !important;
+    background-color: var(--bs-btn-hover-bg) !important;
+    border-color: var(--bs-btn-hover-border-color) !important;
+}
+
+.btn-light:active,
+.btn-light.active,
+.show > .btn-light.dropdown-toggle {
+    color: var(--bs-btn-active-color) !important;
+    background-color: var(--bs-btn-active-bg) !important;
+    border-color: var(--bs-btn-active-border-color) !important;
+}
+
+.btn-light:disabled,
+.btn-light.disabled {
+    color: var(--bs-btn-disabled-color) !important;
+    background-color: var(--bs-btn-disabled-bg) !important;
+    border-color: var(--bs-btn-disabled-border-color) !important;
+    opacity: var(--bs-btn-disabled-opacity, 0.65);
 }
 
 .darken {
@@ -589,12 +656,6 @@ label a:focus,
     font-size: 1rem;
 }
 
-.btn-blue:hover, .btn-blue:focus, .btn-blue.focus, .btn-blue:active, .btn-blue.active, .show > .dropdown-toggle {
-    color: #fff;
-    background-color: #3a4a5c;
-    border-color: #3a4a5c;
-}
-
 .btn-success, .btn-danger {
     color: #fff !important;
     -webkit-appearance: none !important;
@@ -607,28 +668,48 @@ label a:focus,
     line-height: 1.25;
 }
 
-.folder-open:before {
+.folder-open:empty:before {
     content: "\f07c";
-    font-family: "Font Awesome 7 Free";
+    font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "FontAwesome";
     font-weight: 900;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
 }
 
-.sitemap-open:before {
+.sitemap-open:empty:before {
     content: "\f0e8";
-    font-family: "Font Awesome 7 Free";
+    font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "FontAwesome";
     font-weight: 900;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
 }
 
-.trash:before {
+.trash:empty:before {
     content: "\f2ed";
-    font-family: "Font Awesome 7 Free";
-    font-weight: 400;
+    font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "FontAwesome";
+    font-weight: 900;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
 }
 
-.insert:before {
+.insert:empty:before {
     content: "\f105";
-    font-family: "Font Awesome 7 Free";
+    font-family: "Font Awesome 7 Free", "Font Awesome 6 Free", "FontAwesome";
     font-weight: 900;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Action buttons wrapping prevention & icon consistency */

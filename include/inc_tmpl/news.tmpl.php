@@ -474,13 +474,9 @@ if($news->data['cnt_id']) {
         <label for="cnt_image_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_image'] ?></label>
         <div class="col-sm-4">
             <div class="input-group">
-                
-                    <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7&amp;target=summary" ></button>
-                
+                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7&amp;target=summary" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
                 <input name="cnt_image_name" type="text" id="cnt_image_name" class="form-control form-control-sm" value="<?php echo html($news->data['cnt_image']['name']) ?>" maxlength="250" onfocus="this.blur()" />
-                
-                    <a href="#" class="btn btn-sm btn-danger trash" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"></a>
-                
+                <a href="#" class="btn btn-sm btn-danger trash" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>
             </div>
             <input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?php echo $news->data['cnt_image']['id'] ?>" />
         </div>
@@ -595,10 +591,8 @@ if($news->data['cnt_id']) {
     <label for="cnt_link" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_read_more_link'] ?></label>
     <div class="col-sm-4">
         <div class="input-group">
-          
-            <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=1" ></button>
-          
-          <input type="text" name="cnt_link" id="cnt_link" value="<?php echo html_entities($news->data['cnt_link']) ?>" class="form-control form-control-sm" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>" />
+            <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=1" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></button>
+            <input type="text" name="cnt_link" id="cnt_link" value="<?php echo html_entities($news->data['cnt_link']) ?>" class="form-control form-control-sm" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>" />
         </div><?php
           if (intval($news->data['cnt_link'])> 0) {
             $adata = get_article_data($news->data['cnt_link']);

@@ -190,7 +190,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 <script>
     $(function() {
-        $('<?php if ($js_aktion == 5): ?>'r.structarticleconten'<?php else: ?>a.structarticle<?php endif; ?>').
+        $('<?php if ($js_aktion == 5): ?>tr.structarticlecontent<?php else: ?>a.structarticle<?php endif; ?>').
         on('click', function() {
             <?php
             echo $js . "=$(this).attr('data-aid');";

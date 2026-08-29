@@ -242,7 +242,7 @@ if ($acat_id === 'index' || $acat_id === 0) {
 						<div class="input-group">
 							<input name="acat_lang_id" type="text" id="acat_lang_id" class="form-control form-control-sm" value="<?php echo $acat_lang_id ? $acat_lang_id : ''; ?>" maxlength="10" onfocus="this.blur()" />
 							
-								<button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=3" title="<?php echo $BL['be_func_open_articlebrowser'] ?>"></button>
+								<button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=3" title="<?php echo $BL['be_func_open_articlebrowser'] ?>"><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></button>
 							
 						</div>
           </div>

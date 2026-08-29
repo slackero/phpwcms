@@ -768,8 +768,13 @@ $(function () {
 
     $doc.on('click', '.modalButton', function (e) {
         const $this = $(this);
-        const src = $this.attr('data-src');
-        const modaltitle = $this.attr('alt') || '';
+        let src = $this.attr('data-src') || '';
+        if (!src) return;
+
+        if (typeof CSRF_GET_TOKEN !== 'undefined' && CSRF_GET_TOKEN && src.indexOf('csrftoken=') === -1) {
+            src += (src.indexOf('?') === -1 ? '?' : '&') + CSRF_GET_TOKEN;
+        }
+        const modaltitle = $this.attr('alt') || $this.attr('title') || '';
 
         $modalBody.css({
             'overflow-y': 'auto',
@@ -778,6 +783,10 @@ $(function () {
 
         $iframe.attr({'src': src, 'height': '100%', 'width': '100%'});
         $modalHeader.html(modaltitle);
+    });
+
+    $('#browserModal').on('hidden.bs.modal', function () {
+        $iframe.attr('src', 'about:blank');
     });
 
     //ajaxfunction

@@ -223,9 +223,7 @@ if(empty($content['search']['type'])) {
     <div class="form-group">
         <label class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_cnt_target'].' ('.$BL['be_alias'] ?>/aid=1/id=3)</label>
         <div class="input-group">
-          
-            <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=6&field=csearch_news_url" ></button>
-          
+          <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=6&amp;field=csearch_news_url" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></button>
           <input type="text" name="csearch_news_url" id="news_url" value="<?php echo html($content['search']["news_url"]) ?>" class="form-control form-control-sm" data-bs-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>" />
         </div>
     </div>

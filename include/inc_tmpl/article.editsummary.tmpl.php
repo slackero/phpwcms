@@ -135,15 +135,15 @@ $langstr = '';
                   </div>
                   <div class="input-group-text lang-id-select-part<?php if ($article['article_lang'] === ''): ?> text-muted<?php endif; ?>">
                        <input class="me-1" name="article_lang_type" id="article_lang_type_article" type="radio" value="article"<?php is_checked('article', $article['article_lang_type']); ?><?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?> />
-                       <label class="form-check-label text-nowrap mb-0" for="article_lang_type_article">
-                         <?php echo $BL['be_cnt_articles'] ?> ID
-                         <span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?>" data-bs-toggle="tooltip" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>"></span>
-                       </label>
-                  </div>
-                  <input name="article_lang_id" type="number" id="article_lang_id" class="form-control form-control-sm" style="max-width: 100px;" value="<?php echo $article['article_lang_id'] ?: ''; ?>" maxlength="10" onfocus="this.blur()"<?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?> />
-                  <button class="modalButton btn btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=2"<?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?>></button>
-                  
-              </div>
+                        <label class="form-check-label text-nowrap mb-0" for="article_lang_type_article">
+                          <?php echo $BL['be_cnt_articles'] ?> ID
+                          <span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?>" data-bs-toggle="tooltip" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>"></span>
+                        </label>
+                   </div>
+                   <input name="article_lang_id" type="number" id="article_lang_id" class="form-control form-control-sm" style="max-width: 100px;" value="<?php echo $article['article_lang_id'] ?: ''; ?>" maxlength="10" onfocus="this.blur()"<?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?> />
+                   <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=2" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"<?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?>><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></button>
+                   
+               </div>
               <?php
               $article_lang_data = [];
               if ((int)$article['article_lang_id'] > 0 && $article['article_lang_type'] === 'article') {
@@ -234,11 +234,9 @@ $langstr = '';
             <div class="col-12 col-lg-7 mb-2 mb-lg-0">
               <div class="input-group input-group-sm">
                 
-                  <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=summary" ></button>
-                
+                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=summary" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
                 <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo html($article['image']['name']) ?>" onfocus="this.blur()" />
-                
-                  <a href="#" id="cimage_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['id']) ? ' disabled' : '' ?>" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_name.value ? '\n[' + document.article.cimage_name.value + ']' : ''), function() { document.article.cimage_name.value='';document.article.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
+                <a href="#" id="cimage_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['id']) ? ' disabled' : '' ?>" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_name.value ? '\n[' + document.article.cimage_name.value + ']' : ''), function() { document.article.cimage_name.value='';document.article.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>
                 
               </div>
             </div>
@@ -346,11 +344,9 @@ $langstr = '';
             <div class="col-12 col-lg-7 mb-2 mb-lg-0">
               <div class="input-group input-group-sm">
                 
-                  <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=list" ></button>
-                
+                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=list" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
                 <input name="cimage_list_name" type="text" id="cimage_list_name" class="form-control form-control-sm" value="<?php echo html($article['image']['list_name']) ?>" onfocus="this.blur()" />
-                
-                  <a href="#" id="cimage_list_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['list_id']) ? ' disabled' : '' ?>" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_list_name.value ? '\n[' + document.article.cimage_list_name.value + ']' : ''), function() { document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_list_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
+                <a href="#" id="cimage_list_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['list_id']) ? ' disabled' : '' ?>" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_list_name.value ? '\n[' + document.article.cimage_list_name.value + ']' : ''), function() { document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_list_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>
                 
               </div>
             </div>
@@ -876,6 +872,7 @@ $(function(){
     const isDefault = $(this).val() === '';
     langIdSelectParts.find('input, button').prop('disabled', isDefault);
     $('#article_lang_id').prop('disabled', isDefault);
+    $('#article_lang_id').siblings('button.modalButton').prop('disabled', isDefault);
     if (isDefault) {
       langIdSelectParts.addClass('text-muted');
       $('#article_lang_div').hide();
