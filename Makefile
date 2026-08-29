@@ -1,6 +1,6 @@
 # Makefile for phpwcms-v2.0 development tasks
 
-.PHONY: phpstan baseline stacklit help
+.PHONY: phpstan baseline stacklit help sync minify-sync
 
 # Default PHP executable (check for php8 in PATH, fallback to MAMP php8.2.32)
 PHP ?= $(shell which php8 2>/dev/null || echo /Applications/MAMP/bin/php/php8.2.32/bin/php)
@@ -8,12 +8,15 @@ PHPSTAN = $(PHP) -d memory_limit=1G include/vendor/bin/phpstan
 STACKLIT ?= stacklit
 CSSO ?= $(shell which csso 2>/dev/null || echo npx csso)
 TERSER ?= $(shell which terser 2>/dev/null || echo npx terser)
+SYNC_TARGET ?= /Users/slackero/Sites/dev-phpwcms
 
 # Default target
 all: help
 
 help:
 	@echo "Available commands:"
+	@echo "  make sync            - Sync repository changes to local test web server"
+	@echo "  make minify-sync     - Minify all CSS/JS assets and sync to local test web server"
 	@echo "  make css-minify      - Build and minify backend.min.css"
 	@echo "  make js-minify       - Minify phpwcms.js to phpwcms.min.js"
 	@echo "  make minify          - Build all minified CSS and JS assets"
@@ -25,6 +28,11 @@ help:
 	@echo "  make docker-build    - Build Docker web container image"
 	@echo "  make docker-logs     - Follow Docker container logs"
 	@echo "  make docker-shell    - Open bash shell inside web container"
+
+sync:
+	rsync -av --exclude='.git' --exclude='include/config/conf.inc.php' ./ $(SYNC_TARGET)/
+
+minify-sync: minify sync
 
 css-minify:
 	npm run build:css
