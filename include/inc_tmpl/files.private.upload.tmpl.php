@@ -295,10 +295,15 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 // Init Exif.js library
 $GLOBALS['BE']['HEADER']['exif.js'] = getJavaScriptSourceLink('include/inc_js/exif.min.js');
 $GLOBALS['BE']['BODY_CLOSE']['exif.js.upload'] = '<script type="text/javascript">
-document.getElementById("file").onchange = function(e) {
-    var iptcdata = document.getElementById("iptc-info");
-    iptcdata.innerHTML = "";
-    EXIF.getData(e.target.files[0], function() {
+const exifFileInput = document.getElementById("file");
+if (exifFileInput) {
+    exifFileInput.onchange = function(e) {
+        var iptcdata = document.getElementById("iptc-info");
+        if (iptcdata) {
+            iptcdata.innerHTML = "";
+        }
+        if (!e.target.files || !e.target.files[0]) return;
+        EXIF.getData(e.target.files[0], function() {
         //alert(EXIF.pretty(this));
         var iptctags = {
             Caption: EXIF.getIptcTag(this, "caption"),
@@ -618,32 +623,34 @@ document.getElementById("file").onchange = function(e) {
 
 <script type="text/javascript">
 
-$('input:file').change(function(e){
-    if (e.target.files && e.target.files[0]) {
-        var file = e.target.files[0];
-        $(this).next('.custom-file-label').text(file.name);
-        var maxBytes = parseInt($('input[name="MAX_FILE_SIZE"]').val() || 0);
-        if (maxBytes > 0 && file.size > maxBytes) {
+function checkUploadFileSize(file, showAlert) {
+    if (!file) return true;
+    var maxBytes = parseInt($('input[name="MAX_FILE_SIZE"]').val() || 0, 10);
+    if (maxBytes > 0 && file.size > maxBytes) {
+        if (showAlert) {
             var fileSizeFormatted = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
             var maxFormatted = (maxBytes / (1024 * 1024)).toFixed(2) + ' MB';
             var msg = <?php echo json_encode($BL['be_fprivup_err11']); ?>;
             msg = msg.replace('%s', file.name).replace('%s', fileSizeFormatted).replace('%s', maxFormatted);
             alert(msg);
         }
+        return false;
+    }
+    return true;
+}
+
+$('input:file').change(function(e){
+    if (e.target.files && e.target.files[0]) {
+        var file = e.target.files[0];
+        $(this).next('.custom-file-label').text(file.name);
+        checkUploadFileSize(file, true);
     }
 });
 
-$('#file_upload_form, form[name="upload_form"]').on('submit', function(e) {
+$('#uploadfile, #file_upload_form, form[name="upload_form"]').on('submit', function(e) {
     var fileInput = $('input:file')[0];
     if (fileInput && fileInput.files && fileInput.files[0]) {
-        var file = fileInput.files[0];
-        var maxBytes = parseInt($('input[name="MAX_FILE_SIZE"]').val() || 0);
-        if (maxBytes > 0 && file.size > maxBytes) {
-            var fileSizeFormatted = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-            var maxFormatted = (maxBytes / (1024 * 1024)).toFixed(2) + ' MB';
-            var msg = <?php echo json_encode($BL['be_fprivup_err11']); ?>;
-            msg = msg.replace('%s', file.name).replace('%s', fileSizeFormatted).replace('%s', maxFormatted);
-            alert(msg);
+        if (!checkUploadFileSize(fileInput.files[0], true)) {
             e.preventDefault();
             return false;
         }

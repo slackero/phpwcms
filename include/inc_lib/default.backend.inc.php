@@ -25,8 +25,8 @@ define('ACTIVE_REFERER',	$_SESSION['REFERER_URL']);
 $_SESSION['REFERER_URL'] =	BE_CURRENT_URL;
 
 // some more important constants
-define('JS_START',	'<script type="text/javascript">' . LF . '<!--' . LF);
-define('JS_END',	LF . '// -->' . LF . '</script>');
+define('JS_START',	'<script type="text/javascript">' . LF);
+define('JS_END',	LF . '</script>');
 
 
 /**

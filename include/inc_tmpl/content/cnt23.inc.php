@@ -330,7 +330,7 @@ $for_select = '';
 $for_select_2 = '';
 
 // always disable switching content part for form - too complex settings and better to safe the user for himself
-$BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("target_ctype").disabled = true;</script>';
+$BE['BODY_CLOSE'][] = '<script type="text/javascript">const targetCtype = document.getElementById("target_ctype"); if (targetCtype) targetCtype.disabled = true;</script>';
 
 $cc_listing         = '';
 $recipient_option   = '';

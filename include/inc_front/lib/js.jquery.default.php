@@ -12,7 +12,7 @@
 /**
  * Initialize Slimbox CSS and JavaScript for jQuery
  */
-function initSlimbox() {
+function initGlightbox() {
     initJSLib();
     $GLOBALS['block']['custom_htmlhead']['glightbox.css'] = '  <link href="'.TEMPLATE_PATH.'lib/glightbox/glightbox.min.css" rel="stylesheet" type="text/css" media="screen" />';
     $GLOBALS['block']['custom_htmlhead']['glightbox.js']  = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/glightbox/glightbox.min.js');
@@ -47,6 +47,13 @@ function initSlimbox() {
         $jsonOptions = json_encode($options, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $GLOBALS['block']['custom_htmlhead']['glightbox.init'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '  document.addEventListener("DOMContentLoaded", function() { if (typeof GLightbox === "function") { GLightbox(' . $jsonOptions . '); } });' . LF . SCRIPT_CDATA_END . LF . '  </script>';
     }
+}
+
+/**
+ * Backward compatibility alias for initGlightbox
+ */
+function initSlimbox() {
+    initGlightbox();
 }
 
 /**

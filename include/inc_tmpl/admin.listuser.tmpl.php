@@ -216,8 +216,6 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
 
     <table class="table table-sm table-valign-middle border-top mb-0">
     <?php
-    $bg_color1 = "#FFFFFF";
-    $bg_color2 = "#f5f5f5";
     $zaehler = 0;
     if(!isset($new_user_id)) {
         $new_user_id = 0;
@@ -263,7 +261,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
 
       <tr class="hover-light <?php echo $bg_class ?>">
       <td width="30" class="text-center"><i class="fa fa-fw fa-lg <?php echo $u_icon; ?>" title="<?php echo html($u_title); ?>" data-bs-toggle="tooltip"></i></td>
-          <td <?php if($userlist["usr_aktiv"]==1) {echo "class=\"dir\"";} else {echo "class=\"inaktiv\"";} ?>><a href="<?php echo $goto ?>"><?php
+          <td <?php if($userlist["usr_aktiv"]==1) {echo "class=\"dir\"";} else {echo "class=\"text-muted\"";} ?>><a href="<?php echo $goto ?>"><?php
 
             if($userlist["usr_name"]) {
                 $userlist["usr_name"] = html($userlist["usr_name"]." (".$userlist["usr_login"].")");

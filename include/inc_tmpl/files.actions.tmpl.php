@@ -96,35 +96,18 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
 
 
 ?>
-<script type=text/javascript>
+<script type="text/javascript">
 function showAction() {
-    divid = document.filetakeover.file_action.value;
-    if (divid === '0') {
-        document.getElementById("div_button").style.display='none';
-        document.getElementById("div_status").style.display='none';
-        document.getElementById("div_folder").style.display='none';
-        document.getElementById("div_user").style.display='none';
-    } else if (divid === '1') {
-        document.getElementById("div_button").style.display='block';
-        document.getElementById("div_status").style.display='none';
-        document.getElementById("div_folder").style.display='none';
-        document.getElementById("div_user").style.display='none';
-    } else if (divid === '2') {
-        document.getElementById("div_button").style.display='block';
-        document.getElementById("div_status").style.display='none';
-        document.getElementById("div_folder").style.display='block';
-        document.getElementById("div_user").style.display='none';
-    } else if (divid === '3') {
-        document.getElementById("div_button").style.display='block';
-        document.getElementById("div_status").style.display='block';
-        document.getElementById("div_folder").style.display='none';
-        document.getElementById("div_user").style.display='none';
-    } else if (divid === '4') {
-        document.getElementById("div_button").style.display='block';
-        document.getElementById("div_status").style.display='none';
-        document.getElementById("div_folder").style.display='none';
-        document.getElementById("div_user").style.display='block';
-    }
+    const action = document.filetakeover.file_action.value;
+    const button = document.getElementById("div_button");
+    const status = document.getElementById("div_status");
+    const folder = document.getElementById("div_folder");
+    const user = document.getElementById("div_user");
+
+    if (button) button.style.display = action === '0' ? 'none' : 'block';
+    if (folder) folder.style.display = action === '2' ? 'block' : 'none';
+    if (status) status.style.display = action === '3' ? 'block' : 'none';
+    if (user) user.style.display = action === '4' ? 'block' : 'none';
 }
 </script>
 
@@ -289,7 +272,7 @@ function showAction() {
 <script type="text/javascript">
 
 $('#toggle').change(function () {
-  $('input:checkbox').prop('checked', this.checked);
+  $(this).closest('form').find('input:checkbox').prop('checked', this.checked);
 });
 </script>
 <?php } ?>

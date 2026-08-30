@@ -106,7 +106,7 @@ if(isset($_POST['ecard_chooser'])) {
 			$ecard["mailer"]->Body = '<div align="center"><h3>E-Card &quot;'.html_specialchars(chop($ecard["capt"][$ecard["chooser"]])).'&quot;</h3>'.
 									 '<p><strong>sent to you from '.html_specialchars($ecard["sender_name"].(($ecard["sender_name"]) ? ' ('.$ecard["sender_email"].')': $ecard["sender_email"])).'</strong></p>'.
 									 '<p>'.$list_img_temp.'</p>'.
-									 '<p>'.nl2br(html_specialchars($ecard["sender_msg"])).'</p><hr /><a href="'.$phpwcms["site"].'" target="_blank">'.$phpwcms["site"].'</a></div>';
+									 '<p>'.nl2br(html_specialchars($ecard["sender_msg"])).'</p><hr /><a href="'.$phpwcms["site"].'" target="_blank" rel="noopener noreferrer">'.$phpwcms["site"].'</a></div>';
 		}
 
 		$ecard["mailer"]->send();

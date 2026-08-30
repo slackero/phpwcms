@@ -194,6 +194,6 @@ if(empty($user_ok)) {
 
 <?php
 } else {
-    echo "<script type=\"text/javascript\"> timer=setTimeout(\"self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=admin'\", 0); </script>";
+    forward_to(true, 'phpwcms.php?' . CSRF_GET_TOKEN . '&do=admin', 0);
 }
 ?>

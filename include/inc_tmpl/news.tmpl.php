@@ -44,7 +44,6 @@ $news = new phpwcmsNews();
 
     <form action="<?php echo $news->base_url ?>" method="post" id="paginate">
     <div class="form-group mb-2">
-        <input type="hidden" name="filter" value="1" />
       <div class="row g-2 align-items-center">
         <input type="hidden" name="showactive" id="showactive_input" value="<?php echo ($news->filter_status == 0 || $news->filter_status == 1) ? 1 : 0 ?>" />
         <input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo ($news->filter_status == 0 || $news->filter_status == 2) ? 1 : 0 ?>" />
@@ -101,7 +100,7 @@ $news = new phpwcmsNews();
             <script>
                 $(function(){
                     $('#news-paginate').on('change', function() {
-                        window.location = '<?php echo $news->base_url_decoded; ?>&showipp=' + $(this).val();
+                        window.location = <?php echo json_encode($news->base_url_decoded . '&showipp='); ?> + $(this).val();
                     });
                 });
             </script>
@@ -150,7 +149,7 @@ function showImage() {
   var id  = parseInt($('#cnt_image_id').val(), 10);
   var img = $('#cnt_image');
   if(id) {
-    img.html('<img src="<?php echo PHPWCMS_URL.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />');
+    img.html('<img src="' + <?php echo json_encode(PHPWCMS_URL.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'].'/'); ?> + id + '" alt="" />');
     img.show();
   } else {
     img.hide();

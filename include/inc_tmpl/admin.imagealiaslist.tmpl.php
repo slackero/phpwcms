@@ -68,7 +68,7 @@ if(isset($_POST['keyword'])) {
   <?php if ($emptyalias > 0) { ?>
   <form action="phpwcms.php?do=admin&amp;p=12" method="post" name="aliasform">
     <div class="input-group input-group-sm">
-      <input class="form-control" type="text" name="keyword" id="keyword" size="30" value="<?php echo (isset($_POST['keyword']) ? htmlentities($_POST['keyword']) : ''); ?>" />
+      <input class="form-control" type="text" name="keyword" id="keyword" size="30" value="<?php echo (isset($_POST['keyword']) ? html($_POST['keyword']) : ''); ?>" />
        <select name="limit" size="1" class="form-select">
             <?php foreach (array(10,25,50,75,100,150) as $x): ?>
           <option value="<?php echo $x ?>"><?php echo $x ?></option>
@@ -93,7 +93,7 @@ $result = _dbQuery($sql);
 if(isset($result[0]['f_id'])) {
   foreach($result as $files) {
     echo '<div id="alias-'.$files['f_id'].'" class="row align-items-center"><div class="col">';
-    echo $files['f_alias'];
+    echo html($files['f_alias']);
     $sql_count  = "SELECT COUNT(acontent_form) FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_form LIKE '%".$files['f_hash']."%'";
     $f_count1 = _dbCount($sql_count);
     $sql_count  = "SELECT COUNT(acontent_form) FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_image LIKE '%".$files['f_hash']."%'";
@@ -116,43 +116,31 @@ echo "</strong></div>";
 
 <script type="text/javascript">
 
-    function AjaxLink(contentId, file_id) {
+    function AjaxSubmit(contentId, file_id, file_alias) {
+        const postData = {
+            action: 'form',
+            file_id: file_id
+        };
+        if (typeof file_alias !== 'undefined' && file_alias !== null) {
+            postData.file_alias = file_alias;
+        }
         $.ajax({
             url: "include/inc_act/ajax_imagealias.php?<?php echo get_token_get_string(); ?>",
             xhrFields: {
                 withCredentials: true
             },
-            data: {
-                action: 'form',
-                'file_id': file_id
-            },
+            data: postData,
             success: function (data) {
                 $(contentId).html(data).show();
             },
             error: function () {
                 $(contentId).html('The request failed.').show();
             }
-        })
+        });
     }
 
-    function AjaxSubmit(contentId, file_id, file_alias) {
-        $.ajax({
-            url: "include/inc_act/ajax_imagealias.php?<?php echo get_token_get_string(); ?>",
-            xhrFields: {
-                withCredentials: true
-            },
-            data: {
-                action: 'form',
-                'file_id': file_id,
-                'file_alias': file_alias
-            },
-            success: function (data) {
-                $(contentId).html(data).show();
-            },
-            error: function () {
-                $(contentId).html('The request failed.').show();
-            }
-        })
+    function AjaxLink(contentId, file_id) {
+        AjaxSubmit(contentId, file_id);
     }
 
 </script>

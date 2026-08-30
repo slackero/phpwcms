@@ -270,7 +270,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 ?>
         <tr class="hover-highlight <?php echo $bg_class ?>">
           <td width="25" align="center"><i class="fa fa-users <?php echo $grouplist["group_active"] == 1 ? 'text-blue' : 'text-muted'; ?>" aria-hidden="true"></i></td>
-          <td class="<?php echo $grouplist["group_active"] ? 'dir' : 'inaktiv'; ?>"><a href="<?php echo $goto ?>"><?php
+          <td class="<?php echo $grouplist["group_active"] ? 'dir' : 'text-muted'; ?>"><a href="<?php echo $goto ?>"><?php
 
             $grouparray = convertStringToArray($grouplist["group_member"]);
             $total_member = empty($grouparray[0]) ? 0 : count($grouparray);

@@ -560,8 +560,8 @@ if (empty($phpwcms['mode_XHTML'])) {
 
     define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">' . LF . '%s<html%s%s>%s' . LF . '<head>%s%s');
     define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
-    define('SCRIPT_CDATA_START', '  <!-- ');
-    define('SCRIPT_CDATA_END', '  -->');
+    define('SCRIPT_CDATA_START', '');
+    define('SCRIPT_CDATA_END', '');
     define('HTML_TAG_CLOSE', '>');
     define('XHTML_MODE', false);
     define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');

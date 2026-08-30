@@ -50,7 +50,6 @@ a:focus {
 
 .text-blue {
     color: var(--pw-link-color) !important;
-    cursor: pointer;
 }
 
 td label {
@@ -1510,18 +1509,6 @@ tr.hover-gold:hover td {
     background-color: #FFCC00 !important;
 }
 
-/* Tab/Folder styles for Message Center */
-.msgreiter-active {
-    background-color: #9BBECA !important;
-}
-.msgreiter-inactive {
-    background-color: #363E57 !important;
-    transition: background-color 0.2s ease;
-}
-.msgreiter-inactive:hover {
-    background-color: #FF6600 !important;
-}
-
 /* Reusable row background helper classes replacing inline background-color style attributes */
 .bg-row-white {
     background-color: #FFFFFF;
@@ -1932,24 +1919,6 @@ body.filebrowser table img,
     }
 }
 
-/* Modern Field Sizing Utilities */
-.field-sizing-content {
-    field-sizing: content;
-}
-.field-sizing-content-1, textarea[rows="1"] { min-block-size: 1lh; }
-.field-sizing-content-2, textarea[rows="2"] { min-block-size: 2lh; }
-.field-sizing-content-3, textarea[rows="3"] { min-block-size: 3lh; }
-.field-sizing-content-4, textarea[rows="4"] { min-block-size: 4lh; }
-.field-sizing-content-5, textarea[rows="5"] { min-block-size: 5lh; }
-.field-sizing-content-6, textarea[rows="6"] { min-block-size: 6lh; }
-.field-sizing-content-7, textarea[rows="7"] { min-block-size: 7lh; }
-.field-sizing-content-8, textarea[rows="8"] { min-block-size: 8lh; }
-.field-sizing-content-9, textarea[rows="9"] { min-block-size: 9lh; }
-.field-sizing-content-10, textarea[rows="10"] { min-block-size: 10lh; }
-.field-sizing-content-12, textarea[rows="12"] { min-block-size: 12lh; }
-.field-sizing-content-15, textarea[rows="15"] { min-block-size: 15lh; }
-.field-sizing-content-20, textarea[rows="20"] { min-block-size: 20lh; }
-
 .ajax-running {
     padding-right: 18px;
     position: relative;
@@ -1977,10 +1946,6 @@ body.filebrowser table img,
 
 .nowrap {
     white-space: nowrap;
-}
-
-.scroll-anchor {
-    scroll-margin-top: 120px;
 }
 
 /* =============================================================================
@@ -2552,9 +2517,6 @@ body.filebrowser table img,
     background-color: var(--pw-border-strong) !important;
     border-color: #444c56 !important;
     color: var(--pw-text-bright) !important;
-}
-[data-bs-theme="dark"] .tdMorepace td {
-    border-color: var(--pw-border) !important;
 }
 /* phpwcms Ace Code Editor */
 .phpwcms-ace-wrap {

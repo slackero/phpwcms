@@ -39,8 +39,8 @@ if(isset($result[0]['acat_id'])) {
     // now add article URL
     echo '<tr>';
     echo '<td>';
-    echo '<div class="btn btn-sm '.(empty($data["acat_alias"]) ? "btn-danger" : "btn-success").' me-1 py-0" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
-    echo '<div class="btn btn-sm '.(empty($data["acat_pagetitle"]) ? "btn-danger" : "btn-success").' me-1 py-0" data-bs-toggle="tooltip" title="'.$BL['be_acat_pagetitle'].'">T</div>';
+    echo '<span class="badge '.(empty($data["acat_alias"]) ? "badge-danger" : "badge-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</span>';
+    echo '<span class="badge '.(empty($data["acat_pagetitle"]) ? "badge-danger" : "badge-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_pagetitle'].'">T</span>';
 
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 AND template_id = " . $data["acat_template"];
     $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($data["acat_template"]), '', '', 1);
@@ -81,8 +81,8 @@ if(isset($result[0]['article_id'])) {
     // now add article URL
     echo '<tr>';
     echo '<td>';
-    echo '<div class="btn btn-sm '.(empty($data["article_alias"]) ? "btn-danger" : "btn-success").' me-1 py-0" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
-    echo '<div class="btn btn-sm '.(empty($data["article_description"]) ? "btn-danger" : "btn-success").' me-1 py-0" data-bs-toggle="tooltip" title="'.$BL['be_article_description'].'">D</div>';
+    echo '<span class="badge '.(empty($data["article_alias"]) ? "badge-danger" : "badge-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</span>';
+    echo '<span class="badge '.(empty($data["article_description"]) ? "badge-danger" : "badge-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_article_description'].'">D</span>';
     echo '<a class="ms-2" href="phpwcms.php?do=articles&p=2&s=1&id='.$data["article_id"].'">'.(empty($data["article_alias"]) ? 'no alias' : html_specialchars($data["article_alias"]) ).'</a>';
     echo '</td >';
 

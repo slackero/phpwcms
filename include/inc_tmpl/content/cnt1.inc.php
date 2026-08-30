@@ -110,16 +110,16 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     </select>
   </div>
   <div class="col-sm-auto mt-2 mt-sm-0">
-    <div id="imgpos0" class="btn <?php echo ($content["image_pos"]==0 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos0.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos0i'] ?>"></div>
-    <div id="imgpos1" class="btn <?php echo ($content["image_pos"]==1 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos1.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos1i'] ?>"></div>
-    <div id="imgpos2" class="btn <?php echo ($content["image_pos"]==2 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos2.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos2i'] ?>"></div>
-    <div id="imgpos3" class="btn <?php echo ($content["image_pos"]==3 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos3.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos3i'] ?>"></div>
-    <div id="imgpos4" class="btn <?php echo ($content["image_pos"]==4 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos4.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos4i'] ?>"></div>
-    <div id="imgpos5" class="btn <?php echo ($content["image_pos"]==5 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos5.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos5i'] ?>"></div>
-    <div id="imgpos6" class="btn <?php echo ($content["image_pos"]==6 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos6.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos6i'] ?>"></div>
-    <div id="imgpos7" class="btn <?php echo ($content["image_pos"]==7 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos7.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos7i'] ?>"></div>
-    <div id="imgpos8" class="btn <?php echo ($content["image_pos"]==8 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos8.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos8i'] ?>"></div>
-    <div id="imgpos9" class="btn <?php echo ($content["image_pos"]==9 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos9.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos9i'] ?>"></div>
+    <div id="imgpos0" class="btn <?php echo ($content["image_pos"]==0 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos0.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos0i'] ?>"></div>
+    <div id="imgpos1" class="btn <?php echo ($content["image_pos"]==1 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos1.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos1i'] ?>"></div>
+    <div id="imgpos2" class="btn <?php echo ($content["image_pos"]==2 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos2.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos2i'] ?>"></div>
+    <div id="imgpos3" class="btn <?php echo ($content["image_pos"]==3 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos3.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos3i'] ?>"></div>
+    <div id="imgpos4" class="btn <?php echo ($content["image_pos"]==4 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos4.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos4i'] ?>"></div>
+    <div id="imgpos5" class="btn <?php echo ($content["image_pos"]==5 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos5.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos5i'] ?>"></div>
+    <div id="imgpos6" class="btn <?php echo ($content["image_pos"]==6 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos6.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos6i'] ?>"></div>
+    <div id="imgpos7" class="btn <?php echo ($content["image_pos"]==7 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos7.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos7i'] ?>"></div>
+    <div id="imgpos8" class="btn <?php echo ($content["image_pos"]==8 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos8.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos8i'] ?>"></div>
+    <div id="imgpos9" class="btn <?php echo ($content["image_pos"]==9 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos9.svg" alt="" width="16" height="16" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos9i'] ?>"></div>
   </div>
 </div>
 

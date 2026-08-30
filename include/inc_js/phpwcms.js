@@ -7,6 +7,8 @@
  *
  */
 
+'use strict';
+
 let temp_url = null;
 function login(fval) {
     if (fval.json.value == '2') {
@@ -47,7 +49,7 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
     const modalId = 'bootstrapConfirmModal';
     let $modal = $('#' + modalId);
     if ($modal.length === 0) {
-        var modalHtml =
+        const modalHtml =
             '<div class="modal fade" id="' + modalId + '" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 2000;">' +
             '  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 400px;">' +
             '    <div class="modal-content border-0 bg-transparent">' +
@@ -269,7 +271,7 @@ function bsAlert(message, callback) {
     const modalId = 'bootstrapAlertModal';
     let $modal = $('#' + modalId);
     if ($modal.length === 0) {
-        var modalHtml =
+        const modalHtml =
             '<div class="modal fade" id="' + modalId + '" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 2000;">' +
             '  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 400px;">' +
             '    <div class="modal-content border-0 bg-transparent">' +
@@ -457,7 +459,7 @@ function insertAtCursorPos(textObj, textFieldValue) {
 }
 
 function getFieldById(fld) {
-    return document.getElementById(fld) || true;
+    return document.getElementById(fld) || null;
 }
 
 function enableStatusMessage(fld, showHide, text) {
@@ -532,7 +534,7 @@ function create_alias(str, encoding, ucfirst, allowSlashes) {
     } else {
         str = str.replace(/^[\-_\.]+|[\-_\.]+$/g, '');
     }
-    if (ucfirst == 1) {
+    if (ucfirst === 1 || ucfirst === true) {
         const c = str.charAt(0);
         str = c.toUpperCase() + str.slice(1);
     }
@@ -605,7 +607,7 @@ function flush_image_cache(link, url, confirm_msg, success_msg) {
             success: function(response) {
                 link.classList.remove('ajax-running');
                 if (response && response.status === 'ok') {
-                    var msg = success_msg ? success_msg.replace('%d', response.file_count || 0) : 'Success';
+                    const msg = success_msg ? success_msg.replace('%d', response.file_count || 0) : 'Success';
                     alert(msg);
                 } else {
                     alert('Error flushing image cache');
@@ -676,9 +678,6 @@ function toggleKeywordCheckboxes(master) {
 }
 
 // phpwcms Addons & UI Handlers
-let topOffset = 95;
-let height = (this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height;
-
 $(function () {
     const $doc = $(document);
     const $win = $(window);
@@ -814,9 +813,10 @@ $(function () {
         const fieldid = $this.attr('data-fieldid');
         const id = $this.attr('data-id');
         const thisbtn = '#abtn' + type + $this.attr('data-id');
+        const csrfToken = (typeof CSRF_GET_TOKEN !== 'undefined' && CSRF_GET_TOKEN) ? CSRF_GET_TOKEN : '';
 
         $.ajax({
-            url: 'include/inc_act/ajax_changer.php?' + CSRF_GET_TOKEN,
+            url: 'include/inc_act/ajax_changer.php' + (csrfToken ? '?' + csrfToken : ''),
             xhrFields: {
                 withCredentials: true
             },
@@ -844,94 +844,42 @@ $(function () {
     });
 
     $('[id^="imgpos"]').on('click', function () {
-        const id = $(this).attr('id');
-        const x = id.match(/[\d\.]+/g);
-        $("#cimage_pos").val(x);
+        const id = $(this).attr('id') || '';
+        const x = parseInt(id.replace(/\D/g, ''), 10);
+        $('#cimage_pos').val(isNaN(x) ? '' : x);
         for (let i = 0; i <= 9; i++) {
             if (i === x) {
-                $("#imgpos" + i).removeClass('btn-blue').addClass('btn-success');
+                $('#imgpos' + i).removeClass('btn-blue').addClass('btn-success');
             } else {
-                $("#imgpos" + i).removeClass('btn-success').addClass('btn-blue');
+                $('#imgpos' + i).removeClass('btn-success').addClass('btn-blue');
             }
         }
     });
 
     $('#cimage_pos').on('change', function () {
-        const x = $(this).val();
+        const x = parseInt($(this).val(), 10);
         for (let i = 0; i <= 9; i++) {
             if (i === x) {
-                $("#imgpos" + i).removeClass('btn-blue').addClass('btn-success');
+                $('#imgpos' + i).removeClass('btn-blue').addClass('btn-success');
             } else {
-                $("#imgpos" + i).removeClass('btn-success').addClass('btn-blue');
+                $('#imgpos' + i).removeClass('btn-success').addClass('btn-blue');
             }
         }
     });
 
     $('#side-menu li').on('click', function () {
-        $('#side-menu ul').css("display", "none");
-        $(this).children('ul').css("display", "block");
-        height = height - topOffset;
-        let newheight = $('#side-menu').height() + (topOffset * 2);
-        if (height < newheight) {
-            $("#page-wrapper").css("min-height", (newheight) + "px");
+        $('#side-menu ul').css('display', 'none');
+        $(this).children('ul').css('display', 'block');
+        const topOffset = 95;
+        let winHeight = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+        winHeight = winHeight - topOffset;
+        const newheight = $('#side-menu').height() + (topOffset * 2);
+        if (winHeight < newheight) {
+            $('#page-wrapper').css('min-height', (newheight) + 'px');
         }
     });
 
 });
-
-function SendData1(sVar1, sVar2, sVar3, stoken) {
-    // get the values
-    let sVar4;
-    let sVaricon;
-    if (sVar1 == 4 || sVar1 == 6) {
-        sVar4 = 'public';
-        sVaricon = 'fa-lock';
-    } else {
-        sVar4 = 'visible';
-        sVaricon = 'fa-eye';
-    }
-    let sImage = sVar4 + '_' + sVar1 + '_' + sVar2 + '_' + sVar3;
-
-    let sVar5 = 3;
-    let sLen;
-    if ($('#' + sImage).is('i')) {
-        if ($('#' + sImage).hasClass('icolor1')) {
-            sVar5 = 0;
-        } else {
-            sVar5 = 1;
-        }
-    } else {
-        sLen = document.getElementById(sImage).src.length;
-        sVar5 = document.getElementById(sImage).src.substring(sLen - 5, sLen - 4);
-        if (sVar5 == 1) {
-            sVar5 = 0;
-        } else {
-            sVar5 = 1;
-        }
-    }
-
-    //Change image
-    $.ajax({
-        url: 'include/inc_act/act_articlecontent.php?' + stoken + '&do=' + sVar1 + ',' + sVar2 + ',' + sVar3 + ',' + sVar5,
-        xhrFields: {
-            withCredentials: true
-        },
-        context: document.body
-    }).done(function () {
-        $("#" + sImage).replaceWith('<i class="fa ' + sVaricon + ' icolor' + sVar5 + '" id="' + sVar4 + '_' + sVar1 + '_' + sVar2 + '_' + sVar3 + '" aria-hidden="true" onclick="SendData(' + "'" + sVar1 + "','" + sVar2 + "','" + sVar3 + "','" + stoken + "'" + ')"></i>');
-    });
-}
-
-//Ajax Sort contentpart
-function SendDataSort(sVar) {
-    const url = 'include/inc_act/act_articlesort.php?' + CSRF_GET_TOKEN + '&sortid=' + sVar;
-    $.ajax({
-        url: url,
-        xhrFields: {
-            withCredentials: true
-        }
-    });
-}
 
 
 
@@ -1684,7 +1632,9 @@ function initSidebarToggle() {
     toggleBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const isCollapsed = document.documentElement.classList.toggle('sidebar-collapsed');
-        localStorage.setItem('phpwcms_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+        try {
+            localStorage.setItem('phpwcms_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+        } catch (err) {}
 
         // Trigger resize event after transition so charts, Ace editors, tables re-render
         setTimeout(() => {

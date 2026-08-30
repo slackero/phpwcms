@@ -373,13 +373,6 @@ function cut_string($string, $endchar = '&#8230;', $length = 20, $trim = 1) {
     return getCleanSubString($string, $length, $endchar);
 }
 
-function which_folder_active($ist, $soll, $ac = "#9BBECA", $nc = "#363E57", $nclass = "msgreiter") {
-    if ($ist == $soll) {
-        echo "style=\"background-color: " . $ac . ";\" class=\"" . $nclass . " msgreiter-active\"";
-    } else {
-        echo "style=\"background-color: " . $nc . ";\" class=\"" . $nclass . " msgreiter-inactive\"";
-    }
-}
 
 function FileExtension($filename) {
     return mb_substr(strrchr($filename, "."), 1);

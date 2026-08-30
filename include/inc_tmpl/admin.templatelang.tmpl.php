@@ -141,9 +141,7 @@ function _tpl_lang_save_file($lang_code, array $tokens) {
     ksort($tokens, SORT_NATURAL | SORT_FLAG_CASE);
 
     foreach ($tokens as $token_key => $token_val) {
-        $key_escaped = str_replace("'", "\\'", (string)$token_key);
-        $val_escaped = str_replace("'", "\\'", (string)$token_val);
-        $content .= '$i18n_tokens[\'' . $key_escaped . '\'] = \'' . $val_escaped . '\';' . LF;
+        $content .= '$i18n_tokens[' . var_export((string)$token_key, true) . '] = ' . var_export((string)$token_val, true) . ';' . LF;
     }
 
     $tmp_file = $file . '.tmp.' . uniqid('', true);

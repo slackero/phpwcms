@@ -468,15 +468,13 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
     $table .= '<input type="hidden" name="'.$id_left.'" id="'.$id_left.'" value="" />';
     $table .= '<input type="hidden" name="'.$id_right.'" id="'.$id_right.'" value="" />';
 
-    $table .= '<script>'.LF;
-    $table .= SCRIPT_CDATA_START.LF;
+    $table .= '<script type="text/javascript">'.LF;
     $table .= ' var '.$option_object.' = new OptionTransfer("'.$id_left_box.'","'.$id_right_box.'");'.LF;
     $table .= ' '.$option_object.'.setAutoSort(false);'.LF;
-    $table .= ' '.$option_object.'.setDelimiter("'.js_singlequote($option['delimeter']).'");'.LF;
+    $table .= ' '.$option_object.'.setDelimiter('.json_encode((string)$option['delimeter']).');'.LF;
     $table .= ' '.$option_object.'.saveNewLeftOptions("'.$id_left.'");'.LF;
     $table .= ' '.$option_object.'.saveNewRightOptions("'.$id_right.'");'.LF;
     $table .= ' '.$option_object.'.init('.$option['formname'].');'.LF;
-    $table .= LF.SCRIPT_CDATA_END.LF;
     $table .= '</script>'.LF;
 
     return $table;
@@ -1103,13 +1101,15 @@ function setItemsPerPage($default=25) {
     return $ipp;
 }
 
-function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separator='') {
+function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separator='', $id='news-paginate', $aria_label='') {
 
     $ipp = $_SESSION['PAGE_FILTER']['IPP'] ?? setItemsPerPage();
 
     if(!in_array($ipp, $steps)) {
         array_unshift($steps, $ipp);
     }
+
+    $aria = $aria_label ? ' aria-label="' . html($aria_label) . '"' : ' aria-label="' . html($GLOBALS['BL']['be_ftptakeover_all'] ?? 'Items per page') . '"';
 
     $menu = [];
     foreach($steps as $x => $item) {
@@ -1122,13 +1122,13 @@ function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separato
         $menu[$x] .= '</option>';
     }
 
-    return '<select class="form-select form-select-sm" id="news-paginate">' . implode($separator, $menu) . '</select>';
+    return '<select class="form-select form-select-sm" id="' . html($id) . '"' . $aria . '>' . implode($separator, $menu) . '</select>';
 }
 
 function initJsCalendar() {
     $GLOBALS['BE']['HEADER']['flatpickr-material.min.css'] = '<link href="include/inc_css/flatpickr-material.min.css" rel="stylesheet">';
     $GLOBALS['BE']['HEADER']['dayjs.js']                   = getJavaScriptSourceLink('include/inc_js/dayjs.min.js');
-    $GLOBALS['BE']['BODY_CLOSE']['flatpickr.js']           = getJavaScriptSourceLink('include/inc_js/flatpickr.min.js');
+    $GLOBALS['BE']['HEADER']['flatpickr.js']               = getJavaScriptSourceLink('include/inc_js/flatpickr.min.js');
 }
 
 function initJsAutocompleter() {
@@ -1433,7 +1433,7 @@ function correct_charset($text='', $js=false) {
         $text = mb_convert_encoding($text, PHPWCMS_CHARSET);
     }
     if($js) {
-        $text = str_replace("'", "\'", $text);
+        $text = js_singlequote($text);
     }
     return $text;
 }

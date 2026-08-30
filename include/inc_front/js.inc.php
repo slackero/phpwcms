@@ -53,12 +53,6 @@ if(!empty($block['frontendjs'])) {
     initFrontendJS();
 }
 
-/**
- * Deprecated function to initialize the Slimbox
- */
-function initializeLightbox() {
-    initSlimbox();
-}
 
 function initSwfObject() {
     if(empty($GLOBALS['block']['custom_htmlhead']['swfobject.js'])) {

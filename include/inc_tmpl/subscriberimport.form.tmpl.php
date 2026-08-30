@@ -128,9 +128,12 @@ if($_userInfo['select_subscr']) {
 </div>
 </form>
 
-<script>
-$('input:file').change(
-  function(e){
-    $("label[for='csvfile']").text(e.target.files[0].name);
+<script type="text/javascript">
+$(function(){
+  $('input:file').on('change', function(e){
+    if (e.target.files && e.target.files[0]) {
+      $("label[for='csvfile']").text(e.target.files[0].name);
+    }
+  });
 });
 </script>

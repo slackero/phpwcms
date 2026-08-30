@@ -1465,7 +1465,7 @@ function html_parser($string) {
 
     // external Link (string)
     $search[1]      = '/\[EXT (.*?)\](.*?)\[\/EXT\]/s';
-    $replace[1]     = '<a href="$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-external'].'">$2</a>';
+    $replace[1]     = '<a href="$1" target="_blank" rel="noopener noreferrer" class="'.$GLOBALS['template_default']['classes']['link-external'].'">$2</a>';
 
     // internal Link (string)
     $search[2]      = '/\[INT (.*?)\](.*?)\[\/INT\]/s';
@@ -1477,7 +1477,7 @@ function html_parser($string) {
 
     // RSS feed link
     $search[4]      = '/\[RSS (.*?)\](.*?)\[\/RSS\]/s';
-    $replace[4]     = '<a href="feeds.php?feed=$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-rss'].'">$2</a>';
+    $replace[4]     = '<a href="feeds.php?feed=$1" target="_blank" rel="noopener noreferrer" class="'.$GLOBALS['template_default']['classes']['link-rss'].'">$2</a>';
 
     // back Link (string)
     $search[5]      = '/\[BACK\](.*?)\[\/BACK\]/i';
