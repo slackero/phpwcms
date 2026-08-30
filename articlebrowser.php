@@ -203,14 +203,16 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
         $('<?php if ($js_aktion == 5): ?>tr.structarticlecontent<?php else: ?>a.structarticle<?php endif; ?>').
         on('click', function() {
             <?php
+            if ($js_aktion == 2) {
+                // sync parent radio type first, so a type change resets the ID field
+                echo "parent.$('input:radio[name=\"article_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
+            } elseif ($js_aktion != 16 && $js_aktion != 6) {
+                echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
+            }
             echo $js . "=$(this).attr('data-aid');";
             if ($js_aktion == 6) {
                 echo 'parent.$("#browserModal").modal("hide");';
-            } elseif ($js_aktion == 2) {
-                echo "parent.$('input:radio[name=\"article_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
-                echo "parent.$('#browserModal').modal('hide');";
             } elseif ($js_aktion != 16) {
-                echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
                 echo "parent.$('#browserModal').modal('hide');";
             }
             ?>
@@ -373,12 +375,16 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
 
         $at = html($avalue['article_title']);
         $acontent_count = get_article_content_count($avalue['article_id']);
+        // caret only useful for content part selection (opt 5) or unfiltered browse
+        $article_caret = ($js_aktion == 5 || $idtype === '');
         $a = '<tr class="struct">';
         $a .= '<td width="100%">';
         $a .= '<table class="table-borderless"><tr>';
         $a .= '<td class="text-nowrap">';
-        $a .= '<i class="fa fa-caret-' . ($acontent_count ? (!empty($_SESSION['structure']['article'][$avalue['article_id']]) ? 'down' : 'right') : 'right');
-        $a .= ' fa-fw alist-' . $counter . '" aria-hidden="true"></i>';
+        if ($article_caret) {
+            $a .= '<i class="fa fa-caret-' . ($acontent_count ? (!empty($_SESSION['structure']['article'][$avalue['article_id']]) ? 'down' : 'right') : 'right');
+            $a .= ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>';
+        }
 
         $info = '<table class="text-start">';
         $info .= '<tr><td>' . $BL['be_func_struct_articleID'] . ':</td><td><b>' . $avalue['article_id'] . '</b></td></tr>';
@@ -401,7 +407,7 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
         }
         $info .= '</table>';
 
-        $a .= '<i class="far fa-file fa-fw" aria-hidden="true" data-bs-html="true" data-bs-toggle="tooltip" title="' . html($info) . '"></i> ';
+        $a .= '<i class="far fa-file fa-fw' . ($article_caret ? '' : ' alist-' . $counter) . '" aria-hidden="true" data-bs-html="true" data-bs-toggle="tooltip" title="' . html($info) . '"></i> ';
 
         if ($js_aktion == 5) {
             $a .= $at;

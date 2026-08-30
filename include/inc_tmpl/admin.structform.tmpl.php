@@ -242,8 +242,17 @@ if ($acat_id === 'index' || $acat_id === 0) {
 						<div class="input-group">
 							<input name="acat_lang_id" type="text" id="acat_lang_id" class="form-control form-control-sm" value="<?php echo $acat_lang_id ? $acat_lang_id : ''; ?>" maxlength="10" onfocus="this.blur()" />
 							<script>
+							var $acatIdInput = $('#acat_lang_id');
+							$acatIdInput.data('lang-type', $('input:radio[name="acat_lang_type"]:checked').val() || '');
 							$('input:radio[name="acat_lang_type"]').on('change', function() {
 								$('#acat_lang_browser').attr('data-src', 'articlebrowser.php?opt=3&idtype=' + this.value);
+								// stash the ID of the previous type, restore the new type's ID if known
+								var prevType = $acatIdInput.data('lang-type');
+								if (prevType && prevType !== this.value && $acatIdInput.val() !== '') {
+									$acatIdInput.data('stash-' + prevType, $acatIdInput.val());
+								}
+								$acatIdInput.val($acatIdInput.data('stash-' + this.value) || '');
+								$acatIdInput.data('lang-type', this.value);
 							});
 							</script>
 								<button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" id="acat_lang_browser" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=3<?php echo $acat_lang_type === 'article' ? '&amp;idtype=article' : ($acat_lang_type === 'category' ? '&amp;idtype=category' : '') ?>" title="<?php echo $BL['be_func_open_articlebrowser'] ?>"><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></button>

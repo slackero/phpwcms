@@ -143,8 +143,17 @@ $langstr = '';
                    <input name="article_lang_id" type="number" id="article_lang_id" class="form-control form-control-sm" style="max-width: 100px;" value="<?php echo $article['article_lang_id'] ?: ''; ?>" maxlength="10" onfocus="this.blur()"<?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?> />
                    <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" id="article_lang_browser" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=2<?php echo $article['article_lang_type'] === 'article' ? '&amp;idtype=article' : ($article['article_lang_type'] === 'category' ? '&amp;idtype=category' : '') ?>" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"<?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?>><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></button>
                    <script>
-                   $('#article_lang_type_category, #article_lang_type_article').on('change', function() {
+                   var $langIdInput = $('#article_lang_id');
+                   $langIdInput.data('lang-type', $('input:radio[name="article_lang_type"]:checked').val() || '');
+                   $('input:radio[name="article_lang_type"]').on('change', function() {
                        $('#article_lang_browser').attr('data-src', 'articlebrowser.php?opt=2&idtype=' + this.value);
+                       // stash the ID of the previous type, restore the new type's ID if known
+                       var prevType = $langIdInput.data('lang-type');
+                       if (prevType && prevType !== this.value && $langIdInput.val() !== '') {
+                           $langIdInput.data('stash-' + prevType, $langIdInput.val());
+                       }
+                       $langIdInput.val($langIdInput.data('stash-' + this.value) || '');
+                       $langIdInput.data('lang-type', this.value);
                    });
                    </script>
                </div>
