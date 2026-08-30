@@ -46,7 +46,7 @@ $content['glossary']['where'] = '';
 if(!empty($content['glossary']['glossary_tag'])) {
     $content['glossary']['glossary_tag'] = convertStringToArray($content['glossary']['glossary_tag'], ' ');
     foreach($content['glossary']['glossary_tag'] as $_filter_c => $content['glossary']['char']) {
-        $content['glossary']['glossary_tag'][$_filter_c] = "glossary_tag LIKE '%".aporeplace($content['glossary']['char'])."%'";
+        $content['glossary']['glossary_tag'][$_filter_c] = 'glossary_tag LIKE ' . _dbEscapeLike($content['glossary']['char']);
     }
     if(count($content['glossary']['glossary_tag'])) {
         $content['glossary']['where'] .= ' AND ('.implode(' OR ', $content['glossary']['glossary_tag']).')';

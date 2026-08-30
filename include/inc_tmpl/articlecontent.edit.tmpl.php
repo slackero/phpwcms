@@ -178,48 +178,47 @@ if(empty($content['article']['acat_id'])) { // Root structure
     ?></label>
       <div class="col-sm-4">
 <?php
-    // Menü mit Content Typen erstellen
+    // Build menu with content types
     // build select box options and remember the "old" value for javascript
-    $temp_select                = '';
-    $temp_count                 = 0;
-    $contentpart_temp_selected  = 0;
-    $user_selected_cp           = isset($_SESSION["wcs_user_cp"]) && count($_SESSION["wcs_user_cp"]);
+    $temp_select      = '';
+    $user_selected_cp = isset($_SESSION['wcs_user_cp']) && count($_SESSION['wcs_user_cp']);
 
-    if (is_array($article["article_cntpart"]) && count($article["article_cntpart"])) {
-        if (!in_array($content['type'], $article["article_cntpart"])) {
-            $article["article_cntpart"][] = $content['type'];
+    // Reset static counter and selected index
+    getContentPartOptionTag(null, '', '', '', true);
+
+    if (is_array($article['article_cntpart']) && count($article['article_cntpart'])) {
+        if (!in_array($content['type'], $article['article_cntpart'])) {
+            $article['article_cntpart'][] = $content['type'];
         }
 
         // list all content parts usable for this article category
-        foreach ($article["article_cntpart"] as $value) {
-            if ($user_selected_cp && !isset($_SESSION["wcs_user_cp"][$value]) && $value != $content['type']) {
+        foreach ($article['article_cntpart'] as $value) {
+            if ($user_selected_cp && !isset($_SESSION['wcs_user_cp'][$value]) && $value != $content['type']) {
                 continue;
             }
 
             if (isset($wcs_content_type[$value])) {
                 $temp_select .= getContentPartOptionTag($value, $wcs_content_type[$value], $content['type'], $content['module']);
-                $temp_count++;
             }
             $value1 = $value * (-1);
             if (isset($BL['be_admin_optgroup_label'][$value1]) && $value) {
-                $temp_select .= '<optgroup label="[ '.$BL['be_admin_optgroup_label'][$value1].' ]" class="cntOptGroup"></optgroup>'."\n";
+                $temp_select .= '<optgroup label="[ ' . $BL['be_admin_optgroup_label'][$value1] . ' ]" class="cntOptGroup"></optgroup>' . "\n";
             }
         }
     }
-    if (!$temp_count) {
-        //list all available content parts
+    if ($temp_select === '') {
+        // list all available content parts
         foreach ($wcs_content_type as $key => $value) {
-            if ($user_selected_cp && !isset($_SESSION["wcs_user_cp"][$key]) && $key != $content['type']) {
+            if ($user_selected_cp && !isset($_SESSION['wcs_user_cp'][$key]) && $key != $content['type']) {
                 continue;
             }
 
             $temp_select .= getContentPartOptionTag($key, $value, $content['type'], $content['module']);
-            $temp_count++;
         }
     }
 
 ?>
-        <select name="target_ctype" id="target_ctype" class="form-select form-select-sm" data-prev-index="<?php echo $contentpart_temp_selected; ?>">
+        <select name="target_ctype" id="target_ctype" class="form-select form-select-sm" data-prev-index="<?php echo getContentPartOptionTag(null, '', '', '', 'selected'); ?>">
 <?php
     echo $temp_select;
 ?>

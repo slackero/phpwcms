@@ -177,7 +177,7 @@ if(isset($_SESSION['filter_subscriber']) && count($_SESSION['filter_subscriber']
 
   foreach($_SESSION['filter_subscriber'] as $_userInfo['filter']) {
     //usr_name, usr_login, usr_email
-    $_userInfo['filter_array'][] = "CONCAT(address_email, address_name) LIKE '%".aporeplace($_userInfo['filter'])."%'";
+    $_userInfo['filter_array'][] = 'CONCAT(address_email, address_name) LIKE ' . _dbEscapeLike($_userInfo['filter']);
   }
   if(count($_userInfo['filter_array'])) {
 

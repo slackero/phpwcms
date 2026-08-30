@@ -233,7 +233,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 
     <?php
 
-    //Auswahlliste vordefinierte Keywörter
+    // Predefined keywords select list
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
     $k = '';
@@ -261,7 +261,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
             }
         }
     }
-    //Ende vordefinierte Keywörter
+    // End predefined keywords
     ?>
 	<legend class="col-form-legend"><?php echo $BL['be_ftptakeover_keywords'] ?></legend>
 

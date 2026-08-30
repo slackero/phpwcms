@@ -65,15 +65,15 @@ if(isset($_GET["klapp"])) {
 
 $_SESSION["list_zaehler"] = 0; // set counter
 
-//Feststellen, ob überhaupt Dateien/Ordner des Users vorhanden sind
+// Check if public files/folders exist
 $count_user_files = _dbQuery("SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0", 'COUNT');
 
-if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
-    //Beginn Tabelle für Public Dateilisting
+if($count_user_files) { // If public files exist, list them
+    // Start table for public file listing
     echo "<table class=\"table table-sm table-valign-middle\">\n";
 
 
-    //Prüfen, für welche User überhaupt Public Files vorhanden sind
+    // Check which users have public files
     $sql = "SELECT DISTINCT ".DB_PREPEND."phpwcms_file.f_uid, ".DB_PREPEND."phpwcms_user.usr_login, ".DB_PREPEND."phpwcms_user.usr_name ".
            "FROM ".DB_PREPEND."phpwcms_file INNER JOIN ".DB_PREPEND."phpwcms_user ON ".DB_PREPEND."phpwcms_file.f_uid=".DB_PREPEND."phpwcms_user.usr_id ".
            "WHERE ".DB_PREPEND."phpwcms_file.f_public=1 AND ".DB_PREPEND."phpwcms_file.f_aktiv=1 AND ".DB_PREPEND."phpwcms_file.f_trash=0 ".
@@ -84,29 +84,29 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
     $counter=0;
     if(isset($result[0]['f_uid'])) {
         foreach($result as $row) {
-            //Prüfen
+            // Check status
             $pklapp_status = empty($_SESSION["pklapp"][ "u".$row["f_uid"] ]) ? 1 : 0;
             $root_user_id = intval($row["f_uid"]);
             $user_naming = html($row["usr_name"]." (".$row["usr_login"].")");
             $count = "<a href=\"phpwcms.php?do=files&amp;f=1&amp;pklapp=u".$row["f_uid"].
                      "|".$pklapp_status."\">".on_off($pklapp_status, "\n".$BL['be_fpublic_user'].": ".$user_naming, 0, $counter)."</a>";
 
-            //Aufbau der Zeile mit den Benutzerinfos
+            // User info row
             if($user_counter) {
 
             }
-            echo "<tr bgcolor=\"#D8E4E9\">\n"; //Einleitung Tabellenzeile
-            echo "<td width=\"488\" class=\"msglist\">"; //Einleiten der Tabellenzelle
+            echo "<tr bgcolor=\"#D8E4E9\">\n"; // Open table row
+            echo "<td width=\"488\" class=\"msglist\">"; // Open cell
             echo $count."<i class=\"fa fa-user\"></i>";
-            echo "<strong>".$user_naming."</strong></td>\n"; //Schließen Zelle 1. Spalte
-            echo "<td width=\"50\" align=\"right\" class=\"msglist\">"; //Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.
+            echo "<strong>".$user_naming."</strong></td>\n"; // Close cell column 1
+            echo "<td width=\"50\" align=\"right\" class=\"msglist\">"; // Column 2 (action buttons)
             echo "</td>\n";
-            echo "</tr>\n"; //Abschluss Tabellenzeile
+            echo "</tr>\n"; // Close table row
 
             if(!$pklapp_status) {
                 list_public(0, 0, "phpwcms.php?do=files&amp;f=1", $row["f_uid"], $_SESSION["wcs_user_thumb"], $phpwcms);
 
-                //Root files anzeigen
+                // Show root files
                 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$root_user_id.
                             " AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_name";
                 $file_result = _dbQuery($file_sql);
@@ -117,7 +117,7 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
                         $filename = html($file_row["f_name"]);
                         $bg_toggle = !$bg_toggle;
                         $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
-                        if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
+                        if(!$file_durchlauf) { // Open embedded table for file list
                             echo '<tr><td colspan="2" class="p-0"><table class="table-borderless w-100">'."\n";
                         }
                         echo '<tr'.$row_class.'>'."\n";

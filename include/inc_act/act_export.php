@@ -230,11 +230,11 @@ if ($action === 'exportsubscriber' && (has_admin_permission('nl') || has_admin_p
 
         foreach ($_SESSION['filter_subscriber'] as $_userInfo['filter']) {
             //usr_name, usr_login, usr_email
-            $_userInfo['filter_array'][] = 'CONCAT(address_email, address_name) LIKE ' . _dbEscape($_userInfo['filter'], true, '%', '%');
+            $_userInfo['filter_array'][] = 'CONCAT(address_email, address_name) LIKE ' . _dbEscapeLike($_userInfo['filter']);
         }
         if (count($_userInfo['filter_array'])) {
             $_userInfo['where_query'] .= $_userInfo['where_query'] ? ' AND ' : ' WHERE ';
-            $_userInfo['where_query'] .= '(' . implode('OR', $_userInfo['filter_array']) . ')';
+            $_userInfo['where_query'] .= '(' . implode(' OR ', $_userInfo['filter_array']) . ')';
         }
     }
 

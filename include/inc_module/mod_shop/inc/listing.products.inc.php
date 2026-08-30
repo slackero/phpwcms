@@ -81,7 +81,7 @@ if(isset($_SESSION['filter_shop_products']) && is_array($_SESSION['filter_shop_p
     $_entry['filter_array'][] = "CONCAT(  shopprod_ordernumber,   shopprod_model,     shopprod_name1,
                         shopprod_name2,     shopprod_tag,     (shopprod_price+' '),
                         shopprod_description1,  shopprod_description2,  shopprod_description3
-                      ) LIKE '%".aporeplace($_entry['filter'])."%'";
+                      ) LIKE " . _dbEscapeLike($_entry['filter']);
   }
   if(count($_entry['filter_array'])) {
 

@@ -77,7 +77,7 @@ if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSIO
         $_entry['filter_array'][] = "CONCAT(    detail_firstname, detail_lastname,
                                                 detail_company, detail_city, detail_zip,
                                                 detail_street, detail_add, detail_email
-                                            ) LIKE '%".aporeplace($_entry['filter'])."%'";
+                                            ) LIKE " . _dbEscapeLike($_entry['filter']);
     }
     if(count($_entry['filter_array'])) {
 

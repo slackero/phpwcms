@@ -216,7 +216,9 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['multimedia_ext'] = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia\n";
     $conf_file .= "\$phpwcms['inline_download'] = 1; //1 = try to display download documents in new window; 0 = show safe under dialog\n";
     $conf_file .= "\$phpwcms['sanitize_dlname'] = 0; // if there are problems downloading files with special chars in name try to enable this setting\n";
+    $form_salt = !empty($val['form_salt']) ? escape_quote($val['form_salt']) : bin2hex(random_bytes(16));
     $conf_file .= "\$phpwcms['form_tracking'] = 1; //make a db entry for each form\n";
+    $conf_file .= "\$phpwcms['form_salt'] = '" . $form_salt . "'; //secret salt for form tracking\n";
     $conf_file .= "\$phpwcms['formmailer_set'] = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling\n";
     $conf_file .= "\$phpwcms['allow_cntPHP_rt'] = 0; //allow PHP replacement tags and includes in content parts\n";
     $conf_file .= "\$phpwcms['GETparameterName'] = 'id'; //must have a minimum of 2 chars \n";

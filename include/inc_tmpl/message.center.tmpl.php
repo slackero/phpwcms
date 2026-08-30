@@ -159,11 +159,11 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         </div>
       </div>
       <?php
-                    } //Bedingung für Abfrage
-                } //Ende Anzeige komplette gewählte Nachricht
-            } //Ende Anzeigen Nachricht
+                    } // Query condition
+                } // End display selected message
+            } // End message display
 
-            if ($count_newmsg && $msg_folder == 0) { //Wenn Count > 0 dann Listing der neuen Nachrichten
+            if ($count_newmsg && $msg_folder == 0) { // If count > 0, list unread messages
             ?>
             <h6 class="fw-bold text-primary mb-2"><?php echo $BL['be_msg_unread']; ?></h6>
             <div class="table-responsive mb-4">

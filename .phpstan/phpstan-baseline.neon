@@ -673,12 +673,6 @@ parameters:
 			path: ../include/inc_act/act_usergroup.php
 
 		-
-			message: '#^Offset ''charset'' does not exist on array\{SESSION_START\: true\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../include/inc_act/ajax_alias.php
-
-		-
 			message: '#^Path in require_once\(\) "\.\./config/conf\.inc\.php" is not a file or it does not exist\.$#'
 			identifier: requireOnce.fileNotFound
 			count: 1
@@ -1171,14 +1165,14 @@ parameters:
 			path: ../include/inc_front/content.func.inc.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between 0 and 2 will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
+			message: '#^Strict comparison using \=\=\= between \*NEVER\* and 1 will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
 			path: ../include/inc_front/content.func.inc.php
 
 		-
-			message: '#^Strict comparison using \=\=\= between \*NEVER\* and 1 will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
+			message: '#^Strict comparison using \=\=\= between 0 and 0 will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
 			count: 1
 			path: ../include/inc_front/content.func.inc.php
 
@@ -2377,26 +2371,8 @@ parameters:
 			path: ../include/inc_lib/article.readform.inc.php
 
 		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 2
-			path: ../include/inc_lib/backend.functions.inc.php
-
-		-
-			message: '#^Undefined variable\: \$phpwcms$#'
-			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_lib/backend.functions.inc.php
-
-		-
 			message: '#^Variable \$ids in empty\(\) always exists and is not falsy\.$#'
 			identifier: empty.variable
-			count: 1
-			path: ../include/inc_lib/backend.functions.inc.php
-
-		-
-			message: '#^Variable \$phpwcms in isset\(\) is never defined\.$#'
-			identifier: isset.variable
 			count: 1
 			path: ../include/inc_lib/backend.functions.inc.php
 
@@ -3951,7 +3927,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 34
+			count: 35
 			path: ../include/inc_module/mod_calendar/backend.editform.php
 
 		-
@@ -5275,6 +5251,12 @@ parameters:
 			path: ../include/inc_tmpl/admin.structform.tmpl.php
 
 		-
+			message: '#^Variable \$do might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/admin.structform.tmpl.php
+
+		-
 			message: '#^Variable \$groupnames might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -5361,7 +5343,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 142
+			count: 145
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
@@ -5565,7 +5547,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 46
+			count: 47
 			path: ../include/inc_tmpl/content/cnt1.inc.php
 
 		-
@@ -5667,7 +5649,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 57
+			count: 58
 			path: ../include/inc_tmpl/content/cnt13.inc.php
 
 		-
@@ -5949,7 +5931,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 11
 			path: ../include/inc_tmpl/content/cnt24.inc.php
 
 		-
@@ -6027,7 +6009,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 13
+			count: 14
 			path: ../include/inc_tmpl/content/cnt27.inc.php
 
 		-
@@ -6057,7 +6039,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 14
+			count: 15
 			path: ../include/inc_tmpl/content/cnt28.inc.php
 
 		-
@@ -6183,7 +6165,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 74
+			count: 76
 			path: ../include/inc_tmpl/content/cnt33.inc.php
 
 		-
@@ -6837,7 +6819,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 125
+			count: 127
 			path: ../include/inc_tmpl/news.tmpl.php
 
 		-
@@ -7318,12 +7300,6 @@ parameters:
 			message: '#^Offset ''browser_check'' on array\{SESSION_START\: true, wysiwyg_editor\: 0\} in isset\(\) does not exist\.$#'
 			identifier: isset.offset
 			count: 1
-			path: ../login.php
-
-		-
-			message: '#^Offset ''default_lang'' does not exist on array\{SESSION_START\: true, wysiwyg_editor\: 0\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 2
 			path: ../login.php
 
 		-

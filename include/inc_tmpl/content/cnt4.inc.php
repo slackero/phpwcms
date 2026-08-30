@@ -15,7 +15,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-//bullet list table (Aufzählung)
+// Bullet list template
 ?>
 
 <div class="form-group align-items-center row g-2">

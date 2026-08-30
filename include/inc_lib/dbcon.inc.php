@@ -32,10 +32,10 @@ try {
         $GLOBALS['phpwcms']['db_table'],
         $GLOBALS['phpwcms']['db_port']
     );
-    $is_mysql_error = mysqli_connect_error() ? basename($_SERVER['SCRIPT_FILENAME']) : false;
+    $is_mysql_error = mysqli_connect_error() ? basename($_SERVER['SCRIPT_FILENAME'] ?? '') : false;
 } catch (Exception $e) {
     $GLOBALS['db'] = false;
-    $is_mysql_error = mysqli_connect_error() ? basename($_SERVER['SCRIPT_FILENAME']) : false;
+    $is_mysql_error = mysqli_connect_error() ? basename($_SERVER['SCRIPT_FILENAME'] ?? '') : false;
 }
 
 $GLOBALS['phpwcms']['db_version'] = 'unknown';
@@ -54,16 +54,15 @@ if($is_mysql_error === false) {
 } else {
 
     define('PHPWCMS_DB_VERSION', $GLOBALS['phpwcms']['db_version']);
-    define('DB_PREPEND', empty($GLOBALS['phpwcms']['db_prepend']) ? '' : aporeplace($GLOBALS['phpwcms']['db_prepend']) . '_');
+    define('DB_PREPEND', empty($GLOBALS['phpwcms']['db_prepend']) ? '' : _dbEscape($GLOBALS['phpwcms']['db_prepend'], false) . '_');
 
 }
 
-// deprecated function for escaping db items
+/**
+ * @deprecated Use _dbEscape() instead
+ */
 function aporeplace($value='') {
-    if (!$GLOBALS['db']) {
-        return str_replace(["\\", "\x00", "\n", "\r", "'",  '"', "\x1a"], ["\\\\", "\\0", "\\n", "\\r", "\'", '\"', "\\Z"], $value);
-    }
-    return mysqli_real_escape_string($GLOBALS['db'], $value);
+    return _dbEscape($value, false);
 }
 
 function _dbSelect($db_table='') {
@@ -558,34 +557,32 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=[]
  * 2008/03/13 Thiemo Mättig, fixed for MySQL 4.0, use _dbInsertOrUpdate()
  */
 function _setConfig($key, $value=null, $group='', $status=1) {
+    $time = now();
+    $group = trim($group);
+    $status = (int)$status;
 
-    $time       = now();
-    $group      = trim($group);
-    $status     = intval($status);
-
-    if (! is_array($key)) {
+    if (!is_array($key)) {
         $key = [$key => $value];
     }
 
-    foreach($key as $k => $value) {
-
-        if( is_string($value) ) {
+    foreach ($key as $k => $item) {
+        if (is_string($item)) {
             $vartype = 'string';
-        } elseif( is_int($value) ) {
+        } elseif (is_int($item)) {
             $vartype = 'int';
-        } elseif( is_float($value) ) {
+        } elseif (is_float($item)) {
             $vartype = 'float';
-        } elseif( is_bool($value) ) {
+        } elseif (is_bool($item)) {
             $vartype = 'bool';
-        } elseif( is_array($value) ) {
+        } elseif (is_array($item)) {
             $vartype = 'array';
-            $value   = serialize($value);
-        } elseif( is_object($value) ) {
+            $item = serialize($item);
+        } elseif (is_object($item)) {
             $vartype = 'object';
-            $value   = serialize($value);
+            $item = serialize($item);
         } else {
             $vartype = '';
-            $value   = '';
+            $item = '';
         }
 
         $data = [
@@ -594,20 +591,19 @@ function _setConfig($key, $value=null, $group='', $status=1) {
             'sysvalue_lastchange' => $time,
             'sysvalue_status' => $status,
             'sysvalue_vartype' => $vartype,
-            'sysvalue_value' => $value
+            'sysvalue_value' => $item
         ];
 
-        if ( ! _dbInsertOrUpdate('phpwcms_sysvalue', $data) ) {
+        if (!_dbInsertOrUpdate('phpwcms_sysvalue', $data)) {
             $mysql_error = _dbError();
             trigger_error('_setConfig failed' . (empty($mysql_error) ? '' : ' with MySQL error: ' . $mysql_error), E_USER_WARNING);
         }
-
     }
 
     return true;
 }
 
-function _dbEscape($value='', $quoted=true, $prefix='', $suffix='') {
+function _dbEscape($value='', $quoted=true, $prefix='', $suffix='', $wildcards=false) {
     if(!is_string($value) && !is_numeric($value)) {
         if(is_array($value) || is_object($value)) {
             $value = serialize($value);
@@ -618,12 +614,25 @@ function _dbEscape($value='', $quoted=true, $prefix='', $suffix='') {
         } elseif(is_null($value)) {
             return 'NULL';
         } else {
-            $value = strval($value);
+            $value = (string)$value;
         }
     }
-    $value = $prefix . mysqli_real_escape_string($GLOBALS['db'], $value) . $suffix;
+
+    if($wildcards) {
+        $value = addcslashes((string)$value, '%_');
+    }
+
+    $escaped = !empty($GLOBALS['db'])
+        ? mysqli_real_escape_string($GLOBALS['db'], (string)$value)
+        : addslashes((string)$value);
+
+    $value = $prefix . $escaped . $suffix;
 
     return $quoted === true ? "'" . $value . "'" : $value;
+}
+
+function _dbEscapeLike($value='', $quoted=true, $prefix='%', $suffix='%') {
+    return _dbEscape($value, $quoted, $prefix, $suffix, true);
 }
 
 /*

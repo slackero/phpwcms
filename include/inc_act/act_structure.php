@@ -289,38 +289,14 @@ if($action) {
 
                 // create SQL query to set articles deleted
                 if(count($article_del)) {
-
-                    $a_del = array();
-                    foreach($article_del as $value) {
-                        //delete cached articles
-                        $sql = "DELETE FROM ".DB_PREPEND."phpwcms_cache WHERE cache_aid=".intval($value);
-                        _dbQuery($sql, 'DELETE');
-
-                        $a_del[] = $value;
-                    }
-
-                    if(count($a_del)) {
-                        $sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."') WHERE article_id IN (".implode(',', $a_del).")";
-                        _dbQuery($sql, 'UPDATE');
-                    }
+                    $sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."') WHERE article_id IN (".implode(',', $article_del).")";
+                    _dbQuery($sql, 'UPDATE');
                 }
 
                 // create SQL query to set structure levels deleted
                 if(count($struct_del)) {
-
-                    $s_del = array();
-                    foreach($struct_del as $value) {
-                        //delete cached categories
-                        $sql = "DELETE FROM ".DB_PREPEND."phpwcms_cache WHERE cache_cid=".intval($value);
-                        _dbQuery($sql, 'DELETE');
-
-                        $s_del[] = $value;
-                    }
-
-                    if(count($s_del)) {
-                        $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_trash=9, acat_alias=CONCAT(acat_alias,'_del-','".date('YmdHis')."') WHERE acat_id IN (".implode(',', $s_del).")";
-                        _dbQuery($sql, 'UPDATE');
-                    }
+                    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_trash=9, acat_alias=CONCAT(acat_alias,'_del-','".date('YmdHis')."') WHERE acat_id IN (".implode(',', $struct_del).")";
+                    _dbQuery($sql, 'UPDATE');
                 }
 
             }
@@ -430,12 +406,6 @@ if($action) {
 }
 
 update_cache();
-
-// empty pre-rendered frontend structure for all visible modes
-// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
-_setConfig('structure_array_vmode_all', '', 'frontend_render', 1);
-_setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
-_setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 
 if(isset($_POST['SubmitClose'])) {
     headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=articles');

@@ -17,18 +17,18 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // set backend listing values
-$_phpwcms_home['homeMaxArticles'] = empty($_COOKIE['homeMaxArticles']) ? 10 : intval($_COOKIE['homeMaxArticles']);
-$_phpwcms_home['homeMaxCntParts'] = empty($_COOKIE['homeMaxCntParts']) ? 10 : intval($_COOKIE['homeMaxCntParts']);
+$_phpwcms_home['homeMaxArticles'] = empty($_COOKIE['homeMaxArticles']) ? 10 : (int)$_COOKIE['homeMaxArticles'];
+$_phpwcms_home['homeMaxCntParts'] = empty($_COOKIE['homeMaxCntParts']) ? 10 : (int)$_COOKIE['homeMaxCntParts'];
 $_phpwcms_home['homeCntType'] = empty($_COOKIE['homeCntType']) ? '' : $_COOKIE['homeCntType'];
 
 if(isset($_POST['homeMaxArticles'])) {
-	if($_phpwcms_home['homeMaxArticles'] = intval($_POST['homeMaxArticles'])) {
-		@setcookie('homeMaxArticles', strval($_phpwcms_home['homeMaxArticles']) , time()+31536000, '/', getCookieDomain(), PHPWCMS_SSL, true); // store cookie for 1 year
+	if($_phpwcms_home['homeMaxArticles'] = (int)$_POST['homeMaxArticles']) {
+		@setcookie('homeMaxArticles', (string)$_phpwcms_home['homeMaxArticles'], time()+31536000, '/', getCookieDomain(), PHPWCMS_SSL, true); // store cookie for 1 year
     }
 }
 if(isset($_POST['homeMaxCntParts'])) {
-	if($_phpwcms_home['homeMaxCntParts'] = intval($_POST['homeMaxCntParts'])) {
-		@setcookie('homeMaxCntParts', strval($_phpwcms_home['homeMaxCntParts']) , time()+31536000, '/', getCookieDomain(), PHPWCMS_SSL, true); // store cookie for 1 year
+	if($_phpwcms_home['homeMaxCntParts'] = (int)$_POST['homeMaxCntParts']) {
+		@setcookie('homeMaxCntParts', (string)$_phpwcms_home['homeMaxCntParts'], time()+31536000, '/', getCookieDomain(), PHPWCMS_SSL, true); // store cookie for 1 year
     }
     $_phpwcms_home['homeCntType'] = clean_slweg($_POST['homeCntType']);
 	@setcookie('homeCntType', $_phpwcms_home['homeCntType'], time()+31536000, '/', getCookieDomain(), PHPWCMS_SSL, true); // store cookie for 1 year
@@ -36,7 +36,7 @@ if(isset($_POST['homeMaxCntParts'])) {
 }
 
 // set if user has admin rights
-$_usql = $_SESSION["wcs_user_admin"] ? '' : 'AND article_uid='.intval($_SESSION["wcs_user_id"]).' ';
+$_usql = $_SESSION["wcs_user_admin"] ? '' : 'AND article_uid='. (int)$_SESSION["wcs_user_id"] .' ';
 
 // first list last edited articles
 $_asql_1  = "SELECT *, DATE_FORMAT(acontent_tstamp, '".$BL['be_sqlshortdatetime']."') AS acontent_changed FROM ".DB_PREPEND."phpwcms_articlecontent t1 ";
@@ -48,25 +48,26 @@ if(is_intval($_phpwcms_home['homeCntType'])) {
     $_asql_1 .= ' AND t1.acontent_type=' . _dbEscape($_phpwcms_home['homeCntType']);
 }
 if(!empty($_SESSION['phpwcms_backend_search'])) {
-    $_asql_1 .= " AND (";
-    $_asql_1 .= " CONCAT(t1.acontent_title,t1.acontent_subtitle,t1.acontent_text,t1.acontent_html) LIKE '%"._dbEscape($_SESSION['phpwcms_backend_search'], false)."%'";
-    $_asql_1 .= " OR ";
-    $_asql_1 .= " CONCAT(t2.article_title,t2.article_subtitle,t2.article_summary) LIKE '%"._dbEscape($_SESSION['phpwcms_backend_search'], false)."%'";
-    $_asql_1 .= " ) ";
+    $search_escaped = _dbEscapeLike($_SESSION['phpwcms_backend_search']);
+    $_asql_1 .= ' AND (';
+    $_asql_1 .= ' CONCAT(t1.acontent_title,t1.acontent_subtitle,t1.acontent_text,t1.acontent_html) LIKE ' . $search_escaped;
+    $_asql_1 .= ' OR ';
+    $_asql_1 .= ' CONCAT(t2.article_title,t2.article_subtitle,t2.article_summary) LIKE ' . $search_escaped;
+    $_asql_1 .= ' ) ';
 
-    $_be_search = $BL['be_ctype_search'].': ' . html($_SESSION['phpwcms_backend_search']) ;
+    $_be_search = $BL['be_ctype_search'] . ': ' . html($_SESSION['phpwcms_backend_search']);
 } else {
     $_be_search = $BL['be_last_edited'];
 }
-$_asql_1 .= ' ORDER BY acontent_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxCntParts'];
+$_asql_1 .= ' ORDER BY acontent_tstamp DESC LIMIT ' . $_phpwcms_home['homeMaxCntParts'];
 $_last10_articlecontent = _dbQuery($_asql_1);
 
 $_asql_1  = "SELECT article_id, article_cid, article_title, article_subtitle, article_aktiv, article_uid, article_lang, ";
-$_asql_1 .= "date_format(article_tstamp, '".$BL['be_sqlshortdatetime']."') AS article_date ";
-$_asql_1 .= 'FROM '.DB_PREPEND.'phpwcms_article WHERE article_deleted=0 ';
+$_asql_1 .= "date_format(article_tstamp, '" . $BL['be_sqlshortdatetime'] . "') AS article_date ";
+$_asql_1 .= 'FROM ' . DB_PREPEND . 'phpwcms_article WHERE article_deleted=0 ';
 $_asql_1 .= $_usql;
 if (!empty($_SESSION['phpwcms_backend_search'])) {
-    $_asql_1 .= " AND CONCAT(article_title,article_subtitle,article_summary) LIKE '%"._dbEscape($_SESSION['phpwcms_backend_search'], false)."%' ";
+    $_asql_1 .= ' AND CONCAT(article_title,article_subtitle,article_summary) LIKE ' . _dbEscapeLike($_SESSION['phpwcms_backend_search']) . ' ';
 }
 $_asql_1 .= 'ORDER BY article_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxArticles'];
 $_last10_article = _dbQuery($_asql_1);

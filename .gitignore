@@ -58,3 +58,4 @@ include/config.codekit3
 /.codex
 /.phpstan/cache/
 node_modules/
+/doc/

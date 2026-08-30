@@ -58,7 +58,7 @@ if(isset($_SESSION['download_filter']) && is_array($_SESSION['download_filter'])
 
     foreach($_SESSION['download_filter'] as $_entry['filter']) {
         //usr_name, usr_login, usr_email
-        $_entry['filter_array'][] = "CONCAT(f_name) LIKE '%".aporeplace($_entry['filter'])."%'";
+        $_entry['filter_array'][] = 'CONCAT(f_name) LIKE ' . _dbEscapeLike($_entry['filter']);
     }
     if(count($_entry['filter_array'])) {
         $_SESSION['download_filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';

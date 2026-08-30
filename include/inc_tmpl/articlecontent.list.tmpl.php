@@ -397,7 +397,7 @@ $(function() {
               unset($sbutton);
             }
 
-            //Listing zugehöriger Artikel Content Teile
+            // List associated article content parts
             $sortierwert      = 1;
             $contentpart_block    = ' ';
             $contentpart_block_name = '';

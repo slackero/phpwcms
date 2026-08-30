@@ -1325,7 +1325,10 @@ class Phpwcms_Image_lib
                         $cmd = escapeshellarg($im_bin) . ' ' . escapeshellarg($path . '[0]') . ' png:- 2>/dev/null';
                     }
                     if (!$cmd) {
-                        $env_path = 'PATH="/usr/local/bin:/opt/local/bin:/opt/local/lib/ImageMagick7/bin:/opt/homebrew/bin:/usr/bin:/bin"';
+                        $cli_search = !empty($GLOBALS['phpwcms']['cli_path'])
+                            ? (string)$GLOBALS['phpwcms']['cli_path']
+                            : '/usr/local/bin:/opt/local/bin:/opt/local/lib/ImageMagick7/bin:/opt/homebrew/bin:/usr/bin:/bin:/opt/bin';
+                        $env_path = 'PATH="' . $cli_search . '"';
                         $exec_path = @shell_exec($env_path . ' which convert 2>/dev/null || ' . $env_path . ' which magick 2>/dev/null');
                         if ($exec_path && ($exec_path = trim(explode("\n", $exec_path)[0]))) {
                             $cmd = escapeshellarg($exec_path) . ' ' . escapeshellarg($path . '[0]') . ' png:- 2>/dev/null';

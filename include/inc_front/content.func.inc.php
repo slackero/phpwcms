@@ -114,10 +114,10 @@ if(isset($_GET['id'])) {
 
         $sql  = 'SELECT article_cid, article_alias FROM '.DB_PREPEND.'phpwcms_article WHERE ';
         $sql .= 'article_deleted=0 AND article_id='.$_GET['aid'].' ';
-        if(VISIBLE_MODE !== 2) {
+        if(VISIBLE_MODE === 0) {
             $sql .= 'AND article_aktiv=1 ';
         } elseif(VISIBLE_MODE === 1) {
-            $sql .= 'AND (article_aktiv=1 OR article_uid='.intval($_SESSION['wcs_user_id']).') ';
+            $sql .= 'AND (article_aktiv=1 OR article_uid='. (int)($_SESSION['wcs_user_id'] ?? 0) .') ';
         }
         $sql .= 'LIMIT 1';
 
@@ -487,11 +487,15 @@ define('IS_ONEPAGE_TEMPLATE', $block['onepage']);
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {
     $block['overwrite'] = str_replace('/', '', $block['overwrite']);
-    @include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'];
+    if(is_file(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'])) {
+        include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'];
+    }
 }
 if(!empty($content['struct'][ $content['cat_id'] ]['acat_overwrite'])) {
     $block['overwrite'] = str_replace('/', '', $content['struct'][ $content['cat_id'] ]['acat_overwrite']);
-    @include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'];
+    if(is_file(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'])) {
+        include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'];
+    }
 }
 
 // search highlight prefix/suffix

@@ -70,18 +70,27 @@ function ext_icon($ext) {
   return $faicon;
 }
 
-// general functions used in backend only
+/**
+ * Invalidate cached frontend structure
+ */
 function update_cache() {
-    // used to update cache setting all current cache entries
-    // will be forced to update cache but will not be deleted
-    //$sql = "UPDATE ".DB_PREPEND."phpwcms_cache SET cache_timeout='0'";
-    //_dbQuery($sql, 'UPDATE');
+    if (function_exists('_setConfig')) {
+        _setConfig('structure_array_vmode_all', '', 'frontend_render', 1);
+        _setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
+        _setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
+    }
 }
 
-
-function forward_to($to, $link, $time=2500) { //Javascript forwarding
+/**
+ * Javascript forwarding
+ *
+ * @throws JsonException
+ */
+function forward_to($to, $link, $time=2500) {
     if($to) {
-        echo "<script type=\"text/javascript\"> setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); </script>";
+        echo '<script>';
+        echo 'setTimeout(function(){document.location.href=' . json_encode((string)$link, JSON_THROW_ON_ERROR) . ';}, ' . (int)$time . ');';
+        echo '</script>';
     }
 }
 
@@ -95,9 +104,9 @@ function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
     }
     if (!$getback) {
         return $sn;
-    } else {
-        echo $sn;
     }
+
+    echo $sn;
 
     return null;
 }
@@ -121,7 +130,7 @@ function subnavtextext($text, $link, $target='_blank', $getback=1) {
  * @param mixed &$file_image_size
  * @return string
  */
-function check_image_extension($file, $filename, $file_image_size) {
+function check_image_extension($file, $filename, &$file_image_size) {
 
     $result = false;
     if(empty($file_image_size[2])) {
@@ -339,13 +348,14 @@ function phpwcmsversionCheck() {
         $version_info = @file_get_contents('https://www.phpwcms.org/versioncheck/'.$identify, false, $context);
         if ($version_info !== false) {
             $get_info = true;
-            if (isset($http_response_header[0])) {
-                if (preg_match('/^HTTP\/1\.[01]\s+(\d+)/i', $http_response_header[0], $status_match)) {
-                    $status_code = (int)$status_match[1];
-                    if ($status_code !== 200) {
-                        $errstr = 'HTTP Error ' . $status_code;
-                        $get_info = false;
-                    }
+            if (
+                isset($http_response_header[0])
+                && preg_match('/^HTTP\/1\.[01]\s+(\d+)/i', $http_response_header[0], $status_match)
+            ) {
+                $status_code = (int)$status_match[1];
+                if ($status_code !== 200) {
+                    $errstr = 'HTTP Error ' . $status_code;
+                    $get_info = false;
                 }
             }
         } else {
@@ -354,8 +364,10 @@ function phpwcmsversionCheck() {
     }
 
     if($get_info && preg_match('/.*BEGIN -->(.+)<!-- END.*/s', $version_info, $match)) {
-
         $version_info       = explode(LF, $match[1]);
+        if(count($version_info) < 3) {
+            return '<p class="error">' . sprintf($BL['Connect_socket_error'], 'invalid version check response') . '</p>';
+        }
         $latest_version     = trim($version_info[0]);
         $latest_revdate     = trim($version_info[1]);
         $latest_revision    = (int)trim($version_info[2]);
@@ -406,10 +418,8 @@ function phpwcmsversionCheck() {
     return $_SESSION['phpwcms_version_check'];
 }
 
-
 function createOptionTransferSelectList($id, $leftData, $rightData, $option = array()) {
     // used to create
-
     global $BL;
 
     $id_left                = $id.'_left';
@@ -422,38 +432,38 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
 
     $option['rows']         = empty($option['rows']) || !intval($option['rows']) ? 5 : $option['rows'];
     $option['delimeter']    = empty($option['delimeter']) ? ',' : $option['delimeter'];
-    $option['encode']       = (isset($option['encode']) && $option['encode'] === false) ? false : true;
+    $option['encode']       = !(isset($option['encode']) && $option['encode'] === false);
     $option['style']        = empty($option['style']) ? '' : ' style="'.$option['style'].'"';
     $option['class']        = empty($option['class']) ? ' class="#SIDE#"' : ' class="#SIDE# '.$option['class'].' form-control form-control-sm mb-1"';
     $option['formname']     = empty($option['formname']) ? 'document.forms[0]' : 'document.getElementById(\''.$option['formname'].'\')';
-    $table .= '<div class="row">'.LF;
+    $table .= '<div class="row">';
     // left select list
     $table .= '<div class="col"><select class="form-select" name="'.$id_left_box.'" id="'.$id_left_box.'" size="'.$option['rows'].'" multiple="multiple"';
-    $table .= $option['style'].str_replace('#SIDE#', 'leftSide', $option['class']).' ondblclick="'.$option_object.'.transferRight()">'.LF;
+    $table .= $option['style'].str_replace('#SIDE#', 'leftSide', $option['class']).' ondblclick="'.$option_object.'.transferRight()">';
     if(!empty($leftData) && is_array($leftData)) {
         foreach($leftData as $key => $value) {
-            $table .= '     <option value="'.$key.'">'.$value.'</option>'.LF;
+            $table .= '<option value="'.html($key).'">'.html($value).'</option>';
         }
     }
-    $table .= '</select>'.LF;
-    $table .= '<div class="btn btn-sm btn-secondary me-1" onclick="moveOptionUp('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></div>';
-    $table .= '<div class="btn btn-sm btn-secondary me-1" onclick="moveOptionDown('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></div>';
-    $table .= '<div class="btn btn-sm btn-secondary me-1" data-bs-toggle="tooltip" title="'.$BL['be_admin_struct_remove_this'].'" onclick="'.$option_object.'.transferRight();" /><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></div>';
-    $table .= '<div class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="'.$BL['be_admin_struct_remove_all'].'" onclick="'.$option_object.'.transferAllRight();" /><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></div>';
-    $table .= '</div>'.LF;
+    $table .= '</select>';
+    $table .= '<div class="btn btn-sm btn-secondary me-1" onclick="moveOptionUp('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary me-1" onclick="moveOptionDown('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary me-1" data-bs-toggle="tooltip" title="'.html($BL['be_admin_struct_remove_this']).'" onclick="'.$option_object.'.transferRight();"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="'.html($BL['be_admin_struct_remove_all']).'" onclick="'.$option_object.'.transferAllRight();"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></div>';
+    $table .= '</div>';
 
     // right select list
     $table .= '<div class="col"><select class="form-select" name="'.$id_right_box.'" id="'.$id_right_box.'" size="'.$option['rows'].'" multiple="multiple"';
-    $table .= $option['style'].str_replace('#SIDE#', 'rightSide', $option['class']).' ondblclick="'.$option_object.'.transferLeft()">'.LF;
+    $table .= $option['style'].str_replace('#SIDE#', 'rightSide', $option['class']).' ondblclick="'.$option_object.'.transferLeft()">';
     if(!empty($rightData) && is_array($rightData)) {
         foreach($rightData as $key => $value) {
-            $table .= '     <option value="'.$key.'">'.$value.'</option>'.LF;
+            $table .= '<option value="'.html($key).'">'.html($value).'</option>';
         }
     }
-    $table .= '</select>'.LF;
-    $table .= '<div class="btn btn-sm btn-secondary me-1" data-bs-toggle="tooltip" title="'.$BL['be_admin_struct_adduser_all'].'" onclick="'.$option_object.'.transferAllLeft();" /><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></div>';
-    $table .= '<div class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="'.$BL['be_admin_struct_adduser_this'].'" onclick="'.$option_object.'.transferLeft();" /><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></div>';
-    $table .= '</div></div>'.LF;
+    $table .= '</select>';
+    $table .= '<div class="btn btn-sm btn-secondary me-1" data-bs-toggle="tooltip" title="'.html($BL['be_admin_struct_adduser_all']).'" onclick="'.$option_object.'.transferAllLeft();"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="'.html($BL['be_admin_struct_adduser_this']).'" onclick="'.$option_object.'.transferLeft();"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></div>';
+    $table .= '</div></div>';
 
     $table .= '<input type="hidden" name="'.$id_left.'" id="'.$id_left.'" value="" />';
     $table .= '<input type="hidden" name="'.$id_right.'" id="'.$id_right.'" value="" />';
@@ -462,7 +472,7 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
     $table .= SCRIPT_CDATA_START.LF;
     $table .= ' var '.$option_object.' = new OptionTransfer("'.$id_left_box.'","'.$id_right_box.'");'.LF;
     $table .= ' '.$option_object.'.setAutoSort(false);'.LF;
-    $table .= ' '.$option_object.'.setDelimiter("'.$option['delimeter'].'");'.LF;
+    $table .= ' '.$option_object.'.setDelimiter("'.js_singlequote($option['delimeter']).'");'.LF;
     $table .= ' '.$option_object.'.saveNewLeftOptions("'.$id_left.'");'.LF;
     $table .= ' '.$option_object.'.saveNewRightOptions("'.$id_right.'");'.LF;
     $table .= ' '.$option_object.'.init('.$option['formname'].');'.LF;
@@ -474,14 +484,16 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
 
 function countNewsletterRecipients($target) {
     // try to count all recipients for special newsletter
-    $recipients = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1');
+    $recipients = _dbQuery('SELECT address_id, address_subscription FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1');
     $counter    = 0;
-    $check      = (empty($target) || !is_array($target) || !count($target)) ? false : true;
+    $check      = !(empty($target) || !is_array($target) || !count($target));
     foreach($recipients as $value) {
-        if(empty($value['address_subscription'])) {
+        if (empty($value['address_subscription'])) {
             $counter++;
             continue;
-        } elseif($check) {
+        }
+
+        if($check) {
             $value['address_subscription'] = @unserialize($value['address_subscription'], ['allowed_classes' => false]);
             if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
                 foreach($value['address_subscription'] as $subscr) {
@@ -498,75 +510,83 @@ function countNewsletterRecipients($target) {
     return $counter;
 }
 
-function getContentPartOptionTag($value='', $text='', $selected='', $module='') {
+/**
+ * Render content part select option tags
+ *
+ * @param mixed $value Content part ID, empty string, or null
+ * @param string $text Option label
+ * @param string|int $selected Currently selected content part ID
+ * @param string $module Custom module / content part key
+ * @param bool|string $action Control action: true/'reset' to reset, 'selected' to get selected index
+ * @return string|int
+ */
+function getContentPartOptionTag($value = '', $text = '', $selected = '', $module = '', $action = false) {
+    static $counter = 0;
+    static $selected_index = 0;
+
+    // Reset state before building a new select list
+    if ($action === true || $action === 'reset') {
+        $counter = 0;
+        $selected_index = 0;
+        return '';
+    }
+
+    // Retrieve the matching selected index
+    if ($action === 'selected' || $action === 'get_selected') {
+        return $selected_index;
+    }
 
     $result = '';
 
     // necessary plugin check
-    if($value == 30) {
-
-        if(!isset($GLOBALS['temp_count'])) {
-            $GLOBALS['temp_count'] = 0;
-        }
-
-        foreach($GLOBALS['phpwcms']['modules'] as $module_value) {
-
-            if($module_value['cntp'] && file_exists($module_value['path'].'inc/cnt.list.php')) {
-                $result .= '<option value="'.$value.':'.$module_value['name'].'"';
-                if($value == $selected && $module_value['name'] == $module) {
+    if ($value == 30) {
+        foreach ($GLOBALS['phpwcms']['modules'] as $module_value) {
+            if ($module_value['cntp'] && file_exists($module_value['path'] . 'inc/cnt.list.php')) {
+                $result .= '<option value="' . $value . ':' . $module_value['name'] . '"';
+                if ($value == $selected && $module_value['name'] == $module) {
                     $result .= ' selected="selected"';
-                    $GLOBALS['contentpart_temp_selected'] = $GLOBALS['temp_count'];
+                    $selected_index = $counter;
                 }
-                $result .= '>'.$text;
-                $result .= ': '.$GLOBALS['BL']['modules'][ $module_value['name'] ]['listing_title'];
-                $result .= '</option>'.LF;
-                $GLOBALS['temp_count']++;
+                $result .= '>' . $text;
+                $result .= ': ' . $GLOBALS['BL']['modules'][$module_value['name']]['listing_title'];
+                $result .= '</option>' . LF;
+                $counter++;
             }
-
         }
-
-    } elseif($value == 60 && function_exists('get_custom_contentparts')) {
-
-        if(!isset($GLOBALS['temp_count'])) {
-            $GLOBALS['temp_count'] = 0;
-        }
-
+    } elseif ($value == 60 && function_exists('get_custom_contentparts')) {
         $custom_cpts = get_custom_contentparts(true);
-        if(is_array($custom_cpts) && count($custom_cpts)) {
-            foreach($custom_cpts as $cpt_key => $cpt_data) {
-                $result .= '<option value="'.$value.':'.$cpt_key.'"';
-                if($value == $selected && $cpt_key == $module) {
+        if (is_array($custom_cpts) && count($custom_cpts)) {
+            foreach ($custom_cpts as $cpt_key => $cpt_data) {
+                $result .= '<option value="' . $value . ':' . $cpt_key . '"';
+                if ($value == $selected && $cpt_key == $module) {
                     $result .= ' selected="selected"';
-                    $GLOBALS['contentpart_temp_selected'] = $GLOBALS['temp_count'];
+                    $selected_index = $counter;
                 }
                 $cpt_title = function_exists('i18n_substitute_text') ? i18n_substitute_text($cpt_data['cpt_title']) : $cpt_data['cpt_title'];
-                $result .= '>'.$text.': '.html($cpt_title);
-                $result .= '</option>'.LF;
-                $GLOBALS['temp_count']++;
+                $result .= '>' . $text . ': ' . html($cpt_title);
+                $result .= '</option>' . LF;
+                $counter++;
             }
         } else {
-            $result .= '<option value="'.$value.'"';
-            if($value == $selected) {
+            $result .= '<option value="' . $value . '"';
+            if ($value == $selected) {
                 $result .= ' selected="selected"';
-                $GLOBALS['contentpart_temp_selected'] = $GLOBALS['temp_count'];
+                $selected_index = $counter;
             }
-            $result .= '>'.$text.'</option>'.LF;
-            $GLOBALS['temp_count']++;
+            $result .= '>' . $text . '</option>' . LF;
+            $counter++;
         }
-
     } else {
-
-        $result .= '<option value="'.$value.'"';
-        if($value == $selected) {
+        $result .= '<option value="' . $value . '"';
+        if ($value == $selected) {
             $result .= ' selected="selected"';
-            $GLOBALS['contentpart_temp_selected'] = $GLOBALS['temp_count'];
+            $selected_index = $counter;
         }
-        $result .= '>'.$text.'</option>'.LF;
-
+        $result .= '>' . $text . '</option>' . LF;
+        $counter++;
     }
 
     return $result;
-
 }
 
 function isContentPartSet($value='') {
@@ -663,10 +683,41 @@ function get_backend_theme() {
     return 'auto';
 }
 
+/**
+ * Helper to compute next available alias from a set of existing alias names
+ */
+function _get_unique_alias_candidate($alias, $existing_aliases = [], $pad_length = 0, $check_file = false) {
+    if (preg_match('/^(.*?)-(\d+)$/', $alias, $match) && $match[1] !== '') {
+        $base_alias = $match[1];
+        $pad = $pad_length ? max($pad_length, strlen($match[2])) : 0;
+        $counter = (int) $match[2] + 1;
+    } else {
+        $base_alias = $alias;
+        $pad = $pad_length;
+        $counter = 1;
+    }
+
+    do {
+        $suffix = $pad ? sprintf('%0' . $pad . 'd', $counter) : (string)$counter;
+        $candidate = $base_alias . '-' . $suffix;
+        $counter++;
+    } while (
+        isset($existing_aliases[$candidate]) ||
+        ($check_file && defined('PHPWCMS_REWRITE_EXT') && PHPWCMS_REWRITE_EXT !== '' && is_file(PHPWCMS_ROOT . '/' . $candidate . PHPWCMS_REWRITE_EXT))
+    );
+
+    return $candidate;
+}
+
 // checks for alias and sets unique value
 function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name='') {
+    global $phpwcms;
 
-    $allow_slash = ($mode === 'FILE') ? false : PHPWCMS_ALIAS_WSLASH;
+    // normalize the id so strict 'index' comparisons behave the same
+    // regardless of the caller passing int, numeric string or 'index'
+    $current_id = (string)$current_id;
+
+    $allow_slash = !($mode === 'FILE') && PHPWCMS_ALIAS_WSLASH;
     $alias       = uri_sanitize(clean_slweg($alias), $allow_slash);
     if (function_exists('mb_strtolower')) {
         $alias = mb_strtolower($alias, 'UTF-8');
@@ -674,7 +725,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
         $alias = strtolower($alias);
     }
 
-    $reserved   = array(
+    $reserved = [
         'print',
         'newsdetail',
         'newspage',
@@ -698,20 +749,21 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
         'robots',
         'sitemap',
         'favicon'
-    );
+    ];
 
     if($alias === '') {
-
-        if($mode !== 'FILE' && !empty($GLOBALS['phpwcms']['allow_empty_alias'])) {
+        if ($mode !== 'FILE' && !empty($GLOBALS['phpwcms']['allow_empty_alias'])) {
             return '';
-        } elseif($mode == 'CATEGORY' && isset($_POST["acat_name"])) {
-            $alias = $_POST["acat_name"];
-        } elseif($mode == 'ARTICLE' && isset($_POST["article_title"])) {
-            $alias = $_POST["article_title"];
-        } elseif($mode == 'CONTENT' && ( isset($_POST["cnt_title"]) || isset($_POST["cnt_name"]) )) {
-            $alias = trim($_POST["cnt_title"]) == '' ? $_POST["cnt_name"] : $_POST["cnt_title"];
-        } elseif($mode == 'FILE') {
-            $alias = $fallback_name !== '' ? cut_ext($fallback_name) : (isset($_POST['file_name']) ? cut_ext($_POST['file_name']) : '');
+        }
+
+        if($mode === 'CATEGORY' && isset($_POST['acat_name'])) {
+            $alias = $_POST['acat_name'];
+        } elseif($mode === 'ARTICLE' && isset($_POST['article_title'])) {
+            $alias = $_POST['article_title'];
+        } elseif($mode === 'CONTENT' && ( isset($_POST['cnt_title']) || isset($_POST['cnt_name']) )) {
+            $alias = trim($_POST['cnt_title'] ?? '') !== '' ? $_POST['cnt_title'] : ($_POST['cnt_name'] ?? '');
+        } elseif($mode === 'FILE') {
+            $alias = $fallback_name !== '' ? cut_ext($fallback_name) : cut_ext($_POST['file_name'] ?? '');
         }
 
         $alias = uri_sanitize(clean_slweg($alias), $allow_slash);
@@ -731,8 +783,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
     }
 
     // Test against existing folders to avoid problems with rewrite
-    if($allow_slash && strpos($alias, '/') !== false) {
-
+    if($allow_slash && str_contains($alias, '/')) {
         $root_folders = returnSubdirListAsArray(PHPWCMS_ROOT);
 
         if($root_folders !== false) {
@@ -815,112 +866,59 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
     }
 
     if ($mode === 'FILE') {
-        $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".$where_file."f_alias="._dbEscape($alias);
+        $sql = 'SELECT COUNT(f_id) FROM ' . DB_PREPEND . 'phpwcms_file WHERE ' . $where_file . 'f_alias = ' . _dbEscape($alias);
         $file_count = _dbQuery($sql, 'COUNT');
 
         if ($file_count > 0) {
-            if (preg_match('/^(.*?)-(\d+)$/', $alias, $match) && $match[1] !== '') {
-                $base_alias = $match[1];
-                $counter    = (int) $match[2] + 1;
-            } else {
-                $base_alias = $alias;
-                $counter    = 1;
-            }
-
+            $base_alias = preg_match('/^(.*?)-(\d+)$/', $alias, $match) && $match[1] !== '' ? $match[1] : $alias;
             $sql  = 'SELECT f_alias FROM ' . DB_PREPEND . 'phpwcms_file WHERE ';
             $sql .= $where_file;
             $sql .= '(f_alias = ' . _dbEscape($base_alias) . ' OR f_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
             $all_file_alias = _dbQuery($sql);
 
-            $all_alias = array();
+            $all_alias = [];
             if (is_array($all_file_alias)) {
                 foreach ($all_file_alias as $item) {
                     $all_alias[$item['f_alias']] = true;
                 }
             }
 
-            do {
-                $candidate = $base_alias . '-' . $counter;
-                $counter++;
-            } while (isset($all_alias[$candidate]));
-
-            $alias = $candidate;
+            $alias = _get_unique_alias_candidate($alias, $all_alias, 0, false);
         }
 
         return $alias;
     }
 
     // check alias against all structure alias
-    $sql  = "SELECT COUNT(acat_id) FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
-    $sql .= $where_acat;
-    $sql .= "acat_alias="._dbEscape($alias);
+    $sql  = 'SELECT COUNT(acat_id) FROM ' . DB_PREPEND . 'phpwcms_articlecat WHERE ' . $where_acat . 'acat_alias = ' . _dbEscape($alias);
     $acat_count = _dbQuery($sql, 'COUNT');
 
     // check alias against all articles
-    $sql  = "SELECT COUNT(article_id) FROM ".DB_PREPEND."phpwcms_article WHERE ";
-    $sql .= $where_article;
-    $sql .= "article_alias="._dbEscape($alias);
+    $sql  = 'SELECT COUNT(article_id) FROM ' . DB_PREPEND . 'phpwcms_article WHERE ' . $where_article . 'article_alias = ' . _dbEscape($alias);
     $article_count = _dbQuery($sql, 'COUNT');
 
     // check alias against all "sub" contents like news
-    $sql  = "SELECT COUNT(cnt_id) FROM ".DB_PREPEND."phpwcms_content WHERE ";
-    $sql .= $where_content;
-    $sql .= "cnt_alias="._dbEscape($alias);
+    $sql  = 'SELECT COUNT(cnt_id) FROM ' . DB_PREPEND . 'phpwcms_content WHERE ' . $where_content . 'cnt_alias = ' . _dbEscape($alias);
     $content_count = _dbQuery($sql, 'COUNT');
 
     if ($acat_count > 0 || $article_count > 0 || $content_count > 0) {
+        $base_alias = preg_match('/^(.*?)-(\d+)$/', $alias, $match) && $match[1] !== '' ? $match[1] : $alias;
 
-        if (preg_match('/^(.*?)-(\d+)$/', $alias, $match) && $match[1] !== '') {
-            $base_alias = $match[1];
-            $pad_length = max(2, strlen($match[2]));
-            $counter    = (int) $match[2] + 1;
-        } else {
-            $base_alias = $alias;
-            $pad_length = 2;
-            $counter    = 1;
-        }
+        $sql  = 'SELECT acat_alias AS a FROM ' . DB_PREPEND . 'phpwcms_articlecat WHERE ' . $where_acat . '(acat_alias = ' . _dbEscape($base_alias) . ' OR acat_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ') ';
+        $sql .= 'UNION ALL ';
+        $sql .= 'SELECT article_alias AS a FROM ' . DB_PREPEND . 'phpwcms_article WHERE ' . $where_article . '(article_alias = ' . _dbEscape($base_alias) . ' OR article_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ') ';
+        $sql .= 'UNION ALL ';
+        $sql .= 'SELECT cnt_alias AS a FROM ' . DB_PREPEND . 'phpwcms_content WHERE ' . $where_content . '(cnt_alias = ' . _dbEscape($base_alias) . ' OR cnt_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
 
-        $sql  = 'SELECT acat_alias FROM ' . DB_PREPEND . 'phpwcms_articlecat WHERE ';
-        $sql .= $where_acat;
-        $sql .= '(acat_alias = ' . _dbEscape($base_alias) . ' OR acat_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
-        $all_acat_alias = _dbQuery($sql);
-
-        $sql  = 'SELECT article_alias FROM ' . DB_PREPEND . 'phpwcms_article WHERE ';
-        $sql .= $where_article;
-        $sql .= '(article_alias = ' . _dbEscape($base_alias) . ' OR article_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
-        $all_article_alias = _dbQuery($sql);
-
-        $sql  = 'SELECT cnt_alias FROM ' . DB_PREPEND . 'phpwcms_content WHERE ';
-        $sql .= $where_content;
-        $sql .= '(cnt_alias = ' . _dbEscape($base_alias) . ' OR cnt_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
-        $all_content_alias = _dbQuery($sql);
-
-        $all_alias = array();
-        if (is_array($all_acat_alias)) {
-            foreach ($all_acat_alias as $item) {
-                $all_alias[$item['acat_alias']] = true;
-            }
-        }
-        if (is_array($all_article_alias)) {
-            foreach ($all_article_alias as $item) {
-                $all_alias[$item['article_alias']] = true;
-            }
-        }
-        if (is_array($all_content_alias)) {
-            foreach ($all_content_alias as $item) {
-                $all_alias[$item['cnt_alias']] = true;
+        $all_existing = _dbQuery($sql);
+        $all_alias = [];
+        if (is_array($all_existing)) {
+            foreach ($all_existing as $item) {
+                $all_alias[$item['a']] = true;
             }
         }
 
-        do {
-            $candidate = $base_alias . '-' . sprintf('%0' . $pad_length . 'd', $counter);
-            $counter++;
-        } while (
-            isset($all_alias[$candidate]) ||
-            (defined('PHPWCMS_REWRITE_EXT') && PHPWCMS_REWRITE_EXT !== '' && is_file(PHPWCMS_ROOT . '/' . $candidate . PHPWCMS_REWRITE_EXT))
-        );
-
-        $alias = $candidate;
+        $alias = _get_unique_alias_candidate($alias, $all_alias, 2, true);
     }
 
     return $alias;
@@ -972,16 +970,24 @@ function _getTime($time='', $delimeter=':', $default_time='H:i:s') {
         }
     }
 
-    $time = str_replace($delimeter, ':', $default_time);
-    $time = str_replace('H', substr('0' . $hour, -2), $time);
-    $time = str_replace('i', substr('0' . $minute, -2), $time);
-    $time = str_replace('s', substr('0' . $second, -2), $time);
-
-    return $time;
+    return str_replace(
+        [
+            $delimeter,
+            'H',
+            'i',
+            's'
+        ],
+        [
+            ':',
+            substr('0' . $hour, -2),
+            substr('0' . $minute, -2),
+            substr('0' . $second, -2)
+        ],
+        $default_time
+    );
 }
 
 function _getDate($date='', $delimeter='', $default_date='') {
-
     global $BL;
 
     $delimeter      = $delimeter == '' ? $BL['default_date_delimiter'] : $delimeter;
@@ -995,11 +1001,8 @@ function _getDate($date='', $delimeter='', $default_date='') {
     $year           = '';
 
     for($x=0; $x<=2; $x++) {
-
         if(isset($dateformat[$x])) {
-
-            switch(substr(strtolower(trim($dateformat[$x])), 0, 1)) {
-
+            switch(strtolower(substr(trim($dateformat[$x]), 0, 1))) {
                 case 'y':
                     if(isset($date[$x])) {
                         $year = intval($date[$x]);
@@ -1008,7 +1011,6 @@ function _getDate($date='', $delimeter='', $default_date='') {
                         }
                     }
                     break;
-
                 case 'd':
                     if(isset($date[$x])) {
                         $day = intval($date[$x]);
@@ -1017,7 +1019,6 @@ function _getDate($date='', $delimeter='', $default_date='') {
                         }
                     }
                     break;
-
                 case 'm':
                     if(isset($date[$x])) {
                         $month = intval($date[$x]);
@@ -1026,59 +1027,56 @@ function _getDate($date='', $delimeter='', $default_date='') {
                         }
                     }
                     break;
-
             }
         }
     }
 
     if($year && $month && $day) {
-
         return substr('000' . $year, -4) . '-' . substr('0' . $month, -2) . '-' . substr('0' . $day, -2);
-
-    } else {
-
-        return '0000-00-00';
-
     }
 
+    return '0000-00-00';
 }
 
-function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=',') {
+/**
+ * @param string|array $categories
+ * @param string|int $type
+ * @param int $pid
+ * @param string $seperator
+ * @return void
+ */
+function _dbSaveCategories($categories = [], $type = '', $pid = 0, $seperator = ',') {
+    $pid = (int)$pid;
+    $type = trim($type);
 
-    $pid    = intval($pid);
-    $type   = trim($type);
-
-    if(is_string($categories)) {
+    if (is_string($categories)) {
         $categories = convertStringToArray($categories, $seperator);
     }
 
     // delete all related categories first
-    if($type && $pid) {
+    if ($type && $pid) {
 
-        $sql = 'DELETE FROM '.DB_PREPEND.'phpwcms_categories WHERE cat_pid='.$pid." AND cat_type="._dbEscape( $type );
+        $sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_categories WHERE cat_pid=' . $pid . " AND cat_type=" . _dbEscape($type);
         _dbQuery($sql, 'DELETE');
 
     }
 
-    if(is_array($categories) && count($categories) && $type && $pid) {
+    if (is_array($categories) && count($categories) && $type && $pid) {
+        $data = [
+            'cat_type' => $type,
+            'cat_pid' => $pid,
+            'cat_status' => 1,
+            'cat_createdate' => date('Y-m-d H:i:s'),
+            'cat_changedate' => date('Y-m-d H:i:s'),
+            'cat_name' => '',
+            'cat_info' => ''
+        ];
 
-        $data = array(
-            'cat_type'          => $type,
-            'cat_pid'           => $pid,
-            'cat_status'        => 1,
-            'cat_createdate'    => date('Y-m-d H:i:s'),
-            'cat_changedate'    => date('Y-m-d H:i:s'),
-            'cat_name'          => '',
-            'cat_info'          => ''
-        );
-
-        foreach($categories as $value) {
+        foreach ($categories as $value) {
             $value = trim($value);
-            if($value != '') {
-
+            if ($value != '') {
                 $data['cat_name'] = $value;
                 _dbInsert('phpwcms_categories', $data);
-
             }
         }
     }
@@ -1086,12 +1084,12 @@ function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=','
 
 function setItemsPerPage($default=25) {
     if( isset($_GET['showipp']) ) {
-        $ipp = intval(is_numeric($_GET['showipp']) ? $_GET['showipp'] : $default);
+        $ipp = (int)(is_numeric($_GET['showipp']) ? $_GET['showipp'] : $default);
         setcookie('phpwcmsBEItemsPerPage', (string) $ipp, time()+157680000, '/', getCookieDomain(), PHPWCMS_SSL, true);
-    } elseif(isset($_SESSION['PAGE_FILTER'])) {
+    } elseif(isset($_SESSION['PAGE_FILTER']['IPP'])) {
         $ipp = $_SESSION['PAGE_FILTER']['IPP'];
     } elseif( isset($_COOKIE['phpwcmsBEItemsPerPage']) ) {
-        $ipp = intval( $_COOKIE['phpwcmsBEItemsPerPage'] );
+        $ipp = (int)$_COOKIE['phpwcmsBEItemsPerPage'];
     } else {
         $ipp = $default;
     }
@@ -1107,13 +1105,13 @@ function setItemsPerPage($default=25) {
 
 function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separator='') {
 
-    $ipp = isset($_SESSION['PAGE_FILTER']['IPP']) ? $_SESSION['PAGE_FILTER']['IPP'] : setItemsPerPage();
+    $ipp = $_SESSION['PAGE_FILTER']['IPP'] ?? setItemsPerPage();
 
     if(!in_array($ipp, $steps)) {
         array_unshift($steps, $ipp);
     }
 
-    $menu = array();
+    $menu = [];
     foreach($steps as $x => $item) {
         $menu[$x]  = '<option value="'.$item.'"';
         if($ipp == $item) {
@@ -1132,8 +1130,6 @@ function initJsCalendar() {
     $GLOBALS['BE']['HEADER']['dayjs.js']                   = getJavaScriptSourceLink('include/inc_js/dayjs.min.js');
     $GLOBALS['BE']['BODY_CLOSE']['flatpickr.js']           = getJavaScriptSourceLink('include/inc_js/flatpickr.min.js');
 }
-
-
 
 function initJsAutocompleter() {
     initJQuery();
@@ -1171,11 +1167,11 @@ function phpwcms_get_available_revisions() {
 }
 
 function phpwcms_mark_revision_checked($revision, $return_message = '') {
-    $revision_str = strval($revision);
+    $revision_str = (string)$revision;
     $GLOBALS['phpwcms']['check_r' . $revision_str] = true;
-    $extra = empty($return_message) ? '' : "\n\nReturn:\n-------\n" . strval($return_message);
+    $extra = empty($return_message) ? '' : "\n\nReturn:\n-------\n" . $return_message;
     $tmp_file = PHPWCMS_TEMP . 'r' . $revision_str . '.checked.tmp';
-    $result = @write_textfile($tmp_file, date('Y-d-m H:i:s') . $extra);
+    $result = @write_textfile($tmp_file, date('Y-m-d H:i:s') . $extra);
 
     if (!empty($GLOBALS['db']) && function_exists('_setConfig')) {
         @_setConfig('revision_r' . $revision_str, 1, 'sys_revision');
@@ -1189,7 +1185,7 @@ function phpwcms_revision_check($revision) {
         return false;
     }
 
-    $target_revision = intval($revision);
+    $target_revision = (int)$revision;
     $available_revisions = phpwcms_get_available_revisions();
     $GLOBALS['phpwcms']['revision_error'] = '';
 
@@ -1212,17 +1208,17 @@ function phpwcms_revision_check($revision) {
                 $exec_result = false;
                 try {
                     $exec_result = call_user_func($revision_function);
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                     $exec_result = false;
                     $GLOBALS['phpwcms']['revision_return'] = $e->getMessage();
                 }
 
                 if ($exec_result !== false) {
-                    $return_msg = isset($GLOBALS['phpwcms']['revision_return']) ? $GLOBALS['phpwcms']['revision_return'] : '';
+                    $return_msg = $GLOBALS['phpwcms']['revision_return'];
                     phpwcms_mark_revision_checked($rev, $return_msg);
                 } else {
                     $db_err = function_exists('_dbError') ? _dbError() : '';
-                    $ret_msg = isset($GLOBALS['phpwcms']['revision_return']) ? $GLOBALS['phpwcms']['revision_return'] : '';
+                    $ret_msg = $GLOBALS['phpwcms']['revision_return'];
                     $err_msg = 'Database revision update r' . $rev . ' failed!';
                     if (!empty($ret_msg)) {
                         $err_msg .= ' Error: ' . $ret_msg;
@@ -1272,7 +1268,7 @@ function phpwcms_revision_check_temp($revision) {
         $db_checked = _getConfig('revision_r' . $revision_str, false);
         if (!empty($db_checked)) {
             $GLOBALS['phpwcms']['check_r' . $revision_str] = true;
-            @write_textfile($tmp_file, date('Y-d-m H:i:s') . "\n\nSynced from DB sys_revision");
+            @write_textfile($tmp_file, date('Y-m-d H:i:s') . "\n\nSynced from DB sys_revision");
             return true;
         }
     }
@@ -1291,7 +1287,7 @@ function get_language_name($lang='', $default=true) {
 
     $lang = strtoupper($lang);
 
-    return isset($GLOBALS['BL'][$lang]) ? $GLOBALS['BL'][$lang] : $lang;
+    return $GLOBALS['BL'][$lang] ?? $lang;
 
 }
 
@@ -1301,53 +1297,72 @@ function get_pix_or_percent($val) {
     //that's why the default empty return value is ""
     //returns a string
     $val = trim($val);
-    $intval = intval($val);
-    if(strlen($val) > 1 && strlen($val)-1 == strrpos($val, "%") && $intval) {
-        $val = (($intval > 100) ? "100" : $intval)."%";
+    $intval = (int)$val;
+    if(strlen($val) > 1 && strlen($val)-1 == strrpos($val, '%') && $intval) {
+        $val = ($intval > 100 ? '100' : $intval). '%';
     } else {
-        $val = ($intval) ? $intval : "";
+        $val = ($intval) ?: '';
     }
     return $val;
 }
 
-// List private files
-function dir_menu($pid, $zid, $vor, $userID, $vorzeichen = ":") {
-    $pid  = intval($pid);
-    $sql  = "SELECT f_id, f_name, f_uid, usr_login FROM ".DB_PREPEND."phpwcms_file f ";
-    $sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid ";
-    $sql .= "WHERE f.f_pid=".$pid." AND ";
-    if(empty($_SESSION["wcs_user_admin"])) {
-        $sql .= "f.f_uid=".intval($userID)." AND ";
-    }
-    $sql .= "f.f_kid=0 AND f.f_trash=0 ORDER BY f_name";
-    $result = _dbQuery($sql);
-    if(isset($result[0]['f_id'])) {
-        foreach($result as $row) {
-            $dirname = html($row['f_name']);
-            if($_SESSION["wcs_user_id"] != $row['f_uid']) {
-                $dirname .= ' (' . html($row['usr_login']) . ')';
+/**
+ * Render select options for directory tree
+ *
+ * @param int $pid Parent directory ID
+ * @param int $zid Selected directory ID
+ * @param string $vor Prefix indentation string
+ * @param int $userID User ID
+ * @param string $vorzeichen Indentation increment character
+ * @param array|null $tree In-memory directory tree (grouped by f_pid)
+ * @return string
+ */
+function dir_menu($pid, $zid, $vor, $userID, $vorzeichen = ':', &$tree = null) {
+    if ($tree === null) {
+        $tree = [];
+        $where_uid = empty($_SESSION['wcs_user_admin']) ? 'f.f_uid = ' . (int)$userID . ' AND ' : '';
+        $sql  = 'SELECT f.f_id, f.f_pid, f.f_name, f.f_uid, u.usr_login FROM ' . DB_PREPEND . 'phpwcms_file f ';
+        $sql .= 'LEFT JOIN ' . DB_PREPEND . 'phpwcms_user u ON u.usr_id = f.f_uid ';
+        $sql .= 'WHERE ' . $where_uid . 'f.f_kid = 0 AND f.f_trash = 0 ORDER BY f.f_name';
+        $rows = _dbQuery($sql);
+        if (is_array($rows)) {
+            foreach ($rows as $row) {
+                $tree[(int)$row['f_pid']][] = $row;
             }
-            echo "<option value='".$row['f_id']."'";
-            if(intval($zid) == $row['f_id']) {
-                echo ' selected="selected"';
-            }
-            echo ">".$vor.' '.$dirname."</option>\n";
-            dir_menu($row['f_id'], $zid, $vor.$vorzeichen, $userID, $vorzeichen);
         }
     }
+
+    $pid = (int)$pid;
+    $current_uid = $_SESSION['wcs_user_id'] ?? 0;
+
+    if (!empty($tree[$pid])) {
+        foreach ($tree[$pid] as $row) {
+            $dirname = html($row['f_name']);
+            if ($current_uid != $row['f_uid']) {
+                $dirname .= ' (' . html($row['usr_login'] ?? '') . ')';
+            }
+            $selected = ((int)$zid === (int)$row['f_id']) ? ' selected="selected"' : '';
+            echo '<option value="' . (int)$row['f_id'] . '"' . $selected . '>' . $vor . ' ' . $dirname . "</option>\n";
+            dir_menu($row['f_id'], $zid, $vor . $vorzeichen, $userID, $vorzeichen, $tree);
+        }
+    }
+
     return $vor;
 }
 
 function get_struct_alias($start_id=0, $parent_alias=false) {
-
     if($start_id == 0) {
         global $indexpage;
 
-        if($parent_alias && !empty($indexpage['acat_alias'])) {
+        if ($parent_alias && !empty($indexpage['acat_alias'])) {
             return $indexpage['acat_alias'];
-        } elseif(!empty($indexpage['acat_pagetitle']) && strlen($indexpage['acat_name']) > strlen($indexpage['acat_pagetitle'])) {
+        }
+
+        if (!empty($indexpage['acat_pagetitle']) && strlen($indexpage['acat_name']) > strlen($indexpage['acat_pagetitle'])) {
             return strtolower(uri_sanitize($indexpage['acat_pagetitle']));
-        } elseif(!empty($indexpage['acat_name'])) {
+        }
+
+        if(!empty($indexpage['acat_name'])) {
             return strtolower(uri_sanitize($indexpage['acat_name']));
         }
 
@@ -1423,7 +1438,6 @@ function correct_charset($text='', $js=false) {
     return $text;
 }
 
-
 /**
  * Render IPTC fields (for use in image info fields)
  *
@@ -1432,7 +1446,6 @@ function correct_charset($text='', $js=false) {
  * @return array
  */
 function render_iptc_fileinfo($iptc_data) {
-
     $iptc_rules = $GLOBALS['phpwcms']['iptc_rules'];
     $iptc_keys = $GLOBALS['phpwcms']['iptc_keys'];
     $fileinfo = array(
@@ -1443,26 +1456,20 @@ function render_iptc_fileinfo($iptc_data) {
     );
 
     if(is_array($iptc_data) && count($iptc_data)) {
-
         $fileinfo['title'] = $iptc_rules['title'];
         $fileinfo['longinfo'] = $iptc_rules['longinfo'];
         $fileinfo['copyright'] = $iptc_rules['copyright'];
         $fileinfo['alt'] = $iptc_rules['alt'];
 
         foreach($iptc_data as $iptc_key => $iptc_value) {
-
             if(empty($iptc_value)) {
-
                 $iptc_value = '';
-
             } elseif(is_array($iptc_value)) {
-
                 if(empty($GLOBALS['phpwcms']['iptc_rules_multiple'])) {
                     $iptc_value = $iptc_value[0];
                 } else {
                     $iptc_value = implode($GLOBALS['phpwcms']['iptc_separator'], $iptc_value);
-    }
-
+                }
             }
 
             $fileinfo['title'] = render_custom_tag($fileinfo['title'], $iptc_key, $iptc_value);
@@ -1475,17 +1482,12 @@ function render_iptc_fileinfo($iptc_data) {
     }
 
     if(count($iptc_keys)) {
-
         foreach($fileinfo as $field => $value) {
-
             if((strpos($value, '{') !== false && strpos($value, '}') !== false) || strpos($value, '[/') !== false) {
-
                 foreach($iptc_keys as $iptc_key => $iptc_value) {
-
                     if($fileinfo[$field] === '') {
                         break;
                     }
-
                     $fileinfo[$field] = trim( render_custom_tag($fileinfo[$field], $iptc_key, $iptc_value) );
                 }
             }

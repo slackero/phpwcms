@@ -18,7 +18,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
-if($_SESSION["wcs_user_lang_custom"]) { //use custom lang if available -> was set in login.php
+if(!empty($_SESSION["wcs_user_lang_custom"])) { //use custom lang if available -> was set in login.php
   include(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php');
 }
 
@@ -26,12 +26,12 @@ if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {
     die('Sorry, access forbidden');
 }
 
-$file_alias   = isset($_GET['file_alias']) ? $_GET['file_alias'] : '';
+$file_alias   = $_GET['file_alias'] ?? '';
 $file_id    = isset($_GET['file_id']) ? intval($_GET['file_id']) : '';
-$value    = isset($_POST['value']) ? $_POST['value'] : 'json';
+$value    = $_POST['value'] ?? 'json';
 
 // do charset conversions for value
-if(PHPWCMS_CHARSET != 'utf-8') {
+if(PHPWCMS_CHARSET !== 'utf-8') {
     if(function_exists('mb_convert_encoding')) {
         $value = mb_convert_encoding( $value, PHPWCMS_CHARSET, 'utf-8' );
     }
@@ -92,7 +92,7 @@ if($file_id && !$file_alias) {
 
 		<div class="col col-sm-6 input-group">
 			<input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias<?php echo html_specialchars($file_id) ?>" value="<?php echo html_specialchars($f_alias) ?>"  maxlength="230" onfocus="set_file_alias(true, 'file_alias<?php echo html_specialchars($file_id) ?>');" onchange="this.value=create_alias(this.value, null, null, false);" />
-			
+
 				<button name="senden" type="button" onclick="AjaxSubmit(<?php echo "'#alias-".$file_id."', '".$file_id."', document.editfileinfo.file_alias".$file_id.".value"; ?>)" class="btn btn-blue btn-sm"><i class="fa fa-check"></i> <?php echo $BL['be_save_btn'] ?></button>
 			</div>
 		</div>

@@ -94,7 +94,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 
     foreach($_SESSION['redirect_filter'] as $_entry['filter']) {
       // search in alias/target fields
-      $_entry['filter_array'][] = "CONCAT(alias, target) LIKE '%"._dbEscape($_entry['filter'], false)."%'";
+      $_entry['filter_array'][] = 'CONCAT(alias, target) LIKE ' . _dbEscapeLike($_entry['filter']);
     }
     if(count($_entry['filter_array'])) {
       $_SESSION['redirect_filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';

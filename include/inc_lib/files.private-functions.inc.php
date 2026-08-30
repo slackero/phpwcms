@@ -44,10 +44,10 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
             $dirname .= ' (' . html($row["usr_login"]) . ')';
         }
 
-        //Ermitteln des Aufklappwertes
+        // Determine toggle status
         $klapp_status = empty($_SESSION["klapp"][$row["f_id"]]) ? 1 : 0;
 
-        //Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
+        // Check if dependent files/folders exist
         $count_sql  = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ";
         $count_sql .= "f_pid=".$row["f_id"]." AND ";
         if(empty($_SESSION["wcs_user_admin"])) {
@@ -62,9 +62,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
             $count  = on_off($klapp_status, $dirname, 0, $counter);
         }
 
-        //Aufbau der Zeile
-        echo '<tr bgcolor="#F4F5F4">'.LF; //Einleitung Tabellenzeile
-        echo '<td>'.$count; //Einleiten der Tabellenzelle
+        // Build row
+        echo '<tr bgcolor="#F4F5F4">'.LF; // Open table row
+        echo '<td>'.$count; // Open cell
 
 
         // Gallery status
@@ -84,31 +84,31 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                 echo '<i class="fa ffolder fa-folder fa-fw" aria-hidden="true"></i>';
         }
 
-        echo "<strong>".$dirname; //Zellinhalt 1. Spalte Fortsetzung
-        echo "</strong></a></td>\n"; //Schließen Zelle 1. Spalte
-        //Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.
+        echo "<strong>".$dirname; // Column 1 name
+        echo "</strong></a></td>\n"; // Close column 1
+        // Column 2 (action buttons)
         echo '<td class="text-end text-nowrap">';
 
         echo '<div class="btn-group btn-group-sm" role="group" aria-label="group'.$row["f_id"].'">';
-        //Button zum Bearbeiten des Verzeichnisses
+        // Edit directory button
         echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_edit'].": ".$dirname.'" href="'.$zieldatei."&amp;editdir=".$row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
         echo '<div class="btn-group btn-group-sm" role="group">';
         echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$row["f_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
         echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$row["f_id"].'">';
         echo '<h6 class="dropdown-header">'.$dirname.'</h6>';
 
-        //Button zum Uploaden einer Datei in dieses Verzeichnisses
+        // Upload file to directory button
         echo '<a class="dropdown-item" href="'.$zieldatei.'&amp;upload='.$row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_upload'].': '.$dirname.'">';
         echo '<i class="ms-1 fa fa-fw fa-upload" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_upload'].'</a>';
-        if(!$cutID) { //Button zum Erzeugen eines Neuen Unterverzeichnisses
+        if(!$cutID) { // Create new subdirectory button
             echo '<a class="dropdown-item" role="button" href="'.$zieldatei.'&amp;mkdir='.$row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_makenew'].': '.$dirname.'">';
             echo '<i class="ms-1 fa fa-fw fa-plus" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_makenew'].'</a>';
-        } else {  //Button zum Einfügen der Clipboard-Datei in das Verzeichnis
+        } else {  // Paste clipboard file into directory button
             echo '<a class="dropdown-item" role="button" href="include/inc_act/act_file.php?paste='.$cutID.'%7C'.$row["f_id"].
                  '" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_paste'].': '.$dirname.'">';
             echo '<i class="ms-1 fa fa-fw fa-clipboard" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_paste'].'</a>';
         }
-        //Button zum Löschen des Verzeichnisses, wenn leer
+        // Delete directory button if empty
         if(!$count_wert) {
             echo '<a class="dropdown-item" href="include/inc_act/act_file.php?delete='.$row["f_id"].'%7C'.'9'.
                  '" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname.'" data-confirm-danger="'.html_specialchars($GLOBALS['BL']['be_fprivfunc_jsdeldir'] . " \n[".$dirname."]? ") . '">';
@@ -152,7 +152,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                     $file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
 
-                    if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
+                    if(!$file_durchlauf) { // Open embedded table for file list
                         echo '<tr bgcolor="#FFFFFF"><td colspan="2" class="p-0"><table class="table-sm table-borderless w-100">'."\n";
                         echo "<!-- start file list: private-functions //-->\n";
                     } else {
@@ -173,11 +173,11 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
 
 
-                    //Aufbauen Buttonleiste für jeweilige Datei
+                    // Build button bar for file
                     echo '<td class="text-end text-nowrap px-0">'.LF;
                     echo '<div class="btn-group btn-group-sm" role="group">'.LF;
 
-                    //Button zum Bearbeiten der Dateiinformationn
+                    // Edit file info button
                     echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'" data-bs-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
 
                     echo '<div class="btn-group btn-group-sm" role="group">';
@@ -185,18 +185,18 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$file_row["f_id"].'">';
                     echo '<h6 class="dropdown-header">'.$filename.'</h6>';
 
-                    //Button zum Downloaden der Datei
+                    // Download file button
                     echo '<a class="dropdown-item" href="include/inc_act/act_download.php?dl='.$file_row["f_id"].
                          '"  target="_blank" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_dlfile'].': '.$filename.'">'.
                          '<i class="ms-1 fa fa-fw fa-download" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_dlfile'].'</a>'; //target='_blank'
-                    //Button zum Erzeugen eines Neuen Unterverzeichnisses
+                    // Cut / clipboard file button
                     if($cutID == $file_row["f_id"]) {
                         echo '<a class="dropdown-item" href="#"><i class="fa fa-fw fa-cut ms-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
                     } else {
                         echo '<a class="dropdown-item" href="'.$zieldatei.'&amp;cut='.$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'">';
                         echo '<i class="ms-1 fa fa-fw fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
                     }
-                    //Button zum Löschen der Datei
+                    // Delete / move to trash button
                     if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
                         //if user is owner then delete button is active
                         $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
@@ -204,17 +204,17 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                              '" data-bs-toggle="tooltip" title="' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '" data-confirm-danger="' . html_specialchars($confirm_msg) . '">' .
                              '<i class="ms-1 far fa-fw fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . '</a>';
                     } else {
-                        echo '<div class="dropdown-item disabled text-muted"><i class="ms-1 far fa-fw fa-trash-alt text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+                        echo '<div class="dropdown-item disabled text-muted"><i class="far fa-fw fa-trash-alt text-muted ms-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
                     }
-                    echo '</div></div>'; // Close dropdown-menu & child btn-group
+                    echo '</div></div>'; // Close dropdown-menu & inner btn-group
 
-                    //Button zum Umschalten zwischen Aktiv/Inaktiv
+                    // Toggle active/inactive button
                     echo '<button id="abtnfileaktiv'.$file_row["f_id"].'" class="btn fa fa-fw btn-xs visible '.($file_row["f_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].': '.$filename.'"></button>';
-                    //Button zum Umschalten zwischen Public/Non-Public
+                    // Toggle public/private button
                     echo '<button id="abtnfilepublic'.$file_row["f_id"].'" class="btn fa fa-fw btn-xs public '.($file_row["f_public"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cpublicfile'].': '.$filename.'"></button>';
                     echo '</div>'; // Close outer btn-group
 
-                    echo "</td>\n";
+                    // end
                     echo "</tr>\n";
 
 
@@ -251,13 +251,13 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     }
                     $file_durchlauf++;
                 }
-                if($file_durchlauf) { //Abschluss der Filelisten-Tabelle
+                if($file_durchlauf) { // Close file list table
                     echo "</table>\n<!-- end file list: private-functions //-->\n";
                 }
-            } //Ende Liste Dateien
+            } // End file list
         }
 
-        //Zaehler mitführen
+        // Increment counter
         $_SESSION["list_zaehler"]++;
     }
 
@@ -265,13 +265,13 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 }
 
 function true_false($wert) {
-    //Wechselt den Wahr/Falsch wert zum Gegenteil: 1=>0 und 0=>1
+    // Toggle boolean value: 1=>0 and 0=>1
     return (intval($wert)) ? 0 : 1;
 }
 
 function on_off($wert, $string, $art=1, $counter=0) {
-    //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
-    //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
+    // Generate status icon for expand/collapse
+    // If art = 1 return character (+/-), otherwise icon
     if($wert) {
         return ($art == 1) ? "+" : '<i class="fa fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
     } else {

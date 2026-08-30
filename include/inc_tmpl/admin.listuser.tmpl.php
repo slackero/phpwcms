@@ -82,10 +82,10 @@ if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results'])) {
 
     foreach($_SESSION['filter_results'] as $_userInfo['filter']) {
         //usr_name, usr_login, usr_email
-        $_userInfo['filter_array'][] = "CONCAT(usr_name, usr_login, usr_email) LIKE '%".aporeplace($_userInfo['filter'])."%'";
+        $_userInfo['filter_array'][] = 'CONCAT(usr_name, usr_login, usr_email) LIKE ' . _dbEscapeLike($_userInfo['filter']);
     }
     if(count($_userInfo['filter_array'])) {
-        $_userInfo['where_query'] .= ' AND ('.implode('OR', $_userInfo['filter_array']).')';
+        $_userInfo['where_query'] .= ' AND (' . implode(' OR ', $_userInfo['filter_array']) . ')';
     }
 }
 

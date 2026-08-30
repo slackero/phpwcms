@@ -194,7 +194,7 @@ function is_checked($c, $chkvalue, $xhtml = 1, $echoit = 1) {
 }
 
 function check_checkbox($c) {
-    //Prüft, ob korrekte Werte via Checkbox übergeben wurden
+    // Check if valid boolean value (0 or 1) was passed via checkbox
     $c = intval($c);
     if ($c !== 0 && $c !== 1) {
         $c = 0;
@@ -362,7 +362,7 @@ function genlogname() {
 }
 
 function gib_part($value, $part, $separator) {
-    //Gibt den Wert an Stelle $part von $value zurück
+    // Return the part at index $part from $value
     $value_array = explode($separator, $value);
 
     return $value_array[$part];
@@ -743,9 +743,17 @@ function get_order_sort($order = 0, $resort = 0) {
 }
 
 function getRefererURL() {
-    $url = strtolower(substr($GLOBALS['phpwcms']['site'], 0, 5)) !== 'https' ? 'http://' : 'https://';
+    $url = stripos($GLOBALS['phpwcms']['site'], 'https') !== 0 ? 'http://' : 'https://';
 
-    return $url . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    // do not trust the client-controlled Host header: when it does not
+    // match the configured site host, fall back to the configured site URL
+    $siteHost    = parse_url($GLOBALS['phpwcms']['site'], PHP_URL_HOST);
+    $requestHost = isset($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : '';
+    if(empty($requestHost) || ( !empty($siteHost) && strtolower($siteHost) !== $requestHost )) {
+        return $GLOBALS['phpwcms']['site'];
+    }
+
+    return $url . $_SERVER['HTTP_HOST'] . ( $_SERVER['REQUEST_URI'] ?? '/' );
 }
 
 function build_QueryString() {
@@ -754,7 +762,7 @@ function build_QueryString() {
     // first Parameter is the delimtere char
     // build_QueryString('&amp;', 'k=1', 'b=5')
     $numargs = func_num_args();
-    $query = array();
+    $query = [];
     $delimeter = '';
     if ($numargs) {
         $delimeter = func_get_arg(0);
@@ -898,42 +906,51 @@ function sendEmail($data = [
     return $mailInfo;
 }
 
+function getFormTrackingSalt() {
+    if (defined('PHPWCMS_FORM_SALT') && PHPWCMS_FORM_SALT !== '') {
+        return (string)PHPWCMS_FORM_SALT;
+    }
+    if (!empty($GLOBALS['phpwcms']['form_salt'])) {
+        return (string)$GLOBALS['phpwcms']['form_salt'];
+    }
+    return (string)($GLOBALS['phpwcms']['db_pass'] ?? 'phpwcms_form_token');
+}
+
 function getFormTrackingValue() {
-    //creates a new form tracking entry in database
-    //returns a <input type="hidden">
+    // creates a new form tracking entry in database
+    // returns a <input type="hidden">
     $ip = getRemoteIP();
-    $hash = md5($ip . $GLOBALS['phpwcms']["db_pass"] . date('G'));
+    $salt = getFormTrackingSalt();
+    $hash = md5($ip . $salt . date('G'));
     $entry_id = time();
-    if (!empty($GLOBALS['phpwcms']["form_tracking"]) && !PHPWCMS_GDPR_MODE) {
-        $sql = "INSERT INTO " . DB_PREPEND . "phpwcms_formtracking SET formtracking_hash=" . _dbEscape($hash) . ", formtracking_ip=" . _dbEscape($ip);
+    if (!empty($GLOBALS['phpwcms']['form_tracking']) && !PHPWCMS_GDPR_MODE) {
+        $sql = 'INSERT INTO ' . DB_PREPEND . 'phpwcms_formtracking SET formtracking_hash=' . _dbEscape($hash) . ', formtracking_ip=' . _dbEscape($ip);
         $result = _dbQuery($sql, 'INSERT');
         if (isset($result['INSERT_ID'])) {
             $entry_id = $result['INSERT_ID'];
         }
     }
 
-    return '<input type="hidden" name="' . $hash . '" value="' . $entry_id . '" />';
+    return '<input type="hidden" name="' . $hash . '" value="' . $entry_id . '">';
 }
 
 function checkFormTrackingValue() {
-    //compare given tracking value against db tracking entry
+    // compare given tracking value against db tracking entry
     $ip = getRemoteIP();
-    $hash1 = md5($ip . $GLOBALS['phpwcms']["db_pass"] . date('G'));
-    $hash2 = md5($ip . $GLOBALS['phpwcms']["db_pass"] . date('G', time() - 3600)); //max form delay of 1 hour
+    $salt = getFormTrackingSalt();
+    $hash1 = md5($ip . $salt . date('G'));
+    $hash2 = md5($ip . $salt . date('G', time() - 3600)); // max form delay of 1 hour
     $valid = false;
     if (isset($_POST[$hash1])) {
         // form method POST
-        $entry_id = intval($_POST[$hash1]);
+        $entry_id = (int)$_POST[$hash1];
         $valid = true;
         unset($_POST[$hash1]);
     } elseif (isset($_POST[$hash2])) {
         // form method POST 1 hour ago
-        $entry_id = intval($_POST[$hash2]);
+        $entry_id = (int)$_POST[$hash2];
         $valid = true;
         unset($_POST[$hash2]);
-    } else {
-        // hm, no hash means - ERROR
-        $valid = false;
     }
 
     return $valid;
@@ -1167,7 +1184,7 @@ function getJavaScriptTranslations() {
 function convertStringToArray($string = '', $seperator = ',', $mode = 'UNIQUE', $rmvDblWSp = true) {
     // clean up a seperator seperated string and return as array
     if (trim($string) === '') {
-        return array();
+        return [];
     }
     // replace all duplicate white chars by single space
     if ($rmvDblWSp) {
@@ -1175,8 +1192,8 @@ function convertStringToArray($string = '', $seperator = ',', $mode = 'UNIQUE', 
     }
     $string = explode($seperator, $string);
     $string = array_map('trim', $string);
-    $string = array_diff($string, array('', null, false));
-    if ($mode == 'UNIQUE') {
+    $string = array_diff($string, ['', null, false]);
+    if ($mode === 'UNIQUE') {
         $string = array_unique($string);
     }
 
@@ -2003,7 +2020,7 @@ function xss_clean($val) {
     // remove all non-printable characters. CR(0a) and LF(0b) and TAB(9) are allowed
     // this prevents some character re-spacing such as <java\0script>
     // note that you have to handle splits with \n, \r, and \t later since they *are* allowed in some inputs
-    $val = preg_replace('/([\x00-\x08][\x0b-\x0c][\x0e-\x20])/', '', $val);
+    $val = preg_replace('/[\x00-\x08\x0b-\x0c\x0e-\x20]/', '', $val);
     // straight replacements, the user should never need these since they're normal characters
     // this prevents like <IMG SRC=&#X40&#X61&#X76&#X61&#X73&#X63&#X72&#X69&#X70&#X74&#X3A&#X61&#X6C&#X65&#X72&#X74&#X28&#X27&#X58&#X53&#X53&#X27&#X29>
     $search = 'abcdefghijklmnopqrstuvwxyz';
@@ -2019,7 +2036,7 @@ function xss_clean($val) {
         $val = preg_replace('/(&#0{0,8}' . ord($search[$i]) . ';?)/', $search[$i], $val); // with a ;
     }
     // now the only remaining whitespace attacks are \t, \n, and \r
-    $ra1 = array(
+    $ra1 = [
         'javascript',
         'vbscript',
         'expression',
@@ -2040,8 +2057,8 @@ function xss_clean($val) {
         'bgsound',
         'title',
         'base',
-    );
-    $ra2 = array(
+    ];
+    $ra2 = [
         'onabort',
         'onactivate',
         'onafterprint',
@@ -2120,29 +2137,29 @@ function xss_clean($val) {
         'onstop',
         'onsubmit',
         'onunload',
-    );
+    ];
     $ra = array_merge($ra1, $ra2);
     $found = true; // keep replacing as long as the previous round replaced something
-    while ($found == true) {
+    while ($found === true) {
         $val_before = $val;
-        for ($i = 0, $ra_count = count($ra); $i < $ra_count; $i++) {
+        foreach ($ra as $i => $iValue) {
             $pattern = '/';
-            for ($j = 0; $j < strlen($ra[$i]); $j++) {
+            for ($j = 0, $jMax = strlen($iValue); $j < $jMax; $j++) {
                 if ($j > 0) {
                     $pattern .= '(';
                     $pattern .= '(&#[x|X]0{0,8}([9][a][b]);?)?';
                     $pattern .= '|(&#0{0,8}([9][10][13]);?)?';
                     $pattern .= ')?';
                 }
-                $pattern .= $ra[$i][$j];
+                $pattern .= $iValue[$j];
             }
             $pattern .= '/i';
-            $replacement = substr($ra[$i], 0, 2) . '<x>' . substr($ra[$i], 2); // add in <> to nerf the tag
+            $replacement = substr($iValue, 0, 2) . '<x>' . substr($iValue, 2); // add in <> to nerf the tag
             $val = preg_replace($pattern, $replacement, $val); // filter out the hex tags
-            if ($val_before == $val) {
-                // no replacements were made, so exit the loop
-                $found = false;
-            }
+        }
+        if ($val_before === $val) {
+            // no replacements were made in this round, so exit the loop
+            $found = false;
         }
     }
 
@@ -2150,7 +2167,7 @@ function xss_clean($val) {
 }
 
 function sanitize_multiple_emails($string) {
-    $string = preg_replace('/\s|\,]/', ';', $string);
+    $string = preg_replace('/[\s,]+/', ';', $string);
     $string = convertStringToArray($string, ';');
     $string = implode(';', $string);
 

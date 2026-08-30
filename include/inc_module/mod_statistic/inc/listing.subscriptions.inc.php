@@ -21,11 +21,11 @@ if (isset($_GET['delete'])) {
 }
 
 if (isset($_GET['blacklist'])) {
-    $sql = "DELETE FROM ".DB_PREPEND."phpwcms_log WHERE log_msg like '%".aporeplace($_GET['blacklist'])."'";
+    $sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_log WHERE log_msg LIKE ' . _dbEscapeLike($_GET['blacklist'], true, '%', '');
     @_dbQuery($sql, 'DELETE');
-    $sql = "DELETE FROM ".DB_PREPEND."phpwcms_address WHERE address_email like '".aporeplace($_GET['blacklist'])."' AND address_verified=0";
+    $sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_address WHERE address_email = ' . _dbEscape($_GET['blacklist']) . ' AND address_verified=0';
     @_dbQuery($sql, 'DELETE');
-    $sql  = 'INSERT INTO '.DB_PREPEND."phpwcms_blacklist (blacklist_email, blacklist_tstamp) VALUES ('".aporeplace($_GET['blacklist'])."','".date('Y-m-d H:m:s')."')";
+    $sql = 'INSERT INTO ' . DB_PREPEND . "phpwcms_blacklist (blacklist_email, blacklist_tstamp) VALUES (" . _dbEscape($_GET['blacklist']) . ", '" . date('Y-m-d H:i:s') . "')";
     @_dbQuery($sql, 'INSERT');
 }
 $_controller_link =  statistic_url('controller=subscriptions');

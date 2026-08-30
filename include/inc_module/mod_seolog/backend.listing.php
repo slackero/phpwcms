@@ -65,7 +65,7 @@ if(isset($_SESSION['filter_seo']) && is_array($_SESSION['filter_seo']) && count(
 
 	foreach($_SESSION['filter_seo'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
-		$_entry['filter_array'][] = "CONCAT(domain,query) LIKE '%".aporeplace($_entry['filter'])."%'";
+		$_entry['filter_array'][] = 'CONCAT(domain,query) LIKE ' . _dbEscapeLike($_entry['filter']);
 	}
 	if(count($_entry['filter_array'])) {
 

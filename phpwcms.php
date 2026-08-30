@@ -442,7 +442,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
                 }
 
                 // @phpstan-ignore-next-line
-                $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'data-confirm-type="warning" data-confirm-action="' . html($BL['modal_flush']) . '" onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\', \'' . html($BL['be_flush_image_cache_confirm']) . '\', \'' . html($BL['be_flush_image_cache_success']) . '\');" ');
+                $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'data-confirm-type="warning" data-confirm-action="' . html($BL['modal_flush']) . '" onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\', \'' . js_singlequote($BL['be_flush_image_cache_confirm']) . '\', \'' . js_singlequote($BL['be_flush_image_cache_success']) . '\');" ');
                 // @phpstan-ignore-next-line
                 $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'class="confirm-link" data-confirm-type="primary" data-confirm-action="' . html($BL['modal_move']) . '" data-confirm="' . html($BL['be_cnt_move_deleted_msg']) . '" ');
 
@@ -488,7 +488,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
               } else {
                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'; //Files Navigation/Reiter
                   switch ($files_folder) {
-                      case 0:    //Listing der Privaten Dateien
+                      case 0:    // List private files
                               if (isset($_GET['mkdir']) || (isset($_POST['dir_aktion']) && (int)$_POST['dir_aktion'] == 1)) {
                                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.newdir.tmpl.php';
                               }
@@ -502,25 +502,25 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
                                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editfile.tmpl.php';
                               }
                               if (!isset($_GET['upload']) && !isset($_GET['editfile']) && !isset($_GET['editdir']) && !isset($_GET['mkdir']) && !($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0)) {
-                                  include PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'; //Add listing function
-                                  include PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'; //additional privat functions
+                                  include PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'; // Add listing function
+                                  include PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'; // Additional private functions
                               }
                               break;
 
-                      case 1: //Funktionen zum Listen von Public Files
-                              include PHPWCMS_ROOT.'/include/inc_lib/files.public-functions.inc.php'; //Public Listing-Funktionen einfügen
-                              include PHPWCMS_ROOT.'/include/inc_tmpl/files.public.list.tmpl.php'; //Elemetares für Public Listing
+                      case 1: // Functions for listing public files
+                              include PHPWCMS_ROOT.'/include/inc_lib/files.public-functions.inc.php'; // Public listing functions
+                              include PHPWCMS_ROOT.'/include/inc_tmpl/files.public.list.tmpl.php'; // Public listing template
                               break;
 
-                      case 2:    //Dateien im Papierkorb
+                      case 2:    // Files in trash
                               include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.trash.tmpl.php';
                               break;
 
-                      case 3:    //Dateisuche
+                      case 3:    // Search files
                               include PHPWCMS_ROOT.'/include/inc_tmpl/files.search.tmpl.php';
                               break;
                   }
-                  include PHPWCMS_ROOT.'/include/inc_tmpl/files.abschluss.tmpl.php'; //Abschließende Tabellenzeile = dicke Linie
+                  include PHPWCMS_ROOT.'/include/inc_tmpl/files.abschluss.tmpl.php'; // Closing wrapper
               }
               break;
 
@@ -530,24 +530,23 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
                 $p = 0;
                 include PHPWCMS_ROOT.'/include/inc_tmpl/be_start.tmpl.php';
                 include PHPWCMS_TEMPLATE.'inc_default/startup.php';
-                // echo phpwcmsversionCheck();
                 $phpwcms['be_parse_lang_process'] = true;
             } else {
                 switch ($p) {
                     //case 0: include PHPWCMS_ROOT.'/include/inc_tmpl/message.center.tmpl.php'; break; //Messages Overview
                     //case 1: include PHPWCMS_ROOT.'/include/inc_tmpl/message.send.tmpl.php';   break;    //New Message
                     case 2: //Newsletter subscription
-                        if ($_SESSION['wcs_user_admin'] == 1) {
+                        if (($_SESSION['wcs_user_admin'] ?? 0) == 1) {
                             include PHPWCMS_ROOT . '/include/inc_tmpl/message.subscription.tmpl.php';
                         }
                         break;
                     case 3: //Newsletter
-                        if ($_SESSION['wcs_user_admin'] == 1) {
+                        if (($_SESSION['wcs_user_admin'] ?? 0) == 1) {
                             include PHPWCMS_ROOT . '/include/inc_tmpl/newsletter.list.tmpl.php';
                         }
                         break;
                     case 4: //Newsletter subscribers
-                        if ($_SESSION['wcs_user_admin'] == 1) {
+                        if (($_SESSION['wcs_user_admin'] ?? 0) == 1) {
                             include PHPWCMS_ROOT . '/include/inc_tmpl/message.subscribers.tmpl.php';
                         }
                         break;
@@ -660,7 +659,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
                 include PHPWCMS_ROOT.'/include/inc_tmpl/news.tmpl.php';
                 break;
 
-            case 6: // Artikel structur
+            case 6: // Article structure
               include PHPWCMS_ROOT.'/include/inc_lib/admin.structure.inc.php';
               if (isset($_GET['struct'])) {
                   include PHPWCMS_ROOT.'/include/inc_tmpl/admin.structform.tmpl.php';
@@ -681,7 +680,6 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
       default:
           include PHPWCMS_ROOT.'/include/inc_tmpl/be_start.tmpl.php';
           include PHPWCMS_TEMPLATE.'inc_default/startup.php';
-          // echo phpwcmsversionCheck();
           $phpwcms['be_parse_lang_process'] = true;
 
     }

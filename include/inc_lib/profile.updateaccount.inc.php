@@ -16,7 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
+if($_SESSION["wcs_user"] != "guest") { // Check for guest account
 
     $err = '';
 
@@ -114,7 +114,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
             headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=profile');
         }
     }
-} //Ende Prüfung Gastzugang
+} // End check for guest account
 
 // -----------------------------------------------------------------------------
 // Two-Factor Authentication Enable Handler

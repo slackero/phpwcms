@@ -8,13 +8,13 @@
  *
  **/
 
-//Funktionen zum Listen der privaten Dateien
+//Function for listing private files
 function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpwcms) {
 
     $pid = intval($pid);
     $userID = intval($userID);
 
-    //Folder Listing für Public files
+    //Folder listing for public files
     $sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE ".
            "f_pid=".$pid." AND ".
            "f_public=1 AND f_aktiv=1 AND ".
@@ -34,10 +34,10 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
 
         $dirname = html($row["f_name"]);
 
-        //Ermitteln des Aufklappwertes
+        //Determine toggle status
         $klapp_status = empty($_SESSION["pklapp"][$row["f_id"]]) ? 1 : 0;
 
-        //Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
+        //Check if dependent files/folders exist
         $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
                      "f_pid=".$row["f_id"]." AND f_uid=".$userID." AND ".
                      "f_public=1 AND f_aktiv=1 AND f_trash=0";
@@ -49,25 +49,25 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
             $count  = on_off($klapp_status, $dirname, 0, $counter);
         }
 
-        //Aufbau der Zeile
-        echo "<tr bgcolor=\"#EBF2F4\">\n"; //Einleitung Tabellenzeile
-        echo "<td>".$count; //Einleiten der Tabellenzelle
-        echo '<i class="fa ffolder fa-folder fa-fw" aria-hidden="true"></i>'; //Zellinhalt 1. Spalte
-        echo "<strong>".$dirname; //Zellinhalt 1. Spalte Fortsetzung
+        //Build row
+        echo "<tr bgcolor=\"#EBF2F4\">\n"; //Open table row
+        echo "<td>".$count; //Open cell
+        echo '<i class="fa ffolder fa-folder fa-fw" aria-hidden="true"></i>'; //Column 1 icon
+        echo "<strong>".$dirname; //Column 1 name
         if($count_wert) {
-            echo "</strong></a></td>\n"; //Schließen Zelle 1. Spalte
+            echo "</strong></a></td>\n"; //Close cell 1
         } else {
             echo "</strong></td>\n";
         }
-        //Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.
+        //Column 2 - action buttons etc.
         echo "<td></td>\n";
-        echo "</tr>\n"; //Abschluss Tabellenzeile
+        echo "</tr>\n"; //Close table row
 
-        //Weiter, wenn Unterstruktur
+        //Continue if sub-structure exists
         if(!$klapp_status && $count_wert) {
             list_public($row["f_id"], $counter+1, $zieldatei, $userID, $wcs_user_thumb, $phpwcms);
 
-            //Listing eventuell im Verzeichnis enthaltener Dateien
+            //Listing of files contained in the directory
             $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"]." AND f_uid=".$userID;
             $file_sql .= " AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
 
@@ -138,7 +138,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
                 }
             } //Ende Liste Dateien
         }
-        //Zaehler mitführen
+        // Increment counter
         $_SESSION["list_zaehler"]++;
     }
 
@@ -146,13 +146,13 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
 }
 
 function true_false($wert) {
-    //Wechselt den Wahr/Falsch wert zum Gegenteil: 1=>0 und 0=>1
+    // Toggle boolean value: 1=>0 and 0=>1
     return (intval($wert)) ? 0 : 1;
 }
 
 function on_off($wert, $string, $art=1, $counter=0) {
-    //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
-    //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
+    // Generate status icon for expand/collapse
+    // If art = 1 return character (+/-), otherwise icon
     if($wert) {
         return ($art == 1) ? '+' : '<i class="fa fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
     } else {
@@ -161,7 +161,7 @@ function on_off($wert, $string, $art=1, $counter=0) {
 }
 
 function list_public_root($wert) {
-    //Checken ob public root files für user gezeigt werden sollen
+    // Check if public root files should be displayed for user
     return ($wert) ? 1 : 0;
 }
 

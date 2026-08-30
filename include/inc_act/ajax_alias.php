@@ -16,23 +16,23 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
-if($_SESSION["wcs_user_lang_custom"]) { //use custom lang if available -> was set in login.php
-    include(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php');
+// use custom lang if available -> was set in login.php
+if(!empty($_SESSION["wcs_user_lang_custom"])) {
+    include PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php';
 }
-
 if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {
     die('Sorry, access forbidden');
 }
 
 //get variables
-$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
+$action = $_REQUEST['action'] ?? '';
 $alias = isset($_REQUEST['article_alias']) ? clean_slweg($_REQUEST['article_alias'], 255) : '';
 $acatalias = isset($_REQUEST['acat_alias']) ? clean_slweg($_REQUEST['acat_alias'], 255) : '';
 $article_id = isset($_REQUEST['article_id']) ? intval($_REQUEST['article_id']) : '';
 $acat_id = isset($_REQUEST['acat_id']) ? intval($_REQUEST['acat_id']) : '';
 $acattemplate = isset($_REQUEST['template']) ? intval($_REQUEST['template']) : '0';
 
-if ($phpwcms['charset'] == 'utf-8') {
+if (PHPWCMS_CHARSET === 'utf-8') {
     $article_description = isset($_REQUEST['article_description']) ? clean_slweg($_REQUEST["article_description"], 255) : '';
     $acat_pagetitle = isset($_REQUEST['acat_pagetitle']) ? clean_slweg($_REQUEST["acat_pagetitle"], 255) : '';
 } else {
@@ -40,7 +40,7 @@ if ($phpwcms['charset'] == 'utf-8') {
     $acat_pagetitle = isset($_REQUEST['acat_pagetitle']) ? clean_slweg(mb_convert_encoding($_REQUEST["acat_pagetitle"], PHPWCMS_CHARSET), 255) : '';
 }
 
-if($action == 'form' && $article_id) {
+if($action === 'form' && $article_id) {
     $content['current_article'] = _dbGet('phpwcms_article', '*', 'article_id='._dbEscape($article_id), '', '', 1);
 
     echo '<div class="p-2">'.LF;
@@ -68,7 +68,8 @@ if($action == 'form' && $article_id) {
     echo '</div>'.LF;
     echo '</div>'.LF;
 }
-if($action == 'form' && $acat_id) {
+
+if($action === 'form' && $acat_id) {
     $content['current_articlecat'] = _dbGet('phpwcms_articlecat', '*', 'acat_id='._dbEscape($acat_id), '', '', 1);
     $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($content['current_articlecat'][0]['acat_template']), '', '', 1);
     $acat_template = $content['current_template'][0]['template_name'];
@@ -95,8 +96,7 @@ if($action == 'form' && $acat_id) {
     echo '</div>'.LF;
 }
 
-if($action == 'update') {
-
+if($action === 'update') {
     $article_alias = proof_alias($article_id, $alias, 'ARTICLE');
 
     $sql_alias = "UPDATE ".DB_PREPEND."phpwcms_article SET ";
@@ -111,11 +111,9 @@ if($action == 'update') {
     echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$article_id.'">'.(empty($article_alias) ? 'no alias' : html_specialchars($article_alias) ).'</a>';
 
     echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('alias-".$article_id."','','".$article_id."');".'"><i class="fa fa-pencil-alt"></i></a>';
-
 }
 
-if($action == 'updatecat') {
-
+if($action === 'updatecat') {
     $acat_alias = proof_alias($acat_id, $acatalias, 'CATEGORY');
 
     $sql_alias = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET ";
@@ -131,25 +129,21 @@ if($action == 'updatecat') {
     echo $content['current_template'][0]['template_name'] . ' | ';
 
     echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$acat_id.'">'.(empty($acat_alias) ? 'no alias' : html_specialchars($acat_alias) ).'</a>';
-
     echo '<a href="phpwcms.php?do=article&p=6&struct=0&cat='.$acat_id.'">'.(empty($acat_alias) ? 'no alias' : html_specialchars($acat_alias) ).'</a>';
-
     echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('catalias-".$acat_id."', '".$acat_id."','');".'"><i class="fa fa-pencil-alt"></i></a>';
-
 }
 
-if($action == 'close' && $article_id) {
+if($action === 'close' && $article_id) {
     $content['current_article'] = _dbGet('phpwcms_article', 'article_alias, article_description', 'article_id='._dbEscape($article_id), '', '', 1);
 
     echo '<div class="btn btn-sm '.(empty($content['current_article'][0]["article_alias"]) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
     echo '<div class="btn btn-sm '.(empty($content['current_article'][0]["article_description"]) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_article_description'].'">D</div>';
 
     echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$content['current_article'][0]["article_id"].'">'.(empty($content['current_article'][0]["article_alias"]) ? 'no alias' : html_specialchars($content['current_article'][0]["article_alias"]) ).'</a>';
-
     echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('alias-".$article_id."', '".$article_id."');".'"><i class="fa fa-pencil-alt"></i></a>';
 }
 
-if($action == 'close' && $acat_id) {
+if($action === 'close' && $acat_id) {
     $content['current_acat'] = _dbGet('phpwcms_articlecat', 'acat_alias, acat_pagetitle', 'acat_id='._dbEscape($acat_id), '', '', 1);
 
     echo '<div class="btn btn-sm '.(empty($content['current_acat'][0]["acat_alias"]) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
@@ -161,6 +155,3 @@ if($action == 'close' && $acat_id) {
     echo empty($content['current_acat'][0]["acat_alias"]) ? 'no alias' : $content['current_acat'][0]["acat_alias"];
     echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('catalias-".$acat_id."', '".$acat_id."','');".'"><i class="fa fa-pencil-alt"></i></a>';
 }
-
-
-

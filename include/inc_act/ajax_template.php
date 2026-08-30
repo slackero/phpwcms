@@ -17,7 +17,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
-if($_SESSION["wcs_user_lang_custom"]) { //use custom lang if available -> was set in login.php
+if(!empty($_SESSION["wcs_user_lang_custom"])) { //use custom lang if available -> was set in login.php
     include(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php');
 }
 
@@ -42,9 +42,9 @@ if ($action == 'form') {
     $sql .= "ar.article_id = ac.acontent_aid ";
     $sql .= "WHERE ac.acontent_type="._dbEscape($ctnid)." AND acontent_trash=0 AND article_deleted = 0 AND ";
     if ($ctnid == '8') {
-        $sql .= " acontent_form like '%".$ctntemplate."%'";
+        $sql .= ' acontent_form LIKE ' . _dbEscapeLike($ctntemplate);
     } else {
-        $sql .= " acontent_template ="._dbEscape($ctntemplate);
+        $sql .= ' acontent_template = ' . _dbEscape($ctntemplate);
     }
 
 

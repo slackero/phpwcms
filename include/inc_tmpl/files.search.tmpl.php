@@ -49,16 +49,16 @@ if(isset($_POST["file_search"])) {
                 default: $search["which"]="(f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].")"; break;
             }
 
-            $file_key = get_list_of_file_keywords(); //Auslesen der File Schlüsselwörter
+            $file_key = get_list_of_file_keywords(); // Read file keywords
 
-            //Aufbau des eigentlichen Suchstrings
-            $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND f_trash=0 AND f_kid=1 AND ".$search["which"]; //ob public oder private order keine Angabe
+            // Build search query
+            $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND f_trash=0 AND f_kid=1 AND ".$search["which"]; // public or private
             $result = _dbQuery($sql);
             if(isset($result[0]['f_id'])) {
                 foreach($result as $row) {
                     $search["string"]  = $row["f_name"]." ".$row["f_shortinfo"]." ".$row["f_longinfo"];
                     $search["string"]  = str_replace(array("\r\n", "\n"), " ", $search["string"]);
-                    $search["string"] .= add_keywords_to_search ($file_key, $row["f_keywords"]); //fügt freie Keywords zum Suchstring hinzu
+                    $search["string"] .= add_keywords_to_search ($file_key, $row["f_keywords"]); // Append keywords to search string
 
                     foreach($search["key"] as $value) {
                         if(preg_match('/' .preg_quote($value, '/'). '/i', $search["string"])) {
@@ -69,14 +69,14 @@ if(isset($_POST["file_search"])) {
                                     $search["result"][$row["f_id"]]++;
                                 }
                             } else {
-                                $search["result"][$row["f_id"]] = 1; //OR clause
+                                $search["result"][$row["f_id"]] = 1; // OR clause
                             }
                         }
                     }
                 }
                 if(isset($search["result"]) && sizeof($search["result"]) && $search["andor"]) {
-                    //Prüfen, ob die AND bedingung erfüllt ist
-                    //gilt nur, wenn Anzahl Suchworte = Anzahl Funde im String
+                    // Check if AND condition is satisfied
+                    // Only applies if keyword count equals match count
                     $search["count_key"] = sizeof($search["key"]);
                     foreach($search["result"] as $key => $value) {
                         if($search["count_key"] != $value) {
@@ -139,7 +139,7 @@ if(isset($_POST["file_search"])) {
 <?php
 
 if(isset($search["result"])) {
-    //Beginn Tabelle für Dateilisting
+    // Start table for file listing
     echo "<div class=\"table-responsive\">\n";
     echo "<table class=\"table table-sm table-valign-middle table-borderless border-top mb-0\">\n";
 
@@ -152,7 +152,7 @@ if(isset($search["result"])) {
         $sl++;
     }
 
-    //Listing der gefundenen Dateien
+    // List found files
     $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE (" . (trim($search["filelist"]) ? $search["filelist"] : 0) . ") AND f_kid=1 AND f_trash=0 ORDER BY f_name";
     $file_result = _dbQuery($file_sql);
     if(isset($file_result[0]['f_id'])) {
@@ -243,12 +243,12 @@ if(isset($search["result"])) {
             echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_nonfound'];
             echo "</div></td></tr>\n";
         }
-    } //Ende Liste Dateien
+    } // End file list
 
-    echo "</table>\n"; //Ende Tabelle
+    echo "</table>\n"; // End table
     echo "</div>\n";
 
-} elseif(isset($search["string"])) { //kein gültiges Suchergebnis
+} elseif(isset($search["string"])) { // No valid search results
     echo "<div class=\"alert alert-danger mt-3\">";
     echo $BL['be_fsearch_nonfound'];
     echo "</div>";

@@ -79,6 +79,7 @@ $phpwcms['multimedia_ext'] = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,sw
 $phpwcms['inline_download'] = 1; //1 = try to display download documents in new window; 0 = show safe under dialog
 $phpwcms['sanitize_dlname'] = 0; // if there are problems downloading files with special chars in name try to enable this setting
 $phpwcms['form_tracking'] = 1; //make a db entry for each form
+$phpwcms['form_salt'] = ''; //optional secret salt for form tracking (defaults to db_pass if empty)
 $phpwcms['formmailer_set'] = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling
 $phpwcms['allow_cntPHP_rt'] = 0; //allow PHP replacement tags and includes in content parts
 $phpwcms['GETparameterName'] = 'id'; //must have a minimum of 2 chars 

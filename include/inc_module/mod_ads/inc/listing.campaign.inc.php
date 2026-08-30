@@ -74,7 +74,7 @@ if(isset($_SESSION['filter_ad_campaign']) && is_array($_SESSION['filter_ad_campa
 
 	foreach($_SESSION['filter_ad_campaign'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
-		$_entry['filter_array'][] = "CONCAT(adcampaign_title, adcampaign_comment) LIKE '%".aporeplace($_entry['filter'])."%'";
+		$_entry['filter_array'][] = 'CONCAT(adcampaign_title, adcampaign_comment) LIKE ' . _dbEscapeLike($_entry['filter']);
 	}
 	if(count($_entry['filter_array'])) {
 

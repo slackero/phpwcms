@@ -15,12 +15,12 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-//Feststellen, ob überhaupt Dateien/Ordner im Papierkorb des Users vorhanden sind
+// Check if files/folders exist in trash for current user
 $count_user_files = _dbQuery("SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=1", 'COUNT');
 
-//Wenn überhaupt Papierkorb-Dateien für User vorhanden, dann Listing
+// If trash files exist, list them
 if($count_user_files) {
-    //Beginn Tabelle für Dateilisting
+    // Start table for file listing
     echo "<div class=\"table-responsive\">\n";
     echo "<table class=\"table table-sm table-valign-middle\">\n";
     include_once PHPWCMS_ROOT."/include/inc_lib/files.private-delfilelist.inc.php";

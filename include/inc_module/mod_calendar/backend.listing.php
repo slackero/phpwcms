@@ -141,7 +141,7 @@ if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar'])
 
     foreach($_SESSION['filter_calendar'] as $_entry['filter']) {
         //usr_name, usr_login, usr_email
-        $_entry['filter_array'][] = "CONCAT(calendar_title, calendar_tag, calendar_text) LIKE '%".aporeplace($_entry['filter'])."%'";
+        $_entry['filter_array'][] = 'CONCAT(calendar_title, calendar_tag, calendar_text) LIKE ' . _dbEscapeLike($_entry['filter']);
     }
     if(count($_entry['filter_array'])) {
 

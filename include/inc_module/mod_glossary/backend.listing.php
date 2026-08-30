@@ -77,7 +77,7 @@ if(isset($_SESSION['filter_glossary']) && is_array($_SESSION['filter_glossary'])
 
 	foreach($_SESSION['filter_glossary'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
-		$_entry['filter_array'][] = "CONCAT(glossary_title, glossary_tag, glossary_keyword, glossary_text) LIKE '%".aporeplace($_entry['filter'])."%'";
+		$_entry['filter_array'][] = 'CONCAT(glossary_title, glossary_tag, glossary_keyword, glossary_text) LIKE ' . _dbEscapeLike($_entry['filter']);
 	}
 	if(count($_entry['filter_array'])) {
 

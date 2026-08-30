@@ -76,8 +76,8 @@ if (isset($_SESSION['filter_shop_category']) && is_array($_SESSION['filter_shop_
 
     foreach ($_SESSION['filter_shop_category'] as $_entry['filter']) {
         //usr_name, usr_login, usr_email
-        $_entry['filter_array'][] = "cat_name LIKE '%" . aporeplace($_entry['filter']) . "%'";
-        $_entry['filter_array'][] = "cat_info LIKE '%" . aporeplace($_entry['filter']) . "%'";
+        $_entry['filter_array'][] = 'cat_name LIKE ' . _dbEscapeLike($_entry['filter']);
+        $_entry['filter_array'][] = 'cat_info LIKE ' . _dbEscapeLike($_entry['filter']);
     }
     if (count($_entry['filter_array'])) {
 

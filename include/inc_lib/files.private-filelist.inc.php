@@ -55,11 +55,11 @@ if(isset($file_result[0]['f_id'])) {
         echo "></i></span></td>\n<td>";
         echo $file_row['edit'] . $filename."</a></td>\n";
 
-        //Aufbauen Buttonleiste für jeweilige Datei
+        // Build button bar for file
         echo '<td class="text-end text-nowrap px-0">'.LF;
         echo '<div class="btn-group btn-group-sm" role="group">'.LF;
 
-        //Button zum Bearbeiten der Dateiinformationn
+        // Edit file info button
         echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
 
         echo '<div class="btn-group btn-group-sm" role="group">';
@@ -67,18 +67,18 @@ if(isset($file_result[0]['f_id'])) {
         echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$file_row["f_id"].'">';
         echo '<h6 class="dropdown-header">'.$filename.'</h6>';
 
-        //Button zum Downloaden der Datei
+        // Download file button
         echo '<a class="dropdown-item" href="include/inc_act/act_download.php?dl='.$file_row["f_id"].
              '"  target="_blank" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'">'.
              '<i class="ms-1 fa fa-fw fa-download" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_dlfile'].'</a>'; //target='_blank'
-        //Button zum Erzeugen eines Neuen Unterverzeichnisses
+        // Cut / clipboard file button
         if($cutID == $file_row["f_id"]) {
             echo '<i class="fa fa-cut disabled" aria-hidden="true" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_clipfile'].': '.$filename.'"></i>';
         } else {
             echo '<a class="dropdown-item" href="'.$zieldatei.'&amp;cut='.$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'">';
             echo '<i class="fa-fw ms-1 fa fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
         }
-        //Button zum Löschen der Datei
+        // Delete / move to trash button
         if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
             //if user is owner then delete button is active
             $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
@@ -90,9 +90,9 @@ if(isset($file_result[0]['f_id'])) {
         }
         echo '</div></div>'; // Close dropdown-menu & inner btn-group
 
-        //Button zum Umschalten zwischen Aktiv/Inaktiv
+        // Toggle active/inactive button
         echo '<button id="abtnfileaktiv'.$file_row["f_id"].'" class="btn fa fa-fw btn-xs visible '.($file_row["f_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].': '.$filename.'"></button>';
-        //Button zum Umschalten zwischen Public/Non-Public
+        // Toggle public/private button
         echo '<button id="abtnfilepublic'.$file_row["f_id"].'" class="btn fa fa-fw btn-xs public '.($file_row["f_public"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cpublicfile'].': '.$filename.'"></button>';
         echo '</div>'; // Close outer btn-group
 
