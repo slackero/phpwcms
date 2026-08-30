@@ -28,7 +28,7 @@ help:
 	@echo "  make docker-shell    - Open bash shell inside web container"
 
 sync:
-	rsync -av --exclude='.git' --exclude='include/config/conf.inc.php' ./ $(SYNC_TARGET)/
+	git ls-files -z --cached --others --exclude-standard | rsync -av --files-from=- ./ $(SYNC_TARGET)/
 
 minify-sync: minify sync
 

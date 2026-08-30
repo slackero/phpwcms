@@ -49,6 +49,8 @@ if (isset($_GET['open'])) {
 
 $js_aktion = isset($_GET['opt']) ? intval($_GET['opt']) : 1;
 $field = isset($_GET['field']) ? clean_slweg($_GET['field']) : 'id';
+// restrict selectable items: 'category' shows structure levels only, 'article' allows articles only
+$idtype = isset($_GET['idtype']) && in_array($_GET['idtype'], array('article', 'category'), true) ? $_GET['idtype'] : '';
 if (isset($_GET['CKEditorFuncNum'])) {
     $ckeditor_action = intval($_GET['CKEditorFuncNum']);
     $_SESSION['CKEditorFuncNum'] = $ckeditor_action;
@@ -157,7 +159,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     $child_count = get_root_childcount(0);
     $an = $indexpage['acat_name'];
-    $field_param = isset($_GET['field']) ? '&amp;field=' . clean_slweg($_GET['field']) : '';
+    $field_param = (isset($_GET['field']) ? '&amp;field=' . clean_slweg($_GET['field']) : '') . ($idtype ? '&amp;idtype=' . $idtype : '');
     $is_root_open = !empty($_SESSION['structure'][0]);
 
     $a = '<tr bgcolor="#e8e8e8" class="struct">';
@@ -176,7 +178,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     $a .= '</td>';
     $a .= '<td width="97%"><strong class="ms-1">';
-    if ($js_aktion == 5) {
+    if ($js_aktion == 5 || $idtype == 'article') {
         $a .= $an;
     } elseif ($js_aktion == 16) {
         $a .= '<a href="#" onclick="' . str_replace('%s', 'id=0', $js) . '" title="">' . $an . '</a>';
@@ -221,6 +223,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 function struct_list($id, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode = 1, $counter = 0, $js = '', $js_aktion = 0)
 {
+    global $idtype;
 
     $counter++;
     $sql = 'SELECT t1.*, t2.template_default, t2.template_name, t2.template_trash FROM ' . DB_PREPEND . 'phpwcms_articlecat t1 ';
@@ -245,9 +248,9 @@ function struct_list($id, $copy_article_content, $cut_article_content, $copy_id,
 
 function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $listmode, $cut_article, $js, $js_aktion) {
 
-    global $BL, $field;
+    global $BL, $field, $idtype;
 
-    $field_param = !empty($field) ? '&amp;field=' . clean_slweg($field) : '';
+    $field_param = (!empty($field) ? '&amp;field=' . clean_slweg($field) : '') . ($idtype ? '&amp;idtype=' . $idtype : '');
     $child_count = get_root_childcount($struct[$key]['acat_id']);
     $is_open = !empty($_SESSION['structure'][$struct[$key]['acat_id']]);
 
@@ -282,7 +285,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= ' fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="' . html($info) . '"></i>';
     $a .= '</td>';
     $a .= '<td width="95%"><strong>';
-    if ($js_aktion == 5) {
+    if ($js_aktion == 5 || $idtype == 'article') {
         $a .= $an;
     } elseif ($js_aktion == 16) {
         $a .= '<a href="#" onclick="' . str_replace('%s', 'id=' . $struct[$key]['acat_id'], $js) . '" title="">' . $an . '</a>';
@@ -319,7 +322,12 @@ function get_article_content_count($id) {
 
 function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktion) {
 
-    global $BL;
+    global $BL, $idtype;
+
+    // category-only mode: do not list articles
+    if ($idtype == 'category') {
+        return;
+    }
 
     $article = array();  // empty article array
     $sort_array = [];  // empty array to store all sort values for the category
