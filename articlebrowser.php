@@ -38,11 +38,9 @@ if (empty($_SESSION['wcs_user_lang'])) {
 if (isset($_GET['open'])) {
     list($open_id, $open_value) = explode(':', $_GET['open']);
     $open_id = intval($open_id);
-    if (empty($open_value)) {
-        unset($_SESSION['structure'][$open_id]);
-    } else {
-        $_SESSION['structure'][$open_id] = $open_value;
-    }
+    $_SESSION['structure'][$open_id] = empty($open_value) ? 0 : 1;
+} elseif (!isset($_SESSION['structure'][0])) {
+    $_SESSION['structure'][0] = 1;
 }
 
 $js_aktion = isset($_GET['opt']) ? intval($_GET['opt']) : 1;
@@ -92,7 +90,6 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
 
 checkLogin();
-validate_csrf_tokens();
 define('CSRF_GET_TOKEN', get_token_get_string());
 
 require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
@@ -162,14 +159,15 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     $child_count = get_root_childcount(0);
     $an = $indexpage['acat_name'];
     $field_param = isset($_GET['field']) ? '&amp;field=' . clean_slweg($_GET['field']) : '';
+    $is_root_open = !empty($_SESSION['structure'][0]);
 
     $a = '<tr bgcolor="#e8e8e8" class="struct">';
     $a .= '<td>';
     $a .= '<table class="table-borderless w-100"><tr>';
     $a .= '<td class="text-nowrap">';
-    $a .= $child_count ? '<a href="articlebrowser.php?' . CSRF_GET_TOKEN . '&amp;opt=' . $js_aktion . $field_param . '&amp;open=0:' . ((!empty($_SESSION['structure'][0])) ? 0 : 1) . '">' : '';
+    $a .= $child_count ? '<a href="articlebrowser.php?opt=' . $js_aktion . $field_param . '&amp;open=0:' . ($is_root_open ? 0 : 1) . '">' : '';
 
-    $a .= '<i class="fa fa-caret-' . (($child_count) ? (empty($_SESSION['structure'][0]) ? 'right' : 'down') : 'right');
+    $a .= '<i class="fa fa-caret-' . (($child_count) ? ($is_root_open ? 'down' : 'right') : 'right');
     $a .= ' fa-fw" aria-hidden="true"></i>' . (($child_count) ? '</a>' : '');
 
     $info = '<table class="text-start"><tr><td>ID:</td><td><b>0</b></td></tr>';
@@ -193,8 +191,10 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     $listmode = 0;
     $counter = 0;
 
-    struct_articlelist(0, 0, $indexpage['acat_order'], $js, $js_aktion);
-    struct_list(0, 0, 0, 0, 0, 0, 0, $listmode, $counter, $js, $js_aktion);
+    if ($is_root_open) {
+        struct_articlelist(0, 0, $indexpage['acat_order'], $js, $js_aktion);
+        struct_list(0, 0, 0, 0, 0, 0, 0, $listmode, $counter, $js, $js_aktion);
+    }
     ?></table>
 
 <script>
@@ -250,14 +250,15 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 
     $field_param = !empty($field) ? '&amp;field=' . clean_slweg($field) : '';
     $child_count = get_root_childcount($struct[$key]['acat_id']);
+    $is_open = !empty($_SESSION['structure'][$struct[$key]['acat_id']]);
 
     $an = html($struct[$key]['acat_name']);
     $a = '<tr class="structarticle">';
     $a .= '<td width="80%">';
     $a .= '<table class="table-borderless"' . '><tr>';
     $a .= '<td class="text-end text-nowrap">';
-    $a .= ($child_count) ? '<a href="articlebrowser.php?' . CSRF_GET_TOKEN . '&amp;opt=' . $js_aktion . $field_param . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . (!empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 0 : 1)) . '">' : '';
-    $a .= '<i class="fa fa-caret-' . ($child_count ? (empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 'right' : 'down') : 'right') . ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>' . ($child_count ? '</a>' : '');
+    $a .= ($child_count) ? '<a href="articlebrowser.php?opt=' . $js_aktion . $field_param . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . ($is_open ? 0 : 1)) . '">' : '';
+    $a .= '<i class="fa fa-caret-' . ($child_count ? ($is_open ? 'down' : 'right') : 'right') . ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>' . ($child_count ? '</a>' : '');
 
     $info = '<table class="text-start">';
     $info .= '<tr><td>ID:</td><td><b>' . $struct[$key]['acat_id'] . '</b></td></tr>';

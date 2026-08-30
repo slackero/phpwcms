@@ -51,9 +51,9 @@ $wcs_content_type = array(
 );
 
 // set module content parts = 30
-if(count($phpwcms['modules'])) {
+if(!empty($phpwcms['modules']) && is_array($phpwcms['modules'])) {
     foreach($phpwcms['modules'] as $value) {
-        if($value['cntp']) {
+        if(!empty($value['cntp'])) {
             $wcs_content_type[30] = $BL['be_ctype_module'];
             break;
         }
