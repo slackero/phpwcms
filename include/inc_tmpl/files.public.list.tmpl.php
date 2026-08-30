@@ -132,7 +132,7 @@ if($count_user_files) { // If public files exist, list them
                         echo '<td class="text-end text-nowrap px-0">';
                         echo "<a href=\"include/inc_act/act_download.php?pl=1&dl=".$file_row["f_id"];
                         echo "\" target=\"_blank\" title=\"".$BL['be_fprivfunc_dlfile'].": ".$filename."\">";
-                        echo '<i class="btn btn-sm btn-blue me-1 fa fa-download" aria-hidden="true"></i></a>';
+                        echo '<i class="fa fa-download me-1 text-muted" aria-hidden="true"></i></a>';
                         echo "</td>\n";
                         echo "</tr>\n";
 

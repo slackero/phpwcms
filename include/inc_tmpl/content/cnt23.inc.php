@@ -475,7 +475,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         <a class="nav-link" id="cform-tab-fields" data-bs-toggle="tab" href="#cform-pane-fields" role="tab" aria-controls="cform-pane-fields" aria-selected="false">
             <i class="fas fa-list me-1"></i> <?php echo $BL['be_ctype_simpleform']; ?>
             <?php if (!empty($content['form']['fields'])): ?>
-                <span class="badge rounded-pill badge-secondary ms-1"><?php echo count($content['form']['fields']); ?></span>
+                <span class="badge rounded-pill bg-secondary ms-1"><?php echo count($content['form']['fields']); ?></span>
             <?php endif; ?>
         </a>
     </li>
@@ -1400,7 +1400,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                     <button class="btn btn-success text-nowrap" onclick="window.open('<?php echo $result_download_link; ?>', '_new');" class="p-3">
                         <i class="fas fa-file-excel text-light"></i>
                         <?php echo $BL['be_cnt_download']; ?>
-                        <span class="badge rounded-pill badge-light"><?php echo $entries; ?></span>
+                        <span class="badge rounded-pill bg-light"><?php echo $entries; ?></span>
                     </button>
                     <?php
                 endif;

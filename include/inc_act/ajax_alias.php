@@ -48,7 +48,7 @@ if($action === 'form' && $article_id) {
     if (!empty($content['current_article'][0]['article_keyword'])) {
         $kw_str = '';
         foreach (convertStringToArray($content['current_article'][0]['article_keyword'], ',') as $kw) {
-            $kw_str .= '<span class="badge badge-light border fw-normal me-1">' . html_specialchars($kw) . '</span>';
+            $kw_str .= '<span class="badge bg-light border fw-normal me-1">' . html_specialchars($kw) . '</span>';
         }
     }
     echo '<div class="form-group row g-2 align-items-center my-0"><span class="col-sm-3 col-form-label text-end fw-bold">'.$BL['be_article_akeywords'] .':</span><div class="col-sm-9"> '. $kw_str .'</div></div>';

@@ -285,9 +285,9 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
               $url = (in_array($_SESSION["wcs_user_id"], $group["member"])) ? 'phpwcms.php?do=admin&amp;p=1&amp;u='.$row["group_id"] : '#';
               echo '<div class="col-sm-6 col-md-4">';
               if (in_array($new_user_id, $group["member"])) {
-                echo ' <a href="'.$url.'" class="badge badge-success mt-2"> ';
+                echo ' <a href="'.$url.'" class="badge bg-success mt-2"> ';
               } else {
-                echo ' <a href="'.$url.'" class="badge badge-danger mt-2"> ';
+                echo ' <a href="'.$url.'" class="badge bg-danger mt-2"> ';
               }
               if ($row["group_syskey"] != '') {
                 echo $groupnames[$row["group_syskey"]];

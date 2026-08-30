@@ -409,7 +409,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
 
             $a .= '<td class="w-80"><i class="fa fa-list-alt fa-fw me-1 aclist-'.($counter).'" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="'.html($info).'"></i>';
             $a .= '<span class="badge ' . $block_class . ' fw-normal badge-align me-1">{' . html($block) . '}</span>';
-            $a .= '<span class="badge badge-secondary fw-normal badge-align me-1">' . html($cntpart_type) . '</span>';
+            $a .= '<span class="badge bg-secondary fw-normal badge-align me-1">' . html($cntpart_type) . '</span>';
             if (!empty($article_content['acontent_title'])) {
                 $a .= html($article_content['acontent_title']);
             }

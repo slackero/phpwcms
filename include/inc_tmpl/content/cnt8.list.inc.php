@@ -32,7 +32,7 @@ if (is_array($cinfo_alink)) {
     $ids = [];
     foreach ($cinfo_alink as $value) {
         if (intval($value)) {
-            $ids[] = '<span class="badge badge-info fw-normal badge-align">AID: ' . intval($value) . '</span>';
+            $ids[] = '<span class="badge bg-info fw-normal badge-align">AID: ' . intval($value) . '</span>';
         }
     }
     if (count($ids)) {

@@ -194,20 +194,20 @@ if(isset($search["result"])) {
 
             if($file_row['edit']) {
                 echo $file_row['edit'];
-                echo '<i class="btn btn-sm btn-blue fa fa-pencil-alt me-1"></i></a>';
+                echo '<i class="fa fa-pencil-alt me-1 text-muted"></i></a>';
             }
 
             echo '<a href="include/inc_act/act_download.php?pl=1&dl='.$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'" target="_blank">';
-            echo '<i class="btn btn-sm btn-blue me-1 fa fa-download" aria-hidden="true"></i></a>';
+            echo '<i class="fa fa-download me-1 text-muted" aria-hidden="true"></i></a>';
 
             if ($has_filedelete_permission || $file_row['f_uid'] == intval($_SESSION['wcs_user_id'])) {
                 //if user is owner then delete button is active
                 echo '<a href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'%7C'.'1'.'" ';
                 echo 'data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"alert('";
                 echo $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
-                echo "');\">", '<i class="btn btn-sm btn-blue me-1 fa fa-trash-alt" aria-hidden="true"></i></a>';
+                echo "');\">", '<i class="fa fa-trash-alt me-1 text-muted" aria-hidden="true"></i></a>';
             } else {
-                echo '<i class="btn btn-sm btn-blue me-1 fa fa-trash-alt disabled" aria-hidden="true" style="pointer-events: none; opacity: 0.5;"></i>';
+                echo '<i class="fa fa-trash-alt me-1 text-muted" aria-hidden="true" style="pointer-events: none; opacity: 0.5;"></i>';
             }
             echo "</td>";
             echo "</tr>";

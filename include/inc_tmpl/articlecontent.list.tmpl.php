@@ -79,7 +79,7 @@ $(function() {
             <h4 class="mb-0 fw-bold me-2">
               <a class="text-dark" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id']; ?>" title="<?php echo $BL['be_article_cnt_ledit']; ?>"><?php echo html($article['article_title']); ?></a>
             </h4>
-            <span class="badge badge-secondary fw-normal">AID: <?php echo $article['article_id']; ?></span>
+            <span class="badge bg-secondary fw-normal">AID: <?php echo $article['article_id']; ?></span>
             <?php if(!empty($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) > 0): ?>
               <span class="ms-2 flag-icon flag-icon-<?php echo ($lang = strtolower(empty($article['article_lang']) ? $phpwcms['default_lang'] : $article['article_lang'])); ?>" data-bs-toggle="tooltip" title="<?php echo get_language_name($lang); ?>"></span>
             <?php endif; ?>
@@ -123,7 +123,7 @@ $(function() {
                 <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_article_cat']; ?>:</td>
                 <td>
                     <i class="fa fa-folder-open text-muted me-1"></i><?php echo html(!empty($article['article_cat_name']) ? $article['article_cat_name'] : $article['article_cat']); ?>
-                    <span class="badge badge-secondary fw-normal badge-align badge-align-t3 ms-1">ID: <?php echo $article['article_catid']; ?></span>
+                    <span class="badge bg-secondary fw-normal badge-align badge-align-t3 ms-1">ID: <?php echo $article['article_catid']; ?></span>
                 </td>
               </tr>
               <?php
@@ -175,7 +175,7 @@ $(function() {
                 if (!empty($article['article_keyword'])) {
                     $keywords = convertStringToArray($article['article_keyword'], ',');
                     foreach ($keywords as $keyword) {
-                        echo '<span class="badge badge-light border fw-normal me-1">' . html($keyword) . '</span>';
+                        echo '<span class="badge bg-light border fw-normal me-1">' . html($keyword) . '</span>';
                     }
                 } else {
                     echo '<span class="text-muted">–</span>';
@@ -232,20 +232,20 @@ $(function() {
                 <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_ftptakeover_status']; ?>:</td>
                 <td>
                   <div class="d-flex flex-wrap" style="gap: 4px;">
-                    <span class="badge <?php echo empty($article['article_nositemap']) ? 'badge-success' : 'badge-secondary'; ?>"><?php echo $BL['be_ctype_sitemap']; ?></span>
-                    <span class="badge <?php echo empty($article['article_nosearch']) ? 'badge-success' : 'badge-secondary'; ?>"><?php echo $BL['be_fsearch_searchlabel']; ?></span>
-                    <span class="badge <?php echo empty($article['article_norss']) ? 'badge-success' : 'badge-secondary'; ?>"><?php echo $BL['be_no_rss']; ?></span>
+                    <span class="badge <?php echo empty($article['article_nositemap']) ? 'bg-success' : 'bg-secondary'; ?>"><?php echo $BL['be_ctype_sitemap']; ?></span>
+                    <span class="badge <?php echo empty($article['article_nosearch']) ? 'bg-success' : 'bg-secondary'; ?>"><?php echo $BL['be_fsearch_searchlabel']; ?></span>
+                    <span class="badge <?php echo empty($article['article_norss']) ? 'bg-success' : 'bg-secondary'; ?>"><?php echo $BL['be_no_rss']; ?></span>
                     <?php if(!empty($article['article_opengraph'])): ?>
-                      <span class="badge badge-info"><?php echo $BL['be_opengraph_support']; ?></span>
+                      <span class="badge bg-info"><?php echo $BL['be_opengraph_support']; ?></span>
                     <?php endif; ?>
                     <?php if(!empty($article['article_archive_status'])): ?>
-                      <span class="badge badge-warning"><?php echo $BL['be_show_archived']; ?></span>
+                      <span class="badge bg-warning"><?php echo $BL['be_show_archived']; ?></span>
                     <?php endif; ?>
                     <?php if(!empty($article['article_meta']['noindex'])): ?>
-                      <span class="badge badge-danger"><?php echo $BL['be_robots_noindex']; ?></span>
+                      <span class="badge bg-danger"><?php echo $BL['be_robots_noindex']; ?></span>
                     <?php endif; ?>
                     <?php if(!empty($article['article_meta']['nofollow'])): ?>
-                      <span class="badge badge-danger"><?php echo $BL['be_robots_nofollow']; ?></span>
+                      <span class="badge bg-danger"><?php echo $BL['be_robots_nofollow']; ?></span>
                     <?php endif; ?>
                   </div>
                 </td>
@@ -279,11 +279,11 @@ $(function() {
               </tr>
               <tr>
                 <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_cnt_sortvalue']; ?>:</td>
-                <td><span class="badge badge-light border"><?php echo (int) $article['article_sort']; ?></span></td>
+                <td><span class="badge bg-light border"><?php echo (int) $article['article_sort']; ?></span></td>
               </tr>
               <tr>
                 <td class="text-secondary text-nowrap fw-bold"><?php echo $BL['be_priorize']; ?>:</td>
-                <td><span class="badge badge-light border"><?php echo (int) $article['article_priorize']; ?></span></td>
+                <td><span class="badge bg-light border"><?php echo (int) $article['article_priorize']; ?></span></td>
               </tr>
             </table>
           </div>
@@ -591,7 +591,7 @@ $(function() {
           </div>
 
           <div class="col-sm-auto align-self-center justify-content-end">
-            <span class="badge badge-secondary fw-normal badge-align">ID: <?php echo $row['acontent_id']; ?></span>
+            <span class="badge bg-secondary fw-normal badge-align">ID: <?php echo $row['acontent_id']; ?></span>
           </div>
 
           <div class="col-sm-auto align-self-center justify-content-end text-nowrap">

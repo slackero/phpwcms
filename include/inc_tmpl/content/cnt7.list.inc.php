@@ -41,7 +41,7 @@ if (!empty($row['acontent_files'])) {
                     if ($cinfo_files !== '') {
                         $cinfo_files .= '<br>';
                     }
-                    $cinfo_files .= '<i class="btn btn-xs btn-blue mb-1 fa fa-' . ext_icon($file_map[$fid]['f_ext']) . '"></i> ' . html($file_map[$fid]['f_name']);
+                    $cinfo_files .= '<i class="fa fa-' . ext_icon($file_map[$fid]['f_ext']) . ' fa-fw text-muted"></i> ' . html($file_map[$fid]['f_name']);
                 }
             }
         }

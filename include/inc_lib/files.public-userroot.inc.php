@@ -33,10 +33,10 @@ if(isset($file_result[0]['f_id'])) {
             echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"></td></tr>\n";
         }
         echo "<tr>\n";
-        echo "<td width=\"55\">aaaaa</td>\n";
-        echo "<td width=\"13\">";
-        echo '<i class="btn btn-sm btn-blue fa fa-'.ext_icon($file_row["f_ext"])."</td>\n";
-        echo "<td width=\"455\">";
+        echo '<td class="text-nowrap">';
+        echo '<i class="fa fa-' . ext_icon($file_row["f_ext"]) . ' fa-fw text-muted"></i>';
+        echo "</td>\n";
+        echo "<td>";
         echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
         echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
         echo $filename."</a>";
@@ -45,8 +45,8 @@ if(isset($file_result[0]['f_id'])) {
 
         echo "<td width=\"15\" align=\"right\">";
         echo "<a href=\"include/inc_act/act_download.php?dl=".$file_row["f_id"];
-        echo '" target="_blank" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'\' target="_blank">';
-        echo '<i class="btn btn-sm btn-blue me-1 fa fa-download" aria-hidden="true"></i></a>';
+        echo '" target="_blank" data-bs-toggle="tooltip" title="' . $BL['be_fprivfunc_dlfile'] . ': ' . $filename . '">';
+        echo '<i class="fa fa-download me-1 text-muted" aria-hidden="true"></i></a>';
         echo "</td>\n";
         //Ende Aufbau
         echo "</tr>\n";

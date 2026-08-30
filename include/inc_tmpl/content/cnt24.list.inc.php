@@ -41,7 +41,7 @@ if (empty($content['alias']['alias_ID'])) {
     $cntresult = _dbGet('phpwcms_articlecontent', '*', 'acontent_id=' . $alias_id . ' AND acontent_trash=0');
 
     if (isset($cntresult[0]['acontent_id'])) {
-        echo '<span class="badge badge-info fw-normal badge-align me-1">ID: ' . $alias_id . '</span>';
+        echo '<span class="badge bg-info fw-normal badge-align me-1">ID: ' . $alias_id . '</span>';
         echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $cntresult[0]['acontent_aid'] . '&amp;acid=' . $alias_id . '" target="_blank">';
         echo $BL['be_article_cnt_edit'] . ': ' . ($wcs_content_type[$cntresult[0]['acontent_type']] ?? 'ID ' . $alias_id) . '</a>';
     } else {

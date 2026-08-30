@@ -476,7 +476,7 @@ if($ja) {
             foreach($file_image_iptc as $iptc_key => $iptc_value):
                 $label = isset($BL['iptc_'.$iptc_key]) ? $BL['iptc_'.$iptc_key] : $iptc_key;
                 $val = html(is_array($iptc_value) ? implode(', ', $iptc_value) : $iptc_value);
-                echo '<span class="badge badge-light border p-2 me-2 mb-2"><strong class="text-secondary">' . $label . ':</strong> ' . $val . '</span>';
+                echo '<span class="badge bg-light border p-2 me-2 mb-2"><strong class="text-secondary">' . $label . ':</strong> ' . $val . '</span>';
             endforeach;
         ?>
         </div>

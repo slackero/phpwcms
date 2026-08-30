@@ -49,7 +49,7 @@ function backend_list_keywords() {
 		foreach ($keywords as $value) {
 			$list .= '					<tr>' . LF;
 			$list .= '						<td class="text-center"><input type="checkbox" class="keyword-checkbox" value="1" name="check[' . $value['keyword_id'] . ']" id="check_' . $value['keyword_id'] . '" /></td>' . LF;
-			$list .= '						<td><span class="badge badge-light border">' . $value['keyword_id'] . '</span></td>' . LF;
+			$list .= '						<td><span class="badge bg-light border">' . $value['keyword_id'] . '</span></td>' . LF;
 			$list .= '						<td><a href="#" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\'); return false;" class="fw-bold text-dark">' . html($value['keyword_name']) . '</a></td>' . LF;
 			$list .= '						<td class="text-end text-nowrap">' . LF;
 			$list .= '							<button type="button" class="btn btn-sm btn-blue py-0 px-1 me-1" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\');" title="Edit"><i class="fa fa-pencil-alt"></i></button>' . LF;

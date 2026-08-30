@@ -96,7 +96,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
                     echo "</td>\n<td></td>\n<td width=\"15\" align=\"right\">";
                     echo "<a href=\"include/inc_act/act_download.php?pl=1&dl=".$file_row["f_id"];
                     echo "\" target=\"_blank\" title=\"".$GLOBALS['BL']['be_fprivfunc_dlfile'].": ".$filename."\">";
-                    echo '<i class="btn btn-sm btn-blue me-1 fa fa-download" aria-hidden="true"></i></a>'; //target='_blank'
+                    echo '<i class="fa fa-download me-1 text-muted" aria-hidden="true"></i></a>'; //target='_blank'
                     echo "</td>\n";
                     echo "</tr>\n";
 
