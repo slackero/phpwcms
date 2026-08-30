@@ -161,14 +161,15 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     $child_count = get_root_childcount(0);
     $an = $indexpage['acat_name'];
+    $field_param = isset($_GET['field']) ? '&amp;field=' . clean_slweg($_GET['field']) : '';
 
     $a = '<tr bgcolor="#e8e8e8" class="struct">';
     $a .= '<td>';
     $a .= '<table class="table-borderless w-100"><tr>';
     $a .= '<td class="text-nowrap">';
-    $a .= $child_count ? '<a href="phpwcms.php?' . CSRF_GET_TOKEN . '&amp;do=articles&amp;open=0:' . (($_SESSION['structure'][0]) ? 0 : 1) . '">' : '';
+    $a .= $child_count ? '<a href="articlebrowser.php?' . CSRF_GET_TOKEN . '&amp;opt=' . $js_aktion . $field_param . '&amp;open=0:' . ((!empty($_SESSION['structure'][0])) ? 0 : 1) . '">' : '';
 
-    $a .= '<i class="fa fa-caret-' . (($child_count) ? (($_SESSION['structure'][0] == 0) ? 'right' : 'down') : 'right');
+    $a .= '<i class="fa fa-caret-' . (($child_count) ? (empty($_SESSION['structure'][0]) ? 'right' : 'down') : 'right');
     $a .= ' fa-fw" aria-hidden="true"></i>' . (($child_count) ? '</a>' : '');
 
     $info = '<table class="text-start"><tr><td>ID:</td><td><b>0</b></td></tr>';
@@ -177,7 +178,15 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     $a .= '<i class="far fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="' . html($info) . '"></i>';
 
     $a .= '</td>';
-    $a .= '<td width="97%"><strong class="ms-1">' . $an . '</strong></td></tr></table></td>';
+    $a .= '<td width="97%"><strong class="ms-1">';
+    if ($js_aktion == 5) {
+        $a .= $an;
+    } elseif ($js_aktion == 16) {
+        $a .= '<a href="#" onclick="' . str_replace('%s', 'id=0', $js) . '" title="">' . $an . '</a>';
+    } else {
+        $a .= '<a href="#" class="structarticle" data-aid="' . ($js_aktion == 6 ? 'id=' : '') . '0" data-idtype="category" title="">' . $an . '</a>';
+    }
+    $a .= '</strong></td></tr></table></td>';
 
     echo $a;
 
@@ -237,9 +246,9 @@ function struct_list($id, $copy_article_content, $cut_article_content, $copy_id,
 
 function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $listmode, $cut_article, $js, $js_aktion) {
 
-    global $BL;
+    global $BL, $field;
 
-    $page_val = ($listmode) ? 'do=articles&amp;p=6' : 'do=articles';
+    $field_param = !empty($field) ? '&amp;field=' . clean_slweg($field) : '';
     $child_count = get_root_childcount($struct[$key]['acat_id']);
 
     $an = html($struct[$key]['acat_name']);
@@ -247,7 +256,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= '<td width="80%">';
     $a .= '<table class="table-borderless"' . '><tr>';
     $a .= '<td class="text-end text-nowrap">';
-    $a .= ($child_count) ? '<a href="articlebrowser.php?' . CSRF_GET_TOKEN . '&amp;opt=' . $js_aktion . '&amp;' . $page_val . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . (!empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 0 : 1)) . '">' : '';
+    $a .= ($child_count) ? '<a href="articlebrowser.php?' . CSRF_GET_TOKEN . '&amp;opt=' . $js_aktion . $field_param . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . (!empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 0 : 1)) . '">' : '';
     $a .= '<i class="fa fa-caret-' . ($child_count ? (empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 'right' : 'down') : 'right') . ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>' . ($child_count ? '</a>' : '');
 
     $info = '<table class="text-start">';
