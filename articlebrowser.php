@@ -16,6 +16,8 @@ require_once __DIR__ . '/include/config/conf.inc.php';
 require_once __DIR__ . '/include/config/conf.indexpage.inc.php';
 require_once __DIR__ . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
 
 if (empty($_SESSION['wcs_user_lang'])) {
 
@@ -34,6 +36,8 @@ if (empty($_SESSION['wcs_user_lang'])) {
     }
 
 }
+
+checkLogin();
 
 if (isset($_GET['open'])) {
     list($open_id, $open_value) = explode(':', $_GET['open']);
@@ -86,12 +90,7 @@ switch ($js_aktion) {
 }
 
 require_once PHPWCMS_ROOT . '/include/inc_lib/article.contenttype.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
-
-checkLogin();
 define('CSRF_GET_TOKEN', get_token_get_string());
-
 require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 ?><!DOCTYPE html>
