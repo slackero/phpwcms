@@ -120,7 +120,7 @@ initJsAutocompleter();
 				<?php foreach($phpwcms['allowed_lang'] as $key => $lang):
 					$lang = strtolower($lang);
 				?>
-        <input class="form-check-input" type="checkbox" name="news_lang[]" class="allowedLang" value="<?php echo $lang ?>"<?php if(in_array($lang, $content['news']['news_lang'])): ?> checked="checked"<?php endif; ?> class="lang-opt" />
+        <input class="form-check-input allowedLang lang-opt" type="checkbox" name="news_lang[]" value="<?php echo $lang ?>"<?php if(in_array($lang, $content['news']['news_lang'])): ?> checked="checked"<?php endif; ?> />
         <label class="form-check-label me-2" title="<?php echo get_language_name($lang) ?>"><?php echo '<span class="flag-icon flag-icon-'.$lang.' mt-1" data-bs-toggle="tooltip" title="'. get_language_name($lang).'"></span>'; ?>&nbsp;</label>
       <?php endforeach; ?>
     </div>

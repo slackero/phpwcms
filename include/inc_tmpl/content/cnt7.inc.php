@@ -59,16 +59,18 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
 
 <div class="form-group align-items-center row g-2">
 	<label for="cfile_direct" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_download'] ?></label>
-	<div class="col-sm-auto form-check form-check-inline">
-		<input class="form-check-input" name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php
-					is_checked(1, $content['file']['direct_download']);
-					if($content['file']['direct_download_deny'] && !$content['file']['direct_download']) {
-							echo ' disabled="disabled"';
-					}
-			?> />
-		<label class="form-check-label" for="cfile_direct"><?php echo $BL['be_cnt_download_direct'] ?></label>
+	<div class="col-sm-auto">
+		<div class="form-check">
+			<input class="form-check-input" name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php
+						is_checked(1, $content['file']['direct_download']);
+						if($content['file']['direct_download_deny'] && !$content['file']['direct_download']) {
+								echo ' disabled="disabled"';
+						}
+				?> />
+			<label class="form-check-label" for="cfile_direct"><?php echo $BL['be_cnt_download_direct'] ?></label>
+		</div>
 	</div>
-	<div class="col form-check form-check-inline">
+	<div class="col align-self-center small text-muted">
 		<?php
 			if($content['file']['direct_download_deny']) {
 					printf($BL['be_filedownload_direct_blocked'], PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess');

@@ -1129,7 +1129,7 @@ $BL['be_fileuploader_noFilesError'] = 'Nema fajlova za učitavanje.';
 $BL['be_fileuploader_onLeave']     = 'Fajlovi se učitavaju. Ako sada napustite stranicu, učitavanje će biti prekinuto.';
 $BL['be_fileuploader_dragText']    = 'Prevucite fajlove ovdje za učitavanje';
 $BL['be_fileuploader_uploadButtonText'] = 'Odaberite fajlove ili prevucite ovdje';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Odaberite fajlove ili prevucite ovdje</span><br><small class="text-muted">Kliknite ili prevucite fajlove u ovo područje</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Odaberite fajlove ili prevucite ovdje</span><br><small class="text-muted">Kliknite ili prevucite fajlove u ovo područje</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Vaš preglednik ne podržava prevlačenje fajlova.';
 $BL['be_fileuploader_dictFallbackText'] = 'Vaš preglednik ne podržava prevlačenje fajlova.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Fajl je prevelik ({{filesize}}MiB). Maksimalna veličina: {{maxFilesize}}MiB.';

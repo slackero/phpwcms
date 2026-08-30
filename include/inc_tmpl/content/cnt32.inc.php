@@ -81,7 +81,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
   </div>
   <label class="col-sm-2 col-form-label text-end"></label>
   <div class="col-sm-4">
-  	<div class="form-check form-check-inline col-sm-auto">
+  	<div class="form-check">
       <input class="form-check-input" type="checkbox" name="tabwysiwygoff" id="tabwysiwygoff" value="1"<?php is_checked(1, $content['tabwysiwygoff']) ?> />
       <label class="form-check-label" for="tabwysiwygoff">&nbsp;<?php echo $BL['be_cnt_no_wysiwyg_editor'] ?></label>
   	</div>
@@ -269,7 +269,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
               <textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="form-control form-control-sm autosize"<?php echo $custom_field_placeholder; ?> rows="3"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea>
       <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
             foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-              <div class="form-check form-check-inline col-sm-auto">
+              <div class="form-check">
                     <input class="form-check-input" type="radio" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
                             if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
                         ?> checked="checked"<?php
@@ -289,7 +289,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
       <?php   endforeach; ?>
               </select>
       <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
-              <div class="form-check form-check-inline col-sm-auto">
+              <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="1"<?php
                         if((!empty($value['custom_fields'][$custom_field])) || (!isset($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']))):
                     ?> checked="checked"<?php endif; ?> />
@@ -484,7 +484,7 @@ function addNewTab(pos) {
 
                         <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
                             foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-                            <div class="form-check form-check-inline col-sm-auto">
+                            <div class="form-check">
 								<input class="form-check-input" type="radio" name="customfield[${entries}][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"
 								<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?> />
 								<label class="form-check-label"><?php echo html($option_label); ?></label>
@@ -502,7 +502,7 @@ function addNewTab(pos) {
                             </select>
 
                         <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
-                            <div class="form-check form-check-inline col-sm-auto">
+                            <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="customfield[${entries}][<?php echo $custom_field; ?>]" value="1" />
                                 <label class="form-check-label"><?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>
                             </div>

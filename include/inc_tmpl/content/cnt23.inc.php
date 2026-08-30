@@ -743,10 +743,10 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         <div class="col-sm-2">
             <input type="text" name="cform_error_class" id="cform_error_class" class="form-control form-control-sm" value="<?php echo html($content['form']["error_class"]) ?>" />
         </div>
-        <div class="form-check col-sm-2 ps-sm-5">
+        <div class="col-sm-2 ps-sm-5"><div class="form-check">
             <input type="checkbox" name="cform_novalidate" id="cform_novalidate" class="form-check-input" value="1"<?php is_checked(1, $content['form']["novalidate"]) ?> />
             <label for="cform_novalidate" class="form-check-label"><strong><?php echo $BL['be_cnt_novalidate']; ?></strong></label>
-        </div>
+        </div></div>
     </div>
 
     <div class="form-group align-items-center row g-2">

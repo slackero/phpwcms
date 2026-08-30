@@ -44,9 +44,9 @@ if (!defined('PHPWCMS_ROOT')) {
     <div class="form-group row g-2 align-items-center">
         <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_category'] ?></label>
         <div class="col-sm-4">
-            <input name="cat_name" class="form-control form-control-sm" type="text" id="cat_name" class="v12<?php
+            <input name="cat_name" class="form-control form-control-sm v12<?php
             //error class
-            if(!empty($plugin['error']['cat_name'])) echo ' errorInputText'; ?>" value="<?php echo html_specialchars($plugin['data']['cat_name']) ?>" size="30"  />
+            if(!empty($plugin['error']['cat_name'])) echo ' errorInputText'; ?>" type="text" id="cat_name" value="<?php echo html_specialchars($plugin['data']['cat_name']) ?>" size="30"  />
         </div>
     </div>
 
@@ -85,16 +85,18 @@ if (!defined('PHPWCMS_ROOT')) {
 
     <div class="form-group align-items-center row g-2 ">
     <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_sorting'] ?></label>
-    <div class="col-sm-auto form-check form-check-inline">
+    <div class="col-sm-auto">
             <input name="cat_sort" type="text" id="cat_sort" class="form-control form-control-sm" value="<?php echo empty($plugin['data']['cat_sort']) ? 0 : intval($plugin['data']['cat_sort']) ?>" />
     </div>
   </div>
 
     <div class="form-group align-items-center row g-2 ">
     <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
-    <div class="col-sm-auto form-check form-check-inline">
+    <div class="col-sm-auto">
+      <div class="form-check">
             <input class="form-check-input" type="checkbox" name="cat_status" id="cat_status" value="1"<?php is_checked($plugin['data']['cat_status'], 1) ?> />
             <label class="form-check-label" for="cat_status"><?php echo $BL['be_cnt_activated'] ?></label>
+      </div>
     </div>
   </div>
 

@@ -1225,7 +1225,7 @@ $BL['be_cnt_subsection_warning']   = 'Numrering av underavsnitt (sidnumrering av
 $BL['be_no_search']                = 'ingen sökning';
 $BL['be_priorize']                 = 'prioritering';
 $BL['be_fileuploader_uploadButtonText'] = 'Välj filer eller släpp här';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Välj filer eller släpp här</span><br><small class="text-muted">Klicka eller dra och släpp filer hit</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Välj filer eller släpp här</span><br><small class="text-muted">Klicka eller dra och släpp filer hit</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Din webbläsare stöder inte dra-och-släpp-uppladdning av filer.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Filen är för stor ({{filesize}}MiB). Maximal filstorlek: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Filer av denna typ kan inte laddas upp i det aktuella filterläget.';

@@ -1513,7 +1513,7 @@ $BL['be_fprivup_err11']            = 'Fajl "%s" je prevelik (%s). Maksimalno doz
 $BL['be_article_created_at']       = 'kreirano';
 $BL['be_article_updated_at']       = 'ažurirano';
 $BL['be_fileuploader_uploadButtonText'] = 'Odaberite fajlove ili prevucite ovdje';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Odaberite fajlove ili prevucite ovdje</span><br><small class="text-muted">Kliknite ili prevucite fajlove u ovo područje</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Odaberite fajlove ili prevucite ovdje</span><br><small class="text-muted">Kliknite ili prevucite fajlove u ovo područje</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Vaš preglednik ne podržava prevlačenje fajlova.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Fajl je prevelik ({{filesize}}MiB). Maksimalna veličina: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Fajlovi ovog tipa se ne mogu učitati u trenutnom režimu filtriranja.';

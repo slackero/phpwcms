@@ -1213,7 +1213,7 @@ $BL['ADD_ALL_CONFIRM']             = 'تمت إضافة جميع الملفات 
 
 انقر على [موافق] لإغلاق متصفح الملفات…';
 $BL['be_fileuploader_uploadButtonText'] = 'اختر الملفات أو اسحبها هنا';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">اختر الملفات أو اسحبها هنا</span><br><small class="text-muted">انقر أو اسحب الملفات إلى هذه المنطقة</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">اختر الملفات أو اسحبها هنا</span><br><small class="text-muted">انقر أو اسحب الملفات إلى هذه المنطقة</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'متصفحك لا يدعم خاصية السحب والإفلات.';
 $BL['be_fileuploader_dictFileTooBig'] = 'الملف كبير جداً ({{filesize}}MiB). الحجم الأقصى: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'لا يمكن رفع ملفات من هذا النوع في وضع الفلترة الحالي.';

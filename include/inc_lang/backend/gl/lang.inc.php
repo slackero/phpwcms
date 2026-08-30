@@ -1145,7 +1145,7 @@ $BL['be_fileuploader_noFilesError'] = 'Nenhum ficheiro para carregar.';
 $BL['be_fileuploader_onLeave']     = 'Os ficheiros estão a ser carregados. Se sair agora, o carregamento será cancelado.';
 $BL['be_fileuploader_dragText']    = 'Arraste os ficheiros para aqui para carregar';
 $BL['be_fileuploader_uploadButtonText'] = 'Selecionar ficheiros ou arrastar para aqui';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Selecionar ficheiros ou arrastar para aqui</span><br><small class="text-muted">Clique ou arraste ficheiros para esta área</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Selecionar ficheiros ou arrastar para aqui</span><br><small class="text-muted">Clique ou arraste ficheiros para esta área</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'O seu navegador não suporta o carregamento de ficheiros por arrastar e largar.';
 $BL['be_fileuploader_dictFallbackText'] = 'O seu navegador não suporta o carregamento de ficheiros por arrastar e largar.';
 $BL['be_fileuploader_dictFileTooBig'] = 'O ficheiro é demasiado grande ({{filesize}}MiB). Tamanho máximo: {{maxFilesize}}MiB.';

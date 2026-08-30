@@ -1146,7 +1146,7 @@ $BL['be_fileuploader_noFilesError'] = 'لا توجد ملفات للرفع.';
 $BL['be_fileuploader_onLeave']     = 'يتم رفع الملفات الآن. إذا غادرت الآن فسيتم إلغاء الرفع.';
 $BL['be_fileuploader_dragText']    = 'اسحب الملفات هنا لرفعها';
 $BL['be_fileuploader_uploadButtonText'] = 'اختر الملفات أو اسحبها هنا';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">اختر الملفات أو اسحبها هنا</span><br><small class="text-muted">انقر أو اسحب الملفات إلى هذه المنطقة</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">اختر الملفات أو اسحبها هنا</span><br><small class="text-muted">انقر أو اسحب الملفات إلى هذه المنطقة</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'متصفحك لا يدعم خاصية السحب والإفلات.';
 $BL['be_fileuploader_dictFallbackText'] = 'متصفحك لا يدعم خاصية السحب والإفلات.';
 $BL['be_fileuploader_dictFileTooBig'] = 'الملف كبير جداً ({{filesize}}MiB). الحجم الأقصى: {{maxFilesize}}MiB.';

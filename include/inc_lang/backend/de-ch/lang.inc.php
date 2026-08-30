@@ -1122,7 +1122,7 @@ $BL['be_fileuploader_noFilesError'] = 'Keine Dateien zum Hochladen.';
 $BL['be_fileuploader_onLeave']     = 'Das Hochladen l&auml;uft gerade. Wenn Sie jetzt beenden, wird das Hochladen abgebrochen.';
 $BL['be_fileuploader_dragText']    = 'Dateien zum Upload hierher ziehen!';
 $BL['be_fileuploader_uploadButtonText'] = 'Dateien w&auml;hlen oder hier ablegen';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Dateien w&auml;hlen oder hier ablegen</span><br><small class="text-muted">Klicken oder Dateien per Drag & Drop hineinziehen</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Dateien w&auml;hlen oder hier ablegen</span><br><small class="text-muted">Klicken oder Dateien per Drag & Drop hineinziehen</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Ihr Browser unterst&uuml;tzt Drag & Drop Dateiuploads nicht.';
 $BL['be_fileuploader_dictFallbackText'] = 'Bitte nutzen Sie das untenstehende Formular zum Hochladen Ihrer Dateien.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Datei ist zu gross ({{filesize}}MiB). Maximale Dateigr&ouml;sse: {{maxFilesize}}MiB.';

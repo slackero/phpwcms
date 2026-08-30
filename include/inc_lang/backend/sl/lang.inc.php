@@ -1561,7 +1561,7 @@ $BL['be_cnt_search_searchnot']     = 'ne išči';
 $BL['be_check_login_allow_email']  = 'Sprejmi e-pošto kot uporabniško ime';
 $BL['be_check_against_category_alias'] = 'poveži posamezen članek znotraj ravni strukture z ravnijo strukture';
 $BL['be_fileuploader_uploadButtonText'] = 'Izberite datoteke ali povlecite sem';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Izberite datoteke ali povlecite sem</span><br><small class="text-muted">Kliknite ali povlecite datoteke na to območje</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Izberite datoteke ali povlecite sem</span><br><small class="text-muted">Kliknite ali povlecite datoteke na to območje</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Vaš brskalnik ne podpira vlečenja in spuščanja datotek.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Datoteka je prevelika ({{filesize}}MiB). Največja velikost: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Datotek te vrste ni mogoče naložiti v trenutnem načinu filtriranja.';

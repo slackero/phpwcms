@@ -214,34 +214,34 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 
 <div class="form-group align-items-center row g-2">
 	<label for="cimage_zoom" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_behavior'] ?></label>
-	<div class="form-check form-check-inline col-sm-auto">
+	<div class="col-sm-auto"><div class="form-check">
 		<input class="form-check-input" id="cimage_zoom" name="cimage_zoom" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['zoom']); ?> />
 		<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
-	</div>
-	<div class="form-check form-check-inline col-sm-auto">
+	</div></div>
+	<div class="col-sm-auto"><div class="form-check">
 		<input class="form-check-input" id="cimage_lightbox" name="cimage_lightbox" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
 		<label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
-	</div>
-	<div class="form-check form-check-inline col-sm-auto">
+	</div></div>
+	<div class="col-sm-auto"><div class="form-check">
 		<input class="form-check-input" id="cimage_nocaption" name="cimage_nocaption" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['nocaption']); ?> />
 		<label class="form-check-label" for="cimage_nocaption"><?php echo $BL['be_cnt_imglist_nocaption'] ?></label>
-	</div>
+	</div></div>
 </div>
 
 <div class="form-group align-items-center row g-2">
 	<label class="col-sm-2 col-form-label text-end"></label>
-	<div class="form-check form-check-inline col-sm-auto">
+	<div class="col-sm-auto"><div class="form-check">
 		<input class="form-check-input" id="cimage_fx1" name="cimage_fx1" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['fx1']); ?> />
 		<label class="form-check-label" for="cimage_fx1"><?php echo $BL['be_fx_1'] ?></label>
-	</div>
-	<div class="form-check form-check-inline col-sm-auto">
+	</div></div>
+	<div class="col-sm-auto"><div class="form-check">
 		<input class="form-check-input" id="cimage_fx2" name="cimage_fx2" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['fx2']); ?> />
 		<label class="form-check-label" for="cimage_fx2"><?php echo $BL['be_fx_2'] ?></label>
-	</div>
-	<div class="form-check form-check-inline col-sm-auto">
+	</div></div>
+	<div class="col-sm-auto"><div class="form-check">
 		<input class="form-check-input" id="cimage_fx3" name="cimage_fx3" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['fx3']); ?> />
 		<label class="form-check-label" for="cimage_fx3"><?php echo $BL['be_fx_3'] ?></label>
-	</div>
+	</div></div>
 </div>
 
 <hr />
@@ -486,14 +486,14 @@ if($value['custom_field_items']):
 
         elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
             foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-                <div class="form-check form-check-inline pt-1 col-sm-auto">
+                <div class="col-sm-auto pt-1"><div class="form-check">
 									<input type="radio" class="form-check-input" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
 											if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
 									?> checked="checked"<?php
 											elseif(empty($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key):
 									?> checked="checked"<?php endif; ?> />
 									<label class="form-check-label"><?php echo html($option_label); ?></label>
-                </div>
+                </div></div>
 <?php       endforeach;
         elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
             <select class="form-select form-select-sm" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]">
@@ -868,7 +868,7 @@ function addNewImage(where) {
 
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
     foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-    new_entry += '<div class="form-check form-check-inline col-sm-auto"><input class="form-check-input" type="radio" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?>/> <label class="form-check-label"><?php echo html($option_label); ?></label></div> ';
+    new_entry += '<div class="col-sm-auto"><div class="form-check"><input class="form-check-input" type="radio" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?>/> <label class="form-check-label"><?php echo html($option_label); ?></label></div></div> ';
 <?php   endforeach;
 
     elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'): ?>
@@ -886,9 +886,11 @@ function addNewImage(where) {
     new_entry += '</select>';
 
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
-		new_entry += '<div class="form-check form-check-inline pt-1 col-sm-auto">';
+		new_entry += '<div class="col-sm-auto pt-1">';
+		new_entry += '<div class="form-check">';
     new_entry += '<input class="form-check-input" type="checkbox" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="1"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default'])): ?> checked="checked"<?php endif; ?>/> ';
     new_entry += '<label class="form-check-label"><?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>';
+    new_entry += '</div>';
     new_entry += '</div>'
 
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>

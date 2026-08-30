@@ -1330,7 +1330,7 @@ $BL['be_fprivup_err11']            = 'O ficheiro "%s" é demasiado grande (%s). 
 $BL['be_article_created_at']       = 'criado em';
 $BL['be_article_updated_at']       = 'atualizado em';
 $BL['be_fileuploader_uploadButtonText'] = 'Selecionar ficheiros ou arrastar para aqui';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Selecionar ficheiros ou arrastar para aqui</span><br><small class="text-muted">Clique ou arraste ficheiros para esta área</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Selecionar ficheiros ou arrastar para aqui</span><br><small class="text-muted">Clique ou arraste ficheiros para esta área</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'O seu navegador não suporta o carregamento de ficheiros por arrastar e largar.';
 $BL['be_fileuploader_dictFileTooBig'] = 'O ficheiro é demasiado grande ({{filesize}}MiB). Tamanho máximo: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Ficheiros deste tipo não podem ser carregados no modo de filtro atual.';

@@ -1225,7 +1225,7 @@ er kun tilgængelig for hovedkolonnen (CONTENT)!';
 $BL['be_no_search']                = 'ingen søgning';
 $BL['be_priorize']                 = 'prioritering';
 $BL['be_fileuploader_uploadButtonText'] = 'Vælg filer eller slip her';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Vælg filer eller slip her</span><br><small class="text-muted">Klik eller træk & slip filer hertil</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Vælg filer eller slip her</span><br><small class="text-muted">Klik eller træk & slip filer hertil</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Din browser understøtter ikke træk-og-slip-filupload.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Filen er for stor ({{filesize}}MiB). Maksimal filstørrelse: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Filer af denne type kan ikke uploades i den aktuelle filtertilstand.';

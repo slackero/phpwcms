@@ -1449,7 +1449,7 @@ $BL['be_cnt_css_class']            = 'CSS-klasse';
 $BL['be_cnt_plugin_n.a.']          = 'plugin ikke tilgjengelig';
 $BL['gd_not_loaded']               = '<strong>Ingen GD-funksjonalitet tilgjengelig!</strong> Vennligst sørg for at PHP GD-biblioteket er aktivert.';
 $BL['be_fileuploader_uploadButtonText'] = 'Velg filer eller slipp her';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Velg filer eller slipp her</span><br><small class="text-muted">Klikk eller dra og slipp filer inn i dette området</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Velg filer eller slipp her</span><br><small class="text-muted">Klikk eller dra og slipp filer inn i dette området</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Nettleseren din støtter ikke dra-og-slipp-filopplasting.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Filen er for stor ({{filesize}}MiB). Maksimal filstørrelse: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Filer av denne typen kan ikke lastes opp i gjeldende filtermodus.';

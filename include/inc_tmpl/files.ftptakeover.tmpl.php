@@ -135,10 +135,10 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 
         <div class="form-group row g-2 align-items-center">
             <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_iptc_data'] ?></label>
-            <div class="col form-check-inline">
+            <div class="col"><div class="form-check">
                 <input class="form-check-input" type="checkbox" name="file_iptc_as_caption" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> >
                 <label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
-            </div>
+            </div></div>
         </div>
 
         <div class="form-group row g-2 align-items-center">

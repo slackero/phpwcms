@@ -475,7 +475,7 @@ if($news->data['cnt_id']) {
             <div class="input-group">
                 <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7&amp;target=summary" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
                 <input name="cnt_image_name" type="text" id="cnt_image_name" class="form-control form-control-sm" value="<?php echo html($news->data['cnt_image']['name']) ?>" maxlength="250" onfocus="this.blur()" />
-                <a href="#" class="btn btn-sm btn-danger trash" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>
+                <a href="#" class="btn btn-sm btn-danger trash" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i></a>
             </div>
             <input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?php echo $news->data['cnt_image']['id'] ?>" />
         </div>

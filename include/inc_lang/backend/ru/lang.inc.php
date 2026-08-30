@@ -1316,7 +1316,7 @@ $BL['be_fprivup_err11']            = 'Файл "%s" слишком велик (%
 $BL['be_article_created_at']       = 'создано';
 $BL['be_article_updated_at']       = 'обновлено';
 $BL['be_fileuploader_uploadButtonText'] = 'Выберите файлы или перетащите сюда';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Выберите файлы или перетащите сюда</span><br><small class="text-muted">Нажмите или перетащите файлы в эту область</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Выберите файлы или перетащите сюда</span><br><small class="text-muted">Нажмите или перетащите файлы в эту область</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Ваш браузер не поддерживает drag and drop загрузку файлов.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Файл слишком велик ({{filesize}}MiB). Максимальный размер: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Файлы этого типа не могут быть загружены в текущем режиме фильтрации.';

@@ -410,18 +410,18 @@ if(!isset($_GET["s"])) {
 		<div class="row g-2 align-items-center">
 			<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_align']  ?></label>
 			<div class="col">
-				<div class="form-check form-check-inline">
+				<div class="col-sm-auto"><div class="form-check">
 					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_0" value="0" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
 					<label class="form-check-label" for="layout_align_0"><img src="img/symbole/layout_left.svg" alt="<?php echo $BL['be_admin_page_align_left'] ?>" width="56" height="44" border="0"></label>
-				</div>
-				<div class="form-check form-check-inline">
+				</div></div>
+				<div class="col-sm-auto"><div class="form-check">
 					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_1" value="1" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
 					<label class="form-check-label" for="layout_align_1"><img src="img/symbole/layout_center.svg" alt="<?php echo $BL['be_admin_page_align_center'] ?>" width="56" height="44" border="0"></label>
-				</div>
-				<div class="form-check form-check-inline">
+				</div></div>
+				<div class="col-sm-auto"><div class="form-check">
 					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_2" value="2" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
 					<label class="form-check-label" for="layout_align_2" ><img src="img/symbole/layout_right.svg" alt="<?php echo $BL['be_admin_page_align_right'] ?>" width="56" height="44" border="0"></label>
-				</div>
+				</div></div>
 			</div>
 		</div>
 	</fieldset>
@@ -441,10 +441,10 @@ if(!isset($_GET["s"])) {
         <input type="number" class="form-control form-control-sm" name="layout_border_right" id="layout_border_right" value="<?php echo $pagelayout["layout_border_right"] ?>" placeholder="<?php echo $BL['be_admin_page_right'] ?>">
       </div>
       <div class="col">
-      	<div class="form-check form-check-inline">
+      	<div class="col-sm-auto"><div class="form-check">
 					<input class="form-check-input" name="layout_noborder" type="checkbox" id="layout_noborder" value="1" <?php is_checked(1, isset($pagelayout["layout_noborder"]) ? $pagelayout["layout_noborder"] : 0) ?>>
 					<label class="form-check-label" for="layout_noborder"> <?php echo $BL['be_admin_page_disable'] ?></label>
-        </div>
+        </div></div>
       </div>
     </div>
 
@@ -490,22 +490,22 @@ if(!isset($_GET["s"])) {
 				<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_blocks'] ?></label>
 				<div class="col-sm-10">
 					<div class="row g-2">
-						<div class="col-sm-auto form-check form-check-inline">
+						<div class="col-sm-auto"><div class="form-check">
 							<input class="form-check-input" type="radio" name="layout_type" id="layout_type_0" value="0" <?php is_checked(0, $pagelayout["layout_type"]); ?>>
 							<label class="form-check-label" for="layout_type_0"><img src="img/symbole/3_column_layout.svg" alt="<?php echo $BL['be_admin_page_col1'] ?>" width="56" height="44" border="0"></label>
-						</div>
-						<div class="col-sm-auto form-check form-check-inline">
+						</div></div>
+						<div class="col-sm-auto"><div class="form-check">
 							<input class="form-check-input" type="radio" name="layout_type" id="layout_type_1" value="1" <?php is_checked(1, $pagelayout["layout_type"]); ?>>
 							<label class="form-check-label" for="layout_type_1"><img src="img/symbole/2_column_layout.svg" alt="<?php echo $BL['be_admin_page_col2'] ?>" width="56" height="44" border="0"></label>
-						</div>
-						<div class="col-sm-auto form-check form-check-inline">
+						</div></div>
+						<div class="col-sm-auto"><div class="form-check">
 							<input class="form-check-input" type="radio" name="layout_type" id="layout_type_2" value="2" <?php is_checked(2, $pagelayout["layout_type"]); ?>>
 							<label class="form-check-label" for="layout_type_2"><img src="img/symbole/4_column_layout.svg" alt="<?php echo $BL['be_admin_page_col3'] ?>" width="56" height="44" border="0"></label>
-						</div>
-						<div class="col form-check form-check-inline">
+						</div></div>
+						<div class="col"><div class="form-check">
 							<input class="form-check-input" type="radio" name="layout_type" id="layout_align_3" value="3" <?php is_checked(3, $pagelayout["layout_type"]); ?>>
 							<label class="form-check-label" for="layout_align_3"><img src="img/symbole/1_column_layout.svg" alt="<?php echo $BL['be_admin_page_col4'] ?>" width="56" height="44" border="0"></label>
-						</div>
+						</div></div>
 					</div>
 				</div>
 			</div>

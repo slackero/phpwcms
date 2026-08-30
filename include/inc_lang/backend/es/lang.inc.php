@@ -1075,7 +1075,7 @@ $BL['be_fileuploader_onLeave']     = 'Los archivos se est&aacute;n subiendo; si 
 $BL['be_fileuploader_sizeError']   = 'El archivo {file} es demasiado grande, el tama&ntilde;o m&aacute;ximo de archivo permitido es {sizeLimit}.';
 $BL['be_fileuploader_typeError']   = 'El archivo {file} tiene una extensi&oacute;n no v&aacute;lida. Extensi&oacute;n(es) v&aacute;lida(s): {extensions}.';
 $BL['be_fileuploader_uploadButtonText'] = 'Seleccione archivos o arr&aacute;strelos aqu&iacute;';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Seleccione archivos o arr&aacute;strelos aqu&iacute;</span><br><small class="text-muted">Haga clic o arrastre archivos aqu&iacute;</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Seleccione archivos o arr&aacute;strelos aqu&iacute;</span><br><small class="text-muted">Haga clic o arrastre archivos aqu&iacute;</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Su navegador no admite la funci&oacute;n de arrastrar y soltar archivos.';
 $BL['be_fileuploader_dictFileTooBig'] = 'El archivo es demasiado grande ({{filesize}}MiB). Tama&ntilde;o m&aacute;ximo: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'No puede subir archivos de este tipo en el modo de filtro actual.';

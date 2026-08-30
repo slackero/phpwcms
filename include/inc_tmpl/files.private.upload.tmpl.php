@@ -356,10 +356,7 @@ if (exifFileInput) {
     <div class="col-sm-4">
       <!-- JS: input:file mitnehmen -->
       <div class="input-group">
-        <div class="custom-file">
-          <input name="file" type="file" class="custom-file-input" id="file" />
-          <label class="custom-file-label" for="file"></label>
-        </div>
+        <input name="file" type="file" class="form-control" id="file" />
       </div>
       <?php if(!empty($file_error["upload"])) { ?>
         <div class="alert alert-danger d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">
@@ -642,7 +639,6 @@ function checkUploadFileSize(file, showAlert) {
 $('input:file').change(function(e){
     if (e.target.files && e.target.files[0]) {
         var file = e.target.files[0];
-        $(this).next('.custom-file-label').text(file.name);
         checkUploadFileSize(file, true);
     }
 });

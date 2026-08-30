@@ -1216,7 +1216,7 @@ $BL['ADD_ALL_CONFIRM']             = 'Visi failai iš aplanko »{VAL}« pridėti
 
 Spustelėkite [Gerai], kad uždarytumėte failų naršyklę…';
 $BL['be_fileuploader_uploadButtonText'] = 'Pasirinkite failus arba vilkite čia';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Pasirinkite failus arba vilkite čia</span><br><small class="text-muted">Spustelėkite arba vilkite failus į šią sritį</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Pasirinkite failus arba vilkite čia</span><br><small class="text-muted">Spustelėkite arba vilkite failus į šią sritį</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Jūsų naršyklė nepalaiko failų vilkimo ir numetimo.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Failas yra per didelis ({{filesize}}MiB). Maksimalus dydis: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Šio tipo failų negalima įkelti dabartiniu filtro režimu.';

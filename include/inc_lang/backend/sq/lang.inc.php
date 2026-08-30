@@ -1128,7 +1128,7 @@ $BL['be_fileuploader_noFilesError'] = 'Nessun file da caricare.';
 $BL['be_fileuploader_onLeave']     = 'I file sono in fase di caricamento, se te ne vai ora il caricamento verr&agrave; annullato.';
 $BL['be_fileuploader_dragText']    = 'Trascina qui i file da caricare!';
 $BL['be_fileuploader_uploadButtonText'] = 'Seleziona i file o trascinali qui';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Seleziona i file o trascinali qui</span><br><small class="text-muted">Clicca o trascina i file qui</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Seleziona i file o trascinali qui</span><br><small class="text-muted">Clicca o trascina i file qui</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Il tuo browser non supporta il trascinamento dei file.';
 $BL['be_fileuploader_dictFallbackText'] = 'Utilizza il modulo sottostante per caricare i tuoi file.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Il file &egrave; troppo grande ({{filesize}}MB). Dimensione massima: {{maxFilesize}}MB.';

@@ -236,8 +236,8 @@ if(isset($result[0])) {
             sort($_zip);
 
             $dealer[] = '<div class="col-auto d-flex flex-row">';
-            $dealer[] = '   <label class="col-form-label me-2 text-nowrap">@@PLZ-Gebiet@@</label>';
-            $dealer[] = '   <select class="form-control" name="filter_zip" class="ziparea" onchange="this.form.submit()">';
+            $dealer[] = '   <label class="col-form-label me-2 text-nowrap">@@Postcode area@@</label>';
+            $dealer[] = '   <select class="form-select ziparea" name="filter_zip" onchange="this.form.submit()">';
             $dealer[] = '       <option value="">- @@Select postcode area@@ -</option>';
 
             foreach($_zip as $zip_area) {
@@ -251,7 +251,7 @@ if(isset($result[0])) {
     }
 
                 // Submit Button
-                $dealer[]   = '<div class="col-auto"><button type="submit" class="btn btn-primary">@@Suchen@@</button></div>';
+                $dealer[]   = '<div class="col-auto"><button type="submit" class="btn btn-primary">@@Search@@</button></div>';
             $dealer[]   = '</div>';
         $dealer[]   = '</form>';
     $dealer[]   = '</div>';
@@ -320,7 +320,7 @@ if(isset($result[0])) {
             }
             if(is_valid_email($arow['detail_email'])) {
                 $arow['detail_email'] = html($arow['detail_email']);
-                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i> <a href="mailto:' . html($arow['detail_email']) . '">' . html($arow['detail_email']) . '</a></p>' );
+                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:' . html($arow['detail_email']) . '">' . html($arow['detail_email']) . '</a></p>' );
             }
             if(!empty($arow['detail_website'])) {
                 if(strpos(strtolower($arow['detail_website']), '://') === false) {
@@ -393,7 +393,7 @@ if(isset($result[0])) {
                         $contact['foot'] .= '     <p class="mb-0"><i class="fa fa-fax fa-fw" aria-hidden="true"></i> ' . get_phone_link($contact['detail_fax'], 'fax') . '</p>' . LF;
                     }
                     if($contact['detail_email']) {
-                        $contact['foot'] .= '     <p class="mb-0"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i> <a href="mailto:'.html($contact['detail_email']).'" nofollow>@@E-Mail senden@@</a></p>' . LF;
+                        $contact['foot'] .= '     <p class="mb-0"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:'.html($contact['detail_email']).'" nofollow>@@Send email@@</a></p>' . LF;
                     }
 
                     if($contact['foot']) {
@@ -440,7 +440,7 @@ if(isset($result[0])) {
 
                 $result[] = '   <div class="card-footer pt-0 pb-3 mt-auto">';
                 $result[] = '       <button type="button" class="btn btn-readmore-gray" data-bs-toggle="collapse" data-bs-target="#phpwcms-contact-section-'.$_akey.'">';
-                $result[] = '           @@Ansprechpartner zeigen@@';
+                $result[] = '           @@Show contact person@@';
                 $result[] = '       </button>';
                 $result[] = '   </div>';
 

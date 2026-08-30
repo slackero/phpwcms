@@ -1402,7 +1402,7 @@ $BL['ADD_ALL_CONFIRM']             = 'Kaikki tiedostot kansiosta »{VAL}« on li
 
 Napsauta [OK] sulkeaksesi tiedostoselaimen…';
 $BL['be_fileuploader_uploadButtonText'] = 'Valitse tiedostot tai vedä tähän';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Valitse tiedostot tai vedä tähän</span><br><small class="text-muted">Napsauta tai vedä tiedostot tälle alueelle</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Valitse tiedostot tai vedä tähän</span><br><small class="text-muted">Napsauta tai vedä tiedostot tälle alueelle</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Selaimesi ei tue tiedostojen raahaamista ja pudottamista.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Tiedosto on liian suuri ({{filesize}}MiB). Enimmäiskoko: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Tämän tyyppisiä tiedostoja ei voi ladata nykyisessä suodatintilassa.';

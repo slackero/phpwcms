@@ -1146,7 +1146,7 @@ $BL['be_fileuploader_noFilesError'] = 'Няма файлове за качван
 $BL['be_fileuploader_onLeave']     = 'Файловете се качват. Ако напуснете сега, качването ще бъде прекъснато.';
 $BL['be_fileuploader_dragText']    = 'Плъзнете файловете тук за качване';
 $BL['be_fileuploader_uploadButtonText'] = 'Изберете файлове или плъзнете тук';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Изберете файлове или плъзнете тук</span><br><small class="text-muted">Кликнете или плъзнете файлове в тази зона</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Изберете файлове или плъзнете тук</span><br><small class="text-muted">Кликнете или плъзнете файлове в тази зона</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Вашият браузър не поддържа качване чрез плъзгане и пускане.';
 $BL['be_fileuploader_dictFallbackText'] = 'Вашият браузър не поддържа качване чрез плъзгане и пускане.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Файлът е твърде голям ({{filesize}}MiB). Максимален размер: {{maxFilesize}}MiB.';

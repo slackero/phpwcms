@@ -175,10 +175,10 @@ if($img_thumbs) {
     <div id="imgpos6" class="btn <?php echo ($content['image_list']['pos']==6 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos6.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos6i'] ?>"></div>
     <div id="imgpos7" class="btn <?php echo ($content['image_list']['pos']==7 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos7.svg" alt="" width="16" height="16" border="0"data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_pos7i'] ?>"></div>
   </div>
-  <div class="col form-check form-check-inline">
+  <div class="col"><div class="form-check">
 		<input type="checkbox" class="form-check-input" name="cimage_usetable" id="cimage_usetable" value="1" <?php is_checked(1, empty($content['image_list']['usetable']) ? 0 : 1); ?> />
 		<label for="cimage_usetable" class="form-check-label"><?php echo $BL['be_admin_page_table'] ?></label>
-  </div>
+  </div></div>
 </div>
 
 <div class="form-group align-items-center row g-2">

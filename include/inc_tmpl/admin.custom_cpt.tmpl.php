@@ -426,7 +426,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
 
             return `
             <tr class="field-row">
-              <td class="align-middle text-muted text-center drag-handle" style="cursor: grab; width: 30px; user-select: none;" title="<?php echo html($BL['be_admin_custom_cpt_drag_reorder'] ?? 'Drag to reorder'); ?>"><i class="fa fa-grip-vertical text-black-50"></i></td>
+              <td class="align-middle text-muted text-center drag-handle" style="cursor: grab; width: 30px; user-select: none;" title="<?php echo html($BL['be_admin_custom_cpt_drag_reorder'] ?? 'Drag to reorder'); ?>"><i class="fa fa-grip-vertical text-body-tertiary"></i></td>
               <td>
                 <input type="text" name="field_key[]" class="form-control form-control-sm font-monospace" value="${key || ''}" placeholder="key_name" required pattern="[-a-zA-Z0-9_]+" oninput="updateFieldTagPreview(this); validateFieldRowKey(this);">
                 <div class="invalid-feedback field-key-feedback" style="display: none; font-size: 11px;"></div>
@@ -863,7 +863,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
         <div class="modal-body">
           <div class="form-group">
             <label for="import_file"><strong><?php echo html($BL['be_admin_custom_cpt_upload_json'] ?? 'Upload JSON File'); ?></strong></label>
-            <input type="file" name="import_file" id="import_file" class="form-control-file" accept=".json">
+            <input type="file" name="import_file" id="import_file" class="form-control" accept=".json">
           </div>
           <div class="form-group">
             <label for="import_json"><strong><?php echo html($BL['be_admin_custom_cpt_paste_json'] ?? 'Or Paste JSON Content'); ?></strong></label>

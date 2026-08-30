@@ -83,12 +83,11 @@ ORIGINAL
         <?php echo $BL['be_newsletter_selectCSV']; echo '<input type="hidden" name="MAX_FILE_SIZE" value="'.$_userInfo['max_file_size'].'" />'; ?>
       </label>
       <div class="col-sm-3">
-        <input name="cvsfile" type="file" class="custom-file-input" id="csvfile" required />
-        <label class="custom-file-label" for="csvfile"></label>
+        <input name="cvsfile" type="file" class="form-control" id="csvfile" required />
       </div>
   </div>
 
-  <div class="form-group align-items-center row g-2 has-danger">
+  <div class="form-group align-items-center row g-2">
       <label for="delimeter" class="col-sm-2 col-form-label text-end">
         <?php echo $BL['be_newsletter_delimeter'] ?>
       </label>

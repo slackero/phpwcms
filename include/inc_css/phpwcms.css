@@ -130,12 +130,8 @@ textarea {
     line-height: 1.5;
 }
 
-.custom-file-label {
-    overflow: hidden;
-}
-
 select.form-control-sm:not([size]):not([multiple]),
-.form-select-sm {
+select.form-select-sm:not([size]):not([multiple]) {
     height: calc(1.5em + .5rem + 2px);
 }
 

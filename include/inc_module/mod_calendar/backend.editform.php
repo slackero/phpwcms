@@ -226,7 +226,7 @@ initJsAutocompleter();
       <div class="input-group input-group-sm">
         <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
         <input name="cnt_image_name" type="text" id="cnt_image_name" class="form-control" value="<?php echo html($plugin['data']['calendar_image']['name']) ?>" maxlength="250" onfocus="this.blur()" />
-        <a href="#" class="btn btn-sm btn-danger trash" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>
+        <a href="#" class="btn btn-sm btn-danger trash" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i></a>
       </div>
       <input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?php echo $plugin['data']['calendar_image']['id'] ?>" />
     </div>
@@ -234,14 +234,14 @@ initJsAutocompleter();
 
   <div class="form-group align-items-center row g-2">
     <label class="col-sm-2 col-form-label text-end p-0"></label>
-    <div class="form-check form-check-inline col-sm-auto">
+    <div class="col-sm-auto"><div class="form-check">
 			<input class="form-check-input" type="checkbox" id="cnt_image_zoom" name="cnt_image_zoom" value="1"<?php is_checked(1, $plugin['data']['calendar_image']['zoom']); ?> />
 			<label class="form-check-label" for="cnt_image_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
-    </div>
-    <div class="form-check form-check-inline col-sm-auto">
+    </div></div>
+    <div class="col-sm-auto"><div class="form-check">
 			<input class="form-check-input" type="checkbox" id="cnt_image_lightbox" name="cnt_image_lightbox" value="1"<?php is_checked(1, $plugin['data']['calendar_image']['lightbox']); ?> />
 			<label class="form-check-label" for="cnt_image_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
-    </div>
+    </div></div>
   </div>
 
   <div class="form-group align-items-center row g-2">
@@ -265,14 +265,14 @@ initJsAutocompleter();
 
     <div class="form-group row g-2">
     	<label for="be_ftptakeover_status" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
-			<div class="form-check form-check-inline col-sm-auto">
+			<div class="col-sm-auto"><div class="form-check">
 				<input class="form-check-input" type="checkbox" name="calendar_status" id="calendar_status" value="1"<?php is_checked($plugin['data']['calendar_status'], 1) ?> />
 				<label class="form-check-label" for="calendar_status"><?php echo $BL['be_cnt_activated'] ?></label>
-			</div>
-			<div class="form-check form-check-inline col-sm-auto">
+			</div></div>
+			<div class="col-sm-auto"><div class="form-check">
 				<input class="form-check-input" type="checkbox" name="calendar_duplicate" id="calendar_duplicate" value="1"<?php is_checked(empty($plugin['data']['calendar_duplicate'])?0:1, 1) ?> />
 				<label class="form-check-label" for="calendar_duplicate"><?php echo $BLM['save_copy'] ?></label>
-			</div>
+			</div></div>
     </div>
 
 	</div>

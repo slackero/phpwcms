@@ -1560,7 +1560,7 @@ $BL['be_cnt_css_class']            = 'CSS sınıfı';
 $BL['be_cnt_plugin_n.a.']          = 'eklenti mevcut değil';
 $BL['gd_not_loaded']               = '<strong>GD işlevi mevcut değil!</strong> Lütfen PHP GD kütüphanesinin etkinleştirildiğinden emin olun.';
 $BL['be_fileuploader_uploadButtonText'] = 'Dosyaları seçin veya buraya bırakın';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Dosyaları seçin veya buraya bırakın</span><br><small class="text-muted">Bu alana tıklayın veya dosyaları sürükleyip bırakın</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Dosyaları seçin veya buraya bırakın</span><br><small class="text-muted">Bu alana tıklayın veya dosyaları sürükleyip bırakın</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Tarayıcınız sürükle ve bırak dosya yüklemelerini desteklemiyor.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Dosya çok büyük ({{filesize}}MiB). Maksimum dosya boyutu: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Bu türdeki dosyalar geçerli filtre modunda yüklenemez.';

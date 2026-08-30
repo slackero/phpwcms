@@ -1431,7 +1431,7 @@ $BL['be_cnt_imagecenterh']         = 'centrează orizontal';
 $BL['be_cnt_imagecenterv']         = 'centrează vertical';
 $BL['be_check_against_category_alias'] = 'leagă articolul individual din nivelul de structură de nivelul de structură';
 $BL['be_fileuploader_uploadButtonText'] = 'Selectați fișiere sau trageți aici';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Selectați fișiere sau trageți aici</span><br><small class="text-muted">Faceți clic sau trageți fișiere în această zonă</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Selectați fișiere sau trageți aici</span><br><small class="text-muted">Faceți clic sau trageți fișiere în această zonă</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Browserul dvs. nu acceptă încărcarea prin drag and drop.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Fișierul este prea mare ({{filesize}}MiB). Dimensiune maximă: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Fișierele de acest tip nu pot fi încărcate în modul de filtrare curent.';
