@@ -756,6 +756,7 @@ $BL['be_newsletter_sample']        = 'példa';
 $BL['be_newsletter_selectCSV']     = 'CSV file választás';
 $BL['be_newsletter_delimeter']     = 'delimeter';
 $BL['be_newsletter_importCSV']     = 'CSV file importálása';
+$BL['be_newsletter_placeholder_insert'] = 'Kattintson a beszúráshoz a kurzorpozícióba';
 $BL['be_admin_struct_orderarticle'] = 'a hozzá tartozó cikkek rendezése';
 $BL['be_admin_struct_orderdate']   = 'létrehozás dátuma';
 $BL['be_admin_struct_orderchangedate'] = 'módosítás dátuma';

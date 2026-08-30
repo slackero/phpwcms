@@ -759,6 +759,7 @@ $BL['be_newsletter_sample']        = 'exemplu';
 $BL['be_newsletter_selectCSV']     = 'selecteaza fisier CSV';
 $BL['be_newsletter_delimeter']     = 'separatori';
 $BL['be_newsletter_importCSV']     = 'importa fisier CSV';
+$BL['be_newsletter_placeholder_insert'] = 'Click pentru a insera la poziția cursorului';
 $BL['be_admin_struct_orderarticle'] = 'ordonare dupa articolele desemnate';
 $BL['be_admin_struct_orderdate']   = 'data de creare';
 $BL['be_admin_struct_orderchangedate'] = 'data modificarii';

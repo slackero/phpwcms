@@ -755,6 +755,7 @@ $BL['be_newsletter_sample']        = 'näidis';
 $BL['be_newsletter_selectCSV']     = 'vali CSV fail';
 $BL['be_newsletter_delimeter']     = 'eraldaja';
 $BL['be_newsletter_importCSV']     = 'impordi CSV fail';
+$BL['be_newsletter_placeholder_insert'] = 'Click to insert at cursor position';
 $BL['be_admin_struct_orderarticle'] = 'määratud artiklite tellimine';
 $BL['be_admin_struct_orderdate']   = 'loodud';
 $BL['be_admin_struct_orderchangedate'] = 'muudetud';

@@ -763,6 +763,7 @@ $BL['be_newsletter_sample']        = 'monster';
 $BL['be_newsletter_selectCSV']     = 'selecteer CSV bestand';
 $BL['be_newsletter_delimeter']     = 'afbakening';
 $BL['be_newsletter_importCSV']     = 'importeer CSV bestand';
+$BL['be_newsletter_placeholder_insert'] = 'Klik om in te voegen op de cursorpositie';
 $BL['be_admin_struct_orderarticle'] = 'order van toegewezen bestanden';
 $BL['be_admin_struct_orderdate']   = 'creatie datum';
 $BL['be_admin_struct_orderchangedate'] = 'wijziging datum';

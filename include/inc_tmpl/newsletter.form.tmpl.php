@@ -143,9 +143,9 @@ function insertNewsletterPlaceholder(tag) {
       <div class="col-sm-auto">
         <div class="input-group" id="newsletter_pub_wrap">
           <input name="newsletter_pub" type="text" id="newsletter_pub" class="form-control form-control-sm" placeholder="<?php echo $BL['default_date_format']; ?>" value="<?php echo phpwcms_strtotime($newsletter['newsletter_pub'], 'd.m.Y', ''); ?>" autocomplete="off" required />
-          
+
             <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('newsletter_pub')._flatpickr && document.getElementById('newsletter_pub')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
-          
+
         </div>
       </div>
     </div>
@@ -221,7 +221,7 @@ function insertNewsletterPlaceholder(tag) {
         </div>
     </div>
 
-    <div class="form-group row g-2 bg-grey py-2">
+    <div class="form-group row g-2 py-2">
       <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_cnt_subscription'] ?></label>
       <div class="col-sm-10">
         <div class="form-check">
@@ -333,17 +333,16 @@ function insertNewsletterPlaceholder(tag) {
     </div>
 
     <script type="text/javascript">
-        var nltemplate = [];
-      <?php
-          echo implode(LF, $tmpldata['js']).LF;
-          echo '  showNewsletterTemplateData("'.$value3.'");';
-      ?>
+        const nltemplate = [];
+        <?php
+            echo implode(LF, $tmpldata['js']) . LF;
+            echo '  showNewsletterTemplateData("' . $value3 . '");';
+        ?>
     </script>
 
     <div class="form-group mt-3">
         <label for="newsletter_html" class="fw-bold"><?php echo $BL['be_newsletter_htmlpart'] ?>:</label>
         <?php
-
         $wysiwyg_editor = array(
             'value'     => $newsletter["newsletter_vars"]['html'],
             'field'     => 'newsletter_html',
@@ -354,29 +353,34 @@ function insertNewsletterPlaceholder(tag) {
             'lang'      => 'en'
         );
         include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
-
         ?>
     </div>
 
-    <div class="form-group mt-4">
+    <div class="form-group mt-3">
         <label for="newsletter_text" class="fw-bold"><?php echo $BL['be_newsletter_textpart'] ?>:</label>
         <textarea name="newsletter_text" id="newsletter_text" rows="8" data-mode="plain" data-min-lines="8" data-max-lines="45" wrap="off" class="code-editor form-control form-control-sm"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea>
-        <p class="mt-2 mb-0"><strong><?php echo $BL['be_newsletter_placeholder'] ?>:</strong>
-          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_NAME###" title="Click to insert at cursor position">###RECIPIENT_NAME###</a>
-          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_EMAIL###" title="Click to insert at cursor position">###RECIPIENT_EMAIL###</a>
-          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###VERIFY_LINK###" title="Click to insert at cursor position">###VERIFY_LINK###</a>
-          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###DELETE_LINK###" title="Click to insert at cursor position">###DELETE_LINK###</a>
-          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###SITE_URL###" title="Click to insert at cursor position">###SITE_URL###</a>
-          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###OPENER###" title="Click to insert at cursor position">###OPENER###</a>
+        <p class="mt-2 mb-0">
+          <strong><?php echo $BL['be_newsletter_placeholder'] ?>:</strong>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_NAME###" title="<?php echo $BL['be_newsletter_placeholder_insert'] ?>">###RECIPIENT_NAME###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_EMAIL###" title="<?php echo $BL['be_newsletter_placeholder_insert'] ?>">###RECIPIENT_EMAIL###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###VERIFY_LINK###" title="<?php echo $BL['be_newsletter_placeholder_insert'] ?>">###VERIFY_LINK###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###DELETE_LINK###" title="<?php echo $BL['be_newsletter_placeholder_insert'] ?>">###DELETE_LINK###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###SITE_URL###" title="<?php echo $BL['be_newsletter_placeholder_insert'] ?>">###SITE_URL###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###OPENER###" title="<?php echo $BL['be_newsletter_placeholder_insert'] ?>">###OPENER###</a>
         </p>
     </div>
 
-    <div class="form-group row g-2 bg-grey py-2">
+      <hr>
+
+    <div class="form-group row g-2">
       <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
       <div class="col-sm-10">
         <div class="form-check">
-					<input class="form-check-input" name="newsletter_active" id="newsletter_active" type="checkbox" value="1"<?php is_checked(1, $newsletter["newsletter_active"]); ?> />
-					<label class="form-check-label align-items-center pt-0"><strong><?php echo $BL['be_cnt_newsletter_prepare'] ?></strong><br /><span class="v10"><?php echo $BL['be_cnt_newsletter_prepare1'] ?></span></label>
+            <input class="form-check-input" name="newsletter_active" id="newsletter_active" type="checkbox" value="1"<?php is_checked(1, $newsletter["newsletter_active"]); ?> />
+			<label class="form-check-label align-items-center pt-0" for="newsletter_active">
+                <strong><?php echo $BL['be_cnt_newsletter_prepare'] ?></strong><br />
+                <span class="v10"><?php echo $BL['be_cnt_newsletter_prepare1'] ?></span>
+            </label>
         </div>
       </div>
     </div>

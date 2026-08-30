@@ -769,6 +769,7 @@ $BL['be_newsletter_sample']        = 'Przyk&#322;ad';
 $BL['be_newsletter_selectCSV']     = 'Wybierz plik CSV';
 $BL['be_newsletter_delimeter']     = 'Znak rozdzielaj&#261;cy';
 $BL['be_newsletter_importCSV']     = 'Importuj plik';
+$BL['be_newsletter_placeholder_insert'] = 'Kliknij, aby wstawić w pozycji kursora';
 $BL['be_admin_struct_orderarticle'] = 'Kolejno&#347;&#263; przydzielona artyku&#322;om';
 $BL['be_admin_struct_orderdate']   = 'Data utworzenia';
 $BL['be_admin_struct_orderchangedate'] = 'Data zmiany';

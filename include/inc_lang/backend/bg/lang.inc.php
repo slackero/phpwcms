@@ -1466,6 +1466,7 @@ $BL['be_newsletter_sample']        = 'Примерен CSV ред';
 $BL['be_newsletter_selectCSV']     = 'Изберете CSV файл';
 $BL['be_newsletter_delimeter']     = 'Разделител на полета';
 $BL['be_newsletter_importCSV']     = 'Импортирай CSV файл';
+$BL['be_newsletter_placeholder_insert'] = 'Click to insert at cursor position';
 $BL['be_admin_struct_orderarticle'] = 'ред на статиите';
 $BL['be_admin_struct_orderdate']   = 'дата на създаване';
 $BL['be_admin_struct_orderchangedate'] = 'дата на промяна';

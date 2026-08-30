@@ -807,6 +807,7 @@ $BL['be_newsletter_sample']        = 'ví dụ';
 $BL['be_newsletter_selectCSV']     = 'chọn tệp CSV';
 $BL['be_newsletter_delimeter']     = 'ngăn cách';
 $BL['be_newsletter_importCSV']     = 'nhập từ tệp CSV';
+$BL['be_newsletter_placeholder_insert'] = 'Click to insert at cursor position';
 $BL['be_admin_struct_orderarticle'] = 'thứ tự các bài viết được gán';
 $BL['be_admin_struct_orderdate']   = 'ngày tạo';
 $BL['be_admin_struct_orderchangedate'] = 'ngày thay đổi';

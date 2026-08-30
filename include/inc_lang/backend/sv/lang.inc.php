@@ -1473,6 +1473,7 @@ $BL['be_newsletter_sample']        = 'Exempel på CSV-rad';
 $BL['be_newsletter_selectCSV']     = 'Välj CSV-fil';
 $BL['be_newsletter_delimeter']     = 'Fältavgränsare';
 $BL['be_newsletter_importCSV']     = 'Importera CSV-fil';
+$BL['be_newsletter_placeholder_insert'] = 'Klicka för att infoga vid markörpositionen';
 $BL['be_admin_struct_orderarticle'] = 'artikelordning';
 $BL['be_admin_struct_orderdate']   = 'skapad datum';
 $BL['be_admin_struct_orderchangedate'] = 'ändrad datum';

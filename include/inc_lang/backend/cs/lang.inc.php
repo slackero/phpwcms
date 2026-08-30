@@ -756,6 +756,7 @@ $BL['be_newsletter_sample']        = 'sample';
 $BL['be_newsletter_selectCSV']     = 'select CSV file';
 $BL['be_newsletter_delimeter']     = 'delimeter';
 $BL['be_newsletter_importCSV']     = 'import CSV file';
+$BL['be_newsletter_placeholder_insert'] = 'Kliknutím vložíte na pozyci kurzoru';
 $BL['be_admin_struct_orderarticle'] = 'ordering of assigned articles';
 $BL['be_admin_struct_orderdate']   = 'creation date';
 $BL['be_admin_struct_orderchangedate'] = 'change date';

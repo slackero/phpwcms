@@ -755,6 +755,7 @@ $BL['be_newsletter_sample']        = 'esimerkki';
 $BL['be_newsletter_selectCSV']     = 'valitse CSV-tiedosto';
 $BL['be_newsletter_delimeter']     = 'erotin';
 $BL['be_newsletter_importCSV']     = 'lataa CSV-tiedosto';
+$BL['be_newsletter_placeholder_insert'] = 'Click to insert at cursor position';
 $BL['be_admin_struct_orderarticle'] = 'Artikkeleiden järjestäminen';
 $BL['be_admin_struct_orderdate']   = 'luonti pvm';
 $BL['be_admin_struct_orderchangedate'] = 'muutos pvm';

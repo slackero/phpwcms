@@ -1369,6 +1369,7 @@ $BL['be_newsletter_sample']        = 'Exemplo de linha CSV';
 $BL['be_newsletter_selectCSV']     = 'Selecione o ficheiro CSV';
 $BL['be_newsletter_delimeter']     = 'Delimitador de campos';
 $BL['be_newsletter_importCSV']     = 'Importar ficheiro CSV';
+$BL['be_newsletter_placeholder_insert'] = 'Clique para inserir na posição do cursor';
 $BL['be_admin_struct_orderarticle'] = 'ordem dos artigos';
 $BL['be_admin_struct_orderdate']   = 'data de criação';
 $BL['be_admin_struct_orderchangedate'] = 'data de alteração';

@@ -753,6 +753,7 @@ $BL['be_newsletter_sample']        = 'eksempel';
 $BL['be_newsletter_selectCSV']     = 'velg CSV fil';
 $BL['be_newsletter_delimeter']     = 'skilletegn';
 $BL['be_newsletter_importCSV']     = 'import CSV fil';
+$BL['be_newsletter_placeholder_insert'] = 'Klikk for å sette inn ved markørposisjonen';
 $BL['be_admin_struct_orderarticle'] = 'sortering av tilordnede artikler';
 $BL['be_admin_struct_orderdate']   = 'opprettet dato';
 $BL['be_admin_struct_orderchangedate'] = 'endret dato';

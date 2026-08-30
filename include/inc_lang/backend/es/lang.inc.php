@@ -1220,6 +1220,7 @@ $BL['be_newsletter_fromemail']     = 'correo del remitente';
 $BL['be_newsletter_fromname']      = 'nombre del remitente';
 $BL['be_newsletter_htmlpart']      = 'contenido del bolet&iacute;n HTML';
 $BL['be_newsletter_importCSV']     = 'importar archivo CSV';
+$BL['be_newsletter_placeholder_insert'] = 'Haga clic para insertar en la posición del cursor';
 $BL['be_newsletter_importerror']   = 'los siguientes datos no son v&aacute;lidos:';
 $BL['be_newsletter_importtitle']   = 'importaci&oacute;n de destinatarios del bolet&iacute;n';
 $BL['be_newsletter_newimport']     = 'importar';

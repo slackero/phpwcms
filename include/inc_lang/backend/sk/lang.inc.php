@@ -1486,6 +1486,7 @@ $BL['be_newsletter_sample']        = 'Príklad riadku CSV';
 $BL['be_newsletter_selectCSV']     = 'Vyberte súbor CSV';
 $BL['be_newsletter_delimeter']     = 'Oddeľovač polí';
 $BL['be_newsletter_importCSV']     = 'Importovať súbor CSV';
+$BL['be_newsletter_placeholder_insert'] = 'Kliknutím vložíte na pozíciu kurzora';
 $BL['be_admin_struct_orderarticle'] = 'poradie článkov';
 $BL['be_admin_struct_orderdate']   = 'dátum vytvorenia';
 $BL['be_admin_struct_orderchangedate'] = 'dátum zmeny';

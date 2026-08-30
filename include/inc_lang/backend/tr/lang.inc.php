@@ -759,6 +759,7 @@ $BL['be_newsletter_sample']        = 'örnek';
 $BL['be_newsletter_selectCSV']     = 'CSV dosyası seç';
 $BL['be_newsletter_delimeter']     = 'alan uzunlukları';
 $BL['be_newsletter_importCSV']     = 'CSV dosyası al';
+$BL['be_newsletter_placeholder_insert'] = 'İmleç konumuna eklemek için tıklayın';
 $BL['be_admin_struct_orderarticle'] = 'içeridiği bölümlerin sıralaması';
 $BL['be_admin_struct_orderdate']   = 'oluşturma tarihine göre';
 $BL['be_admin_struct_orderchangedate'] = 'değişrme tarihine göre';

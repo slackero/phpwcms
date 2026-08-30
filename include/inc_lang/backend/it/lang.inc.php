@@ -798,6 +798,7 @@ $BL['be_newsletter_sample']        = 'esempio';
 $BL['be_newsletter_selectCSV']     = 'seleziona file CSV';
 $BL['be_newsletter_delimeter']     = 'delimitatore';
 $BL['be_newsletter_importCSV']     = 'importa file CSV';
+$BL['be_newsletter_placeholder_insert'] = 'Fai clic per inserire nella posizione del cursore';
 $BL['be_admin_struct_orderarticle'] = 'ordinamento degli articoli assegnati';
 $BL['be_admin_struct_orderdate']   = 'data di creazione';
 $BL['be_admin_struct_orderchangedate'] = 'data di modifica';

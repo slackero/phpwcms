@@ -797,6 +797,7 @@ $BL['be_newsletter_sample']        = 'Eksempel på CSV-linje';
 $BL['be_newsletter_selectCSV']     = 'Vælg CSV-fil';
 $BL['be_newsletter_delimeter']     = 'Feltafgrænser';
 $BL['be_newsletter_importCSV']     = 'Importer CSV-fil';
+$BL['be_newsletter_placeholder_insert'] = 'Click to insert at cursor position';
 $BL['be_admin_struct_orderarticle'] = 'artikelrækkefølge';
 $BL['be_admin_struct_orderdate']   = 'oprettelsesdato';
 $BL['be_admin_struct_orderchangedate'] = 'ændringsdato';

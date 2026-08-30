@@ -754,6 +754,7 @@ $BL['be_newsletter_sample']        = 'mostra';
 $BL['be_newsletter_selectCSV']     = 'Selecciona fitxer CSV';
 $BL['be_newsletter_delimeter']     = 'Delimitador';
 $BL['be_newsletter_importCSV']     = 'Importa fitxer CSV';
+$BL['be_newsletter_placeholder_insert'] = 'Click to insert at cursor position';
 $BL['be_admin_struct_orderarticle'] = 'Ordre dels articles assignats';
 $BL['be_admin_struct_orderdate']   = 'Data de creació';
 $BL['be_admin_struct_orderchangedate'] = 'Data de modificació';

@@ -759,6 +759,7 @@ $BL['be_newsletter_sample']        = 'primer';
 $BL['be_newsletter_selectCSV']     = 'izberite CSV datoteko';
 $BL['be_newsletter_delimeter']     = 'delitelj';
 $BL['be_newsletter_importCSV']     = 'uvozi CSV datoteko';
+$BL['be_newsletter_placeholder_insert'] = 'Click to insert at cursor position';
 $BL['be_admin_struct_orderarticle'] = 'vrstni red člankov';
 $BL['be_admin_struct_orderdate']   = 'datum kreiranja';
 $BL['be_admin_struct_orderchangedate'] = 'datum spremembe';
