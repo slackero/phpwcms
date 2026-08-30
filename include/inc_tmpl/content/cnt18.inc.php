@@ -249,8 +249,8 @@ if (!defined('PHPWCMS_ROOT')) {
 	<div class="form-group row g-2">
 		<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_guestbook_edit']; ?></label>
 		<div class="col-sm-10">
-			<div class="embed-responsive" style="height: 350px;">
-				<iframe class="embed-responsive-item w-100 h-100 border-0" src="include/inc_act/act_guestbook.php?<?php echo CSRF_GET_TOKEN; ?>&amp;cid=<?php echo empty($content['guestbook']['aliasID']) ? $content['id'] : $content['guestbook']['aliasID']; ?>"></iframe>
+			<div style="height: 350px;">
+				<iframe class="w-100 h-100 border-0" src="include/inc_act/act_guestbook.php?<?php echo CSRF_GET_TOKEN; ?>&amp;cid=<?php echo empty($content['guestbook']['aliasID']) ? $content['id'] : $content['guestbook']['aliasID']; ?>"></iframe>
 			</div>
 		</div>
 	</div>

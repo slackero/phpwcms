@@ -1234,10 +1234,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     			echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>';
     			echo '</select>';
 
-    			echo '';
-    			echo '<a type="button" class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_template, ';
-    			echo 'document.articlecontent.ph.options[document.articlecontent.ph.selectedIndex].value);"></a>';
-    			echo '';
+    			echo '<button type="button" class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_template, document.articlecontent.ph.options[document.articlecontent.ph.selectedIndex].value);"><i class="fas fa-angle-right" aria-hidden="true"></i></button>';
     			echo '</div>';
     		}
     		?>

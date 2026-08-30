@@ -178,7 +178,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
 		if($value == 'MULTISELECT') {
-			echo '    <select id="'.$key.'" class="form-control form-control-sm" style="max-width:450px;" name="'.$key.'[]" multiple="multiple" size="6">'.LF;
+			echo '    <select id="'.$key.'" class="form-select form-select-sm" style="max-width:450px;" name="'.$key.'[]" multiple="multiple" size="6">'.LF;
 		} else {
 			echo '    <select id="'.$key.'" class="form-select form-select-sm" style="max-width:450px;" name="'.$key.'">'.LF;
 		}

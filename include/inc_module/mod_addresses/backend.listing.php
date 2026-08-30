@@ -163,7 +163,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 							echo html_specialchars(implode(' ', $_POST['filter']));
 						}
 						?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
-						<select name="filter_country" id="filter_country" class="form-control" onchange="this.form.submit();">
+						<select name="filter_country" id="filter_country" class="form-select" onchange="this.form.submit();">
 							<option value="-">- <?php echo $BLM['detail_country'] ?> -</option>
 							<?php echo list_country( isset($_SESSION['filter_country']) ? $_SESSION['filter_country'] : '-'  ); ?>
 						</select>

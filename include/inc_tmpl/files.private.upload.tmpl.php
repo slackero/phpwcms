@@ -321,7 +321,7 @@ document.getElementById("file").onchange = function(e) {
             }
     }
         if(iptctable !== "") {
-            iptctable = \'<table style="width:95%;border-top:1px solid #9BBECA;margin:3px 5px 0 0;">\' + iptctable + \'</table>\';
+            iptctable = \'<table class="table table-sm mb-0" style="width:95%;border-top:1px solid #9BBECA;margin:3px 5px 0 0;">\' + iptctable + \'</table>\';
         }
         iptcdata.innerHTML = iptctable;
     });

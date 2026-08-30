@@ -29,7 +29,7 @@ if (!defined('PHPWCMS_SETUP')) {
     <div class="alert alert-danger mb-4">
         <div><i class="fa fa-exclamation-triangle"></i> Please check your database connection settings below.</div>
         <?php if (!empty($db_error_message)): ?>
-            <div class="mt-2 small text-monospace fw-bold bg-white p-2 border rounded text-danger"><?php echo html_specialchars($db_error_message) ?></div>
+            <div class="mt-2 small font-monospace fw-bold bg-white p-2 border rounded text-danger"><?php echo html_specialchars($db_error_message) ?></div>
         <?php endif; ?>
     </div>
     <?php $_SESSION['admin_set'] = false; ?>

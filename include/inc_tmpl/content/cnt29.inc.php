@@ -452,12 +452,9 @@ if($content['custom_field_items']):
             elseif($cnt_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
                 <div class="input-group mb-2">
-                    
-                        <button class="modalButton btn btn-sm btn-blue folder-open" type="button"
-                                data-bs-toggle="modal" data-bs-target="#browserModal"
-                                data-src="filebrowser.php?opt=19&field=<?php echo $custom_field; ?>&allowed=<?php echo $cnt_fieldgroup['fields'][$custom_field]['filetypes']; ?>">
-                        </button>
-                    
+                    <button class="modalButton btn btn-sm btn-blue folder-open" type="button"
+                            data-bs-toggle="modal" data-bs-target="#browserModal"
+                            data-src="filebrowser.php?opt=19&field=<?php echo $custom_field; ?>&allowed=<?php echo $cnt_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
                     <input name="customfield[<?php echo $custom_field; ?>][id]" type="hidden" id="customfield_<?php echo $custom_field; ?>_id" value="<?php
                         if(isset($content['custom_fields'][$custom_field]['id'])) {
                             echo $content['custom_fields'][$custom_field]['id'];
@@ -472,15 +469,12 @@ if($content['custom_field_items']):
                             echo ' placeholder="' . $BL['be_allowed_filetypes'] . ': '. html(str_replace(',', ', ', $cnt_fieldgroup['fields'][$custom_field]['filetypes'])) . '"';
                         } ?>
                     />
-                    
-                        <a class="btn btn-sm btn-danger trash" href="#" type="button"
-                           data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
-                           onclick="document.getElementById('customfield_<?php
-                            echo $custom_field; ?>_name').value='';document.getElementById('customfield_<?php
-                            echo $custom_field; ?>_id').value='';document.getElementById('customfield_<?php
-                            echo $custom_field; ?>_description').value='';this.blur();return false;"
-                        ></a>
-                    
+                    <a class="btn btn-sm btn-danger trash" href="#"
+                       data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
+                       onclick="document.getElementById('customfield_<?php
+                        echo $custom_field; ?>_name').value='';document.getElementById('customfield_<?php
+                        echo $custom_field; ?>_id').value='';document.getElementById('customfield_<?php
+                        echo $custom_field; ?>_description').value='';this.blur();return false;"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
                 </div>
                 <textarea name="customfield[<?php echo $custom_field; ?>][description]"
                           cols="40"

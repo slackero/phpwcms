@@ -69,13 +69,13 @@ if(!isset($_GET["edit"])) {
             echo "</td>\n";
             echo '<td class="text-end text-nowrap">';
             echo '<div class="btn-group btn-group-sm" role="group" aria-label="subscr-actions-'.$row["subscription_id"].'">';
-            echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
-            echo '<button id="abtnsubscription'.$row["subscription_id"].'" class="btn fa btn-sm visible '.($row["subscription_active"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["subscription_id"].'" data-type="subscription"  data-table="subscription" data-field="subscription_active" data-fieldid="subscription_id" aria-disabled="true" data-bs-toggle="tooltip" title="set '.$row["subscription_name"].' verified/not verified"></button>';
+            echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
+            echo '<button id="abtnsubscription'.$row["subscription_id"].'" class="btn fa btn-sm visible '.($row["subscription_active"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["subscription_id"].'" data-type="subscription"  data-table="subscription" data-field="subscription_active" data-fieldid="subscription_id" data-bs-toggle="tooltip" title="set '.$row["subscription_name"].' verified/not verified"></button>';
             echo '</div>';
             if ($subscribers>0) {
               echo '<div class="btn btn-sm btn-danger disabled ms-1" role="button" aria-disabled="true" title="'.$BL['be_mailinglist_cannotdelete_list'].': '.html_specialchars($row["subscription_name"]).'" data-bs-toggle="tooltip" href="#"><i class="far fa-trash-alt"></i></div>';
             } else {
-              echo '<a class="btn btn-sm btn-danger ms-1" role="button" aria-disabled="true" title="'.$BL['be_mailinglist_delete_list'].': '.html_specialchars($row["subscription_name"]).'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;del='.$row["subscription_id"]. '" onclick="return confirm(\''.$BL['be_mailinglist_delete_list'].' '.js_singlequote($row["subscription_name"]).'\');"><i class="far fa-trash-alt"></i></a>';
+              echo '<a class="btn btn-sm btn-danger ms-1" role="button" title="'.$BL['be_mailinglist_delete_list'].': '.html_specialchars($row["subscription_name"]).'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;del='.$row["subscription_id"]. '" onclick="return confirm(\''.$BL['be_mailinglist_delete_list'].' '.js_singlequote($row["subscription_name"]).'\');"><i class="far fa-trash-alt"></i></a>';
             }
 
             echo "</td>\n</tr>\n";

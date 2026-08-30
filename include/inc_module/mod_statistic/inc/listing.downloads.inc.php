@@ -127,7 +127,7 @@ $result = _dbQuery($sql);
 					echo html_specialchars(implode(' ', $_POST['filter']));
 				}
 				?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
-				<select name="list_search" class="form-control" id="list_search">
+				<select name="list_search" class="form-select" id="list_search">
 					<option value="">-- Sortierung --</option>
 					<option value="f_name" <?php echo ($_SESSION['list_search'] == 'f_name' ? ' selected' : '') ?>><?php echo $BLM['filename'] ?></option>
 					<option value="f_dlstart" <?php echo ($_SESSION['list_search'] == 'f_dlstart' ? ' selected' : '') ?>><?php echo $BLM['downloads_start'] ?></option>

@@ -288,7 +288,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
                 <i class="fa fa-search fa-fw"></i>
                 <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span>
             </a>
-            <form class="dropdown-menu dropdown-menu-right" style="min-width: 22rem;" action="phpwcms.php?<?php echo get_token_get_string(); ?>" method="POST">
+            <form class="dropdown-menu dropdown-menu-end" style="min-width: 22rem;" action="phpwcms.php?<?php echo get_token_get_string(); ?>" method="POST">
                 <div class="input-group">
                     <input type="search" name="backend_search_input" placeholder="<?php echo $BL['be_ctype_search'] ?>" value="<?php
                     if (isset($_POST['backend_search_input'])) {
@@ -297,7 +297,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
                     if (!empty($_SESSION['phpwcms_backend_search'])) {
                         echo html($_SESSION['phpwcms_backend_search']);
                     }
-                    ?>" class="form-control" aria-describedby="basic-search" />
+                    ?>" class="form-control" />
                         <button class="btn btn-blue">
                             <i class="fa fa-search fa-fw"></i>
                         </button>
@@ -322,7 +322,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
                 <i class="theme-icon-active fa fa-adjust fa-fw"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="themeDropdown">
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
                 <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="auto"><i class="fa fa-adjust fa-fw me-2"></i> <?php echo html($BL['be_theme_auto']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
                 <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="light"><i class="fa fa-sun fa-fw me-2"></i> <?php echo html($BL['be_theme_light']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
                 <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="dark"><i class="fa fa-moon fa-fw me-2"></i> <?php echo html($BL['be_theme_dark']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
@@ -696,7 +696,7 @@ forward_to($forward_to_message_center, PHPWCMS_URL. 'phpwcms.php?do=messages', 2
 
 ?>
 <!-- phpwcms BODY_CLOSE -->
-<div id="browserModal" class="modal fade" role="dialog">
+<div id="browserModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">

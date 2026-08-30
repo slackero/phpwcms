@@ -313,7 +313,7 @@ if ($per_page !== 25) {
         <h1 class="mb-0"><?php echo html($BL['be_admin_template_lang'] ?? 'Template Translations'); ?></h1>
     </div>
     <div class="col-12 col-sm text-center text-sm-end mt-2 mt-sm-0">
-        <span class="badge badge-secondary py-1 px-2"><?php echo html($total_items . ' ' . ($BL['be_admin_template_lang_items'] ?? 'Items')); ?></span>
+        <span class="badge text-bg-secondary py-1 px-2"><?php echo html($total_items . ' ' . ($BL['be_admin_template_lang_items'] ?? 'Items')); ?></span>
     </div>
 </div>
 
@@ -322,18 +322,14 @@ if ($per_page !== 25) {
 <?php if (!empty($action_msg)): ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <?php echo html($action_msg); ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php endif; ?>
 
 <?php if (!empty($action_error)): ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <?php echo html($action_error); ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php endif; ?>
 
@@ -410,7 +406,7 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'me-1');
         <h2 class="mb-0">
             <i class="fa fa-language"></i>
             <code>template/template_lang/<?php echo html($current_lang); ?>.php</code>
-            <span class="badge badge-info ms-2 fw-normal badge-align badge-align-t2"><?php echo $current_flag_img; ?><?php echo html($current_lang_upper . ($current_lang_name !== '' ? ' - ' . $current_lang_name : '')); ?></span>
+            <span class="badge text-bg-info ms-2 fw-normal badge-align badge-align-t2"><?php echo $current_flag_img; ?><?php echo html($current_lang_upper . ($current_lang_name !== '' ? ' - ' . $current_lang_name : '')); ?></span>
         </h2>
         <?php if (!empty($page_keys)): ?>
             <button type="submit" name="btn_save_top" value="1" class="btn btn-sm btn-blue">
@@ -427,7 +423,7 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'me-1');
             </div>
         <?php else: ?>
             <table class="table table-striped table-sm table-hover table-valign-middle mb-0">
-                <thead class="thead-light">
+                <thead class="table-light">
                     <tr>
                         <th style="width: 40%;"><?php echo html($BL['be_admin_template_lang_token'] ?? 'Token / Default Text'); ?></th>
                         <th style="width: 52%;"><?php echo html($BL['be_admin_template_lang_trans'] ?? 'Translation'); ?> (<?php echo $current_flag_img; ?><?php echo html($current_lang_upper . ($current_lang_name !== '' ? ' - ' . $current_lang_name : '')); ?>)</th>
@@ -448,7 +444,7 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'me-1');
                                 </div>
                                 <?php if ($current_lang !== $default_lang && isset($default_tokens[$t_key])): ?>
                                     <div class="small text-muted text-break mt-1">
-                                        <span class="badge badge-light border me-1 badge-align"><?php echo $default_flag_img; ?><?php echo html($default_lang_upper . ($default_lang_name !== '' ? ' - ' . $default_lang_name : '')); ?></span> <?php echo html($default_tokens[$t_key]); ?>
+                                        <span class="badge text-bg-light border me-1 badge-align"><?php echo $default_flag_img; ?><?php echo html($default_lang_upper . ($default_lang_name !== '' ? ' - ' . $default_lang_name : '')); ?></span> <?php echo html($default_tokens[$t_key]); ?>
                                     </div>
                                 <?php endif; ?>
                             </td>

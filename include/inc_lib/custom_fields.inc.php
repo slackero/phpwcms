@@ -707,7 +707,7 @@ function custom_field_generate_template_scaffold($cpt) {
         $legend = $field['legend'] ?? ($field['label'] ?? $key);
 
         if ($type === 'bool') {
-            $code .= '      [' . $tag . ']<div class="badge badge-success">' . html($legend) . '</div>[/' . $tag . ']' . LF;
+            $code .= '      [' . $tag . ']<div class="badge text-bg-success">' . html($legend) . '</div>[/' . $tag . ']' . LF;
         } elseif ($type === 'image') {
             $code .= '      [' . $tag . ']<img src="{' . $tag . '}" alt="" class="img-fluid mb-2">[/' . $tag . ']' . LF;
         } elseif ($type === 'url') {

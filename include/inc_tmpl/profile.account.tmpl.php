@@ -203,7 +203,7 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
     <?php if ($has_2fa_enabled): ?>
 
       <div class="d-flex align-items-center mb-4">
-        <span class="badge badge-success px-3 py-2 me-3" style="font-size: 0.95rem;">
+        <span class="badge text-bg-success px-3 py-2 me-3" style="font-size: 0.95rem;">
           <i class="fa fa-check-circle me-1"></i> <?php echo $BL['be_profile_2fa_enabled'] ?? 'Enabled'; ?>
         </span>
         <span class="text-muted small">
@@ -215,7 +215,7 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
         <div class="alert alert-warning border p-3 mb-4">
           <h5 class="alert-heading fw-bold mb-2"><i class="fa fa-key me-1"></i> <?php echo $BL['be_profile_2fa_backup_title'] ?? 'Backup Recovery Codes'; ?></h5>
           <p class="small mb-3"><?php echo $BL['be_profile_2fa_backup_text'] ?? 'Save these single-use recovery codes in a safe place:'; ?></p>
-          <div class="row bg-white p-3 border rounded text-monospace fw-bold mb-2">
+          <div class="row bg-white p-3 border rounded font-monospace fw-bold mb-2">
             <?php foreach ($_SESSION['new_2fa_backup_codes'] as $bcode): ?>
               <div class="col-sm-6 col-md-3 py-1"><?php echo html($bcode); ?></div>
             <?php endforeach; ?>
@@ -260,7 +260,7 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
             <h5 class="fw-bold mb-2">1. <?php echo $BL['be_profile_2fa_step1'] ?? 'Scan QR Code with Authenticator App'; ?></h5>
             <p class="small text-muted mb-2"><?php echo $BL['be_profile_2fa_step1_text'] ?? 'Scan this QR code with your authenticator app, or enter the secret key manually:'; ?></p>
             <p class="mb-3">
-              <span class="badge badge-secondary p-2 text-monospace" style="font-size: 1rem; letter-spacing: 0.1em;"><?php echo chunk_split($setup_secret, 4, ' '); ?></span>
+              <span class="badge text-bg-secondary p-2 font-monospace" style="font-size: 1rem; letter-spacing: 0.1em;"><?php echo chunk_split($setup_secret, 4, ' '); ?></span>
               <button type="button" class="btn btn-sm btn-light border ms-2" onclick="copyToClipboard('<?php echo $setup_secret; ?>'); alert('Secret key copied!');" title="Copy Secret"><i class="fa fa-copy"></i></button>
             </p>
 

@@ -257,7 +257,7 @@ if(isset($_GET['open'])) {
   if(isset($result[0]['fcat_id'])) {
       echo '<div class="table-responsive mb-4">';
       echo '<table class="table table-sm table-hover table-valign-middle mb-0">';
-      echo '<thead class="thead-light"><tr><th>Category / Key</th><th class="text-end">Actions</th></tr></thead><tbody>';
+      echo '<thead class="table-light"><tr><th>Category / Key</th><th class="text-end">Actions</th></tr></thead><tbody>';
 
       foreach($result as $row) {
 
@@ -267,7 +267,7 @@ if(isset($_GET['open'])) {
           echo "<td>";
           echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&p=7&open=".$row["fcat_id"].":".(empty($_SESSION["fcatlist"][$row["fcat_id"]])?1:0)."#fcat_".$row["fcat_id"]."\">" : "";
           echo "<i class=\"fa fa-fw fa-caret-".(($child_count) ? (empty($_SESSION["fcatlist"][$row["fcat_id"]]) ? "right" : "down") : "right")." text-muted me-1\"></i>".(($child_count) ? "</a>" : "");
-          echo "<span".(($row["fcat_needed"])?" class=\"text-danger\"":"").">".html($row["fcat_name"])."</span> <span class=\"badge badge-light border ms-1\">".$row["fcat_sort"]."</span></td>\n";
+          echo "<span".(($row["fcat_needed"])?" class=\"text-danger\"":"").">".html($row["fcat_name"])."</span> <span class=\"badge text-bg-light border ms-1\">".$row["fcat_sort"]."</span></td>\n";
 
           echo '<td class="text-end text-nowrap">';
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="fcat-actions-'.$row["fcat_id"].'">';
@@ -294,7 +294,7 @@ if(isset($_GET['open'])) {
               if(isset($kresult[0]['fkey_id'])) {
                   foreach($kresult as $krow) {
                       echo "<tr>\n";
-                      echo "<td class=\"ps-4\"><i class=\"fa fa-key text-muted me-2\"></i>".html($krow['fkey_name'])." <span class=\"badge badge-light border ms-1\">".$krow['fkey_sort']."</span></td>\n";
+                      echo "<td class=\"ps-4\"><i class=\"fa fa-key text-muted me-2\"></i>".html($krow['fkey_name'])." <span class=\"badge text-bg-light border ms-1\">".$krow['fkey_sort']."</span></td>\n";
                       echo "<td class=\"text-end text-nowrap\">";
                       echo '<div class="btn-group btn-group-sm" role="group" aria-label="fkey-actions-'.$krow['fkey_id'].'">';
                       echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=".$krow['fkey_id']."&cid=".$row['fcat_id']."\" class=\"btn btn-sm btn-blue\" title=\"".$BL['be_admin_fcat_editkey']."\">";

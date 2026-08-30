@@ -99,9 +99,7 @@ if ($do) {
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title fw-bold" id="gplModalLabel">GNU General Public License (GPL-2.0)</h5>
-                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4" style="font-size: 0.9rem; line-height: 1.5;">
                 <h6 class="text-center fw-bold mb-1">GNU GENERAL PUBLIC LICENSE</h6>

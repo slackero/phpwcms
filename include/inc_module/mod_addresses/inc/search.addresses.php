@@ -198,7 +198,7 @@ if(isset($result[0])) {
         // Select Menü Kontinent
         $dealer[]   = '<div class="col-auto d-flex flex-row">';
         $dealer[]   = ' <label class="col-form-label me-2">@@Kontinent@@</label>';
-        $dealer[]   = ' <select class="form-control" name="continent_filter" id="continent_filter" onchange="this.form.submit()">';
+        $dealer[]   = ' <select class="form-select" name="continent_filter" id="continent_filter" onchange="this.form.submit()">';
         $dealer[]   = '     <option value="" style="font-style:italic"> - @@Select continent@@ - </option>';
         $dealer[]   = implode(LF, $_con);
         $dealer[]   = ' </select>';
@@ -209,7 +209,7 @@ if(isset($result[0])) {
         // Select Menü Land
         $dealer[]   = '<div class="col-auto d-flex flex-row">';
         $dealer[]   = ' <label class="col-form-label me-2">@@Land@@</label>';
-        $dealer[]   = ' <select class="form-control" name="country_filter" id="country_filter" onchange="this.form.submit()">';
+        $dealer[]   = ' <select class="form-select" name="country_filter" id="country_filter" onchange="this.form.submit()">';
         $dealer[]   = '     <option value="" style="font-style:italic"> - @@Select country@@ - </option>';
         $dealer[]   = implode(LF, $_cou);
         $dealer[]   = ' </select>';

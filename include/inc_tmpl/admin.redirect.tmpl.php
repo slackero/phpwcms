@@ -255,8 +255,8 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     echo '    <td>'.date($BL['default_date'], $data["timestamp"])."</td>" . LF;
     echo '    <td class="text-end text-nowrap">';
     echo '<div class="btn-group btn-group-sm" role="group" aria-label="redirect-actions-'.$data["rid"].'">';
-    echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=14&amp;rid='.$data["rid"].'"><i class="fa fa-pencil-alt"></i></a>';
-    echo '<button id="abtnredirect'.$data['rid'].'" class="btn fa btn-sm visible '.($data['active']==0 ? "btn-warning" : "btn-success").'" data-id="'.$data['rid'].'" data-type="redirect" data-table="redirect" data-field="active" data-fieldid="rid" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactive'].'"></button>';
+    echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=14&amp;rid='.$data["rid"].'"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<button id="abtnredirect'.$data['rid'].'" class="btn fa btn-sm visible '.($data['active']==0 ? "btn-warning" : "btn-success").'" data-id="'.$data['rid'].'" data-type="redirect" data-table="redirect" data-field="active" data-fieldid="rid" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactive'].'"></button>';
     echo '</div>';
     echo '</td>'.LF;
     $x++;
@@ -349,9 +349,9 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
   </div>
 
   <div class="form-group row g-2 align-items-center">
-    <label for="be_target_type" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_target_type'] ?></label>
+    <label for="type" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_target_type'] ?></label>
     <div class="col-sm-5">
-    <select name="type" type="text" class="form-control form-control-sm" id="type">
+    <select name="type" class="form-select form-select-sm" id="type">
       <option value=""<?php if(empty($data['type'])): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_admin_struct_index'] ?></option>
       <option value="alias"<?php echo is_selected('alias', $data['type']) ?>><?php echo $BL['be_alias'] ?></option>
       <option value="id"<?php echo is_selected('id', $data['type']) ?>><?php echo $BL['be_structure_id'] ?></option>
@@ -361,9 +361,9 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     </div>
     <div class="col-sm-5">
       <div class="row g-2 align-items-center">
-        <label for="be_http_status" class="col-sm-4 col-form-label text-end"><?php echo $BL['be_http_status'] ?></label>
+        <label for="code" class="col-sm-4 col-form-label text-end"><?php echo $BL['be_http_status'] ?></label>
         <div class="col">
-          <select name="code" type="text" class="form-control form-control-sm" id="code">
+          <select name="code" class="form-select form-select-sm" id="code">
             <option value=""<?php if(empty($data['code'])): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_admin_tmpl_default'] ?> (302)</option>
             <option value="301"<?php echo is_selected('301', $data['code']) ?>><?php echo $BL['be_http_status301'] ?> (301)</option>
             <option value="307"<?php echo is_selected('307', $data['code']) ?>><?php echo $BL['be_http_status307'] ?> (301)</option>
@@ -377,7 +377,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
   </div>
 
 	<div class="form-group row g-2 align-items-center">
-		<label for="be_cnt_target" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_target'] ?></label>
+		<label for="target" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_target'] ?></label>
 		<div class="col-sm-5">
 			<input class="form-control form-control-sm" name="target" id="target" value="<?php echo html($data['target']) ?>" type="text">
 		</div>
@@ -387,8 +387,8 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 		<div class="col-sm-2"></div>
 		<div class="col-sm">
 			<div class="form-check">
-				<label for="be_ftptakeover_active" class="form-check-label">
-				<input class="form-check-input" type="checkbox" name="active" id="template_onepage" value="1"<?php is_checked(1, $data['active']) ?> /> <?php echo $BL['be_ftptakeover_active'] ?></label>
+				<input class="form-check-input" type="checkbox" name="active" id="redirect_active" value="1"<?php is_checked(1, $data['active']) ?> />
+				<label for="redirect_active" class="form-check-label"><?php echo $BL['be_ftptakeover_active'] ?></label>
 			</div>
 		</div>
 		<div class="col-sm text-sm-end mt-3 mt-sm-0">

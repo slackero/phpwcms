@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-?><table width="100%">
+?><table class="table table-sm table-valign-middle mb-0">
 <tr><td colspan="2" class="title"><?php echo $BL['be_admin_struct_title'] ?></td></tr>
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>

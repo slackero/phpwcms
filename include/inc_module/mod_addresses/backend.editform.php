@@ -122,7 +122,7 @@ foreach($plugin['fields'] as $key => $value) {
 			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-end fw-bold">'.$BLM[$key].'</label>';
 			echo '  <div class="col-sm-10">';
 			if ($value === 'MULTISELECT') {
-				echo '    <select id="' . $key . '" class="form-control form-control-sm" style="min-width:75px;" name="' . $key . '[]" multiple="multiple" size="6">';
+				echo '    <select id="' . $key . '" class="form-select form-select-sm" style="min-width:75px;" name="' . $key . '[]" multiple="multiple" size="6">';
 			} else {
 				echo '    <select id="' . $key . '" class="form-select form-select-sm" style="min-width:75px;" name="' . $key . '">';
 			}
@@ -233,7 +233,7 @@ foreach($plugin['fields'] as $key => $value) {
 			echo '  <div class="col-sm-10">';
 			echo '    <div class="row g-2">';
 			echo '      <div class="col mb-2 mb-sm-0">';
-			echo '        <select name="'.$key.'[]" size="'.max(5, 3 + $plugin['count_file_items']).'" multiple class="form-control form-control-sm" id="cfile_list">';
+			echo '        <select name="'.$key.'[]" size="'.max(5, 3 + $plugin['count_file_items']).'" multiple class="form-select form-select-sm" id="cfile_list">';
 			if($plugin['count_file_items']) {
 				$file_sql = "SELECT f_id, f_name FROM ".DB_PREPEND.'phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND f_id IN (' . implode(',', $plugin['data'][$key]['files']) . ')';
 				$file_result = _dbQuery($file_sql);

@@ -32,7 +32,7 @@ function backend_list_keywords() {
 	$list .= '	<div class="card-body">' . LF;
 	$list .= '		<div class="table-responsive">' . LF;
 	$list .= '			<table class="table table-sm table-hover mb-0">' . LF;
-	$list .= '				<thead class="thead-light">' . LF;
+	$list .= '				<thead class="table-light">' . LF;
 	$list .= '					<tr>' . LF;
 	$list .= '						<th style="width: 40px;" class="text-center"><input type="checkbox" id="checkAllKeywords" onclick="toggleKeywordCheckboxes(this);" /></th>' . LF;
 	$list .= '						<th style="width: 60px;">ID</th>' . LF;

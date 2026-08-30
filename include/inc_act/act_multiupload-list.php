@@ -40,7 +40,7 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 
 <div class="table-responsive">
 	<table class="table table-hover table-sm align-middle mb-0">
-		<thead class="thead-light">
+		<thead class="table-light">
 			<tr>
 				<th width="40" class="text-center"><?php echo $BL['be_ftptakeover_mark'] ?></th>
 				<th><?php echo $BL['be_ftptakeover_available'] ?></th>

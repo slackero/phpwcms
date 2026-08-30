@@ -21,6 +21,7 @@ async function buildJs() {
     // 2. Copy third-party JS assets from node_modules into include/inc_js/
     const copyMap = [
         { src: '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', dest: 'inc_js/bootstrap.bundle.min.js' },
+        { src: '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', dest: '../template/lib/bootstrap5/bootstrap.bundle.min.js' },
         { src: '../../node_modules/dropzone/dist/min/dropzone.min.js', dest: 'inc_js/dropzone.min.js' },
         { src: '../../node_modules/flatpickr/dist/flatpickr.min.js', dest: 'inc_js/flatpickr.min.js' },
         { src: '../../node_modules/dayjs/dayjs.min.js', dest: 'inc_js/dayjs.min.js' },

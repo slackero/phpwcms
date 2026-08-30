@@ -362,12 +362,12 @@ function insertNewsletterPlaceholder(tag) {
         <label for="newsletter_text" class="fw-bold"><?php echo $BL['be_newsletter_textpart'] ?>:</label>
         <textarea name="newsletter_text" id="newsletter_text" rows="8" data-mode="plain" data-min-lines="8" data-max-lines="45" wrap="off" class="code-editor form-control form-control-sm"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea>
         <p class="mt-2 mb-0"><strong><?php echo $BL['be_newsletter_placeholder'] ?>:</strong>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_NAME###" title="Click to insert at cursor position">###RECIPIENT_NAME###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_EMAIL###" title="Click to insert at cursor position">###RECIPIENT_EMAIL###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###VERIFY_LINK###" title="Click to insert at cursor position">###VERIFY_LINK###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###DELETE_LINK###" title="Click to insert at cursor position">###DELETE_LINK###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###SITE_URL###" title="Click to insert at cursor position">###SITE_URL###</a>
-          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###OPENER###" title="Click to insert at cursor position">###OPENER###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_NAME###" title="Click to insert at cursor position">###RECIPIENT_NAME###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###RECIPIENT_EMAIL###" title="Click to insert at cursor position">###RECIPIENT_EMAIL###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###VERIFY_LINK###" title="Click to insert at cursor position">###VERIFY_LINK###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###DELETE_LINK###" title="Click to insert at cursor position">###DELETE_LINK###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###SITE_URL###" title="Click to insert at cursor position">###SITE_URL###</a>
+          <a href="#" class="badge text-bg-light border font-monospace badge-align nl-placeholder-btn p-1 me-1 mb-1" data-placeholder="###OPENER###" title="Click to insert at cursor position">###OPENER###</a>
         </p>
     </div>
 

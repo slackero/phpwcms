@@ -45,7 +45,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
     <form action="include/inc_act/act_ftptakeover.php" method="post" name="ftptakeover" id="ftptakeover">
       <div id="filelist" class="table-responsive">
         <table class="table table-hover table-sm table-valign-middle mb-0">
-          <thead class="thead-light">
+          <thead class="table-light">
             <tr>
               <th width="40" class="text-center"><?php echo $BL['be_ftptakeover_mark'] ?></th>
               <th><?php echo $BL['be_ftptakeover_available'] ?></th>

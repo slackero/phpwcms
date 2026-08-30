@@ -99,58 +99,56 @@ if($_SESSION["wcs_user_thumb"]) {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h2 id="exampleModalLabel">Dateizentrale Hilfe</h2>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<ul class="list-group">
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-plus"></i></button>
+							<button class="btn btn-blue btn-sm me-2"><i class="fa fa-fw fa-plus"></i></button>
 							<?php echo $BL['be_ftabhelp_add'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-upload"></i></button>
+							<button class="btn btn-blue btn-sm me-2"><i class="fa fa-fw fa-upload"></i></button>
 							<?php echo $BL['be_ftabhelp_upload'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-bars"></i></button>
+							<button class="btn btn-blue btn-sm me-2"><i class="fa fa-fw fa-bars"></i></button>
 							<?php echo $BL['be_ftabhelp_disablethumb'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-image"></i></button>
+							<button class="btn btn-blue btn-sm me-2"><i class="fa fa-fw fa-image"></i></button>
 							<?php echo $BL['be_ftabhelp_enablethumb'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-penci-alt"></i></button>
+							<button class="btn btn-blue btn-sm me-2"><i class="fa fa-fw fa-pencil-alt"></i></button>
 							<?php echo $BL['be_ftabhelp_edit'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm me-2" href="#"><i class="fa fa-fw fa-cut"></i></button>
+							<button class="btn btn-link text-dark btn-sm me-2"><i class="fa fa-fw fa-cut"></i></button>
 							<?php echo $BL['be_ftabhelp_cut'] ?>
 						</li>
 						<!--<li class="list-group-item p-1">
-							<button class="btn btn-danger btn-sm me-2" href="#"><i class="fa fa-fw fa-cut"></i></button>
+							<button class="btn btn-danger btn-sm me-2"><i class="fa fa-fw fa-cut"></i></button>
 							<?php echo $BL['be_ftabhelp_cutmark'] ?>
 						</li>-->
 						<li class="list-group-item p-1">
-							<button class="btn btn-danger btn-sm me-2" href="#"><i class="fa fa-fw fa-arrow-down"></i></button>
+							<button class="btn btn-danger btn-sm me-2"><i class="fa fa-fw fa-arrow-down"></i></button>
 							<?php echo $BL['be_ftabhelp_paste'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm me-2" href="#"><i class="fa fa-fw fa-download"></i></button>
+							<button class="btn btn-link text-dark btn-sm me-2"><i class="fa fa-fw fa-download"></i></button>
 							<?php echo $BL['be_ftabhelp_download'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm me-2" href="#"><i class="far fa-fw fa-trash-alt"></i></button>
+							<button class="btn btn-link text-dark btn-sm me-2"><i class="far fa-fw fa-trash-alt"></i></button>
 							<?php echo $BL['be_ftabhelp_delete'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm me-2" disabled href="#"><i class="far fa-fw fa-trash-alt"></i></button>
+							<button class="btn btn-link text-dark btn-sm me-2" disabled><i class="far fa-fw fa-trash-alt"></i></button>
 							<?php echo $BL['be_ftabhelp_cantdelete'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm me-2" href="#"><i class="fa fa-fw fa-arrow-up"></i></button>
+							<button class="btn btn-blue btn-sm me-2"><i class="fa fa-fw fa-arrow-up"></i></button>
 							<?php echo $BL['be_ftabhelp_restore'] ?>
 						</li>
 						<li class="list-group-item p-1">

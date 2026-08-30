@@ -346,27 +346,19 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                 <input name="cimage_sort[<?php echo $key ?>]" id="cimage_sort_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
                 <label><?php echo $BL['be_flashplayer_thumbnail'] ?></label>
                 <div class="input-group">
-                    
-                        <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=thumb_<?php echo $key ?>" ></button>
-                    
+                    <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=thumb_<?php echo $key ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
                     <input name="cimage_name_thumb[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['thumb_name']) ?>" maxlength="250" onfocus="this.blur()" />
-                    
-                        <a href="#" id="cimage_delete_button_thumb_<?php echo $key ?>" class="btn btn-sm btn-danger trash<?php echo empty($value['thumb_id']) ? ' disabled' : '' ?>" style="<?php echo empty($value['thumb_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; return deleteImageData('thumb_<?php echo $key ?>', this);"></a>
-                    
+                    <a href="#" id="cimage_delete_button_thumb_<?php echo $key ?>" class="btn btn-sm btn-danger trash<?php echo empty($value['thumb_id']) ? ' disabled' : '' ?>"<?php echo empty($value['thumb_id']) ? ' aria-disabled="true"' : '' ?> data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; return deleteImageData('thumb_<?php echo $key ?>', this);"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div class="form-group align-items-center">
                 <input name="cimage_id_zoom[<?php echo $key ?>]" id="cimage_id_zoom_<?php echo $key ?>" type="hidden" value="<?php echo $value['zoom_id'] ?>" />
-                <input name="cimage_sort[<?php echo $key ?>]" id="cimage_sort_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
+                <input name="cimage_sort_zoom[<?php echo $key ?>]" id="cimage_sort_zoom_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
                 <label><?php echo $BL['be_image_zoom'] ?></label>
                 <div class="input-group">
-                    
-                        <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=zoom_<?php echo $key ?>" ></button>
-                    
+                    <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=zoom_<?php echo $key ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
                     <input name="cimage_name_zoom[<?php echo $key ?>]" type="text" id="cimage_name_zoom_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['zoom_name']) ?>" maxlength="250" onfocus="this.blur()" />
-                    
-                        <a href="#" id="cimage_delete_button_zoom_<?php echo $key ?>" class="btn btn-sm btn-danger trash<?php echo empty($value['zoom_id']) ? ' disabled' : '' ?>" style="<?php echo empty($value['zoom_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; return deleteImageData('zoom_<?php echo $key ?>', this);"></a>
-                    
+                    <a href="#" id="cimage_delete_button_zoom_<?php echo $key ?>" class="btn btn-sm btn-danger trash<?php echo empty($value['zoom_id']) ? ' disabled' : '' ?>"<?php echo empty($value['zoom_id']) ? ' aria-disabled="true"' : '' ?> data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; return deleteImageData('zoom_<?php echo $key ?>', this);"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div id="img_preview_<?php echo $key ?>" class="backend_preview_img"></div>
@@ -601,12 +593,10 @@ if($value['custom_field_items']):
                           ?>" />
                       <input name="cimage_sort[<?php echo $key ?>]" id="cimage_sort_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
                       <div class="input-group input-group-sm">
-                    <input name="cimage_name_thumb<?php echo $custom_field; ?>[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $custom_field; ?>_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['thumb_name']) ?>" onfocus="this.blur();" />
-                    
-                      <button type="button" class="modalButton btn btn-sm btn-blue folder-open" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&amp;target=nolist&amp;entry_id=thumb_<?php echo $custom_field; ?>_<?php echo $key ?>" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"></button>
-                      <button type="button" class="btn btn-sm btn-danger trash" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('thumb_<?php echo $custom_field; ?>_<?php echo $key ?>', this);"></button>
-                    
-                  </div>
+                        <input name="cimage_name_thumb<?php echo $custom_field; ?>[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $custom_field; ?>_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['thumb_name']) ?>" onfocus="this.blur();" />
+                        <button type="button" class="modalButton btn btn-sm btn-blue folder-open" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&amp;target=nolist&amp;entry_id=thumb_<?php echo $custom_field; ?>_<?php echo $key ?>" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-sm btn-danger trash" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('thumb_<?php echo $custom_field; ?>_<?php echo $key ?>', this);"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+                      </div>
 
           <?php endif; ?>
         </div>
@@ -796,7 +786,7 @@ function addNewImage(where) {
     new_entry += '<a class="btn btn-sm btn-blue me-1" data-bs-toggle="collapse" href="#collapse_'+entry_number+'" aria-expanded="true" aria-controls="collapse_'+entry_number+'">';
     new_entry += '<i class="fa fa-ellipsis-h" aria-hidden="true"></i>';
     new_entry += '</a>';
-    new_entry += '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\')"><i class="far fa-trash-alt"></i></a></div>';
+    new_entry += '<a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\')"><i class="far fa-trash-alt"></i></a></div>';
     new_entry += '</div>';
     new_entry += '</div>';
     new_entry += '<div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#images">';
@@ -808,27 +798,19 @@ function addNewImage(where) {
     new_entry += '<input name="cimage_sort['+entry_number+']" id="cimage_sort_'+entry_number+'" type="hidden" value="" />';
     new_entry += '<label><?php echo $BL['be_flashplayer_thumbnail'] ?></label>';
     new_entry += '<div class="input-group">';
-    new_entry += '';
-    new_entry += '<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=thumb_'+entry_number+'" ></button>';
-    new_entry += '';
+    new_entry += '<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=thumb_'+entry_number+'"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>';
     new_entry += '<input name="cimage_name_thumb['+entry_number+']" type="text" id="cimage_name_thumb_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" />';
-    new_entry += '';
-    new_entry += '<a href="#" id="cimage_delete_button_thumb_'+entry_number+'" class="btn btn-sm btn-danger trash disabled" style="opacity: 0.5; pointer-events: none;" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass(\'disabled\')) return false; return deleteImageData(\'thumb_'+entry_number+'\', this);"></a>';
-    new_entry += '';
+    new_entry += '<a href="#" id="cimage_delete_button_thumb_'+entry_number+'" class="btn btn-sm btn-danger trash disabled" aria-disabled="true" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass(\'disabled\')) return false; return deleteImageData(\'thumb_'+entry_number+'\', this);"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>';
     new_entry += '</div>';
     new_entry += '</div>';
     new_entry += '<div class="form-group align-items-center">';
     new_entry += '<input name="cimage_id_zoom['+entry_number+']" id="cimage_id_zoom_'+entry_number+'" type="hidden" value="" />';
-    new_entry += '<input name="cimage_sort['+entry_number+']" id="cimage_sort_'+entry_number+'" type="hidden" value="" />';
+    new_entry += '<input name="cimage_sort_zoom['+entry_number+']" id="cimage_sort_zoom_'+entry_number+'" type="hidden" value="" />';
     new_entry += '<label><?php echo $BL['be_image_zoom'] ?></label>';
     new_entry += '<div class="input-group">';
-    new_entry += '';
-    new_entry += '<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=zoom_'+entry_number+'" ></button>';
-    new_entry += '';
+    new_entry += '<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=zoom_'+entry_number+'"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>';
     new_entry += '<input name="cimage_name_zoom['+entry_number+']" type="text" id="cimage_name_zoom_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" />';
-    new_entry += '';
-    new_entry += '<a href="#" id="cimage_delete_button_zoom_'+entry_number+'" class="btn btn-sm btn-danger trash disabled" style="opacity: 0.5; pointer-events: none;" type="button" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass(\'disabled\')) return false; return deleteImageData(\'zoom_'+entry_number+'\', this);"></a>';
-    new_entry += '';
+    new_entry += '<a href="#" id="cimage_delete_button_zoom_'+entry_number+'" class="btn btn-sm btn-danger trash disabled" aria-disabled="true" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass(\'disabled\')) return false; return deleteImageData(\'zoom_'+entry_number+'\', this);"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>';
     new_entry += '</div>';
     new_entry += '</div>';
     new_entry += '<div id="img_preview_'+entry_number+'" class="backend_preview_img"></div>';

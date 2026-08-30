@@ -620,7 +620,7 @@ if(!isset($_GET["s"])) {
                                 }
                                 echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
                                 ?>
-                                <textarea name="template_block_header" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
+                                <textarea name="template_block_header" rows="6" class="form-control form-control-sm autosize font-monospace code-editor" data-mode="html" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row g-2">
@@ -632,7 +632,7 @@ if(!isset($_GET["s"])) {
                                 }
                                 echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
                                 ?>
-                                <textarea name="template_block_main" rows="10" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
+                                <textarea name="template_block_main" rows="10" class="form-control form-control-sm autosize font-monospace code-editor" data-mode="html" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row g-2">
@@ -644,7 +644,7 @@ if(!isset($_GET["s"])) {
                                 }
                                 echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
                                 ?>
-                                <textarea name="template_block_footer" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
+                                <textarea name="template_block_footer" rows="6" class="form-control form-control-sm autosize font-monospace code-editor" data-mode="html" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row g-2">
@@ -656,7 +656,7 @@ if(!isset($_GET["s"])) {
                                 }
                                 echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
                                 ?>
-                                <textarea name="template_block_left" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
+                                <textarea name="template_block_left" rows="6" class="form-control form-control-sm autosize font-monospace code-editor" data-mode="html" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row g-2">
@@ -668,7 +668,7 @@ if(!isset($_GET["s"])) {
                                 }
                                 echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
                                 ?>
-                                <textarea name="template_block_right" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
+                                <textarea name="template_block_right" rows="6" class="form-control form-control-sm autosize font-monospace code-editor" data-mode="html" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
                             </div>
                         </div>
 
@@ -688,7 +688,7 @@ if(!isset($_GET["s"])) {
                                 echo '<div class="col">';
                                 echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
                                 echo '<textarea name="template_customblock_' . $custom_block . '" id="template_customblock_' . $custom_block . '" ';
-                                echo 'rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html">';
+                                echo 'rows="6" class="form-control form-control-sm autosize font-monospace code-editor" data-mode="html">';
                                 echo isset($template['customblock_' . $value]) ? html_entities($template['customblock_' . $value]) : '';
                                 echo "</textarea>";
                                 echo '  </div>';
@@ -706,7 +706,7 @@ if(!isset($_GET["s"])) {
                                 }
                                 echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
                                 ?>
-                                <textarea name="template_block_error" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
+                                <textarea name="template_block_error" rows="6" class="form-control form-control-sm autosize font-monospace code-editor" data-mode="html" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -722,7 +722,7 @@ if(!isset($_GET["s"])) {
                                 }
                                 echo get_template_file_select('head', 'template_htmlhead_file', $template["htmlhead_file"]);
                                 ?>
-                                <textarea name="template_htmlhead" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
+                                <textarea name="template_htmlhead" rows="6" class="form-control form-control-sm autosize font-monospace code-editor" data-mode="html" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
                             </div>
                         </div>
 
@@ -759,7 +759,7 @@ if(!isset($_GET["s"])) {
                                         <div class="input-group-text">
                                             <input class="me-1" type="checkbox" name="template_jslibload" id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> />
                                             <label for="template_jslibload" class="form-check-label mb-0"><?php echo $BL['js_lib_alwaysload'] ?></label>
-                                        
+                                        </div>
                                         <div class="input-group-text">
                                             <input class="me-1" type="checkbox" name="template_googleapi" id="template_googleapi" value="1" <?php is_checked($template['googleapi'], 1); ?> />
                                             <label for="template_googleapi" class="form-check-label mb-0"><?php echo $BL['googleapi_load'] ?></label>
@@ -833,7 +833,7 @@ if(!isset($_GET["s"])) {
 
                                     <div class="col-sm-10 offset-sm-2 my-1">
                                         <label class="col-form-label fw-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
-                                        <textarea name="template_ga_custom_properties" id="template_ga_custom_properties" class="form-control text-monospace autosize code-editor" data-mode="javascript" data-min-lines="4" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
+                                        <textarea name="template_ga_custom_properties" id="template_ga_custom_properties" class="form-control font-monospace autosize code-editor" data-mode="javascript" data-min-lines="4" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
                                     </div>
 
                                 </div>
@@ -1452,7 +1452,7 @@ if(!isset($_GET["s"])) {
                                                     <?php echo $BL['be_cc_v3_layout']; ?>
                                                 </label>
                                                 <div class="col">
-                                                    <select class="form-control" name="cc_v3_consent_layout" id="cc_v3_consent_layout">
+                                                    <select class="form-select" name="cc_v3_consent_layout" id="cc_v3_consent_layout">
                                                         <option value="box"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'box'); ?>>Box</option>
                                                         <option value="box inline"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'box inline'); ?>>Box Inline</option>
                                                         <option value="box wide"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'box wide'); ?>>Box Wide</option>
@@ -1478,7 +1478,7 @@ if(!isset($_GET["s"])) {
                                                     }
 
                                                     ?>
-                                                    <select class="form-control" name="cc_v3_consent_position" id="cc_v3_consent_position">
+                                                    <select class="form-select" name="cc_v3_consent_position" id="cc_v3_consent_position">
                                                         <option value="top left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top left'); echo $cc_v3_consent_position_nobar; ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_top_left']; ?>
                                                         </option>
@@ -1553,7 +1553,7 @@ if(!isset($_GET["s"])) {
                                                     <?php echo $BL['be_cc_v3_layout']; ?>
                                                 </label>
                                                 <div class="col">
-                                                    <select class="form-control" name="cc_v3_preferences_layout" id="cc_v3_preferences_layout">
+                                                    <select class="form-select" name="cc_v3_preferences_layout" id="cc_v3_preferences_layout">
                                                         <option value="box"<?php is_selected($template['cc_v3']['gui']['preferences']['layout'], 'box'); ?>>Box</option>
                                                         <option value="bar"<?php is_selected($template['cc_v3']['gui']['preferences']['layout'], 'bar'); ?>>Bar</option>
                                                         <option value="bar wide"<?php is_selected($template['cc_v3']['gui']['preferences']['layout'], 'bar wide'); ?>>Bar Wide</option>
@@ -1565,7 +1565,7 @@ if(!isset($_GET["s"])) {
                                                     <?php echo $BL['be_cc_v3_position']; ?>
                                                 </label>
                                                 <div class="col">
-                                                    <select class="form-control" name="cc_v3_preferences_position" id="cc_v3_preferences_position"<?php
+                                                    <select class="form-select" name="cc_v3_preferences_position" id="cc_v3_preferences_position"<?php
                                                     if ($template['cc_v3']['gui']['preferences']['layout'] === 'box'): ?> disabled="disabled"<?php endif;
                                                     ?>>
                                                         <option value="left"<?php is_selected($template['cc_v3']['gui']['preferences']['position'], 'left'); ?>>

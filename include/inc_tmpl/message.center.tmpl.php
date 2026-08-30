@@ -168,7 +168,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             <h6 class="fw-bold text-primary mb-2"><?php echo $BL['be_msg_unread']; ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
-                    <thead class="thead-light">
+                    <thead class="table-light">
                         <tr>
                             <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
                             <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
@@ -222,7 +222,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             <h6 class="fw-bold text-muted mb-2"><?php echo str_replace('{VAL}', (string) $msg_list, $BL['be_msg_lastread']); ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
-                    <thead class="thead-light">
+                    <thead class="table-light">
                         <tr>
                             <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
                             <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
@@ -275,7 +275,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             <h6 class="fw-bold text-muted mb-2"><?php echo str_replace('{VAL}', (string) $msg_list, $BL['be_msg_lastsent']); ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
-                    <thead class="thead-light">
+                    <thead class="table-light">
                         <tr>
                             <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
                             <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
@@ -327,7 +327,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             <h6 class="fw-bold text-muted mb-2"><?php echo $BL['be_msg_marked']; ?></h6>
             <div class="table-responsive mb-4">
                 <table class="table table-sm table-hover mb-0">
-                    <thead class="thead-light">
+                    <thead class="table-light">
                         <tr>
                             <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
                             <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>

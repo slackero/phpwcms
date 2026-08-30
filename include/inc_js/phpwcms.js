@@ -57,10 +57,10 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
             '            <i></i>' +
             '          </div>' +
             '          <div style="flex: 1; min-width: 0;">' +
-            '            <p class="confirm-message mb-3 text-dark font-weight-bold" style="font-size: 1.1rem;"></p>' +
+            '            <p class="confirm-message mb-3 text-dark fw-bold" style="font-size: 1.1rem;"></p>' +
             '            <div class="d-flex justify-content-end">' +
-            '              <button type="button" class="btn btn-secondary me-2 cancel-btn" data-bs-dismiss="modal" data-dismiss="modal"></button>' +
-            '              <button type="button" class="btn confirm-btn font-weight-bold"></button>' +
+            '              <button type="button" class="btn btn-secondary me-2 cancel-btn" data-bs-dismiss="modal"></button>' +
+            '              <button type="button" class="btn confirm-btn fw-bold"></button>' +
             '            </div>' +
             '          </div>' +
             '        </div>' +
@@ -126,14 +126,26 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
     const formattedMsg = (message || '').replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
     $modal.find('.confirm-message').html(formattedMsg);
 
+    const bsModalInstance = (typeof bootstrap !== 'undefined' && bootstrap.Modal)
+        ? bootstrap.Modal.getOrCreateInstance($modal[0])
+        : null;
+
     $modal.find('.confirm-btn').off('click').on('click', function() {
-        $modal.modal('hide');
+        if (bsModalInstance) {
+            bsModalInstance.hide();
+        } else {
+            $modal.modal('hide');
+        }
         if (typeof callback === 'function') {
             callback();
         }
     });
 
-    $modal.modal('show');
+    if (bsModalInstance) {
+        bsModalInstance.show();
+    } else {
+        $modal.modal('show');
+    }
 }
 
 function bsConfirmWarning(message, callback, customConfirmText, customCancelText) {
@@ -267,9 +279,9 @@ function bsAlert(message, callback) {
             '            <i class="fas fa-info-circle"></i>' +
             '          </div>' +
             '          <div style="flex: 1; min-width: 0;">' +
-            '            <p class="confirm-message mb-3 text-dark font-weight-bold" style="font-size: 1.1rem;"></p>' +
+            '            <p class="confirm-message mb-3 text-dark fw-bold" style="font-size: 1.1rem;"></p>' +
             '            <div class="d-flex justify-content-end">' +
-            '              <button type="button" class="btn btn-primary confirm-btn text-white font-weight-bold" data-bs-dismiss="modal" data-dismiss="modal">OK</button>' +
+            '              <button type="button" class="btn btn-primary confirm-btn text-white fw-bold" data-bs-dismiss="modal">OK</button>' +
             '            </div>' +
             '          </div>' +
             '        </div>' +
@@ -289,14 +301,26 @@ function bsAlert(message, callback) {
     const formattedMsg = (message || '').replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
     $modal.find('.confirm-message').html(formattedMsg);
 
+    const bsModalInstance = (typeof bootstrap !== 'undefined' && bootstrap.Modal)
+        ? bootstrap.Modal.getOrCreateInstance($modal[0])
+        : null;
+
     $modal.find('.confirm-btn').off('click').on('click', function() {
-        $modal.modal('hide');
+        if (bsModalInstance) {
+            bsModalInstance.hide();
+        } else {
+            $modal.modal('hide');
+        }
         if (typeof callback === 'function') {
             callback();
         }
     });
 
-    $modal.modal('show');
+    if (bsModalInstance) {
+        bsModalInstance.show();
+    } else {
+        $modal.modal('show');
+    }
 }
 
 // Global alert override
@@ -733,26 +757,19 @@ $(function () {
         }
     });
 
-    $win.bind("load resize", function () {
-        topOffset = 95;
-        let width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
-        if (width < 768) {
-            $('div.navbar-collapse').addClass('collapse')
-            topOffset = 100; // 2-row-menu
-        } else {
-            $('div.navbar-collapse').removeClass('collapse')
-        }
-
-        height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - topOffset;
-        if (height < 1) {
-            height = 1;
-        }
-        if (height > topOffset) {
-            $pageWrapper.css("min-height", (height) + "px");
-        }
-    });
-
-    if (typeof $.fn.tooltip === 'function') {
+    if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+        document.querySelectorAll('[data-bs-toggle="tooltip"], [data-toggle="tooltip"]').forEach(function (el) {
+            bootstrap.Tooltip.getOrCreateInstance(el, {
+                html: true,
+                delay: {
+                    show: 200,
+                    hide: 50
+                },
+                container: 'body',
+                sanitize: false
+            });
+        });
+    } else if (typeof $.fn.tooltip === 'function') {
         $body.tooltip({
             selector: '[data-bs-toggle="tooltip"], [data-toggle="tooltip"]',
             html: true,
@@ -761,7 +778,6 @@ $(function () {
                 hide: 50
             },
             container: 'body',
-            boundary: 'window',
             sanitize: false
         });
     }
@@ -1358,7 +1374,6 @@ function initPhpwcmsTheme() {
                 }
             });
         }
-        phpwcmsThemeInitialized = true;
 
         document.addEventListener('click', e => {
             const themeBtn = e.target.closest('[data-set-theme]');

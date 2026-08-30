@@ -283,10 +283,10 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             <?php if ($grouplist["group_syskey"]) {
                 echo '<button class="btn fa btn-sm visible btn-success disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5; min-width: 32px;" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
               } else {
-                echo '<button id="abtngroup'.$grouplist["group_id"].'" class="btn fa btn-sm visible '.($grouplist["group_active"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$grouplist["group_id"].'" data-type="group" data-table="usergroup" data-field="group_active" data-fieldid="group_id" aria-disabled="true" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
+                echo '<button id="abtngroup'.$grouplist["group_id"].'" class="btn fa btn-sm visible '.($grouplist["group_active"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$grouplist["group_id"].'" data-type="group" data-table="usergroup" data-field="group_active" data-fieldid="group_id" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
               }
             ?>
-            <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php
+            <a class="btn btn-sm btn-blue" role="button" title="<?php
                 echo $BL['be_admin_group_edit'].": ".html($grouplist["group_name"])
             ?>" data-bs-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa fa-pencil-alt fa-fw"></i></a>
             </div>
@@ -294,7 +294,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             echo '<button class="btn btn-sm btn-danger ms-1 disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5;" title="'.$BL['be_admin_group_ldel'].' '.html($grouplist["group_name"]).'" data-bs-toggle="tooltip"><i class="far fa-trash-alt fa-fw"></i></button>';
             } else {
             ?>
-            <a class="btn btn-sm btn-danger ms-1" role="button" aria-disabled="true" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-bs-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
+            <a class="btn btn-sm btn-danger ms-1" role="button" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-bs-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
                 echo urlencode($grouplist["group_id"].":".$grouplist["group_name"]);
             ?>" data-confirm-danger="Delete group <?php echo html($grouplist["group_name"]) ?>"><i class="far fa-trash-alt fa-fw"></i></a>
             <?php } ?></td>

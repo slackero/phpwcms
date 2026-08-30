@@ -38,6 +38,7 @@ console.log(`[✓] backend.min.css built with lightningcss (minified: ${!noMinif
 
 // 2. Copy conditional CSS assets from node_modules
 const copyMap = [
+    { src: '../../node_modules/bootstrap/dist/css/bootstrap.min.css', dest: '../template/lib/bootstrap5/bootstrap.min.css' },
     { src: '../../node_modules/dropzone/dist/min/dropzone.min.css', dest: 'inc_css/dropzone.min.css' },
     { src: '../../node_modules/flatpickr/dist/flatpickr.min.css', dest: 'inc_css/flatpickr.min.css' },
     { src: '../../node_modules/flatpickr/dist/themes/material_blue.css', dest: 'inc_css/flatpickr-material.min.css' },

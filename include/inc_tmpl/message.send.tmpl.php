@@ -115,7 +115,7 @@ if ($msg_send_ok) {
         <div class="form-group row">
             <div class="col-md-5">
                 <label for="msg_send_to" class="fw-bold"><?php echo $BL['be_msg_sendto']; ?>:</label>
-                <select name="msg_send_to" size="10" multiple="multiple" class="form-control" onDblClick="opt.transferRight()">
+                <select name="msg_send_to" id="msg_send_to" size="10" multiple="multiple" class="form-select" onDblClick="opt.transferRight()">
 <?php
     $where1 = 'WHERE usr_aktiv=1 ';
     if (!empty($msg_to)) {
@@ -159,7 +159,7 @@ if ($msg_send_ok) {
 
             <div class="col-md-5">
                 <label for="msg_send_list" class="fw-bold"><?php echo $BL['be_msg_available']; ?>:</label>
-                <select name="msg_send_list" size="10" multiple="multiple" id="msg_send_list" class="form-control" onDblClick="opt.transferLeft()">
+                <select name="msg_send_list" size="10" multiple="multiple" id="msg_send_list" class="form-select" onDblClick="opt.transferLeft()">
 <?php
     //Create the list of possible recipients
     $sql = "SELECT usr_id, usr_login, usr_name FROM " . DB_PREPEND . "phpwcms_user " . $where1 . " ORDER BY usr_name ASC";

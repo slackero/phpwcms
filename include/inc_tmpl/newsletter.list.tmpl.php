@@ -75,7 +75,7 @@ if($_SESSION['newsletter_page'] < 1) {
   </div>
   <div class="col-12 col-sm text-center text-sm-end mb-3">
     <div class="form-group align-items-center">
-      <a class="btn btn-sm btn-blue me-1" role="button" aria-disabled="true" href="phpwcms.php?do=messages&amp;p=3&amp;s=0&amp;edit=1"><i class="fa fa-plus"></i> <?php echo $BL['be_newsletter_new'] ?></a>
+      <a class="btn btn-sm btn-blue me-1" role="button" href="phpwcms.php?do=messages&amp;p=3&amp;s=0&amp;edit=1"><i class="fa fa-plus"></i> <?php echo $BL['be_newsletter_new'] ?></a>
     </div>
   </div>
 </div>
@@ -206,14 +206,14 @@ if($_SESSION['newsletter_page'] < 1) {
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="nl-actions-'.$row["newsletter_id"].'">';
 
           // edit
-          echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;edit=1"><i class="fa fa-pencil-alt fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;edit=1"><i class="fa fa-pencil-alt fa-fw"></i></a>';
 
           // duplicate
-          echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_tt_duplicate'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;duplicate_nl='.$row["newsletter_id"].'"><i class="fa fa-copy fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_duplicate'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;duplicate_nl='.$row["newsletter_id"].'"><i class="fa fa-copy fa-fw"></i></a>';
           echo '</div>';
 
           // delete
-          echo '<a class="btn btn-sm btn-danger ms-1" role="button" aria-disabled="true" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_delete_dataset'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="far fa-trash-alt fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-danger ms-1" role="button" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_delete_dataset'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="far fa-trash-alt fa-fw"></i></a>';
 
           echo "</td>\n</tr>\n";
 

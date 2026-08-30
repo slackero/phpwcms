@@ -253,7 +253,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                   <label for="cpt_key">
                     <strong><?php echo html($BL['be_admin_custom_cpt_key'] ?? 'Identifier Key / Alias'); ?></strong>
                     <?php if ($usage_count > 0): ?>
-                      <span class="badge badge-warning ms-1" data-bs-toggle="tooltip" title="<?php echo html(sprintf($BL['be_admin_custom_cpt_key_in_use'] ?? 'Key is locked because %d content part(s) are using it.', $usage_count)); ?>">
+                      <span class="badge text-bg-warning ms-1" data-bs-toggle="tooltip" title="<?php echo html(sprintf($BL['be_admin_custom_cpt_key_in_use'] ?? 'Key is locked because %d content part(s) are using it.', $usage_count)); ?>">
                         <i class="fa fa-lock"></i> <?php echo $usage_count; ?>
                       </span>
                     <?php endif; ?>
@@ -300,7 +300,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table table-striped table-hover table-valign-middle mb-0" id="fieldsTable">
-                  <thead class="thead-light">
+                  <thead class="table-light">
                     <tr>
                       <th style="width: 25px;"></th>
                       <th style="width: 20%;"><?php echo html($BL['be_admin_custom_cpt_field_key'] ?? 'Key (Tag)'); ?></th>
@@ -346,7 +346,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                 <span><i class="fa fa-code"></i> <?php echo html($BL['be_admin_custom_cpt_scaffold'] ?? 'Starter Template Boilerplate'); ?></span>
                 <div>
                   <?php if ($tpl_exists): ?>
-                    <span class="badge badge-success me-2"><i class="fa fa-check"></i> <?php echo html($existing_tpl_path); ?></span>
+                    <span class="badge text-bg-success me-2"><i class="fa fa-check"></i> <?php echo html($existing_tpl_path); ?></span>
                   <?php endif; ?>
                   <button type="button" class="btn btn-sm btn-secondary" onclick="copyTemplateScaffold(this);" title="<?php echo html($BL['be_admin_custom_cpt_copy'] ?? 'Copy to Clipboard'); ?>">
                     <i class="far fa-copy"></i> <?php echo html($BL['be_admin_custom_cpt_copy'] ?? 'Copy to Clipboard'); ?>
@@ -354,14 +354,14 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                 </div>
               </div>
               <div class="card-body">
-                <p class="mb-2">
+                <p class="small text-muted mb-2">
                   <?php if ($tpl_exists): ?>
-                    <?php echo html($BL['be_admin_custom_cpt_template_exists'] ?? 'Template file already exists:'); ?> <code><?php echo html($existing_tpl_path); ?></code>
+                    <?php echo html($BL['be_admin_custom_cpt_tpl_exists_notice'] ?? 'Template file already exists on disk:'); ?> <code><?php echo html($existing_tpl_path); ?></code>
                   <?php else: ?>
                     <?php echo html($BL['be_admin_custom_cpt_scaffold_help'] ?? 'Kopieren und als Vorlagendatei speichern unter:'); ?> <code>template/inc_cntpart/custom/<strong class="tpl-key-preview"><?php echo html(!empty($edit_cpt['cpt_key']) ? $edit_cpt['cpt_key'] : '{KEY}'); ?></strong>/default.tmpl</code>
                   <?php endif; ?>
                 </p>
-                <textarea id="templateScaffoldTextarea" class="form-control form-control-sm text-monospace font-monospace" rows="12" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12px; line-height: 1.45;" readonly onclick="this.select();"><?php echo html(custom_field_generate_template_scaffold($edit_cpt)); ?></textarea>
+                <textarea id="templateScaffoldTextarea" class="form-control form-control-sm font-monospace" rows="12" style="font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12px; line-height: 1.45;" readonly onclick="this.select();"><?php echo html(custom_field_generate_template_scaffold($edit_cpt)); ?></textarea>
               </div>
             </div>
           <?php endif; ?>
@@ -428,9 +428,9 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
             <tr class="field-row">
               <td class="align-middle text-muted text-center drag-handle" style="cursor: grab; width: 30px; user-select: none;" title="<?php echo html($BL['be_admin_custom_cpt_drag_reorder'] ?? 'Drag to reorder'); ?>"><i class="fa fa-grip-vertical text-black-50"></i></td>
               <td>
-                <input type="text" name="field_key[]" class="form-control form-control-sm text-monospace font-monospace" value="${key || ''}" placeholder="key_name" required pattern="[-a-zA-Z0-9_]+" oninput="updateFieldTagPreview(this); validateFieldRowKey(this);">
+                <input type="text" name="field_key[]" class="form-control form-control-sm font-monospace" value="${key || ''}" placeholder="key_name" required pattern="[-a-zA-Z0-9_]+" oninput="updateFieldTagPreview(this); validateFieldRowKey(this);">
                 <div class="invalid-feedback field-key-feedback" style="display: none; font-size: 11px;"></div>
-                <code class="small text-muted text-monospace font-monospace mt-1 d-inline-block">{<span class="field-tag-preview">${(key ? key.toUpperCase().replace(/[^A-Z0-9_-]/g, '') : 'KEY')}</span>}</code>
+                <code class="small text-muted font-monospace mt-1 d-inline-block">{<span class="field-tag-preview">${(key ? key.toUpperCase().replace(/[^A-Z0-9_-]/g, '') : 'KEY')}</span>}</code>
               </td>
               <td>
                 <input type="text" name="field_legend[]" class="form-control form-control-sm" value="${def.legend || def.label || ''}" placeholder="Label / Field Legend" required>
@@ -618,7 +618,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                 const type = fTypeSelect ? fTypeSelect.value : 'str';
 
                 if (type === 'bool') {
-                    code += `      [${tag}]<div class="badge badge-success">${legend}</div>[/${tag}]\n`;
+                    code += `      [${tag}]<div class="badge text-bg-success">${legend}</div>[/${tag}]\n`;
                 } else if (type === 'image') {
                     code += `      [${tag}]<img src="{${tag}}" alt="" class="img-fluid mb-2">[/${tag}]\n`;
                 } else if (type === 'url') {
@@ -779,7 +779,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
           <div class="card-body p-0">
             <div class="table-responsive">
               <table class="table table-hover table-striped table-valign-middle mb-0">
-                <thead class="thead-light">
+                <thead class="table-light">
                   <tr>
                     <th style="width: 40px;" class="text-center"><?php echo html($BL['be_admin_custom_cpt_status'] ?? 'Status'); ?></th>
                     <th><?php echo html($BL['be_admin_custom_cpt_title'] ?? 'Title'); ?></th>
@@ -795,9 +795,9 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                       <tr>
                         <td class="text-center">
                           <?php if (strpos((string)$cpt['cpt_id'], 'preset_') === 0): ?>
-                            <span class="badge badge-info" title="JSON File Preset"><?php echo html($BL['be_admin_custom_cpt_preset'] ?? 'Preset'); ?></span>
+                            <span class="badge text-bg-info" title="JSON File Preset"><?php echo html($BL['be_admin_custom_cpt_preset'] ?? 'Preset'); ?></span>
                           <?php elseif (strpos((string)$cpt['cpt_id'], 'legacy_') === 0): ?>
-                            <span class="badge badge-secondary" title="Legacy Config Array"><?php echo html($BL['be_admin_custom_cpt_legacy'] ?? 'Legacy'); ?></span>
+                            <span class="badge text-bg-secondary" title="Legacy Config Array"><?php echo html($BL['be_admin_custom_cpt_legacy'] ?? 'Legacy'); ?></span>
                           <?php else: ?>
                             <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;toggle=<?php echo $cpt['cpt_id']; ?>" class="btn btn-sm <?php echo !empty($cpt['cpt_active']) ? 'btn-success' : 'btn-warning'; ?>" data-bs-toggle="tooltip" title="<?php echo html($BL['be_tooltip_visibility'] ?? 'Activate/Deactivate'); ?>">
                               <i class="fa fa-<?php echo !empty($cpt['cpt_active']) ? 'check' : 'times'; ?>"></i>
@@ -813,10 +813,10 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                         </td>
                         <td class="font-monospace text-muted"><?php echo html($cpt['cpt_key']); ?></td>
                         <td>
-                          <span class="badge badge-light border"><?php echo html($cpt['cpt_mode'] ?? 'repeater'); ?></span>
+                          <span class="badge text-bg-light border"><?php echo html($cpt['cpt_mode'] ?? 'repeater'); ?></span>
                         </td>
                         <td>
-                          <span class="badge rounded-pill badge-secondary"><?php echo count($cpt['fields'] ?? []); ?></span>
+                          <span class="badge rounded-pill text-bg-secondary"><?php echo count($cpt['fields'] ?? []); ?></span>
                         </td>
                         <td class="text-end text-nowrap">
                           <?php if (is_numeric($cpt['cpt_id'])): ?>
@@ -858,9 +858,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
         <input type="hidden" name="import_custom_cpt" value="1">
         <div class="modal-header">
           <h5 class="modal-title" id="importModalLabel"><i class="fa fa-upload"></i> <?php echo html($BL['be_admin_custom_cpt_modal_import'] ?? 'Import Custom Content Part'); ?></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="form-group">
