@@ -153,7 +153,7 @@ function initVideoJs() {
         if (is_file(PHPWCMS_TEMPLATE . 'lib/video-js/video.min.js')) {
             $GLOBALS['phpwcms']['video-js'] = TEMPLATE_PATH . 'lib/video-js/';
         } else {
-            $GLOBALS['phpwcms']['video-js'] = PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/8.23.4/';
+            $GLOBALS['phpwcms']['video-js'] = PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/8.24.0/';
         }
     } else {
         $GLOBALS['phpwcms']['video-js'] = rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';

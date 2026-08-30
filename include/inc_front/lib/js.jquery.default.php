@@ -104,7 +104,7 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
         initJSLib();
 
         $_js  = $prefix . '<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
-        $_js .= '    jQuery(window).unload(function() {' . LF . $js . LF . '    });';
+        $_js .= '    jQuery(window).on(\'unload\', function() {' . LF . $js . LF . '    });';
         $_js .= LF.SCRIPT_CDATA_END.LF.$prefix.'</script>';
 
         if($return) {

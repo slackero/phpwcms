@@ -114,7 +114,7 @@ $phpwcms['feuser_regkey']        = 'FEUSER';
 $phpwcms['login.php']             = 'login.php';
 $phpwcms['js_lib']               = array(); // extends default lib settings
 $phpwcms['glightbox_options']    = array(); // GLightbox options, e.g. array('selector' => 'a[rel^="lightbox"]', 'loop' => true)
-$phpwcms['video-js']             = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/8.23.4/)
+$phpwcms['video-js']             = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/8.24.0/)
 $phpwcms['render_device']        = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio']    = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace']    = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB

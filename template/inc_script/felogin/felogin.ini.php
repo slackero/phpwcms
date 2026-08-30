@@ -42,7 +42,7 @@ FELOGIN_ERROR_EMPTY_PASS	= "@@Insert your password@@"
 FELOGIN_ERROR_WRONG_PASS	= "@@Wrong password@@"
 
 ; Wrap error messages by HTML
-FELOGIN_ERROR_PREFIX		= "<p class='error'>"
+FELOGIN_ERROR_PREFIX		= '<p class="error">'
 FELOGIN_ERROR_SUFFIX		= "</p>"
 
 

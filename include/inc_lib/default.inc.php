@@ -411,11 +411,12 @@ $phpwcms['default_template_classes'] = [
     'cpgroup-content' => 'cpgroup-content',
     'shop-category-menu' => 'shop-categories',
     'shop-products-menu' => 'shop-products',
-    'cp-paginate-link' => 'paginate-link',
-    'cp-paginate-link-active' => 'paginate-link active',
-    'search-paginate-link' => 'paginate-link',
-    'search-paginate-link-active' => 'paginate-link active',
-    'search-paginate-link-disabled' => 'paginate-link disabled',
+    'cp-paginate-link' => 'page-link',
+    'cp-paginate-link-active' => 'page-link active',
+    'cp-paginate-link-disabled' => 'page-link disabled',
+    'search-paginate-link' => 'page-link',
+    'search-paginate-link-active' => 'page-link active',
+    'search-paginate-link-disabled' => 'page-link disabled',
     'newsletter-table' => 'table table-newsletter',
     'newsletter-table-subscription' => 'table table-subscriptions',
     'newsletter-input-email' => 'form-control',
@@ -431,16 +432,16 @@ $phpwcms['search_highlight'] = [
 
 $phpwcms['default_template_attributes'] = [
     'navlist-bs-dropdown-data' => 'data-bs-toggle="dropdown"',
-    'navlist-bs-dropdown-caret' => ' <b class="caret"></b>',
+    'navlist-bs-dropdown-caret' => '',
     'cpgroup' => 'data', // data = <span>, href = <a>
     'cp-paginate' => [
-        'wrap-prefix' => '<ul>',
+        'wrap-prefix' => '<ul class="pagination">',
         'wrap-suffix' => '</ul>',
-        'link-prefix' => '<li>',
+        'link-prefix' => '<li class="page-item">',
         'link-suffix' => '</li>',
         'value-prefix' => '',
         'value-suffix' => '',
-        'href-disabled' => '#',
+        'href-disabled' => '',
     ],
     'data-gallery' => 'gallery',
 ];

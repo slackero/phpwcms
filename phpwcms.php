@@ -261,7 +261,7 @@ $BE['HEADER']['alias_slash_var'] = ' <script>
    const aliasUtf8=' . (PHPWCMS_ALIAS_UTF8 ? 'true' : 'false') . ';
   </script>';
 $BE['HEADER']['phpwcms-lang.js'] = getJavaScriptTranslations();
-$BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
+$BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.min.js');
 
 ?>
 <!-- phpwcms HEADER -->
