@@ -6,8 +6,6 @@
 PHP ?= $(shell which php8 2>/dev/null || echo /Applications/MAMP/bin/php/php8.2.32/bin/php)
 PHPSTAN = $(PHP) -d memory_limit=1G include/vendor/bin/phpstan
 STACKLIT ?= stacklit
-CSSO ?= $(shell which csso 2>/dev/null || echo npx csso)
-TERSER ?= $(shell which terser 2>/dev/null || echo npx terser)
 SYNC_TARGET ?= /Users/slackero/Sites/dev-phpwcms
 
 # Default target

@@ -33,7 +33,7 @@ if(empty($block['jslib'])) {
 $block['jslib'] = preg_replace('/[^a-z0-9-.]/', '', $block['jslib']);
 
 // set if CDN can be used
-define('PHPWCMS_USE_CDN', !empty($block['googleapi']));
+define('PHPWCMS_USE_CDN', !empty($block['use_cdn']) || !empty($block['googleapi']));
 
 // Check if the selected JavaScript library exists
 if (!is_file(PHPWCMS_ROOT . '/include/inc_front/lib/js.' . $block['jslib'] . '.inc.php')) {

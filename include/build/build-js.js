@@ -26,6 +26,7 @@ async function buildJs() {
         { src: '../../node_modules/flatpickr/dist/flatpickr.min.js', dest: 'inc_js/flatpickr.min.js' },
         { src: '../../node_modules/dayjs/dayjs.min.js', dest: 'inc_js/dayjs.min.js' },
         { src: '../../node_modules/jquery/dist/jquery.min.js', dest: 'inc_js/jquery/jquery-3.7.1.min.js' },
+        { src: '../../node_modules/jquery/dist/jquery.min.js', dest: '../template/lib/jquery/jquery-3.7.1.min.js' },
         { src: '../../node_modules/video.js/dist/video.min.js', dest: '../template/lib/video-js/video.min.js' },
         { src: '../../node_modules/glightbox/dist/js/glightbox.min.js', dest: '../template/lib/glightbox/glightbox.min.js' },
         { src: '../../node_modules/vanilla-cookieconsent/dist/cookieconsent.umd.js', dest: '../template/lib/cookieconsent3/cookieconsent.umd.js' },
@@ -38,7 +39,10 @@ async function buildJs() {
         const destPath = path.join(rootDir, item.dest);
         if (fs.existsSync(srcPath)) {
             fs.mkdirSync(path.dirname(destPath), { recursive: true });
-            fs.copyFileSync(srcPath, destPath);
+            let content = fs.readFileSync(srcPath, 'utf8');
+            // Strip sourceMappingURL references
+            content = content.replace(/\/\*# sourceMappingURL=.*?\*\//g, '').replace(/\/\/# sourceMappingURL=.*$/gm, '');
+            fs.writeFileSync(destPath, content);
             console.log(`[✓] Synced ${item.dest}`);
         } else {
             console.warn(`[!] Warning: Source JS not found: ${srcPath}`);

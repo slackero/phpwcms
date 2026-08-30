@@ -17,7 +17,8 @@ for (const file of cssFiles) {
     if (fs.existsSync(file)) {
         combined += fs.readFileSync(file, 'utf8') + '\n';
     } else {
-        console.warn(`[!] Warning: Missing CSS file: ${file}`);
+        console.error(`[X] Error: Missing required CSS file: ${file}`);
+        process.exit(1);
     }
 }
 
@@ -41,7 +42,7 @@ const copyMap = [
     { src: '../../node_modules/bootstrap/dist/css/bootstrap.min.css', dest: '../template/lib/bootstrap5/bootstrap.min.css' },
     { src: '../../node_modules/dropzone/dist/min/dropzone.min.css', dest: 'inc_css/dropzone.min.css' },
     { src: '../../node_modules/flatpickr/dist/flatpickr.min.css', dest: 'inc_css/flatpickr.min.css' },
-    { src: '../../node_modules/flatpickr/dist/themes/material_blue.css', dest: 'inc_css/flatpickr-material.min.css' },
+    { src: '../../node_modules/flatpickr/dist/themes/material_blue.css', dest: 'inc_css/flatpickr-material.min.css', minify: true },
     { src: '../../node_modules/tom-select/dist/css/tom-select.bootstrap5.css', dest: 'inc_css/tom-select.bootstrap5.css' },
     { src: '../../node_modules/@fortawesome/fontawesome-free/css/solid.min.css', dest: 'inc_css/fontawesome.solid.min.css' },
     { src: '../../node_modules/video.js/dist/video-js.min.css', dest: '../template/lib/video-js/video-js.min.css' },
@@ -59,7 +60,23 @@ for (const item of copyMap) {
     const destPath = path.join(includeDir, item.dest);
     if (fs.existsSync(srcPath)) {
         fs.mkdirSync(path.dirname(destPath), { recursive: true });
-        fs.copyFileSync(srcPath, destPath);
+        let content = fs.readFileSync(srcPath, 'utf8');
+        // Strip sourceMappingURL references
+        content = content.replace(/\/\*# sourceMappingURL=.*?\*\//g, '').replace(/\/\/# sourceMappingURL=.*$/gm, '');
+        if (item.minify) {
+            try {
+                const min = lightningcss.transform({
+                    filename: path.basename(item.dest),
+                    code: Buffer.from(content),
+                    minify: true
+                });
+                fs.writeFileSync(destPath, min.code);
+            } catch (e) {
+                fs.writeFileSync(destPath, content);
+            }
+        } else {
+            fs.writeFileSync(destPath, content);
+        }
         console.log(`[✓] Synced ${item.dest}`);
     } else {
         console.warn(`[!] Warning: Source not found: ${srcPath}`);
