@@ -149,7 +149,7 @@ if(isset($FEED['structureID']) && $FEED['structureID'] != '') {
 }
 
 $sql .= "ar.article_aktiv=1 AND ar.article_deleted=0 AND (ar.article_begin IS NULL OR ar.article_begin < NOW()) ";
-$sql .= "AND (ar.article_end IS NULL OR ar.article_end > NOW()) AND ar.article_nosearch=0 AND article_norss=1 AND IF(ar.article_cid=0, ";
+$sql .= "AND (ar.article_end IS NULL OR ar.article_end > NOW()) AND ar.article_nosearch=0 AND ar.article_norss=0 AND IF(ar.article_cid=0, ";
 $sql .= $indexpage['acat_aktiv'] && empty($indexpage['acat_regonly']) ? '1' : '0';
 $sql .= ", ac.acat_aktiv=1 AND ac.acat_trash=0 AND ac.acat_regonly=0) ";
 
@@ -179,7 +179,7 @@ switch(strtolower(trim($FEED['orderBy']))) {
 if(empty($FEED['order'])) {
     $FEED['order'] = 'DESC';
 }
-switch(strtoupper(trim($FEED['orderBy']))) {
+switch(strtoupper(trim($FEED['order']))) {
 
                     // random
     case 'RAND':    $FEED['order'] = 'RAND()';
@@ -220,7 +220,7 @@ if(isset($result[0]['article_title'])) {
         if($FEED['useauthor'] || $FEED['defaultFormat'] == 'ATOM' || $FEED['defaultFormat'] == 'ATOM1.0') {
 
             if(!empty($data["article_username"])) {
-                $item->author   = $FEED['feedEmail'].' ('.combinedParser($data["article_username"]).')';
+                $item->author   = empty($FEED['feedEmail']) ? combinedParser($data["article_username"]) : $FEED['feedEmail'].' ('.combinedParser($data["article_username"]).')';
             } elseif($FEED['defaultFormat'] == 'ATOM' || $FEED['defaultFormat'] == 'ATOM1.0') {
                 $item->author   = $FEED['feedAuthor'];
             }

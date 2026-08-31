@@ -22,8 +22,11 @@ if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), t
     if (!empty($src_schema['scheme'])) {
         $src = "img/leer.gif";
     }
-    $width_height = strip_tags($data['attr']);
-    $name = $data['name'];
+    // keep the image source a relative path contained under the install dir
+    if (strspn($src, '/\\.') !== 0 || strpos($src, '..') !== false) {
+        $src = "img/leer.gif";
+    }
+    $name = is_scalar($data['name']) ? strip_tags((string)$data['name']) : '';
 }
 
 ?><!DOCTYPE html>

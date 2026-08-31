@@ -46,7 +46,7 @@ if (
 switch ($img_target) {
     case 'png':
         $img_mimetype = 'image/png';
-        $img_target = 'jpg';
+        $img_target = 'png';
         break;
 
     case 'gif':
@@ -93,8 +93,8 @@ if ($img_file !== '' && is_readable($img_file) && $img_info = getimagesize($img_
         $percent = $percent_width;
     }
 
-    $img_width = $img_info[0] * $percent;
-    $img_height = $img_info[1] * $percent;
+    $img_width = (int)round($img_info[0] * $percent);
+    $img_height = (int)round($img_info[1] * $percent);
 
     switch ($img_target) {
         case 'jpg':

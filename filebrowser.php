@@ -520,7 +520,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         if(PHPWCMS_CHARSET !== 'utf-8') {
             $confirm = mb_convert_encoding($confirm, PHPWCMS_CHARSET);
         }
-        echo LF . ' bsConfirmInfo("' . addslashes($confirm) . '", function() { parent.$(\'#browserModal\').modal(\'hide\'); });';
+        echo LF . ' bsConfirmInfo(' . json_encode($confirm, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT) . ', function() { parent.$(\'#browserModal\').modal(\'hide\'); });';
         echo LF . '}' . LF;
 
         echo LF . SCRIPT_CDATA_END;

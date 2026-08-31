@@ -304,7 +304,9 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
                 }
 
                 $_SESSION['PHPWCMS_BROWSER_HASH'] = $phpwcms['USER_AGENT']['hash'];
-                headerRedirect($backend_redirect . get_token_get_string() . '&' . session_name() . '=' . session_id());
+                // new session id after successful auth (prevent session fixation)
+                session_regenerate_id(true);
+                headerRedirect($backend_redirect . get_token_get_string());
             }
         }
     }
@@ -480,8 +482,9 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
         }
 
         $_SESSION['PHPWCMS_BROWSER_HASH'] = $phpwcms['USER_AGENT']['hash'];
-
-        headerRedirect($backend_redirect . get_token_get_string() . '&' . session_name().'='.session_id());
+        // new session id after successful auth (prevent session fixation)
+        session_regenerate_id(true);
+        headerRedirect($backend_redirect . get_token_get_string());
 
     } elseif (!$step_2fa) {
 
