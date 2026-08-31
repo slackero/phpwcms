@@ -169,7 +169,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     $child_count = get_root_childcount(0);
     $an = $indexpage['acat_name'];
-    $field_param = (isset($_GET['field']) ? '&amp;field=' . clean_slweg($_GET['field']) : '') . ($idtype ? '&amp;idtype=' . $idtype : '');
+    $field_param = ($field !== 'id' ? '&amp;field=' . $field : '') . ($idtype ? '&amp;idtype=' . $idtype : '');
     $is_root_open = !empty($_SESSION['structure'][0]);
 
     $a = '<tr bgcolor="#e8e8e8" class="struct" id="cat-0">';
@@ -221,9 +221,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
                 echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
             }
             echo $js . "=$(this).attr('data-aid');";
-            if ($js_aktion == 6) {
-                echo 'parent.$("#browserModal").modal("hide");';
-            } elseif ($js_aktion != 16) {
+            if ($js_aktion != 16) {
                 echo "parent.$('#browserModal').modal('hide');";
             }
             ?>
@@ -263,7 +261,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 
     global $BL, $field, $idtype;
 
-    $field_param = (!empty($field) ? '&amp;field=' . clean_slweg($field) : '') . ($idtype ? '&amp;idtype=' . $idtype : '');
+    $field_param = ($field !== 'id' ? '&amp;field=' . $field : '') . ($idtype ? '&amp;idtype=' . $idtype : '');
     $child_count = get_root_childcount($struct[$key]['acat_id']);
     $is_open = !empty($_SESSION['structure'][$struct[$key]['acat_id']]);
 
