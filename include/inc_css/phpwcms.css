@@ -132,6 +132,14 @@ select.form-select-sm:not([size]):not([multiple]) {
 .form-group {
     margin-bottom: .333rem;
 }
+/* media CP: group format headers with their input rows */
+.form-group.fmp-format-head {
+    margin-top: .5rem;
+    margin-bottom: .166rem;
+}
+.form-group.fmp-intern {
+    margin-bottom: .166rem;
+}
 
 .col-form-label {
     font-weight: 600;
@@ -1682,6 +1690,17 @@ body.filebrowser {
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
+}
+/* equal-width intern/extern radio toggle in media CP input groups */
+.input-group-text.fmp-toggle {
+    min-width: 7rem;
+}
+/* reset the stacked-form margin that pushes the radio below its label */
+.input-group-text.fmp-toggle .form-check-input {
+    margin: 0;
+}
+.input-group-text.fmp-toggle .form-check-label {
+    line-height: 1;
 }
 [data-bs-theme="dark"] .filebrowser tr.filebrowser-dir-current > td,
 [data-bs-theme="dark"] .filebrowser tr.filebrowser-dir-current {

@@ -133,9 +133,9 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
     </div>
 </div>
 
-<hr>
+<hr class="mb-0">
 
-<div class="form-group align-items-center row g-2">
+<div class="form-group align-items-center fmp-format-head row g-2 mt-0">
     <label class="col-sm-2 col-form-label text-end">
         <?php echo $BL['be_html5_media'] ?>
     </label>
@@ -144,120 +144,114 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         <?php echo $BL['be_html5_h264'] ?> <span class="text-muted">&#8212; <i>mp4, m4v, mov, m4p, m4a, mp3, aac, mpeg</i></span>
     </div>
 </div>
-<div class="form-group align-items-center row g-2">
-    <div class="col-sm-1 offset-sm-2">
-        <div class="form-check form-check-inline">
-            <input name="fmp_int_ext_h264" id="fmp_int_ext0_h264" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext_h264']); ?> class="form-check-input" />
-            <label for="fmp_int_ext0_h264" class="form-check-label"><?php echo $BL['be_cnt_internal'] ?></label>
-        </div>
-    </div>
-    <div class="col-sm-6">
+<div class="form-group align-items-center fmp-intern row g-2">
+    <div class="col-sm-9 offset-sm-2">
         <input name="fmp_internal_id_h264" type="hidden" id="fmp_internal_id_h264" value="<?php echo $fmp_data['fmp_internal_id_h264'] ?>" />
-        <input name="fmp_internal_name_h264" type="text" id="fmp_internal_name_h264" class="form-control form-control-sm greyed modalButton" value="<?php echo html($fmp_data['fmp_internal_name_h264']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=12" />
-    </div>
-    <div class="auto">
-        <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=12">
-            <i class="fa-solid fa-fw fa-folder-open"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_h264').value='';document.getElementById('fmp_internal_id_h264').value='0';this.blur();return false;">
-            <i class="far fa-fw fa-trash-alt"></i>
-        </button>
+        <div class="input-group input-group-sm">
+            <span class="input-group-text fmp-toggle">
+                <input name="fmp_int_ext_h264" id="fmp_int_ext0_h264" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext_h264']); ?> class="form-check-input me-1" />
+                <label for="fmp_int_ext0_h264" class="form-check-label"><?php echo $BL['be_cnt_internal'] ?></label>
+            </span>
+            <input name="fmp_internal_name_h264" type="text" id="fmp_internal_name_h264" class="form-control greyed modalButton" value="<?php echo html($fmp_data['fmp_internal_name_h264']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=12" />
+            <button type="button" class="btn btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=12">
+                <i class="fa-solid fa-fw fa-folder-open"></i>
+            </button>
+            <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_h264').value='';document.getElementById('fmp_internal_id_h264').value='0';this.blur();return false;">
+                <i class="far fa-fw fa-trash-alt"></i>
+            </button>
+        </div>
     </div>
 </div>
 <div class="form-group align-items-center row g-2">
-    <div class="col-sm-1 offset-sm-2">
-        <div class="form-check form-check-inline">
-            <input name="fmp_int_ext_h264" id="fmp_int_ext1_h264" type="radio" value="1" <?php is_checked(1, $fmp_data['fmp_int_ext_h264']); ?> class="form-check-input" />
-            <label for="fmp_int_ext1_h264" class="form-check-label"><?php echo $BL['be_cnt_external'] ?></label>
+    <div class="col-sm-9 offset-sm-2">
+        <div class="input-group input-group-sm">
+            <span class="input-group-text fmp-toggle">
+                <input name="fmp_int_ext_h264" id="fmp_int_ext1_h264" type="radio" value="1" <?php is_checked(1, $fmp_data['fmp_int_ext_h264']); ?> class="form-check-input me-1" />
+                <label for="fmp_int_ext1_h264" class="form-check-label"><?php echo $BL['be_cnt_external'] ?></label>
+            </span>
+            <input name="fmp_external_file_h264" type="text" id="fmp_external_file_h264" class="form-control" value="<?php echo html($fmp_data['fmp_external_file_h264']) ?>" size="40" />
         </div>
-    </div>
-    <div class="col-sm-6">
-        <input name="fmp_external_file_h264" type="text" id="fmp_external_file_h264" class="form-control form-control-sm" value="<?php echo html($fmp_data['fmp_external_file_h264']) ?>" size="40" />
     </div>
 </div>
 
 <!-- HTML5 Media WebM -->
-<div class="form-group align-items-center row g-2">
+<div class="form-group align-items-center fmp-format-head row g-2">
     <div class="col-sm-9 offset-sm-2">
         <?php echo $BL['be_media_format'] ?>
         <?php echo $BL['be_html5_webm'] ?> <span class="text-muted">&#8212; <i>webm</i></span>
     </div>
 </div>
-<div class="form-group align-items-center row g-2">
-    <div class="col-sm-1 offset-sm-2">
-        <div class="form-check form-check-inline">
-            <input name="fmp_int_ext_webm" id="fmp_int_ext0_webm" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext_webm']); ?> class="form-check-input" />
-            <label for="fmp_int_ext0_webm" class="form-check-label"><?php echo $BL['be_cnt_internal'] ?></label>
-        </div>
-    </div>
-    <div class="col-sm-6">
+<div class="form-group align-items-center fmp-intern row g-2">
+    <div class="col-sm-9 offset-sm-2">
         <input name="fmp_internal_id_webm" type="hidden" id="fmp_internal_id_webm" value="<?php echo $fmp_data['fmp_internal_id_webm'] ?>" />
-        <input name="fmp_internal_name_webm" type="text" id="fmp_internal_name_webm" class="form-control form-control-sm greyed modalButton" value="<?php echo html($fmp_data['fmp_internal_name_webm']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=13" data-title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" />
-    </div>
-    <div class="auto">
-        <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=13">
-            <i class="fa-solid fa-fw fa-folder-open"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_webm').value='';document.getElementById('fmp_internal_id_webm').value='0';this.blur();return false;">
-            <i class="far fa-fw fa-trash-alt"></i>
-        </button>
+        <div class="input-group input-group-sm">
+            <span class="input-group-text fmp-toggle">
+                <input name="fmp_int_ext_webm" id="fmp_int_ext0_webm" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext_webm']); ?> class="form-check-input me-1" />
+                <label for="fmp_int_ext0_webm" class="form-check-label"><?php echo $BL['be_cnt_internal'] ?></label>
+            </span>
+            <input name="fmp_internal_name_webm" type="text" id="fmp_internal_name_webm" class="form-control greyed modalButton" value="<?php echo html($fmp_data['fmp_internal_name_webm']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=13" data-title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" />
+            <button type="button" class="btn btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=13">
+                <i class="fa-solid fa-fw fa-folder-open"></i>
+            </button>
+            <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_webm').value='';document.getElementById('fmp_internal_id_webm').value='0';this.blur();return false;">
+                <i class="far fa-fw fa-trash-alt"></i>
+            </button>
+        </div>
     </div>
 </div>
 <div class="form-group align-items-center row g-2">
-    <div class="col-sm-1 offset-sm-2">
-        <div class="form-check form-check-inline">
-            <input name="fmp_int_ext_webm" id="fmp_int_ext1_webm" type="radio" value="1" <?php is_checked(1, $fmp_data['fmp_int_ext_webm']); ?> class="form-check-input" />
-            <label for="fmp_int_ext1_webm" class="form-check-label"><?php echo $BL['be_cnt_external'] ?></label>
+    <div class="col-sm-9 offset-sm-2">
+        <div class="input-group input-group-sm">
+            <span class="input-group-text fmp-toggle">
+                <input name="fmp_int_ext_webm" id="fmp_int_ext1_webm" type="radio" value="1" <?php is_checked(1, $fmp_data['fmp_int_ext_webm']); ?> class="form-check-input me-1" />
+                <label for="fmp_int_ext1_webm" class="form-check-label"><?php echo $BL['be_cnt_external'] ?></label>
+            </span>
+            <input name="fmp_external_file_webm" type="text" id="fmp_external_file_webm" class="form-control" value="<?php echo html($fmp_data['fmp_external_file_webm']) ?>" size="40" />
         </div>
-    </div>
-    <div class="col-sm-6">
-        <input name="fmp_external_file_webm" type="text" id="fmp_external_file_webm" class="form-control form-control-sm" value="<?php echo html($fmp_data['fmp_external_file_webm']) ?>" size="40" />
     </div>
 </div>
 
 <!-- HTML5 Media Ogg -->
-<div class="form-group align-items-center row g-2">
+<div class="form-group align-items-center fmp-format-head row g-2">
     <div class="col-sm-9 offset-sm-2">
         <?php echo $BL['be_media_format'] ?>
         <?php echo $BL['be_html5_ogg'] ?> <span class="text-muted">&#8212; <i>.ogg, .ogv, .oga, .ogx</i></span>
     </div>
 </div>
-<div class="form-group align-items-center row g-2">
-    <div class="col-sm-1 offset-sm-2">
-        <div class="form-check form-check-inline">
-            <input name="fmp_int_ext_ogg" id="fmp_int_ext0_ogg" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext_ogg']); ?> class="form-check-input" />
-            <label for="fmp_int_ext0_ogg" class="form-check-label"><?php echo $BL['be_cnt_internal'] ?></label>
-        </div>
-    </div>
-    <div class="col-sm-6">
+<div class="form-group align-items-center fmp-intern row g-2">
+    <div class="col-sm-9 offset-sm-2">
         <input name="fmp_internal_id_ogg" type="hidden" id="fmp_internal_id_ogg" value="<?php echo $fmp_data['fmp_internal_id_ogg'] ?>" />
-        <input name="fmp_internal_name_ogg" type="text" id="fmp_internal_name_ogg" class="form-control form-control-sm greyed modalButton" value="<?php echo html($fmp_data['fmp_internal_name_ogg']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=14" data-title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" />
-    </div>
-    <div class="auto">
-        <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=14">
-            <i class="fa-solid fa-fw fa-folder-open"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_ogg').value='';document.getElementById('fmp_internal_id_ogg').value='0';this.blur();return false;">
-            <i class="far fa-fw fa-trash-alt"></i>
-        </button>
+        <div class="input-group input-group-sm">
+            <span class="input-group-text fmp-toggle">
+                <input name="fmp_int_ext_ogg" id="fmp_int_ext0_ogg" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext_ogg']); ?> class="form-check-input me-1" />
+                <label for="fmp_int_ext0_ogg" class="form-check-label"><?php echo $BL['be_cnt_internal'] ?></label>
+            </span>
+            <input name="fmp_internal_name_ogg" type="text" id="fmp_internal_name_ogg" class="form-control greyed modalButton" value="<?php echo html($fmp_data['fmp_internal_name_ogg']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=14" data-title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" />
+            <button type="button" class="btn btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=14">
+                <i class="fa-solid fa-fw fa-folder-open"></i>
+            </button>
+            <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_ogg').value='';document.getElementById('fmp_internal_id_ogg').value='0';this.blur();return false;">
+                <i class="far fa-fw fa-trash-alt"></i>
+            </button>
+        </div>
     </div>
 </div>
 <div class="form-group align-items-center row g-2">
-    <div class="col-sm-1 offset-sm-2">
-        <div class="form-check form-check-inline">
-            <input name="fmp_int_ext_ogg" id="fmp_int_ext1_ogg" type="radio" value="1" <?php is_checked(1, $fmp_data['fmp_int_ext_ogg']); ?> class="form-check-input" />
-            <label for="fmp_int_ext1_webm" class="form-check-label"><?php echo $BL['be_cnt_external'] ?></label>
+    <div class="col-sm-9 offset-sm-2">
+        <div class="input-group input-group-sm">
+            <span class="input-group-text fmp-toggle">
+                <input name="fmp_int_ext_ogg" id="fmp_int_ext1_ogg" type="radio" value="1" <?php is_checked(1, $fmp_data['fmp_int_ext_ogg']); ?> class="form-check-input me-1" />
+                <label for="fmp_int_ext1_ogg" class="form-check-label"><?php echo $BL['be_cnt_external'] ?></label>
+            </span>
+            <input name="fmp_external_file_ogg" type="text" id="fmp_external_file_ogg" class="form-control" value="<?php echo html($fmp_data['fmp_external_file_ogg']) ?>" size="40" />
         </div>
-    </div>
-    <div class="col-sm-6">
-        <input name="fmp_external_file_ogg" type="text" id="fmp_external_file_ogg" class="form-control form-control-sm" value="<?php echo html($fmp_data['fmp_external_file_ogg']) ?>" size="40" />
     </div>
 </div>
 
-<hr>
+<hr class="mb-0">
 
 <!-- Flash Media Fallback -->
-<div class="form-group align-items-center row g-2">
+<div class="form-group align-items-center fmp-format-head row g-2 mt-0">
     <label class="col-sm-2 col-form-label text-end">
         <?php echo $BL['be_flash_media'] ?>
     </label>
@@ -266,39 +260,37 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         Flash <span class="text-muted">&#8212; <i>mp4, mp3, flv, mov, swf, f4v, m4v, jpg, png</i></span>
     </div>
 </div>
-<div class="form-group align-items-center row g-2">
-    <div class="col-sm-1 offset-sm-2">
-        <div class="form-check form-check-inline">
-            <input name="fmp_int_ext" id="fmp_int_ext0" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext']); ?> class="form-check-input" />
-            <label for="fmp_int_ext0" class="form-check-label"><?php echo $BL['be_cnt_internal'] ?></label>
-        </div>
-    </div>
-    <div class="col-sm-6">
+<div class="form-group align-items-center fmp-intern row g-2">
+    <div class="col-sm-9 offset-sm-2">
         <input name="fmp_internal_id" type="hidden" id="fmp_internal_id" value="<?php echo $fmp_data['fmp_internal_id'] ?>" />
-        <input name="fmp_internal_name" type="text" id="fmp_internal_name" class="form-control form-control-sm greyed modalButton" value="<?php echo html($fmp_data['fmp_internal_name']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=6" class="modalButton" data-title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" />
-    </div>
-    <div class="auto">
-        <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=6">
-            <i class="fa-solid fa-fw fa-folder-open"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name').value='';document.getElementById('fmp_internal_id').value='0';this.blur();return false;">
-            <i class="far fa-fw fa-trash-alt"></i>
-        </button>
+        <div class="input-group input-group-sm">
+            <span class="input-group-text fmp-toggle">
+                <input name="fmp_int_ext" id="fmp_int_ext0" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext']); ?> class="form-check-input me-1" />
+                <label for="fmp_int_ext0" class="form-check-label"><?php echo $BL['be_cnt_internal'] ?></label>
+            </span>
+            <input name="fmp_internal_name" type="text" id="fmp_internal_name" class="form-control greyed modalButton" value="<?php echo html($fmp_data['fmp_internal_name']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=6" data-title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" />
+            <button type="button" class="btn btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=6">
+                <i class="fa-solid fa-fw fa-folder-open"></i>
+            </button>
+            <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name').value='';document.getElementById('fmp_internal_id').value='0';this.blur();return false;">
+                <i class="far fa-fw fa-trash-alt"></i>
+            </button>
+        </div>
     </div>
 </div>
 <div class="form-group align-items-center row g-2">
-    <div class="col-sm-1 offset-sm-2">
-        <div class="form-check form-check-inline">
-            <input name="fmp_int_ext" id="fmp_int_ext1" type="radio" value="1" <?php is_checked(1, $fmp_data['fmp_int_ext']); ?> class="form-check-input" />
-            <label for="fmp_int_ext1" class="form-check-label"><?php echo $BL['be_cnt_external'] ?></label>
+    <div class="col-sm-9 offset-sm-2">
+        <div class="input-group input-group-sm">
+            <span class="input-group-text fmp-toggle">
+                <input name="fmp_int_ext" id="fmp_int_ext1" type="radio" value="1" <?php is_checked(1, $fmp_data['fmp_int_ext']); ?> class="form-check-input me-1" />
+                <label for="fmp_int_ext1" class="form-check-label"><?php echo $BL['be_cnt_external'] ?></label>
+            </span>
+            <input name="fmp_external_file" type="text" id="fmp_external_file" class="form-control" value="<?php echo html($fmp_data['fmp_external_file']) ?>" size="40" />
         </div>
-    </div>
-    <div class="col-sm-6">
-        <input name="fmp_external_file" type="text" id="fmp_external_file" class="form-control form-control-sm" value="<?php echo html($fmp_data['fmp_external_file']) ?>" size="40" />
     </div>
 </div>
 
-<div class="form-group row g-2">
+<div class="form-group row g-2 mt-2">
     <label class="col-sm-2 col-form-label text-end">
         <?php echo $BL['be_flashplayer_caption'] ?>
     </label>
@@ -320,17 +312,17 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
     <label class="col-sm-2 col-form-label text-end">
         <?php echo $BL['be_flashplayer_thumbnail'] ?>
     </label>
-    <div class="col-sm-6">
+    <div class="col-sm-9">
         <input name="fmp_img_id" type="hidden" id="fmp_img_id" value="<?php echo $fmp_data['fmp_img_id'] ?>" />
-        <input name="fmp_img_name" type="text" id="fmp_img_name" class="form-control form-control-sm greyed modalButton" value="<?php echo html($fmp_data['fmp_img_name']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7" class="modalButton" data-title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" />
-    </div>
-    <div class="auto">
-        <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7">
-            <i class="fa-solid fa-fw fa-folder-open"></i>
-        </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_img_name').value='';document.getElementById('fmp_img_id').value='0';this.blur();return false;">
-            <i class="far fa-fw fa-trash-alt"></i>
-        </button>
+        <div class="input-group input-group-sm">
+            <input name="fmp_img_name" type="text" id="fmp_img_name" class="form-control greyed modalButton" value="<?php echo html($fmp_data['fmp_img_name']) ?>" size="40" onfocus="this.blur()" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7" data-title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" />
+            <button type="button" class="btn btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7">
+                <i class="fa-solid fa-fw fa-folder-open"></i>
+            </button>
+            <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_img_name').value='';document.getElementById('fmp_img_id').value='0';this.blur();return false;">
+                <i class="far fa-fw fa-trash-alt"></i>
+            </button>
+        </div>
     </div>
 </div>
 
@@ -353,7 +345,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
     </div>
 </div>
 
-<hr>
+<hr class="mb-1">
 
 <div class="form-group align-items-center row g-2">
     <label class="col-sm-2 col-form-label text-info">
@@ -362,56 +354,46 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
 </div>
 
 <div class="form-group align-items-center row g-2">
-    <label class="col-sm-2 col-form-label text-end" for="fmp_set_html5only">
-        <?php echo $BL['be_display_html5_only'] ?>
-    </label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 offset-sm-2">
         <div class="form-check form-check-inline">
-            <input type="checkbox" name="fmp_set_html5only" id="fmp_set_html5only" class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_html5only']) ?> />
+            <input type="checkbox" name="fmp_set_html5only" id="fmp_set_html5only" class="form-check-input me-1" value="1"<?php is_checked(1, $fmp_data['fmp_set_html5only']) ?> />
+            <label for="fmp_set_html5only" class="form-check-label"><?php echo $BL['be_display_html5_only'] ?></label>
         </div>
     </div>
 </div>
 
 <div class="form-group align-items-center row g-2">
-    <label class="col-sm-2 col-form-label text-end" for="fmp_set_audio">
-        <?php echo $BL['be_audio_only'] ?>
-    </label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 offset-sm-2">
         <div class="form-check form-check-inline">
-            <input type="checkbox" name="fmp_set_audio" id="fmp_set_audio"class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_audio']) ?> />
+            <input type="checkbox" name="fmp_set_audio" id="fmp_set_audio" class="form-check-input me-1" value="1"<?php is_checked(1, $fmp_data['fmp_set_audio']) ?> />
+            <label for="fmp_set_audio" class="form-check-label"><?php echo $BL['be_audio_only'] ?></label>
         </div>
     </div>
 </div>
 
 <div class="form-group align-items-center row g-2">
-    <label class="col-sm-2 col-form-label text-end" for="fmp_set_autostart">
-        Autostart
-    </label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 offset-sm-2">
         <div class="form-check form-check-inline">
-            <input type="checkbox" name="fmp_set_autostart" id="fmp_set_autostart" class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_autostart']) ?> />
+            <input type="checkbox" name="fmp_set_autostart" id="fmp_set_autostart" class="form-check-input me-1" value="1"<?php is_checked(1, $fmp_data['fmp_set_autostart']) ?> />
+            <label for="fmp_set_autostart" class="form-check-label">Autostart</label>
         </div>
     </div>
 </div>
 
 <div class="form-group align-items-center row g-2">
-    <label class="col-sm-2 col-form-label text-end" for="fmp_set_loop">
-        Loop
-    </label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 offset-sm-2">
         <div class="form-check form-check-inline">
-            <input type="checkbox" name="fmp_set_loop" id="fmp_set_loop" class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_loop']) ?> />
+            <input type="checkbox" name="fmp_set_loop" id="fmp_set_loop" class="form-check-input me-1" value="1"<?php is_checked(1, $fmp_data['fmp_set_loop']) ?> />
+            <label for="fmp_set_loop" class="form-check-label">Loop</label>
         </div>
     </div>
 </div>
 
 <div class="form-group align-items-center row g-2">
-    <label class="col-sm-2 col-form-label text-end" for="fmp_set_downloadbutton">
-        <?php echo $BL['be_hide_downloadbutton'] ?>
-    </label>
-    <div class="col-sm-8">
+    <div class="col-sm-8 offset-sm-2">
         <div class="form-check form-check-inline">
-            <input type="checkbox" name="fmp_set_downloadbutton" id="fmp_set_downloadbutton" class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_downloadbutton']) ?> />
+            <input type="checkbox" name="fmp_set_downloadbutton" id="fmp_set_downloadbutton" class="form-check-input me-1" value="1"<?php is_checked(1, $fmp_data['fmp_set_downloadbutton']) ?> />
+            <label for="fmp_set_downloadbutton" class="form-check-label"><?php echo $BL['be_hide_downloadbutton'] ?></label>
         </div>
     </div>
 </div>
@@ -428,7 +410,6 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         </select>
     </div>
 </div>
-
 <div class="form-group align-items-center row g-2">
     <label for="fmp_set_skin_html5" class="col-sm-2 col-form-label text-end">
         <?php echo $BL['be_skin'].' '.$BL['be_html5_media'] ?>
@@ -515,6 +496,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         <input name="fmp_set_logo" type="text" id="fmp_set_logo" class="form-control form-control-sm" value="<?php echo html($fmp_data['fmp_set_logo']) ?>" size="40" />
     </div>
 </div>
+
 
 <script type="text/javascript">
 
