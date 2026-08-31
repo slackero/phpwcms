@@ -43,7 +43,7 @@ if(isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 			setcookie('phpwcmsAdsUserId', $ads_userid, time()+63072000, '/', getCookieDomain(), PHPWCMS_SSL, true);
 		}
 
-		$sql  =	'INSERT DELAYED INTO '.DB_PREPEND.'phpwcms_ads_tracking (';
+		$sql  =	'INSERT LOW_PRIORITY INTO '.DB_PREPEND.'phpwcms_ads_tracking (';
 		$sql .= 'adtracking_created, adtracking_campaignid, adtracking_ip, adtracking_cookieid, ';
 		$sql .= 'adtracking_countclick, adtracking_countview, adtracking_useragent, adtracking_ref, ';
 		$sql .= 'adtracking_catid, adtracking_articleid) VALUES (';

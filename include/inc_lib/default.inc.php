@@ -1311,7 +1311,7 @@ function log_message($type = 'UNDEFINED', $message = '', $userid = 0) {
         $log['log_referrer_url'] = $_SERVER['HTTP_REFERER'];
     }
 
-    _dbInsert('phpwcms_log', $log, 'DELAYED');
+    _dbInsert('phpwcms_log', $log, 'LOW_PRIORITY');
 }
 
 function destroyBackendSessionData() {

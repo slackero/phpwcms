@@ -236,10 +236,12 @@ function _dbInsert($table='', $data=[], $special='', $prefix=null) {
 
     if($special) {
         $special = strtoupper(trim($special));
-        if($special !== 'LOW_PRIORITY' && $special !== 'DELAYED') {
-            $special = 'DELAYED';
+        // 'DELAYED' was removed in MySQL 8.0 - ignore it, only LOW_PRIORITY is kept
+        if($special === 'LOW_PRIORITY') {
+            $special .= ' ';
+        } else {
+            $special = '';
         }
-        $special .= ' ';
     }
 
     $query  = 'INSERT ' . $special . 'INTO ' . _dbEscape($table, false) . ' (';

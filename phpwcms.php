@@ -159,9 +159,20 @@ $sys_groups = [
     'admfilecat'  => 'SYSGROUP'
 ];
 
+// fetch all usergroups once instead of one query per syskey
+$all_groups = _dbQuery('SELECT * FROM `' . DB_PREPEND . 'phpwcms_usergroup` ORDER BY `group_id`');
+if (empty($all_groups) || !is_array($all_groups)) {
+    $all_groups = [];
+}
+$groups_by_syskey = [];
+foreach ($all_groups as $group_row) {
+    if (!isset($groups_by_syskey[$group_row['group_syskey']])) {
+        $groups_by_syskey[$group_row['group_syskey']] = $group_row;
+    }
+}
+
 foreach ($sys_groups as $syskey => $groupname) {
-    $existing = _dbQuery('SELECT `group_id`, `group_member` FROM `' . DB_PREPEND . 'phpwcms_usergroup` WHERE `group_syskey` = ' . _dbEscape($syskey));
-    if (empty($existing)) {
+    if (!isset($groups_by_syskey[$syskey])) {
         $data = [
             'group_name'   => $groupname,
             'group_member' => $admin_member_str,
@@ -172,8 +183,12 @@ foreach ($sys_groups as $syskey => $groupname) {
             'group_modkey' => ''
         ];
         _dbInsert(DB_PREPEND . 'phpwcms_usergroup', $data);
+        // keep the in-memory group list in sync for this request
+        $all_groups[] = $data;
+        $groups_by_syskey[$syskey] = $data;
     } else {
-        $members = convertStringToArray($existing[0]['group_member']);
+        $existing = $groups_by_syskey[$syskey];
+        $members = convertStringToArray($existing['group_member']);
         $updated = false;
         foreach ($adminids as $adminid) {
             if (!in_array($adminid, $members)) {
@@ -182,21 +197,26 @@ foreach ($sys_groups as $syskey => $groupname) {
             }
         }
         if ($updated) {
-            _dbUpdate('phpwcms_usergroup', ['group_member' => implode(',', $members)], 'group_id = ' . (int)$existing[0]['group_id']);
+            _dbUpdate('phpwcms_usergroup', ['group_member' => implode(',', $members)], 'group_id = ' . (int)$existing['group_id']);
+            foreach ($all_groups as $group_key => $group_row) {
+                if ($group_row['group_syskey'] === $syskey) {
+                    $all_groups[$group_key]['group_member'] = implode(',', $members);
+                }
+            }
         }
     }
 }
 
-$result = _dbGet('phpwcms_usergroup', '*', 'group_active != 9', '', 'group_id');
-if (isset($result[0])) {
-    foreach ($result as $grouplist) {
-        $grouparray[$grouplist['group_syskey']] = convertStringToArray($grouplist['group_member']);
-        if ($grouplist['group_modkey'] !== '') {
-            if ($grouplist['group_trash'] == '0' && $grouplist['group_active'] == '1') {
-                $modulearray[$grouplist['group_modkey']] = convertStringToArray($grouplist['group_member']);
-            } else {
-                $modulearray[$grouplist['group_modkey']] = [];
-            }
+foreach ($all_groups as $grouplist) {
+    if ($grouplist['group_active'] == 9) {
+        continue;
+    }
+    $grouparray[$grouplist['group_syskey']] = convertStringToArray($grouplist['group_member']);
+    if ($grouplist['group_modkey'] !== '') {
+        if ($grouplist['group_trash'] == '0' && $grouplist['group_active'] == '1') {
+            $modulearray[$grouplist['group_modkey']] = convertStringToArray($grouplist['group_member']);
+        } else {
+            $modulearray[$grouplist['group_modkey']] = [];
         }
     }
 }
