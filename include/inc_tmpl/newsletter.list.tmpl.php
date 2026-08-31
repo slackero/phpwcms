@@ -75,13 +75,13 @@ if($_SESSION['newsletter_page'] < 1) {
   </div>
   <div class="col-12 col-sm text-center text-sm-end mb-3">
     <div class="form-group align-items-center">
-      <a class="btn btn-sm btn-blue me-1" role="button" href="phpwcms.php?do=messages&amp;p=3&amp;s=0&amp;edit=1"><i class="fa fa-plus"></i> <?php echo $BL['be_newsletter_new'] ?></a>
+      <a class="btn btn-sm btn-blue me-1" role="button" href="phpwcms.php?do=messages&amp;p=3&amp;s=0&amp;edit=1"><i class="fa-solid fa-plus"></i> <?php echo $BL['be_newsletter_new'] ?></a>
     </div>
   </div>
 </div>
 
 <div class="card">
-    <div class="card-header"><h2><i class="fa fa-list" aria-hidden="true"></i> <?php echo $BL['be_cnt_title_overview'] ?> <?php echo $BL['be_subnav_msg_newslettersend'] ?></h2></div>
+    <div class="card-header"><h2><i class="fa-solid fa-list" aria-hidden="true"></i> <?php echo $BL['be_cnt_title_overview'] ?> <?php echo $BL['be_subnav_msg_newslettersend'] ?></h2></div>
     <div class="card-body">
 
     <div class="row align-items-center">
@@ -93,12 +93,12 @@ if($_SESSION['newsletter_page'] < 1) {
 				if($_SESSION['newsletter_page'] > 1) {
 						echo '';
 						echo '<a class="btn btn-blue" href="phpwcms.php?do=messages&amp;p=3&amp;page='.($_SESSION['newsletter_page']-1).'">';
-						echo '<i class="fa fa-angle-left fa-fw"></i></a>';
+						echo '<i class="fa-solid fa-angle-left fa-fw"></i></a>';
 						echo '';
 				} else {
 						echo '';
 						echo '<a class="btn btn-blue disabled" href="phpwcms.php?do=messages&amp;p=3&amp;page='.($_SESSION['newsletter_page']-1).'">';
-						echo '<i class="fa fa-angle-left fa-fw"></i></a>';
+						echo '<i class="fa-solid fa-angle-left fa-fw"></i></a>';
 						echo '';
 				}
 				echo '<input type="number" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['newsletter_page'];
@@ -107,10 +107,10 @@ if($_SESSION['newsletter_page'] < 1) {
 				echo '<label class="input-group-text" for="page">/'.$_newsletter['pages_total'].'&nbsp;</label>';
 				if($_SESSION['newsletter_page'] < $_newsletter['pages_total']) {
 						echo '<a class="btn btn-blue" href="phpwcms.php?do=messages&amp;p=3&amp;page='.($_SESSION['newsletter_page']+1).'">';
-						echo '<i class="fa fa-angle-right fa-fw"></i></a>';
+						echo '<i class="fa-solid fa-angle-right fa-fw"></i></a>';
 				} else {
 						echo '<a class="btn btn-blue disabled" href="phpwcms.php?do=messages&amp;p=3&amp;page='.($_SESSION['newsletter_page']+1).'">';
-						echo '<i class="fa fa-angle-right fa-fw"></i></a>';
+						echo '<i class="fa-solid fa-angle-right fa-fw"></i></a>';
 				}
 				echo '</div></div>';
 			} else {
@@ -206,10 +206,10 @@ if($_SESSION['newsletter_page'] < 1) {
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="nl-actions-'.$row["newsletter_id"].'">';
 
           // edit
-          echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;edit=1"><i class="fa fa-pencil-alt fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;edit=1"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
 
           // duplicate
-          echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_duplicate'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;duplicate_nl='.$row["newsletter_id"].'"><i class="fa fa-copy fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_duplicate'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;duplicate_nl='.$row["newsletter_id"].'"><i class="fa-solid fa-copy fa-fw"></i></a>';
           echo '</div>';
 
           // delete
@@ -229,7 +229,7 @@ if($_SESSION['newsletter_page'] < 1) {
 </div>
 
 <div class="form-group text-center text-sm-end mt-4">
-  <a class="btn btn-sm btn-blue me-1" role="button" aria-disabled="true" href="phpwcms.php?do=messages&amp;p=3&amp;s=0&amp;edit=1"><i class="fa fa-plus"></i> <?php echo $BL['be_newsletter_new'] ?></a>
+  <a class="btn btn-sm btn-blue me-1" role="button" aria-disabled="true" href="phpwcms.php?do=messages&amp;p=3&amp;s=0&amp;edit=1"><i class="fa-solid fa-plus"></i> <?php echo $BL['be_newsletter_new'] ?></a>
 </div>
 <?php
 

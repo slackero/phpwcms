@@ -561,9 +561,9 @@ if (!empty($content["id"])) {
 ob_start();
 
 ?>
-    <button name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo html($sendbutton); ?>"><i class="fa fa-rotate"></i> <?php echo html($sendbutton); ?></button>
-    <button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo html($BL['be_article_cnt_button3']); ?>"><i class="fa fa-check"></i> <?php echo html($BL['be_article_cnt_button3']); ?></button>
-    <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelContentEdit();"><i class="fa fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel']); ?></button>
+    <button name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo html($sendbutton); ?>"><i class="fa-solid fa-rotate"></i> <?php echo html($sendbutton); ?></button>
+    <button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo html($BL['be_article_cnt_button3']); ?>"><i class="fa-solid fa-check"></i> <?php echo html($BL['be_article_cnt_button3']); ?></button>
+    <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelContentEdit();"><i class="fa-solid fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel']); ?></button>
     <?php echo $buttonAction; ?>
 <?php
 

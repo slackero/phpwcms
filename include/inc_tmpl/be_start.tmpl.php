@@ -120,7 +120,7 @@ $_last10_article = _dbQuery($_asql_1);
           }
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="home-article-'.$value['article_id'].'">';
           echo '<button id="abtnarticle'.$value['article_id'].'" class="btn fa btn-sm visible '.($value['article_aktiv'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['article_id'].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" data-bs-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
-          echo '<a class="btn btn-sm btn-blue" role="button" title="'.html($BL['be_func_struct_edit']).'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<a class="btn btn-sm btn-blue" role="button" title="'.html($BL['be_func_struct_edit']).'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa-solid fa-pencil-alt"></i></a>';
           echo '</div>';
           echo '</td>';
           echo '</tr>';
@@ -132,8 +132,8 @@ $_last10_article = _dbQuery($_asql_1);
 </table>
 </div>
     <div class="mt-3">
-      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles" class="btn btn-sm btn-blue"><i class="fa fa-list me-1"></i> <?php echo $BL['be_subnav_article_center'] ?></a>
-      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles&amp;p=1&amp;struct=0" class="btn btn-sm btn-blue ms-1"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_subnav_article_new'] ?></a>
+      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles" class="btn btn-sm btn-blue"><i class="fa-solid fa-list me-1"></i> <?php echo $BL['be_subnav_article_center'] ?></a>
+      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles&amp;p=1&amp;struct=0" class="btn btn-sm btn-blue ms-1"><i class="fa-solid fa-plus me-1"></i> <?php echo $BL['be_subnav_article_new'] ?></a>
     </div>
   </div>
 </div>
@@ -215,7 +215,7 @@ $_last10_article = _dbQuery($_asql_1);
           echo '  <td class="text-end text-nowrap home-actions">';
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="home-cp-'.$value['acontent_id'].'">';
           echo '<button id="abtnacontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['acontent_id'].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" data-bs-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
-          echo '<a class="btn btn-sm btn-blue" title="'.html($BL['be_func_content_edit']).'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<a class="btn btn-sm btn-blue" title="'.html($BL['be_func_content_edit']).'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'"><i class="fa-solid fa-pencil-alt"></i></a>';
           echo '</div>';
           echo '</td>'.LF;
           echo '</tr>'.LF;

@@ -684,13 +684,9 @@ label a:focus,
     color: #8B8C8B;
 }
 
-.ffolder.fa.fa-folder {
-    color: #f4c017;
-    margin-right: 5px;
-}
-
 .fa-folder {
     color: #f4c017;
+    margin-right: 5px;
 }
 
 

@@ -152,7 +152,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/phpwcms.min.js"></script>
     <script>
-        var fileExtIcons = <?php echo json_encode(array_map(function($icon) { return 'fa fa-' . $icon; }, ext_icon_map())) ?>;
+        var fileExtIcons = <?php echo json_encode(array_map(function($icon) { return 'fa-solid fa-' . $icon; }, ext_icon_map())) ?>;
         function addFile(obj, text, value) {
             if (obj && obj.options) {
                 const newOpt = new Option(text, value, false, false);
@@ -222,7 +222,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $dir_class  = $_SESSION["imgdir"] == 0 ? ' filebrowser-dir-current' : '';
 
     echo '<tr class="text-nowrap'.$dir_class.'"><td class="text-nowrap">';
-    echo $count.'<i class="fa fa-desktop fa-fw me-2" aria-hidden="true"></i>';
+    echo $count.'<i class="fa-solid fa-desktop fa-fw me-2" aria-hidden="true"></i>';
     echo $dirname.'</td></tr>'.LF;
 
     //Wenn überhaupt Ordner für User vorhanden, dann Listing
@@ -355,7 +355,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     if($add_all_possible) {
         echo '<a href="#" class="btn btn-xs btn-blue py-0 px-2 ms-auto text-nowrap" onclick="addAllFiles();return false;" data-bs-toggle="tooltip" title="';
         echo $BL['ADD_ALL_FILES'].'">';
-        echo $BL['ADD_ALL_FILES'].' <i class="fa fa-plus" aria-hidden="true"></i></a>';
+        echo $BL['ADD_ALL_FILES'].' <i class="fa-solid fa-plus" aria-hidden="true"></i></a>';
     }
     echo '</div>'.LF;
 
@@ -467,7 +467,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         $js_files_all[] = $js;
                 }
 
-                echo '<tr'.$row_class.'><td class="file-icon-col"><i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                echo '<tr'.$row_class.'><td class="file-icon-col"><i class="fa-solid fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
                         echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
                     }
@@ -485,7 +485,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 }
 
                 echo '<a href="#" class="btn btn-xs btn-blue" onclick="' . $js_attr . 'return false;" data-bs-toggle="tooltip" title="' . html($BL['TAKE_IMAGE']) . '">';
-                echo '<i class="fa fa-plus" aria-hidden="true"></i></a></td>';
+                echo '<i class="fa-solid fa-plus" aria-hidden="true"></i></a></td>';
                 echo '</tr>';
                 if((!empty($thumb_image[0]) || $file_row['f_svg']) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
                     filebrowser_thumb_row($row_class, $js_attr, ($js_aktion == 16 || $js_aktion == 17), $thumb_image, $file_row, $phpwcms);
@@ -592,8 +592,8 @@ $(function() {
     };
     const getFileIconClass = (filename) => {
         var ext = filename.split('.').pop().toLowerCase();
-        var icon = fileExtIcons[ext] || 'fa fa-file';
-        var color = fileExtIconColor[icon.replace('fa fa-', '')] || 'text-muted';
+        var icon = fileExtIcons[ext] || 'fa-solid fa-file';
+        var color = fileExtIconColor[icon.replace('fa-solid fa-', '')] || 'text-muted';
         return icon + ' ' + color;
     };
 
@@ -828,7 +828,7 @@ function folder_list($pid, $counter, $zieldatei) {
             }
 
             echo "<tr".$bgcol."><td class=\"text-nowrap\">";
-            echo $count.'<i class="fa fa-folder mx-1 fa-fw" aria-hidden="true"></i>';
+            echo $count.'<i class="fa-solid fa-folder mx-1 fa-fw" aria-hidden="true"></i>';
             echo "".$dirname."</td></tr>\n";
 
 
@@ -857,9 +857,9 @@ function on_off($wert, $string, $art=1, $counter=0) {
     //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
     //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
     if($wert) {
-        return ($art == 1) ? "+" : '<i class="fa fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
+        return ($art == 1) ? "+" : '<i class="fa-solid fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
     } else {
-        return ($art == 1) ? "-" : '<i class="fa fa-caret-down fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
+        return ($art == 1) ? "-" : '<i class="fa-solid fa-caret-down fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
     }
 }
 function true_false($wert) {

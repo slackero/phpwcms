@@ -43,6 +43,6 @@ if(!empty($c1)) {
 
 ?>
   <div class="text-center mt-3">
-    <a href="phpwcms.php?do=messages&amp;p=4" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+    <a href="phpwcms.php?do=messages&amp;p=4" class="btn btn-danger btn-sm"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
   </div>
 </div>

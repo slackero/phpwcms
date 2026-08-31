@@ -155,8 +155,8 @@ if($dir_pid) {
   <div class="form-group row mt-4 mb-0">
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
-      <button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-plus"></i> <?php echo $BL['be_fpriv_button'] ?></button>
-      <a class="btn btn-danger btn-sm ms-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
+      <button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa-solid fa-plus"></i> <?php echo $BL['be_fpriv_button'] ?></button>
+      <a class="btn btn-danger btn-sm ms-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa-solid fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
     </div>
   </div>
 

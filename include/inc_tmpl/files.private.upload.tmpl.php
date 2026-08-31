@@ -497,7 +497,7 @@ if (exifFileInput) {
                 $k_rows .= '  <td class="pe-3 text-nowrap align-middle" style="width: 1%;">';
                 $k_rows .= '    <label for="file_keywords_' . $row["fcat_id"] . '" class="col-form-label py-1">';
                 if ($has_error) {
-                    $k_rows .= '<span class="text-danger me-1"><i class="fa fa-exclamation-circle"></i></span>';
+                    $k_rows .= '<span class="text-danger me-1"><i class="fa-solid fa-exclamation-circle"></i></span>';
                 }
                 $k_rows .= html($row["fcat_name"]) . '</label>';
                 $k_rows .= '  </td>' . LF;
@@ -612,8 +612,8 @@ if (exifFileInput) {
     <div class="form-group row g-2 align-items-center mt-4 mb-0">
     	<span class="col-sm-2 col-form-label"></span>
     	<div class="col text-center text-sm-start">
-				<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-upload"></i> <?php echo $BL['be_fprivup_button'] ?></button>
-				<a class="btn btn-danger btn-sm ms-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
+				<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa-solid fa-upload"></i> <?php echo $BL['be_fprivup_button'] ?></button>
+				<a class="btn btn-danger btn-sm ms-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa-solid fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
 			</div>
 		</div>
 </form>

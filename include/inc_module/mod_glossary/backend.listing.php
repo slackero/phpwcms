@@ -106,7 +106,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 <h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
 <div class="form-group mb-3 text-center text-sm-start">
-	<a class="btn btn-sm btn-blue" href="<?php echo GLOSSARY_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fa fa-plus me-1"></i> <span><?php echo $BLM['create_new'] ?></span></a>
+	<a class="btn btn-sm btn-blue" href="<?php echo GLOSSARY_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fa-solid fa-plus me-1"></i> <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 
 <div class="card">
@@ -211,7 +211,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						echo '<td class="text-end text-nowrap">';
 						echo '<div class="btn-group btn-group-sm" role="group" aria-label="glossary-actions-' . $row["glossary_id"] . '">';
 						
-						echo '<a href="' . GLOSSARY_HREF . '&amp;edit=' . $row["glossary_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
+						echo '<a href="' . GLOSSARY_HREF . '&amp;edit=' . $row["glossary_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
 						
 						echo '<a href="' . GLOSSARY_HREF . '&amp;editid=' . $row["glossary_id"] . '&amp;verify=' . (($row["glossary_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["glossary_status"]) ? 'btn-success' : 'btn-warning') . '" title="Toggle Status">';
 						echo '<i class="fas ' . (($row["glossary_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';

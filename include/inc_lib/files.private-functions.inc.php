@@ -72,16 +72,16 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
             case 2:
                 // gallery root dir
-                echo '<i class="fa ffolder fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_gallery_root'].'"></i>';
+                echo '<i class="fa-solid ffolder fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_gallery_root'].'"></i>';
                 break;
 
             case 3:
                 // gallery subdir
-                echo '<i class="fa ffolder fa-folder fa-fw text-warning" aria-hidden="true"data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_gallery_directory'].'"></i>';
+                echo '<i class="fa-solid ffolder fa-folder fa-fw text-warning" aria-hidden="true"data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_gallery_directory'].'"></i>';
                 break;
 
             default:
-                echo '<i class="fa ffolder fa-folder fa-fw" aria-hidden="true"></i>';
+                echo '<i class="fa-solid ffolder fa-folder fa-fw" aria-hidden="true"></i>';
         }
 
         echo "<strong>".$dirname; // Column 1 name
@@ -91,7 +91,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
         echo '<div class="btn-group btn-group-sm" role="group" aria-label="group'.$row["f_id"].'">';
         // Edit directory button
-        echo '<a class="btn btn-xs btn-blue" role="button" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_edit'].": ".$dirname.'" href="'.$zieldatei."&amp;editdir=".$row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
+        echo '<a class="btn btn-xs btn-blue" role="button" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_edit'].": ".$dirname.'" href="'.$zieldatei."&amp;editdir=".$row["f_id"].'"><i class="fa-solid fa-pencil-alt fa-fw mt-1"></i></a>';
         echo '<div class="btn-group btn-group-sm" role="group">';
         echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownFcontentLink'.$row["f_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
         echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$row["f_id"].'">';
@@ -99,14 +99,14 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
         // Upload file to directory button
         echo '<a class="dropdown-item" href="'.$zieldatei.'&amp;upload='.$row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_upload'].': '.$dirname.'">';
-        echo '<i class="ms-1 fa fa-fw fa-upload" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_upload'].'</a>';
+        echo '<i class="ms-1 fa-solid fa-fw fa-upload" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_upload'].'</a>';
         if(!$cutID) { // Create new subdirectory button
             echo '<a class="dropdown-item" role="button" href="'.$zieldatei.'&amp;mkdir='.$row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_makenew'].': '.$dirname.'">';
-            echo '<i class="ms-1 fa fa-fw fa-plus" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_makenew'].'</a>';
+            echo '<i class="ms-1 fa-solid fa-fw fa-plus" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_makenew'].'</a>';
         } else {  // Paste clipboard file into directory button
             echo '<a class="dropdown-item" role="button" href="include/inc_act/act_file.php?paste='.$cutID.'%7C'.$row["f_id"].
                  '" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_paste'].': '.$dirname.'">';
-            echo '<i class="ms-1 fa fa-fw fa-clipboard" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_paste'].'</a>';
+            echo '<i class="ms-1 fa-solid fa-fw fa-clipboard" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_paste'].'</a>';
         }
         // Delete directory button if empty
         if(!$count_wert) {
@@ -120,9 +120,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
         echo '</div></div>';
 
         //Button zum Umschalten zwischen Aktiv/Inaktiv
-        echo '<button id="abtnfileaktiv'.$row["f_id"].'" class="btn fa fa-fw btn-xs visible '.($row["f_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactive'].': '.$dirname.'"></button>';
+        echo '<button id="abtnfileaktiv'.$row["f_id"].'" class="btn fa-solid fa-fw btn-xs visible '.($row["f_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactive'].': '.$dirname.'"></button>';
         //Button zum Umschalten zwischen Public/Non-Public
-        echo '<button id="abtnfilepublic'.$row["f_id"].'" class="btn fa fa-fw btn-xs public '.($row["f_public"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cpublic'].': '.$dirname.'"></button>';
+        echo '<button id="abtnfilepublic'.$row["f_id"].'" class="btn fa-solid fa-fw btn-xs public '.($row["f_public"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cpublic'].': '.$dirname.'"></button>';
         echo '</div>';
         echo '</td>'.LF;
         echo '</tr>'.LF; //Abschluss Tabellenzeile
@@ -161,7 +161,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                     echo '<tr'.$row_class.">\n";
                     echo "<td width=30>";
-                    echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                    echo '<i class="fa-solid fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
                         echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
                     }
@@ -178,7 +178,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo '<div class="btn-group btn-group-sm" role="group">'.LF;
 
                     // Edit file info button
-                    echo '<a class="btn btn-xs btn-blue" role="button" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'" data-bs-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
+                    echo '<a class="btn btn-xs btn-blue" role="button" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'" data-bs-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa-solid fa-pencil-alt fa-fw mt-1"></i></a>';
 
                     echo '<div class="btn-group btn-group-sm" role="group">';
                     echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -188,13 +188,13 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     // Download file button
                     echo '<a class="dropdown-item" href="include/inc_act/act_download.php?dl='.$file_row["f_id"].
                          '"  target="_blank" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_dlfile'].': '.$filename.'">'.
-                         '<i class="ms-1 fa fa-fw fa-download" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_dlfile'].'</a>'; //target='_blank'
+                         '<i class="ms-1 fa-solid fa-fw fa-download" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_dlfile'].'</a>'; //target='_blank'
                     // Cut / clipboard file button
                     if($cutID == $file_row["f_id"]) {
-                        echo '<a class="dropdown-item" href="#"><i class="fa fa-fw fa-cut ms-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
+                        echo '<a class="dropdown-item" href="#"><i class="fa-solid fa-fw fa-cut ms-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
                     } else {
                         echo '<a class="dropdown-item" href="'.$zieldatei.'&amp;cut='.$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'">';
-                        echo '<i class="ms-1 fa fa-fw fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
+                        echo '<i class="ms-1 fa-solid fa-fw fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
                     }
                     // Delete / move to trash button
                     if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
@@ -209,9 +209,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo '</div></div>'; // Close dropdown-menu & inner btn-group
 
                     // Toggle active/inactive button
-                    echo '<button id="abtnfileaktiv'.$file_row["f_id"].'" class="btn fa fa-fw btn-xs visible '.($file_row["f_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].': '.$filename.'"></button>';
+                    echo '<button id="abtnfileaktiv'.$file_row["f_id"].'" class="btn fa-solid fa-fw btn-xs visible '.($file_row["f_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].': '.$filename.'"></button>';
                     // Toggle public/private button
-                    echo '<button id="abtnfilepublic'.$file_row["f_id"].'" class="btn fa fa-fw btn-xs public '.($file_row["f_public"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cpublicfile'].': '.$filename.'"></button>';
+                    echo '<button id="abtnfilepublic'.$file_row["f_id"].'" class="btn fa-solid fa-fw btn-xs public '.($file_row["f_public"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cpublicfile'].': '.$filename.'"></button>';
                     echo '</div>'; // Close outer btn-group
 
                     // end
@@ -273,8 +273,8 @@ function on_off($wert, $string, $art=1, $counter=0) {
     // Generate status icon for expand/collapse
     // If art = 1 return character (+/-), otherwise icon
     if($wert) {
-        return ($art == 1) ? "+" : '<i class="fa fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
+        return ($art == 1) ? "+" : '<i class="fa-solid fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
     } else {
-        return ($art == 1) ? "-" : '<i class="fa fa-caret-down fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
+        return ($art == 1) ? "-" : '<i class="fa-solid fa-caret-down fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
     }
 }

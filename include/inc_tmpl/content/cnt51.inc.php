@@ -154,7 +154,7 @@ if($map_selected) {
           echo '&points='.rawurlencode(implode(':|:', $map_xy));
           ?>','map','<?php
           echo 'scrollbars=yes,resizable=yes,width='.($map_info[0]+12).',height='.($map_info[1]+15)
-          ?>',1);return document.MM_returnValue;"><i class="fa fa-map-marker-alt me-1"></i> open map</button></td>
+          ?>',1);return document.MM_returnValue;"><i class="fa-solid fa-map-marker-alt me-1"></i> open map</button></td>
           <td></td>
         </tr>
       </table>
@@ -203,7 +203,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 <input type="hidden" name="cmap_location_id" value="<?php echo  empty($content['location']["id"]) ? 0 : intval($content['location']["id"]) ?>">
 <input type="hidden" id="cmap_location_edited" name="cmap_location_edited" value="1">
 
-<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_save_btn'] ?></button>
+<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa-solid fa-check"></i> <?php echo $BL['be_save_btn'] ?></button>
 
 <?php
     if($map_list) {

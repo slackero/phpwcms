@@ -53,7 +53,7 @@ if($_userInfo['subscriptions']) {
 <form action="phpwcms.php?do=messages&amp;p=4&amp;import=1" method="post" name="importsubscriber" id="importsubscriber" enctype="multipart/form-data">
 
 <div class="card mb-4">
-<div class="card-header"><h2><i class="fa fa-upload"></i> <?php echo $BL['be_newsletter_importtitle'] ?></h2></div>
+<div class="card-header"><h2><i class="fa-solid fa-upload"></i> <?php echo $BL['be_newsletter_importtitle'] ?></h2></div>
 <div class="card-body">
 
   <?php
@@ -119,8 +119,8 @@ if($_userInfo['select_subscr']) {
     </div>
 
     <div class="form-group align-items-center mt-4 mb-0 text-center text-sm-start">
-      <button type="submit" name="submitimport" id="submitimport" value="1" class="btn btn-sm btn-blue"><i class="fa fa-file-import me-1"></i> <?php echo $BL['be_newsletter_newimport'] ?></button>
-      <a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+      <button type="submit" name="submitimport" id="submitimport" value="1" class="btn btn-sm btn-blue"><i class="fa-solid fa-file-import me-1"></i> <?php echo $BL['be_newsletter_newimport'] ?></button>
+      <a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
     </div>
 
   </div>

@@ -45,7 +45,7 @@ if($data) {
         if(SHOP_FELANG_SUPPORT) {
             $row['order_data']		= @unserialize($row['order_data'], ['allowed_classes' => false]);
             $row['shopprod_lang']	= empty($row['order_data']['lang']) ? '' : html_specialchars(strtolower($row['order_data']['lang']));
-            echo '<span class="me-2 flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fa fa-globe').' mt-1" data-bs-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
+            echo '<span class="me-2 flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fa-solid fa-globe').' mt-1" data-bs-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
         }
 
         echo html_specialchars($row['order_number'])."&nbsp;</td>\n";
@@ -62,11 +62,11 @@ if($data) {
         echo '<td class="text-end text-nowrap" width="15%">';
         echo '<div class="btn-group btn-group-sm" role="group" aria-label="shop-order-actions-'.$row['order_id'].'">';
         echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;show='.$row["order_id"].'" data-bs-toggle="tooltip" title="'.$BLM['order_edit'].'">';
-        echo '<i class="fa fa-pencil-alt fa-fw"></i>';
+        echo '<i class="fa-solid fa-pencil-alt fa-fw"></i>';
         echo '</a>'.LF;
 
         echo '<a class="btn btn-sm btn-blue" href="mailto:'.$row['order_email'].'?subject='.rawurlencode($BLM['shopprod_order_subject'].' #'.$row['order_number']).'" data-bs-toggle="tooltip" title="'.$BLM['shopprod_email_customer'].'">';
-        echo '<i class="fa fa-envelope fa-fw"></i>';
+        echo '<i class="fa-solid fa-envelope fa-fw"></i>';
         echo '</a>';
         echo '</div>'.LF;
 

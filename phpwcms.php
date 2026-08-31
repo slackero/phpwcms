@@ -303,17 +303,17 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
               <img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System">
           </a>
       </div>
-      <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
+      <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa-solid fa-bars"></span></a>
       <ul class="nav navbar-nav ms-auto">
         <li class="nav-item">
             <a class="nav-link" href="<?php echo PHPWCMS_URL ?>" target="_blank">
-                <i class="fa fa-eye fa-fw"></i>
+                <i class="fa-solid fa-eye fa-fw"></i>
                 <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span>
             </a>
         </li>
         <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-search fa-fw"></i>
+                <i class="fa-solid fa-search fa-fw"></i>
                 <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span>
             </a>
             <form class="dropdown-menu dropdown-menu-end" style="min-width: 22rem;" action="phpwcms.php?<?php echo get_token_get_string(); ?>" method="POST">
@@ -327,7 +327,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
                     }
                     ?>" class="form-control" />
                         <button class="btn btn-blue">
-                            <i class="fa fa-search fa-fw"></i>
+                            <i class="fa-solid fa-search fa-fw"></i>
                         </button>
                 </div>
             </form>
@@ -335,25 +335,25 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
         <?php if (in_array($_SESSION['wcs_user_id'], $grouparray['profile'])) {
           $active = ($do === 'profile') ? ' active' : '';
           if (!empty($_SESSION['wcs_user_admin'])) {
-              $user_menu_icon = 'fa fa-user-shield';
+              $user_menu_icon = 'fa-solid fa-user-shield';
           } elseif (!empty($_SESSION['wcs_user_fe']) && (int)$_SESSION['wcs_user_fe'] === 2) {
-              $user_menu_icon = 'fa fa-user-check';
+              $user_menu_icon = 'fa-solid fa-user-check';
           } elseif (isset($_SESSION['wcs_user_fe']) && (int)$_SESSION['wcs_user_fe'] === 0) {
-              $user_menu_icon = 'fa fa-user';
+              $user_menu_icon = 'fa-solid fa-user';
           } else {
-              $user_menu_icon = 'fa fa-user-cog';
+              $user_menu_icon = 'fa-solid fa-user-cog';
           }
           echo '<li class="nav-item' . $active . '"><a class="nav-link" href="phpwcms.php?do=profile"><i class="' . $user_menu_icon . ' fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';
       } ?>
-        <li class="nav-item"><a class="nav-link" href="phpwcms.php?do=logout" target="_top"><i class="fa fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="phpwcms.php?do=logout" target="_top"><i class="fa-solid fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
         <li class="nav-item dropdown theme-switcher">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
-                <i class="theme-icon-active fa fa-adjust fa-fw"></i>
+                <i class="theme-icon-active fa-solid fa-adjust fa-fw"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="themeDropdown">
-                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="auto"><i class="fa fa-adjust fa-fw me-2"></i> <?php echo html($BL['be_theme_auto']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
-                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="light"><i class="fa fa-sun fa-fw me-2"></i> <?php echo html($BL['be_theme_light']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
-                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="dark"><i class="fa fa-moon fa-fw me-2"></i> <?php echo html($BL['be_theme_dark']); ?> <i class="fa fa-check ms-auto theme-check d-none"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="auto"><i class="fa-solid fa-adjust fa-fw me-2"></i> <?php echo html($BL['be_theme_auto']); ?> <i class="fa-solid fa-check ms-auto theme-check d-none"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="light"><i class="fa-solid fa-sun fa-fw me-2"></i> <?php echo html($BL['be_theme_light']); ?> <i class="fa-solid fa-check ms-auto theme-check d-none"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="dark"><i class="fa-solid fa-moon fa-fw me-2"></i> <?php echo html($BL['be_theme_dark']); ?> <i class="fa-solid fa-check ms-auto theme-check d-none"></i></a>
             </div>
         </li>
       </ul>
@@ -372,12 +372,12 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
             if ($do === 'default') {
                 echo ' active';
             }
-            echo '"><a href="phpwcms.php?' . get_token_get_string() . '" title="Dashboard"><i class="fa fa-tachometer-alt fa-fw"></i> <span class="nav-label">Dashboard</span></a></li>';
+            echo '"><a href="phpwcms.php?' . get_token_get_string() . '" title="Dashboard"><i class="fa-solid fa-tachometer-alt fa-fw"></i> <span class="nav-label">Dashboard</span></a></li>';
 
             $active = ($do === 'articles' || ($do === 'admin' && $p == 6)) ? ' active' : '';
             //only access if admin or permission set
             if (!empty($_SESSION['wcs_user_admin']) || in_array($_SESSION['wcs_user_id'], $grouparray['artcent']) || in_array($_SESSION['wcs_user_id'], $grouparray['artnews'])) {
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_articles']) . '"><i class="fa fa-copy fa-fw"></i> <span class="nav-label">' . $BL['be_nav_articles'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_articles']) . '"><i class="fa-solid fa-copy fa-fw"></i> <span class="nav-label">' . $BL['be_nav_articles'] . '</span> <span class="arrow fa-solid fa-angle-down"></span></a> ';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['artcent'])) {
                     $subnav .= subnavtext($BL['be_subnav_article_center'], 'phpwcms.php?do=articles', ($p == 0 || $p == 2) ? 0 : $p, 0, 0);
@@ -392,7 +392,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
             $active = $do === 'files' ? ' active' : '';
             //only access if admin or permission set
             if (!empty($_SESSION['wcs_user_admin']) || in_array($_SESSION['wcs_user_id'], $grouparray['filecent'])) {
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_files']) . '"><i class="fa fa-folder-open fa-fw"></i> <span class="nav-label">' . $BL['be_nav_files'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_files']) . '"><i class="fa-solid fa-folder-open fa-fw"></i> <span class="nav-label">' . $BL['be_nav_files'] . '</span> <span class="arrow fa-solid fa-angle-down"></span></a> ';
 
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['filecent'])) {
                     $subnav = subnavtext($BL['be_subnav_file_center'], 'phpwcms.php?do=files', $p, 0, 0);
@@ -408,7 +408,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
 
             if (!empty($phpwcms['enable_backend_module']) && in_array($_SESSION['wcs_user_id'], $grouparray['module'])) {
                 $active = ($do === 'modules') ? ' active' : '';
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_modules']) . '"><i class="fa fa-puzzle-piece fa-fw"></i> <span class="nav-label">' . $BL['be_nav_modules'] . '</span>  <span class="arrow fa fa-angle-down"></span></a>';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_modules']) . '"><i class="fa-solid fa-puzzle-piece fa-fw"></i> <span class="nav-label">' . $BL['be_nav_modules'] . '</span>  <span class="arrow fa-solid fa-angle-down"></span></a>';
                 $subnav = '';
                 foreach ($phpwcms['modules'] as $value) {
                     if (isset($modulearray[$value['name']]) && in_array($_SESSION['wcs_user_id'], $modulearray[$value['name']])) {
@@ -421,7 +421,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
             //newsletter
             if (!empty($phpwcms['enable_backend_newsletter']) && in_array($_SESSION['wcs_user_id'], $grouparray['nl'])) {
                 $active = $do === 'messages' ? ' active' : '';
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_messages']) . '"><i class="fa fa-envelope fa-fw"></i> <span class="nav-label">' . $BL['be_nav_messages'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_messages']) . '"><i class="fa-solid fa-envelope fa-fw"></i> <span class="nav-label">' . $BL['be_nav_messages'] . '</span> <span class="arrow fa-solid fa-angle-down"></span></a> ';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['nlabo'])) {
                     $subnav .= subnavtext($BL['be_subnav_msg_newsletter'], 'phpwcms.php?do=messages&amp;p=2', $p, 2, 0);
@@ -438,7 +438,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
             if (in_array($_SESSION['wcs_user_id'], $grouparray['adm'])) {
 
                 $active = ($do === 'admin' && $p != 6) ? ' active' : '';
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_admin']) . '"><i class="fa fa-cog fa-fw"></i> <span class="nav-label">' . $BL['be_nav_admin'] . '</span> <span class="arrow fa fa-angle-down"></span></a>';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_admin']) . '"><i class="fa-solid fa-cog fa-fw"></i> <span class="nav-label">' . $BL['be_nav_admin'] . '</span> <span class="arrow fa-solid fa-angle-down"></span></a>';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['admlayout'])) {
                     $subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], 'phpwcms.php?do=admin&amp;p=8', $p, 8, 0);
@@ -482,7 +482,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
 
           <div class="sidebar-toggle-wrap d-none d-md-block">
             <button type="button" id="sidebar-toggle" class="btn-sidebar-toggle" title="<?php echo html($BL['be_nav_collapse_menu']); ?>" aria-label="<?php echo html($BL['be_nav_collapse_menu']); ?>">
-              <i class="fa fa-angle-double-left sidebar-toggle-icon"></i> <span class="sidebar-toggle-text"><?php echo html($BL['be_nav_collapse_menu']); ?></span>
+              <i class="fa-solid fa-angle-double-left sidebar-toggle-icon"></i> <span class="sidebar-toggle-text"><?php echo html($BL['be_nav_collapse_menu']); ?></span>
             </button>
           </div>
 

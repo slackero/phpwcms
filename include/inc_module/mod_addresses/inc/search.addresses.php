@@ -311,16 +311,16 @@ if(isset($result[0])) {
 
             }
 
-            $telcom = empty($arow['detail_fon']) ? '' : '<p class="mb-0"><i class="fa fa-phone fa-fw" aria-hidden="true"></i> ' . get_phone_link($arow['detail_fon']) . '</p>';
+            $telcom = empty($arow['detail_fon']) ? '' : '<p class="mb-0"><i class="fa-solid fa-phone fa-fw" aria-hidden="true"></i> ' . get_phone_link($arow['detail_fon']) . '</p>';
             if(!empty($arow['detail_fax'])) {
-                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa fa-fax fa-fw" aria-hidden="true"></i> ' . get_phone_link($arow['detail_fax'], 'fax') . '</p>' );
+                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa-solid fa-fax fa-fw" aria-hidden="true"></i> ' . get_phone_link($arow['detail_fax'], 'fax') . '</p>' );
             }
             if(!empty($arow['detail_mobile'])) {
-                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa fa-mobile fa-fw" aria-hidden="true"></i> ' . get_phone_link($arow['detail_mobile']) . '</p>' );
+                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa-solid fa-mobile fa-fw" aria-hidden="true"></i> ' . get_phone_link($arow['detail_mobile']) . '</p>' );
             }
             if(is_valid_email($arow['detail_email'])) {
                 $arow['detail_email'] = html($arow['detail_email']);
-                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:' . html($arow['detail_email']) . '">' . html($arow['detail_email']) . '</a></p>' );
+                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa-solid fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:' . html($arow['detail_email']) . '">' . html($arow['detail_email']) . '</a></p>' );
             }
             if(!empty($arow['detail_website'])) {
                 if(strpos(strtolower($arow['detail_website']), '://') === false) {
@@ -331,7 +331,7 @@ if(isset($result[0])) {
                     list( , $arow['url']) = explode('://', $arow['detail_website'], 2);
                 }
                 $arow['detail_website'] = html($arow['detail_website']);
-                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa fa-link fa-fw" aria-hidden="true"></i> <a href="'.$arow['detail_website'].'" target="_blank">'.$arow['url'].'</a></p>' );
+                $telcom = trim( $telcom . '<p class="mb-0"><i class="fa-solid fa-link fa-fw" aria-hidden="true"></i> <a href="'.$arow['detail_website'].'" target="_blank">'.$arow['url'].'</a></p>' );
             }
 
             if($telcom != '') {
@@ -384,16 +384,16 @@ if(isset($result[0])) {
                     }
                     $contact['head'] .= '         <p class="name card-text">' . html($contact['detail_firstname'].' '.$contact['detail_lastname']) . '</p>' . LF;
                     if($contact['detail_fon']) {
-                        $contact['foot'] .= '     <p class="mb-0"><i class="fa fa-phone fa-fw" aria-hidden="true"></i> ' . get_phone_link($contact['detail_fon']) . '</p>' . LF;
+                        $contact['foot'] .= '     <p class="mb-0"><i class="fa-solid fa-phone fa-fw" aria-hidden="true"></i> ' . get_phone_link($contact['detail_fon']) . '</p>' . LF;
                     }
                     if($contact['detail_mobile']) {
-                        $contact['foot'] .= '     <p class="mb-0"><i class="fa fa-mobile fa-fw" aria-hidden="true"></i> ' . get_phone_link($contact['detail_mobile']) . '</p>' . LF;
+                        $contact['foot'] .= '     <p class="mb-0"><i class="fa-solid fa-mobile fa-fw" aria-hidden="true"></i> ' . get_phone_link($contact['detail_mobile']) . '</p>' . LF;
                     }
                     if($contact['detail_fax']) {
-                        $contact['foot'] .= '     <p class="mb-0"><i class="fa fa-fax fa-fw" aria-hidden="true"></i> ' . get_phone_link($contact['detail_fax'], 'fax') . '</p>' . LF;
+                        $contact['foot'] .= '     <p class="mb-0"><i class="fa-solid fa-fax fa-fw" aria-hidden="true"></i> ' . get_phone_link($contact['detail_fax'], 'fax') . '</p>' . LF;
                     }
                     if($contact['detail_email']) {
-                        $contact['foot'] .= '     <p class="mb-0"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:'.html($contact['detail_email']).'" nofollow>@@Send email@@</a></p>' . LF;
+                        $contact['foot'] .= '     <p class="mb-0"><i class="fa-solid fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:'.html($contact['detail_email']).'" nofollow>@@Send email@@</a></p>' . LF;
                     }
 
                     if($contact['foot']) {

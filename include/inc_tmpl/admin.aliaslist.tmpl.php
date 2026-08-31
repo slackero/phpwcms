@@ -49,7 +49,7 @@ if(isset($result[0]['acat_id'])) {
 	  echo '</td >';
 
 		echo '<td class="text-end">';
-    echo '<a href="phpwcms.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'" class="btn btn-sm btn-blue float-end" title="'.$BL['be_func_struct_sedit'].'" data-bs-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<a href="phpwcms.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'" class="btn btn-sm btn-blue float-end" title="'.$BL['be_func_struct_sedit'].'" data-bs-toggle="tooltip"><i class="fa-solid fa-pencil-alt"></i></a>';
     echo "</td>" . LF;
     echo '</tr>';
     $x++;
@@ -87,7 +87,7 @@ if(isset($result[0]['article_id'])) {
     echo '</td >';
 
 		echo '<td class="text-end">';
-    echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$data["article_id"].'" class="btn btn-sm btn-blue" title="'.$BL['be_func_struct_edit'].'" data-bs-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$data["article_id"].'" class="btn btn-sm btn-blue" title="'.$BL['be_func_struct_edit'].'" data-bs-toggle="tooltip"><i class="fa-solid fa-pencil-alt"></i></a>';
     echo "</td>" . LF;
     echo '</tr>';
     $x++;

@@ -151,7 +151,7 @@ if(!isset($_GET["s"])) {
     ?>
     <h1 class="text-center text-sm-start"><?php echo $BL['be_subnav_admin_templates'] ?></h1>
     <div class="card">
-        <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_admin_tmpl_title'] ?></h2></div>
+        <div class="card-header"><h2><i class="fa-solid fa-list"></i> <?php echo $BL['be_admin_tmpl_title'] ?></h2></div>
         <div class="card-body">
             <table class="table table-striped table-sm table-valign-middle mb-4">
                 <?php
@@ -173,10 +173,10 @@ if(!isset($_GET["s"])) {
                         echo "</a></td>" . '<td class="text-end text-nowrap">';
                         echo '<div class="btn-group btn-group-sm" role="group" aria-label="tmpl-actions-' . $row["template_id"] . '">';
                         echo '<a class="btn btn-blue btn-sm" role="button" data-bs-toggle="tooltip" title="' . $BL['be_tt_edit'] . '" href="phpwcms.php?' . $edit_link;
-                        echo '"><i class="fa fa-pencil-alt"></i></a>';
+                        echo '"><i class="fa-solid fa-pencil-alt"></i></a>';
 
                         echo '<a class="btn btn-blue btn-sm" role="button" data-bs-toggle="tooltip" title="' . $BL['be_tt_duplicate'] . '" href="phpwcms.php?' . $edit_link . '&amp;c=1'; // c=1 -> do copy
-                        echo '"><i class="fa fa-copy"></i></a>';
+                        echo '"><i class="fa-solid fa-copy"></i></a>';
                         echo '</div>';
 
                         echo '<a class="btn btn-danger btn-sm ms-1" role="button" data-bs-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=2|' . $row["template_id"] . '" ';
@@ -191,7 +191,7 @@ if(!isset($_GET["s"])) {
 
                 ?>
             </table>
-            <a href="phpwcms.php?do=admin&amp;p=11&amp;s=0" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_tmpl_add'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_admin_tmpl_add'] ?></a>
+            <a href="phpwcms.php?do=admin&amp;p=11&amp;s=0" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_tmpl_add'] ?>"><i class="fa-solid fa-plus me-1"></i> <?php echo $BL['be_admin_tmpl_add'] ?></a>
         </div>
     </div>
     <?php
@@ -425,15 +425,15 @@ if(!isset($_GET["s"])) {
             <div class="col-12 col-sm text-center text-sm-end mb-3">
                 <div class="form-group">
                     <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
-                    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
-                    <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+                    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
+                    <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
                 </div>
             </div>
         </div>
         <div class="card">
             <div class="card-header">
                 <h2>
-                    <i class="fa fa-list"></i>
+                    <i class="fa-solid fa-list"></i>
                     <?php echo(empty($createcopy) ? $BL['be_admin_tmpl_edit'] : $BL['be_admin_tmpl_copy']) ?>
                     : <?php echo ($template["id"]) ? html($template["name"]) : $BL['be_admin_tmpl_new']; ?>
                 </h2>
@@ -590,11 +590,11 @@ if(!isset($_GET["s"])) {
                             </div>
                             <div class="col-sm-auto">
                                 <button type="button" class="btn btn-sm btn-blue" onclick="moveOptionUp(document.blocks.template_css);">
-                                    <i class="fa fa-angle-up fa-fw" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i>
                                 </button>
                                 <br/>
                                 <button type="button" class="btn btn-sm btn-blue mt-1" onclick="moveOptionDown(document.blocks.template_css);">
-                                    <i class="fa fa-angle-down fa-fw" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -1648,8 +1648,8 @@ if(!isset($_GET["s"])) {
 
         <div class="form-group align-items-center mt-4 mb-0">
             <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
-            <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
-            <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+            <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
+            <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
         </div>
     </form>
     <script type="text/javascript">

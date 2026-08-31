@@ -198,14 +198,14 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
 ?>
 <form action="phpwcms.php?do=messages&amp;p=4" method="post" name="paginate" id="paginate" class="form"><input type="hidden" name="do_pagination" value="1" />
 <div class="card">
-    <div class="card-header"><h2><i class="fa fa-list" aria-hidden="true"></i> <?php echo $BL['be_cnt_title_overview'] ?> <?php echo $BL['be_mailinglist_overview_subscribers'] ?></h2></div>
+    <div class="card-header"><h2><i class="fa-solid fa-list" aria-hidden="true"></i> <?php echo $BL['be_cnt_title_overview'] ?> <?php echo $BL['be_mailinglist_overview_subscribers'] ?></h2></div>
     <div class="card-body">
 
     <div class="mb-3 text-center text-sm-start">
-        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="phpwcms.php?do=messages&amp;p=4&amp;s=0&amp;edit=1"><i class="fa fa-user-plus"></i> <?php echo $BL['be_cnt_new_recipient'] ?></a>
+        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="phpwcms.php?do=messages&amp;p=4&amp;s=0&amp;edit=1"><i class="fa-solid fa-user-plus"></i> <?php echo $BL['be_cnt_new_recipient'] ?></a>
         <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="phpwcms.php?do=messages&amp;p=4&amp;duplicate=remove" onclick="return confirm('<?php echo $BL['be_cnt_delete_duplicates'] ?>?');"><i class="far fa-trash-alt"></i> <?php echo $BL['be_cnt_delete_duplicates'] ?></a>
-        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="phpwcms.php?do=messages&amp;p=4&amp;import=1" target="_blank"><i class="fa fa-download" aria-hidden="true"></i> <?php echo $BL['be_newsletter_newimport'] ?></a>
-        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="include/inc_act/act_export.php?<?php echo CSRF_GET_TOKEN; ?>&amp;action=exportsubscriber" target="_blank" ><i class="fa fa-upload" aria-hidden="true"></i> <?php echo $BL['be_cnt_export_selection'] ?></a>
+        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="phpwcms.php?do=messages&amp;p=4&amp;import=1" target="_blank"><i class="fa-solid fa-download" aria-hidden="true"></i> <?php echo $BL['be_newsletter_newimport'] ?></a>
+        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="include/inc_act/act_export.php?<?php echo CSRF_GET_TOKEN; ?>&amp;action=exportsubscriber" target="_blank" ><i class="fa-solid fa-upload" aria-hidden="true"></i> <?php echo $BL['be_cnt_export_selection'] ?></a>
     </div>
 
     <hr />
@@ -232,7 +232,7 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
   }
   ?>" type="search">
           
-            <button class="btn btn-secondary" name="gofilter" type="button"><i class="fa fa-filter me-1"></i> <?php echo $BL['be_filter'] ?></button>
+            <button class="btn btn-secondary" name="gofilter" type="button"><i class="fa-solid fa-filter me-1"></i> <?php echo $BL['be_filter'] ?></button>
           
         </div>
       </div>
@@ -242,18 +242,18 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
           <div class="input-group input-group-sm">
             
               <?php if($_SESSION['subscriber_page'] > 1): ?>
-                <a class="btn btn-blue" href="phpwcms.php?do=messages&amp;p=4&amp;page=<?php echo ($_SESSION['subscriber_page']-1) ?>"><i class="fa fa-angle-left"></i></a>
+                <a class="btn btn-blue" href="phpwcms.php?do=messages&amp;p=4&amp;page=<?php echo ($_SESSION['subscriber_page']-1) ?>"><i class="fa-solid fa-angle-left"></i></a>
               <?php else: ?>
-                <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-left"></i></button>
+                <button class="btn btn-blue" disabled type="button"><i class="fa-solid fa-angle-left"></i></button>
               <?php endif; ?>
             
             <input type="number" name="page" id="page" value="<?php echo $_SESSION['subscriber_page'] ?>" class="form-control text-center fw-bold" style="width: 60px;" />
             
               <span class="input-group-text">/ <?php echo $_userInfo['pages_total'] ?></span>
               <?php if($_SESSION['subscriber_page'] < $_userInfo['pages_total']): ?>
-                <a class="btn btn-blue" href="phpwcms.php?do=messages&amp;p=4&amp;page=<?php echo ($_SESSION['subscriber_page']+1) ?>"><i class="fa fa-angle-right"></i></a>
+                <a class="btn btn-blue" href="phpwcms.php?do=messages&amp;p=4&amp;page=<?php echo ($_SESSION['subscriber_page']+1) ?>"><i class="fa-solid fa-angle-right"></i></a>
               <?php else: ?>
-                <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-right"></i></button>
+                <button class="btn btn-blue" disabled type="button"><i class="fa-solid fa-angle-right"></i></button>
               <?php endif; ?>
             
           </div>
@@ -356,12 +356,12 @@ if($_userInfo['list_channel']) {
 
 		$row["address_email"] = html($row["address_email"]);
 		echo '<tr'.( ($row_count % 2) ? ' bgcolor="#f4f4f4"' : '' ).$_userInfo['channel_select']."><td>".LF;
-		echo '<i class="fa fa-user" aria-hidden="true"></i></td>'."\n";
+		echo '<i class="fa-solid fa-user" aria-hidden="true"></i></td>'."\n";
 		echo '<td width="1%" class="dir text-nowrap">'.$row["address_email"]."</td>".LF;
 		echo '<td class="dir" width="95%">'.html($row["address_name"])."</td>".LF;
 		echo '<td align="right" class="button_td text-nowrap">'.LF;
 		echo '<div class="btn-group btn-group-sm" role="group" aria-label="subscriber-actions-'.$row["address_id"].'">';
-		echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
+		echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1"><i class="fa-solid fa-pencil-alt"></i></a>';
 
 		echo '<button id="abtnaddress'.$row["address_id"].'" class="btn fa btn-sm visible '.($row["address_verified"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["address_id"].'" data-type="address" data-table="address" data-field="address_verified" data-fieldid="address_id" data-bs-toggle="tooltip" title="'.sprintf($BL['be_mailinglist_verified'], $row["address_email"]).' "></button>';
 		echo '</div>';

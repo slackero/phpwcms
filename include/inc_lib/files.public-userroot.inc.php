@@ -34,7 +34,7 @@ if(isset($file_result[0]['f_id'])) {
         }
         echo "<tr>\n";
         echo '<td class="text-nowrap">';
-        echo '<i class="fa fa-' . ext_icon($file_row["f_ext"]) . ' fa-fw text-muted"></i>';
+        echo '<i class="fa-solid fa-' . ext_icon($file_row["f_ext"]) . ' fa-fw text-muted"></i>';
         echo "</td>\n";
         echo "<td>";
         echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
@@ -46,7 +46,7 @@ if(isset($file_result[0]['f_id'])) {
         echo "<td width=\"15\" align=\"right\">";
         echo "<a href=\"include/inc_act/act_download.php?dl=".$file_row["f_id"];
         echo '" target="_blank" data-bs-toggle="tooltip" title="' . $BL['be_fprivfunc_dlfile'] . ': ' . $filename . '">';
-        echo '<i class="fa fa-download me-1 text-muted" aria-hidden="true"></i></a>';
+        echo '<i class="fa-solid fa-download me-1 text-muted" aria-hidden="true"></i></a>';
         echo "</td>\n";
         //Ende Aufbau
         echo "</tr>\n";

@@ -381,11 +381,11 @@ if (!defined('PHPWCMS_ROOT')) {
 
 			<div class="form-group row mt-4 mb-0">
 				<div class="col-sm-10 offset-sm-2">
-					<button name="submit" type="submit" class="btn btn-sm btn-blue me-1"><i class="fa fa-rotate me-1"></i> <?php echo empty($plugin['data']['id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-					<button name="save" type="submit" class="btn btn-sm btn-blue ms-1"><i class="fa fa-check me-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;edit=0" class="btn btn-sm btn-blue ms-3"><i class="fa fa-plus me-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
-					<a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times me-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
-					<button type="reset" class="btn btn-sm btn-dark ms-1"><i class="fa fa-undo me-1"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
+					<button name="submit" type="submit" class="btn btn-sm btn-blue me-1"><i class="fa-solid fa-rotate me-1"></i> <?php echo empty($plugin['data']['id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+					<button name="save" type="submit" class="btn btn-sm btn-blue ms-1"><i class="fa-solid fa-check me-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;edit=0" class="btn btn-sm btn-blue ms-3"><i class="fa-solid fa-plus me-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times me-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+					<button type="reset" class="btn btn-sm btn-dark ms-1"><i class="fa-solid fa-undo me-1"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
 				</div>
 			</div>
 

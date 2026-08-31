@@ -105,9 +105,9 @@ $img_thumbs = '';
 		</select>
 	</div>
 	<div class="col-sm-auto">
-		<button type="button" class="modalButton btn btn-sm btn-blue mb-1 d-block" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=3&amp;target=nolist"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
-		<button type="button" class="btn btn-sm btn-secondary mb-1 d-block" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button>
-		<button type="button" class="btn btn-sm btn-secondary mb-1 d-block" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button>
+		<button type="button" class="modalButton btn btn-sm btn-blue mb-1 d-block" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=3&amp;target=nolist"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
+		<button type="button" class="btn btn-sm btn-secondary mb-1 d-block" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button>
+		<button type="button" class="btn btn-sm btn-secondary mb-1 d-block" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button>
 		<button type="button" class="btn btn-sm btn-danger d-block" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
 	</div>
 </div>

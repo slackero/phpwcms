@@ -21,7 +21,7 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
 
 ?>
 <div class="card" id="messagesendcard" style="display:block;">
-  <div class="card-header"><h2><i class="fa fa-paper-plane" aria-hidden="true"></i> <?php echo $BL['be_newsletter_sendnow'] ?></h2></div>
+  <div class="card-header"><h2><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> <?php echo $BL['be_newsletter_sendnow'] ?></h2></div>
   <div class="card-body">
 
     <div id="messagesend">
@@ -104,8 +104,8 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
 
         <div class="form-group row mt-4 mb-0">
           <div class="offset-sm-2 col-sm-10">
-            <button name="sendit" type="submit" class="btn btn-danger btn-sm fw-bold" value="1"><i class="fa fa-paper-plane me-1"></i> <?php echo $BL['be_newsletter_sendnlbutton'] ?></button>
-            <a class="btn btn-danger btn-sm ms-3" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times me-1"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+            <button name="sendit" type="submit" class="btn btn-danger btn-sm fw-bold" value="1"><i class="fa-solid fa-paper-plane me-1"></i> <?php echo $BL['be_newsletter_sendnlbutton'] ?></button>
+            <a class="btn btn-danger btn-sm ms-3" href="phpwcms.php?do=messages&amp;p=3"><i class="fa-solid fa-times me-1"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
           </div>
         </div>
       </form>
@@ -115,7 +115,7 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
 </div>
 
 <div class="card" id="sendjobnow" style="display:none;">
-  <div class="card-header"><h2><i class="fa fa-paper-plane" aria-hidden="true"></i> <?php echo $BL['be_newsletter_sendprocess'] ?></h2></div>
+  <div class="card-header"><h2><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> <?php echo $BL['be_newsletter_sendprocess'] ?></h2></div>
   <div class="card-body">
     <table class="table">
       <tr bgcolor="#DEF9AC">
@@ -128,7 +128,7 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
       </tr>
       <tr bgcolor="#E6EAED">
         <td align="center" colspan="2">
-          <a class="btn btn-danger btn-sm" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times me-1"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+          <a class="btn btn-danger btn-sm" href="phpwcms.php?do=messages&amp;p=3"><i class="fa-solid fa-times me-1"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
         </td>
       </tr>
     </table>

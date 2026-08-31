@@ -106,7 +106,7 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 ?>
 
 <div class="form-group mb-3 text-center text-sm-start">
-  <a class="btn btn-sm btn-blue" href="<?php echo shop_url(array('controller=prod', 'edit=0')) ?>" title="<?php echo $BLM['create_new_prod'] ?>"><i class="fa fa-plus me-1"></i> <span><?php echo $BLM['create_new_prod'] ?></span></a>
+  <a class="btn btn-sm btn-blue" href="<?php echo shop_url(array('controller=prod', 'edit=0')) ?>" title="<?php echo $BLM['create_new_prod'] ?>"><i class="fa-solid fa-plus me-1"></i> <span><?php echo $BLM['create_new_prod'] ?></span></a>
 </div>
 
 <form action="<?php echo shop_url('controller=prod') ?>" method="post" name="paginate" id="paginate">
@@ -195,7 +195,7 @@ if($data) {
 
       echo '<div class="btn-group btn-group-sm" role="group" aria-label="shop-prod-actions-'.$row['shopprod_id'].'">';
       echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';
-      echo '<i class="fa fa-pencil-alt"></i></a>';
+      echo '<i class="fa-solid fa-pencil-alt"></i></a>';
 
       $row["shopprod_var"] = @unserialize($row["shopprod_var"], ['allowed_classes' => false]);
 

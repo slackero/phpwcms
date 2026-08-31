@@ -178,7 +178,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     $a .= '<td class="text-nowrap">';
     $a .= $child_count ? '<a href="articlebrowser.php?opt=' . $js_aktion . $field_param . '&amp;open=0:' . ($is_root_open ? 0 : 1) . (($is_root_open ? 0 : 1) ? '#catend-0' : '#cat-0') . '">' : '';
 
-    $a .= '<i class="fa fa-caret-' . (($child_count) ? ($is_root_open ? 'down' : 'right') : 'right');
+    $a .= '<i class="fa-solid fa-caret-' . (($child_count) ? ($is_root_open ? 'down' : 'right') : 'right');
     $a .= ' fa-fw" aria-hidden="true"></i>' . (($child_count) ? '</a>' : '');
 
     $info = '<table class="text-start"><tr><td>ID:</td><td><b>0</b></td></tr>';
@@ -274,7 +274,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= '<td class="text-end text-nowrap">';
     $target_open = $is_open ? 0 : 1;
     $a .= ($child_count) ? '<a href="articlebrowser.php?opt=' . $js_aktion . $field_param . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . $target_open) . ($target_open ? '#catend-' : '#cat-') . $struct[$key]['acat_id'] . '">' : '';
-    $a .= '<i class="fa fa-caret-' . ($child_count ? ($is_open ? 'down' : 'right') : 'right') . ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>' . ($child_count ? '</a>' : '');
+    $a .= '<i class="fa-solid fa-caret-' . ($child_count ? ($is_open ? 'down' : 'right') : 'right') . ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>' . ($child_count ? '</a>' : '');
 
     $info = '<table class="text-start">';
     $info .= '<tr><td>ID:</td><td><b>' . $struct[$key]['acat_id'] . '</b></td></tr>';

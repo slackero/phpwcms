@@ -266,14 +266,14 @@ if($img_count) {
             <div class="col-sm-auto">
                 <span data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>">
                     <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=1&amp;target=nolist">
-                        <i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>
+                        <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
                     </button>
                 </span><br>
                 <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list)">
-                    <i class="fa fa-angle-up fa-fw" aria-hidden="true"></i>
+                    <i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i>
                 </button><br>
                 <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list)">
-                    <i class="fa fa-angle-down fa-fw" aria-hidden="true"></i>
+                    <i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i>
                 </button><br>
                 <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cimage_list)" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>">
                     <i class="far fa-trash-alt fa-fw" aria-hidden="true"></i>
@@ -454,7 +454,7 @@ if($content['custom_field_items']):
                 <div class="input-group mb-2">
                     <button class="modalButton btn btn-sm btn-blue folder-open" type="button"
                             data-bs-toggle="modal" data-bs-target="#browserModal"
-                            data-src="filebrowser.php?opt=19&field=<?php echo $custom_field; ?>&allowed=<?php echo $cnt_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
+                            data-src="filebrowser.php?opt=19&field=<?php echo $custom_field; ?>&allowed=<?php echo $cnt_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
                     <input name="customfield[<?php echo $custom_field; ?>][id]" type="hidden" id="customfield_<?php echo $custom_field; ?>_id" value="<?php
                         if(isset($content['custom_fields'][$custom_field]['id'])) {
                             echo $content['custom_fields'][$custom_field]['id'];

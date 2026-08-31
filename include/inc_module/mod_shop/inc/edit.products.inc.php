@@ -35,9 +35,9 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
     </div>
     <div class="col-sm">
       <div class="form-group align-items-center mb-0 text-center text-sm-end">
-          <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-          <button name="save" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-          <a href="<?php echo shop_url(array('controller=prod')) ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+          <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+          <button name="save" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+          <a href="<?php echo shop_url(array('controller=prod')) ?>" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
        </div>
      </div>
   </div>
@@ -333,9 +333,9 @@ if ($img_count) {
           </select>
         </div>
         <div class="col-sm-auto ps-0">
-          <button type="button" class="modalButton btn btn-sm btn-blue mb-1" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=5&amp;target=nolist"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
-          <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(img_field);return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
-          <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(img_field);return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
+          <button type="button" class="modalButton btn btn-sm btn-blue mb-1" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=5&amp;target=nolist"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
+          <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(img_field);return false;"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
+          <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(img_field);return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
           <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(img_field);return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
         </div>
       </div>
@@ -388,9 +388,9 @@ if (count($plugin['data']['shopprod_files'])) {
           </select>
         </div>
         <div class="col-sm-auto ps-0">
-            <button type="button" class="modalButton btn btn-sm btn-blue mb-1" title="<?php echo $BL['be_cnt_openfilebrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=nolist"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
-            <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(files_field);return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
-            <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(files_field);return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
+            <button type="button" class="modalButton btn btn-sm btn-blue mb-1" title="<?php echo $BL['be_cnt_openfilebrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=nolist"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
+            <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(files_field);return false;"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
+            <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(files_field);return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
             <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(files_field);return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
         </div>
       </div>
@@ -511,9 +511,9 @@ if (count($plugin['data']['shopprod_files'])) {
   </div>
 
       <div class="form-group align-items-center mt-4 mb-0 text-center text-sm-end">
-          <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-          <button name="save" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-          <a href="<?php echo shop_url(array('controller=prod')) ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+          <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+          <button name="save" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+          <a href="<?php echo shop_url(array('controller=prod')) ?>" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
        </div>
 
 </form>

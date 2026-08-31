@@ -159,7 +159,7 @@ function showAction() {
         ?>
           <tr<?php echo $fxb ?>>
             <td align="center"><input name="ftp_mark[<?php echo $file_row["f_id"] ?>]" type="checkbox" id="ftp_mark_<?php echo $file_row["f_id"] ?>" value="1" class="ftp_mark" /></td>
-            <td><i class="fa fa-file-image me-2"></i> <?php echo $filename ?></td>
+            <td><i class="fa-solid fa-file-image me-2"></i> <?php echo $filename ?></td>
             <td class="text-end text-nowrap">
                 <?php
                 //Icons Public/Non-Public
@@ -258,7 +258,7 @@ function showAction() {
 						</select>
 					</div>
 					<div class="col-sm-auto">
-						<div id="div_button" style="display: none;"><button name="Submit" type="submit" class="btn btn-blue btn-sm ms-2" value="1"><i class="fa fa-cogs me-1"></i> <?php echo $BL['file_actions_button'] ?></button></div>
+						<div id="div_button" style="display: none;"><button name="Submit" type="submit" class="btn btn-blue btn-sm ms-2" value="1"><i class="fa-solid fa-cogs me-1"></i> <?php echo $BL['file_actions_button'] ?></button></div>
           </div>
         </div>
 

@@ -102,12 +102,12 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
     <h1><?php echo $BL['be_subnav_admin_users_overview']; ?></h1>
   </div>
 	<div class="col-12 col-sm text-center text-sm-end mb-3">
-    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;s=1" title="<?php echo $BL['be_admin_usr_create'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_admin_usr_create'] ?></a>
+    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;s=1" title="<?php echo $BL['be_admin_usr_create'] ?>"><i class="fa-solid fa-plus me-1"></i> <?php echo $BL['be_admin_usr_create'] ?></a>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_admin_usr_ltitle'] ?></h2></div>
+  <div class="card-header"><h2><i class="fa-solid fa-list"></i> <?php echo $BL['be_admin_usr_ltitle'] ?></h2></div>
   <div class="card-body">
 <form action="phpwcms.php?do=admin" method="post" name="paginate" id="paginate">
 <input type="hidden" name="do_pagination" value="1" />
@@ -118,7 +118,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
               <div class="col-sm-auto mb-2 mb-xl-0">
                   <div class="input-group input-group-sm">
                       
-                          <span class="input-group-text px-2 text-info" title="<?php echo $BL['be_article_adminuser'] ?? 'Admin User'; ?>"><i class="fa fa-user-shield"></i></span>
+                          <span class="input-group-text px-2 text-info" title="<?php echo $BL['be_article_adminuser'] ?? 'Admin User'; ?>"><i class="fa-solid fa-user-shield"></i></span>
                           <div class="input-group-text">
                               <input name="showadmin" id="showadmin" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_admin'], 1) ?> />
                           
@@ -129,7 +129,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
               <div class="col-sm-auto mb-2 mb-xl-0">
                   <div class="input-group input-group-sm">
                       
-                          <span class="input-group-text px-2 text-success" title="<?php echo $BL['be_admin_usr_ifsection2'] ?? 'Frontend & Backend'; ?>"><i class="fa fa-user-check"></i></span>
+                          <span class="input-group-text px-2 text-success" title="<?php echo $BL['be_admin_usr_ifsection2'] ?? 'Frontend & Backend'; ?>"><i class="fa-solid fa-user-check"></i></span>
                           <div class="input-group-text">
                               <input name="showbefe" id="showbefe" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_befe'], 1) ?> />
                           
@@ -140,7 +140,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
               <div class="col-sm-auto mb-2 mb-xl-0">
                   <div class="input-group input-group-sm">
                       
-                          <span class="input-group-text px-2 text-primary" title="<?php echo $BL['be_admin_usr_ifsection1'] ?? 'Backend'; ?>"><i class="fa fa-user-cog"></i></span>
+                          <span class="input-group-text px-2 text-primary" title="<?php echo $BL['be_admin_usr_ifsection1'] ?? 'Backend'; ?>"><i class="fa-solid fa-user-cog"></i></span>
                           <div class="input-group-text">
                               <input name="shownorm" id="shownorm" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_norm'], 1) ?> />
                           
@@ -151,7 +151,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
               <div class="col-sm-auto mb-2 mb-xl-0">
                   <div class="input-group input-group-sm">
                       
-                          <span class="input-group-text px-2 text-warning" title="<?php echo $BL['be_admin_usr_ifsection0'] ?? 'Frontend'; ?>"><i class="fa fa-user"></i></span>
+                          <span class="input-group-text px-2 text-warning" title="<?php echo $BL['be_admin_usr_ifsection0'] ?? 'Frontend'; ?>"><i class="fa-solid fa-user"></i></span>
                           <div class="input-group-text">
                               <input name="showfe" id="showfe" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_fe'], 1) ?> />
                           
@@ -169,7 +169,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
               }
               ?>">
               
-                  <button class="btn btn-sm btn-secondary" name="gofilter" type="button" onclick="this.form.submit();"><i class="fa fa-filter me-1"></i> <?php echo $BL['be_filter'] ?></button>
+                  <button class="btn btn-sm btn-secondary" name="gofilter" type="button" onclick="this.form.submit();"><i class="fa-solid fa-filter me-1"></i> <?php echo $BL['be_filter'] ?></button>
               
           </div>
       </div>
@@ -179,18 +179,18 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
             <div class="input-group input-group-sm">
                 
                     <?php if($_SESSION['list_user_page'] > 1): ?>
-                        <a class="btn btn-blue" href="phpwcms.php?do=admin&amp;page=<?php echo ($_SESSION['list_user_page']-1); ?>"><i class="fa fa-angle-left"></i></a>
+                        <a class="btn btn-blue" href="phpwcms.php?do=admin&amp;page=<?php echo ($_SESSION['list_user_page']-1); ?>"><i class="fa-solid fa-angle-left"></i></a>
                     <?php else: ?>
-                        <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-left"></i></button>
+                        <button class="btn btn-blue" disabled type="button"><i class="fa-solid fa-angle-left"></i></button>
                     <?php endif; ?>
                 
                 <input type="number" name="page" id="page" maxlength="4" size="4" value="<?php echo $_SESSION['list_user_page']; ?>" class="form-control form-control-sm fw-bold text-center" style="width: 55px;" />
                 
                     <span class="input-group-text">/ <?php echo $_userInfo['pages_total']; ?></span>
                     <?php if($_SESSION['list_user_page'] < $_userInfo['pages_total']): ?>
-                        <a class="btn btn-blue" href="phpwcms.php?do=admin&amp;page=<?php echo ($_SESSION['list_user_page']+1); ?>"><i class="fa fa-angle-right"></i></a>
+                        <a class="btn btn-blue" href="phpwcms.php?do=admin&amp;page=<?php echo ($_SESSION['list_user_page']+1); ?>"><i class="fa-solid fa-angle-right"></i></a>
                     <?php else: ?>
-                        <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-right"></i></button>
+                        <button class="btn btn-blue" disabled type="button"><i class="fa-solid fa-angle-right"></i></button>
                     <?php endif; ?>
                 
             </div>
@@ -260,7 +260,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
 ?>
 
       <tr class="hover-light <?php echo $bg_class ?>">
-      <td width="30" class="text-center"><i class="fa fa-fw fa-lg <?php echo $u_icon; ?>" title="<?php echo html($u_title); ?>" data-bs-toggle="tooltip"></i></td>
+      <td width="30" class="text-center"><i class="fa-solid fa-fw fa-lg <?php echo $u_icon; ?>" title="<?php echo html($u_title); ?>" data-bs-toggle="tooltip"></i></td>
           <td <?php if($userlist["usr_aktiv"]==1) {echo "class=\"dir\"";} else {echo "class=\"text-muted\"";} ?>><a href="<?php echo $goto ?>"><?php
 
             if($userlist["usr_name"]) {
@@ -275,7 +275,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
           <?php
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="user-actions-'.$userlist['usr_id'].'">';
           echo '<button id="abtnuser'.$userlist['usr_id'].'" class="btn fa btn-sm visible '.($userlist["usr_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$userlist['usr_id'].'" data-type="user" data-table="user" data-field="usr_aktiv" data-fieldid="usr_id" data-bs-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
-          echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]).'" data-bs-toggle="tooltip" href="'.$goto .'"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]).'" data-bs-toggle="tooltip" href="'.$goto .'"><i class="fa-solid fa-pencil-alt"></i></a>';
           echo '</div>';
           $confirm_usr = $BL['be_admin_usr_ldel'] . "\n[" . $userlist['usr_login'] . "]";
           echo '<a class="btn btn-sm btn-danger ms-1" data-bs-toggle="tooltip" href="include/inc_act/act_user.php?del='. urlencode($userlist["usr_id"].":".$userlist["usr_email"]).'" title="'.$BL['be_admin_usr_ldel'].' '.html($userlist['usr_login']).'" data-confirm-danger="'.html_specialchars($confirm_usr).'"><i class="far fa-trash-alt"></i></a>';

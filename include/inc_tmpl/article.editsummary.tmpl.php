@@ -37,9 +37,9 @@ $langstr = '';
   </div>
   <div class="col-12 col-sm text-center text-sm-end mb-3">
     <div class="form-group align-items-center">
-      <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
-      <button name="Submit" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-      <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelEdit();"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></button>
+      <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
+      <button name="Submit" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+      <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelEdit();"><i class="fa-solid fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></button>
     </div>
   </div>
 </div>
@@ -141,7 +141,7 @@ $langstr = '';
                         </label>
                    </div>
                    <input name="article_lang_id" type="number" id="article_lang_id" class="form-control form-control-sm" style="max-width: 100px;" value="<?php echo $article['article_lang_id'] ?: ''; ?>" maxlength="10" onfocus="this.blur()"<?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?> />
-                   <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" id="article_lang_browser" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=2<?php echo $article['article_lang_type'] === 'article' ? '&amp;idtype=article' : ($article['article_lang_type'] === 'category' ? '&amp;idtype=category' : '') ?>" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"<?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?>><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></button>
+                   <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" id="article_lang_browser" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=2<?php echo $article['article_lang_type'] === 'article' ? '&amp;idtype=article' : ($article['article_lang_type'] === 'category' ? '&amp;idtype=category' : '') ?>" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"<?php if ($article['article_lang'] === ''): ?> disabled<?php endif; ?>><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
                    <script>
                    var $langIdInput = $('#article_lang_id');
                    $langIdInput.data('lang-type', $('input:radio[name="article_lang_type"]:checked').val() || '');
@@ -247,9 +247,9 @@ $langstr = '';
             <div class="col-12 col-lg-7 mb-2 mb-lg-0">
               <div class="input-group input-group-sm">
                 
-                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=summary" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
+                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=summary" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
                 <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo html($article['image']['name']) ?>" onfocus="this.blur()" />
-                <a href="#" id="cimage_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['id']) ? ' disabled' : '' ?>" role="button"<?php echo empty($article['image']['id']) ? ' aria-disabled="true"' : '' ?> data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_name.value ? '\n[' + document.article.cimage_name.value + ']' : ''), function() { document.article.cimage_name.value='';document.article.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i></a>
+                <a href="#" id="cimage_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['id']) ? ' disabled' : '' ?>" role="button"<?php echo empty($article['image']['id']) ? ' aria-disabled="true"' : '' ?> data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_name.value ? '\n[' + document.article.cimage_name.value + ']' : ''), function() { document.article.cimage_name.value='';document.article.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><i class="fa-solid fa-trash-alt fa-fw" aria-hidden="true"></i></a>
                 
               </div>
             </div>
@@ -357,9 +357,9 @@ $langstr = '';
             <div class="col-12 col-lg-7 mb-2 mb-lg-0">
               <div class="input-group input-group-sm">
                 
-                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=list" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
+                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=list" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
                 <input name="cimage_list_name" type="text" id="cimage_list_name" class="form-control form-control-sm" value="<?php echo html($article['image']['list_name']) ?>" onfocus="this.blur()" />
-                <a href="#" id="cimage_list_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['list_id']) ? ' disabled' : '' ?>" role="button"<?php echo empty($article['image']['list_id']) ? ' aria-disabled="true"' : '' ?> data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_list_name.value ? '\n[' + document.article.cimage_list_name.value + ']' : ''), function() { document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_list_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i></a>
+                <a href="#" id="cimage_list_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['list_id']) ? ' disabled' : '' ?>" role="button"<?php echo empty($article['image']['list_id']) ? ' aria-disabled="true"' : '' ?> data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_list_name.value ? '\n[' + document.article.cimage_list_name.value + ']' : ''), function() { document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_list_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><i class="fa-solid fa-trash-alt fa-fw" aria-hidden="true"></i></a>
                 
               </div>
             </div>
@@ -864,9 +864,9 @@ $langstr = '';
 </div>
 
 <div class="form-group align-items-center mt-4">
-  <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
-  <button name="Submit" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-  <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelEdit();"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></button>
+  <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
+  <button name="Submit" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+  <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelEdit();"><i class="fa-solid fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></button>
 </div>
 
 </form>

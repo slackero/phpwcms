@@ -217,7 +217,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						echo '<td class="text-end text-nowrap">';
 						echo '<div class="btn-group btn-group-sm" role="group" aria-label="address-actions-' . $row["detail_id"] . '">';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
+						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
 						
 						echo '<a href="' . MODULE_HREF . '&amp;editid=' . $row["detail_id"] . '&amp;verify=' . (($row["detail_aktiv"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["detail_aktiv"]) ? 'btn-success' : 'btn-warning') . '" title="Toggle Status">';
 						echo '<i class="fas ' . (($row["detail_aktiv"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';

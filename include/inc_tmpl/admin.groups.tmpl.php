@@ -48,7 +48,7 @@ foreach($phpwcms['modules'] as $value) {
     <h1><?php echo $BL['be_subnav_admin_groups'] ;?></h1>
   </div>
   <div class="col-12 col-sm text-center text-sm-end mb-3">
-    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
+    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa-solid fa-plus me-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
   </div>
 </div>
 
@@ -58,7 +58,7 @@ foreach($phpwcms['modules'] as $value) {
 if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 ?>
 <div class="card">
-  <div class="card-header"><h2><i class="fa fa-users"></i> <?php echo isset($_GET["create_group"]) ? $BL['be_admin_group_add'] : $BL['be_subnav_admin_groups'] ." ". $BL['be_cnt_guestbook_edit']; ?></h2></div>
+  <div class="card-header"><h2><i class="fa-solid fa-users"></i> <?php echo isset($_GET["create_group"]) ? $BL['be_admin_group_add'] : $BL['be_subnav_admin_groups'] ." ". $BL['be_cnt_guestbook_edit']; ?></h2></div>
   <div class="card-body">
 
 <?php
@@ -193,10 +193,10 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             </select>
         </div>
       <div class="col-sm-auto">
-          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br />
-          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br />
-          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br />
-          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br />
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button><br />
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button><br />
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa-solid fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
       </div>
       <div class="col">
         <select name="acat_feusers" size="12" multiple="multiple" id="acat_feusers" class="form-select form-select-sm" onDblClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);">
@@ -233,8 +233,8 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 		<div class="col">
           <input name="group_id" type="hidden" id="group_id" value="<?php echo $group["id"] ?>" />
           <input name="group_aktion" type="hidden" id="group_aktion" value="1" />
-          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $sendbutton ?></button>
-          <a href="phpwcms.php?do=admin&amp;p=1" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_fcat_exit'] ?></a>
+          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $sendbutton ?></button>
+          <a href="phpwcms.php?do=admin&amp;p=1" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_fcat_exit'] ?></a>
           <input type="hidden" value="<?php echo $group["syskey"] ?>" name="group_syskey" id="group_syskey" />
     </div>
   </div>
@@ -245,7 +245,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 ?>
 
 <div class="card">
-<div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_cnt_title_overview'] ;?></h2></div>
+<div class="card-header"><h2><i class="fa-solid fa-list"></i> <?php echo $BL['be_cnt_title_overview'] ;?></h2></div>
 	<div class="card-body">
 	<div class="table-responsive">
 	<table class="table table-sm table-hover table-valign-middle mb-0">
@@ -269,7 +269,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             $grouplist["group_name"] = ($grouplist['group_syskey']) ? $groupnames[$grouplist["group_syskey"]] : $grouplist["group_name"];
 ?>
         <tr class="hover-highlight <?php echo $bg_class ?>">
-          <td width="25" align="center"><i class="fa fa-users <?php echo $grouplist["group_active"] == 1 ? 'text-blue' : 'text-muted'; ?>" aria-hidden="true"></i></td>
+          <td width="25" align="center"><i class="fa-solid fa-users <?php echo $grouplist["group_active"] == 1 ? 'text-blue' : 'text-muted'; ?>" aria-hidden="true"></i></td>
           <td class="<?php echo $grouplist["group_active"] ? 'dir' : 'text-muted'; ?>"><a href="<?php echo $goto ?>"><?php
 
             $grouparray = convertStringToArray($grouplist["group_member"]);
@@ -288,7 +288,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             ?>
             <a class="btn btn-sm btn-blue" role="button" title="<?php
                 echo $BL['be_admin_group_edit'].": ".html($grouplist["group_name"])
-            ?>" data-bs-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa fa-pencil-alt fa-fw"></i></a>
+            ?>" data-bs-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>
             </div>
             <?php if ($grouplist["group_syskey"]) {
             echo '<button class="btn btn-sm btn-danger ms-1 disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5;" title="'.$BL['be_admin_group_ldel'].' '.html($grouplist["group_name"]).'" data-bs-toggle="tooltip"><i class="far fa-trash-alt fa-fw"></i></button>';
@@ -313,5 +313,5 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 </div>
 
 <div class="form-group text-center text-sm-end mt-3 mb-0">
-  <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
+  <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa-solid fa-plus me-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
 </div>

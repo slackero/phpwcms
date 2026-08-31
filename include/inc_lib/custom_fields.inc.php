@@ -596,7 +596,7 @@ function custom_field_render_input($field_key, $field_def, $value = null, $name_
             $out .= '    <div class="input-group input-group-sm">' . LF;
             $out .= '      <input type="text" name="' . html($input_name) . '" id="' . html($input_id) . '" value="' . html($file_val) . '" class="form-control form-control-sm ' . html($class) . '" placeholder="' . html($placeholder ?: ($type === 'image' ? 'Image ID / Path' : 'File ID / Path')) . '">' . LF;
             $out .= '      ' . LF;
-            $out .= '        <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=' . $opt . '&amp;target=nolist"><i class="fa fa-folder-open"></i></button>' . LF;
+            $out .= '        <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=' . $opt . '&amp;target=nolist"><i class="fa-solid fa-folder-open"></i></button>' . LF;
             $out .= '      ' . LF;
             $out .= '    </div>' . LF;
             break;

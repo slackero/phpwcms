@@ -23,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="card-body">
 
     <div class="text-end">
-        <a href="<?php echo shop_url('controller=order') ?>" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
+        <a href="<?php echo shop_url('controller=order') ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
     </div>
 
   <div class="align-items-center row g-2">
@@ -454,5 +454,5 @@ if (!defined('PHPWCMS_ROOT')) {
 </div>
 
 <div class="text-end mt-3">
-    <a href="<?php echo shop_url('controller=order') ?>" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
+    <a href="<?php echo shop_url('controller=order') ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
 </div>

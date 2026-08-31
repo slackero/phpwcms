@@ -308,7 +308,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 
     <div class="form-group mt-4 mb-0 text-center text-sm-end">
 		<input name="file_aktion" type="hidden" id="file_aktion" value="1" />
-        <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-cogs me-1"></i> <?php echo $BL['be_ftptakeover_button'] ?></button>
+        <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-cogs me-1"></i> <?php echo $BL['be_ftptakeover_button'] ?></button>
 	</div>
 
 </div>

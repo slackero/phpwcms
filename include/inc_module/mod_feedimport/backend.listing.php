@@ -41,7 +41,7 @@ if (!defined('PHPWCMS_ROOT')) {
 						echo '<td class="text-end text-nowrap">';
 						echo '<div class="btn-group btn-group-sm" role="group" aria-label="feed-actions-' . $row["cnt_id"] . '">';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
+						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
 						
 						echo '<a href="' . MODULE_HREF . '&amp;editid=' . $row["cnt_id"] . '&amp;active=' . (($row["cnt_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["cnt_status"]) ? 'btn-success' : 'btn-warning') . '" title="Toggle Status">';
 						echo '<i class="fas ' . (($row["cnt_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';

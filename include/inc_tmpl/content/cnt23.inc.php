@@ -836,7 +836,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             $field_js['hideAll'][$key]  = ' showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'';
 
             echo '<li class="sortme card mb-2 p-2 shadow-sm" id="sortRow_'.$field_counter.'"><table class="table-borderless w-100"><tr>';
-            echo '<td width="30" class="text-center"><em data-bs-toggle="tooltip" title="'.$BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down'].'" class="handle text-secondary cursor-grab"><i class="fa fa-grip-vertical"></i></em></td>';
+            echo '<td width="30" class="text-center"><em data-bs-toggle="tooltip" title="'.$BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down'].'" class="handle text-secondary cursor-grab"><i class="fa-solid fa-grip-vertical"></i></em></td>';
 
             if(!isset($field_type_count[$field_type])) {
                 $field_type_count[$field_type] = 0;
@@ -1081,7 +1081,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
     <div class="d-flex justify-content-between align-items-center my-3">
       <button type="button" class="btn btn-sm btn-success" id="btn-add-more-fields"><i class="fas fa-plus me-1"></i> <?php echo $BL['be_admin_custom_cpt_add_field']; ?></button>
-      <button type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
+      <button type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
     </div>
 
     <!-- Template for dynamic additional field cards -->
@@ -1089,7 +1089,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
       <li class="sortme card mb-2 p-2 shadow-sm new-field-card border-success" id="sortRow___KEY__">
         <table class="table-borderless w-100">
         <tr>
-          <td width="30" class="text-center"><em data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down']; ?>" class="handle text-secondary cursor-grab"><i class="fa fa-grip-vertical"></i></em></td>
+          <td width="30" class="text-center"><em data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down']; ?>" class="handle text-secondary cursor-grab"><i class="fa-solid fa-grip-vertical"></i></em></td>
           <td width="30" class="text-center" id="formRow___KEY__">
             <a href="#" onclick="return showHide_CntFormfieldRow('formRow___KEY__', 'none');"><i class="fas fa-caret-down text-primary"></i></a>
           </td>

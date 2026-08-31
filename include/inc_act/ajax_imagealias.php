@@ -93,7 +93,7 @@ if($file_id && !$file_alias) {
 		<div class="col col-sm-6 input-group">
 			<input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias<?php echo html_specialchars($file_id) ?>" value="<?php echo html_specialchars($f_alias) ?>"  maxlength="230" onfocus="set_file_alias(true, 'file_alias<?php echo html_specialchars($file_id) ?>');" onchange="this.value=create_alias(this.value, null, null, false);" />
 
-				<button name="senden" type="button" onclick="AjaxSubmit(<?php echo "'#alias-".$file_id."', '".$file_id."', document.editfileinfo.file_alias".$file_id.".value"; ?>)" class="btn btn-blue btn-sm"><i class="fa fa-check"></i> <?php echo $BL['be_save_btn'] ?></button>
+				<button name="senden" type="button" onclick="AjaxSubmit(<?php echo "'#alias-".$file_id."', '".$file_id."', document.editfileinfo.file_alias".$file_id.".value"; ?>)" class="btn btn-blue btn-sm"><i class="fa-solid fa-check"></i> <?php echo $BL['be_save_btn'] ?></button>
 			</div>
 		</div>
 
@@ -107,6 +107,6 @@ if($file_id && $file_alias) {
   _dbQuery($sql_alias, 'UPDATE');
 
   echo '<div class="col">'.html_specialchars($file_alias);
-  echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$file_id."', '".$file_id."');".'"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a></div>';
+  echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$file_id."', '".$file_id."');".'"><i class="fa-solid fa-pencil-alt" aria-hidden="true"></i></a></div>';
 }
 ?>

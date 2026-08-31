@@ -19,8 +19,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 <form action="<?php echo shop_url('controller=pref'); ?>" method="post">
     <div class="form-group align-items-center text-center text-sm-end my-3 my-sm-0">
-        <button name="save" type="submit" class="btn btn-sm btn-blue" id="save_button" value="1" disabled><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-        <button name="reset" type="reset" class="btn btn-sm btn-secondary ms-1" onclick="disableSubmit();"><i class="fa fa-undo"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
+        <button name="save" type="submit" class="btn btn-sm btn-blue" id="save_button" value="1" disabled><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+        <button name="reset" type="reset" class="btn btn-sm btn-secondary ms-1" onclick="disableSubmit();"><i class="fa-solid fa-undo"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
     </div>
 
     <div class="form-group row g-2 align-items-center">

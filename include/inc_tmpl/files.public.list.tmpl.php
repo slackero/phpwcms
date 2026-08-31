@@ -97,7 +97,7 @@ if($count_user_files) { // If public files exist, list them
             }
             echo "<tr bgcolor=\"#D8E4E9\">\n"; // Open table row
             echo "<td width=\"488\" class=\"msglist\">"; // Open cell
-            echo $count."<i class=\"fa fa-user\"></i>";
+            echo $count."<i class=\"fa-solid fa-user\"></i>";
             echo "<strong>".$user_naming."</strong></td>\n"; // Close cell column 1
             echo "<td width=\"50\" align=\"right\" class=\"msglist\">"; // Column 2 (action buttons)
             echo "</td>\n";
@@ -122,7 +122,7 @@ if($count_user_files) { // If public files exist, list them
                         }
                         echo '<tr'.$row_class.'>'."\n";
                         echo '<td width="30">';
-                        echo '<span class="admin-slist" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].' <br>Sort: '.$file_row["f_sort"].'"><i class="fa fa-'.extimg($file_row["f_ext"]).'"></i></span>';
+                        echo '<span class="admin-slist" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].' <br>Sort: '.$file_row["f_sort"].'"><i class="fa-solid fa-'.extimg($file_row["f_ext"]).'"></i></span>';
                         echo "</td>\n";
                         echo "<td>";
                         echo "<a href=\"fileinfo.php?public&amp;fid=".$file_row["f_id"];
@@ -132,7 +132,7 @@ if($count_user_files) { // If public files exist, list them
                         echo '<td class="text-end text-nowrap px-0">';
                         echo "<a href=\"include/inc_act/act_download.php?pl=1&dl=".$file_row["f_id"];
                         echo "\" target=\"_blank\" title=\"".$BL['be_fprivfunc_dlfile'].": ".$filename."\">";
-                        echo '<i class="fa fa-download me-1 text-muted" aria-hidden="true"></i></a>';
+                        echo '<i class="fa-solid fa-download me-1 text-muted" aria-hidden="true"></i></a>';
                         echo "</td>\n";
                         echo "</tr>\n";
 

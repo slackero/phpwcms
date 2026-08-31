@@ -95,9 +95,9 @@ if (!defined('PHPWCMS_ROOT')) {
       </div>
 
 			<div class="form-group align-items-center mt-4 mb-0">
-				<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($_userInfo['subscriber_data']['address_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-				<button name="save" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-				<a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+				<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo empty($_userInfo['subscriber_data']['address_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+				<button name="save" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+				<a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
 			</div>
 
     </div>

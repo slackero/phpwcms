@@ -136,7 +136,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
   <h1 class="text-center text-sm-start"><?php echo $BL['be_subnav_admin_users'] ?></h1>
   <div class="card mb-4">
-  <div class="card-header"><h2><i class="fa fa-user" aria-hidden="true"></i> <?php echo $BL['be_admin_usr_etitle'] ?></h2></div>
+  <div class="card-header"><h2><i class="fa-solid fa-user" aria-hidden="true"></i> <?php echo $BL['be_admin_usr_etitle'] ?></h2></div>
   <div class="card-body">
 
     <?php
@@ -174,7 +174,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
           <div class="col-sm-5">
             <div class="input-group input-group-sm">
               <input type="password" class="form-control form-control-sm" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password" />
-              <button class="btn btn-outline-secondary" type="button" onclick="const p=document.getElementById('form_newpassword');p.type=p.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');"><i class="fa fa-eye"></i></button>
+              <button class="btn btn-outline-secondary" type="button" onclick="const p=document.getElementById('form_newpassword');p.type=p.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');"><i class="fa-solid fa-eye"></i></button>
             </div>
           </div>
         </div>
@@ -241,7 +241,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
         <?php if(!empty($set_user_2fa)): ?>
         <div class="form-group row g-2 align-items-center">
-          <label for="form_reset_2fa" class="col-sm-2 col-form-label text-end text-danger"><i class="fa fa-shield-alt"></i> 2FA</label>
+          <label for="form_reset_2fa" class="col-sm-2 col-form-label text-end text-danger"><i class="fa-solid fa-shield-alt"></i> 2FA</label>
           <div class="col-sm-10">
             <div class="form-check form-check-inline">
               <input class="form-check-input" name="form_reset_2fa" type="checkbox" id="form_reset_2fa" value="1" />
@@ -324,8 +324,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 </div>
 
   <div class="form-group align-items-center mt-4 mb-0">
-    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_usr_ebutton'] ?></button>
-    <a href="phpwcms.php?do=admin" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_admin_usr_ebutton'] ?></button>
+    <a href="phpwcms.php?do=admin" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
   </div>
 
   <input name="form_aktion" type="hidden" value="edit_account" />

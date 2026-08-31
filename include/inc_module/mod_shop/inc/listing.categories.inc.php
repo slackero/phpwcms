@@ -102,7 +102,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
 
 <div class="form-group mb-3 text-center text-sm-start">
     <a class="btn btn-sm btn-blue me-2" href="<?php echo shop_url(array('controller=cat', 'edit=0')) ?>"
-        title="<?php echo $BLM['create_new'] ?>"><i class="fa fa-plus me-1"></i>
+        title="<?php echo $BLM['create_new'] ?>"><i class="fa-solid fa-plus me-1"></i>
         <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 
@@ -173,7 +173,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
                 echo '>' . LF;
 
                 echo '<td width="25" style="padding:2px 3px 2px 4px;">';
-                echo '<i class="fa fa-tag fa-fw text-';
+                echo '<i class="fa-solid fa-tag fa-fw text-';
                 echo $row['cat_pid'] ? 'muted' : 'blue';
                 echo '"></i></td>' . LF;
 
@@ -184,7 +184,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
                 echo '<td width="10%" class="text-end text-nowrap">';
                 echo '<div class="btn-group btn-group-sm" role="group" aria-label="shop-cat-actions-' . $row['cat_id'] . '">';
                 echo '<a class="btn btn-sm btn-blue" href="' . $_controller_link . '&amp;edit=' . $row['cat_id'] . '">';
-                echo '<i class="fa fa-pencil-alt"></i></a>';
+                echo '<i class="fa-solid fa-pencil-alt"></i></a>';
                 echo '<button id="abtnshop' . $row['cat_id'] . '" class="btn fa btn-sm visible ';
                 echo ((int)$row['cat_status'] === 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $row['cat_id'];
                 echo '" data-type="shop" data-table="categories" data-field="cat_status" data-fieldid="cat_id" aria-disabled="true" data-bs-toggle="tooltip" title="';

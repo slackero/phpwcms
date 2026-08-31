@@ -223,7 +223,7 @@ if($form_detail_aktion == 'create_detail') {
     </div>
     <div class="card-footer text-end">
         <button type="submit" name="Submit" class="btn btn-sm btn-blue fw-bold">
-            <i class="fa fa-rotate me-1"></i><?php echo $BL['be_profile_label_button']; ?>
+            <i class="fa-solid fa-rotate me-1"></i><?php echo $BL['be_profile_label_button']; ?>
         </button>
     </div>
 </div>

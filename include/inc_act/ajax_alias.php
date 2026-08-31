@@ -62,8 +62,8 @@ if($action === 'form' && $article_id) {
     echo '<div class="form-group row g-2 align-items-center">'.LF;
     echo '<div class="col-sm-3"></div>'.LF;
     echo '<div class="col">'.LF;
-    echo '<button name="save" type="button" onclick="AjaxSubmit('."'alias-".$article_id."', '".$article_id."', document.editartikel.article_alias".$article_id.".value, document.editartikel.article_description".$article_id.".value".')" class="btn btn-sm btn-blue me-1"><i class="fa fa-check"></i> '.$BL['be_article_cnt_button1'].'</button>';
-    echo '<button name="close" type="button" onclick="AjaxClose('."'alias-".$article_id."','','".$article_id."','')".'" class="btn btn-sm btn-danger ms-2"><i class="fa fa-times"></i> '.$BL['be_newsletter_button_cancel'].'</button>';
+    echo '<button name="save" type="button" onclick="AjaxSubmit('."'alias-".$article_id."', '".$article_id."', document.editartikel.article_alias".$article_id.".value, document.editartikel.article_description".$article_id.".value".')" class="btn btn-sm btn-blue me-1"><i class="fa-solid fa-check"></i> '.$BL['be_article_cnt_button1'].'</button>';
+    echo '<button name="close" type="button" onclick="AjaxClose('."'alias-".$article_id."','','".$article_id."','')".'" class="btn btn-sm btn-danger ms-2"><i class="fa-solid fa-times"></i> '.$BL['be_newsletter_button_cancel'].'</button>';
     echo '</div>'.LF;
     echo '</div>'.LF;
     echo '</div>'.LF;
@@ -89,8 +89,8 @@ if($action === 'form' && $acat_id) {
     echo '<div class="row my-3">'.LF;
     echo '<div class="col-sm-3"></div>'.LF;
     echo '<div class="col">'.LF;
-    echo '<button name="save" type="button" onclick="AjaxSubmitCat('."'catalias-".$acat_id."', '".$acat_id."', document.editstructur.acat_alias".$acat_id.".value, document.editstructur.acat_pagetitle".$acat_id.".value,'" . $acattemplate . "')" . '" class="btn btn-sm btn-blue me-1"><i class="fa fa-check"></i> '.$BL['be_article_cnt_button1'].'</button>';
-    echo '<button name="close" type="button" onclick="AjaxClose('."'catalias-".$acat_id."', '".$acat_id."','','" . $acattemplate . "')".'" class="btn btn-sm btn-danger ms-2"><i class="fa fa-times"></i> '.$BL['be_newsletter_button_cancel'].'</button>';
+    echo '<button name="save" type="button" onclick="AjaxSubmitCat('."'catalias-".$acat_id."', '".$acat_id."', document.editstructur.acat_alias".$acat_id.".value, document.editstructur.acat_pagetitle".$acat_id.".value,'" . $acattemplate . "')" . '" class="btn btn-sm btn-blue me-1"><i class="fa-solid fa-check"></i> '.$BL['be_article_cnt_button1'].'</button>';
+    echo '<button name="close" type="button" onclick="AjaxClose('."'catalias-".$acat_id."', '".$acat_id."','','" . $acattemplate . "')".'" class="btn btn-sm btn-danger ms-2"><i class="fa-solid fa-times"></i> '.$BL['be_newsletter_button_cancel'].'</button>';
     echo '</div>'.LF;
     echo '</div>'.LF;
     echo '</div>'.LF;
@@ -110,7 +110,7 @@ if($action === 'update') {
 
     echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$article_id.'">'.(empty($article_alias) ? 'no alias' : html_specialchars($article_alias) ).'</a>';
 
-    echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('alias-".$article_id."','','".$article_id."');".'"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('alias-".$article_id."','','".$article_id."');".'"><i class="fa-solid fa-pencil-alt"></i></a>';
 }
 
 if($action === 'updatecat') {
@@ -130,7 +130,7 @@ if($action === 'updatecat') {
 
     echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$acat_id.'">'.(empty($acat_alias) ? 'no alias' : html_specialchars($acat_alias) ).'</a>';
     echo '<a href="phpwcms.php?do=article&p=6&struct=0&cat='.$acat_id.'">'.(empty($acat_alias) ? 'no alias' : html_specialchars($acat_alias) ).'</a>';
-    echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('catalias-".$acat_id."', '".$acat_id."','');".'"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('catalias-".$acat_id."', '".$acat_id."','');".'"><i class="fa-solid fa-pencil-alt"></i></a>';
 }
 
 if($action === 'close' && $article_id) {
@@ -140,7 +140,7 @@ if($action === 'close' && $article_id) {
     echo '<div class="btn btn-sm '.(empty($content['current_article'][0]["article_description"]) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_article_description'].'">D</div>';
 
     echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$content['current_article'][0]["article_id"].'">'.(empty($content['current_article'][0]["article_alias"]) ? 'no alias' : html_specialchars($content['current_article'][0]["article_alias"]) ).'</a>';
-    echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('alias-".$article_id."', '".$article_id."');".'"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('alias-".$article_id."', '".$article_id."');".'"><i class="fa-solid fa-pencil-alt"></i></a>';
 }
 
 if($action === 'close' && $acat_id) {
@@ -153,5 +153,5 @@ if($action === 'close' && $acat_id) {
     echo $content['current_template'][0]['template_name'] . ' | ';
 
     echo empty($content['current_acat'][0]["acat_alias"]) ? 'no alias' : $content['current_acat'][0]["acat_alias"];
-    echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('catalias-".$acat_id."', '".$acat_id."','');".'"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<a href="#" class="btn btn-sm btn-blue float-end" onClick="'."AjaxLink('catalias-".$acat_id."', '".$acat_id."','');".'"><i class="fa-solid fa-pencil-alt"></i></a>';
 }

@@ -94,7 +94,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tab_name'] ?></label>
 	<div class="col">
 		<button type="button" class="btn btn-sm btn-blue" id="btn_add_tab_top" onclick="return addNewTab('top');">
-			<i class="fa fa-plus"></i>
+			<i class="fa-solid fa-plus"></i>
             <?php echo $BL['be_tab_add'] ?>
         </button>
 	</div>
@@ -142,7 +142,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
           <div class="row align-items-center">
             <div class="col-sm-auto">
               <em data-bs-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary">
-                  <i class="fa fa-grip-vertical"></i>
+                  <i class="fa-solid fa-grip-vertical"></i>
               </em>
             </div>
             <div class="col">
@@ -156,11 +156,11 @@ if(is_array($tmpllist) && count($tmpllist)) {
                 }
                 ?>
                 <a class="btn btn-sm <?= $value['tabactive'] ? 'btn-success' : 'btn-warning'; ?>" role="button" href="#" onclick="return setTabActive(this, 'tabactive<?php echo $key ?>')">
-                    <i class="fa <?= $value['tabactive'] ? 'fa-eye' : 'fa-eye-slash'; ?>" id="tabactive<?php echo $key ?>-icon"></i>
+                    <i class="fa-solid <?= $value['tabactive'] ? 'fa-eye' : 'fa-eye-slash'; ?>" id="tabactive<?php echo $key ?>-icon"></i>
                     <input type="hidden" name="tabactive[<?php echo $key ?>]" id="tabactive<?php echo $key ?>" value="<?php echo $value['tabactive']; ?>">
                 </a>
                 <a class="btn btn-sm btn-blue" data-bs-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>">
-                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    <i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i>
                 </a>
                 <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteTab('tab_<?php echo $key ?>');">
                     <i class="far fa-trash-alt"></i>
@@ -299,7 +299,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
           <div class="input-group mb-3">
               
-                  <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
+                  <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
               
               <input
                   name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][id]"
@@ -394,7 +394,7 @@ function addNewTab(pos) {
             <div class="row align-items-center">
                 <div class="col-sm-auto">
                     <em data-bs-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary">
-                        <i class="fa fa-grip-vertical"></i>
+                        <i class="fa-solid fa-grip-vertical"></i>
                     </em>
                 </div>
                 <div class="col">
@@ -402,11 +402,11 @@ function addNewTab(pos) {
                 </div>
                 <div class="col text-end">
                     <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return setTabActive(this, 'tabactive${entries}')">
-                        <i class="fa fa-eye-slash" id="tabactive${entries}-icon"></i>
+                        <i class="fa-solid fa-eye-slash" id="tabactive${entries}-icon"></i>
                         <input type="hidden" name="tabactive[${entries}]" id="tabactive${entries}" value="0">
                     </a>
                     <a class="btn btn-sm btn-blue" data-bs-toggle="collapse" href="#collapse_${entries}">
-                        <i class="fa fa-ellipsis-h"></i>
+                        <i class="fa-solid fa-ellipsis-h"></i>
                     </a>
                     <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteTab('tab_${entries}');">
                         <i class="far fa-trash-alt"></i>
@@ -509,7 +509,7 @@ function addNewTab(pos) {
 
                         <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
                             <div class="input-group mb-3">
-                                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field ?>_${entries}&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
+                                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field ?>_${entries}&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
                                 <input type="hidden" name="customfield[${entries}][<?php echo $custom_field; ?>][id]" id="customfield_<?php echo $custom_field; ?>_${entries}_id" value="" />
                                 <input type="text" name="customfield[${entries}][<?php echo $custom_field; ?>][name]" id="customfield_<?php echo $custom_field; ?>_${entries}_name" class="form-control form-control-sm" value="" size="40" onfocus="this.blur()" />
                                 <a class="btn btn-sm btn-danger trash" href="#" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('customfield_<?php
@@ -657,12 +657,12 @@ function addNewTab(pos) {
           tab.value = '0';
           link.classList.add('btn-warning');
           link.classList.remove('btn-success', 'btn-danger');
-          document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye-slash');
+          document.getElementById(id + '-icon').setAttribute('class', 'fa-solid fa-eye-slash');
       } else {
           tab.value = '1';
           link.classList.remove('btn-warning', 'btn-danger');
           link.classList.add('btn-success');
-          document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye');
+          document.getElementById(id + '-icon').setAttribute('class', 'fa-solid fa-eye');
       }
       link.blur();
       return false;
@@ -727,7 +727,7 @@ function addNewTab(pos) {
 	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tab_name'] ?></label>
 	<div class="col">
 		<button type="button" class="btn btn-sm btn-blue" id="btn_add_tab_bottom" onclick="return addNewTab('bottom');">
-			<i class="fa fa-plus"></i>
+			<i class="fa-solid fa-plus"></i>
             <?php echo $BL['be_tab_add'] ?>
         </button>
 	</div>

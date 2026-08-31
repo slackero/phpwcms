@@ -34,13 +34,13 @@ if(!isset($_GET["edit"])) {
     <h1 class="text-center text-sm-start"><?php echo $BL['be_newsletter_title'] ?></h1>
   </div>
   <div class="col text-center text-sm-end mb-3">
-    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=messages&amp;p=2&amp;s=0&amp;edit=1" title="<?php echo $BL['be_newsletter_add'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_mailinglist_new'] ?></a>
+    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=messages&amp;p=2&amp;s=0&amp;edit=1" title="<?php echo $BL['be_newsletter_add'] ?>"><i class="fa-solid fa-plus me-1"></i> <?php echo $BL['be_mailinglist_new'] ?></a>
   </div>
 </div>
 <?php } ?>
 
 <div class="card">
-  <div class="card-header"><h2><i class="fa fa-list" aria-hidden="true"></i> <?php echo $BL['be_cnt_title_overview'] ?> <?php echo $BL['be_newsletter_title'] ?></h2></div>
+  <div class="card-header"><h2><i class="fa-solid fa-list" aria-hidden="true"></i> <?php echo $BL['be_cnt_title_overview'] ?> <?php echo $BL['be_newsletter_title'] ?></h2></div>
     <div class="card-body">
     <div class="table-responsive">
     <table class="table table-sm table-valign-middle mb-0">
@@ -69,7 +69,7 @@ if(!isset($_GET["edit"])) {
             echo "</td>\n";
             echo '<td class="text-end text-nowrap">';
             echo '<div class="btn-group btn-group-sm" role="group" aria-label="subscr-actions-'.$row["subscription_id"].'">';
-            echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
+            echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1"><i class="fa-solid fa-pencil-alt"></i></a>';
             echo '<button id="abtnsubscription'.$row["subscription_id"].'" class="btn fa btn-sm visible '.($row["subscription_active"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["subscription_id"].'" data-type="subscription"  data-table="subscription" data-field="subscription_active" data-fieldid="subscription_id" data-bs-toggle="tooltip" title="set '.$row["subscription_name"].' verified/not verified"></button>';
             echo '</div>';
             if ($subscribers>0) {
@@ -92,6 +92,6 @@ if(!isset($_GET["edit"])) {
 <?php if(!isset($_GET["edit"])) {
 ?>
 <div class="form-group text-center text-sm-end mt-4">
-  <a class="btn btn-sm btn-blue" href="phpwcms.php?do=messages&amp;p=2&amp;s=0&amp;edit=1" title="<?php echo $BL['be_newsletter_add'] ?>"><i class="fa fa-plus me-1"></i> <?php echo $BL['be_mailinglist_new'] ?></a>
+  <a class="btn btn-sm btn-blue" href="phpwcms.php?do=messages&amp;p=2&amp;s=0&amp;edit=1" title="<?php echo $BL['be_newsletter_add'] ?>"><i class="fa-solid fa-plus me-1"></i> <?php echo $BL['be_mailinglist_new'] ?></a>
 </div>
 <?php } ?>

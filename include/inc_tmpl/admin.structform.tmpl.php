@@ -139,9 +139,9 @@ if ($acat_id === 'index' || $acat_id === 0) {
   </div>
   <div class="col text-center text-sm-end mb-3">
     <div class="form-group align-items-center">
-			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
-			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-			<a href="<?php echo $cancel_url; ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+			<a href="<?php echo $cancel_url; ?>" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 </div>
@@ -255,7 +255,7 @@ if ($acat_id === 'index' || $acat_id === 0) {
 								$acatIdInput.data('lang-type', this.value);
 							});
 							</script>
-								<button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" id="acat_lang_browser" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=3<?php echo $acat_lang_type === 'article' ? '&amp;idtype=article' : ($acat_lang_type === 'category' ? '&amp;idtype=category' : '') ?>" title="<?php echo $BL['be_func_open_articlebrowser'] ?>"><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></button>
+								<button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" id="acat_lang_browser" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=3<?php echo $acat_lang_type === 'article' ? '&amp;idtype=article' : ($acat_lang_type === 'category' ? '&amp;idtype=category' : '') ?>" title="<?php echo $BL['be_func_open_articlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
 							
 						</div>
           </div>
@@ -488,10 +488,10 @@ if ($acat_id === 'index' || $acat_id === 0) {
     </div>
 
     <div class="col-sm-auto text-center">
-      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
-      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
-      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
-      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
+      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
+      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
+      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
+      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa-solid fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
     </div>
 
     <div class="col">
@@ -544,12 +544,12 @@ if ($acat_id === 'index' || $acat_id === 0) {
     </div>
 
     <div class="col-sm-auto text-center">
-        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" onclick="moveOptionUp(document.editsitestructure.acat_cp);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" onclick="moveOptionDown(document.editsitestructure.acat_cp);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp);"><i class="fa-solid fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
+        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
+        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
+        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa);"><i class="fa-solid fa-angle-double-right fa-fw" aria-hidden="true"></i></button><br>
+        <button class="btn btn-sm btn-blue mb-1" onclick="moveOptionUp(document.editsitestructure.acat_cp);"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
+        <button class="btn btn-sm btn-blue mb-1" onclick="moveOptionDown(document.editsitestructure.acat_cp);"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button>
     </div>
 
     <div class="col">
@@ -723,9 +723,9 @@ if ($acat_id === 'index' || $acat_id === 0) {
 
   <div class="mt-4">
     <div class="form-group align-items-center">
-			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
-			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-			<a href="<?php echo $cancel_url; ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+			<a href="<?php echo $cancel_url; ?>" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 

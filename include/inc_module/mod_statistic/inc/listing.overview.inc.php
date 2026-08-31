@@ -205,7 +205,7 @@ if (!defined('PHPWCMS_ROOT')) {
             echo '  <td class="text-end text-nowrap p-1">';
             echo '<div class="btn-group btn-group-sm" role="group" aria-label="stat-overview-actions-'.$value['article_id'].'">';
             echo '<button class="btn btn-sm '.($value["article_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$value['article_id'].'" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"><i class="fas '.($value["article_aktiv"]==0 ? "fa-eye-slash" : "fa-eye").'"></i></button>';
-            echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil-alt"></i></a>';
+            echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa-solid fa-pencil-alt"></i></a>';
             echo '</div>';
             echo '</td>'.LF;
             echo '</tr>'.LF;

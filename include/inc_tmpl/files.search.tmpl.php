@@ -95,7 +95,7 @@ if(isset($_POST["file_search"])) {
 ?>
 
 <div class="card mt-4">
-  <div class="card-header"><h2><i class="fa fa-search" aria-hidden="true"></i> <?php echo $BL['be_fsearch_title'] ?></h2></div>
+  <div class="card-header"><h2><i class="fa-solid fa-search" aria-hidden="true"></i> <?php echo $BL['be_fsearch_title'] ?></h2></div>
   <div class="card-body">
     <div class="alert alert-info"><?php echo $BL['be_fsearch_infotext'] ?></div>
     <?php if(isset($search["error"])) { //fehler suche anfang ?>
@@ -133,7 +133,7 @@ if(isset($_POST["file_search"])) {
           <option value="0" <?php is_selected("0", $s2) ?>><?php echo $BL['be_fsearch_personal'] ?></option>
           <option value="1" <?php is_selected("1", $s2) ?>><?php echo $BL['be_fsearch_public'] ?></option>
       </select>
-      <button name="submit" type="submit" id="submit" class="btn btn-sm btn-blue"><i class="fa fa-search me-1"></i> <?php echo $BL['be_fsearch_startsearch'] ?></button>
+      <button name="submit" type="submit" id="submit" class="btn btn-sm btn-blue"><i class="fa-solid fa-search me-1"></i> <?php echo $BL['be_fsearch_startsearch'] ?></button>
     </form>
 
 <?php
@@ -171,7 +171,7 @@ if(isset($search["result"])) {
 
             echo '<tr'.$row_class.'>';
             echo '<td width="30">';
-            echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
+            echo '<i class="fa-solid fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
             echo "</td>";
             echo "<td>";
             if(empty($_SESSION["wcs_user_admin"]) && $file_row["f_uid"] != $_SESSION["wcs_user_id"]) {
@@ -188,20 +188,20 @@ if(isset($search["result"])) {
 
             if($file_row['edit']) {
                 echo $file_row['edit'];
-                echo '<i class="fa fa-pencil-alt me-1 text-muted"></i></a>';
+                echo '<i class="fa-solid fa-pencil-alt me-1 text-muted"></i></a>';
             }
 
             echo '<a href="include/inc_act/act_download.php?pl=1&dl='.$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'" target="_blank">';
-            echo '<i class="fa fa-download me-1 text-muted" aria-hidden="true"></i></a>';
+            echo '<i class="fa-solid fa-download me-1 text-muted" aria-hidden="true"></i></a>';
 
             if ($has_filedelete_permission || $file_row['f_uid'] == intval($_SESSION['wcs_user_id'])) {
                 //if user is owner then delete button is active
                 echo '<a href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'%7C'.'1'.'" ';
                 echo 'data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"alert('";
                 echo $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
-                echo "');\">", '<i class="fa fa-trash-alt me-1 text-muted" aria-hidden="true"></i></a>';
+                echo "');\">", '<i class="fa-solid fa-trash-alt me-1 text-muted" aria-hidden="true"></i></a>';
             } else {
-                echo '<i class="fa fa-trash-alt me-1 text-muted" aria-hidden="true" style="pointer-events: none; opacity: 0.5;"></i>';
+                echo '<i class="fa-solid fa-trash-alt me-1 text-muted" aria-hidden="true" style="pointer-events: none; opacity: 0.5;"></i>';
             }
             echo "</td>";
             echo "</tr>";

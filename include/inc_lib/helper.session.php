@@ -558,7 +558,7 @@ function handle_csrf_error($reason)
                 <div id="header-logo" class="navbar-header">
                     <a href="<?php echo PHPWCMS_URL . get_login_file(); ?>" class="navbar-brand"><img class="border-0" src="<?php echo $logo_svg; ?>" alt="phpwcms Content Management System" title="phpwcms Content Management System" /></a>
                 </div>
-                <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
+                <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa-solid fa-bars"></span></a>
             </div>
         </header>
 
@@ -569,7 +569,7 @@ function handle_csrf_error($reason)
                         <div class="card mt-5 shadow-sm">
                             <div class="card-header text-center pt-4 bg-danger text-white">
                                 <div class="text-white mb-3">
-                                    <i class="fa fa-exclamation-triangle fa-3x"></i>
+                                    <i class="fa-solid fa-exclamation-triangle fa-3x"></i>
                                 </div>
                                 <h2 class="card-title text-white mb-0"><strong><?php echo html_specialchars($reason_title); ?></strong></h2>
                             </div>

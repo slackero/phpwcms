@@ -145,12 +145,12 @@ if ($msg_send_ok) {
 
             <div class="col-md-2 d-flex flex-column align-items-center justify-content-center my-md-0">
                 <button type="button" class="btn btn-sm btn-secondary mb-2" onclick="opt.transferRight();" title="Remove selected">
-                    <i class="fa fa-arrow-right d-none d-md-inline"></i>
-                    <i class="fa fa-arrow-down d-inline d-md-none"></i>
+                    <i class="fa-solid fa-arrow-right d-none d-md-inline"></i>
+                    <i class="fa-solid fa-arrow-down d-inline d-md-none"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-secondary" onclick="opt.transferLeft();" title="Add selected">
-                    <i class="fa fa-arrow-left d-none d-md-inline"></i>
-                    <i class="fa fa-arrow-up d-inline d-md-none"></i>
+                    <i class="fa-solid fa-arrow-left d-none d-md-inline"></i>
+                    <i class="fa-solid fa-arrow-up d-inline d-md-none"></i>
                 </button>
                 <input name="msg_send_receiver" type="hidden" id="msg_send_receiver2">
                 <input name="msg_send_aktion" type="hidden" id="msg_send_aktion" value="1">
@@ -187,7 +187,7 @@ if ($msg_send_ok) {
     </div>
     <div class="card-footer text-end">
         <button type="submit" name="submit" class="btn btn-sm btn-blue fw-bold">
-            <i class="fa fa-paper-plane me-1"></i><?php echo $BL['be_msg_all']; ?>
+            <i class="fa-solid fa-paper-plane me-1"></i><?php echo $BL['be_msg_all']; ?>
         </button>
     </div>
 </div>

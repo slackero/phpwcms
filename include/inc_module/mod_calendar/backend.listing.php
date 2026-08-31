@@ -163,9 +163,9 @@ if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar'])
 
 	<div class="mb-3 text-center">
 		<div class="btn-group btn-group">
-			<button class="btn btn-blue btn-sm" onclick="location.href='<?php echo $plugin['loc_prev_month'] ?>';return false;"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button>
+			<button class="btn btn-blue btn-sm" onclick="location.href='<?php echo $plugin['loc_prev_month'] ?>';return false;"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button>
 			<button class="btn btn-muted btn-sm" onclick="location.href='<?php echo $plugin['loc_this_month'] ?>';return false;"><?php echo $BLM['today'] ?></button>
-			<button class="btn btn-blue btn-sm" onclick="location.href='<?php echo $plugin['loc_next_month'] ?>';return false;"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button>
+			<button class="btn btn-blue btn-sm" onclick="location.href='<?php echo $plugin['loc_next_month'] ?>';return false;"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button>
 		</div>
     </div>
 
@@ -390,7 +390,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 
             echo '<p class="mb-1"><a class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="'.$BLM['be_tt_edit'].'" href="'.MODULE_HREF.'&amp;edit='.$_entry['date']['calendar_id'].'"';
             if($_entry['date']['calendar_status'] == 0) echo ' class="off"';
-            echo '><i class="fa fa-pencil-alt" aria-hidden="true"></i></a>';
+            echo '><i class="fa-solid fa-pencil-alt" aria-hidden="true"></i></a>';
 
             echo '<a class="btn btn-sm btn-danger ms-1 me-2" href="'.MODULE_HREF.'&amp;delete='.$_entry['date']['calendar_id'];
             echo '" data-bs-toggle="tooltip" title="'.$BLM['delete'].': '. $_entry['link '] .'"';

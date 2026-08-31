@@ -31,7 +31,7 @@ if (!empty($_SESSION['wcs_user_admin'])) {
 <div class="card">
   <div class="card-header">
       <h2>
-          <i class="fa <?php echo $profile_icon; ?> me-1" aria-hidden="true"></i>
+          <i class="fa-solid <?php echo $profile_icon; ?> me-1" aria-hidden="true"></i>
           <?php echo $BL['be_profile_account_title'] ?>
       </h2>
   </div>
@@ -166,7 +166,7 @@ if (!empty($_SESSION['wcs_user_admin'])) {
     </div>
 
     <div class="form-group mt-4 mb-0 text-end">
-       <button type="submit" name="Submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_profile_account_button'] ?></button>
+       <button type="submit" name="Submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_profile_account_button'] ?></button>
     </div>
 
     <input name="form_aktion" type="hidden" id="form_aktion" value="update_account">
@@ -188,23 +188,23 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
 
 <div class="card mt-4">
   <div class="card-header">
-    <h2><i class="fa fa-shield-alt" aria-hidden="true"></i> <?php echo $BL['be_profile_2fa_title'] ?? 'Two-Factor Authentication (2FA)'; ?></h2>
+    <h2><i class="fa-solid fa-shield-alt" aria-hidden="true"></i> <?php echo $BL['be_profile_2fa_title'] ?? 'Two-Factor Authentication (2FA)'; ?></h2>
   </div>
   <div class="card-body">
     <p><?php echo $BL['be_profile_2fa_text'] ?? 'Protect your account by requiring an additional 6-digit code from an authenticator app during login.'; ?></p>
 
     <?php if (!empty($tfa_msg)): ?>
-      <div class="alert alert-success"><i class="fa fa-check-circle me-1"></i> <?php echo html($tfa_msg); ?></div>
+      <div class="alert alert-success"><i class="fa-solid fa-check-circle me-1"></i> <?php echo html($tfa_msg); ?></div>
     <?php endif; ?>
     <?php if (!empty($tfa_err)): ?>
-      <div class="alert alert-danger"><i class="fa fa-exclamation-triangle me-1"></i> <?php echo html($tfa_err); ?></div>
+      <div class="alert alert-danger"><i class="fa-solid fa-exclamation-triangle me-1"></i> <?php echo html($tfa_err); ?></div>
     <?php endif; ?>
 
     <?php if ($has_2fa_enabled): ?>
 
       <div class="d-flex align-items-center mb-4">
         <span class="badge text-bg-success px-3 py-2 me-3" style="font-size: 0.95rem;">
-          <i class="fa fa-check-circle me-1"></i> <?php echo $BL['be_profile_2fa_enabled'] ?? 'Enabled'; ?>
+          <i class="fa-solid fa-check-circle me-1"></i> <?php echo $BL['be_profile_2fa_enabled'] ?? 'Enabled'; ?>
         </span>
         <span class="text-muted small">
           <?php echo $stored_backup_codes > 0 ? sprintf($BL['be_profile_2fa_backup_count'] ?? '%d backup recovery codes available', $stored_backup_codes) : ($BL['be_profile_2fa_backup_none'] ?? 'No backup codes available'); ?>
@@ -213,14 +213,14 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
 
       <?php if (!empty($_SESSION['new_2fa_backup_codes'])): ?>
         <div class="alert alert-warning border p-3 mb-4">
-          <h5 class="alert-heading fw-bold mb-2"><i class="fa fa-key me-1"></i> <?php echo $BL['be_profile_2fa_backup_title'] ?? 'Backup Recovery Codes'; ?></h5>
+          <h5 class="alert-heading fw-bold mb-2"><i class="fa-solid fa-key me-1"></i> <?php echo $BL['be_profile_2fa_backup_title'] ?? 'Backup Recovery Codes'; ?></h5>
           <p class="small mb-3"><?php echo $BL['be_profile_2fa_backup_text'] ?? 'Save these single-use recovery codes in a safe place:'; ?></p>
           <div class="row bg-white p-3 border rounded font-monospace fw-bold mb-2">
             <?php foreach ($_SESSION['new_2fa_backup_codes'] as $bcode): ?>
               <div class="col-sm-6 col-md-3 py-1"><?php echo html($bcode); ?></div>
             <?php endforeach; ?>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('<?php echo implode('\n', $_SESSION['new_2fa_backup_codes']); ?>'); alert('Backup codes copied to clipboard!');"><i class="fa fa-copy me-1"></i> Copy Codes</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('<?php echo implode('\n', $_SESSION['new_2fa_backup_codes']); ?>'); alert('Backup codes copied to clipboard!');"><i class="fa-solid fa-copy me-1"></i> Copy Codes</button>
         </div>
         <?php unset($_SESSION['new_2fa_backup_codes']); ?>
       <?php endif; ?>
@@ -233,7 +233,7 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
             <input type="password" class="form-control form-control-sm" name="disable_2fa_password" id="disable_2fa_pass" placeholder="<?php echo $BL['be_profile_2fa_currpass_placeholder'] ?? 'Enter current password to disable'; ?>" required="required" autocomplete="current-password" />
           </div>
           <div class="col-sm-auto mt-2 mt-sm-0">
-            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-power-off me-1"></i> <?php echo $BL['be_profile_2fa_btn_disable'] ?? 'Disable 2FA'; ?></button>
+            <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-power-off me-1"></i> <?php echo $BL['be_profile_2fa_btn_disable'] ?? 'Disable 2FA'; ?></button>
           </div>
         </div>
       </form>
@@ -261,7 +261,7 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
             <p class="small text-muted mb-2"><?php echo $BL['be_profile_2fa_step1_text'] ?? 'Scan this QR code with your authenticator app, or enter the secret key manually:'; ?></p>
             <p class="mb-3">
               <span class="badge text-bg-secondary p-2 font-monospace" style="font-size: 1rem; letter-spacing: 0.1em;"><?php echo chunk_split($setup_secret, 4, ' '); ?></span>
-              <button type="button" class="btn btn-sm btn-light border ms-2" onclick="copyToClipboard('<?php echo $setup_secret; ?>'); alert('Secret key copied!');" title="Copy Secret"><i class="fa fa-copy"></i></button>
+              <button type="button" class="btn btn-sm btn-light border ms-2" onclick="copyToClipboard('<?php echo $setup_secret; ?>'); alert('Secret key copied!');" title="Copy Secret"><i class="fa-solid fa-copy"></i></button>
             </p>
 
             <hr />
@@ -273,11 +273,11 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
               <input type="hidden" name="form_aktion" value="enable_2fa" />
               <div class="input-group input-group-sm me-2 mb-2">
                 
-                  <span class="input-group-text"><i class="fa fa-key"></i></span>
+                  <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
                 
                 <input type="text" name="verify_2fa_code" class="form-control" style="max-width: 140px;" placeholder="123456" maxlength="6" pattern="[0-9]{6}" required="required" autocomplete="one-time-code" />
               </div>
-              <button type="submit" class="btn btn-sm btn-success mb-2"><i class="fa fa-shield-alt me-1"></i> <?php echo $BL['be_profile_2fa_btn_confirm'] ?? 'Confirm & Enable 2FA'; ?></button>
+              <button type="submit" class="btn btn-sm btn-success mb-2"><i class="fa-solid fa-shield-alt me-1"></i> <?php echo $BL['be_profile_2fa_btn_confirm'] ?? 'Confirm & Enable 2FA'; ?></button>
             </form>
           </div>
         </div>

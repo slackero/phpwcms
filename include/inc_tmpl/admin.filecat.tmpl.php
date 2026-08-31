@@ -23,7 +23,7 @@ if(isset($_GET['open'])) {
 
 <h1><?php echo $BL['be_admin_fcat_title'] ?></h1>
 <div class="card">
-  <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_cnt_title_overview'] ?></h2></div>
+  <div class="card-header"><h2><i class="fa-solid fa-list"></i> <?php echo $BL['be_cnt_title_overview'] ?></h2></div>
   <div class="card-body">
 
   <?php
@@ -120,8 +120,8 @@ if(isset($_GET['open'])) {
 
             <div class="form-group row mb-0">
                 <div class="col-sm-9 offset-sm-3">
-                    <button name="Submit" type="submit" class="btn btn-blue btn-sm fw-bold" value="1"><i class="fa fa-rotate me-1"></i><?php echo $sendbutton ?></button>
-                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ms-3"><i class="fa fa-times me-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
+                    <button name="Submit" type="submit" class="btn btn-blue btn-sm fw-bold" value="1"><i class="fa-solid fa-rotate me-1"></i><?php echo $sendbutton ?></button>
+                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ms-3"><i class="fa-solid fa-times me-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
                 </div>
             </div>
         </div>
@@ -240,8 +240,8 @@ if(isset($_GET['open'])) {
 
             <div class="form-group row mb-0">
                 <div class="col-sm-9 offset-sm-3">
-                    <button name="Submit" type="submit" class="btn btn-blue btn-sm fw-bold" value="1"><i class="fa fa-rotate me-1"></i><?php echo $sendbutton ?></button>
-                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ms-3"><i class="fa fa-times me-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
+                    <button name="Submit" type="submit" class="btn btn-blue btn-sm fw-bold" value="1"><i class="fa-solid fa-rotate me-1"></i><?php echo $sendbutton ?></button>
+                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ms-3"><i class="fa-solid fa-times me-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
                 </div>
             </div>
         </div>
@@ -266,17 +266,17 @@ if(isset($_GET['open'])) {
           echo "<tr class=\"table-secondary fw-bold scroll-anchor\" id=\"fcat_".$row["fcat_id"]."\">\n";
           echo "<td>";
           echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&p=7&open=".$row["fcat_id"].":".(empty($_SESSION["fcatlist"][$row["fcat_id"]])?1:0)."#fcat_".$row["fcat_id"]."\">" : "";
-          echo "<i class=\"fa fa-fw fa-caret-".(($child_count) ? (empty($_SESSION["fcatlist"][$row["fcat_id"]]) ? "right" : "down") : "right")." text-muted me-1\"></i>".(($child_count) ? "</a>" : "");
+          echo "<i class=\"fa-solid fa-fw fa-caret-".(($child_count) ? (empty($_SESSION["fcatlist"][$row["fcat_id"]]) ? "right" : "down") : "right")." text-muted me-1\"></i>".(($child_count) ? "</a>" : "");
           echo "<span".(($row["fcat_needed"])?" class=\"text-danger\"":"").">".html($row["fcat_name"])."</span> <span class=\"badge text-bg-light border ms-1\">".$row["fcat_sort"]."</span></td>\n";
 
           echo '<td class="text-end text-nowrap">';
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="fcat-actions-'.$row["fcat_id"].'">';
 
           echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=0&cid=".$row["fcat_id"]."\" class=\"btn btn-sm btn-blue\" title=\"".$BL['be_admin_fcat_addkey']."\">";
-          echo "<i class=\"fa fa-plus\"></i></a>";
+          echo "<i class=\"fa-solid fa-plus\"></i></a>";
 
           echo "<a href=\"phpwcms.php?do=admin&p=7&fcatid=".$row["fcat_id"]."\" class=\"btn btn-sm btn-blue\" title=\"".$BL['be_admin_fcat_editcat']."\">";
-          echo "<i class=\"fa fa-pencil-alt\"></i></a>";
+          echo "<i class=\"fa-solid fa-pencil-alt\"></i></a>";
 
           echo "<a href=\"include/inc_act/act_filecat.php?do=1,".$row["fcat_id"].",".(($row["fcat_aktiv"])?0:1)."\" class=\"btn btn-sm ".($row["fcat_aktiv"] ? 'btn-success' : 'btn-warning')."\" title=\"".$BL['be_fprivfunc_cactivefile']."\">";
           echo "<i class=\"fas ".($row["fcat_aktiv"] ? 'fa-eye' : 'fa-eye-slash')."\"></i></a>";
@@ -294,11 +294,11 @@ if(isset($_GET['open'])) {
               if(isset($kresult[0]['fkey_id'])) {
                   foreach($kresult as $krow) {
                       echo "<tr>\n";
-                      echo "<td class=\"ps-4\"><i class=\"fa fa-key text-muted me-2\"></i>".html($krow['fkey_name'])." <span class=\"badge text-bg-light border ms-1\">".$krow['fkey_sort']."</span></td>\n";
+                      echo "<td class=\"ps-4\"><i class=\"fa-solid fa-key text-muted me-2\"></i>".html($krow['fkey_name'])." <span class=\"badge text-bg-light border ms-1\">".$krow['fkey_sort']."</span></td>\n";
                       echo "<td class=\"text-end text-nowrap\">";
                       echo '<div class="btn-group btn-group-sm" role="group" aria-label="fkey-actions-'.$krow['fkey_id'].'">';
                       echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=".$krow['fkey_id']."&cid=".$row['fcat_id']."\" class=\"btn btn-sm btn-blue\" title=\"".$BL['be_admin_fcat_editkey']."\">";
-                      echo "<i class=\"fa fa-pencil-alt\"></i></a>";
+                      echo "<i class=\"fa-solid fa-pencil-alt\"></i></a>";
                       echo "<a href=\"include/inc_act/act_filecat.php?do=2,".$krow['fkey_id'].",".(($krow['fkey_aktiv'])?0:1)."\" class=\"btn btn-sm ".($krow['fkey_aktiv'] ? 'btn-success' : 'btn-warning')."\" title=\"".$BL['be_fprivfunc_cactivefile']."\">";
                       echo "<i class=\"fas ".($krow['fkey_aktiv'] ? 'fa-eye' : 'fa-eye-slash')."\"></i></a>";
                       echo '</div>';
@@ -316,7 +316,7 @@ if(isset($_GET['open'])) {
 ?>
 
     <a href="phpwcms.php?do=admin&amp;p=7&amp;fcatid=0" class="btn btn-blue btn-sm fw-bold" title="<?php echo $BL['be_admin_fcat_addcat'] ?>">
-        <i class="fa fa-plus me-1"></i><?php echo $BL['be_admin_fcat_addcat'] ?>
+        <i class="fa-solid fa-plus me-1"></i><?php echo $BL['be_admin_fcat_addcat'] ?>
     </a>
 </div>
 </div>

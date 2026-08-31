@@ -22,7 +22,7 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
 <h1 class="text-center text-sm-start"><?php echo $BL['be_subnav_article_center'] ?></h1>
 <div class="card">
-<div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_article_title'] ?></h2></div>
+<div class="card-header"><h2><i class="fa-solid fa-list"></i> <?php echo $BL['be_article_title'] ?></h2></div>
 <div class="table-responsive" style="overflow-x: inherit">
 <table class="table table-sm table-valign-middle mb-0">
 <?php
@@ -71,13 +71,13 @@ $a .= "<table class=\"table-borderless\">\n<tr>\n";
 $a .= '<td class="text-nowrap">';
 $a .= ($child_count) ? '<a href="phpwcms.php?do=articles&amp;open=0:'.(empty($_SESSION["structure"][0]) ? 1 : 0).'#struct_0">' : '';
 
-$a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
+$a .= '<i class="fa-solid fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
 $a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
 $info  = '<table class="text-start"><tr><td>ID:</td><td><b>0</b></td></tr>';
 $info .= '<tr><td>ALIAS:</td><td>'.$indexpage["acat_alias"].'</td></tr></table>';
 
-$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="'.html($info).'"></i>';
+$a .= '<i class="fa-solid fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="'.html($info).'"></i>';
 
 $a .= "</td>\n";
 $a .= '<td width="97%"><strong class="ms-1">'.$an."</strong></td>\n</tr>\n</table></td>\n";

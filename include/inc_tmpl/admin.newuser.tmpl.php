@@ -91,7 +91,7 @@ if(empty($user_ok)) {
 
 		<h1><?php echo $BL['be_subnav_admin_users'] ?></h1>
 		<div class="card mb-4">
-		<div class="card-header"><h2><i class="fa fa-user-plus" aria-hidden="true"></i> <?php echo $BL['be_admin_usr_title'] ?></h2></div>
+		<div class="card-header"><h2><i class="fa-solid fa-user-plus" aria-hidden="true"></i> <?php echo $BL['be_admin_usr_title'] ?></h2></div>
 		<div class="card-body">
 
 				<?php
@@ -187,8 +187,8 @@ if(empty($user_ok)) {
 
   <div class="form-group align-items-center mt-4 mb-0">
     <input name="form_aktion" type="hidden" value="create_account" />
-    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-plus"></i> <?php echo $BL['be_admin_usr_button'] ?></button>
-    <a href="phpwcms.php?do=admin" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-plus"></i> <?php echo $BL['be_admin_usr_button'] ?></button>
+    <a href="phpwcms.php?do=admin" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
   </div>
 </form>
 

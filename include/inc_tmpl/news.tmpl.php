@@ -34,7 +34,7 @@ $news = new phpwcmsNews();
     <h1><?php echo $BL['be_news'] ?></h1>
   </div>
   <div class="col text-center text-sm-end mb-3">
-    <a class="btn btn-sm btn-blue" href="<?php echo $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?php echo $BL['be_news_create'] ?>"><i class="fa fa-plus"></i> <?php echo $BL['be_news_create'] ?></a>
+    <a class="btn btn-sm btn-blue" href="<?php echo $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?php echo $BL['be_news_create'] ?>"><i class="fa-solid fa-plus"></i> <?php echo $BL['be_news_create'] ?></a>
   </div>
 </div>
 
@@ -90,7 +90,7 @@ $news = new phpwcmsNews();
             <div class="input-group">
                 <input name="filter" id="filter" size="15" data-bs-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_for'] ?> <?php echo $BL['be_text_full'] ?>" class="form-control form-control-sm" value="<?php echo html($news->filter) ?>" type="search">
                 
-                    <button class="btn btn-sm btn-secondary" name="gofilter" type="submit"><i class="fa fa-filter me-1"></i> <?php echo $BL['be_filter'] ?></button>
+                    <button class="btn btn-sm btn-secondary" name="gofilter" type="submit"><i class="fa-solid fa-filter me-1"></i> <?php echo $BL['be_filter'] ?></button>
                 
             </div>
         </div>
@@ -117,7 +117,7 @@ $news = new phpwcmsNews();
 </div>
 </div>
 <div class="form-group text-center text-sm-end mt-4">
-  <a class="btn btn-sm btn-blue" href="<?php echo $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?php echo $BL['be_news_create'] ?>"><i class="fa fa-plus"></i> <?php echo $BL['be_news_create'] ?></a>
+  <a class="btn btn-sm btn-blue" href="<?php echo $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?php echo $BL['be_news_create'] ?>"><i class="fa-solid fa-plus"></i> <?php echo $BL['be_news_create'] ?></a>
 </div>
 
 <?php
@@ -254,15 +254,15 @@ $(function(){
       <h1><?php echo $BL['be_news'] ?></h1>
     </div>
     <div class="col-sm text-center text-sm-end mb-3">
-      <button name="new" type="button" class="btn btn-sm btn-blue me-sm-3 mb-1 mb-sm-0" onclick="emptyNews();"><i class="fa fa-plus"></i> <?php echo ($BL['be_news_create']) ?></button>
+      <button name="new" type="button" class="btn btn-sm btn-blue me-sm-3 mb-1 mb-sm-0" onclick="emptyNews();"><i class="fa-solid fa-plus"></i> <?php echo ($BL['be_news_create']) ?></button>
       <?php if($news->data['cnt_id']) { ?>
-      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
-      <button name="save" type="submit" class="btn btn-sm btn-blue ms-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
+      <button name="save" type="submit" class="btn btn-sm btn-blue ms-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
     <?php } else { ?>
-      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_fcat_button2'] ?></button>
-      <button name="save" type="submit" class="btn btn-sm btn-blue ms-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_admin_fcat_button2'] ?></button>
+      <button name="save" type="submit" class="btn btn-sm btn-blue ms-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
      <?php } ?>
-      <button name="close" type="button" class="btn btn-sm btn-danger ms-sm-3 mb-1 mb-sm-0" onclick="closeForm();"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></button>
+      <button name="close" type="button" class="btn btn-sm btn-danger ms-sm-3 mb-1 mb-sm-0" onclick="closeForm();"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></button>
     </div>
   </div>
 
@@ -473,9 +473,9 @@ if($news->data['cnt_id']) {
         <label for="cnt_image_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_image'] ?></label>
         <div class="col-sm-4">
             <div class="input-group">
-                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7&amp;target=summary" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
+                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=7&amp;target=summary" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
                 <input name="cnt_image_name" type="text" id="cnt_image_name" class="form-control form-control-sm" value="<?php echo html($news->data['cnt_image']['name']) ?>" maxlength="250" onfocus="this.blur()" />
-                <a href="#" class="btn btn-sm btn-danger trash" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i></a>
+                <a href="#" class="btn btn-sm btn-danger trash" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><i class="fa-solid fa-trash-alt fa-fw" aria-hidden="true"></i></a>
             </div>
             <input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?php echo $news->data['cnt_image']['id'] ?>" />
         </div>
@@ -545,9 +545,9 @@ if($news->data['cnt_id']) {
         </select>
       </div>
       <div class="col-sm-auto">
-        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=summary" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.getElementById('cfile_list'));return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.getElementById('cfile_list'));return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=summary" ><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.getElementById('cfile_list'));return false;"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.getElementById('cfile_list'));return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
         <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.getElementById('cfile_list'));return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
       </div>
   </div>
@@ -590,7 +590,7 @@ if($news->data['cnt_id']) {
     <label for="cnt_link" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_read_more_link'] ?></label>
     <div class="col-sm-4">
         <div class="input-group">
-            <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=1" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></button>
+            <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=1" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
             <input type="text" name="cnt_link" id="cnt_link" value="<?php echo html_entities($news->data['cnt_link']) ?>" class="form-control form-control-sm" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>" />
         </div><?php
           if (intval($news->data['cnt_link'])> 0) {
@@ -662,15 +662,15 @@ if($news->data['cnt_id']) {
 
   <div class="row mt-4 text-end">
     <div class="col">
-      <button name="new" type="button" class="btn btn-sm btn-blue me-sm-3 mb-1 mb-sm-0" onclick="emptyNews();"><i class="fa fa-plus"></i> <?php echo ($BL['be_news_create']) ?></button>
+      <button name="new" type="button" class="btn btn-sm btn-blue me-sm-3 mb-1 mb-sm-0" onclick="emptyNews();"><i class="fa-solid fa-plus"></i> <?php echo ($BL['be_news_create']) ?></button>
       <?php if($news->data['cnt_id']) { ?>
-      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
-      <button name="save" type="submit" class="btn btn-sm btn-blue ms-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
+      <button name="save" type="submit" class="btn btn-sm btn-blue ms-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
     <?php } else { ?>
-      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa fa-rotate"></i> <?php echo $BL['be_admin_fcat_button2'] ?></button>
-      <button name="save" type="submit" class="btn btn-sm btn-blue ms-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_admin_fcat_button2'] ?></button>
+      <button name="save" type="submit" class="btn btn-sm btn-blue ms-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
      <?php } ?>
-      <button name="close" type="button" class="btn btn-sm btn-danger ms-sm-3 mb-1 mb-sm-0" onclick="closeForm();"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></button>
+      <button name="close" type="button" class="btn btn-sm btn-danger ms-sm-3 mb-1 mb-sm-0" onclick="closeForm();"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></button>
     </div>
   </div>
 

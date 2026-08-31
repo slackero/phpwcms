@@ -88,8 +88,8 @@ if($subscription["id"]) {
       <div class="form-group row mt-4 mb-0">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
-          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_button_save']) ?></button>
-          <a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=2"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_button_save']) ?></button>
+          <a class="btn btn-sm btn-danger ms-3" href="phpwcms.php?do=messages&amp;p=2"><i class="fa-solid fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
         </div>
       </div>
 
