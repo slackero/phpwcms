@@ -885,26 +885,28 @@ function getFormTrackingValue() {
     return '<input type="hidden" name="' . $hash . '" value="' . $entry_id . '">';
 }
 
+/**
+ * Check that the form was submitted through a valid form tracking
+ * field rendered by renderFormTrackingHiddenField() — the field name
+ * is a hash of IP, salt and hour, valid for the current and previous hour.
+ *
+ * @return bool
+ */
 function checkFormTrackingValue() {
-    // compare given tracking value against db tracking entry
     $ip = getRemoteIP();
     $salt = getFormTrackingSalt();
     $hash1 = md5($ip . $salt . date('G'));
     $hash2 = md5($ip . $salt . date('G', time() - 3600)); // max form delay of 1 hour
-    $valid = false;
     if (isset($_POST[$hash1])) {
-        // form method POST
-        $entry_id = (int)$_POST[$hash1];
-        $valid = true;
         unset($_POST[$hash1]);
-    } elseif (isset($_POST[$hash2])) {
-        // form method POST 1 hour ago
-        $entry_id = (int)$_POST[$hash2];
-        $valid = true;
+        return true;
+    }
+    if (isset($_POST[$hash2])) {
         unset($_POST[$hash2]);
+        return true;
     }
 
-    return $valid;
+    return false;
 }
 
 function cleanUpSpecialHtmlEntities($string = '') {
@@ -1302,23 +1304,16 @@ function return_bytes_shorten($val, $round = 2, $return_bytes = 0) {
     return $val;
 }
 
+/**
+ * Convert PHP ini shorthand size values (128M, 2G, 512K)
+ * to bytes. Thin wrapper around getBytes(), kept for the
+ * ini-get use case it was originally written for.
+ *
+ * @param mixed $val Size shorthand or numeric value
+ * @return int|mixed
+ */
 function return_bytes($val) {
-    // taken from: http://de3.php.net/manual/en/function.ini-get.php
-    $val = strtolower(trim($val));
-    $last = substr($val, -1);
-    $val = floatval($val);
-    switch ($last) {
-        case 't':
-            $val *= 1024;
-        case 'g':
-            $val *= 1024;
-        case 'm':
-            $val *= 1024;
-        case 'k':
-            $val *= 1024;
-    }
-
-    return ceil($val);
+    return getBytes($val);
 }
 
 function return_upload_errormsg($value) {
@@ -2429,24 +2424,35 @@ function attribute_name_clean($name = '') {
 }
 
 /**
- * Try alternative way to test for bool value
+ * Boolean conversion with handling of common boolean word values
+ * (FALSE/NO/N/OFF, TRUE/YES/Y/ON) for string input.
  *
- * @param mixed
- * @param bool
+ * Bool, null and 0 are returned directly. Strict mode only accepts
+ * the known true word list for strings; everything else falls back
+ * to PHP truthiness.
+ *
+ * @param mixed $BOOL Value to convert to bool
+ * @param bool $STRICT Restrict string true detection to the known true word list
+ * @return bool
  */
 function phpwcms_boolval($BOOL, $STRICT = false) {
-    if (function_exists('boolval')) {
-        return boolval($BOOL);
+    if (is_bool($BOOL)) {
+        return $BOOL;
+    }
+    if ($BOOL === null) {
+        return false;
+    }
+    if ($BOOL === 0) {
+        return false;
     }
     if (is_string($BOOL)) {
         $BOOL = strtoupper($BOOL);
-    }
-    // no strict test, check only against false bool
-    if (!$STRICT && in_array($BOOL, array(false, 0, null, 'FALSE', 'NO', 'N', 'OFF', '0'), true)) {
-        return false;
-        // strict, check against true bool
-    } elseif ($STRICT && in_array($BOOL, array(true, 1, 'TRUE', 'YES', 'Y', 'ON', '1'), true)) {
-        return true;
+        if (in_array($BOOL, array('FALSE', 'NO', 'N', 'OFF', '0'), true)) {
+            return false;
+        }
+        if ($STRICT && in_array($BOOL, array('TRUE', 'YES', 'Y', 'ON', '1'), true)) {
+            return true;
+        }
     }
 
     // let PHP decide
@@ -2508,12 +2514,12 @@ function convert_rel2abs($text, $base) {
     if (substr($base, -1, 1) !== '/') {
         $base .= '/';
     }
-    // Fix a href
-    $pattern = "/<a([^>]*) href=\"([^http|ftp|https|mailto|tel|fax|###DELETE_LINK###|###SITE_URL###][^\"]*)\"/";
+    // Fix a href - skip absolute URLs, other protocols, placeholders, anchors and empty hrefs
+    $pattern = "/<a([^>]*) href=\"(?!(?:https?|ftp|mailto|tel|fax):|###DELETE_LINK###|###SITE_URL###|\"|#)([^\"]*)\"/";
     $replace = "<a\${1} href=\"" . $base . "\${2}\"";
     $text = preg_replace($pattern, $replace, $text);
     // Fix img src
-    $pattern = "/<img([^>]*) src=\"([^http|ftp|https][^\"]*)\"/";
+    $pattern = "/<img([^>]*) src=\"(?!(?:https?|ftp):|\")([^\"]*)\"/";
     $replace = "<img\${1} src=\"" . $base . "\${2}\"";
     $text = preg_replace($pattern, $replace, $text);
 

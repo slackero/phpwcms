@@ -134,10 +134,6 @@ if(count($block['css'])) {
 
 $content['page_start'] .= $block["htmlhead"];
 
-if(!empty($phpwcms['IE7-js']) && $phpwcms['USER_AGENT']['agent'] == 'IE' && version_compare($phpwcms['USER_AGENT']['version'], '9.0', '<')) {
-    $content['page_start'] .= '  <!--[if lt IE 9]><script type="text/javascript" src="'.TEMPLATE_PATH.'lib/ie7-js/IE9.js"></script><![endif]-->'.LF;
-}
-
 $content['page_start'] .= '</head>'.LF;
 
 // inject body tag in case of class or id attribute
