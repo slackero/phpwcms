@@ -478,20 +478,17 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
 
 function countNewsletterRecipients($target) {
     // try to count all recipients for special newsletter
-    $recipients = _dbQuery('SELECT address_id, address_subscription FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1');
-    $counter    = 0;
-    $check      = !(empty($target) || !is_array($target) || !count($target));
-    foreach($recipients as $value) {
-        if (empty($value['address_subscription'])) {
-            $counter++;
-            continue;
-        }
+    // recipients without explicit subscription count as subscribed to every newsletter
+    $counter = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1 AND (address_subscription = "" OR address_subscription IS NULL)', 'COUNT');
 
-        if($check) {
-            $value['address_subscription'] = @unserialize($value['address_subscription'], ['allowed_classes' => false]);
-            if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
-                foreach($value['address_subscription'] as $subscr) {
-                    if(in_array(intval($subscr), $target)) {
+    $target = array_map('intval', is_array($target) ? $target : []);
+    if (count($target)) {
+        $recipients = _dbQuery('SELECT address_subscription FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1 AND address_subscription IS NOT NULL AND address_subscription != ""');
+        foreach ($recipients as $value) {
+            $subscription = @unserialize($value['address_subscription'], ['allowed_classes' => false]);
+            if (is_array($subscription) && count($subscription)) {
+                foreach ($subscription as $subscr) {
+                    if (in_array(intval($subscr), $target)) {
                         $counter++;
                         break;
                     }

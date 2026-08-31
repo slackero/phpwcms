@@ -270,7 +270,7 @@ header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
     <?php echo get_theme_boot_script(); ?>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <script>
-        const CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';
+        const CSRF_GET_TOKEN = <?php echo json_encode(CSRF_GET_TOKEN); ?>;
         if (localStorage.getItem('phpwcms_sidebar_collapsed') === 'true') {
             document.documentElement.classList.add('sidebar-collapsed');
         }

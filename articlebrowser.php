@@ -125,7 +125,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     <script src="include/inc_js/phpwcms.min.js"></script>
     <script src="include/inc_js/bootstrap.bundle.min.js"></script>
     <script>
-        const CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';
+        const CSRF_GET_TOKEN = <?php echo json_encode(CSRF_GET_TOKEN); ?>;
     </script>
 
 
