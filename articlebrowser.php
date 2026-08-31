@@ -104,6 +104,15 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     <?php echo get_theme_boot_script(); ?>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <style>
+        tr[id^="cat-"] {
+            scroll-margin-top: .5rem;
+        }
+        /* expanding jumps to the end of the opened subtree, pinned to the
+           viewport bottom so the whole subtree stays in view */
+        tr[id^="catend-"] {
+            scroll-margin-top: 100vh;
+        }
+
         tr.struct:hover {
             background-color: #CCFF00;
             cursor: default;
@@ -139,7 +148,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
         </script>
     <?php endif; ?>
 </head>
-<body class="filebrowser">
+<body class="articlebrowser">
 <ul class="nav nav-tabs border-0 my-2">
     <li role="presentation" class="nav-item">
         <a href="#" class="btn btn-blue me-2">
@@ -163,11 +172,11 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     $field_param = (isset($_GET['field']) ? '&amp;field=' . clean_slweg($_GET['field']) : '') . ($idtype ? '&amp;idtype=' . $idtype : '');
     $is_root_open = !empty($_SESSION['structure'][0]);
 
-    $a = '<tr bgcolor="#e8e8e8" class="struct">';
+    $a = '<tr bgcolor="#e8e8e8" class="struct" id="cat-0">';
     $a .= '<td>';
     $a .= '<table class="table-borderless w-100"><tr>';
     $a .= '<td class="text-nowrap">';
-    $a .= $child_count ? '<a href="articlebrowser.php?opt=' . $js_aktion . $field_param . '&amp;open=0:' . ($is_root_open ? 0 : 1) . '">' : '';
+    $a .= $child_count ? '<a href="articlebrowser.php?opt=' . $js_aktion . $field_param . '&amp;open=0:' . ($is_root_open ? 0 : 1) . (($is_root_open ? 0 : 1) ? '#catend-0' : '#cat-0') . '">' : '';
 
     $a .= '<i class="fa fa-caret-' . (($child_count) ? ($is_root_open ? 'down' : 'right') : 'right');
     $a .= ' fa-fw" aria-hidden="true"></i>' . (($child_count) ? '</a>' : '');
@@ -196,6 +205,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     if ($is_root_open) {
         struct_articlelist(0, 0, $indexpage['acat_order'], $js, $js_aktion);
         struct_list(0, 0, 0, 0, 0, 0, 0, $listmode, $counter, $js, $js_aktion);
+        echo '<tr id="catend-0"></tr>';
     }
     ?></table>
 
@@ -258,11 +268,12 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $is_open = !empty($_SESSION['structure'][$struct[$key]['acat_id']]);
 
     $an = html($struct[$key]['acat_name']);
-    $a = '<tr class="structarticle">';
+    $a = '<tr class="structarticle" id="cat-' . $struct[$key]['acat_id'] . '">';
     $a .= '<td width="80%">';
     $a .= '<table class="table-borderless"' . '><tr>';
     $a .= '<td class="text-end text-nowrap">';
-    $a .= ($child_count) ? '<a href="articlebrowser.php?opt=' . $js_aktion . $field_param . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . ($is_open ? 0 : 1)) . '">' : '';
+    $target_open = $is_open ? 0 : 1;
+    $a .= ($child_count) ? '<a href="articlebrowser.php?opt=' . $js_aktion . $field_param . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . $target_open) . ($target_open ? '#catend-' : '#cat-') . $struct[$key]['acat_id'] . '">' : '';
     $a .= '<i class="fa fa-caret-' . ($child_count ? ($is_open ? 'down' : 'right') : 'right') . ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>' . ($child_count ? '</a>' : '');
 
     $info = '<table class="text-start">';
@@ -306,6 +317,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
         }
         struct_list($struct[$key]['acat_id'], $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode, $counter, $js, $js_aktion);
 
+        echo '<tr id="catend-' . $struct[$key]['acat_id'] . '"></tr>';
     }
 }
 
