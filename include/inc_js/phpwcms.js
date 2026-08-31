@@ -791,11 +791,6 @@ $(function () {
         }
         const modaltitle = $this.attr('alt') || $this.attr('title') || '';
 
-        $modalBody.css({
-            'overflow-y': 'auto',
-            'min-height': $win.height() * 0.8
-        });
-
         $iframe.attr({'src': src, 'height': '100%', 'width': '100%'});
         $modalHeader.html(modaltitle);
     });

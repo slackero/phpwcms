@@ -1475,12 +1475,21 @@ li.sortme {
     }
 }
 
+/* browserModal: keep modal inside viewport, iframe fills remaining body */
+#browserModal .modal-dialog {
+    margin: 0.5rem auto;
+}
+#browserModal .modal-content {
+    height: calc(100vh - 1rem);
+}
+
 .modal-body-iframe {
     padding: 0;
     margin: 1rem;
     position: relative;
-    height: 1px;
-    min-height: 80vh;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
 }
 
 .modal-body-iframe > .iframe {
@@ -1629,9 +1638,86 @@ table.table-borderless tr > td {
 
 .file-row-even td:first-child, .file-row-odd td:first-child {
   padding-left: 0.3rem !important;
+  padding-right: 0.3rem !important;
 }
 .file-row-even td:last-child, .file-row-odd td:last-child {
   padding-right: 0.3rem !important;
+}
+
+/* filebrowser.php (modal file picker) */
+.filebrowser .file-icon-col {
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.filebrowser .filebrowser-name-col {
+  vertical-align: middle;
+}
+.filebrowser .filebrowser-take-col {
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.filebrowser tr.filebrowser-dir-current > td,
+.filebrowser tr.filebrowser-dir-current {
+  background-color: #fff5c9 !important;
+}
+.filebrowser .filebrowser-thumb-row {
+  border-bottom: 1px solid #ccc;
+}
+/* filebrowser page fills iframe, columns scroll independently */
+body.filebrowser {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+.filebrowser .filebrowser-uploader {
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: 75%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.filebrowser .dropzone {
+  min-height: 3rem;
+  padding: 0.375rem 0.5rem;
+}
+.filebrowser .dropzone .dz-message {
+  margin: 0.25rem 0;
+}
+.filebrowser .dropzone .dz-preview-bs4 {
+  padding: 0.25rem 0.5rem;
+}
+.filebrowser .filebrowser-layout {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+}
+.filebrowser .filebrowser-col {
+  flex: 1 1 50%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.filebrowser .filebrowser-col-head {
+  flex: none;
+}
+.filebrowser .filebrowser-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+[data-bs-theme="dark"] .filebrowser tr.filebrowser-dir-current > td,
+[data-bs-theme="dark"] .filebrowser tr.filebrowser-dir-current {
+  background-color: rgba(255, 193, 7, 0.15) !important;
+}
+[data-bs-theme="dark"] .filebrowser .filebrowser-thumb-row {
+  border-bottom-color: var(--bs-border-color, #495057);
 }
 
 @media (min-width: 992px) {

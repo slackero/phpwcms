@@ -188,18 +188,14 @@ $count_user_files = _dbQuery($sql, 'COUNT');
       </div>
 	</div>
 
-<table class="table table-sm">
-  <tr>
-    <th class="bg-grey" >&nbsp;<?php echo $BL['FOLDER_LIST'] ?></th>
-    <th class="bg-grey px-3">&nbsp;</th>
-    <th class="bg-grey">&nbsp;<?php echo $filetype ?></th>
-  </tr>
-  <tr>
-    <td class="align-top w-50 p-0"><?php
+<div class="filebrowser-layout">
+  <div class="filebrowser-col">
+    <div class="filebrowser-col-head bg-grey ps-3 py-1 fw-bold"><?php echo $BL['FOLDER_LIST'] ?></div>
+    <div class="filebrowser-scroll"><?php
 
 if(!empty($count_user_files)) { //Listing in case of user files/folders
 
-    echo '<table class="table mt-3">'.LF;
+    echo '<table class="table table-sm table-borderless mt-2 mb-0">'.LF;
 
     //Anzeige des Festplattensymbols
     $dirname = $BL['ROOT_DIR'];
@@ -222,10 +218,10 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $current_dirname = $dirname;
 
     $dirname    =  "<a href=\"filebrowser.php?opt=".$js_aktion."&amp;files=0\" title=\"".$BL['SHOW_FILES'].'">'.$dirname."</a>";
-    $bgcol      = (isset($row["f_id"]) && $row["f_id"] == $_SESSION["imgdir"]) ? ' bgcolor="#FFF5C9"' : '';
+    $dir_class  = $_SESSION["imgdir"] == 0 ? ' filebrowser-dir-current' : '';
 
-    echo '<tr'.$bgcol.'><td class="text-nowrap">';
-    echo $count.'<i class="fa fa-desktop fa-fw ps-1 me-2" aria-hidden="true"></i>';
+    echo '<tr class="text-nowrap'.$dir_class.'"><td class="text-nowrap">';
+    echo $count.'<i class="fa fa-desktop fa-fw me-2" aria-hidden="true"></i>';
     echo $dirname.'</td></tr>'.LF;
 
     //Wenn überhaupt Ordner für User vorhanden, dann Listing
@@ -238,13 +234,11 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     echo "no files available";
 }
 
-    ?></td>
-    <td class="align-top px-3">&nbsp;</td>
-    <td class="align-top w-50 p-0"><?php
+    ?></div>
+  </div>
+  <div class="filebrowser-col">
+    <?php
 
-    //Tabelle
-
-    echo '<table class="table table-borderless mt-2">'.LF;
     $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
     switch($js_aktion) {
 
@@ -339,6 +333,24 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     }
 
     $file_result = _dbQuery($file_sql);
+
+    // modes supporting "add all files" (see $add_all in listing loop)
+    $add_all_possible = isset($file_result[0]['f_id']) && in_array($js_aktion, array(1, 3, 4, 5, 9));
+
+    echo '<div class="filebrowser-col-head bg-grey ps-3 py-1 pe-1 fw-bold d-flex align-items-center">';
+    echo '<span class="text-truncate">'.$filetype.'</span>';
+    if($add_all_possible) {
+        echo '<a href="#" class="btn btn-xs btn-blue py-0 px-2 ms-auto text-nowrap" onclick="addAllFiles();return false;" data-bs-toggle="tooltip" title="';
+        echo $BL['ADD_ALL_FILES'].'">';
+        echo $BL['ADD_ALL_FILES'].' <i class="fa fa-plus" aria-hidden="true"></i></a>';
+    }
+    echo '</div>'.LF;
+
+    echo '<div class="filebrowser-scroll">'.LF;
+
+    //Tabelle
+
+    echo '<table class="table table-sm table-borderless mt-2 mb-0">'.LF;
 
     if(isset($file_result[0]['f_id'])) {
 
@@ -447,38 +459,28 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         $add_all = true;
                 }
 
-                // show "add all files"
-                if($file_durchlauf === 0 && $add_all) {
-
-                    echo '<tr id="addAllFilesLink"><td colspan="4"><a href="#" class="btn btn-sm btn-blue" onclick="addAllFiles();return false;" data-bs-toggle="tooltip" title="';
-                    echo $BL['ADD_ALL_FILES'];
-                    echo '">';
-                    echo $BL['ADD_ALL_FILES'];
-                    echo '<i class="fa fa-plus fa-fw" aria-hidden="true"></i></a></td></tr>';
-                }
-
-                echo '<tr'.$row_class.'><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                echo '<tr'.$row_class.'><td class="file-icon-col"><i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
                         echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
                     }
                     echo '"></i></td>';
-                echo '<td>';
+                echo '<td class="filebrowser-name-col">';
 
                 $js_attr = html($js);
 
                 if($js_aktion != 4 && $js_aktion != 10 && $js_aktion != 16) {
-                    echo $filename.'</td><td class="text-end py-1">';
+                    echo $filename.'</td><td class="text-end filebrowser-take-col">';
                 } else if($js_aktion == 16 || $js_aktion == 17) {
-                  echo '<a href="#" onclick="' . $js_attr . 'tmt_winControl(\'self\',\'close()\');">' . $filename . '</a></td><td class="text-end py-1">';
+                  echo '<a href="#" onclick="' . $js_attr . 'tmt_winControl(\'self\',\'close()\');">' . $filename . '</a></td><td class="text-end filebrowser-take-col">';
                 } else {
-                    echo '<a href="#" onclick="' . $js_attr . 'parent.$(\'#browserModal\').modal(\'hide\');">' . $filename . '</a></td><td class="text-end py-1">';
+                    echo '<a href="#" onclick="' . $js_attr . 'parent.$(\'#browserModal\').modal(\'hide\');">' . $filename . '</a></td><td class="text-end filebrowser-take-col">';
                 }
 
-                echo '<a href="#" class="btn btn-sm btn-blue" onclick="' . $js_attr . 'return false;" data-bs-toggle="tooltip" title="' . html($BL['TAKE_IMAGE']) . '">';
+                echo '<a href="#" class="btn btn-xs btn-blue" onclick="' . $js_attr . 'return false;" data-bs-toggle="tooltip" title="' . html($BL['TAKE_IMAGE']) . '">';
                 echo '<i class="fa fa-plus" aria-hidden="true"></i></a></td>';
                 echo '</tr>';
                 if((!empty($thumb_image[0]) || $file_row['f_svg']) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
-                    echo '<tr style="border-bottom: 1px solid #ccc;"'.$row_class.'><td class="py-1" >&nbsp;</td><td class="pb-1 pt-0" colspan="2"><a href="#" onclick="' . $js_attr;
+                    echo '<tr class="filebrowser-thumb-row"'.$row_class.'><td></td><td class="pb-1 pt-0" colspan="2"><a href="#" onclick="' . $js_attr;
                     if($js_aktion == 16 || $js_aktion == 17) {
                       echo "tmt_winControl('self','close()');\">";
                     } else {
@@ -495,13 +497,14 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
         }
         if(count($js_files_select) === 0) { //Abschluss der Filelisten-Tabelle
-            echo '<tr><td colspan="4" class="msglist py-2 text-muted">&nbsp;'.$BL['NO_FILE'].'&nbsp;&nbsp;</td></tr>';
+            echo '<tr><td colspan="4" class="msglist py-2 ps-3 text-muted">'.$BL['NO_FILE'].'</td></tr>';
         }
     } else {
-        echo '<tr><td colspan="4" class="msglist py-2 text-muted">&nbsp;'.$BL['NO_FILE'].'&nbsp;&nbsp;</td></tr>';
+        echo '<tr><td colspan="4" class="msglist py-2 ps-3 text-muted">'.$BL['NO_FILE'].'</td></tr>';
     }
 
-    echo '</table>';
+    echo '</table>'.LF;
+    echo '</div>'.LF;
 
     if( count($js_files_select) ) {
 
@@ -516,7 +519,6 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         echo LF . ' ';
         echo implode(LF . ' ', $js_files_all);
         echo LF . ' //if(closewin == true) '."parent.$('#browserModal').modal('hide');";
-        echo LF . ' document.getElementById("addAllFilesLink").style.display = "none";';
         $confirm = str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']);
         if(PHPWCMS_CHARSET !== 'utf-8') {
             $confirm = mb_convert_encoding($confirm, PHPWCMS_CHARSET);
@@ -539,9 +541,9 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         $fileuploaderAllowedExtensions = "'" . implode("','", $phpwcms['allowed_upload_ext']) . "'";
     }
 
-    ?></td>
-  </tr>
-</table>
+    ?></div>
+  </div>
+</div>
 <script>
 Dropzone.autoDiscover = false;
 
@@ -856,10 +858,10 @@ function folder_list($pid, $counter, $zieldatei) {
             $dirname = '<a href="'.$zieldatei."files=".$row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['SHOW_FILES1'].'">'. $dirname . '</a>';
 
             if($row["f_id"] == $_SESSION["imgdir"]) {
-                $bgcol = ' bgcolor="#FFF5C9"';
+                $bgcol = ' class="text-nowrap filebrowser-dir-current"';
                 $current_dirname = $row["f_name"];
             } else {
-                $bgcol = '';
+                $bgcol = ' class="text-nowrap"';
             }
 
             echo "<tr".$bgcol."><td class=\"text-nowrap\">";
