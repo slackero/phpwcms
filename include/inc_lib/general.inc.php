@@ -332,7 +332,8 @@ function cut_string($string, $endchar = '&#8230;', $length = 20, $trim = 1) {
 
 
 function FileExtension($filename) {
-    return mb_substr(strrchr($filename, "."), 1);
+    $filename = strrchr(trim($filename), '.');
+    return $filename === false ? '' : mb_substr($filename, 1);
 }
 
 function convert_into($extension) {
@@ -2354,8 +2355,9 @@ function strip_bbcode($text) {
 function getBytes($size) {
     if (is_numeric($size)) {
         return $size;
-    } elseif ($size) {
+    } elseif ($size && preg_match('/^([\d.,]+)\s*([A-Za-z]*)$/', trim($size), $match)) {
         $_unit = array(
+            '' => 1,
             'B' => 1,
             'K' => 1024,
             'M' => 1048576,
@@ -2371,13 +2373,9 @@ function getBytes($size) {
             'GIGABYTE' => 1073741824,
             'TERABYTE' => 1099511627776,
         );
-        $size = trim($size);
-        foreach ($_unit as $key => $value) {
-            if (preg_match('/.*?' . $key . '$/i', $size)) {
-                $num = trim(preg_replace('/(.*?)' . $key . '$/i', '$1', $size));
-
-                return ceil((float) $num * $value);
-            }
+        $unit = strtoupper($match[2]);
+        if (isset($_unit[$unit])) {
+            return ceil((float) $match[1] * $_unit[$unit]);
         }
     }
 

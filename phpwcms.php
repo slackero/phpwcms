@@ -43,7 +43,10 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 
 // check against user's language
-if(!empty($_SESSION['wcs_user_lang']) && preg_match('/[a-z]{2}/i', $_SESSION['wcs_user_lang'])) {
+$BE['LANG'] = 'en';
+if(!empty($_SESSION['wcs_user_lang'])
+   && preg_match('/^[a-z]{2}(-[a-z]{2})?$/i', $_SESSION['wcs_user_lang'])
+   && is_dir(PHPWCMS_ROOT.'/include/inc_lang/backend/'. strtolower($_SESSION['wcs_user_lang']))) {
     $BE['LANG'] = $_SESSION['wcs_user_lang'];
 }
 

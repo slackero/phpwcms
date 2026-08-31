@@ -40,8 +40,9 @@ if (empty($_SESSION['wcs_user_lang'])) {
 checkLogin();
 
 if (isset($_GET['open'])) {
-    list($open_id, $open_value) = explode(':', $_GET['open']);
-    $open_id = intval($open_id);
+    $parts = explode(':', $_GET['open']);
+    $open_id = intval($parts[0] ?? 0);
+    $open_value = $parts[1] ?? '';
     $_SESSION['structure'][$open_id] = empty($open_value) ? 0 : 1;
 } elseif (!isset($_SESSION['structure'][0])) {
     $_SESSION['structure'][0] = 1;
@@ -318,10 +319,6 @@ function get_root_childcount($id) {
     return $p1_count + $p2_count;
 }
 
-function get_article_content_count($id) {
-    return _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_trash=0 AND acontent_aid=' . intval($id), 'COUNT');
-}
-
 function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktion) {
 
     global $BL, $idtype;
@@ -374,17 +371,10 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
     foreach ($article as $akey => $avalue) {
 
         $at = html($avalue['article_title']);
-        $acontent_count = get_article_content_count($avalue['article_id']);
-        // caret only useful for content part selection (opt 5) or unfiltered browse
-        $article_caret = ($js_aktion == 5 || $idtype === '');
         $a = '<tr class="struct">';
         $a .= '<td width="100%">';
         $a .= '<table class="table-borderless"><tr>';
         $a .= '<td class="text-nowrap">';
-        if ($article_caret) {
-            $a .= '<i class="fa fa-caret-' . ($acontent_count ? (!empty($_SESSION['structure']['article'][$avalue['article_id']]) ? 'down' : 'right') : 'right');
-            $a .= ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>';
-        }
 
         $info = '<table class="text-start">';
         $info .= '<tr><td>' . $BL['be_func_struct_articleID'] . ':</td><td><b>' . $avalue['article_id'] . '</b></td></tr>';
@@ -407,7 +397,7 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
         }
         $info .= '</table>';
 
-        $a .= '<i class="far fa-file fa-fw' . ($article_caret ? '' : ' alist-' . $counter) . '" aria-hidden="true" data-bs-html="true" data-bs-toggle="tooltip" title="' . html($info) . '"></i> ';
+        $a .= '<i class="far fa-file fa-fw alist-' . $counter . '" aria-hidden="true" data-bs-html="true" data-bs-toggle="tooltip" title="' . html($info) . '"></i> ';
 
         if ($js_aktion == 5) {
             $a .= $at;
