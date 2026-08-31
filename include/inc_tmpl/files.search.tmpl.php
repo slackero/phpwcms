@@ -159,12 +159,6 @@ if(isset($search["result"])) {
         $file_durchlauf = 0;
         //new delete button
         if (empty($_SESSION["wcs_user_admin"])) {
-            $result = _dbGet('phpwcms_usergroup', '*', 'group_active != 9', '', 'group_id');
-            if (isset($result[0])) {
-                foreach ($result as $grouplist) {
-                    $grouparray[$grouplist['group_syskey']] = convertStringToArray($grouplist['group_member']);
-                }
-            }
             $has_filedelete_permission = !empty($grouparray['filedelete']) && in_array($_SESSION['wcs_user_id'], $grouparray['filedelete']);
         } else {
             $has_filedelete_permission = true;

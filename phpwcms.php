@@ -122,7 +122,7 @@ $grouparray = [
 ];
 
 // Ensure all admin users have permissions in SYSGROUPs
-$adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'phpwcms_user` WHERE `usr_admin` = 1');
+$adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'phpwcms_user` WHERE `usr_admin` = 1 AND `usr_aktiv` != 9');
 $adminids = [];
 if (!empty($adminusers)) {
     foreach ($adminusers as $admins) {
@@ -173,6 +173,10 @@ foreach ($all_groups as $group_row) {
 
 foreach ($sys_groups as $syskey => $groupname) {
     if (!isset($groups_by_syskey[$syskey])) {
+        if ($admin_member_str === '') {
+            // no admin users yet - create the group once admins exist
+            continue;
+        }
         $data = [
             'group_name'   => $groupname,
             'group_member' => $admin_member_str,
@@ -208,7 +212,8 @@ foreach ($sys_groups as $syskey => $groupname) {
 }
 
 foreach ($all_groups as $grouplist) {
-    if ($grouplist['group_active'] == 9) {
+    // match the permission gate (is_user_in_group): active and not trashed
+    if ($grouplist['group_active'] != 1 || $grouplist['group_trash'] != 0) {
         continue;
     }
     $grouparray[$grouplist['group_syskey']] = convertStringToArray($grouplist['group_member']);
