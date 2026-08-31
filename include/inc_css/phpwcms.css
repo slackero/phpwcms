@@ -1665,6 +1665,20 @@ table.table-borderless tr > td {
 .filebrowser .filebrowser-thumb-row {
   border-bottom: 1px solid #ccc;
 }
+/* code file icons use the Bootstrap 5 code color (--bs-code-color, pink) */
+.text-code {
+  color: var(--bs-code-color, #d63384) !important;
+}
+
+/* image file icons get a rainbow gradient (font glyph, gradient via text clip) */
+.text-image {
+  background: linear-gradient(135deg, #ff6b6b 0%, #feca57 35%, #48dbfb 70%, #1dd1a1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 /* filebrowser page fills iframe, columns scroll independently */
 body.filebrowser {
   display: flex;

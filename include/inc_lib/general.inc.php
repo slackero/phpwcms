@@ -270,52 +270,9 @@ function fsizelong($zahl, $spacer = '&nbsp;') {
 }
 
 function extimg($ext) {
-    //get extension image
-    $img = array("exe"  => "file",
-                 "com"  => "file",
-                 "bat"  => "filef",
-                 "pdf"  => "file-pdf",
-                 "txt"  => "file-altf",
-                 "xls"  => "file-excel",
-                 "cvs"  => "file-excel",
-                 "rtf"  => "file-alt",
-                 "htm"  => "file-code",
-                 "html" => "file-code",
-                 "pix"  => "file",
-                 "tif"  => "file-image",
-                 "jpg"  => "file-image",
-                 "jpeg" => "file-image",
-                 "gif"  => "file-image",
-                 "png"  => "file-image",
-                 "webp" => "file-image",
-                 "svg"  => "file-image",
-                 "psd"  => "file",
-                 "rar"  => "file-archive",
-                 "zip"  => "file-archive",
-                 "tar"  => "file-archive",
-                 "gzip" => "file-archive",
-                 "sit"  => "file",
-                 "sea"  => "file",
-                 "doc"  => "file-word",
-                 "dot"  => "file",
-                 "ai"   => "file",
-                 "ps"   => "file",
-                 "eps"  => "file",
-                 "gz"   => "file-archive",
-                 "tgz"  => "file-archive",
-                 "aif"  => "file",
-                 "aiff" => "file",
-                 "mp3"  => "file-audio",
-                 "snd"  => "file",
-                 "wav"  => "file-audio",
-                 "mid"  => "file-audio",
-                 "mov"  => "file-video",
-                 "avi"  => "file-video",
-                 "qt"   => "file-video",
-                 "mpeg" => "file-video",
-    );
-
-    return (isset($img[$ext])) ? $img[$ext] : "icon_generic.gif";
+    //get extension icon - delegate to the single extension icon map
+    $map = ext_icon_map();
+    return isset($map[$ext]) ? $map[$ext] : 'file';
 }
 
 function generic_string($length, $i = 0) {

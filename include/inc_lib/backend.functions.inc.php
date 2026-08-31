@@ -35,39 +35,35 @@ if(isset($phpwcms['set_sociallink']) && is_array($phpwcms['set_sociallink'])) {
 }
 
 //new function to build file icons
-function ext_icon($ext) {
-  $image = array("jpg","jpeg","png","gif","tif","tiff","bmp","pic","psd","eps","ai","svg","ps");
-  $code = array("html","xml","ini","sql","db");
-  $pdf = array("pdf");
-  $archive = array("zip","rar","7z","s7z","dmg","bz2","gz","tar","tgz");
-  $video = array("mkv","webm","vob","ogg","ogv","mov","qt","wmv","mpg","mpeg","mp3","mp4","m4p","flv","f4v","f4p","f4a","f4b");
-  $powerpoint = array("ppt","pptx");
-  $word = array("doc","docx");
-  $excel = array("xls","xlsx");
-  $text = array("odt","odm","odg","ods","odp","odf","odc","odb","sxw","sxc","sxi","csv","txt","rtf");
-
-  if (in_array($ext, $image)) {
-    $faicon = 'file-image';
-  } elseif (in_array($ext, $code)) {
-    $faicon = 'file-code';
-  } elseif (in_array($ext, $pdf)) {
-    $faicon = 'file-pdf';
-  } elseif (in_array($ext, $archive)) {
-    $faicon = 'file-archive';
-  } elseif (in_array($ext, $video)) {
-    $faicon = 'file-video';
-  } elseif (in_array($ext, $powerpoint)) {
-    $faicon = 'file-powerpoint';
-  } elseif (in_array($ext, $word)) {
-    $faicon = 'file-word';
-  } elseif (in_array($ext, $excel)) {
-    $faicon = 'file-excel';
-  } elseif (in_array($ext, $text)) {
-    $faicon = 'file-text';
-  } else {
-    $faicon = 'file';
+function ext_icon_map() {
+  // single source for file extension -> FontAwesome icon name
+  static $map = null;
+  if($map === null) {
+    $map = array();
+    $groups = array(
+      'file-image'      => array('jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'heic', 'tif', 'tiff', 'bmp', 'pic', 'psd', 'eps', 'ai', 'svg', 'ps'),
+      'file-code'       => array('html', 'htm', 'xml', 'ini', 'sql', 'db', 'css', 'js', 'php', 'json'),
+      'file-pdf'        => array('pdf'),
+      'file-archive'    => array('zip', 'rar', '7z', 's7z', 'dmg', 'bz2', 'gz', 'tar', 'tgz'),
+      'file-audio'      => array('mp3', 'wav', 'aac', 'flac', 'm4a', 'm4b', 'wma', 'ra', 'ram', 'rpm', 'au', 'aif', 'aiff', 'caf', 'mid', 'midi', 'ogg', 'oga', 'opus', 'f4a', 'f4b'),
+      'file-video'      => array('mkv', 'webm', 'avi', '3gp', 'vob', 'ogv', 'mov', 'qt', 'wmv', 'mpg', 'mpeg', 'mp4', 'm4v', 'm4p', 'flv', 'f4v', 'f4p'),
+      'file-powerpoint' => array('ppt', 'pptx', 'odp', 'sxi', 'key'),
+      'file-word'       => array('doc', 'docx', 'odt', 'odm', 'sxw', 'rtf', 'pages'),
+      'file-excel'      => array('xls', 'xlsx', 'ods', 'sxc', 'csv', 'numbers'),
+      'file-text'       => array('odg', 'odf', 'odc', 'odb', 'txt')
+    );
+    foreach($groups as $faicon => $exts) {
+      foreach($exts as $e) {
+        $map[$e] = $faicon;
+      }
+    }
   }
-  return $faicon;
+  return $map;
+}
+
+function ext_icon($ext) {
+  $map = ext_icon_map();
+  return isset($map[$ext]) ? $map[$ext] : 'file';
 }
 
 /**

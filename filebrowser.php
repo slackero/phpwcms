@@ -152,6 +152,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/phpwcms.min.js"></script>
     <script>
+        var fileExtIcons = <?php echo json_encode(array_map(function($icon) { return 'fa fa-' . $icon; }, ext_icon_map())) ?>;
         function addFile(obj, text, value) {
             if (obj && obj.options) {
                 const newOpt = new Option(text, value, false, false);
@@ -576,19 +577,24 @@ $(function() {
         '</div>' +
     '</div>';
 
+    // icon classes come from the PHP ext_icon_map() source (fileExtIcons),
+    // colors are preview-only sugar
+    const fileExtIconColor = {
+        'file-pdf':        'text-danger',
+        'file-word':       'text-primary',
+        'file-excel':      'text-success',
+        'file-powerpoint': 'text-warning',
+        'file-archive':    'text-secondary',
+        'file-audio':      'text-info',
+        'file-video':      'text-info',
+        'file-image':      'text-image',
+        'file-code':       'text-code'
+    };
     const getFileIconClass = (filename) => {
         var ext = filename.split('.').pop().toLowerCase();
-        switch(ext) {
-            case 'pdf': return 'fas fa-file-pdf text-danger';
-            case 'doc': case 'docx': return 'fas fa-file-word text-primary';
-            case 'xls': case 'xlsx': case 'csv': return 'fas fa-file-excel text-success';
-            case 'ppt': case 'pptx': return 'fas fa-file-powerpoint text-warning';
-            case 'zip': case 'tar': case 'gz': case '7z': case 'rar': return 'fas fa-file-archive text-warning';
-            case 'mp3': case 'wav': case 'ogg': case 'm4a': return 'fas fa-file-audio text-info';
-            case 'mp4': case 'mov': case 'webm': case 'avi': case 'm4v': return 'fas fa-file-video text-secondary';
-            case 'txt': case 'html': case 'css': case 'js': case 'php': case 'json': case 'xml': return 'fas fa-file-code text-secondary';
-            default: return 'fas fa-file text-muted';
-        }
+        var icon = fileExtIcons[ext] || 'fa fa-file';
+        var color = fileExtIconColor[icon.replace('fa fa-', '')] || 'text-muted';
+        return icon + ' ' + color;
     };
 
     if ($("#filebrowser-dropzone").data("dropzone")) {
