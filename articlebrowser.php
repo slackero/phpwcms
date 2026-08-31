@@ -220,7 +220,9 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
             } elseif ($js_aktion != 16 && $js_aktion != 6) {
                 echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
             }
-            echo $js . "=$(this).attr('data-aid');";
+            if ($js !== '') {
+                echo $js . "=$(this).attr('data-aid');";
+            }
             if ($js_aktion != 16) {
                 echo "parent.$('#browserModal').modal('hide');";
             }
@@ -458,9 +460,9 @@ function struct_articlecontentlist($article, $akey, $counter) {
             $a .= '<td width="90%" class="text-secondary">';
             $a .= '[ID:' . $article_content['acontent_id'] . '] ';
             $a .= html($article_content['acontent_title']) . ' – ';
-            $a .= html($GLOBALS['wcs_content_type'][$article_content['acontent_type']]);
+            $a .= html($GLOBALS['wcs_content_type'][$article_content['acontent_type']] ?? '');
             if ($article_content['acontent_type'] == 30) {
-                $a .= ': ' . html($GLOBALS['BL']['modules'][$article_content['acontent_module']]['listing_title']);
+                $a .= ': ' . html($GLOBALS['BL']['modules'][$article_content['acontent_module']]['listing_title'] ?? '');
             }
             $a .= '</td>';
             $a .= '<td class="text-secondary text-end text-nowrap">{' . html($article_content['acontent_block']) . '}</td>';
