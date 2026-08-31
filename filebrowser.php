@@ -37,7 +37,7 @@ if( empty($_SESSION["wcs_user_lang"]) ) {
 
 }
 
-$js_aktion = empty($_GET["opt"]) ? 0 : intval($_GET["opt"]);
+$js_aktion = empty($_GET["opt"]) ? 0 : (int)$_GET["opt"];
 
 // set target for article summary/list image
 if(isset($_GET['target'])) {
@@ -54,7 +54,7 @@ if(isset($_GET['entry_id'])) {
     $_SESSION['filebrowser_image_entry_id'] = preg_replace('/[^a-z0-9_\-]/', '', $_GET['entry_id']);
 }
 if(isset($_GET['CKEditorFuncNum'])) {
-    $_SESSION['CKEditorFuncNum'] = intval($_GET['CKEditorFuncNum']);
+    $_SESSION['CKEditorFuncNum'] = (int)$_GET['CKEditorFuncNum'];
 }
 
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
@@ -111,8 +111,8 @@ if(isset($_SESSION["folder"])) {
 
 if(isset($_GET["folder"])) {
     list($folder_id, $folder_value) = explode('|', $_GET["folder"]);
-    $folder_id          = intval($folder_id);
-    $folder_value       = intval($folder_value);
+    $folder_id          = (int)$folder_id;
+    $folder_value       = (int)$folder_value;
     $folder[$folder_id] = $folder_value;
     $_SESSION["folder"] = $folder; // Return array with current opened folder session values
     $_SESSION["imgdir"] = $folder_id;
@@ -122,7 +122,7 @@ $_SESSION["list_zaehler"] = 0;
 // Which folder is active
 if(isset($_GET["files"])) {
 
-    $_SESSION["imgdir"] = intval($_GET["files"]);
+    $_SESSION["imgdir"] = (int)$_GET["files"];
 
 } elseif(!isset($_SESSION["imgdir"])) {
 
@@ -130,12 +130,12 @@ if(isset($_GET["files"])) {
 
 } elseif(isset($_SESSION["imgdir"])) {
 
-    $_SESSION["imgdir"] = intval($_SESSION["imgdir"]);
+    $_SESSION["imgdir"] = (int)$_SESSION["imgdir"];
 
 }
 
 //Does user have files and folders that can be used
-$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND (f_public=1 OR f_uid=".intval($_SESSION["wcs_user_id"]).") AND f_trash=0";
+$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND (f_public=1 OR f_uid=".(int)$_SESSION["wcs_user_id"].") AND f_trash=0";
 $count_user_files = _dbQuery($sql, 'COUNT');
 
 ?><!DOCTYPE html>
@@ -205,7 +205,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $folder_status = true_false($folder[0]);
     $counter = 0;
 
-    $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_aktiv=1 AND f_trash=0 AND (f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].")";
+    $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_aktiv=1 AND f_trash=0 AND (f_public=1 OR f_uid=".(int)$_SESSION["wcs_user_id"].")";
 
     if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
         $count  = '<a href="filebrowser.php?opt='.$js_aktion.'&amp;folder=0';
@@ -231,7 +231,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     echo '</table>';
 } else {
-    echo "no files available";
+    echo '<div class="msglist py-2 ps-3 text-muted">'.$BL['NO_FILE'].'</div>';
 }
 
     ?></div>
@@ -239,31 +239,38 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
   <div class="filebrowser-col">
     <?php
 
-    $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
+    // extension filter per browser mode - single source for file listing SQL
+    // and dropzone upload acceptance (null = no filter / fall back to global)
+    $filebrowser_ext_sql = null;
+    $filebrowser_ext_upload = null;
+    $image_ext = array('jpeg', 'jpg', 'png', 'gif', 'svg', 'webp');
+    if($phpwcms['image_library'] !== 'gd2') {
+        $image_ext = array_merge($image_ext, array('pdf', 'ai', 'psd', 'tif', 'tiff', 'bmp', 'eps'));
+    }
     switch($js_aktion) {
 
         case 6:
-            $file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'aac', 'webp') AND ";
+            $filebrowser_ext_sql = $filebrowser_ext_upload = array('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'aac', 'webp');
                     break;
 
                     // H.264
         case 12:
-            $file_sql .= "f_ext IN ('mp4', 'm4p', 'mov', 'm4p', 'm4a', 'm4v', 'mp3', 'mpeg', 'aac') AND ";
+            $filebrowser_ext_sql = $filebrowser_ext_upload = array('mp4', 'm4p', 'mov', 'm4a', 'm4v', 'mp3', 'mpeg', 'aac');
                     break;
 
                     // WebM
         case 13:
-            $file_sql .= "f_ext IN ('webm') AND ";
+            $filebrowser_ext_sql = $filebrowser_ext_upload = array('webm');
                     break;
 
                     // Ogg
         case 14:
-            $file_sql .= "f_ext IN ('ogg', 'ogv', 'oga', 'ogx') AND ";
+            $filebrowser_ext_sql = $filebrowser_ext_upload = array('ogg', 'ogv', 'oga', 'ogx');
                     break;
 
                     // Typical Doc files
         case 18:
-            $file_sql .= "f_ext IN ('pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'pages', 'key', 'numbers') AND ";
+            $filebrowser_ext_sql = $filebrowser_ext_upload = array('pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'pages', 'key', 'numbers');
             // no break here
         case 15:
             $entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
@@ -274,15 +281,17 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
             $allowed_ext = empty($_SESSION['filebrowser_allowed_ext']) ? array() : $_SESSION['filebrowser_allowed_ext'];
             if(!empty($_GET['allowed'])) {
                 $allowed_ext = convertStringToArray(strtolower($_GET['allowed']));
-                if(count($allowed_ext)) {
-                    foreach($allowed_ext as $key => $ext) {
-                        $allowed_ext[$key] = _dbEscape($ext);
-                    }
-                    $_SESSION['filebrowser_allowed_ext'] = $allowed_ext;
-                }
             }
+            // store bare extensions (a-z0-9 only), safe for SQL and JS usage
+            $allowed_ext = array_values(array_unique(array_filter(array_map(
+                function($ext) {
+                    return preg_replace('/[^a-z0-9]/', '', strtolower(trim($ext, " \t\n\r'\"")));
+                },
+                is_array($allowed_ext) ? $allowed_ext : array()
+            ))));
             if(count($allowed_ext)) {
-                $file_sql .= 'f_ext IN (' . implode(',', $allowed_ext) . ') AND ';
+                $_SESSION['filebrowser_allowed_ext'] = $allowed_ext;
+                $filebrowser_ext_sql = $filebrowser_ext_upload = $allowed_ext;
             }
             $entry_id = empty($_SESSION['filebrowser_field']) ? null : $_SESSION['filebrowser_field'];
             if(!empty($_GET['field']) && ($entry_id = preg_replace('/[^a-z0-9_-]/i', '', $_GET['field']))) {
@@ -296,45 +305,48 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
             $entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
             // no break here
         case 7:
-            $file_sql .= "f_ext IN ('jpeg', 'jpg', 'png', 'gif', 'svg', 'webp'";
-            if($phpwcms['image_library'] !== 'gd2') {
-                $file_sql .= ", 'pdf', 'ai', 'psd', 'tif', 'tiff', 'bmp', 'eps', 'webp'";
-            }
-            $file_sql .= ") AND ";
+            $filebrowser_ext_sql = $filebrowser_ext_upload = $image_ext;
+                    break;
+
+            // image browser modes - no listing filter, non-image files
+            // are skipped by the thumbnail check anyway
+        case 0:
+        case 1:
+        case 3:
+        case 5:
+            $filebrowser_ext_upload = $image_ext;
                     break;
 
         case 2:
-            $default_ext  = "f_ext IN ('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', ";
-                    $default_ext .= "'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', ";
-                    $default_ext .= "'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid', 'midi')";
-
-                    if(!empty($phpwcms["multimedia_ext"])) {
-
-                        $allowed_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
-                        if(count($allowed_ext)) {
-                    $default_ext = "f_ext IN ('" . implode("', '", $allowed_ext) . "')";
-                        }
-
-                    }
-
-                    $file_sql .= $default_ext." AND ";
-
+            if(!empty($phpwcms["multimedia_ext"])) {
+                $allowed_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
+                if(count($allowed_ext)) {
+                    $filebrowser_ext_sql = $filebrowser_ext_upload = $allowed_ext;
+                    break;
+                }
+            }
+            $filebrowser_ext_sql = $filebrowser_ext_upload = array('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', 'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', 'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid');
                     break;
 
     }
+
+    $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
+    if(is_array($filebrowser_ext_sql)) {
+        $file_sql .= "f_ext IN ('" . implode("', '", $filebrowser_ext_sql) . "') AND ";
+    }
     $file_sql .= "f_aktiv=1 AND f_kid=1 AND f_trash=0 AND ";
-    $file_sql .= "(f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") ";
+    $file_sql .= "(f_public=1 OR f_uid=".(int)$_SESSION["wcs_user_id"].") ";
     $file_sql .= "ORDER BY f_sort, f_name";
 
     if (empty($_SESSION['CKEditorFuncNum'])) {
-        $ckeditor_action = isset($_GET['CKEditorFuncNum']) ? intval($_GET['CKEditorFuncNum']) : 0;
+        $ckeditor_action = isset($_GET['CKEditorFuncNum']) ? (int)$_GET['CKEditorFuncNum'] : 0;
     } else {
         $ckeditor_action = $_SESSION['CKEditorFuncNum'];
     }
 
     $file_result = _dbQuery($file_sql);
 
-    // modes supporting "add all files" (see $add_all in listing loop)
+    // modes supporting "add all files" (js_files_all collected in listing loop)
     $add_all_possible = isset($file_result[0]['f_id']) && in_array($js_aktion, array(1, 3, 4, 5, 9));
 
     echo '<div class="filebrowser-col-head bg-grey ps-3 py-1 pe-1 fw-bold d-flex align-items-center">';
@@ -378,7 +390,6 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
 
                 $js_files_select[] = array(count($js_files_select), (int)$file_row["f_id"], $filename);
-                $add_all = false;
 
                 //change js call so it works inside modal
                 switch($js_aktion) {
@@ -419,19 +430,16 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     case 4:
                         $js = "addFile(parent.document.getElementById('cfile_list') || (parent.document.articlecontent && parent.document.articlecontent.cfile_list)," . $filename_json . ",'".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
-                        $add_all = true;
                         break;
 
                     case 9:
                         $js = "parent.addFile('".$file_row["f_id"]."', " . $filename_json . ");";
                         $js_files_all[] = $js;
-                        $add_all = true;
                         break;
 
                     case 5:
                         $js = "addFile(parent.img_field," . $filename_json . ",'".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
-                        $add_all = true;
                         break;
 
                     //mod
@@ -456,7 +464,6 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     default:
                         $js = "addFile(parent.document.articlecontent.cimage_list," . $filename_json . ",'".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
-                        $add_all = true;
                 }
 
                 echo '<tr'.$row_class.'><td class="file-icon-col"><i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
@@ -480,18 +487,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 echo '<i class="fa fa-plus" aria-hidden="true"></i></a></td>';
                 echo '</tr>';
                 if((!empty($thumb_image[0]) || $file_row['f_svg']) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
-                    echo '<tr class="filebrowser-thumb-row"'.$row_class.'><td></td><td class="pb-1 pt-0" colspan="2"><a href="#" onclick="' . $js_attr;
-                    if($js_aktion == 16 || $js_aktion == 17) {
-                      echo "tmt_winControl('self','close()');\">";
-                    } else {
-                      echo "parent.$('#browserModal').modal('hide');\">";
-                    }
-                    if($file_row['f_svg']) {
-                        echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row['f_ext'].'" alt="" class="img-fluid img-thumbnail" style="max-height: '.$phpwcms["img_list_height"].'px; object-fit: contain;" />';
-                    } else {
-                        echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" alt="" class="img-fluid img-thumbnail" style="max-height: '.$phpwcms["img_list_height"].'px; object-fit: contain;" />';
-                    }
-                    echo '</a></td></tr>';
+                    filebrowser_thumb_row($row_class, $js_attr, ($js_aktion == 16 || $js_aktion == 17), $thumb_image, $file_row, $phpwcms);
                 }
             }
 
@@ -606,47 +602,8 @@ $(function() {
         parallelUploads: 10,
         previewTemplate: bs4PreviewTemplate,
         acceptedFiles: <?php
-            $modal_ext = array();
-            switch($js_aktion) {
-                case 6:
-                    $modal_ext = array('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'aac', 'webp');
-                    break;
-                case 12:
-                    $modal_ext = array('mp4', 'm4p', 'mov', 'm4a', 'm4v', 'mp3', 'mpeg', 'aac');
-                    break;
-                case 13:
-                    $modal_ext = array('webm');
-                    break;
-                case 14:
-                    $modal_ext = array('ogg', 'ogv', 'oga', 'ogx');
-                    break;
-                case 18:
-                    $modal_ext = array('pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'pages', 'key', 'numbers');
-                    break;
-                case 19:
-                    $modal_ext = empty($_SESSION['filebrowser_allowed_ext']) ? array() : $_SESSION['filebrowser_allowed_ext'];
-                    break;
-                case 0:
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 11:
-                case 17:
-                    $modal_ext = array('jpeg', 'jpg', 'png', 'gif', 'svg', 'webp');
-                    if ($phpwcms['image_library'] !== 'gd2') {
-                        $modal_ext = array_merge($modal_ext, array('pdf', 'ai', 'psd', 'tif', 'tiff', 'bmp', 'eps'));
-                    }
-                    break;
-                case 2:
-                    if (!empty($phpwcms["multimedia_ext"])) {
-                        $modal_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
-                    } else {
-                        $modal_ext = array('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', 'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', 'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid');
-                    }
-                    break;
-            }
+            // reuse the mode-specific upload extension list resolved above
+            $modal_ext = is_array($filebrowser_ext_upload) ? $filebrowser_ext_upload : array();
 
             // Intersect modal-specific allowed extensions with global allowed_upload_ext
             $global_ext = is_array($phpwcms['allowed_upload_ext']) ? $phpwcms['allowed_upload_ext'] : (is_string($phpwcms['allowed_upload_ext']) && $phpwcms['allowed_upload_ext'] !== '' ? convertStringToArray(strtolower($phpwcms['allowed_upload_ext'])) : array());
@@ -826,10 +783,10 @@ $(function() {
 function folder_list($pid, $counter, $zieldatei) {
     global $current_dirname;
     $folder = $_SESSION["folder"];
-    $pid = intval($pid);
-    $userID = intval($_SESSION["wcs_user_id"]);
+    $pid = (int)$pid;
+    $userID = (int)$_SESSION["wcs_user_id"];
     $sql = "SELECT f_id, f_name, f_aktiv, f_public FROM ".DB_PREPEND."phpwcms_file WHERE ".
-           "f_pid=".intval($pid)." AND f_aktiv=1 AND f_kid=0 AND f_trash=0 AND ".
+           "f_pid=".(int)$pid." AND f_aktiv=1 AND f_kid=0 AND f_trash=0 AND ".
            "(f_public=1 OR f_uid=".$userID.") ORDER BY f_sort, f_name";
 
     $result = _dbQuery($sql);
@@ -878,16 +835,28 @@ function folder_list($pid, $counter, $zieldatei) {
     }
 }
 
+function filebrowser_thumb_row($row_class, $js_attr, $close_window, $thumb_image, $file_row, $phpwcms) {
+    // render thumbnail row below a file row (SVG original or cached preview)
+    $close_js = $close_window ? "tmt_winControl('self','close');" : "parent.$('#browserModal').modal('hide');";
+    echo '<tr class="filebrowser-thumb-row"'.$row_class.'><td></td><td class="pb-1 pt-0" colspan="2"><a href="#" onclick="' . $js_attr . $close_js . '">';
+    if(!empty($file_row['f_svg'])) {
+        echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row['f_ext'].'" alt="" class="img-fluid img-thumbnail" style="max-height: '.$phpwcms["img_list_height"].'px; object-fit: contain;" />';
+    } elseif(is_array($thumb_image) && !empty($thumb_image[0])) {
+        echo '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" alt="" class="img-fluid img-thumbnail" style="max-height: '.$phpwcms["img_list_height"].'px; object-fit: contain;" />';
+    }
+    echo '</a></td></tr>'.LF;
+}
+
 function on_off($wert, $string, $art=1, $counter=0) {
     //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
     //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
     if($wert) {
-        return ($art == 1) ? "+" : '<i class="far fa-plus-square fa-fw px-1 slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
+        return ($art == 1) ? "+" : '<i class="fa fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
     } else {
-        return ($art == 1) ? "-" : '<i class="far fa-minus-square fa-fw px-1 slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
+        return ($art == 1) ? "-" : '<i class="fa fa-caret-down fa-fw slist-'.$counter.'" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
     }
 }
 function true_false($wert) {
     // Swap true / false
-    return intval($wert) ? 0 : 1;
+    return (int)$wert ? 0 : 1;
 }
