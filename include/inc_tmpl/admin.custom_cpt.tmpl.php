@@ -427,16 +427,16 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
             return `
             <tr class="field-row">
               <td class="align-middle text-muted text-center drag-handle" style="cursor: grab; width: 30px; user-select: none;" title="<?php echo html($BL['be_admin_custom_cpt_drag_reorder'] ?? 'Drag to reorder'); ?>"><i class="fa-solid fa-grip-vertical text-body-tertiary"></i></td>
-              <td>
+              <td class="align-top">
                 <input type="text" name="field_key[]" class="form-control form-control-sm font-monospace" value="${key || ''}" placeholder="key_name" required pattern="[-a-zA-Z0-9_]+" oninput="updateFieldTagPreview(this); validateFieldRowKey(this);">
                 <div class="invalid-feedback field-key-feedback" style="display: none; font-size: 11px;"></div>
                 <code class="small text-muted font-monospace mt-1 d-inline-block">{<span class="field-tag-preview">${(key ? key.toUpperCase().replace(/[^A-Z0-9_-]/g, '') : 'KEY')}</span>}</code>
               </td>
-              <td>
+              <td class="align-top">
                 <input type="text" name="field_legend[]" class="form-control form-control-sm" value="${def.legend || def.label || ''}" placeholder="Label / Field Legend" required>
                 <input type="text" name="field_placeholder[]" class="form-control form-control-sm mt-1" value="${def.placeholder || ''}" placeholder="Placeholder...">
               </td>
-              <td>
+              <td class="align-top">
                 <select name="field_type[]" class="form-select form-select-sm" onchange="toggleFieldConfig(this);">
                   ${typeOptions}
                 </select>
@@ -445,7 +445,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                   <label class="form-check-label" for="hr_${idx}"><?php echo html($BL['be_admin_custom_cpt_divider'] ?? 'Divider'); ?> <code>&lt;hr&gt;</code></label>
                 </div>
               </td>
-              <td>
+              <td class="align-top">
                 <div class="field-opts-container">
                   <textarea name="field_values[]" rows="2" class="form-control form-control-sm values-area ${(['select', 'option'].includes(def.type)) ? '' : 'd-none'}" placeholder="<?php echo html($BL['be_admin_custom_cpt_opt_placeholder'] ?? 'key:Label (one per line)'); ?>">${valuesText}</textarea>
                   <input type="text" name="field_default[]" class="form-control form-control-sm" value="${def.default || ''}" placeholder="<?php echo html($BL['be_admin_custom_cpt_default_val'] ?? 'Default value...'); ?>">
