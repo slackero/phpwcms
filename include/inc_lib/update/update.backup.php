@@ -21,26 +21,38 @@ function phpwcms_update_db_dump(string $gzPath): bool
     if ($gz === false) {
         return false;
     }
-    gzwrite($gz, '-- phpwcms DB backup ' . date('Y-m-d H:i:s') . LF);
     $status = true;
+    $write = static function (string $data) use ($gz, &$status): void {
+        if (gzwrite($gz, $data) === false) {
+            $status = false;
+        }
+    };
+    $write('-- phpwcms DB backup ' . date('Y-m-d H:i:s') . LF);
     foreach ($tables as $row) {
         $table = (string)reset($row);
-        if (!str_contains($table, DB_PREPEND . 'phpwcms_')) {
+        if (!str_starts_with($table, DB_PREPEND . 'phpwcms_')) {
             continue;
         }
         $create = _dbQuery('SHOW CREATE TABLE `' . $table . '`');
-        if (!$create) {
+        if (!$create || !array_key_exists('Create Table', $create[0])) {
             $status = false;
             break;
         }
-        gzwrite($gz, LF . 'DROP TABLE IF EXISTS `' . $table . '`;' . LF . (string)reset($create[0]) . ';' . LF);
+        $write(LF . 'DROP TABLE IF EXISTS `' . $table . '`;' . LF . $create[0]['Create Table'] . ';' . LF);
         $rows = _dbQuery('SELECT * FROM `' . $table . '`');
         foreach ($rows as $data) {
             $values = [];
             foreach ($data as $value) {
-                $values[] = $value === null ? 'NULL' : '\'' . addslashes((string)$value) . '\'';
+                if ($value === null) {
+                    $values[] = 'NULL';
+                } else {
+                    $escaped = !empty($GLOBALS['db'])
+                        ? mysqli_real_escape_string($GLOBALS['db'], (string)$value)
+                        : addslashes((string)$value);
+                    $values[] = '\'' . $escaped . '\'';
+                }
             }
-            gzwrite($gz, 'INSERT INTO `' . $table . '` VALUES (' . implode(',', $values) . ');' . LF);
+            $write('INSERT INTO `' . $table . '` VALUES (' . implode(',', $values) . ');' . LF);
         }
     }
     gzclose($gz);
@@ -78,15 +90,15 @@ function phpwcms_update_change_report(string $backupDir, array $added, array $mo
     $lines = ['# phpwcms update change report ' . date('Y-m-d H:i:s'), ''];
     $lines[] = '## ADDED';
     foreach ($added as $rel) {
-        $lines[] = $rel . '  sha256:' . hash_file('sha256', PHPWCMS_ROOT . '/' . $rel);
+        $lines[] = $rel . '  sha256:' . (hash_file('sha256', PHPWCMS_ROOT . '/' . $rel) ?: '-');
     }
-    $lines[] = LF . '## MODIFIED';
+    $lines[] = '## MODIFIED';
     foreach ($modified as $rel) {
         $old = hash_file('sha256', $backupDir . '/' . $rel) ?: '-';
         $new = hash_file('sha256', PHPWCMS_ROOT . '/' . $rel) ?: '-';
         $lines[] = $rel . '  ' . $old . ' -> ' . $new;
     }
-    $lines[] = LF . '## DELETED';
+    $lines[] = '## DELETED';
     foreach ($deleted as $rel) {
         $lines[] = $rel;
     }

@@ -5,8 +5,19 @@ define('PHPWCMS_INCLUDE_CHECK', true);
 $tmp = sys_get_temp_dir() . '/phpwcms-update-test-' . getmypid();
 @mkdir($tmp, 0775, true);
 
-// stub DB layer
-function _dbQuery($q, $type = '') { return [['Tables_in_db' => 'phpwcms_user']]; }
+// stub DB layer (query-aware, ASSOC-shaped rows like the real _dbQuery)
+function _dbQuery($q, $type = '') {
+    if (str_starts_with($q, 'SHOW TABLES')) {
+        return [['Tables_in_db' => 'phpwcms_user']];
+    }
+    if (str_starts_with($q, 'SHOW CREATE TABLE')) {
+        return [['Table' => 'phpwcms_user', 'Create Table' => 'CREATE TABLE `phpwcms_user` (`id` int(11) NOT NULL)']];
+    }
+    if (str_starts_with($q, 'SELECT * FROM')) {
+        return [['id' => 1, 'name' => 'admin']];
+    }
+    return [];
+}
 define('DB_PREPEND', '');
 function _dbCount($t) { return 1; }
 // (real _dbQuery returns data rows; db-dump test uses a stubbed query-result shape)
@@ -34,5 +45,14 @@ file_put_contents($tmp . '/orig/new/file.php', 'NEW');
 phpwcms_update_change_report($tmp . '/backup', ['new/file.php'], ['inc/a.php'], ['old/gone.php']);
 $report = file_get_contents($tmp . '/backup/changed-files.txt');
 assert(strpos($report, 'ADDED') !== false && strpos($report, 'inc/a.php') !== false);
+
+// db-dump coverage (stubbed _dbQuery returns ASSOC-shaped rows)
+$dump = $tmp . '/dump.sql.gz';
+$ok = phpwcms_update_db_dump($dump);
+assert($ok === true, 'db dump succeeds');
+$sql = gzdecode((string)file_get_contents($dump));
+assert(strpos($sql, 'DROP TABLE IF EXISTS `phpwcms_user`') !== false, 'dump has DROP TABLE');
+assert(strpos($sql, 'CREATE TABLE `phpwcms_user`') !== false, 'dump has CREATE TABLE');
+assert(strpos($sql, 'INSERT INTO `phpwcms_user`') !== false, 'dump has INSERT INTO');
 
 echo 'OK' . PHP_EOL;
