@@ -9,9 +9,9 @@
     "require": {
         "php": ">=8.2",
         "algo26-matthias/idna-convert": "^v4.2.1",
-        "tinymce/tinymce": "^8.8.2",
+        "tinymce/tinymce": "^8.9.0",
         "mklkj/tinymce-i18n": "dev-master",
-        "enshrined/svg-sanitize": "0.22.0",
+        "enshrined/svg-sanitize": "1.0.0",
         "greew/oauth2-azure-provider": "^v2.0.0",
         "netcarver/textile": "v4.1.5",
         "league/commonmark": "^2.10.0",
@@ -51,7 +51,7 @@
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "phpstan/phpstan": "^2.2.9"
+        "phpstan/phpstan": "^2.2.12"
     },
     "scripts": {
         "phpstan": "phpstan analyse -c .phpstan/phpstan.neon"
