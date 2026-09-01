@@ -119,6 +119,7 @@ class phpwcms_update
             if (!$release['newer']) {
                 throw new RuntimeException('Installed version is not older than release.');
             }
+            $this->ensureUpdateLogTable();                // table may not exist yet on pre-r559 installs (r559 runs later, at P9)
             $this->insertLogRow($release);           // insert phpwcms_update_log row status running
             // P4 verify: open zip, read .update-manifest + staged revision.php version == $release['version']
             $manifest = $this->verifyZip($zipPath, $release);   // throws; returns [file => sha256]
@@ -299,6 +300,35 @@ class phpwcms_update
         $filesDir = $this->backupDir . 'files/';
         if (!is_dir($filesDir) && !@mkdir($filesDir, 0775, true) && !is_dir($filesDir)) {
             throw new RuntimeException('Could not create backup files dir.');
+        }
+    }
+
+    /**
+     * Make sure phpwcms_update_log exists before the first log INSERT.
+     * On installs older than r559 the table is only created by the revision
+     * chain (P9) — which runs after insertLogRow() — so bootstrap it here
+     * with the same DDL r559 uses, or the updater deadlocks on itself.
+     */
+    private function ensureUpdateLogTable(): void
+    {
+        if (_dbTableExists('phpwcms_update_log')) {
+            return;
+        }
+        $create = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . "phpwcms_update_log` (
+            `update_id` INT NOT NULL AUTO_INCREMENT,
+            `update_from` VARCHAR(32) NOT NULL DEFAULT '',
+            `update_to` VARCHAR(32) NOT NULL DEFAULT '',
+            `update_tag` VARCHAR(64) NOT NULL DEFAULT '',
+            `update_status` ENUM('running','success','failed','rolled_back') NOT NULL DEFAULT 'running',
+            `update_error` TEXT NULL,
+            `update_backup` VARCHAR(255) NOT NULL DEFAULT '',
+            `update_files` INT NOT NULL DEFAULT 0,
+            `update_tstamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `update_user` INT NOT NULL DEFAULT 0,
+            PRIMARY KEY (`update_id`)
+        ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
+        if (!_dbQuery($create, 'CREATE')) {
+            throw new RuntimeException('Could not create update log table.');
         }
     }
 

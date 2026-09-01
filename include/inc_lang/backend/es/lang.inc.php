@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Desactivar modo de mantenimiento';
 $BL['be_update_backup_path']        = 'Copia de seguridad guardada en';
 $BL['be_update_changed_files']      = 'Archivos modificados';
 $BL['be_update_no_history']         = 'Aún no hay actualizaciones registradas.';
+$BL['be_update_revision_pending']   = 'Las migraciones de la base de datos están pendientes o han fallado — ejecútelas (inicio de sesión en el backend) antes de actualizar.';
 $BL['be_nav_collapse_menu']        = 'Plegar men&uacute;';
 $BL['be_page_title']               = 'phpwcms backend (Administraci&Oacute;n)';
 $BL['be_subnav_article_center']    = 'Centro de art&iacute;culos';

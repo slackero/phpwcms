@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'メンテナンスモードを解除';
 $BL['be_update_backup_path']        = 'バックアップの保存先';
 $BL['be_update_changed_files']      = '変更されたファイル';
 $BL['be_update_no_history']         = 'まだ更新は記録されていません。';
+$BL['be_update_revision_pending']   = 'データベースの移行が保留中または失敗しています — 更新前に実行してください（バックエンドにログイン）。';
 $BL['be_nav_collapse_menu']        = 'Collapse menu';
 $BL['be_page_title']               = 'phpwcms 管理画面';
 $BL['be_theme']                    = 'Theme';

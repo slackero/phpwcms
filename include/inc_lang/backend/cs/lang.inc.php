@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Zrušit režim údržby';
 $BL['be_update_backup_path']        = 'Záloha uložena do';
 $BL['be_update_changed_files']      = 'Změněné soubory';
 $BL['be_update_no_history']         = 'Zatím nejsou zaznamenány žádné aktualizace.';
+$BL['be_update_revision_pending']   = 'Migrace databáze čekají na zpracování nebo selhaly — spusťte je (přihlášení do administrace) před aktualizací.';
 $BL['be_nav_collapse_menu']        = 'Sbalit menu';
 $BL['be_page_title']               = 'phpwcms backend (administration)';
 $BL['be_subnav_article_center']    = 'centrum článků';

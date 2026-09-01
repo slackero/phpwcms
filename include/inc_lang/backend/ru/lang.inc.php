@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Отключить режим обслу�
 $BL['be_update_backup_path']        = 'Резервная копия сохранена в';
 $BL['be_update_changed_files']      = 'Измененные файлы';
 $BL['be_update_no_history']         = 'Обновления пока не записаны.';
+$BL['be_update_revision_pending']   = 'Миграции базы данных ожидают выполнения или завершились с ошибкой — выполните их (вход в бэкенд) перед обновлением.';
 $BL['be_nav_collapse_menu']        = 'Свернуть меню';
 $BL['be_page_title']               = 'phpwcms администрирование';
 $BL['be_subnav_article_center']    = 'центр статей';

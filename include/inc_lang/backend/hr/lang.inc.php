@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Očisti način održavanja';
 $BL['be_update_backup_path']        = 'Sigurnosna kopija spremljena na';
 $BL['be_update_changed_files']      = 'Izmijenjene datoteke';
 $BL['be_update_no_history']         = 'Još nema zabilježenih ažuriranja.';
+$BL['be_update_revision_pending']   = 'Migracije baze podataka su na čekanju ili nisu uspjele — pokrenite ih (prijava u backend) prije ažuriranja.';
 $BL['be_nav_collapse_menu']        = 'Skupi meni';
 $BL['be_page_title']               = 'phpwcms administracija';
 $BL['be_theme']                    = 'Tema';

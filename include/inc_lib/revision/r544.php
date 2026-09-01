@@ -49,7 +49,7 @@ function phpwcms_revision_r544() {
 
     // Add column group_modkey for usergroup modules
     if(!_dbColumnExists('phpwcms_usergroup', 'group_modkey')) {
-       $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_usergroup ADD group_modkey VARCHAR(20) NOT NULL AFTER `group_active`", 'ALTER');
+       $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_usergroup ADD group_modkey VARCHAR(20) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
     }
 
     // Add column group_sys for adding Sysrecords to user groups

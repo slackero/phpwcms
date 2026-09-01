@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Ακύρωση λειτουργίας σ�
 $BL['be_update_backup_path']        = 'Αντίγραφο ασφαλείας αποθηκεύτηκε στο';
 $BL['be_update_changed_files']      = 'Τροποποιημένα αρχεία';
 $BL['be_update_no_history']         = 'Δεν έχουν καταγραφεί ακόμη ενημερώσεις.';
+$BL['be_update_revision_pending']   = 'Οι μεταναστεύσεις της βάσης δεδομένων είναι εκκρεμείς ή απέτυχαν — εκτελέστε τις (σύνδεση στο backend) πριν από την ενημέρωση.';
 $BL['be_nav_collapse_menu']        = 'Σύμπτυξη μενού';
 $BL['be_page_title']               = 'phpwcms διαχείριση';
 $BL['be_subnav_article_center']    = 'κέντρο τύπου';

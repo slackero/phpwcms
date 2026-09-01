@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'रखरखाव मोड साफ़
 $BL['be_update_backup_path']        = 'बैकअप यहाँ संग्रहीत है';
 $BL['be_update_changed_files']      = 'बदली गई फ़ाइलें';
 $BL['be_update_no_history']         = 'अभी तक कोई अपडेट दर्ज नहीं किया गया है।';
+$BL['be_update_revision_pending']   = 'डेटाबेस माइग्रेशन लंबित हैं या विफल हो गए हैं — अपडेट से पहले उन्हें चलाएँ (बैकएंड लॉगइन)।';
 $BL['be_nav_collapse_menu']        = 'Collapse menu';
 $BL['be_page_title']               = 'phpwcms प्रशासन';
 $BL['be_theme']                    = 'Theme';

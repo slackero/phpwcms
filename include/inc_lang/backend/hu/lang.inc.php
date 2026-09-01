@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Karbantartási mód törlése';
 $BL['be_update_backup_path']        = 'Biztonsági mentés helye';
 $BL['be_update_changed_files']      = 'Módosított fájlok';
 $BL['be_update_no_history']         = 'Még nincsenek rögzített frissítések.';
+$BL['be_update_revision_pending']   = 'Az adatbázis-migrációk függőben vannak vagy sikertelenek — futtassa őket (backend-bejelentkezés) a frissítés előtt.';
 $BL['be_nav_collapse_menu']        = 'Men&uuml; &ouml;sszecsuk&aacute;sa';
 $BL['be_page_title']               = 'phpwcms backend (adminisztráció)';
 $BL['be_subnav_article_center']    = 'cikkek';

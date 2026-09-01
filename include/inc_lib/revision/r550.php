@@ -15,6 +15,8 @@ function phpwcms_revision_r550() {
     $status = true;
 
 
+    if(_dbTableExists('phpwcms_shop_products')) {
+
     $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_shop_products` WHERE Field='shopprod_inventory'");
 
     if(!isset($result[0]['Field'])) {
@@ -24,6 +26,8 @@ function phpwcms_revision_r550() {
         if(!$alter) {
             $status = false;
         }
+    }
+
     }
 
     return $status;

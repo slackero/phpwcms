@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Išvalyti priežiūros režimą';
 $BL['be_update_backup_path']        = 'Atsarginė kopija išsaugota';
 $BL['be_update_changed_files']      = 'Pakeisti failai';
 $BL['be_update_no_history']         = 'Kol kas nėra įrašytų atnaujinimų.';
+$BL['be_update_revision_pending']   = 'Duomenų bazės migracijos yra laukiančios arba nepavykusios — paleiskite jas (prisijungimas prie backend) prieš atnaujinant.';
 $BL['be_nav_collapse_menu']        = 'Suskleisti meniu';
 $BL['be_page_title']               = 'phpwcms administravimas';
 $BL['be_subnav_article_center']    = 'straipsnių centras';

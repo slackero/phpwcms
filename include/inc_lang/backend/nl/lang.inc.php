@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Onderhoudsmodus wissen';
 $BL['be_update_backup_path']        = 'Back-up opgeslagen op';
 $BL['be_update_changed_files']      = 'Gewijzigde bestanden';
 $BL['be_update_no_history']         = 'Er zijn nog geen updates geregistreerd.';
+$BL['be_update_revision_pending']   = 'Databasemigraties staan in de wacht of zijn mislukt — voer ze uit (backend-login) voordat je bijwerkt.';
 $BL['be_nav_collapse_menu']        = 'Menu inklappen';
 $BL['be_page_title']               = 'phpwcms backend (beheer)';
 $BL['be_subnav_article_center']    = 'Artikelbeheer';

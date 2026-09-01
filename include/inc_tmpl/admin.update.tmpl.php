@@ -19,6 +19,11 @@ $update = new phpwcms_update((int)$_SESSION['wcs_user_id']);
 $updateResult = null;
 $rollbackResult = null;
 
+// A new update must not run on a half-migrated schema — block it while DB
+// revisions are pending or failed. History/rollback stay available as the
+// recovery path.
+$revisionsPending = phpwcms_revision_check_temp(PHPWCMS_REVISION) !== true;
+
 // POST actions: sysadmin + CSRF + POST only
 if ($_SERVER['REQUEST_METHOD'] === 'POST'
     && !empty($_SESSION['wcs_user_admin'])
@@ -26,7 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
     && hash_equals((string)get_token_get_value(), (string)$_POST['csrftoken'])) {
 
     if (isset($_POST['update_run']) && !empty($_POST['update_tag'])) {
-        $updateResult = $update->run((string)$_POST['update_tag']);
+        if ($revisionsPending) {
+            $updateResult = ['success' => false, 'error' => $BL['be_update_revision_pending'] ?? 'Database migrations are pending or failed — run them (backend login) before updating.'];
+        } else {
+            $updateResult = $update->run((string)$_POST['update_tag']);
+        }
     } elseif (isset($_POST['update_rollback']) && !empty($_POST['update_rollback'])) {
         $rollbackResult = $update->rollback((int)$_POST['update_rollback']);
     } elseif (isset($_POST['update_clear_maintenance'])) {
@@ -168,11 +177,15 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
             <div class="mb-3">
               <?php echo be_update_markdown(html($updateCheck['notes'])); ?>
             </div>
+            <?php if ($revisionsPending): ?>
+              <div class="alert alert-warning py-2 mb-0"><i class="fa-solid fa-triangle-exclamation"></i> <?php echo html($BL['be_update_revision_pending'] ?? 'Database migrations are pending or failed — run them (backend login) before updating.'); ?></div>
+            <?php else: ?>
             <form method="post" action="phpwcms.php?do=admin&amp;p=18" onsubmit="return confirm('<?php echo js_singlequote($BL['be_update_confirm'] ?? 'The system creates a database backup, then replaces its own files. Continue?'); ?>');">
               <input type="hidden" name="csrftoken" value="<?php echo html(get_token_get_value()); ?>">
               <input type="hidden" name="update_tag" value="<?php echo html($updateCheck['tag']); ?>">
               <button type="submit" name="update_run" value="1" class="btn btn-blue"><i class="fa-solid fa-download"></i> <?php echo $BL['be_update_run'] ?? 'Backup &amp; update now'; ?></button>
             </form>
+            <?php endif; ?>
           <?php endif; ?>
         </div>
       </div>

@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Esborra el mode de manteniment';
 $BL['be_update_backup_path']        = 'Còpia de seguretat desada a';
 $BL['be_update_changed_files']      = 'Fitxers modificats';
 $BL['be_update_no_history']         = 'Encara no hi ha actualitzacions registrades.';
+$BL['be_update_revision_pending']   = 'Les migracions de la base de dades estan pendents o han fallat — executeu-les (inici de sessió al backend) abans d\'actualitzar.';
 $BL['be_nav_collapse_menu']        = 'Plega el men&uacute;';
 $BL['be_page_title']               = 'phpwcms - Àrea d\'administració';
 $BL['be_subnav_article_center']    = 'Centre d\'articles';

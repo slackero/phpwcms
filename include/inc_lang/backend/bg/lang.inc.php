@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Изчисти режима на подд
 $BL['be_update_backup_path']        = 'Резервното копие е съхранено на';
 $BL['be_update_changed_files']      = 'Променени файлове';
 $BL['be_update_no_history']         = 'Все още няма записани актуализации.';
+$BL['be_update_revision_pending']   = 'Миграциите на базата данни са чакащи или неуспешни — изпълнете ги (вход в административния панел) преди обновяване.';
 $BL['be_nav_collapse_menu']        = 'Свиване на менюто';
 $BL['be_page_title']               = 'phpwcms backend (администрация)';
 $BL['be_subnav_article_center']    = 'прес-център';

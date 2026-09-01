@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Mantentze-modua garbitu';
 $BL['be_update_backup_path']        = 'Segurtasun-kopia hemen gordeta';
 $BL['be_update_changed_files']      = 'Aldatutako fitxategiak';
 $BL['be_update_no_history']         = 'Oraindik ez dago eguneraketarik erregistratuta.';
+$BL['be_update_revision_pending']   = 'Datu-baseko migrazioak zain daude edo huts egin dute — exekutatu itzazu (backend-ean saioa hasita) eguneratu aurretik.';
 $BL['be_nav_collapse_menu']        = 'Plegar men&uacute;';
 $BL['be_page_title']               = 'phpwcms kudeaketa';
 $BL['be_theme']                    = 'Tema';

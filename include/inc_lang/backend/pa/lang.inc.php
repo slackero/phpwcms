@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'ਰੱਖ-ਰਖਾਅ ਮੋਡ ਸਾ�
 $BL['be_update_backup_path']        = 'ਬੈਕਅੱਪ ਇੱਥੇ ਸੰਗ੍ਰਹਿਤ ਹੈ';
 $BL['be_update_changed_files']      = 'ਬਦਲੀਆਂ ਫਾਈਲਾਂ';
 $BL['be_update_no_history']         = 'ਅਜੇ ਤੱਕ ਕੋਈ ਅੱਪਡੇਟ ਦਰਜ ਨਹੀਂ ਕੀਤਾ ਗਿਆ।';
+$BL['be_update_revision_pending']   = 'ਡਾਟਾਬੇਸ ਮਾਈਗ੍ਰੇਸ਼ਨ ਅਧੂਰੀਆਂ ਜਾਂ ਅਸਫਲ ਹਨ — ਅੱਪਡੇਟ ਤੋਂ ਪਹਿਲਾਂ ਇਹਨਾਂ ਨੂੰ ਚਲਾਓ (ਬੈਕਐਂਡ ਲੌਗਇਨ)।';
 $BL['be_nav_collapse_menu']        = 'Collapse menu';
 $BL['be_page_title']               = 'phpwcms ਪ੍ਰਬੰਧਨ';
 $BL['be_theme']                    = 'Theme';

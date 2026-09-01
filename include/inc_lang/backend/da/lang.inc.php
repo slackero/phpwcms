@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Ryd vedligeholdelsestilstand';
 $BL['be_update_backup_path']        = 'Sikkerhedskopi gemt på';
 $BL['be_update_changed_files']      = 'Ændrede filer';
 $BL['be_update_no_history']         = 'Der er endnu ingen registrerede opdateringer.';
+$BL['be_update_revision_pending']   = 'Databasemigrationer venter eller er fejlede — kør dem (backend-login), før du opdaterer.';
 $BL['be_nav_collapse_menu']        = 'Skjul menu';
 $BL['be_page_title']               = 'phpwcms administration';
 $BL['be_subnav_article_center']    = 'artikeldatabase';

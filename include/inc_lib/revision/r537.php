@@ -32,19 +32,19 @@ function phpwcms_revision_r537() {
 		_setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
 		_setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 	}
-	if(!_dbColumnExists('phpwcms_content', 'cnt_opengraph')) {
+	if(_dbTableExists('phpwcms_content') && !_dbColumnExists('phpwcms_content', 'cnt_opengraph')) {
 		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_content` ADD `cnt_opengraph` INT(1) UNSIGNED NOT NULL DEFAULT '1', ADD INDEX (`cnt_opengraph`)", 'ALTER');
 		if(!$insert) {
 			$status = false;
 		}
 	}
-	if(!_dbColumnExists('phpwcms_categories', 'cat_opengraph')) {
+	if(_dbTableExists('phpwcms_categories') && !_dbColumnExists('phpwcms_categories', 'cat_opengraph')) {
 		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_categories` ADD `cat_opengraph` INT(1) UNSIGNED NOT NULL DEFAULT '1', ADD INDEX (`cat_opengraph`)", 'ALTER');
 		if(!$insert) {
 			$status = false;
 		}
 	}
-	if(!_dbColumnExists('phpwcms_shop_products', 'shopprod_opengraph')) {
+	if(_dbTableExists('phpwcms_shop_products') && !_dbColumnExists('phpwcms_shop_products', 'shopprod_opengraph')) {
 		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_shop_products` ADD `shopprod_opengraph` INT(1) UNSIGNED NOT NULL DEFAULT '1', ADD INDEX (`shopprod_opengraph`)", 'ALTER');
 		if(!$insert) {
 			$status = false;

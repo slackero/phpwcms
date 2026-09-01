@@ -86,6 +86,7 @@ $BL['be_update_clear_maintenance']  = 'Xóa chế độ bảo trì';
 $BL['be_update_backup_path']        = 'Bản sao lưu được lưu tại';
 $BL['be_update_changed_files']      = 'Các tệp đã thay đổi';
 $BL['be_update_no_history']         = 'Chưa có bản cập nhật nào được ghi lại.';
+$BL['be_update_revision_pending']   = 'Các bản di chuyển cơ sở dữ liệu đang chờ hoặc đã thất bại — hãy chạy chúng (đăng nhập backend) trước khi cập nhật.';
 $BL['be_nav_collapse_menu']        = 'Thu gọn menu';
 $BL['be_page_title']               = 'Quản trị hệ thống';
 $BL['be_subnav_article_center']    = 'trang tin';

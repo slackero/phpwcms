@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'مینٹیننس موڈ صاف کریں';
 $BL['be_update_backup_path']        = 'بیک اپ یہاں محفوظ ہے';
 $BL['be_update_changed_files']      = 'تبدیل شدہ فائلیں';
 $BL['be_update_no_history']         = 'ابھی تک کوئی اپ ڈیٹ ریکارڈ نہیں ہوا۔';
+$BL['be_update_revision_pending']   = 'ڈیٹا بیس مائیگریشنز زیر التوا یا ناکام ہیں — اپ ڈیٹ سے پہلے انہیں چلائیں (بیک اینڈ لاگ ان)۔';
 $BL['be_nav_collapse_menu']        = 'طي القائمة';
 $BL['be_page_title']               = 'phpwcms انتظامیہ';
 $BL['be_theme']                    = 'المظهر';

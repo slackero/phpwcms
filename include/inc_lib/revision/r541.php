@@ -27,7 +27,7 @@ function phpwcms_revision_r541() {
 		_setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 	}
 
-	if(!_dbColumnExists('phpwcms_shop_products', 'shopprod_unit')) {
+	if(_dbTableExists('phpwcms_shop_products') && !_dbColumnExists('phpwcms_shop_products', 'shopprod_unit')) {
 		if(!($insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_shop_products` ADD `shopprod_unit` VARCHAR(100) NOT NULL DEFAULT ''", 'ALTER'))) {
 			$status = false;
 		}

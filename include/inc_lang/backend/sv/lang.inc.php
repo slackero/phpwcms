@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Rensa underhållsläge';
 $BL['be_update_backup_path']        = 'Säkerhetskopia lagrad på';
 $BL['be_update_changed_files']      = 'Ändrade filer';
 $BL['be_update_no_history']         = 'Inga uppdateringar har registrerats ännu.';
+$BL['be_update_revision_pending']   = 'Databasmigreringar väntar eller har misslyckats — kör dem (backend-inloggning) innan du uppdaterar.';
 $BL['be_nav_collapse_menu']        = 'F&auml;ll ihop meny';
 $BL['be_page_title']               = 'phpwcms administration';
 $BL['be_subnav_article_center']    = 'artikeldatabas';

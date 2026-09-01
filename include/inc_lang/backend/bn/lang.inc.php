@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'রক্ষণাবেক্ষণ ম�
 $BL['be_update_backup_path']        = 'ব্যাকআপ সংরক্ষিত হয়েছে';
 $BL['be_update_changed_files']      = 'পরিবর্তিত ফাইল';
 $BL['be_update_no_history']         = 'এখনও কোনো আপডেট রেকর্ড করা হয়নি।';
+$BL['be_update_revision_pending']   = 'ডাটাবেস মাইগ্রেশন অপেক্ষমাণ বা ব্যর্থ — আপডেটের আগে সেগুলি চালান (ব্যাকএন্ড লগইন)।';
 $BL['be_nav_collapse_menu']        = 'Collapse menu';
 $BL['be_page_title']               = 'phpwcms প্রশাসন';
 $BL['be_theme']                    = 'Theme';

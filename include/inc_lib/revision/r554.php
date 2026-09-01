@@ -305,7 +305,8 @@ function phpwcms_revision_r554_update_datetime($table, $fields, $preserve = []) 
     foreach ($fields as $field => $type) {
         // check if NULL is already allowed
         $result = _dbQuery('SHOW COLUMNS FROM `' . DB_PREPEND . $table . '` WHERE Field=' . _dbEscape($field));
-        if (isset($result[0]['Null']) && strtoupper($result[0]['Null']) === 'YES') {
+        if (!isset($result[0]['Field']) || (isset($result[0]['Null']) && strtoupper($result[0]['Null']) === 'YES')) {
+            // column missing in this installation or NULL already allowed — nothing to convert
             unset($fields[$field]);
             continue;
         }

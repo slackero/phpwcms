@@ -69,6 +69,7 @@ $BL['be_update_clear_maintenance']  = 'Wartungsmodus beenden';
 $BL['be_update_backup_path']        = 'Backup gespeichert unter';
 $BL['be_update_changed_files']      = 'Ge&auml;nderte Dateien';
 $BL['be_update_no_history']         = 'Noch keine Updates aufgezeichnet.';
+$BL['be_update_revision_pending']   = 'Datenbank-Migrationen stehen aus oder sind fehlgeschlagen — f&uuml;hre sie (Backend-Login) vor dem Update aus.';
 $BL['be_nav_collapse_menu']        = 'Men&uuml; einklappen';
 $BL['be_page_title']               = 'phpwcms Backend (Verwaltung)';
 $BL['be_theme']                    = 'Farbschema';

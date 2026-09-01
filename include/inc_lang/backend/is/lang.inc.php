@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Hreinsa viðhaldsstillingu';
 $BL['be_update_backup_path']        = 'Öryggisafrit vistað á';
 $BL['be_update_changed_files']      = 'Breyttar skrár';
 $BL['be_update_no_history']         = 'Engar uppfærslur hafa verið skráðar enn.';
+$BL['be_update_revision_pending']   = 'Gagnagrunnsflutningar eru í bið eða mistókust — keyrðu þá (bakenda-innskráning) áður en þú uppfærir.';
 $BL['be_nav_collapse_menu']        = 'Skjul menu';
 $BL['be_page_title']               = 'phpwcms stjórnborð';
 $BL['be_theme']                    = 'Tema';

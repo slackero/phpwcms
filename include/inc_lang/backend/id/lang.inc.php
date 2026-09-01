@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Hapus mode pemeliharaan';
 $BL['be_update_backup_path']        = 'Cadangan disimpan di';
 $BL['be_update_changed_files']      = 'File yang diubah';
 $BL['be_update_no_history']         = 'Belum ada pembaruan yang tercatat.';
+$BL['be_update_revision_pending']   = 'Migrasi database tertunda atau gagal — jalankan migrasi tersebut (login backend) sebelum memperbarui.';
 $BL['be_nav_collapse_menu']        = 'Collapse menu';
 $BL['be_page_title']               = 'phpwcms administrasi';
 $BL['be_theme']                    = 'Theme';

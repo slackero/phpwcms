@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Fjern vedlikeholdsmodus';
 $BL['be_update_backup_path']        = 'Sikkerhetskopi lagret på';
 $BL['be_update_changed_files']      = 'Endrede filer';
 $BL['be_update_no_history']         = 'Det er ennå ingen registrerte oppdateringer.';
+$BL['be_update_revision_pending']   = 'Databasemigrasjoner venter eller har feilet — kjør dem (backend-innlogging) før du oppdaterer.';
 $BL['be_nav_collapse_menu']        = 'Slå sammen meny';
 $BL['be_page_title']               = 'phpwcms administrasjon';
 $BL['be_subnav_article_center']    = 'Artikkelsenter';

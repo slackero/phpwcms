@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = '清除维护模式';
 $BL['be_update_backup_path']        = '备份存储位置';
 $BL['be_update_changed_files']      = '已更改的文件';
 $BL['be_update_no_history']         = '尚无更新记录。';
+$BL['be_update_revision_pending']   = '数据库迁移待处理或失败 — 更新前请先执行迁移（登录后台）。';
 $BL['be_nav_collapse_menu']        = 'Collapse menu';
 $BL['be_page_title']               = 'phpwcms 后台管理';
 $BL['be_theme']                    = 'Theme';

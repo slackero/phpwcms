@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'பராமரிப்பு முற�
 $BL['be_update_backup_path']        = 'காப்புப்பிரதி இங்கே சேமிக்கப்பட்டது';
 $BL['be_update_changed_files']      = 'மாற்றப்பட்ட கோப்புகள்';
 $BL['be_update_no_history']         = 'இன்னும் புதுப்பிப்புகள் பதிவு செய்யப்படவில்லை.';
+$BL['be_update_revision_pending']   = 'தரவுத்தள இடம்பெயர்வுகள் நிலுவையில் உள்ளன அல்லது தோல்வியுற்றன — புதுப்பிக்கும் முன் அவற்றை இயக்கவும் (பின்புல உள்நுழைவு).';
 $BL['be_nav_collapse_menu']        = 'Collapse menu';
 $BL['be_page_title']               = 'phpwcms நிர்வாகம்';
 $BL['be_theme']                    = 'Theme';

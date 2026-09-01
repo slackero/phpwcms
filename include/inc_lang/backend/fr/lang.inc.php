@@ -72,6 +72,7 @@ $BL['be_update_clear_maintenance']  = 'Quitter le mode maintenance';
 $BL['be_update_backup_path']        = 'Sauvegarde stockée à';
 $BL['be_update_changed_files']      = 'Fichiers modifiés';
 $BL['be_update_no_history']         = 'Aucune mise à jour enregistrée pour le moment.';
+$BL['be_update_revision_pending']   = 'Les migrations de la base de données sont en attente ou ont échoué — exécutez-les (connexion au backend) avant la mise à jour.';
 $BL['be_nav_collapse_menu']        = 'R&eacute;duire le menu';
 $BL['be_page_title']               = 'interface d&#39;administration';
 $BL['be_subnav_article_center']    = 'centre d&#39;articles';
