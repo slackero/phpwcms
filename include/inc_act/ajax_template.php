@@ -17,7 +17,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
-if(!empty($_SESSION["wcs_user_lang_custom"])) { //use custom lang if available -> was set in login.php
+if(!empty($_SESSION["wcs_user_lang_custom"]) && preg_match('/^[a-z]{2}$/i', $_SESSION["wcs_user_lang"]) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php')) { //use custom lang if available -> was set in login.php
     include(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php');
 }
 
@@ -32,7 +32,13 @@ $ctnid = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
 //echo readfile ($ctntemplate);
 
 if ($action == 'form') {
-    $frontend_css = read_textfile($ctntemplate);
+    // constrain the readable file to the frontend template directory —
+    // no traversal, no absolute paths
+    $safe_template = str_replace('\\', '/', $ctntemplate);
+    if ($safe_template === '' || strpos($safe_template, '..') !== false || $safe_template[0] === '/' || preg_match('/^[a-zA-Z]:/', $safe_template) || strpos($safe_template, 'template/') !== 0) {
+        die('Sorry, access forbidden');
+    }
+    $frontend_css = read_textfile($safe_template);
     $frontend_css = ($frontend_css) ? html($frontend_css) : "";
     echo $frontend_css;
 } elseif ($action == 'list') {

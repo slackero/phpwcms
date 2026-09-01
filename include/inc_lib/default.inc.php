@@ -991,7 +991,9 @@ function _initSession() {
     if(isset($GLOBALS['phpwcms']['session.cookie_samesite'])) {
         $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = $GLOBALS['phpwcms']['session.cookie_samesite'];
     } elseif(empty($GLOBALS['phpwcms']['session_cookie_params']['samesite'])) {
-        $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = PHPWCMS_SSL ? 'Lax' : 'None';
+        // default Lax — SameSite=None would require Secure and is rejected
+        // by browsers otherwise, dropping the session cookie on non-SSL
+        $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = 'Lax';
     }
     @session_set_cookie_params($GLOBALS['phpwcms']['session_cookie_params']);
 

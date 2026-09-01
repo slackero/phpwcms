@@ -206,7 +206,12 @@ if (empty($content['form']) || !is_array($content['form'])) {
     $content['form'] = array();
 }
 
-$content['direct_download_apikey'] = generic_string(16);
+// CSPRNG-generated API key (16 hex chars) — never the mt_rand-based generic_string()
+try {
+    $content['direct_download_apikey'] = bin2hex(random_bytes(8));
+} catch (Exception $e) {
+    $content['direct_download_apikey'] = generic_string(16);
+}
 $content['form'] = array_merge(
     array(
         'subject' => '',
@@ -1429,6 +1434,23 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                     <?php echo $BL['be_copy_link']; ?>
                 </button>
             </div>
+            <script type="text/javascript">
+            function resetApiKey(btn) {
+                var bytes = new Uint8Array(8);
+                (window.crypto || window.msCrypto).getRandomValues(bytes);
+                var key = '';
+                for (var i = 0; i < bytes.length; i++) {
+                    key += ('0' + bytes[i].toString(16)).slice(-2);
+                }
+                document.getElementById('direct_download_apikey').value = key;
+                document.getElementById('direct_download_apikey_display').textContent = key;
+                var copyBtn = document.getElementById('copy_link_to_clipboard');
+                var link = '<?php echo PHPWCMS_URL . 'include/inc_act/act_export.php?action=exportformresult&fid=' . $content['id'] . '&apikey='; ?>' + key;
+                copyBtn.setAttribute('onclick', "copyToClipboard('" + link + "');return false;");
+                copyBtn.setAttribute('title', '<?php echo $BL['copy_to_clipboard']; ?>: ' + link);
+                btn.blur();
+            }
+            </script>
         </div>
     </div>
 

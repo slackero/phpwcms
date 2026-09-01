@@ -44,6 +44,22 @@ function slweg($text = '', $maxlen = 0, $trim = true) {
     return $text;
 }
 
+/**
+ * Sanitize a redirect target coming from a POSTed frontend form value:
+ * strip CR/LF/NUL (header injection) and allow absolute or scheme-relative
+ * URLs only when they point to the same origin (open redirect).
+ */
+function sanitize_form_redirect($target = '') {
+    $target = trim((string)$target);
+    $target = str_replace(array("\r", "\n", "\0"), '', $target);
+    if ($target !== '' && (strpos($target, '://') !== false || strpos($target, '//') === 0)) {
+        if (stripos($target, PHPWCMS_URL) !== 0) {
+            $target = '';
+        }
+    }
+    return $target;
+}
+
 function clean_slweg($text = '', $maxlen = 0, $trim = true) {
     $text = (string) $text;
     $text = strip_tags($text);

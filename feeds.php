@@ -299,7 +299,7 @@ function getFeedStructureID($value) {
             return '0';
         }
         $sql  = "SELECT acat_id FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_aktiv=1 AND ";
-        $sql .= "acat_trash=0 AND acat_regonly=0 AND acat_alias LIKE "._dbEscape($value)." LIMIT 1";
+        $sql .= "acat_trash=0 AND acat_regonly=0 AND acat_alias LIKE "._dbEscapeLike($value)." LIMIT 1";
         $result = _dbQuery($sql);
         if(isset($result[0]['acat_id'])) {
             $value = $result[0]['acat_id'];

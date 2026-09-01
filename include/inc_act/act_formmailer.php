@@ -34,6 +34,38 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 include_once PHPWCMS_ROOT.'/include/inc_lang/formmailer/lang.formmailer.inc.php';
 
+// simple per-IP rate limit: max 10 submissions per 60 seconds
+if(!formmailer_rate_limit(10, 60)) {
+    header('HTTP/1.1 429 Too Many Requests');
+    die('<h1>429 Too Many Requests</h1>');
+}
+
+/**
+ * File-based per-IP rate limiter for the formmailer endpoint.
+ * Timestamps are kept in the content tmp dir and pruned to the window,
+ * so no DB storage is needed for this lightweight throttle.
+ */
+function formmailer_rate_limit($max = 10, $window = 60) {
+    $limit_dir = PHPWCMS_ROOT . $GLOBALS['phpwcms']['content_path'] . 'tmp/';
+    if(!is_dir($limit_dir) || !is_writable($limit_dir)) {
+        return true; // cannot persist — do not block legit submissions
+    }
+    $limit_file = $limit_dir . 'fmrl_' . md5((string)getRemoteIP()) . '.txt';
+    $now = time();
+    $hits = array();
+    if(is_file($limit_file)) {
+        $hits = array_filter(explode("\n", (string)@file_get_contents($limit_file)), function($t) use ($now, $window) {
+            return $t !== '' && ($now - (int)$t) < $window;
+        });
+    }
+    if(count($hits) >= $max) {
+        return false;
+    }
+    $hits[] = $now;
+    @file_put_contents($limit_file, implode("\n", $hits) . "\n");
+    return true;
+}
+
 if(!checkFormTrackingValue()) {
 
     header("HTTP/1.0 405 Method Not Allowed");
@@ -185,7 +217,7 @@ if(isset($_POST["send_copy"])) {
 
 //get values for redirecting
 if(isset($_POST["redirect"])) {
-	$redirect = trim($_POST["redirect"]);
+	$redirect = sanitize_form_redirect($_POST["redirect"]);
 	unset($_POST["redirect"]);
 }
 if(isset($_POST["redirect_template"])) {
@@ -193,7 +225,7 @@ if(isset($_POST["redirect_template"])) {
 	unset($_POST["redirect_template"]);
 }
 if(isset($_POST["redirect_error"])) {
-	$redirect_error = trim($_POST["redirect_error"]);
+	$redirect_error = sanitize_form_redirect($_POST["redirect_error"]);
 	unset($_POST["redirect_error"]);
 }
 if(isset($_POST["redirect_error_template"])) {

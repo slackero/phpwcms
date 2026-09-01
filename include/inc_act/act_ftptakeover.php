@@ -8,68 +8,78 @@
  *
  **/
 
-$phpwcms = array('SESSION_START' => true);
-$PHPWCMS_ROOT = dirname(dirname(dirname(__FILE__)));
+$phpwcms = ['SESSION_START' => true];
+$PHPWCMS_ROOT = dirname(__FILE__, 3);
 
 require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
 require_once $PHPWCMS_ROOT.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+
+$user_lang = !empty($_SESSION['wcs_user_lang']) ? strtolower(substr($_SESSION['wcs_user_lang'], 0, 2)) : 'en';
+if (!preg_match('/^[a-z]{2}$/', $user_lang)) {
+    $user_lang = 'en';
+}
+require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
+$cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/'.$user_lang.'/lang.inc.php';
+if (is_file($cust_lang)) {
+    include $cust_lang;
+}
+
 checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 $ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
-$file_error = array();
+$file_error = [];
 $new_fileId = 0;
 
-$ftp = array(
+$ftp = [
     'error' => 0,
-    'mark' => isset($_POST["ftp_mark"]) ? $_POST["ftp_mark"] : false,
-    'file' => isset($_POST["ftp_file"]) ? $_POST["ftp_file"] : false,
-    'filename' => isset($_POST["ftp_filename"]) ? $_POST["ftp_filename"] : false
-);
+    'mark' => $_POST['ftp_mark'] ?? false,
+    'file' => $_POST['ftp_file'] ?? false,
+    'filename' => $_POST['ftp_filename'] ?? false
+];
 
-if(is_array($ftp["mark"]) && count($ftp["mark"])) {
-    foreach($ftp["mark"] as $key => $value) {
-        if(intval($ftp["mark"][$key])) {
-            $ftp["file"][$key] = base64_decode($ftp["file"][$key]);
-            if (substr($ftp["file"][$key], 0, 1) === '.' || strpos($ftp["file"][$key], '/') !== false || strpos($ftp["file"][$key], "\\") !== false || !is_file(PHPWCMS_ROOT.$phpwcms["ftp_path"].$ftp["file"][$key])) {
+if(is_array($ftp['mark']) && count($ftp['mark'])) {
+    foreach($ftp['mark'] as $key => $value) {
+        if((int)$ftp['mark'][$key]) {
+            $ftp['file'][$key] = base64_decode($ftp['file'][$key]);
+            if (str_starts_with($ftp['file'][$key], '.') || str_contains($ftp['file'][$key], '/') || str_contains($ftp['file'][$key], "\\") || !is_file(PHPWCMS_ROOT.$phpwcms['ftp_path'].$ftp['file'][$key])) {
                 unset(
-                    $ftp["mark"][$key],
-                    $ftp["file"][$key],
-                    $ftp["filename"][$key]
+                    $ftp['mark'][$key],
+                    $ftp['file'][$key],
+                    $ftp['filename'][$key]
                 );
             } else {
-                $ftp["filename"][$key] = clean_slweg($ftp["filename"][$key]);
+                $ftp['filename'][$key] = clean_slweg($ftp['filename'][$key]);
             }
         } else {
             unset(
-                $ftp["mark"][$key],
-                $ftp["file"][$key],
-                $ftp["filename"][$key]
+                $ftp['mark'][$key],
+                $ftp['file'][$key],
+                $ftp['filename'][$key]
             );
         }
     }
-    if(!count($ftp["mark"])) {
-        $ftp["error"] = 1;
+    if(!count($ftp['mark'])) {
+        $ftp['error'] = 1;
     }
 } else {
-    $ftp["error"] = 1;
+    $ftp['error'] = 1;
 }
 
+headerAvoidPageCaching();
+
 ?><!DOCTYPE>
-<html>
+<html lang="<?= html($user_lang) ?>">
 <head>
-    <title>phpwcms: File take over</title>
+    <title>phpwcms: <?php echo html($BL['be_ftptakeover_title']) ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
     <meta name="robots" content="noindex,nofollow">
     <link href="../inc_css/backend.min.css" rel="stylesheet" type="text/css">
-    <style type="text/css">
+    <style>
         body {
             background-color: #EBF2F4;
             padding: 1em;
@@ -86,7 +96,7 @@ if(is_array($ftp["mark"]) && count($ftp["mark"])) {
 <body>
     <div class="wrapper">
 <?php
-if(!$ftp["error"]) {
+if(!$ftp['error']) {
 
     require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.svg-reader.php';
 
@@ -95,7 +105,7 @@ if(!$ftp["error"]) {
         require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.iptc.php';
     }
 
-    $ftp['dir']         = intval($_POST['file_dir']);
+    $ftp['dir']         = (int)$_POST['file_dir'];
     $ftp['dir_new']     = empty($_POST['file_dir_new']) ? '' : clean_slweg($_POST['file_dir_new']);
     $ftp['short_info']  = clean_slweg($_POST['file_shortinfo']);
     $ftp['title']       = clean_slweg($_POST['file_title']);
@@ -106,19 +116,19 @@ if(!$ftp["error"]) {
     $ftp['long_info']   = slweg($_POST['file_longinfo']);
     $ftp['copyright']   = slweg($_POST['file_copyright']);
     $ftp['tags']        = trim( trim( clean_slweg($_POST['file_tags']), ',') );
-    $ftp['keywords']    = isset($_POST['file_keywords']) ? $_POST['file_keywords'] : array();
+    $ftp['keywords']    = $_POST['file_keywords'] ?? [];
     $ftp['keys']        = '';
-    $ftp['file_vars']   = array();
+    $ftp['file_vars']   = [];
 
-    if(is_array($ftp["keywords"]) && count($ftp["keywords"])) {
-        foreach($ftp["keywords"] as $key => $value) {
-            unset($ftp["keywords"][$key]);
-            $key = intval($key);
-            if($value != "0_1") {
-                $ftp["keys"] .= (($ftp["keys"]) ? ":" : "").$key."_".intval($value);
-                $ftp["keywords"][$key] = intval($value);
+    if(is_array($ftp['keywords']) && count($ftp['keywords'])) {
+        foreach($ftp['keywords'] as $key => $value) {
+            unset($ftp['keywords'][$key]);
+            $key = (int)$key;
+            if($value !== '0_1') {
+                $ftp['keys'] .= (($ftp['keys']) ? ':' : '').$key. '_' . (int)$value;
+                $ftp['keywords'][$key] = (int)$value;
             } else {
-                $file_error["keywords"][$key] = 1;
+                $file_error['keywords'][$key] = 1;
             }
         }
     }
@@ -127,18 +137,18 @@ if(!$ftp["error"]) {
         foreach($phpwcms['allowed_lang'] as $lang) {
             $lang = strtolower($lang);
 
-            $ftp['file_vars'][$lang] = array(
+            $ftp['file_vars'][$lang] = [
                 'longinfo' => '',
                 'copyright' => '',
                 'title' => '',
                 'alt' => ''
-            );
+            ];
 
             if($phpwcms['default_lang'] === $lang) {
-                $ftp['file_vars'][$lang]['longinfo'] = $ftp["long_info"];
-                $ftp['file_vars'][$lang]['copyright'] = $ftp["copyright"];
-                $ftp['file_vars'][$lang]['title'] = $ftp["title"];
-                $ftp['file_vars'][$lang]['alt'] = $ftp["alt"];
+                $ftp['file_vars'][$lang]['longinfo'] = $ftp['long_info'];
+                $ftp['file_vars'][$lang]['copyright'] = $ftp['copyright'];
+                $ftp['file_vars'][$lang]['title'] = $ftp['title'];
+                $ftp['file_vars'][$lang]['alt'] = $ftp['alt'];
             }
 
             if(isset($_POST['file_longinfo_'.$lang])) {
@@ -160,52 +170,53 @@ if(!$ftp["error"]) {
         if ($ftp['dir']) {
             $where = 'f_kid=0 AND f_trash=0 AND f_id=' . $ftp['dir'];
             if(!has_admin_permission('filecent') && !has_admin_permission('fileupload')) {
-                $where .= ' AND f_uid='.intval($_SESSION["wcs_user_id"]);
+                $where .= ' AND f_uid='. (int)$_SESSION['wcs_user_id'];
             }
             $target_dir = _dbGet('phpwcms_file', '*', $where, '', '', 1);
         }
         if (isset($target_dir[0]['f_id'])) {
-            $dir_new_public = intval($target_dir[0]['f_public']);
-            $dir_new_active = intval($target_dir[0]['f_aktiv']);
+            $dir_new_public = (int)$target_dir[0]['f_public'];
+            $dir_new_active = (int)$target_dir[0]['f_aktiv'];
         } else {
             $ftp['dir'] = 0;
-            $dir_new_public = $ftp["public"];
-            $dir_new_active = $ftp["aktiv"];
+            $dir_new_public = $ftp['public'];
+            $dir_new_active = $ftp['aktiv'];
         }
-        $data = array(
+        $data = [
             'f_pid'			=> $ftp['dir'],
-            'f_uid'			=> intval($_SESSION["wcs_user_id"]),
+            'f_uid'			=> (int)$_SESSION['wcs_user_id'],
             'f_kid'			=> 0,
             'f_aktiv'		=> $dir_new_active,
             'f_public'		=> $dir_new_public,
             'f_name'		=> $ftp['dir_new'],
             'f_created'		=> now()
-        );
+        ];
         $new_dir = _dbInsert('phpwcms_file', $data);
         if (isset($new_dir['INSERT_ID'])) {
-            $ftp['dir'] = intval($new_dir['INSERT_ID']);
+            $ftp['dir'] = (int)$new_dir['INSERT_ID'];
         }
     }
 
-?><p><i class="fa-solid fa-sync fa-spin text-primary me-1"></i><strong class="title">Selected files will be taken over!</strong></p><?php
+?><p>
+            <i class="fa-solid fa-sync fa-spin text-primary me-1"></i><strong class="title"><?php echo $BL['be_ftptakeover_processing'] ?></strong></p><?php
 
     echo '<p class="v10">';
     flush();
 
-    $userftppath    = PHPWCMS_ROOT.$phpwcms["ftp_path"];
-    $useruploadpath = PHPWCMS_ROOT.$phpwcms["file_path"];
+    $userftppath    = PHPWCMS_ROOT.$phpwcms['ftp_path'];
+    $useruploadpath = PHPWCMS_ROOT.$phpwcms['file_path'];
 
-    foreach($ftp["mark"] as $key => $value) {
+    foreach($ftp['mark'] as $key => $value) {
 
         if(function_exists('set_time_limit')) {
             @set_time_limit(240);
         }
 
-        $file = $ftp["file"][$key];
+        $file = $ftp['file'][$key];
         $file_path = $userftppath.$file;
         if(is_file($file_path)) {
 
-            $file_error["upload"] = 0;
+            $file_error['upload'] = 0;
             $file_image_size = null;
 
             $file_type      = '';
@@ -213,16 +224,32 @@ if(!$ftp["error"]) {
             if(false === ($file_ext = check_image_extension($file_path, $file, $file_image_size))) {
                 $file_ext = which_ext($file);
             }
-            $file_name      = sanitize_filename($ftp["filename"][$key]);
+            $file_ext = strtolower($file_ext);
+
+            // security gate: FTP takeover must respect the upload whitelist and
+            // must never copy executable files into the web-accessible filearchive
+            $takeover_allowed_ext = isset($GLOBALS['phpwcms']['allowed_upload_ext']) && is_array($GLOBALS['phpwcms']['allowed_upload_ext']) ? $GLOBALS['phpwcms']['allowed_upload_ext'] : [];
+            if (in_array($file_ext, ['php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'pht', 'phar', 'cgi', 'pl', 'py', 'sh', 'htaccess', 'htpasswd'])) {
+                $file_error['upload'] = sprintf($BL['be_fprivup_err7'], $file);
+                echo $file. ' (' .html($file_error['upload']). ')<br />';
+                continue;
+            }
+
+            if ($takeover_allowed_ext && !in_array($file_ext, $takeover_allowed_ext)) {
+                $file_error['upload'] = sprintf($BL['be_fprivup_err8'], $file_ext, implode(', ', $takeover_allowed_ext));
+                echo $file. ' (' .html($file_error['upload']). ')<br />';
+                continue;
+            }
+            $file_name      = sanitize_filename($ftp['filename'][$key]);
             if(PHPWCMS_CHARSET !== 'utf-8') {
                 $file_name  = makeCharsetConversion($file_name, 'utf-8', PHPWCMS_CHARSET);
             }
             $file_hash      = md5( $file_name . microtime() );
             $file_check     = getimagesize($file_path, $file_image_info);
-            $file_title     = $ftp["title"];
-            $file_longinfo  = $ftp["long_info"];
-            $file_copyright = $ftp["copyright"];
-            $file_alt       = $ftp["alt"];
+            $file_title     = $ftp['title'];
+            $file_longinfo  = $ftp['long_info'];
+            $file_copyright = $ftp['copyright'];
+            $file_alt       = $ftp['alt'];
             $file_vars      = $ftp['file_vars'];
 
             $ftp_varsfield  = '';
@@ -282,10 +309,10 @@ if(!$ftp["error"]) {
             if(empty($file_check[0]) && $file_ext === 'svg' && ($file_svg = @SVGMetadataExtractor::getMetadata($file_path))) {
 
                 $file_type = 'image/svg+xml';
-                $file_check = array(
+                $file_check = [
                     0 => $file_svg['width'],
                     1 => $file_svg['height']
-                );
+                ];
                 $file_svg = 1;
 
             } else {
@@ -309,16 +336,16 @@ if(!$ftp["error"]) {
                 }
             }
 
-            $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_file (";
-            $sql .= "f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, f_svg, f_image_width, f_image_height, ";
-            $sql .= "f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags".$ftp_varsfield.", f_title, f_alt) VALUES (";
-            $sql .= $ftp["dir"].", ".intval($_SESSION["wcs_user_id"]).", 1, ".$ftp["aktiv"].", ".$ftp["public"].", ";
-            $sql .= _dbEscape($file_name).", '".time()."', "._dbEscape($file_size).", "._dbEscape($file_type).", ";
-            $sql .= _dbEscape($file_ext).", ".$file_svg.', '._dbEscape(empty($file_check[0]) ? '' : $file_check[0]).", "._dbEscape(empty($file_check[1]) ? '' : $file_check[1]).", ";
-            $sql .= _dbEscape($ftp["short_info"]).", ";
-            $sql .= _dbEscape($file_longinfo).", "._dbEscape($ftp["keys"]).", '".$file_hash."', ";
-            $sql .= _dbEscape($file_copyright).", "._dbEscape($ftp["tags"]).$ftp_varsvalue.", ";
-            $sql .= _dbEscape($file_title).", "._dbEscape($file_alt).")";
+            $sql  = 'INSERT INTO ' .DB_PREPEND. 'phpwcms_file (';
+            $sql .= 'f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, f_svg, f_image_width, f_image_height, ';
+            $sql .= 'f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags' .$ftp_varsfield. ', f_title, f_alt) VALUES (';
+            $sql .= $ftp['dir']. ', ' . (int)$_SESSION['wcs_user_id'] . ', 1, ' .$ftp['aktiv']. ', ' .$ftp['public']. ', ';
+            $sql .= _dbEscape($file_name).", '".time()."', "._dbEscape($file_size). ', ' ._dbEscape($file_type). ', ';
+            $sql .= _dbEscape($file_ext). ', ' .$file_svg.', '._dbEscape(empty($file_check[0]) ? '' : $file_check[0]). ', ' ._dbEscape(empty($file_check[1]) ? '' : $file_check[1]). ', ';
+            $sql .= _dbEscape($ftp['short_info']). ', ';
+            $sql .= _dbEscape($file_longinfo). ', ' ._dbEscape($ftp['keys']).", '".$file_hash."', ";
+            $sql .= _dbEscape($file_copyright). ', ' ._dbEscape($ftp['tags']).$ftp_varsvalue. ', ';
+            $sql .= _dbEscape($file_title). ', ' ._dbEscape($file_alt). ')';
 
             $result = _dbQuery($sql, 'INSERT');
 
@@ -338,26 +365,26 @@ if(!$ftp["error"]) {
                         @unlink($userftppath.$file);
 
                         // store tags
-                        _dbSaveCategories($ftp["tags"], 'file', $new_fileId, ',');
+                        _dbSaveCategories($ftp['tags'], 'file', $new_fileId, ',');
 
                     } else {
-                        $file_error["upload"] = "Error while writing file to storage (1).";
+                        $file_error['upload'] = $BL['be_fprivup_err3'];
                     }
                 }
             } elseif(($mysql_error = _dbError())) {
 
-                $file_error["upload"] = 'MySQL Error while insert to DB: '.$mysql_error;
+                $file_error['upload'] = $BL['be_ftptakeover_dberror'].html($mysql_error);
 
             }
 
-            if(empty($file_error["upload"])) {
+            if(empty($file_error['upload'])) {
 
                 // now try to find 1st file having same named and replace it if related mark is set
-                if($ftp["replace"]) {
+                if($ftp['replace']) {
 
-                    $rsql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE ";
-                    $rsql .= "f_name="._dbEscape($file_name)." AND f_kid=1 ";
-                    $rsql .= "AND f_pid=".$ftp["dir"]." AND f_trash=0 AND f_id != ".$new_fileId." LIMIT 1";
+                    $rsql  = 'SELECT * FROM ' .DB_PREPEND. 'phpwcms_file WHERE ';
+                    $rsql .= 'f_name=' ._dbEscape($file_name). ' AND f_kid=1 ';
+                    $rsql .= 'AND f_pid=' .$ftp['dir']. ' AND f_trash=0 AND f_id != ' .$new_fileId. ' LIMIT 1';
 
                     $rrow = _dbQuery($rsql);
 
@@ -370,10 +397,10 @@ if(!$ftp["error"]) {
                         $oldFileNewHash = md5( $file_name . microtime() . time() );
 
                         // now update new file by old file information of same named
-                        $nsql  = "UPDATE ".DB_PREPEND."phpwcms_file SET ";
-                        $nsql .= "f_refid=".$oldFileID.", f_trash=5, f_size=".$rrow['f_size'].', ';
-                        $nsql .= "f_type="._dbEscape($rrow['f_type']).", f_changed=".now().', ';
-                        $nsql .= "f_hash="._dbEscape($oldFileNewHash)." WHERE f_id=".$new_fileId;
+                        $nsql  = 'UPDATE ' .DB_PREPEND. 'phpwcms_file SET ';
+                        $nsql .= 'f_refid=' .$oldFileID. ', f_trash=5, f_size=' .$rrow['f_size'].', ';
+                        $nsql .= 'f_type=' ._dbEscape($rrow['f_type']). ', f_changed=' .now().', ';
+                        $nsql .= 'f_hash=' ._dbEscape($oldFileNewHash). ' WHERE f_id=' .$new_fileId;
 
                         if(_dbQuery($nsql, 'UPDATE')) {
 
@@ -383,12 +410,12 @@ if(!$ftp["error"]) {
                             rename($usernewfile, $useruploadpath.$oldFileHash.$_file_extension);
 
                             // update file size of old file with new filesize
-                            _dbUpdate('phpwcms_file', array('f_type'=>$file_type, 'f_size'=>$file_size, 'f_changed'=>now()), 'f_id='.$oldFileID);
+                            _dbUpdate('phpwcms_file', ['f_type'=>$file_type, 'f_size'=>$file_size, 'f_changed'=>now()], 'f_id='.$oldFileID);
 
                             // empty temp images directory
                             if ($file_ext === 'svg') {
                                 $filter_by_ext  = 'svg';
-                            } elseif (in_array($file_ext, array('jpg', 'jpeg', 'png', 'gif', 'webp'))) {
+                            } elseif (in_array($file_ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
                                 $filter_by_ext = $file_ext;
                                 if (PHPWCMS_WEBP) {
                                     $filter_by_ext .= ',webp';
@@ -410,41 +437,37 @@ if(!$ftp["error"]) {
                 }
 
                 flush();
-                echo $file." [OK!]<br />";
+                echo html($file) . ' [' . $BL['be_ftptakeover_ok'] . ']<br />';
 
             } else {
 
-                echo $file." (".$file_error["upload"].")<br />";
-                _dbQuery("DELETE FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$new_fileId." AND f_uid=".$_SESSION["wcs_user_id"], 'DELETE');
+                echo $file. ' (' .$file_error['upload']. ')<br />';
+                _dbQuery('DELETE FROM ' .DB_PREPEND. 'phpwcms_file WHERE f_id=' .$new_fileId. ' AND f_uid=' .$_SESSION['wcs_user_id'], 'DELETE');
 
             }
 
         } else {
-            echo $file." does not exist<br />";
+            echo html($file) . ' ' . $BL['be_ftptakeover_missing'] . '<br />';
         }
         flush();
     }
 
-    echo "</p>";
+    echo '</p>';
 }
 
-if(empty($file_error["upload"]) && empty($ftp["error"])) {
-
-    echo "<p class=\"title\"><strong>Every selected file was taken over!</strong></p>";
-    echo "<p class='v10'><a href=\"".$ref."\" style=\"font-weight: bold;\">&laquo; Return</a> (if no automatic redirect)</p>\n";
-    echo "<script type=\"text/javascript\"> window.location.href = \"".$ref."\"; </script>\n";
-
+if(empty($file_error['upload']) && empty($ftp['error'])) {
+    echo '<p class="title"><strong>' . $BL['be_ftptakeover_done'] . '</strong></p>';
+    echo '<p class="v10"><a href="' . html($ref) . '"><strong>' . $BL['be_ftptakeover_return'] . '</strong></a> (' . $BL['be_ftptakeover_autoredirect'] . ')</p>';
+    echo '<script type="text/javascript"> window.location.href = ' . json_encode($ref) . '; </script>';
 } else {
-
-    echo "<p class=\"error\"><strong>Error while file take over!</strong></p>\n";
-    if(!empty($file_error["upload"])) {
-        echo dumpVar($file_error["upload"], 2);
+    echo '<p class="error"><strong>' . $BL['be_ftptakeover_error'] . '</strong></p>';
+    if(!empty($file_error['upload'])) {
+        echo dumpVar($file_error['upload'], 2);
     }
-    echo "<p class='v10'><a href=\"".$ref."\" style=\"font-weight: bold;\">&laquo; Return</a></p>\n";
-
+    echo '<p class="v10"><a href="' . html($ref) . '"><strong>' . $BL['be_ftptakeover_return'] . '</strong></a></p>';
 }
 
-echo "</div></body></html>";
+echo '</div></body></html>';
 
 if(isset($oldumask)) {
     umask($oldumask);

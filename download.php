@@ -80,7 +80,7 @@ if(!empty($hash) && strlen($hash) === 32) {
 
             $fileinfo['path']       = PHPWCMS_ROOT.$phpwcms["file_path"];
             $fileinfo['filesize']   = $download['f_size'];
-            $fileinfo['method']     = empty($phpwcms["inline_download"]) ? 'attachment' : 'inline';
+            $fileinfo['method']     = empty($phpwcms["inline_download"]) ? 'attachment' : dl_file_disposition($download["f_ext"]);
             $fileinfo['mimetype']   = $download["f_type"];
             $fileinfo['file']       = $fileinfo['path'].$fileinfo['filename'];
             $fileinfo['extension']  = $download["f_ext"];
@@ -95,10 +95,12 @@ if(!empty($hash) && strlen($hash) === 32) {
 // we hack in the stream.php here
 } elseif( ($file = isset($_GET['file']) ? clean_slweg($_GET['file'], 40) : '') ) {
 
+    // only hash-based storage names (32 hex chars + optional extension) may be
+    // accessed through this unauthenticated path — never arbitrary file names
     $filename   = basename($file);
     $file       = PHPWCMS_ROOT.'/'.PHPWCMS_FILES . $filename;
 
-    if(is_file($file)) {
+    if(is_file($file) && preg_match('/^[a-f0-9]{32}(\.[a-z0-9]{1,10})?$/', $filename)) {
 
         $mime = empty($_GET['type']) ? '' : clean_slweg($_GET['type'], 100);
 
@@ -118,7 +120,7 @@ if(!empty($hash) && strlen($hash) === 32) {
 
             header('Content-Transfer-Encoding: binary');
             if(!isset($_GET['ios'])) {
-                header('Content-Disposition: inline; filename="'.($phpwcms['sanitize_dlname'] ? phpwcms_remove_accents($filename) : $filename).'"');
+                header('Content-Disposition: ' . dl_file_disposition(which_ext($file)) . '; filename="'.($phpwcms['sanitize_dlname'] ? phpwcms_remove_accents($filename) : $filename).'"');
             }
             header('Content-Length: ' . filesize($file));
 

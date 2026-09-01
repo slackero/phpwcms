@@ -167,7 +167,9 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 
         } else {
 
-            $content["newsletter"]["reffering_key"] = preg_replace('/[^a-z0-9]/i', '', shortHash($content["newsletter"]["email_address"].time()) );
+            // CSPRNG unsubscribe key — a predictable md5(email.time()) key allowed
+            // brute-forcing the deletion of someone else's subscription
+            $content["newsletter"]["reffering_key"] = bin2hex(random_bytes(16));
             //if email not exists in newsletter address list insert entry
             $e_sql = "INSERT INTO ".DB_PREPEND."phpwcms_address (".
                      "address_email, address_name, address_key, address_subscription, address_url1, address_url2) VALUES (".

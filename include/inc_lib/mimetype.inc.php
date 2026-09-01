@@ -274,6 +274,19 @@ function is_mimetype_by_extension($ext) {
 }
 
 /**
+ * Content-Disposition for a file extension: types that can execute scripts
+ * when rendered by the browser (SVG, HTML, XML, JS) are always delivered
+ * as attachment to prevent stored XSS through uploaded files.
+ */
+function dl_file_disposition($ext='') {
+	$ext = strtolower((string)$ext);
+	if(in_array($ext, array('svg', 'svgz', 'html', 'htm', 'xhtml', 'xml', 'js', 'mjs'))) {
+		return 'attachment';
+	}
+	return 'inline';
+}
+
+/**
  * Check a given MimeType against type/subtype format
  * It is mainly based to handle problemes related to mimeTypes.rdf in FireFox
  */

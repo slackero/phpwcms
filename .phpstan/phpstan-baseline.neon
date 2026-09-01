@@ -8273,3 +8273,26 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: ../template/inc_script/frontend_render/disabled/vgwort.php
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 13
+			path: ../include/inc_act/act_ftptakeover.php
+
+		-
+			message: '#^Variable \$acat_lang_type might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/admin.structform.tmpl.php
+
+		-
+			message: '#^Variable \$article might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_tmpl/article.editsummary.tmpl.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: ../include/inc_tmpl/newsletter.form.tmpl.php

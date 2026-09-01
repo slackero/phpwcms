@@ -148,7 +148,15 @@ $content['form']["anchor_off"] = isset($_POST["cform_anchor_off"]) && !intval($_
 $content['form']["ssl"] = empty($_POST["cform_ssl"]) ? 0 : 1;
 $content['form']["anchor_name"] = clean_slweg($_POST["cform_anchor_name"]);
 $content['form']["direct_download"] = empty($_POST["cform_direct_download"]) ? 0 : 1;
-$content['form']["direct_download_apikey"] = clean_slweg($_POST["direct_download_apikey"]);
+// API key must stay an alphanumeric 16-char token; regenerate otherwise
+$content['form']["direct_download_apikey"] = isset($_POST["direct_download_apikey"]) ? (string)$_POST["direct_download_apikey"] : '';
+if (!preg_match('/^[a-zA-Z0-9]{16}$/', $content['form']["direct_download_apikey"])) {
+    try {
+        $content['form']["direct_download_apikey"] = bin2hex(random_bytes(8));
+    } catch (Exception $e) {
+        $content['form']["direct_download_apikey"] = generic_string(16);
+    }
+}
 $content['form']["novalidate"] = empty($_POST["cform_novalidate"]) ? 0 : 1;
 
 //$field_counter = 0;

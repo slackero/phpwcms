@@ -18,7 +18,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
-if(!empty($_SESSION["wcs_user_lang_custom"])) { //use custom lang if available -> was set in login.php
+if(!empty($_SESSION["wcs_user_lang_custom"]) && preg_match('/^[a-z]{2}$/i', $_SESSION["wcs_user_lang"]) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php')) { //use custom lang if available -> was set in login.php
   include(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php');
 }
 

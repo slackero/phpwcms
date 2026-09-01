@@ -96,6 +96,22 @@ _dbQuery($sql, 'UPDATE');
 //load default language EN
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 
+/**
+ * Brute-force throttle: count failed login attempts in the session and
+ * delay each retry with exponential backoff (capped at 8 seconds).
+ * The counter is reset on every successful authentication.
+ */
+function register_failed_login() {
+    $fails = empty($_SESSION['wcs_login_fails']) ? 0 : (int)$_SESSION['wcs_login_fails'];
+    $fails++;
+    $_SESSION['wcs_login_fails'] = $fails;
+    usleep(min(100000 * (2 ** min($fails, 6)), 8000000));
+}
+
+function reset_failed_login_count() {
+    unset($_SESSION['wcs_login_fails']);
+}
+
 $lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr', 'uk' => 'ua', 'zh' => 'zh-cn', 'in' => 'id'];
 
 //define language and check if language file is available
@@ -306,11 +322,13 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
                 $_SESSION['PHPWCMS_BROWSER_HASH'] = $phpwcms['USER_AGENT']['hash'];
                 // new session id after successful auth (prevent session fixation)
                 session_regenerate_id(true);
+                reset_failed_login_count();
                 headerRedirect($backend_redirect . get_token_get_string());
             }
         }
     }
 
+    register_failed_login();
     $err = 1;
     $step_2fa = true;
 
@@ -484,16 +502,19 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
         $_SESSION['PHPWCMS_BROWSER_HASH'] = $phpwcms['USER_AGENT']['hash'];
         // new session id after successful auth (prevent session fixation)
         session_regenerate_id(true);
+        reset_failed_login_count();
         headerRedirect($backend_redirect . get_token_get_string());
 
     } elseif (!$step_2fa) {
 
+        register_failed_login();
         $err = 1;
 
     }
 
 } elseif(isset($_POST['form_loginname']) && $json_check !== 2) {
 
+    register_failed_login();
     $err = 1;
 
 }

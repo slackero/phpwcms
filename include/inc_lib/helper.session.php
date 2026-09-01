@@ -423,7 +423,14 @@ function validate_csrf_tokens($token_prefix = 'csrf_')
             handle_csrf_error('csrf-post-invalid');
         }
 
-        if (!validate_session_token($_POST[$token_prefix . 'token_name'], $_POST[$token_prefix . 'token_value'])) {
+        // only known CSRF token names may be looked up in the session —
+        // never trust the posted name as an arbitrary session key
+        $posted_token_name = $_POST[$token_prefix . 'token_name'];
+        if ($posted_token_name !== 'csrf_form_token' && !preg_match('/^csrf_[a-f0-9]{32}$/', $posted_token_name)) {
+            handle_csrf_error('csrf-post-invalid');
+        }
+
+        if (!validate_session_token($posted_token_name, $_POST[$token_prefix . 'token_value'])) {
             handle_csrf_error('csrf-post-failed');
         }
 

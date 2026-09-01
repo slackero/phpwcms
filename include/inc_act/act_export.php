@@ -23,18 +23,26 @@ if (empty($_GET['apikey']) || $action !== 'exportformresult') {
     checkLogin();
     validate_csrf_tokens();
 } else {
-    $apikey = clean_slweg($_GET['apikey']);
-    if (strlen($apikey) !== 16) {
+    // API key must be an alphanumeric 16-char token before it touches the database
+    $apikey = isset($_GET['apikey']) ? (string)$_GET['apikey'] : '';
+    if (!preg_match('/^[a-zA-Z0-9]{16}$/', $apikey)) {
         $apikey = '';
     } else {
-        $where_apikey = _dbEscape('direct_download_apikey";s:16:"' . $apikey . '"', true, '%', '%');
-        $where_allow = _dbEscape('direct_download";i:1', true, '%', '%');
+        // fetch the form by id and compare the stored key in PHP —
+        // never match user input via SQL LIKE (wildcard injection bypass)
         $form = _dbGet(
             'phpwcms_articlecontent',
             'acontent_id, acontent_form',
-            'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0 AND acontent_form LIKE ' . $where_allow . ' AND acontent_form LIKE ' . $where_apikey
+            'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0'
         );
-        if (empty($form[0]['acontent_id']) || (int)$form[0]['acontent_id'] !== $fid) {
+        $stored_apikey = '';
+        if (!empty($form[0]['acontent_id']) && (int)$form[0]['acontent_id'] === $fid) {
+            $form_data = @unserialize($form[0]['acontent_form'], ['allowed_classes' => false]);
+            if (is_array($form_data) && !empty($form_data['direct_download']) && isset($form_data['direct_download_apikey'])) {
+                $stored_apikey = (string)$form_data['direct_download_apikey'];
+            }
+        }
+        if ($stored_apikey === '' || !hash_equals($stored_apikey, $apikey)) {
             $apikey = '';
         }
     }
@@ -48,6 +56,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 // export form results
 if ($action === 'exportformresult' && $fid) {
@@ -105,7 +114,13 @@ if ($action === 'exportformresult' && $fid) {
         $current = $export[$x];
         foreach ($export[0] as $column_title => $column) {
             $column_value = $current[$column_title] ?? '';
-            $sheet->setCellValue([$column, $x + 1], $column_value);
+            // prevent spreadsheet formula injection: values starting with
+            // =, +, -, @ are stored as explicit strings, never as formulas
+            if (is_string($column_value) && $column_value !== '' && strpbrk($column_value[0], '=+-@') !== false) {
+                $sheet->getCell([$column, $x + 1])->setValueExplicit($column_value, DataType::TYPE_STRING);
+            } else {
+                $sheet->setCellValue([$column, $x + 1], $column_value);
+            }
         }
     }
 
@@ -186,7 +201,7 @@ if ($action === 'exportformresultdetail' && $fid) {
             echo '<td valign="top" style="padding:0 0 3px 0;">';
             if (isset($export[$x][$key])) {
 
-                if (strpos($export[$x][$key], '/' . $phpwcms['content_path'] . 'form/')) {
+                if (strpos((string)$export[$x][$key], '/' . $phpwcms['content_path'] . 'form/') !== false) {
 
                     $ext = which_ext($export[$x][$key]);
                     $export[$x][$key] = html($export[$x][$key]);
