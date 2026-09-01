@@ -21,7 +21,9 @@ require_once __DIR__ . '/../../include/inc_lib/update/update.backup.php';
 file_put_contents($tmp . '/orig/inc/a.php', 'OLD');
 $ok = phpwcms_update_backup_files(['inc/a.php', 'inc/missing.php'], $tmp . '/backup');
 assert($ok === false, 'missing file must fail the whole backup');
-assert(!is_file($tmp . '/backup/inc/a.php') || true); // partial mirror allowed on failure
+$ok = phpwcms_update_backup_files(['inc/missing.php'], $tmp . '/backup2');
+assert($ok === false, 'missing file must fail backup');
+assert(!is_dir($tmp . '/backup2/inc'), 'failed backup must not leave trusted mirror');
 $ok = phpwcms_update_backup_files(['inc/a.php'], $tmp . '/backup');
 assert($ok === true, 'existing file backs up');
 assert(file_get_contents($tmp . '/backup/inc/a.php') === 'OLD');
