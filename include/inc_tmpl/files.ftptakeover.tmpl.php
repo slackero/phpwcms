@@ -104,7 +104,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
           <tfoot class="bg-light border-top">
             <tr>
               <td class="text-center align-middle"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
-              <td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fa-solid fa-trash-alt me-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
+              <td class="align-middle"><button id="delete-selected-files" type="button" class="btn btn-sm btn-danger py-1" disabled aria-disabled="true"><i class="fa-solid fa-trash-alt me-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
               <td class="text-end align-middle fw-bold"><?php echo fsizelong($fxsg) ?></td>
             </tr>
           </tfoot>
@@ -308,7 +308,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 
     <div class="form-group mt-4 mb-0 text-center text-sm-end">
 		<input name="file_aktion" type="hidden" id="file_aktion" value="1" />
-        <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-cogs me-1"></i> <?php echo $BL['be_ftptakeover_button'] ?></button>
+        <button name="Submit" type="submit" id="ftp_takeover_submit" class="btn btn-sm btn-blue" value="1" disabled aria-disabled="true"><i class="fa-solid fa-file-import me-1"></i> <?php echo $BL['be_ftptakeover_button'] ?></button>
 	</div>
 
 </div>
@@ -542,6 +542,7 @@ function ppInitFunction() {
 
     var ftpTakeOverForm = $('#ftptakeover'),
         deleteFiles = $('#delete-selected-files'),
+        takeoverSubmit = $('#ftp_takeover_submit'),
         fileMarker = $('input.ftp_mark'),
         checkToggle = $('#toggle');
 
@@ -561,9 +562,11 @@ function ppInitFunction() {
         });
 
         if(isChecked) {
-            deleteFiles.show();
+            deleteFiles.prop('disabled', false).removeAttr('aria-disabled');
+            takeoverSubmit.prop('disabled', false).removeAttr('aria-disabled');
         } else {
-            deleteFiles.hide();
+            deleteFiles.prop('disabled', true).attr('aria-disabled', 'true');
+            takeoverSubmit.prop('disabled', true).attr('aria-disabled', 'true');
             checkToggle.prop('checked', false);
         }
 
@@ -580,9 +583,11 @@ function ppInitFunction() {
         });
 
         if(isChecked) {
-            deleteFiles.show();
+            deleteFiles.prop('disabled', false).removeAttr('aria-disabled');
+            takeoverSubmit.prop('disabled', false).removeAttr('aria-disabled');
         } else {
-            deleteFiles.hide();
+            deleteFiles.prop('disabled', true).attr('aria-disabled', 'true');
+            takeoverSubmit.prop('disabled', true).attr('aria-disabled', 'true');
             checkToggle.prop('checked', false);
         }
 
