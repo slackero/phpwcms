@@ -19,7 +19,7 @@ function phpwcms_revision_r535() {
 
 	// Retrieve Type of profession name
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_profession` WHERE Field='prof_name'");
-	if(isset($result[0]['Type']) && strpos($result[0]['Type'], '100')) {
+	if(isset($result[0]['Type']) && strtolower($result[0]['Type']) === 'varchar(100)') {
 		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_profession` CHANGE `prof_name` `prof_name` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		if(!$update) {
 			$status = false;

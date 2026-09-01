@@ -1182,6 +1182,9 @@ function phpwcms_revision_check($revision) {
     $available_revisions = phpwcms_get_available_revisions();
     $GLOBALS['phpwcms']['revision_error'] = '';
 
+    // Acquire an exclusive lock so concurrent requests cannot run the same revision twice
+    $lock_handle = phpwcms_revision_lock();
+
     foreach ($available_revisions as $rev) {
         if ($rev > $target_revision) {
             break;
@@ -1208,7 +1211,12 @@ function phpwcms_revision_check($revision) {
 
                 if ($exec_result !== false) {
                     $return_msg = $GLOBALS['phpwcms']['revision_return'];
-                    phpwcms_mark_revision_checked($rev, $return_msg);
+                    if (phpwcms_mark_revision_checked($rev, $return_msg) === false) {
+                        // Marker could not be persisted — treat as failure so the revision re-runs
+                        $GLOBALS['phpwcms']['revision_error'] = 'Revision update r' . $rev . ' completed but could not be marked as checked (temp file and DB config write failed).';
+                        phpwcms_revision_unlock($lock_handle);
+                        return false;
+                    }
                 } else {
                     $db_err = function_exists('_dbError') ? _dbError() : '';
                     $ret_msg = $GLOBALS['phpwcms']['revision_return'];
@@ -1230,13 +1238,48 @@ function phpwcms_revision_check($revision) {
                     }
 
                     trigger_error($err_msg, E_USER_WARNING);
+                    phpwcms_revision_unlock($lock_handle);
                     return false;
                 }
             }
         }
     }
 
+    phpwcms_revision_unlock($lock_handle);
+
     return true;
+}
+
+/**
+ * Acquire an exclusive lock guarding the revision migration loop.
+ * Returns a file handle on success, false if the lock file cannot be created.
+ * The lock is auto-released when the process ends, so a crashed run cannot deadlock.
+ *
+ * @return resource|false
+ */
+function phpwcms_revision_lock() {
+    $lock_file = PHPWCMS_TEMP . 'revision.lock';
+    $handle = @fopen($lock_file, 'c');
+    if ($handle === false) {
+        return false;
+    }
+    if (!flock($handle, LOCK_EX)) {
+        fclose($handle);
+        return false;
+    }
+    return $handle;
+}
+
+/**
+ * Release the revision migration lock acquired by phpwcms_revision_lock().
+ *
+ * @param resource|false $handle
+ */
+function phpwcms_revision_unlock($handle) {
+    if ($handle !== false) {
+        flock($handle, LOCK_UN);
+        fclose($handle);
+    }
 }
 
 function phpwcms_run_pending_migrations($target_revision = null) {

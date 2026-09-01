@@ -107,7 +107,9 @@ function phpwcms_revision_r544() {
                 //if sys group is not existing we add this new group
                 if (!_dbQuery('SELECT `group_syskey` FROM `'.DB_PREPEND.'phpwcms_usergroup` WHERE `group_syskey` = '._dbEscape($groupname))) {
                     $data['group_syskey'] = $groupname;
-                    _dbInsert(DB_PREPEND.'phpwcms_usergroup', $data);
+                    if (!_dbInsert('phpwcms_usergroup', $data)) {
+                        $status = false;
+                    }
                 }
             }
 

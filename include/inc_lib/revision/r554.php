@@ -275,7 +275,7 @@ function phpwcms_revision_r554() {
 
     ];
 
-    return $status;
+    return !in_array(false, $updated, true);
 }
 
 /**

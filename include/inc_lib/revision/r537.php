@@ -16,7 +16,7 @@ function phpwcms_revision_r537() {
 
 
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecat` WHERE Field='acat_public'");
-	if(isset($result[0]['Default']) && $result[0]['Default'] == 0) {
+	if(isset($result[0]['Default']) && (string)$result[0]['Default'] === '0') {
 		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_public` `acat_public` INT(1) NOT NULL DEFAULT '1'", 'ALTER');
 		if(!$update) {
 			$status = false;

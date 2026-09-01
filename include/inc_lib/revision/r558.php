@@ -31,7 +31,9 @@ function phpwcms_revision_r558() {
             PRIMARY KEY (`cpt_id`),
             UNIQUE KEY `cpt_key` (`cpt_key`)
         ) ENGINE=InnoDB ' . $charset_collate;
-        _dbQuery($sql, 'CREATE');
+        if (!_dbQuery($sql, 'CREATE')) {
+            $status = false;
+        }
     }
 
     // 2. Add admcustomcpt permission to phpwcms_usergroup if not exists
@@ -63,10 +65,14 @@ function phpwcms_revision_r558() {
 
     // 3. Ensure 2FA columns exist in phpwcms_user
     if (!_dbColumnExists('phpwcms_user', 'usr_2fa_enabled')) {
-        _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_user` ADD `usr_2fa_enabled` tinyint(1) NOT NULL DEFAULT 0 AFTER `usr_fe`", 'ALTER');
+        if (!_dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_user` ADD `usr_2fa_enabled` tinyint(1) NOT NULL DEFAULT 0 AFTER `usr_fe`", 'ALTER')) {
+            $status = false;
+        }
     }
     if (!_dbColumnExists('phpwcms_user', 'usr_2fa_secret')) {
-        _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_user` ADD `usr_2fa_secret` varchar(64) NOT NULL DEFAULT '' AFTER `usr_2fa_enabled`", 'ALTER');
+        if (!_dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_user` ADD `usr_2fa_secret` varchar(64) NOT NULL DEFAULT '' AFTER `usr_2fa_enabled`", 'ALTER')) {
+            $status = false;
+        }
     }
 
     return $status;
