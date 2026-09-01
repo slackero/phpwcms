@@ -84,6 +84,8 @@ function phpwcms_update_backup_files(array $files, string $backupDir): bool
 
 /**
  * Write the per-run change report (added/modified/deleted) with sha256.
+ * $backupDir is the run root (content/backup/<run>/); the report is written
+ * there as changed-files.txt and old hashes are read from the files/ mirror.
  */
 function phpwcms_update_change_report(string $backupDir, array $added, array $modified, array $deleted): void
 {
@@ -94,7 +96,7 @@ function phpwcms_update_change_report(string $backupDir, array $added, array $mo
     }
     $lines[] = '## MODIFIED';
     foreach ($modified as $rel) {
-        $old = hash_file('sha256', $backupDir . '/' . $rel) ?: '-';
+        $old = hash_file('sha256', $backupDir . 'files/' . $rel) ?: '-';
         $new = hash_file('sha256', PHPWCMS_ROOT . '/' . $rel) ?: '-';
         $lines[] = $rel . '  ' . $old . ' -> ' . $new;
     }

@@ -23,10 +23,19 @@ class phpwcms_update
     private int $userId;
     private int $updateId = 0;
     private string $backupDir = '';
+    private string $zipPath = '';
 
-    public function __construct(int $userId)
+    /**
+     * @param int    $userId  id of the admin triggering the update
+     * @param string $zipPath optional local release zip. When non-empty, run()
+     *                        skips the GitHub fetch/download and applies this zip
+     *                        directly (used by the e2e harness / offline installs).
+     *                        Default behavior is unchanged.
+     */
+    public function __construct(int $userId, string $zipPath = '')
     {
         $this->userId = $userId;
+        $this->zipPath = $zipPath;
         $this->workDir = PHPWCMS_TEMP . 'update/';
         $this->logFile = $this->workDir . 'update.log';
         if (!is_dir($this->workDir)) {
@@ -87,9 +96,22 @@ class phpwcms_update
             }
             $this->log('DB backup written to ' . $this->backupDir . 'database.sql.gz');
             // P2 check release, tag must match $expectedTag (TOCTOU guard), must be newer
-            $release = $this->check();
-            if ($release === false) {
-                throw new RuntimeException('Could not fetch release info.');
+            if ($this->zipPath !== '') {
+                // Local-zip seam: derive a synthetic release from the zip's staged revision.php.
+                $release = $this->releaseFromZip($this->zipPath);
+                if ($release === false) {
+                    throw new RuntimeException('Could not read release from local zip.');
+                }
+                $zipPath = $this->zipPath;
+            } else {
+                $release = $this->check();
+                if ($release === false) {
+                    throw new RuntimeException('Could not fetch release info.');
+                }
+                $zipPath = $this->workDir . 'phpwcms-' . $release['tag'] . '.zip';
+                if (!phpwcms_update_download_asset($release['zip'], $zipPath)) {
+                    throw new RuntimeException('Download failed.');
+                }
             }
             if ($release['tag'] !== $expectedTag) {
                 throw new RuntimeException('Release tag changed during update.');
@@ -98,11 +120,6 @@ class phpwcms_update
                 throw new RuntimeException('Installed version is not older than release.');
             }
             $this->insertLogRow($release);           // insert phpwcms_update_log row status running
-            // P3 download
-            $zipPath = $this->workDir . 'phpwcms-' . $release['tag'] . '.zip';
-            if (!phpwcms_update_download_asset($release['zip'], $zipPath)) {
-                throw new RuntimeException('Download failed.');
-            }
             // P4 verify: open zip, read .update-manifest + staged revision.php version == $release['version']
             $manifest = $this->verifyZip($zipPath, $release);   // throws; returns [file => sha256]
             // P5 extract to workDir/stage/ with sha256 check per file
@@ -123,7 +140,7 @@ class phpwcms_update
                 $this->setMaintenance(false);
                 throw $e;
             }
-            phpwcms_update_change_report($this->backupDir . 'files/', $plan['added'], $plan['modified'], $plan['deleted']);
+            phpwcms_update_change_report($this->backupDir, $plan['added'], $plan['modified'], $plan['deleted']);
             // P9 inline revision run + success row
             $revisionOk = phpwcms_revision_check((int)PHPWCMS_REVISION);
             $this->finishLogRow($revisionOk ? 'success' : 'failed', count($plan['added']) + count($plan['modified']) + count($plan['deleted']));
@@ -307,6 +324,34 @@ class phpwcms_update
         if (empty($res['AFFECTED_ROWS'])) {
             $this->log('Log row ' . $this->updateId . ' not updated to ' . $status);
         }
+    }
+
+    /**
+     * Build a synthetic release array from a local release zip (seam for
+     * offline installs / the e2e harness). Version is read from the zip's
+     * staged revision.php. Returns false if the zip is unreadable.
+     */
+    private function releaseFromZip(string $zipPath): array|false
+    {
+        $zip = new ZipArchive();
+        if ($zip->open($zipPath) !== true) {
+            return false;
+        }
+        $revisionSource = $zip->getFromName('include/inc_lib/revision/revision.php');
+        $zip->close();
+        if ($revisionSource === false || !preg_match("/PHPWCMS_VERSION\s*=\s*'([^']+)'/", $revisionSource, $m)) {
+            return false;
+        }
+        $version = $m[1];
+        return [
+            'tag' => 'v' . $version,
+            'version' => $version,
+            'name' => 'Local release',
+            'notes' => '',
+            'zip' => $zipPath,
+            'date' => '',
+            'newer' => self::isNewer($version),
+        ];
     }
 
     private function verifyZip(string $zipPath, array $release): array
