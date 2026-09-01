@@ -168,6 +168,13 @@ label a:focus,
     vertical-align: middle;
 }
 
+/* .bg-light chips need an explicit dark text color - the BS4
+   .badge-light compat layer had one, .bg-light sets background only,
+   so inherited (light) dark-mode text turned the chips unreadable */
+.badge.bg-light {
+    color: #212529;
+}
+
 .badge-align {
     display: inline-flex;
     align-items: center;
