@@ -859,14 +859,18 @@ if(!isset($_GET["s"])) {
                                     <?php echo $BL['be_piwik_enable']; ?>
                                 </label>
 
-                                <div id="piwik-tracking" class="form-group row g-2 align-items-center mt-1"<?php if (!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                    <label class="col-sm-2 col-form-label text-end" for="template_piwik_id"><?php echo $BL['be_site_id']; ?></label>
-                                    <div class="col-sm-2">
-                                        <input type="text" name="template_piwik_id" class="form-control form-control-sm" placeholder="1" id="template_piwik_id" value="<?php echo empty($template['tracking_piwik']['id']) ? '' : $template['tracking_piwik']['id']; ?>"/>
+                                <div id="piwik-tracking" class="form-group mt-1"<?php if (!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                    <div class="row g-2 align-items-center">
+                                        <label class="col-sm-2 col-form-label text-end" for="template_piwik_id"><?php echo $BL['be_site_id']; ?></label>
+                                        <div class="col-sm-2">
+                                            <input type="text" name="template_piwik_id" class="form-control form-control-sm" placeholder="1" id="template_piwik_id" value="<?php echo empty($template['tracking_piwik']['id']) ? '' : $template['tracking_piwik']['id']; ?>"/>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-2 col-form-label text-end" for="template_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
-                                    <div class="col-sm-4">
-                                        <input type="text" name="template_piwik_url" class="form-control form-control-sm" placeholder="piwik.example.com" id="template_piwik_url" value="<?php echo html($template['tracking_piwik']['url']) ?>"/>
+                                    <div class="row g-2 align-items-center mt-1">
+                                        <label class="col-sm-2 col-form-label text-end" for="template_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
+                                        <div class="col-sm-4">
+                                            <input type="text" name="template_piwik_url" class="form-control form-control-sm" placeholder="piwik.example.com" id="template_piwik_url" value="<?php echo html($template['tracking_piwik']['url']) ?>"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
