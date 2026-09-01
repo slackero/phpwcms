@@ -51,8 +51,14 @@ function be_update_markdown(string $text): string
     $text = preg_replace('/`([^`]+)`/', '<code>$1</code>', $text);
     // bold
     $text = preg_replace('/\*\*([^*]+)\*\*/', '<strong>$1</strong>', $text);
-    // links [text](url)
-    $text = preg_replace('/\[([^\]]+)\]\(([^)]+)\)/', '<a href="$2" target="_blank" rel="noopener">$1</a>', $text);
+    // links [text](url) — only emit an anchor for http(s) URLs, otherwise text only
+    $text = preg_replace_callback('/\[([^\]]+)\]\(([^)]+)\)/', function (array $m): string {
+        $href = trim($m[2]);
+        if (preg_match('/^https?:\/\//i', $href)) {
+            return '<a href="' . $href . '" target="_blank" rel="noopener">' . $m[1] . '</a>';
+        }
+        return $m[1];
+    }, $text);
     // lists: lines starting with "- " or "* "
     $lines = preg_split('/\r?\n/', $text);
     $inList = false;
