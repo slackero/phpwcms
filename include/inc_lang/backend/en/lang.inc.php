@@ -182,6 +182,7 @@ $BL['login_2fa_button']            = 'Verify &amp; Login';
 $BL['login_2fa_back']              = 'Back to Login';
 $BL['login_2fa_invalid']           = 'Invalid 2FA code or backup code. Please try again.';
 $BL['login_2fa_backup_used']       = 'Backup code accepted. Please generate new backup codes in your profile.';
+$BL['login_revision_success']     = 'Database successfully updated';
 $BL['be_admin_usr_2fa_reset']      = 'Reset / Disable 2FA';
 $BL['be_admin_usr_2fa_reset_confirm'] = 'Are you sure you want to disable 2FA for this user?';
 $BL['be_admin_usr_2fa_active']     = '2FA is active for this account.';

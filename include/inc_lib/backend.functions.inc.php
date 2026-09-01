@@ -1217,6 +1217,7 @@ function phpwcms_revision_check($revision) {
                         phpwcms_revision_unlock($lock_handle);
                         return false;
                     }
+                    $GLOBALS['phpwcms']['revision_success'][] = 'r' . $rev;
                 } else {
                     $db_err = function_exists('_dbError') ? _dbError() : '';
                     $ret_msg = $GLOBALS['phpwcms']['revision_return'];

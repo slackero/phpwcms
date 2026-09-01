@@ -65,14 +65,19 @@ logdir_exists();
 
 $_SESSION['REFERER_URL'] = PHPWCMS_URL.get_login_file();
 
-// make compatibility check
-if(phpwcms_revision_check_temp($phpwcms["revision"]) !== true) {
-    $revision_status = phpwcms_revision_check($phpwcms["revision"]);
-}
-
 // define vars
 $err = 0;
 $wcs_user = '';
+$revision_status = true;
+
+// make compatibility check — only on CSRF-validated login form submissions,
+// so no unauthenticated request can trigger DB migrations
+$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && (empty($_POST['logintoken']) || $_POST['logintoken'] !== get_token_get_value());
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$csrf_error && phpwcms_revision_check_temp($phpwcms["revision"]) !== true) {
+    $revision_status = phpwcms_revision_check($phpwcms["revision"]);
+}
+
+define('LOGIN_TOKEN', generate_get_token());
 
 // where user should be redirected too after login
 if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
@@ -84,10 +89,6 @@ if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
     $ref_url = '';
 }
 
-$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && (empty($_POST['logintoken']) || $_POST['logintoken'] !== get_token_get_value());
-
-define('LOGIN_TOKEN', generate_get_token());
-
 // reset all inactive users
 $sql  = "UPDATE " . DB_PREPEND . "phpwcms_userlog SET logged_in=0, logged_change='" . time() . "' ";
 $sql .= "WHERE logged_in=1 AND (" . time() . "-logged_change) > ".intval($phpwcms["max_time"]);
@@ -95,6 +96,11 @@ _dbQuery($sql, 'UPDATE');
 
 //load default language EN
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
+
+// flash notice for successfully executed revision updates
+if ($revision_status && !empty($GLOBALS['phpwcms']['revision_success'])) {
+    $_SESSION['wcs_revision_notice'] = $BL['login_revision_success'] . ': ' . implode(', ', $GLOBALS['phpwcms']['revision_success']) . '.';
+}
 
 /**
  * Brute-force throttle: count failed login attempts in the session and
@@ -211,7 +217,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
     $pending_uid = (int)$_SESSION['wcs_2fa_pending_uid'];
     $submitted_2fa_code = slweg($_POST['form_2fa_code'] ?? '');
 
-    if (!$csrf_error && $submitted_2fa_code !== '') {
+    if (!$csrf_error && $revision_status && $submitted_2fa_code !== '') {
 
         $sql_query = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id=' . $pending_uid . ' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2) LIMIT 1';
         $result = _dbQuery($sql_query);
@@ -306,7 +312,12 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
                 }
 
                 $_SESSION['PHPWCMS_ROOT'] = PHPWCMS_ROOT;
-                set_status_message($BL['login_welcome'] . ', ' . $wcs_user . '!' . ($backup_code_used ? ' (' . ($BL['login_2fa_backup_used'] ?? 'Backup code used') . ')' : ''));
+                $welcome_msg = $BL['login_welcome'] . ', ' . $wcs_user . '!' . ($backup_code_used ? ' (' . ($BL['login_2fa_backup_used'] ?? 'Backup code used') . ')' : '');
+                if (!empty($_SESSION['wcs_revision_notice'])) {
+                    $welcome_msg .= "\n" . $_SESSION['wcs_revision_notice'];
+                    unset($_SESSION['wcs_revision_notice']);
+                }
+                set_status_message($welcome_msg);
 
                 if ($ref_url) {
                     if (($token_position = strpos($ref_url, 'csrftoken')) !== false) {
@@ -342,7 +353,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
 
     $sql_query  = "SELECT * FROM " . DB_PREPEND . "phpwcms_user WHERE usr_login=" . _dbEscape($wcs_user) . " AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
 
-    if(!$csrf_error) {
+    if(!$csrf_error && $revision_status) {
 
         $result = _dbQuery($sql_query);
 
@@ -481,7 +492,12 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
         }
 
         $_SESSION['PHPWCMS_ROOT'] = PHPWCMS_ROOT;
-        set_status_message($BL["login_welcome"].', '.$wcs_user.'!');
+        $welcome_msg = $BL["login_welcome"].', '.$wcs_user.'!';
+        if (!empty($_SESSION['wcs_revision_notice'])) {
+            $welcome_msg .= "\n" . $_SESSION['wcs_revision_notice'];
+            unset($_SESSION['wcs_revision_notice']);
+        }
+        set_status_message($welcome_msg);
 
         if($ref_url) {
 
@@ -899,6 +915,11 @@ else:
 
     if(!empty($GLOBALS['phpwcms']['revision_error'])) {
         echo '<div class="alert alert-danger" role="alert">'.html_specialchars($GLOBALS['phpwcms']['revision_error']).'</div>';
+    }
+
+    if(!empty($_SESSION['wcs_revision_notice'])) {
+        echo '<div class="alert alert-success" role="alert">'.html_specialchars($_SESSION['wcs_revision_notice']).'</div>';
+        unset($_SESSION['wcs_revision_notice']);
     }
 
     if(($phpwcms['image_library'] === 'gd' || $phpwcms['image_library'] === 'gd2') && (!extension_loaded('gd') || !function_exists('gd_info'))) {

@@ -7495,6 +7495,12 @@ parameters:
 			path: ../login.php
 
 		-
+			message: '#^Offset ''login_revision_success'' does not exist on array\{\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../login.php
+
+		-
 			message: '#^Offset ''max_time'' does not exist on array\{SESSION_START\: true\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
