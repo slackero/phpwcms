@@ -21,6 +21,15 @@ $BL['login_forgot_password']       = 'Passwort vergessen?';
 $BL['login_reset_title']           = 'Passwort zur&uuml;cksetzen';
 $BL['login_reset_desc']            = 'Geben Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse ein. Wir senden Ihnen einen sicheren Link zum Zur&uuml;cksetzen Ihres Passworts.';
 $BL['login_reset_button']          = 'Link anfordern';
+$BL['login_reset_email_greeting']  = 'Hallo {NAME},';
+$BL['login_reset_email_intro']     = 'F&uuml;r Ihr Backend-Benutzerkonto ({LOGIN}) auf {SITE} wurde eine Anfrage zum Zur&uuml;cksetzen des Passworts gestellt.';
+$BL['login_reset_email_note']      = 'Dieser Link ist 1 Stunde lang g&uuml;ltig. Falls Sie dieses Zur&uuml;cksetzen nicht angefordert haben, k&ouml;nnen Sie diese Nachricht ignorieren.';
+$BL['login_revision_success']      = 'Datenbank erfolgreich aktualisiert';
+$BL['email_regards']               = 'Viele Gr&uuml;&szlig;e,';
+$BL['email_deactivated_subject']    = 'Ihr Konto auf {SITE} wurde deaktiviert';
+$BL['email_deactivated_greeting']  = 'Hallo,';
+$BL['email_deactivated_body']      = 'Ihr Konto auf {SITE} wurde deaktiviert.';
+$BL['email_deactivated_contact']   = 'Bitte wenden Sie sich bei Fragen an den Administrator.';
 $BL['login_reset_back']            = 'Zur&uuml;ck zur Anmeldung';
 $BL['login_reset_sent']            = 'Falls ein aktives Konto mit den entsprechenden Angaben existiert, wurde eine E-Mail mit Anweisungen zum Zur&uuml;cksetzen Ihres Passworts versendet.';
 $BL['login_reset_invalid_token']   = 'Dieser Link zum Zur&uuml;cksetzen des Passworts ist ung&uuml;ltig oder abgelaufen. Bitte fordern Sie einen neuen an.';
@@ -370,6 +379,9 @@ $BL['be_admin_usr_err3']           = 'Kennwort ist leer (ben&ouml;tigt)';
 $BL['be_admin_usr_err4']           = 'E-Mail ist ung&uuml;ltig';
 $BL['be_admin_usr_err']            = 'Fehler';
 $BL['be_admin_usr_mailsubject']    = 'Willkommen im phpwcms Backend';
+$BL['be_admin_usr_mailwelcome']    = 'Willkommen im phpwcms! Backend von {SITE}.';
+$BL['be_admin_usr_maillogin']      = 'Sie k&ouml;nnen sich hier anmelden:';
+$BL['be_admin_usr_mailchanged']    = 'Ihre phpwcms! Backend-Benutzerdaten wurden ge&auml;ndert.';
 $BL['be_admin_usr_mailbody']       = 'WILLKOMMEN IM PHPWCMS! BACKEND
 
     Benutzer: {LOGIN}

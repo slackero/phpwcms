@@ -18,6 +18,11 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
 checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lang/code.lang.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lang/backend/en/lang.inc.php';
+if (!empty($_SESSION['wcs_user_lang_custom']) && is_file(PHPWCMS_ROOT . '/include/inc_lang/backend/' . $_SESSION['wcs_user_lang'] . '/lang.inc.php')) {
+    require_once PHPWCMS_ROOT . '/include/inc_lang/backend/' . $_SESSION['wcs_user_lang'] . '/lang.inc.php';
+}
 
 if (has_admin_permission('admuser')) {
     // Delete user account
@@ -29,12 +34,30 @@ if (has_admin_permission('admuser')) {
             $result = _dbQuery('UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_aktiv=9 WHERE usr_id=' . $user_id . ' AND usr_email=' . _dbEscape($user_email), 'UPDATE');
             if (!empty($result['AFFECTED_ROWS'])) {
                 $host = parse_url($phpwcms['site'], PHP_URL_HOST);
-                @mail(
-                    $user_email,
-                    'Your account on ' . $host . ' was deactivated',
-                    "Dear user,\n\nYour account to phpwcms was deactivated!\n\nContact the admin if you have any question.\n\nSee you on " . $phpwcms['site'] . '.',
-                    'From: ' . $phpwcms['admin_email'] . "\nReply-To: " . $phpwcms['admin_email'] . "\n"
+                $subject = str_replace('{SITE}', (string)$host, $BL['email_deactivated_subject'] ?? 'Your account on {SITE} was deactivated');
+                $text = $BL['email_deactivated_greeting'] . "\n\n"
+                    . str_replace('{SITE}', (string)$host, $BL['email_deactivated_body']) . "\n\n"
+                    . $BL['email_deactivated_contact'] . "\n\n"
+                    . $phpwcms['site'];
+                // plain text part must not contain HTML entities
+                $text = html_entity_decode($text, ENT_QUOTES, PHPWCMS_CHARSET);
+                $email_html = renderSystemEmailHTML(
+                    $subject,
+                    '<p>' . html($BL['email_deactivated_greeting']) . '</p>'
+                    . '<p>' . html(str_replace('{SITE}', (string)$host, $BL['email_deactivated_body'])) . '</p>'
+                    . '<p>' . html($BL['email_deactivated_contact']) . '</p>',
+                    html(str_replace('{SITE}', (string)$host, $BL['email_deactivated_body']))
                 );
+
+                sendEmail([
+                    'recipient' => $user_email,
+                    'subject'   => $subject,
+                    'isHTML'    => true,
+                    'html'      => $email_html,
+                    'text'      => $text,
+                    'from'      => $phpwcms['admin_email'],
+                    'sender'    => $phpwcms['admin_email']
+                ]);
             }
         }
     }

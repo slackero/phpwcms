@@ -115,12 +115,27 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                     $emailbody = str_replace('{PASSWORD}',      (($new_password) ? $new_password : $BL['be_admin_usr_passnochange']), $emailbody);
                     $emailbody = str_replace('{SITE}',          PHPWCMS_URL, $emailbody);
                     $emailbody = str_replace('{LOGIN_PAGE}',    PHPWCMS_URL.get_login_file(), $emailbody);
+                    // plain text part must not contain HTML entities
+                    $emailbody = html_entity_decode($emailbody, ENT_QUOTES, PHPWCMS_CHARSET);
+
+                    $email_html = renderSystemEmailHTML(
+                        $BL['be_admin_usr_emailsubject'],
+                        '<p>' . html($BL['be_admin_usr_mailchanged']) . '</p>'
+                        . renderEmailFieldTableHTML([
+                            $BL['login_username'] => $new_login,
+                            $BL['login_userpass'] => (($new_password) ? $new_password : $BL['be_admin_usr_passnochange'])
+                        ])
+                        . '<p>' . html($BL['be_admin_usr_maillogin']) . '</p>'
+                        . renderEmailButtonHTML(PHPWCMS_URL.get_login_file(), $BL['login_button'])
+                        . renderEmailSignatureHTML()
+                    );
 
                     sendEmail(array(
                             'recipient' => $new_email,
                             'toName'    => $new_name,
-                            'subject'   => $BL['be_admin_usr_mailsubject'],
-                            'isHTML'    => 0,
+                            'subject'   => $BL['be_admin_usr_emailsubject'],
+                            'isHTML'    => true,
+                            'html'      => $email_html,
                             'text'      => $emailbody,
                             'from'      => $phpwcms["admin_email"],
                             'sender'    => $phpwcms["admin_email"]

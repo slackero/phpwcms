@@ -4839,7 +4839,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 29
+			count: 34
 			path: ../include/inc_tmpl/admin.edituser.tmpl.php
 
 		-
@@ -5007,7 +5007,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 28
+			count: 32
 			path: ../include/inc_tmpl/admin.newuser.tmpl.php
 
 		-
@@ -7407,7 +7407,7 @@ parameters:
 		-
 			message: '#^Offset ''login_reset_button'' on array\{\}\|array\{merge_lang_array\: array\{mixed, mixed\}, be_admin_optgroup_label\: array, be_cnt_field\: array\} on left side of \?\? does not exist\.$#'
 			identifier: nullCoalesce.offset
-			count: 1
+			count: 2
 			path: ../login.php
 
 		-
@@ -8302,3 +8302,69 @@ parameters:
 			identifier: variable.undefined
 			count: 6
 			path: ../include/inc_tmpl/newsletter.form.tmpl.php
+
+		-
+			message: '#^Function struct_articlecontentlist invoked with 3 parameters, 6 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../articlebrowser.php
+
+		-
+			message: '#^Function struct_articlelist invoked with 5 parameters, 6\-7 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: ../articlebrowser.php
+
+		-
+			message: '#^Function struct_levellist invoked with 12 parameters, 13 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../articlebrowser.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 7
+			path: ../include/inc_act/act_user.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_tmpl/admin.edituser.tmpl.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_tmpl/admin.newuser.tmpl.php
+
+		-
+			message: '#^Offset ''login_reset_email_greeting'' does not exist on array\{\}\|array\{merge_lang_array\: array\{mixed, mixed\}, be_admin_optgroup_label\: array, be_cnt_field\: array\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../login.php
+
+		-
+			message: '#^Offset ''login_reset_email_intro'' does not exist on array\{\}\|array\{merge_lang_array\: array\{mixed, mixed\}, be_admin_optgroup_label\: array, be_cnt_field\: array\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../login.php
+
+		-
+			message: '#^Offset ''login_reset_email_note'' does not exist on array\{\}\|array\{merge_lang_array\: array\{mixed, mixed\}, be_admin_optgroup_label\: array, be_cnt_field\: array\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../login.php
+
+		-
+			message: '#^Offset ''login_reset_email_subject'' does not exist on array\{\}\|array\{merge_lang_array\: array\{mixed, mixed\}, be_admin_optgroup_label\: array, be_cnt_field\: array\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../login.php
+
+		-
+			message: '#^Offset ''login_reset_title'' does not exist on array\{\}\|array\{merge_lang_array\: array\{mixed, mixed\}, be_admin_optgroup_label\: array, be_cnt_field\: array\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../login.php

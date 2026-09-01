@@ -758,6 +758,115 @@ function getAltTitle($string = '', $altAndTitle = 0, $echo = 0) {
     return $attribute;
 }
 
+/**
+ * Render the standardized system email HTML layout.
+ * Table-based, inline CSS only (Gmail/Outlook strip <style> blocks),
+ * 600px centered card, auto-branded with site name and URL.
+ * Optional branding config keys in conf.inc.php:
+ *   $phpwcms['mail_logo_url']   - header logo, https?:// URL or data:image/*;base64 URI
+ *                                 (raster only; default: bundled phpwcms PNG as data URI)
+ *   $phpwcms['mail_footer']     - custom footer line
+ *   $phpwcms['mail_signature']   - closing signature name (fallback: site host)
+ *
+ * @param string $title Header line shown above the content
+ * @param string $contentHtml Inner content markup (paragraphs, buttons, tables)
+ * @param string $preheader Optional preview text (hidden summary line)
+ * @return string Complete HTML document for sendEmail('html' => ...)
+ */
+function renderSystemEmailHTML($title, $contentHtml, $preheader = '') {
+    global $phpwcms;
+
+    $siteName = empty($phpwcms['site']) ? 'phpwcms' : $phpwcms['site'];
+    $siteUrl = PHPWCMS_URL;
+    $siteLink = '<a href="' . html($siteUrl) . '" style="color:#6c757d;text-decoration:none;">' . html(PHPWCMS_HOST) . '</a>';
+
+    // header: site name, optionally preceded by a logo image
+    // mail_logo_url accepts https?:// URLs and data:image/*;base64, URIs
+    // (raster formats only — SVG does not render in Outlook desktop);
+    // default is the bundled phpwcms PNG logo (2x retina) embedded as data URI
+    $logoUrl = empty($phpwcms['mail_logo_url']) ? '' : $phpwcms['mail_logo_url'];
+    if ($logoUrl === '' && is_file(PHPWCMS_ROOT . '/img/phpwcms-logo.png')) {
+        $logoUrl = 'data:image/png;base64,' . base64_encode((string)file_get_contents(PHPWCMS_ROOT . '/img/phpwcms-logo.png'));
+    }
+    // header: logo wrapped in the site link; the URL itself is not shown as text
+    if ($logoUrl !== '' && (preg_match('#^https?://#i', $logoUrl) || preg_match('#^data:image/(png|jpe?g|gif|webp);base64,#i', $logoUrl))) {
+        $headerHtml = '<a href="' . html($siteUrl) . '"><img src="' . html($logoUrl) . '" alt="' . html($siteName) . '" height="50" style="display:block;height:50px;max-width:240px;border:0;" /></a>';
+    } else {
+        $headerHtml = '<a href="' . html($siteUrl) . '" style="font-size:18px;font-weight:bold;color:#212529;text-decoration:none;">' . html(PHPWCMS_HOST) . '</a>';
+    }
+
+    // footer: custom line or site link
+    $footerHtml = empty($phpwcms['mail_footer']) ? $siteLink : html($phpwcms['mail_footer']);
+
+    return '<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background-color:#f4f5f7;">
+<div style="display:none;font-size:1px;color:#f4f5f7;max-height:0;overflow:hidden;">' . html($preheader) . '</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f5f7;padding:24px 12px;">
+<tr><td align="center">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background-color:#ffffff;border-radius:8px;">
+<tr><td style="padding:24px 32px 12px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,sans-serif;">
+    ' . $headerHtml . '
+</td></tr>
+<tr><td style="padding:0 32px;border-bottom:1px solid #e9ecef;"><div style="height:1px;line-height:1px;font-size:0;">&nbsp;</div></td></tr>
+<tr><td style="padding:24px 32px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,sans-serif;font-size:15px;line-height:1.6;color:#212529;">
+    <div style="font-size:20px;font-weight:bold;color:#212529;margin-bottom:16px;">' . html($title) . '</div>
+    ' . $contentHtml . '
+</td></tr>
+<tr><td style="padding:16px 32px 24px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,sans-serif;font-size:12px;line-height:1.5;color:#6c757d;border-top:1px solid #e9ecef;">
+    ' . $footerHtml . '
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>';
+}
+
+/**
+ * Render the localized closing signature for system email HTML bodies.
+ * Uses $BL['email_regards'] when available, site host as the signer name.
+ *
+ * @return string
+ */
+function renderEmailSignatureHTML() {
+    global $phpwcms, $BL;
+    $regards = isset($BL['email_regards']) ? $BL['email_regards'] : 'Regards,';
+    $signer = empty($phpwcms['mail_signature']) ? PHPWCMS_HOST : $phpwcms['mail_signature'];
+    return '<p>' . html($regards) . '<br />' . html($signer) . '</p>';
+}
+
+/**
+ * Render a CTA button for system email HTML bodies.
+ * Bulletproof padding-based layout so it renders in Outlook too.
+ *
+ * @param string $url Absolute link target
+ * @param string $label Button caption
+ * @return string
+ */
+function renderEmailButtonHTML($url, $label) {
+    return '<div style="margin:24px 0;"><a href="' . html($url) . '" style="display:inline-block;background-color:#0d6efd;color:#ffffff;font-family:system-ui,-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,sans-serif;font-size:15px;font-weight:bold;text-decoration:none;padding:12px 28px;border-radius:6px;">' . html($label) . '</a></div>
+<div style="font-family:system-ui,-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,sans-serif;font-size:12px;line-height:1.5;color:#6c757d;word-break:break-all;">' . html($url) . '</div>';
+}
+
+/**
+ * Render a key/value field table for system email HTML bodies.
+ *
+ * @param array $rows Associative array label => value
+ * @return string
+ */
+function renderEmailFieldTableHTML($rows) {
+    $html = '<table role="presentation" cellpadding="0" cellspacing="0" style="margin:16px 0;width:100%;border-collapse:collapse;font-family:system-ui,-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,sans-serif;font-size:14px;">';
+    foreach ($rows as $label => $value) {
+        $html .= '<tr>'
+            . '<td style="padding:8px 12px;border:1px solid #dee2e6;color:#6c757d;width:40%;">' . html($label) . '</td>'
+            . '<td style="padding:8px 12px;border:1px solid #dee2e6;color:#212529;font-weight:bold;word-break:break-all;">' . html($value) . '</td>'
+            . '</tr>';
+    }
+    $html .= '</table>';
+    return $html;
+}
+
 function sendEmail($data = [
     'recipient' => '',
     'toName' => '',
@@ -814,6 +923,14 @@ function sendEmail($data = [
     }
     if (count($sendTo)) {
         $mail = new PhpwcmsMailer($phpwcms);
+        // always send as UTF-8, regardless of a legacy install charset —
+        // convert body and subject so mail clients never see mixed encodings
+        if (PHPWCMS_CHARSET !== 'utf-8') {
+            $mail->CharSet = 'UTF-8';
+            $data['html'] = mb_convert_encoding($data['html'], 'UTF-8', PHPWCMS_CHARSET);
+            $data['text'] = mb_convert_encoding($data['text'], 'UTF-8', PHPWCMS_CHARSET);
+            $subject = mb_convert_encoding($subject, 'UTF-8', PHPWCMS_CHARSET);
+        }
         $mail->isHTML($data['isHTML']);
         $mail->Subject = $subject;
         if ($data['isHTML']) {

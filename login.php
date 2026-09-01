@@ -583,12 +583,25 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'send_reset_link')
                 $BL['login_reset_email_body'] ?? ''
             );
             $email_subject = str_replace('{SITE}', PHPWCMS_HOST, $BL['login_reset_email_subject'] ?? 'Password reset request for {SITE}');
+            // plain text part must not contain HTML entities like &#13; or &uuml;
+            $email_body = html_entity_decode($email_body, ENT_QUOTES, PHPWCMS_CHARSET);
+
+            $email_html = renderSystemEmailHTML(
+                $email_subject,
+                '<p>' . html(str_replace('{NAME}', empty($user['usr_name']) ? $user['usr_login'] : $user['usr_name'], $BL['login_reset_email_greeting'])) . '</p>'
+                . '<p>' . html(str_replace(['{LOGIN}', '{SITE}'], [$user['usr_login'], PHPWCMS_HOST], $BL['login_reset_email_intro'])) . '</p>'
+                . renderEmailButtonHTML($reset_link, $BL['login_reset_title'])
+                . '<p>' . html($BL['login_reset_email_note']) . '</p>'
+                . renderEmailSignatureHTML(),
+                html(str_replace('{SITE}', PHPWCMS_HOST, $BL['login_reset_email_subject']))
+            );
 
             sendEmail([
                 'recipient'  => $user['usr_email'],
                 'toName'     => $user['usr_name'],
                 'subject'    => $email_subject,
-                'isHTML'     => false,
+                'isHTML'     => true,
+                'html'       => $email_html,
                 'text'       => $email_body,
                 'from'       => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '',
                 'fromName'   => 'phpwcms'
