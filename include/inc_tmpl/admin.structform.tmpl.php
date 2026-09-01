@@ -487,11 +487,11 @@ if ($acat_id === 'index' || $acat_id === 0) {
     ?></select>
     </div>
 
-    <div class="col-sm-auto text-center">
-      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
-      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
-      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
-      <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa-solid fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
+    <div class="col-sm-auto btn-col">
+      <button class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-double-left fa-fw" aria-hidden="true"></i></button>
+      <button class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button>
+      <button class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button>
+      <button class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa-solid fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
     </div>
 
     <div class="col">
@@ -543,13 +543,13 @@ if ($acat_id === 'index' || $acat_id === 0) {
       </select>
     </div>
 
-    <div class="col-sm-auto text-center">
-        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp);"><i class="fa-solid fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa);"><i class="fa-solid fa-angle-double-right fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" onclick="moveOptionUp(document.editsitestructure.acat_cp);"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-blue mb-1" onclick="moveOptionDown(document.editsitestructure.acat_cp);"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button>
+    <div class="col-sm-auto btn-col">
+        <button class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp);"><i class="fa-solid fa-angle-double-left fa-fw" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa);"><i class="fa-solid fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-blue" onclick="moveOptionUp(document.editsitestructure.acat_cp);"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-blue" onclick="moveOptionDown(document.editsitestructure.acat_cp);"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button>
     </div>
 
     <div class="col">
