@@ -181,6 +181,14 @@ label a:focus,
 }
 
 .badge-align-t0 { top: 0; }
+.badge-align-t1 { top: -1px; }
+.badge-align-t2 { top: -2px; }
+.badge-align-t3 { top: -3px; }
+.badge-align-t4 { top: -4px; }
+.badge-align-t5 { top: -5px; }
+.badge-align-b1 { top: 1px; }
+.badge-align-b2 { top: 2px; }
+.badge-align-b3 { top: 3px; }
 
 .modal-header h1, .modal-header h2, .card-header h1, .card-header h2 {
     font-weight: 400;
