@@ -474,9 +474,9 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
                 // @phpstan-ignore-next-line
                 $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'class="confirm-link" data-confirm-type="primary" data-confirm-action="' . html($BL['modal_move']) . '" data-confirm="' . html($BL['be_cnt_move_deleted_msg']) . '" ');
 
-                $subnav .= subnavtext('phpinfo()', 'phpwcms.php?do=admin&amp;p=15', $p, 15, 0);
                 if (!empty($_SESSION['wcs_user_admin'])) {
                     $subnav .= subnavtext($BL['be_subnav_admin_update'] ?? 'System Update', 'phpwcms.php?do=admin&amp;p=18', $p, 18, 0);
+                    $subnav .= subnavtext('phpinfo()', 'phpwcms.php?do=admin&amp;p=15', $p, 15, 0);
                 }
                 echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_admin']) . '</li>' . LF . $subnav . "\n</ul></li>";
             }
