@@ -7567,6 +7567,12 @@ parameters:
 			path: ../phpwcms.php
 
 		-
+			message: '#^Offset ''be_subnav_admin…'' on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\} on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: ../phpwcms.php
+
+		-
 			message: '#^Offset ''be_admin_optgroup_label'' does not exist on array\{modules\: array\{\}, merge_lang_array\: array\{mixed, mixed\}\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
