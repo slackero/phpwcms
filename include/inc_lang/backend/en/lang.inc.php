@@ -51,6 +51,7 @@ $BL['be_update_run']                = 'Backup &amp; update now';
 $BL['be_update_confirm']            = 'The system creates a database backup, then replaces its own files. Continue?';
 $BL['be_update_success']            = 'Update to %s completed successfully.';
 $BL['be_update_failed']             = 'Update failed';
+$BL['be_update_fetch_error']        = 'Could not fetch update information from GitHub. The latest release may have no zip asset, or the API is unreachable.';
 $BL['be_update_uptodate']           = 'phpwcms is up to date.';
 $BL['be_update_history']            = 'Update history';
 $BL['be_update_rollback']           = 'Restore previous version';

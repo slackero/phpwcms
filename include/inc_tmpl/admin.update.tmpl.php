@@ -152,7 +152,7 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
             <div class="col-md-6">
               <h6 class="text-muted text-uppercase small mb-1"><?php echo html($BL['be_update_available'] ?? 'Available version'); ?></h6>
               <?php if ($updateCheck === false): ?>
-                <div class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i> <?php echo html($BL['be_update_failed'] ?? 'Update failed'); ?></div>
+                <div class="alert alert-warning py-2 mb-0"><i class="fa-solid fa-triangle-exclamation"></i> <?php echo html($BL['be_update_fetch_error'] ?? 'Could not fetch update information from GitHub. The latest release may have no zip asset, or the API is unreachable.'); ?></div>
               <?php elseif (!empty($updateCheck['newer'])): ?>
                 <div class="fs-5 fw-semibold text-success"><?php echo html($updateCheck['version']); ?></div>
                 <div class="small text-muted"><?php echo html($updateCheck['tag']); ?> &middot; <?php echo html($updateCheck['date']); ?></div>
