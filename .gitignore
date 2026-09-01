@@ -2,6 +2,9 @@
 .idea
 .nova
 composer.lock
+
+# setup wizard working state - bootstrapped from include/config/dist.conf.inc.php
+/setup/setup.conf.inc.php
 /content/images/*.*
 !/content/images/index.html
 /content/tmp/*.*
