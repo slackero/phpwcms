@@ -119,10 +119,10 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 				<div class="col-auto">
 					<div class="btn-group btn-group-sm">
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
-							<i class="fas fa-eye"></i>
+							<i class="fa-solid fa-eye"></i>
 						</button>
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
-							<i class="fas fa-eye-slash"></i>
+							<i class="fa-solid fa-eye-slash"></i>
 						</button>
 					</div>
 				</div>
@@ -132,18 +132,18 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						<div class="input-group input-group-sm">
 							
 								<?php if($_SESSION['glossary_page'] > 1): ?>
-									<a href="<?php echo GLOSSARY_HREF ?>&amp;page=<?php echo ($_SESSION['glossary_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
+									<a href="<?php echo GLOSSARY_HREF ?>&amp;page=<?php echo ($_SESSION['glossary_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-left"></i></a>
 								<?php else: ?>
-									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
+									<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-left"></i></button>
 								<?php endif; ?>
 							
 							<input type="number" name="page" id="page" value="<?php echo $_SESSION['glossary_page'] ?>" class="form-control form-control-sm text-center w-25" />
 							
 								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 								<?php if($_SESSION['glossary_page'] < $_entry['pages_total']): ?>
-									<a href="<?php echo GLOSSARY_HREF ?>&amp;page=<?php echo ($_SESSION['glossary_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
+									<a href="<?php echo GLOSSARY_HREF ?>&amp;page=<?php echo ($_SESSION['glossary_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-right"></i></a>
 								<?php else: ?>
-									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
+									<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-right"></i></button>
 								<?php endif; ?>
 							
 						</div>
@@ -160,7 +160,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						}
 						?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
 						
-							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fa-solid fa-search"></i></button>
 						
 					</div>
 				</div>
@@ -200,9 +200,9 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						echo '<tr>';
 						echo '<td class="text-center">';
 						if ($row["glossary_highlight"]) {
-							echo '<i class="fas fa-key text-warning" title="' . $BLM['glossary_entry'] . '"></i>';
+							echo '<i class="fa-solid fa-key text-warning" title="' . $BLM['glossary_entry'] . '"></i>';
 						} else {
-							echo '<i class="fas fa-tag text-muted" title="' . $BLM['glossary_entry'] . '"></i>';
+							echo '<i class="fa-solid fa-tag text-muted" title="' . $BLM['glossary_entry'] . '"></i>';
 						}
 						echo '</td>';
 						echo '<td>' . html($row["glossary_title"]) . '</td>';
@@ -219,7 +219,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						
 						echo '<a href="' . GLOSSARY_HREF . '&amp;delete=' . $row["glossary_id"] . '" class="btn btn-sm btn-danger ms-1" title="Delete"';
 						echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["glossary_title"]) . '\');">';
-						echo '<i class="far fa-trash-alt"></i></a>';
+						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';
 						$row_count++;

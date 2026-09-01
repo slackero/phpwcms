@@ -163,7 +163,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
                     <i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i>
                 </a>
                 <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteTab('tab_<?php echo $key ?>');">
-                    <i class="far fa-trash-alt"></i>
+                    <i class="fa-regular fa-trash-alt"></i>
                 </a>
             </div>
           </div>
@@ -297,9 +297,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
               </div>
       <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
-          <div class="input-group mb-3">
+          <div class="input-group input-group-sm mb-3">
               
-                  <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
+                  <button class="modalButton btn btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
               
               <input
                   name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][id]"
@@ -315,7 +315,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
                   name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][name]"
                   type="text"
                   id="customfield_<?php echo $custom_field.'_'.$key; ?>_name"
-                  class="form-control form-control-sm"
+                  class="form-control"
                   value="<?php
                   if(isset($value['custom_fields'][$custom_field]['name'])) {
                       echo html($value['custom_fields'][$custom_field]['name']);
@@ -325,14 +325,14 @@ if(is_array($tmpllist) && count($tmpllist)) {
                   onfocus="this.blur()"
               />
               
-                  <a class="btn btn-sm btn-danger trash"
+                  <a class="btn btn-danger trash"
                      href="#"
                      data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
                      onclick="document.getElementById('customfield_<?php
                      echo $custom_field.'_'.$key; ?>_name').value='';document.getElementById('customfield_<?php
                      echo $custom_field.'_'.$key; ?>_id').value='';document.getElementById('customfield_<?php
                      echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
-                  ><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
+                  ><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></a>
               
           </div>
 
@@ -409,7 +409,7 @@ function addNewTab(pos) {
                         <i class="fa-solid fa-ellipsis-h"></i>
                     </a>
                     <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteTab('tab_${entries}');">
-                        <i class="far fa-trash-alt"></i>
+                        <i class="fa-regular fa-trash-alt"></i>
                     </a>
                 </div>
             </div>
@@ -508,16 +508,16 @@ function addNewTab(pos) {
                             </div>
 
                         <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
-                            <div class="input-group mb-3">
-                                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field ?>_${entries}&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
+                            <div class="input-group input-group-sm mb-3">
+                                <button class="modalButton btn btn-blue folder-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field ?>_${entries}&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
                                 <input type="hidden" name="customfield[${entries}][<?php echo $custom_field; ?>][id]" id="customfield_<?php echo $custom_field; ?>_${entries}_id" value="" />
-                                <input type="text" name="customfield[${entries}][<?php echo $custom_field; ?>][name]" id="customfield_<?php echo $custom_field; ?>_${entries}_name" class="form-control form-control-sm" value="" size="40" onfocus="this.blur()" />
-                                <a class="btn btn-sm btn-danger trash" href="#" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('customfield_<?php
+                                <input type="text" name="customfield[${entries}][<?php echo $custom_field; ?>][name]" id="customfield_<?php echo $custom_field; ?>_${entries}_name" class="form-control" value="" size="40" onfocus="this.blur()" />
+                                <a class="btn btn-danger trash" href="#" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('customfield_<?php
                                   echo $custom_field; ?>_${entries}_name').value='';document.getElementById('customfield_<?php
                                   echo $custom_field; ?>_${entries}_id').value='';document.getElementById('customfield_<?php
-                                  echo $custom_field; ?>_${entries}_description').value='';this.blur();return false;"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
+                                  echo $custom_field; ?>_${entries}_description').value='';this.blur();return false;"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></a>
                             </div>
-                            <textarea name="customfield[${entries}][<?php echo $custom_field; ?>][description]" cols="40" rows="2" class="form-control form-control-sm mb-2" id="customfield_<?php echo $custom_field; ?>_${entries}_description"></textarea>
+                            <textarea name="customfield[${entries}][<?php echo $custom_field; ?>][description]" cols="40" rows="2" class="form-control mb-2" id="customfield_<?php echo $custom_field; ?>_${entries}_description"></textarea>
                             <span class="small">
                                 <?php echo $BL['be_cnt_description']; ?> | <?php echo $BL['be_fprivedit_filename']; ?> |
                                 <?php echo $BL['be_caption_file_title']; ?> | <?php echo $BL['be_cnt_target']; ?> |

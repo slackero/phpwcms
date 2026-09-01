@@ -181,7 +181,7 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
                 <i class="fa-solid fa-chevron-down"></i>
               </a>
               <button type="button" class="btn btn-sm btn-danger" onclick="deleteCustomElement('custom_element_<?php echo $key; ?>');">
-                <i class="far fa-trash-alt fa-fw"></i>
+                <i class="fa-regular fa-trash-alt fa-fw"></i>
               </button>
             </div>
           </div>
@@ -225,7 +225,7 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
               <i class="fa-solid fa-chevron-down"></i>
             </a>
             <button type="button" class="btn btn-sm btn-danger" onclick="deleteCustomElement('custom_element___INDEX__');">
-              <i class="far fa-trash-alt fa-fw"></i>
+              <i class="fa-regular fa-trash-alt fa-fw"></i>
             </button>
           </div>
         </div>

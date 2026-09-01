@@ -45,7 +45,7 @@ if (count($clinks)) {
             $clink_list .= '<br>';
         }
         $clink_list .= '<a href="' . html($clink_link) . '" target="_blank" title="Link: ' . html($clink_link . ($clink_target ? ' ' . $clink_target : '')) . '">';
-        $clink_list .= '<i class="fas fa-link me-1"></i>';
+        $clink_list .= '<i class="fa-solid fa-link me-1"></i>';
         $clink_list .= html($clink_name !== '' ? $clink_name : $clink_link) . '</a>';
     }
 }

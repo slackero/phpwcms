@@ -336,7 +336,7 @@ if ($img_count) {
           <button type="button" class="modalButton btn btn-sm btn-blue mb-1" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=5&amp;target=nolist"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
           <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(img_field);return false;"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
           <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(img_field);return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
-          <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(img_field);return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(img_field);return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></button>
         </div>
       </div>
       <div class="row">
@@ -391,7 +391,7 @@ if (count($plugin['data']['shopprod_files'])) {
             <button type="button" class="modalButton btn btn-sm btn-blue mb-1" title="<?php echo $BL['be_cnt_openfilebrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=nolist"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
             <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(files_field);return false;"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
             <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(files_field);return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
-            <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(files_field);return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(files_field);return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>

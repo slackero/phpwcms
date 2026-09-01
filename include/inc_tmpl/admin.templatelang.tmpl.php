@@ -460,7 +460,7 @@ $default_flag_img = _tpl_lang_get_flag_img($default_lang, 'me-1');
                                    href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=17&amp;lang=<?php echo urlencode($current_lang); ?>&amp;action=delete&amp;token=<?php echo rawurlencode($t_key); ?>&amp;page=<?php echo $current_page; ?>&amp;status=<?php echo urlencode($status_filter); ?>&amp;q=<?php echo urlencode($search_query); ?>"
                                    title="<?php echo html($BL['be_cnt_delete'] ?? 'Delete'); ?>"
                                    data-confirm-danger="<?php echo html(($BL['be_cnt_delete'] ?? 'Delete') . ":\n[@@" . $t_key . '@@] ?'); ?>">
-                                    <i class="far fa-trash-alt" aria-hidden="true"></i>
+                                    <i class="fa-regular fa-trash-alt" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>

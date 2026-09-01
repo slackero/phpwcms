@@ -84,9 +84,9 @@ if(isset($file_result[0]['f_id'])) {
             $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
             echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash=' . $file_row["f_id"] . '%7C' . '1' .
                  '" data-bs-toggle="tooltip" title="' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '" data-confirm-danger="' . html_specialchars($confirm_msg) . '">' .
-                 '<i class="fa-fw ms-1 far fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . '</a>';
+                 '<i class="fa-fw ms-1 fa-regular fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . '</a>';
         } else {
-            echo '<div class="dropdown-item disabled text-muted"><i class="fa-fw ms-1 far fa-trash-alt text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+            echo '<div class="dropdown-item disabled text-muted"><i class="fa-fw ms-1 fa-regular fa-trash-alt text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
         }
         echo '</div></div>'; // Close dropdown-menu & inner btn-group
 

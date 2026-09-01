@@ -117,10 +117,10 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 		<div class="col-auto">
 			<div class="btn-group btn-group-sm">
 				<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
-					<i class="fas fa-eye"></i>
+					<i class="fa-solid fa-eye"></i>
 				</button>
 				<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
-					<i class="fas fa-eye-slash"></i>
+					<i class="fa-solid fa-eye-slash"></i>
 				</button>
 			</div>
 		</div>
@@ -129,7 +129,7 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 			<div class="input-group input-group-sm">
 				<input name="filter" id="filter" size="15" data-bs-toggle="tooltip" title="<?php echo html($BL['be_filter']); ?>" class="form-control" value="<?php echo html($_entry['post_filter']); ?>" type="search" style="min-width: 250px;" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." />
 				
-					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fa-solid fa-search"></i></button>
 				
 			</div>
 		</div>
@@ -178,12 +178,12 @@ if($data) {
     echo '<tr'.( ($row_count % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
 
     echo '<td width="25" style="padding:2px 3px 2px 4px;">';
-    echo '<i class="fas fa-gift fa-fw text-blue" aria-hidden="true"></i></td>'.LF;
+    echo '<i class="fa-solid fa-gift fa-fw text-blue" aria-hidden="true"></i></td>'.LF;
 
     echo '<td class="dir">';
     if(SHOP_FELANG_SUPPORT) {
       $row['shopprod_lang'] = html_specialchars(strtolower($row['shopprod_lang']));
-      echo '<span class="flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fas fa-globe').' mt-1" data-bs-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
+      echo '<span class="flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fa-solid fa-globe').' mt-1" data-bs-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
     }
     echo '&nbsp;' . html_specialchars($row['shopprod_ordernumber']) . "</td>\n";
     echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_model'])."</td>\n";
@@ -215,7 +215,7 @@ if($data) {
       echo '<a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
       echo '" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';
       echo ' onclick="return confirm(\''.$BLM['delete_product'].js_singlequote($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'\');">';
-      echo '<i class="far fa-trash-alt"></i></a>';
+      echo '<i class="fa-regular fa-trash-alt"></i></a>';
 
     echo '</td>'.LF;
 

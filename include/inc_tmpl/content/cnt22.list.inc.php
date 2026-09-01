@@ -31,7 +31,7 @@ $rssfeed = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
 echo '<div class="col-12">';
 if (!empty($rssfeed['rssurl'])) {
     echo '<a class="me-2" href="' . html($rssfeed['rssurl']) . '" target="_blank" title="' . html($rssfeed['rssurl']) . '">';
-    echo '<i class="fas fa-rss"></i></a>';
+    echo '<i class="fa-solid fa-rss"></i></a>';
 }
 if ($cinfo_result !== '') {
     echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">' . $cinfo_result . '</a>';

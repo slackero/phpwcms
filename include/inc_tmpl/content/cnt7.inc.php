@@ -119,15 +119,15 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
         ?>
         </select>
     </div>
-      <div class="col-sm-auto">
-        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" ><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cfile_list)"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cfile_list)"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cfile_list)" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+              <div class="col-sm-auto btn-col">
+        <button type="button" class="modalButton btn btn-sm btn-blue" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" ><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cfile_list)"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cfile_list)"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-sm btn-danger" onclick="removeSelectedOptions(document.articlecontent.cfile_list)" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></button>
       </div>
   </div>
 
-<div class="form-group row g-2 mb-5">
+<div class="form-group row g-2 mb-3">
   <label for="cfile_descr" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_description'] ?></label>
   <div class="col">
     <textarea name="cfile_descr" cols="40" rows="5" class="form-control form-control-sm" id="cfile_descr"><?php

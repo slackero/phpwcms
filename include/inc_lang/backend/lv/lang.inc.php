@@ -1147,7 +1147,7 @@ $BL['be_fileuploader_noFilesError'] = 'Nėra failų įkėlimui.';
 $BL['be_fileuploader_onLeave']     = 'Failai įkeliami. Jei išeisite dabar, įkėlimas bus atšauktas.';
 $BL['be_fileuploader_dragText']    = 'Vilkite failus čia, kad įkeltumėte';
 $BL['be_fileuploader_uploadButtonText'] = 'Pasirinkite failus arba vilkite čia';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Pasirinkite failus arba vilkite čia</span><br><small class="text-muted">Spustelėkite arba vilkite failus į šią sritį</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Pasirinkite failus arba vilkite čia</span><br><small class="text-muted">Spustelėkite arba vilkite failus į šią sritį</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Jūsų naršyklė nepalaiko failų vilkimo ir numetimo.';
 $BL['be_fileuploader_dictFallbackText'] = 'Jūsų naršyklė nepalaiko failų vilkimo ir numetimo.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Failas yra per didelis ({{filesize}}MiB). Maksimalus dydis: {{maxFilesize}}MiB.';

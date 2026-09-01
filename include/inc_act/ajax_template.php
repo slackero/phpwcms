@@ -51,7 +51,7 @@ if ($action == 'form') {
     $data = _dbQuery($sql);
     if(isset($data[0]['article_id'])) {
         foreach($data as $crow) {
-            echo '<a href="phpwcms.php?'.get_token_get_string().'&do=articles&p=2&s=1&aktion=2&id='.$crow[1].'&acid='.$crow[2].'" target=_blank>'.$crow[0].' <i class="fas fa-pencil-alt text-primary ms-1"></i></a><br>';
+            echo '<a href="phpwcms.php?'.get_token_get_string().'&do=articles&p=2&s=1&aktion=2&id='.$crow[1].'&acid='.$crow[2].'" target=_blank>'.$crow[0].' <i class="fa-solid fa-pencil-alt text-primary ms-1"></i></a><br>';
         }
     }
 

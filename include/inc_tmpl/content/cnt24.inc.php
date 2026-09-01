@@ -46,9 +46,9 @@ $content["alias"]['alias_status']   = empty($content["alias"]['alias_status']) ?
 <div class="form-group align-items-center row g-2">
   <label for="calias_id" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_alias_ID'] ?></label>
   <div class="col-sm-4">
-    <div class="input-group">
-      <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=5" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
-      	<input type="text" name="calias" id="calias_id" value="<?php echo $content["alias"]['alias_ID'] ?>" class="form-control form-control-sm" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_alias_ID'] ?>" />
+    <div class="input-group input-group-sm">
+      <button class="modalButton btn btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=5" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
+      	<input type="text" name="calias" id="calias_id" value="<?php echo $content["alias"]['alias_ID'] ?>" class="form-control" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_alias_ID'] ?>" />
     </div>
     <?php echo $content['alias_link']; ?>
   </div>

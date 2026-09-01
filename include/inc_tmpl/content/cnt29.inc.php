@@ -263,20 +263,20 @@ if($img_count) {
 ?>
                 </select>
             </div>
-            <div class="col-sm-auto">
+            <div class="col-sm-auto btn-col">
                 <span data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>">
-                    <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=1&amp;target=nolist">
+                    <button type="button" class="modalButton btn btn-sm btn-blue" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=1&amp;target=nolist">
                         <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
                     </button>
-                </span><br>
-                <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list)">
+                </span>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list)">
                     <i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i>
-                </button><br>
-                <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list)">
+                </button>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list)">
                     <i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i>
-                </button><br>
-                <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cimage_list)" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>">
-                    <i class="far fa-trash-alt fa-fw" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" onclick="removeSelectedOptions(document.articlecontent.cimage_list)" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>">
+                    <i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -451,8 +451,8 @@ if($content['custom_field_items']):
 
             elseif($cnt_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
-                <div class="input-group mb-2">
-                    <button class="modalButton btn btn-sm btn-blue folder-open" type="button"
+                <div class="input-group input-group-sm mb-2">
+                    <button class="modalButton btn btn-blue folder-open" type="button"
                             data-bs-toggle="modal" data-bs-target="#browserModal"
                             data-src="filebrowser.php?opt=19&field=<?php echo $custom_field; ?>&allowed=<?php echo $cnt_fieldgroup['fields'][$custom_field]['filetypes']; ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
                     <input name="customfield[<?php echo $custom_field; ?>][id]" type="hidden" id="customfield_<?php echo $custom_field; ?>_id" value="<?php
@@ -461,7 +461,7 @@ if($content['custom_field_items']):
                         } ?>"
                     />
                     <input name="customfield[<?php echo $custom_field; ?>][name]" type="text" id="customfield_<?php echo $custom_field; ?>_name"
-                           class="form-control form-control-sm" size="40" onfocus="this.blur()" value="<?php
+                           class="form-control" size="40" onfocus="this.blur()" value="<?php
                         if(isset($content['custom_fields'][$custom_field]['name'])) {
                             echo html($content['custom_fields'][$custom_field]['name']);
                         } ?>"<?php
@@ -469,12 +469,12 @@ if($content['custom_field_items']):
                             echo ' placeholder="' . $BL['be_allowed_filetypes'] . ': '. html(str_replace(',', ', ', $cnt_fieldgroup['fields'][$custom_field]['filetypes'])) . '"';
                         } ?>
                     />
-                    <a class="btn btn-sm btn-danger trash" href="#"
+                    <a class="btn btn-danger trash" href="#"
                        data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
                        onclick="document.getElementById('customfield_<?php
                         echo $custom_field; ?>_name').value='';document.getElementById('customfield_<?php
                         echo $custom_field; ?>_id').value='';document.getElementById('customfield_<?php
-                        echo $custom_field; ?>_description').value='';this.blur();return false;"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
+                        echo $custom_field; ?>_description').value='';this.blur();return false;"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></a>
                 </div>
                 <textarea name="customfield[<?php echo $custom_field; ?>][description]"
                           cols="40"

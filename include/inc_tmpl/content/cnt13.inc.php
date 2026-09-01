@@ -200,12 +200,12 @@ if(empty($content['search']['type'])) {
   </div>
 	<div class="col">
 		<div class="form-group">
-		<span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_profile_label_lang'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+		<span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_profile_label_lang'] ?> <i class="fa-solid fa-info-circle text-blue" data-bs-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
 		<input type="text" id="news_lang_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_profile_label_lang']) ?>" /><input type="hidden" name="csearch_news_lang" id="news_lang" value="<?php echo html(implode(', ', $content['search']["news_lang"])) ?>" class="form-control" />
 	</div>
 
     <div class="form-group">
-      <span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+      <span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_tags'] ?> <i class="fa-solid fa-info-circle text-blue" data-bs-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
         <div class="row g-2">
           <div class="col mb-3 mb-sm-0">
             <input type="text" id="news_category_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input type="hidden" name="csearch_news_category" id="news_category" value="<?php echo html(implode(', ', $content['search']["news_category"])) ?>" class="form-control" />
@@ -222,9 +222,9 @@ if(empty($content['search']['type'])) {
 
     <div class="form-group">
         <label class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_cnt_target'].' ('.$BL['be_alias'] ?>/aid=1/id=3)</label>
-        <div class="input-group">
-          <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=6&amp;field=csearch_news_url" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
-          <input type="text" name="csearch_news_url" id="news_url" value="<?php echo html($content['search']["news_url"]) ?>" class="form-control form-control-sm" data-bs-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>" />
+        <div class="input-group input-group-sm">
+          <button class="modalButton btn btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=6&amp;field=csearch_news_url" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
+          <input type="text" name="csearch_news_url" id="news_url" value="<?php echo html($content['search']["news_url"]) ?>" class="form-control" data-bs-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>" />
         </div>
     </div>
 

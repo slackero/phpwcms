@@ -50,10 +50,10 @@ $news = new phpwcmsNews();
         <div class="col-12 col-sm-auto">
           <div class="btn-group btn-group-sm" role="group" aria-label="news-filter">
             <button type="button" class="btn btn-sm <?php echo ($news->filter_status == 0 || $news->filter_status == 1) ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
-              <i class="fas fa-eye"></i>
+              <i class="fa-solid fa-eye"></i>
             </button>
             <button type="button" class="btn btn-sm <?php echo ($news->filter_status == 0 || $news->filter_status == 2) ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
-              <i class="fas fa-eye-slash"></i>
+              <i class="fa-solid fa-eye-slash"></i>
             </button>
           </div>
         </div>
@@ -330,16 +330,16 @@ if($news->data['cnt_id']) {
           <div class="input-group input-group-sm datetime-picker-group">
             <span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
             <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_start_date" id="start_date" value="<?php echo $news->data['cnt_date_start']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
-            <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('start_date')._flatpickr&&document.getElementById('start_date')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+            <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('start_date')._flatpickr&&document.getElementById('start_date')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
             <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_start_time" id="start_time" value="<?php echo $news->data['cnt_time_start']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
-            <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('start_time')._flatpickr&&document.getElementById('start_time')._flatpickr.open();"><i class="far fa-clock"></i></span>
+            <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('start_time')._flatpickr&&document.getElementById('start_time')._flatpickr.open();"><i class="fa-regular fa-clock"></i></span>
           </div>
           <div class="input-group input-group-sm datetime-picker-group">
             <span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
             <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_end_date" id="end_date" value="<?php echo $news->data['cnt_date_end']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
-            <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('end_date')._flatpickr&&document.getElementById('end_date')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+            <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('end_date')._flatpickr&&document.getElementById('end_date')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
             <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_end_time" id="end_time" value="<?php echo $news->data['cnt_time_end']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
-            <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('end_time')._flatpickr&&document.getElementById('end_time')._flatpickr.open();"><i class="far fa-clock"></i></span>
+            <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('end_time')._flatpickr&&document.getElementById('end_time')._flatpickr.open();"><i class="fa-regular fa-clock"></i></span>
           </div>
         </div>
       </div>
@@ -375,9 +375,9 @@ if($news->data['cnt_id']) {
       <div class="col-sm-auto">
         <div class="input-group input-group-sm datetime-picker-group">
           <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_sort_date" id="sort_date" value="<?php echo $news->data['cnt_date_sort']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
-          <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('sort_date')._flatpickr&&document.getElementById('sort_date')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+          <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('sort_date')._flatpickr&&document.getElementById('sort_date')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
           <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_sort_time" id="sort_time" value="<?php echo $news->data['cnt_time_sort']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
-          <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('sort_time')._flatpickr&&document.getElementById('sort_time')._flatpickr.open();"><i class="far fa-clock"></i></span>
+          <span class="btn-blue input-group-text" style="cursor:pointer;" onclick="document.getElementById('sort_time')._flatpickr&&document.getElementById('sort_time')._flatpickr.open();"><i class="fa-regular fa-clock"></i></span>
         </div>
       </div>
     </div>
@@ -405,7 +405,7 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group align-items-center row g-2">
-    <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+    <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tags'] ?> <i class="fa-solid fa-info-circle text-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
     <div class="col">
       <input type="text" id="news_keyword_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input type="hidden" name="cnt_category" id="cnt_category" value="<?php echo html($news->data['cnt_category']) ?>" />
     </div>
@@ -548,7 +548,7 @@ if($news->data['cnt_id']) {
         <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=summary" ><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
         <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.getElementById('cfile_list'));return false;"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
         <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.getElementById('cfile_list'));return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.getElementById('cfile_list'));return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.getElementById('cfile_list'));return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></button>
       </div>
   </div>
 

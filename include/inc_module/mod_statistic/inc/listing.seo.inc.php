@@ -102,18 +102,18 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 				<div class="input-group input-group-sm">
 					
 						<?php if($_SESSION['seolog_page'] > 1): ?>
-							<a href="<?php echo $_controller_link ?>&amp;page=<?php echo ($_SESSION['seolog_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
+							<a href="<?php echo $_controller_link ?>&amp;page=<?php echo ($_SESSION['seolog_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-left"></i></a>
 						<?php else: ?>
-							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
+							<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-left"></i></button>
 						<?php endif; ?>
 					
 					<input type="number" name="page" id="page" value="<?php echo $_SESSION['seolog_page'] ?>" class="form-control form-control-sm text-center w-25" />
 					
 						<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 						<?php if($_SESSION['seolog_page'] < $_entry['pages_total']): ?>
-							<a href="<?php echo $_controller_link ?>&amp;page=<?php echo ($_SESSION['seolog_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
+							<a href="<?php echo $_controller_link ?>&amp;page=<?php echo ($_SESSION['seolog_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-right"></i></a>
 						<?php else: ?>
-							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
+							<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-right"></i></button>
 						<?php endif; ?>
 					
 				</div>
@@ -130,7 +130,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 				}
 				?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
 				
-					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fa-solid fa-search"></i></button>
 				
 			</div>
 		</div>

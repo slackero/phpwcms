@@ -182,7 +182,7 @@ if(!isset($_GET["s"])) {
                         echo '<a class="btn btn-danger btn-sm ms-1" role="button" data-bs-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=2|' . $row["template_id"] . '" ';
                         echo 'title="' . $BL['be_cnt_delete'] . ': ' . html($row["template_name"]) . '" ';
                         echo 'data-confirm-danger="' . html($BL['be_cnt_delete'] . ":\n[" . $row["template_name"] . ']') . '">';
-                        echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
+                        echo '<i class="fa-regular fa-trash-alt" aria-hidden="true"></i></a>';
                         echo "</td>\n</tr>\n";
 
                         $row_count++;
@@ -441,10 +441,10 @@ if(!isset($_GET["s"])) {
             </div>
             <div class="card-body">
                 <ul class="nav nav-tabs mb-3" id="templateTabs" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" id="tmpl-layout-tab" data-bs-toggle="tab" href="#tmpl-layout-sect" role="tab" aria-controls="tmpl-layout-sect" aria-selected="true"><i class="fas fa-th-large me-1"></i> <?php echo $BL['be_admin_tmpl_layout'] ?></a></li>
-                    <li class="nav-item"><a class="nav-link" id="tmpl-blocks-tab" data-bs-toggle="tab" href="#tmpl-blocks-sect" role="tab" aria-controls="tmpl-blocks-sect" aria-selected="false"><i class="fas fa-cubes me-1"></i> <?php echo $BL['be_admin_page_blocks'] ?></a></li>
-                    <li class="nav-item"><a class="nav-link" id="tmpl-head-tab" data-bs-toggle="tab" href="#tmpl-head-sect" role="tab" aria-controls="tmpl-head-sect" aria-selected="false"><i class="fas fa-code me-1"></i> <?php echo $BL['be_admin_tmpl_head'] ?></a></li>
-                    <li class="nav-item"><a class="nav-link" id="tmpl-consent-tab" data-bs-toggle="tab" href="#tmpl-consent-sect" role="tab" aria-controls="tmpl-consent-sect" aria-selected="false"><i class="fas fa-shield-alt me-1"></i> Tracking &amp; Cookie Consent</a></li>
+                    <li class="nav-item"><a class="nav-link active" id="tmpl-layout-tab" data-bs-toggle="tab" href="#tmpl-layout-sect" role="tab" aria-controls="tmpl-layout-sect" aria-selected="true"><i class="fa-solid fa-th-large me-1"></i> <?php echo $BL['be_admin_tmpl_layout'] ?></a></li>
+                    <li class="nav-item"><a class="nav-link" id="tmpl-blocks-tab" data-bs-toggle="tab" href="#tmpl-blocks-sect" role="tab" aria-controls="tmpl-blocks-sect" aria-selected="false"><i class="fa-solid fa-cubes me-1"></i> <?php echo $BL['be_admin_page_blocks'] ?></a></li>
+                    <li class="nav-item"><a class="nav-link" id="tmpl-head-tab" data-bs-toggle="tab" href="#tmpl-head-sect" role="tab" aria-controls="tmpl-head-sect" aria-selected="false"><i class="fa-solid fa-code me-1"></i> <?php echo $BL['be_admin_tmpl_head'] ?></a></li>
+                    <li class="nav-item"><a class="nav-link" id="tmpl-consent-tab" data-bs-toggle="tab" href="#tmpl-consent-sect" role="tab" aria-controls="tmpl-consent-sect" aria-selected="false"><i class="fa-solid fa-shield-alt me-1"></i> Tracking &amp; Cookie Consent</a></li>
                 </ul>
 
                 <div class="tab-content" id="templateTabsContent">

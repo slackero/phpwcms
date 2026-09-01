@@ -44,7 +44,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 				foreach($data as $row) {
 					echo '<tr>';
-					echo '<td class="text-center"><i class="fas fa-th-large text-muted"></i></td>';
+					echo '<td class="text-center"><i class="fa-solid fa-th-large text-muted"></i></td>';
 					echo '<td>' . html($row["adplace_title"]) . '</td>';
 					$_format_key = 'format_' . strtolower(str_replace(array(' ', '-'), '_', $row["adformat_title"]));
 					$_format_title = isset($BLM[$_format_key]) ? $BLM[$_format_key] : $row["adformat_title"];
@@ -62,11 +62,11 @@ if (!defined('PHPWCMS_ROOT')) {
 					
 					$adcount = _dbCount($sql . intval($row['adplace_id']));
 					if ($adcount > 0) {
-						echo '<button class="btn btn-sm btn-danger ms-1" disabled title="Delete"><i class="far fa-trash-alt"></i></button>';
+						echo '<button class="btn btn-sm btn-danger ms-1" disabled title="Delete"><i class="fa-regular fa-trash-alt"></i></button>';
 					} else {
 						echo '<a href="' . MODULE_HREF . '&amp;adplace=1&amp;delete=' . $row["adplace_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adplace_title"]) . '"';
 						echo ' onclick="return confirm(\'' . js_singlequote($BLM['delete_adplace']) . ' \n' . js_singlequote($BLM['adplace_title'] . ': ' . html('"' . $row["adplace_title"] . '"')) . '\');">';
-						echo '<i class="far fa-trash-alt"></i></a>';
+						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 					}
 					echo '</td>';
 					echo '</tr>';

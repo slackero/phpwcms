@@ -78,16 +78,16 @@ initJsAutocompleter();
             <div class="input-group input-group-sm datetime-picker-group">
               <span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
               <input type="text" class="form-control datetimepicker-input" name="calendar_start_date" id="calendar_start_date" value="<?php echo html($plugin['data']['calendar_start_date']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
-              <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_start_date')._flatpickr&&document.getElementById('calendar_start_date')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+              <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_start_date')._flatpickr&&document.getElementById('calendar_start_date')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
               <input type="text" class="form-control datetimepicker-input" name="calendar_start_time" id="calendar_start_time" value="<?php echo html($plugin['data']['calendar_start_time']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
-              <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_start_time')._flatpickr&&document.getElementById('calendar_start_time')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
+              <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_start_time')._flatpickr&&document.getElementById('calendar_start_time')._flatpickr.open();"><i class="fa-regular fa-clock fa-fw"></i></span>
             </div>
             <div class="input-group input-group-sm datetime-picker-group">
               <span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
               <input type="text" class="form-control datetimepicker-input" name="calendar_end_date" id="calendar_end_date" value="<?php echo html($plugin['data']['calendar_end_date']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
-              <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_end_date')._flatpickr&&document.getElementById('calendar_end_date')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+              <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_end_date')._flatpickr&&document.getElementById('calendar_end_date')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
               <input type="text" class="form-control datetimepicker-input" name="calendar_end_time" id="calendar_end_time" value="<?php echo html($plugin['data']['calendar_end_time']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
-              <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_end_time')._flatpickr&&document.getElementById('calendar_end_time')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
+              <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_end_time')._flatpickr&&document.getElementById('calendar_end_time')._flatpickr.open();"><i class="fa-regular fa-clock fa-fw"></i></span>
             </div>
             <div class="form-check form-check-inline align-self-center ms-2 mb-0">
               <input type="checkbox" name="calendar_allday" id="calendar_allday" class="form-check-input" value="1"<?php is_checked(1, $plugin['data']['calendar_allday']) ?> onchange="setCalendarAllDay();" />
@@ -138,7 +138,7 @@ initJsAutocompleter();
         <div class="input-group input-group-sm">
           <input type="text" class="form-control datetimepicker-input" name="calendar_range_start" id="calendar_range_start" value="<?php echo html($plugin['data']['calendar_rangestart']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
           
-            <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_range_start')._flatpickr&&document.getElementById('calendar_range_start')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+            <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_range_start')._flatpickr&&document.getElementById('calendar_range_start')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
           
         </div>
       </div>
@@ -146,7 +146,7 @@ initJsAutocompleter();
         <div class="input-group input-group-sm">
           <input type="text" class="form-control datetimepicker-input" name="calendar_range_end" id="calendar_range_end" value="<?php echo html($plugin['data']['calendar_rangeend']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
           
-            <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_range_end')._flatpickr&&document.getElementById('calendar_range_end')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+            <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_range_end')._flatpickr&&document.getElementById('calendar_range_end')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
           
         </div>
       </div>

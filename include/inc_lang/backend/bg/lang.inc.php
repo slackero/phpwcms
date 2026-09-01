@@ -1304,7 +1304,7 @@ $BL['ADD_ALL_CONFIRM']             = 'Всички файлове от папк�
 
 Кликнете върху [OK], за да затворите файловия браузър…';
 $BL['be_fileuploader_uploadButtonText'] = 'Изберете файлове или плъзнете тук';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Изберете файлове или плъзнете тук</span><br><small class="text-muted">Кликнете или плъзнете файлове в тази зона</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Изберете файлове или плъзнете тук</span><br><small class="text-muted">Кликнете или плъзнете файлове в тази зона</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Вашият браузър не поддържа качване чрез плъзгане и пускане.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Файлът е твърде голям ({{filesize}}MiB). Максимален размер: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Файлове от този тип не могат да бъдат качвани в текущия режим.';

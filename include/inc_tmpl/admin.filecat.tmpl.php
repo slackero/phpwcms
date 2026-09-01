@@ -283,7 +283,7 @@ if(isset($_GET['open'])) {
           echo '</div>';
 
           echo "<a href=\"include/inc_act/act_filecat.php?do=8,".$row["fcat_id"]."\" class=\"btn btn-sm btn-danger ms-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delcatmsg']." [".html($row["fcat_name"])."]\" title=\"".$BL['be_admin_fcat_delcat']."\">";
-          echo "<i class=\"far fa-trash-alt\"></i></a>";
+          echo "<i class=\"fa-regular fa-trash-alt\"></i></a>";
 
           echo "</td>\n</tr>\n";
 
@@ -304,7 +304,7 @@ if(isset($_GET['open'])) {
                       echo '</div>';
 
                       echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow['fkey_id'].",".($krow['fkey_cid'])."\" class=\"btn btn-sm btn-danger ms-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delmsg']." [".html($krow['fkey_name'])."]\" title=\"".$BL['be_admin_fcat_delkey']."\">";
-                      echo "<i class=\"far fa-trash-alt\"></i></a>";
+                      echo "<i class=\"fa-regular fa-trash-alt\"></i></a>";
                       echo "</td>\n</tr>\n";
                   }
               }

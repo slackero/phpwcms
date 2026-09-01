@@ -554,7 +554,7 @@ if($ja) {
 
     <div class="form-group row g-2 align-items-center">
         <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-end">
-            <?php echo $BL['be_tags']; ?> <i class="fas fa-info-circle text-blue ms-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab']; ?>"></i>
+            <?php echo $BL['be_tags']; ?> <i class="fa-solid fa-info-circle text-blue ms-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab']; ?>"></i>
         </label>
         <div class="col">
             <input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']); ?>" />

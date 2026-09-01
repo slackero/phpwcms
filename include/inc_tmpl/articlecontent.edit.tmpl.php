@@ -164,7 +164,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
   <div class="card-body">
     <div class="form-group align-items-center row g-2">
       <div class="col-sm-2 text-end">
-        <span data-bs-toggle="tooltip" title="<?php echo html($BL['be_article_cat'].' - '.$BL['be_article_atitle']); ?>"><i class="fas fa-info-circle text-blue"></i></span>
+        <span data-bs-toggle="tooltip" title="<?php echo html($BL['be_article_cat'].' - '.$BL['be_article_atitle']); ?>"><i class="fa-solid fa-info-circle text-blue"></i></span>
       </div>
       <div class="col-sm-auto">
         <strong><?php echo html($content["article"]['acat_name'].' [ID:'.$content['article']['acat_id'].']'.' - '.$content["article"]['article_title']) ?> </strong>
@@ -552,7 +552,7 @@ endif;
 if (!empty($content["id"])) {
     $buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($content['article']["article_alias"]) ? (empty($content["aid"]) ? 'id='.$content["id"] : 'aid='.$content["aid"]) : $content['article']["article_alias"]);
     $buttonAction  = '<button type="button" value="'.$BL['be_func_struct_preview'].'" class="btn btn-sm btn-blue float-sm-end" title="'.$BL['be_func_struct_preview'].'" ';
-    $buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\"><i class=\"far fa-eye me-1\"></i> ";
+    $buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\"><i class=\"fa-regular fa-eye me-1\"></i> ";
     $buttonAction .= $BL['be_func_struct_preview']."</button>" . LF;
 } else {
     $buttonAction  = '';
@@ -646,7 +646,7 @@ echo $_save_close_buttons;
              </div>
              <label class="input-group-text" for="clivedate"><?php echo $BL['be_msg_from'] ?></label>
              <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" autocomplete="off" />
-             <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('clivedate')._flatpickr&&document.getElementById('clivedate')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+             <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('clivedate')._flatpickr&&document.getElementById('clivedate')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
            </div>
            <div class="input-group input-group-sm" id="datetimepicker2" style="max-width: 280px;">
              <div class="input-group-text">
@@ -654,7 +654,7 @@ echo $_save_close_buttons;
              </div>
              <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
              <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" autocomplete="off" />
-             <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('ckilldate')._flatpickr&&document.getElementById('ckilldate')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+             <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('ckilldate')._flatpickr&&document.getElementById('ckilldate')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
            </div>
            <div class="input-group input-group-sm" style="max-width: 140px;">
              <label class="input-group-text" for="csorting"><?php echo $BL['be_cnt_sortvalue'] ?></label>

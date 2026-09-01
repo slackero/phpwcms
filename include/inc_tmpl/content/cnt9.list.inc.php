@@ -40,11 +40,11 @@ switch ($media['media_type']) {
 }
 
 switch ($media['media_player']) {
-    case 0: $player_icon = 'fab fa-apple text-secondary'; break;
-    case 1: $player_icon = 'fas fa-play-circle text-primary'; break;
-    case 2: $player_icon = 'fab fa-windows text-info'; break;
-    case 3: $player_icon = 'fas fa-bolt text-danger'; break;
-    default: $player_icon = 'fas fa-play-circle text-primary';
+    case 0: $player_icon = 'fa-brands fa-apple text-secondary'; break;
+    case 1: $player_icon = 'fa-solid fa-play-circle text-primary'; break;
+    case 2: $player_icon = 'fa-brands fa-windows text-info'; break;
+    case 3: $player_icon = 'fa-solid fa-bolt text-danger'; break;
+    default: $player_icon = 'fa-solid fa-play-circle text-primary';
 }
 
 $media_src = $media['media_id'] ? 'INTERNAL SOURCE' : 'EXTERNAL SOURCE';

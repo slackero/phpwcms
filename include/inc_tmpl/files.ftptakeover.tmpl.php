@@ -104,7 +104,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
           <tfoot class="bg-light border-top">
             <tr>
               <td class="text-center align-middle"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
-              <td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fas fa-trash-alt me-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
+              <td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fa-solid fa-trash-alt me-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
               <td class="text-end align-middle fw-bold"><?php echo fsizelong($fxsg) ?></td>
             </tr>
           </tfoot>
@@ -242,7 +242,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
 
-                $ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : '<i class="fas fa-exclamation-circle text-danger me-1"></i>';
+                $ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : '<i class="fa-solid fa-exclamation-circle text-danger me-1"></i>';
                 $k .= "<div class=\"form-group row g-2 align-items-center\">\n";
                 $k .= "<label for=\"be_ftptakeover_additional\" class=\"col-sm-2 col-form-label text-end\">".$ke.html($row["fcat_name"]).":&nbsp;</label>\n";
                 $k .= "<div class=\"col-sm-5\"><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"form-select form-control form-control-sm\">\n";
@@ -275,7 +275,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
     </div>
 
     <div class="form-group row g-2 align-items-center">
-      <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+      <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tags'] ?> <i class="fa-solid fa-info-circle text-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
       <div class="col">
      	<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
      	<input name="file_tags" type="hidden" id="file_tags" value="" />
@@ -345,7 +345,7 @@ $(function () {
         '<div class="d-flex align-items-center overflow-hidden me-3" style="min-width: 0;">' +
             '<div class="me-3 flex-shrink-0 dz-thumb-container">' +
                 '<img data-dz-thumbnail class="dz-thumbnail d-none" />' +
-                '<div class="dz-icon-placeholder"><i class="fas fa-file"></i></div>' +
+                '<div class="dz-icon-placeholder"><i class="fa-solid fa-file"></i></div>' +
             '</div>' +
             '<div class="overflow-hidden" style="min-width: 0;">' +
                 '<div class="fw-bold text-truncate text-dark" data-dz-name></div>' +
@@ -356,22 +356,22 @@ $(function () {
             '</div>' +
         '</div>' +
         '<div class="flex-shrink-0 ms-2">' +
-            '<button class="btn btn-outline-danger py-1 px-3" data-dz-remove><i class="fas fa-times me-1"></i><?php echo str_replace("'", "\\'", $BL["be_newsletter_button_cancel"]); ?></button>' +
+            '<button class="btn btn-outline-danger py-1 px-3" data-dz-remove><i class="fa-solid fa-times me-1"></i><?php echo str_replace("'", "\\'", $BL["be_newsletter_button_cancel"]); ?></button>' +
         '</div>' +
     '</div>';
 
     function getFileIconClass(filename) {
         var ext = filename.split('.').pop().toLowerCase();
         switch(ext) {
-            case 'pdf': return 'fas fa-file-pdf text-danger';
-            case 'doc': case 'docx': return 'fas fa-file-word text-primary';
-            case 'xls': case 'xlsx': case 'csv': return 'fas fa-file-excel text-success';
-            case 'ppt': case 'pptx': return 'fas fa-file-powerpoint text-warning';
-            case 'zip': case 'tar': case 'gz': case '7z': case 'rar': return 'fas fa-file-archive text-warning';
-            case 'mp3': case 'wav': case 'ogg': case 'm4a': return 'fas fa-file-audio text-info';
-            case 'mp4': case 'mov': case 'webm': case 'avi': case 'm4v': return 'fas fa-file-video text-secondary';
-            case 'txt': case 'html': case 'css': case 'js': case 'php': case 'json': case 'xml': return 'fas fa-file-code text-secondary';
-            default: return 'fas fa-file text-muted';
+            case 'pdf': return 'fa-solid fa-file-pdf text-danger';
+            case 'doc': case 'docx': return 'fa-solid fa-file-word text-primary';
+            case 'xls': case 'xlsx': case 'csv': return 'fa-solid fa-file-excel text-success';
+            case 'ppt': case 'pptx': return 'fa-solid fa-file-powerpoint text-warning';
+            case 'zip': case 'tar': case 'gz': case '7z': case 'rar': return 'fa-solid fa-file-archive text-warning';
+            case 'mp3': case 'wav': case 'ogg': case 'm4a': return 'fa-solid fa-file-audio text-info';
+            case 'mp4': case 'mov': case 'webm': case 'avi': case 'm4v': return 'fa-solid fa-file-video text-secondary';
+            case 'txt': case 'html': case 'css': case 'js': case 'php': case 'json': case 'xml': return 'fa-solid fa-file-code text-secondary';
+            default: return 'fa-solid fa-file text-muted';
         }
     }
 
@@ -496,7 +496,7 @@ $(function () {
 
                 if ($("#" + errorId).length === 0) {
                     var alertHtml = '<div id="' + errorId + '" class="alert alert-danger fade show d-flex align-items-center mt-2 mb-0 py-2 px-3 small" role="alert">' +
-                        '<i class="fas fa-exclamation-triangle me-2 flex-shrink-0"></i>' +
+                        '<i class="fa-solid fa-exclamation-triangle me-2 flex-shrink-0"></i>' +
                         '<div class="me-auto">' + errText + '</div>' +
                         '<button type="button" class="btn-close ms-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close"></button>' +
                         '</div>';

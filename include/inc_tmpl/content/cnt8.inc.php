@@ -308,7 +308,7 @@ initJsAutocompleter();
     <br />
     <a class="btn btn-secondary btn-sm mb-3" href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(teaser_items);return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></a></td>
     <br />
-    <a class="btn btn-danger btn-sm" href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(teaser_items,source_items,false);return false;"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
+    <a class="btn btn-danger btn-sm" href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(teaser_items,source_items,false);return false;"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></a>
   </div>
 </div>
 
@@ -378,7 +378,7 @@ initJsAutocompleter();
 <hr />
 
 <div class="form-group row g-2">
-  <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+  <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_tags'] ?> <i class="fa-solid fa-info-circle text-blue" data-bs-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
   <div class="col">
     <input type="text" id="calink_category_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
     <input type="hidden" name="calink_category" id="calink_category" value="<?php echo html(implode(', ', $content['alink']['alink_category'])) ?>" />

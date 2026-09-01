@@ -148,12 +148,12 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
     ?>
 
     <ul class="nav nav-tabs mb-4" id="editUserTabs" role="tablist">
-      <li class="nav-item" role="presentation"><button type="button" class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account-sect" role="tab" aria-controls="account-sect" aria-selected="true"><i class="fas fa-user-circle me-1"></i> <?php echo $BL['be_admin_usr_button'] ?? 'Account'; ?></button></li>
-      <li class="nav-item" role="presentation"><button type="button" class="nav-link" id="select_cp-tab" data-bs-toggle="tab" data-bs-target="#select_cp" role="tab" aria-controls="select_cp" aria-selected="false"><i class="fas fa-cubes me-1"></i> <?php echo $BL['be_structform_select_cp'] ?></button></li>
+      <li class="nav-item" role="presentation"><button type="button" class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account-sect" role="tab" aria-controls="account-sect" aria-selected="true"><i class="fa-solid fa-user-circle me-1"></i> <?php echo $BL['be_admin_usr_button'] ?? 'Account'; ?></button></li>
+      <li class="nav-item" role="presentation"><button type="button" class="nav-link" id="select_cp-tab" data-bs-toggle="tab" data-bs-target="#select_cp" role="tab" aria-controls="select_cp" aria-selected="false"><i class="fa-solid fa-cubes me-1"></i> <?php echo $BL['be_structform_select_cp'] ?></button></li>
       <?php
       if (isset($new_user_id)) {
-        echo '<li class="nav-item" role="presentation"><button type="button" class="nav-link" id="admin_groups-tab" data-bs-toggle="tab" data-bs-target="#admin_groups" role="tab" aria-controls="admin_groups" aria-selected="false"><i class="fas fa-users me-1"></i> '.$BL['be_subnav_admin_groups'].'</button></li>';
-        echo '<li class="nav-item" role="presentation"><button type="button" class="nav-link" id="log-tab" data-bs-toggle="tab" data-bs-target="#log" role="tab" aria-controls="log" aria-selected="false"><i class="fas fa-history me-1"></i> '.$BL['usr_online'].'</button></li>';
+        echo '<li class="nav-item" role="presentation"><button type="button" class="nav-link" id="admin_groups-tab" data-bs-toggle="tab" data-bs-target="#admin_groups" role="tab" aria-controls="admin_groups" aria-selected="false"><i class="fa-solid fa-users me-1"></i> '.$BL['be_subnav_admin_groups'].'</button></li>';
+        echo '<li class="nav-item" role="presentation"><button type="button" class="nav-link" id="log-tab" data-bs-toggle="tab" data-bs-target="#log" role="tab" aria-controls="log" aria-selected="false"><i class="fa-solid fa-history me-1"></i> '.$BL['usr_online'].'</button></li>';
       }
       ?>
     </ul>

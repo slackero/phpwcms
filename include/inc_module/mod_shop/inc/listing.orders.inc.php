@@ -72,7 +72,7 @@ if($data) {
 
         echo '<a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$row["order_id"].'" data-bs-toggle="tooltip" title="'.$BL['be_cnt_delete'].': '.html($row['order_number']).'"';
         echo ' onclick="return confirm(\''.$BLM['delete_order'].js_singlequote($row['order_number']).'\');">';
-        echo '<i class="far fa-trash-alt fa-fw"></i></a>';
+        echo '<i class="fa-regular fa-trash-alt fa-fw"></i></a>';
 
         echo '</td>'.LF;
         echo '</tr>'.LF;

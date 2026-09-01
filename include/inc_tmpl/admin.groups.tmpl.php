@@ -291,12 +291,12 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             ?>" data-bs-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>
             </div>
             <?php if ($grouplist["group_syskey"]) {
-            echo '<button class="btn btn-sm btn-danger ms-1 disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5;" title="'.$BL['be_admin_group_ldel'].' '.html($grouplist["group_name"]).'" data-bs-toggle="tooltip"><i class="far fa-trash-alt fa-fw"></i></button>';
+            echo '<button class="btn btn-sm btn-danger ms-1 disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5;" title="'.$BL['be_admin_group_ldel'].' '.html($grouplist["group_name"]).'" data-bs-toggle="tooltip"><i class="fa-regular fa-trash-alt fa-fw"></i></button>';
             } else {
             ?>
             <a class="btn btn-sm btn-danger ms-1" role="button" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-bs-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
                 echo urlencode($grouplist["group_id"].":".$grouplist["group_name"]);
-            ?>" data-confirm-danger="Delete group <?php echo html($grouplist["group_name"]) ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+            ?>" data-confirm-danger="Delete group <?php echo html($grouplist["group_name"]) ?>"><i class="fa-regular fa-trash-alt fa-fw"></i></a>
             <?php } ?></td>
         </tr>
         <?php

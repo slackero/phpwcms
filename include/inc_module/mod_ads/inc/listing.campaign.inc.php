@@ -109,10 +109,10 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 				<div class="col-auto">
 					<div class="btn-group btn-group-sm">
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
-							<i class="fas fa-eye"></i>
+							<i class="fa-solid fa-eye"></i>
 						</button>
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
-							<i class="fas fa-eye-slash"></i>
+							<i class="fa-solid fa-eye-slash"></i>
 						</button>
 					</div>
 				</div>
@@ -122,18 +122,18 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 						<div class="input-group input-group-sm">
 							
 								<?php if($_SESSION['ads_page'] > 1): ?>
-									<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;page=<?php echo ($_SESSION['ads_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
+									<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;page=<?php echo ($_SESSION['ads_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-left"></i></a>
 								<?php else: ?>
-									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
+									<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-left"></i></button>
 								<?php endif; ?>
 							
 							<input type="number" name="page" id="page" value="<?php echo $_SESSION['ads_page'] ?>" class="form-control form-control-sm text-center w-25" />
 							
 								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 								<?php if($_SESSION['ads_page'] < $_entry['pages_total']): ?>
-									<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;page=<?php echo ($_SESSION['ads_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
+									<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;page=<?php echo ($_SESSION['ads_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-right"></i></a>
 								<?php else: ?>
-									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
+									<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-right"></i></button>
 								<?php endif; ?>
 							
 						</div>
@@ -150,7 +150,7 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 						}
 						?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
 						
-							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fa-solid fa-search"></i></button>
 						
 					</div>
 				</div>
@@ -195,7 +195,7 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 				if($data) {
 					foreach($data as $row) {
 						echo '<tr>';
-						echo '<td class="text-center"><i class="fas fa-bullhorn text-muted"></i></td>';
+						echo '<td class="text-center"><i class="fa-solid fa-bullhorn text-muted"></i></td>';
 						echo '<td>' . html($row["adcampaign_title"]) . '</td>';
 						echo '<td>' . html(date($BLM['list_date_format'], $row["adcampaign_start"])) . ' &ndash; ' . html(date($BLM['list_date_format'], $row["adcampaign_end"])) . '</td>';
 						echo '<td>' . $row["adplace_width"] . 'x' . $row["adplace_height"] . ' {ADS_' . $row["adplace_id"] . '}</td>';
@@ -214,7 +214,7 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 						
 						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;delete=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adcampaign_title"]) . '"';
 						echo ' onclick="return confirm(\'' . js_singlequote($BLM['delete_entry']) . ' \n' . js_singlequote($BLM['campaign_title'] . ': ' . html('"' . $row["adcampaign_title"] . '"')) . '\');">';
-						echo '<i class="far fa-trash-alt"></i></a>';
+						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';
 						$row_count++;

@@ -93,7 +93,7 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 		<tfoot class="bg-light border-top">
 			<tr>
 				<td class="text-center align-middle"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
-				<td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fas fa-trash-alt me-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
+				<td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fa-solid fa-trash-alt me-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
 				<td class="text-end align-middle fw-bold"><?php echo fsizelong($fxsg) ?></td>
 			</tr>
 		</tfoot>

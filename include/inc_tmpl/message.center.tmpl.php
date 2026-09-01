@@ -152,7 +152,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                 </a>
                 <?php if ($msg_folder != 3) { ?>
                 <a href="include/inc_act/act_message.php?do=<?php echo $do_move; ?>.<?php echo $msgdetail["msg_id"]; ?>.1" class="btn btn-danger" title="<?php echo $BL['be_msg_move']; ?>">
-                    <i class="far fa-trash-alt fa-fw"></i> <?php echo $BL['be_msg_move']; ?>
+                    <i class="fa-regular fa-trash-alt fa-fw"></i> <?php echo $BL['be_msg_move']; ?>
                 </a>
                 <?php } ?>
             </div>
@@ -201,7 +201,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
           <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
           <td class="text-end">
               <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_reply']; ?>"><i class="fa-solid fa-reply fa-fw"></i></a>
-              <a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+              <a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="fa-regular fa-trash-alt fa-fw"></i></a>
           </td>
     </tr>
 <?php
@@ -254,7 +254,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
           <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
           <td class="text-end">
               <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_reply']; ?>"><i class="fa-solid fa-reply fa-fw"></i></a>
-              <a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+              <a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="fa-regular fa-trash-alt fa-fw"></i></a>
           </td>
         </tr>
         <?php
@@ -307,7 +307,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
         <td class="text-end">
             <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_reply']; ?>"><i class="fa-solid fa-reply fa-fw"></i></a>
-            <a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+            <a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="fa-regular fa-trash-alt fa-fw"></i></a>
         </td>
     </tr>
 <?php
@@ -367,7 +367,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
           <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
           <td class="text-end">
               <a href="include/inc_act/act_message.php?do=<?php echo $do_undo; ?>.<?php echo $row["msg_id"]; ?>.0" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_undo']; ?>"><i class="fa-solid fa-undo fa-fw"></i></a>
-              <a href="include/inc_act/act_message.php?do=<?php echo $do_del; ?>.<?php echo $row["msg_id"]; ?>.9" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_del']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+              <a href="include/inc_act/act_message.php?do=<?php echo $do_del; ?>.<?php echo $row["msg_id"]; ?>.9" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_del']; ?>"><i class="fa-regular fa-trash-alt fa-fw"></i></a>
           </td>
     </tr>
 <?php

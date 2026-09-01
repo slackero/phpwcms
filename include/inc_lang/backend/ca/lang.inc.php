@@ -1357,7 +1357,7 @@ $BL['ADD_ALL_CONFIRM']             = 'S\'han afegit tots els fitxers de la carpe
 
 Feu clic a [D\'acord] per tancar el navegador de fitxers…';
 $BL['be_fileuploader_uploadButtonText'] = 'Seleccioneu fitxers o arrossegueu aquí';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Seleccioneu fitxers o arrossegueu aquí</span><br><small class="text-muted">Feu clic o arrossegueu fitxers a aquesta àrea</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Seleccioneu fitxers o arrossegueu aquí</span><br><small class="text-muted">Feu clic o arrossegueu fitxers a aquesta àrea</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'El vostre navegador no admet la càrrega per arrossegar i deixar anar.';
 $BL['be_fileuploader_dictFileTooBig'] = 'El fitxer és massa gran ({{filesize}}MiB). Mida màxima: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Els fitxers d\'aquest tipus no es poden carregar en el mode de filtre actual.';

@@ -1093,7 +1093,7 @@ $BL['be_fileuploader_noFilesError'] = 'Brak plik&oacute;w do wgrywania.';
 $BL['be_fileuploader_onLeave']     = 'Pliki zosta&#322;y przes&#322;ane, je&#347;li zostawisz teraz wysy&#322;anie zostanie anulowane.';
 $BL['be_fileuploader_dragText']    = 'Upu&#347;&#263; pliki tutaj, aby za&#322;adowa&#263;!';
 $BL['be_fileuploader_uploadButtonText'] = 'Wybierz pliki lub upu&#347;&#263; tutaj';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Wybierz pliki lub upu&#347;&#263; tutaj</span><br><small class="text-muted">Kliknij lub przeci&#261;gnij pliki tutaj</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Wybierz pliki lub upu&#347;&#263; tutaj</span><br><small class="text-muted">Kliknij lub przeci&#261;gnij pliki tutaj</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Twoja przegl&#261;darka nie obs&#322;uguje przesuwania plik&oacute;w.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Plik jest zbyt du&#380;y ({{filesize}}MB). Maksymalny rozmiar: {{maxFilesize}}MB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Nie mo&#380;esz przesy&#322;a&#263; plik&oacute;w tego typu w bie&#380;&#261;cym trybie filtrowania.';

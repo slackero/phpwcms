@@ -126,7 +126,7 @@ if(isset($result[0]['guestbook_cid'])) {
 ?>
   <tr bgcolor="#E7E8EB">
     <td><strong><?php echo date('Y-m-d H:i', intval($row['guestbook_created'])).' | IP: <a href="http://www.dnsstuff.com/tools/ptr.ch?ip='.$row['guestbook_ip'].'" target="_blank">'.$row['guestbook_ip'].'</a> | <a href="http://www.dnsstuff.com/tools/whois.ch?ip='.$row['guestbook_ip'].'" target="_blank">WHOIS</a>' ?></strong></td>
-    <td align="right"><a href="act_guestbook.php?<?php echo $action_basis.'edit='.$row['guestbook_id'] ?>" target="_self" title="edit guestbook entry"><i class="fas fa-pencil-alt text-primary me-2"></i></a><a href="act_guestbook.php?<?php echo $action_basis.'del='.$row['guestbook_id'] ?>" target="_self" class="confirm-link" data-confirm-type="danger" data-confirm-action="<?php echo html($GLOBALS['BL']['modal_delete']); ?>" data-confirm="Do you really want to delete this guestbook entry?" title="delete entry"><i class="fas fa-trash-alt text-danger"></i></a></td>
+    <td align="right"><a href="act_guestbook.php?<?php echo $action_basis.'edit='.$row['guestbook_id'] ?>" target="_self" title="edit guestbook entry"><i class="fa-solid fa-pencil-alt text-primary me-2"></i></a><a href="act_guestbook.php?<?php echo $action_basis.'del='.$row['guestbook_id'] ?>" target="_self" class="confirm-link" data-confirm-type="danger" data-confirm-action="<?php echo html($GLOBALS['BL']['modal_delete']); ?>" data-confirm="Do you really want to delete this guestbook entry?" title="delete entry"><i class="fa-solid fa-trash-alt text-danger"></i></a></td>
   </tr>
   <tr>
     <td colspan="2"><?php

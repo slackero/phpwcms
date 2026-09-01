@@ -144,10 +144,10 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
       <div class="col-12 col-sm-auto">
         <div class="btn-group btn-group-sm" role="group" aria-label="redirect-filter">
           <button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
-            <i class="fas fa-eye"></i>
+            <i class="fa-solid fa-eye"></i>
           </button>
           <button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
-            <i class="fas fa-eye-slash"></i>
+            <i class="fa-solid fa-eye-slash"></i>
           </button>
         </div>
       </div>
@@ -404,7 +404,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
       <button type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $rid ? $BL['be_article_cnt_button3'] : $BL['be_article_cnt_button2'] ?></button>
       <button type="reset" class="btn btn-sm btn-secondary ms-1"><i class="fa-solid fa-undo"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
       <a href="phpwcms.php?do=admin&amp;p=14" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
-      <?php if($rid): ?><button type="submit" class="btn btn-sm btn-danger ms-1" name="delete_<?php echo md5((string) $rid) ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');"><i class="far fa-trash-alt me-1"></i> <?php echo $BL['be_cnt_delete'] ?></button><?php endif; ?>
+      <?php if($rid): ?><button type="submit" class="btn btn-sm btn-danger ms-1" name="delete_<?php echo md5((string) $rid) ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');"><i class="fa-regular fa-trash-alt me-1"></i> <?php echo $BL['be_cnt_delete'] ?></button><?php endif; ?>
     </div>
 </form>
 

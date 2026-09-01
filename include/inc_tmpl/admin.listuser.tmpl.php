@@ -278,7 +278,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
           echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]).'" data-bs-toggle="tooltip" href="'.$goto .'"><i class="fa-solid fa-pencil-alt"></i></a>';
           echo '</div>';
           $confirm_usr = $BL['be_admin_usr_ldel'] . "\n[" . $userlist['usr_login'] . "]";
-          echo '<a class="btn btn-sm btn-danger ms-1" data-bs-toggle="tooltip" href="include/inc_act/act_user.php?del='. urlencode($userlist["usr_id"].":".$userlist["usr_email"]).'" title="'.$BL['be_admin_usr_ldel'].' '.html($userlist['usr_login']).'" data-confirm-danger="'.html_specialchars($confirm_usr).'"><i class="far fa-trash-alt"></i></a>';
+          echo '<a class="btn btn-sm btn-danger ms-1" data-bs-toggle="tooltip" href="include/inc_act/act_user.php?del='. urlencode($userlist["usr_id"].":".$userlist["usr_email"]).'" title="'.$BL['be_admin_usr_ldel'].' '.html($userlist['usr_login']).'" data-confirm-danger="'.html_specialchars($confirm_usr).'"><i class="fa-regular fa-trash-alt"></i></a>';
           ?>
 
           </td>

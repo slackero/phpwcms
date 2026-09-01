@@ -463,17 +463,17 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 <ul class="nav nav-tabs mb-3" id="cform-tabs" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="cform-tab-mail" data-bs-toggle="tab" href="#cform-pane-mail" role="tab" aria-controls="cform-pane-mail" aria-selected="true">
-            <i class="fas fa-envelope me-1"></i> <?php echo $BL['be_cnt_recipient']; ?> &amp; <?php echo $BL['be_subnav_msg_new']; ?>
+            <i class="fa-solid fa-envelope me-1"></i> <?php echo $BL['be_cnt_recipient']; ?> &amp; <?php echo $BL['be_subnav_msg_new']; ?>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="cform-tab-feedback" data-bs-toggle="tab" href="#cform-pane-feedback" role="tab" aria-controls="cform-pane-feedback" aria-selected="false">
-            <i class="fas fa-comment-alt me-1"></i> <?php echo $BL['be_cnt_texts']; ?>
+            <i class="fa-solid fa-comment-alt me-1"></i> <?php echo $BL['be_cnt_texts']; ?>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="cform-tab-fields" data-bs-toggle="tab" href="#cform-pane-fields" role="tab" aria-controls="cform-pane-fields" aria-selected="false">
-            <i class="fas fa-list me-1"></i> <?php echo $BL['be_ctype_simpleform']; ?>
+            <i class="fa-solid fa-list me-1"></i> <?php echo $BL['be_ctype_simpleform']; ?>
             <?php if (!empty($content['form']['fields'])): ?>
                 <span class="badge rounded-pill bg-secondary ms-1"><?php echo count($content['form']['fields']); ?></span>
             <?php endif; ?>
@@ -481,12 +481,12 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     </li>
     <li class="nav-item">
         <a class="nav-link" id="cform-tab-templates" data-bs-toggle="tab" href="#cform-pane-templates" role="tab" aria-controls="cform-pane-templates" aria-selected="false">
-            <i class="fas fa-file-code me-1"></i> <?php echo $BL['be_admin_struct_template']; ?>
+            <i class="fa-solid fa-file-code me-1"></i> <?php echo $BL['be_admin_struct_template']; ?>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" id="cform-tab-settings" data-bs-toggle="tab" href="#cform-pane-settings" role="tab" aria-controls="cform-pane-settings" aria-selected="false">
-            <i class="fas fa-poll-h me-1"></i> <?php echo $BL['be_cnt_result']; ?>
+            <i class="fa-solid fa-poll-h me-1"></i> <?php echo $BL['be_cnt_result']; ?>
         </a>
     </li>
 </ul>
@@ -644,7 +644,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     			echo '<option value="{REMOTE_IP}">{REMOTE_IP}</option>'.LF;
     			echo '</select>';
     			echo '';
-    			echo '<a class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_onsuccess, document.articlecontent.successInfo.options[document.articlecontent.successInfo.selectedIndex].value);"></a>';
+    			echo '<a class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_onsuccess, document.articlecontent.successInfo.options[document.articlecontent.successInfo.selectedIndex].value);"><i class="fa-solid fa-angle-right" aria-hidden="true"></i></a>';
     			echo '';
     			echo '</div>';
     		}
@@ -782,17 +782,17 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <hr />
 
     <div class="d-flex justify-content-between align-items-center mb-2">
-        <h5 class="mb-0 fw-bold text-secondary"><i class="fas fa-list me-1"></i> <?php echo $BL['be_cnt_formfields']; ?></h5>
+        <h5 class="mb-0 fw-bold text-secondary"><i class="fa-solid fa-list me-1"></i> <?php echo $BL['be_cnt_formfields']; ?></h5>
         <div class="btn-toolbar" role="toolbar">
             <button type="button" class="btn btn-sm btn-success me-2 btn-add-field-trigger">
-                <i class="fas fa-plus me-1"></i> <?php echo $BL['be_admin_custom_cpt_add_field']; ?>
+                <i class="fa-solid fa-plus me-1"></i> <?php echo $BL['be_admin_custom_cpt_add_field']; ?>
             </button>
             <div class="btn-group btn-group-sm" role="group" aria-label="Field toggles">
                 <button type="button" class="btn btn-light" onclick="showAllFormFields();" title="<?php echo $BL['be_cnt_expand_all']; ?>">
-                    <i class="fas fa-angle-double-down me-1"></i> <?php echo $BL['be_cnt_expand_all']; ?>
+                    <i class="fa-solid fa-angle-double-down me-1"></i> <?php echo $BL['be_cnt_expand_all']; ?>
                 </button>
                 <button type="button" class="btn btn-light" onclick="hideAllFormFields();" title="<?php echo $BL['be_cnt_collapse_all']; ?>">
-                    <i class="fas fa-angle-double-up me-1"></i> <?php echo $BL['be_cnt_collapse_all']; ?>
+                    <i class="fa-solid fa-angle-double-up me-1"></i> <?php echo $BL['be_cnt_collapse_all']; ?>
                 </button>
             </div>
         </div>
@@ -800,15 +800,15 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
     <table class="table w-100 mb-1" style="position: relative;">
     <tr class="bg-light">
-        <th class="px-1 text-center" style="width: 30px"><i class="fas fa-grip-vertical text-muted"></i></th>
-        <th class="px-1 text-center" style="width: 30px"><i class="fas fa-caret-down text-muted"></i></th>
+        <th class="px-1 text-center" style="width: 30px"><i class="fa-solid fa-grip-vertical text-muted"></i></th>
+        <th class="px-1 text-center" style="width: 30px"><i class="fa-solid fa-caret-down text-muted"></i></th>
         <th class="px-1" style="width: 25%;"><?php echo $BL['be_cnt_type'] ?></th>
         <th class="px-1" style="width: 25%;"><?php echo $BL['be_admin_tmpl_name'] ?></th>
         <th class="px-1" style="width: 15%;"><?php echo $BL['be_cnt_label'] ?></th>
         <th class="px-1" style="width: 15%;"><div data-bs-toggle="tooltip" data-placement="top" title="size/columns">S/C</div></th>
         <th class="px-1" style="width: auto;"><div data-bs-toggle="tooltip" data-placement="top" title="maxlength/rows">M/R</div></th>
-        <th class="px-0 text-center" style="width: 30px;"><i class="fas fa-exclamation text-danger" data-bs-toggle="tooltip" data-placement="top" title="<?php echo $BL['be_cnt_needed'] ?>" alt="<?php echo $BL['be_cnt_needed'] ?>"></i></th>
-        <th class="px-0 text-center" style="width: 30px;"><i class="fas fa-trash text-danger" data-bs-toggle="tooltip" data-placement="top" title="<?php echo $BL['be_cnt_delete'] ?>" alt="<?php echo $BL['be_cnt_delete'] ?>"></i></th>
+        <th class="px-0 text-center" style="width: 30px;"><i class="fa-solid fa-exclamation text-danger" data-bs-toggle="tooltip" data-placement="top" title="<?php echo $BL['be_cnt_needed'] ?>" alt="<?php echo $BL['be_cnt_needed'] ?>"></i></th>
+        <th class="px-0 text-center" style="width: 30px;"><i class="fa-solid fa-trash text-danger" data-bs-toggle="tooltip" data-placement="top" title="<?php echo $BL['be_cnt_delete'] ?>" alt="<?php echo $BL['be_cnt_delete'] ?>"></i></th>
     </tr>
     </table>
 
@@ -963,7 +963,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             }
 
             echo '<td width="30" class="text-center" id="formRow_'.$field_counter.'">';
-            echo '<a href="#" onclick="return showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'' . $extraParam . ');"><i class="fas fa-caret-down text-primary"></i></a>';
+            echo '<a href="#" onclick="return showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'' . $extraParam . ');"><i class="fa-solid fa-caret-down text-primary"></i></a>';
             echo '</td><td style="width: 25%;">';
             echo '<select name="cform_field_type['.$field_counter.']" class="form-select form-select-sm">';
             echo '<option value="text"'. is_selected('text', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['text'].'</option>';
@@ -1010,7 +1010,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             echo '<td class="text-center" style="width: 30px;"><input type="checkbox" name="cform_field_required['.$field_counter.']"';
             echo is_checked('1', $content['form']["fields"][$key]['required'], 0, 0).' value="1" title="'.$BL['be_cnt_mark_as_req'].'"></td>';
             echo '<td class="text-center" style="width: 30px;">';
-            echo '<button type="button" class="btn btn-sm btn-danger btn-delete-form-field" title="'.$BL['be_cnt_mark_as_del'].'"><i class="fas fa-trash-alt"></i></button>';
+            echo '<button type="button" class="btn btn-sm btn-danger btn-delete-form-field" title="'.$BL['be_cnt_mark_as_del'].'"><i class="fa-solid fa-trash-alt"></i></button>';
             echo '<input type="checkbox" name="cform_field_delete['.$field_counter.']" id="cform_field_delete_'.$field_counter.'" value="1" class="d-none">';
             echo '</td>';
             echo "</tr>";
@@ -1030,7 +1030,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             if($field_type === 'recaptcha' || $field_type === 'recaptchainv') {
                 echo '<a href="https://www.google.com/recaptcha/admin"
                     target="_blank"
-                    class="d-inline-block text-primary fw-bold my-2"><i class="fas fa-external-link-alt me-1"></i>'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a>';
+                    class="d-inline-block text-primary fw-bold my-2"><i class="fa-solid fa-external-link-alt me-1"></i>'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a>';
             }
 
             echo '</td>';
@@ -1080,7 +1080,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     ?></ul>
 
     <div class="d-flex justify-content-between align-items-center my-3">
-      <button type="button" class="btn btn-sm btn-success" id="btn-add-more-fields"><i class="fas fa-plus me-1"></i> <?php echo $BL['be_admin_custom_cpt_add_field']; ?></button>
+      <button type="button" class="btn btn-sm btn-success" id="btn-add-more-fields"><i class="fa-solid fa-plus me-1"></i> <?php echo $BL['be_admin_custom_cpt_add_field']; ?></button>
       <button type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
     </div>
 
@@ -1091,7 +1091,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         <tr>
           <td width="30" class="text-center"><em data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down']; ?>" class="handle text-secondary cursor-grab"><i class="fa-solid fa-grip-vertical"></i></em></td>
           <td width="30" class="text-center" id="formRow___KEY__">
-            <a href="#" onclick="return showHide_CntFormfieldRow('formRow___KEY__', 'none');"><i class="fas fa-caret-down text-primary"></i></a>
+            <a href="#" onclick="return showHide_CntFormfieldRow('formRow___KEY__', 'none');"><i class="fa-solid fa-caret-down text-primary"></i></a>
           </td>
           <td width="25%" style="width: 25%;">
             <select name="cform_field_type[__KEY__]" id="cform_field_type___KEY__" class="form-select form-select-sm fw-bold">
@@ -1129,7 +1129,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
           <td width="15%"><input type="text" placeholder="S/C/Min" name="cform_field_size[__KEY__]" class="form-control form-control-sm" title="SIZE / COLUMNS / MIN" /></td>
           <td width="auto"><input type="text" placeholder="M/R/Max" name="cform_field_max[__KEY__]" class="form-control form-control-sm" title="MAXLENGTH / ROWS / MAX / STEP" /></td>
           <td class="text-center" style="width: 30px;"><input type="checkbox" name="cform_field_required[__KEY__]" value="1" title="<?php echo $BL['be_cnt_mark_as_req'] ?>" /></td>
-          <td class="text-center" style="width: 30px;"><button type="button" class="btn btn-sm btn-danger btn-remove-new-field" title="<?php echo $BL['be_cnt_mark_as_del']; ?>"><i class="fas fa-trash-alt"></i></button></td>
+          <td class="text-center" style="width: 30px;"><button type="button" class="btn btn-sm btn-danger btn-remove-new-field" title="<?php echo $BL['be_cnt_mark_as_del']; ?>"><i class="fa-solid fa-trash-alt"></i></button></td>
         </tr>
         <tr id="formRow___KEY___1">
           <td>&nbsp;</td>
@@ -1172,7 +1172,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
   <!-- TAB 4: TEMPLATES & SETTINGS -->
   <div class="tab-pane fade" id="cform-pane-templates" role="tabpanel" aria-labelledby="cform-tab-templates">
 
-    <h6 class="fw-bold text-secondary mb-3"><i class="fas fa-file-code me-1"></i> <?php echo $BL['be_admin_struct_template']; ?> (Custom HTML / Output)</h6>
+    <h6 class="fw-bold text-secondary mb-3"><i class="fa-solid fa-file-code me-1"></i> <?php echo $BL['be_admin_struct_template']; ?> (Custom HTML / Output)</h6>
 
     <a id="anchor_customform"></a>
     <div class="form-group align-items-center row g-2">
@@ -1189,7 +1189,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
     				echo '';
     				echo '<a class="btn btn-sm btn-blue px-3 insert" onclick="insertAtCursorPos(document.articlecontent.cform_customform, ';
-    				echo 'document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);" /></a>';
+    				echo 'document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);"><i class="fa-solid fa-angle-right" aria-hidden="true"></i></a>';
     				echo '';
     				echo '</div>';
     		}
@@ -1234,7 +1234,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     			echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>';
     			echo '</select>';
 
-    			echo '<button type="button" class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_template, document.articlecontent.ph.options[document.articlecontent.ph.selectedIndex].value);"><i class="fas fa-angle-right" aria-hidden="true"></i></button>';
+    			echo '<button type="button" class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_template, document.articlecontent.ph.options[document.articlecontent.ph.selectedIndex].value);"><i class="fa-solid fa-angle-right" aria-hidden="true"></i></button>';
     			echo '</div>';
     		}
     		?>
@@ -1327,7 +1327,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
     			echo '';
     			echo '<a class="btn btn-sm btn-blue insert px-3" onclick="insertAtCursorPos(document.articlecontent.cform_template_copy, ';
-    			echo 'document.articlecontent.phc.options[document.articlecontent.phc.selectedIndex].value);" /></a>';
+    			echo 'document.articlecontent.phc.options[document.articlecontent.phc.selectedIndex].value);"><i class="fa-solid fa-angle-right" aria-hidden="true"></i></a>';
     			echo '';
     			echo '</div>';
     		}
@@ -1398,7 +1398,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                 if($entries > 0):
                     ?>
                     <button class="btn btn-success text-nowrap" onclick="window.open('<?php echo $result_download_link; ?>', '_new');" class="p-3">
-                        <i class="fas fa-file-excel text-light"></i>
+                        <i class="fa-solid fa-file-excel text-light"></i>
                         <?php echo $BL['be_cnt_download']; ?>
                         <span class="badge rounded-pill bg-light"><?php echo $entries; ?></span>
                     </button>
@@ -1415,23 +1415,19 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         <div class="col-sm-auto">
             <input type="hidden" name="direct_download_apikey" id="direct_download_apikey" value="<?php echo html($content['form']['direct_download_apikey']) ?>" />
             <div class="input-group input-group-sm">
-                
-                    <div class="input-group-text">
-                        <input type="checkbox" name="cform_direct_download" id="cform_direct_download" value="1" <?php echo is_checked(1, $content['form']["direct_download"], 0, 0) ?> />
-                    
-                    <label class="input-group-text" for="cform_direct_download"><?php echo $BL['be_cnt_form_direct_download'] ?></label>
-                </div>
-                <span id="direct_download_apikey_display" class="form-control form-control-sm fw-bold text-primary"><?php echo html($content['form']['direct_download_apikey']) ?></span>
-                
-                    <button class="btn btn-secondary" type="button" onclick="resetApiKey(this);">
-                        <i class="fas fa-sync"></i>
-                        <?php echo $BL['be_cnt_form_apikey_reset']; ?>
-                    </button>
-                    <button class="btn btn-blue" type="button" onclick="copyToClipboard('<?php echo $result_download_link; ?>');return false;" title="<?php echo $BL['copy_to_clipboard'] . ': ' . $result_download_link; ?>" id="copy_link_to_clipboard">
-                        <i class="fas fa-clipboard"></i>
-                        <?php echo $BL['be_copy_link']; ?>
-                    </button>
-                
+                <span class="input-group-text">
+                    <input type="checkbox" class="form-check-input me-1" name="cform_direct_download" id="cform_direct_download" value="1" <?php echo is_checked(1, $content['form']["direct_download"], 0, 0) ?> />
+                    <label class="form-check-label" for="cform_direct_download"><?php echo $BL['be_cnt_form_direct_download'] ?></label>
+                </span>
+                <span id="direct_download_apikey_display" class="form-control fw-bold text-primary"><?php echo html($content['form']['direct_download_apikey']) ?></span>
+                <button class="btn btn-secondary" type="button" onclick="resetApiKey(this);">
+                    <i class="fa-solid fa-sync" aria-hidden="true"></i>
+                    <?php echo $BL['be_cnt_form_apikey_reset']; ?>
+                </button>
+                <button class="btn btn-blue" type="button" onclick="copyToClipboard('<?php echo $result_download_link; ?>');return false;" title="<?php echo $BL['copy_to_clipboard'] . ': ' . $result_download_link; ?>" id="copy_link_to_clipboard">
+                    <i class="fa-solid fa-copy" aria-hidden="true"></i>
+                    <?php echo $BL['be_copy_link']; ?>
+                </button>
             </div>
         </div>
     </div>

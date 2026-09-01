@@ -100,18 +100,18 @@ $result = _dbQuery($sql);
 				<div class="input-group input-group-sm">
 					
 						<?php if($_SESSION['downloads_page'] > 1): ?>
-							<a href="<?php echo statistic_url('controller=downloads') ?>&amp;page=<?php echo ($_SESSION['downloads_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
+							<a href="<?php echo statistic_url('controller=downloads') ?>&amp;page=<?php echo ($_SESSION['downloads_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-left"></i></a>
 						<?php else: ?>
-							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
+							<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-left"></i></button>
 						<?php endif; ?>
 					
 					<input type="number" name="page" id="page" value="<?php echo $_SESSION['downloads_page'] ?>" class="form-control form-control-sm text-center w-25" />
 					
 						<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 						<?php if($_SESSION['downloads_page'] < $_entry['pages_total']): ?>
-							<a href="<?php echo statistic_url('controller=downloads') ?>&amp;page=<?php echo ($_SESSION['downloads_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
+							<a href="<?php echo statistic_url('controller=downloads') ?>&amp;page=<?php echo ($_SESSION['downloads_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-right"></i></a>
 						<?php else: ?>
-							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
+							<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-right"></i></button>
 						<?php endif; ?>
 					
 				</div>
@@ -135,7 +135,7 @@ $result = _dbQuery($sql);
 					<option value="f_created" <?php echo ($_SESSION['list_search'] == 'f_created' ? ' selected' : '') ?>><?php echo $BLM['erstellt'] ?></option>
 				</select>
 				
-					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fa-solid fa-search"></i></button>
 				
 			</div>
 		</div>

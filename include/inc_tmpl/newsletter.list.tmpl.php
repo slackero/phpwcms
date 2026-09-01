@@ -172,10 +172,10 @@ if($_SESSION['newsletter_page'] < 1) {
           $count_opener     = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqueue WHERE queue_status=1 AND queue_opener=1 AND queue_pid='.$row["newsletter_id"], 'COUNT');
 
           if(empty($row["newsletter_active"]) || !$count_queue) {
-            echo '<i class="far fa-newspaper fa-fw" aria-hidden="true"></i>';
+            echo '<i class="fa-regular fa-newspaper fa-fw" aria-hidden="true"></i>';
           } else {
             echo '<a href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"];
-            echo '&amp;send=1"><i class="fas fa-paper-plane fa-fw" aria-hidden="true"></i></a>';
+            echo '&amp;send=1"><i class="fa-solid fa-paper-plane fa-fw" aria-hidden="true"></i></a>';
           }
 
           echo '</td>'.LF;
@@ -197,7 +197,7 @@ if($_SESSION['newsletter_page'] < 1) {
 
           echo '<td class="v10 text-nowrap" align="center">'.$count_recipient.'/'.$count_queue.'/'.$count_sent.'/'.$count_opener;
           if($count_sent && !$count_queue && $row["newsletter_active"]) {
-            echo '<i class="fas fa-check-circle text-success ms-1" title="valid"></i>';
+            echo '<i class="fa-solid fa-check-circle text-success ms-1" title="valid"></i>';
           }
           echo '&nbsp;</td>';
 
@@ -213,7 +213,7 @@ if($_SESSION['newsletter_page'] < 1) {
           echo '</div>';
 
           // delete
-          echo '<a class="btn btn-sm btn-danger ms-1" role="button" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_delete_dataset'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="far fa-trash-alt fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-danger ms-1" role="button" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_delete_dataset'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="fa-regular fa-trash-alt fa-fw"></i></a>';
 
           echo "</td>\n</tr>\n";
 

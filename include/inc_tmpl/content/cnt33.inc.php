@@ -184,7 +184,7 @@ initJsAutocompleter();
   <div class="col-sm-auto">
     <div class="input-group input-group-sm">
       <input type="text" name="news_archive_link" id="news_archive_link" value="<?php echo html($content['news']['news_archive_link']) ?>" class="form-control" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_articleID'] ?>" />
-      <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=4&amp;field=news_archive_link" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
+      <button class="modalButton btn btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=4&amp;field=news_archive_link" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
     </div>
   </div>
   <div class="col">
@@ -197,7 +197,7 @@ initJsAutocompleter();
   <div class="col-sm-auto">
     <div class="input-group input-group-sm">
       <input type="text" name="news_detail_link" id="news_detail_link" value="<?php echo html($content['news']['news_detail_link']) ?>" class="form-control" maxlength="250" data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_articleID'] ?>" />
-      <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=4&amp;field=news_detail_link" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
+      <button class="modalButton btn btn-blue sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=4&amp;field=news_detail_link" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
     </div>
   </div>
   <div class="col">

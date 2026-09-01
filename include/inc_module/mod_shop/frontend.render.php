@@ -1579,7 +1579,7 @@ if( $_shop_load_order !== false ) {
         //ppmodyw: input replace with button
         $_cart_button = preg_match("/\[UPDATE\](.*?)\[\/UPDATE\]/s", $order_process, $g) ? $g[1] : '';
         if(strpos($_cart_button, 'input ') === false) {
-            $_cart_button = '<button type="submit" name="shop_cart_update" value="' . html($_cart_button) . '" class="btn btn-primary cart-update-button"><i class="fas fa-sync fa-fw"></i> <span class="d-none d-md-inline-block"> ' . html($_cart_button) . '</div></button>';
+            $_cart_button = '<button type="submit" name="shop_cart_update" value="' . html($_cart_button) . '" class="btn btn-primary cart-update-button"><i class="fa-solid fa-sync fa-fw"></i> <span class="d-none d-md-inline-block"> ' . html($_cart_button) . '</div></button>';
         }
         $order_process  = preg_replace('/\[UPDATE\](.*?)\[\/UPDATE\]/s', $_cart_button , $order_process);
 

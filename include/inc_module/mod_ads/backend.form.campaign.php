@@ -158,16 +158,16 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 						<div class="input-group input-group-sm datetime-picker-group">
 							<span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
 							<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
-							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_start')._flatpickr&&document.getElementById('adcampaign_date_start')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_start')._flatpickr&&document.getElementById('adcampaign_date_start')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
 							<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
-							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_start')._flatpickr&&document.getElementById('adcampaign_time_start')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
+							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_start')._flatpickr&&document.getElementById('adcampaign_time_start')._flatpickr.open();"><i class="fa-regular fa-clock fa-fw"></i></span>
 						</div>
 						<div class="input-group input-group-sm datetime-picker-group">
 							<span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
 							<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
-							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_end')._flatpickr&&document.getElementById('adcampaign_date_end')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_end')._flatpickr&&document.getElementById('adcampaign_date_end')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
 							<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
-							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_end')._flatpickr&&document.getElementById('adcampaign_time_end')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
+							<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_end')._flatpickr&&document.getElementById('adcampaign_time_end')._flatpickr.open();"><i class="fa-regular fa-clock fa-fw"></i></span>
 						</div>
 					</div>
 				</div>
@@ -287,7 +287,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 				<div class="form-group row">
 					<div class="col-sm-9 offset-sm-3">
 						<div class="p-3 mb-0 rounded" style="background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404 !important; font-weight: bold;">
-							<i class="fas fa-exclamation-triangle me-2" style="color: #856404 !important;"></i> <?php echo $BLM['ad_info'] ?>
+							<i class="fa-solid fa-exclamation-triangle me-2" style="color: #856404 !important;"></i> <?php echo $BLM['ad_info'] ?>
 						</div>
 					</div>
 				</div>
@@ -301,7 +301,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 				<?php endif; ?>
 				<div class="form-group row">
 					<label class="col-sm-3 col-form-label text-sm-end fw-bold">
-						<a href="#" onclick="showImageAds();return false;" title="Preview"><?php echo $BLM['ad_type_0'] ?> <i class="fas fa-external-link-alt small"></i></a>
+						<a href="#" onclick="showImageAds();return false;" title="Preview"><?php echo $BLM['ad_type_0'] ?> <i class="fa-solid fa-external-link-alt small"></i></a>
 					</label>
 					<div class="col-sm-9">
 						<div class="input-group input-group-sm" style="max-width: 540px;">
@@ -323,7 +323,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 				<?php endif; ?>
 				<div class="form-group row">
 					<label class="col-sm-3 col-form-label text-sm-end fw-bold">
-						<a href="#" onclick="showVideoAds();return false;" title="Preview"><?php echo $BLM['ad_type_1'] ?> <i class="fas fa-external-link-alt small"></i></a>
+						<a href="#" onclick="showVideoAds();return false;" title="Preview"><?php echo $BLM['ad_type_1'] ?> <i class="fa-solid fa-external-link-alt small"></i></a>
 					</label>
 					<div class="col-sm-9">
 						<div class="input-group input-group-sm" style="max-width: 540px;">
@@ -345,7 +345,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 				<?php endif; ?>
 				<div class="form-group row">
 					<label class="col-sm-3 col-form-label text-sm-end fw-bold">
-						<a href="#" onclick="showHtml5Ads();return false;" title="Preview"><?php echo $BLM['ad_type_3'] ?> <i class="fas fa-external-link-alt small"></i></a>
+						<a href="#" onclick="showHtml5Ads();return false;" title="Preview"><?php echo $BLM['ad_type_3'] ?> <i class="fa-solid fa-external-link-alt small"></i></a>
 					</label>
 					<div class="col-sm-9">
 						<div class="input-group input-group-sm" style="max-width: 540px;">
@@ -381,7 +381,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 
 			<div class="form-group row">
 				<label for="adcampaign_html" class="col-sm-3 col-form-label text-sm-end fw-bold">
-					<a href="#" onclick="showHtmlAds();return false;" title="Preview"><?php echo $BLM['ad_type_2'] ?> <i class="fas fa-external-link-alt small"></i></a>
+					<a href="#" onclick="showHtmlAds();return false;" title="Preview"><?php echo $BLM['ad_type_2'] ?> <i class="fa-solid fa-external-link-alt small"></i></a>
 				</label>
 				<div class="col-sm-9">
 					<textarea name="adcampaign_html" id="adcampaign_html" rows="5" class="form-control form-control-sm code"><?php echo html($plugin['data']['adcampaign_data']['html']) ?></textarea>

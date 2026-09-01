@@ -472,7 +472,7 @@ $langstr = '';
       </div>
 
       <div class="form-group align-items-center row g-2">
-        <span class="col-sm-2 col-form-label text-sm-end"><?php echo $BL['be_article_akeywords'] ?> <i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+        <span class="col-sm-2 col-form-label text-sm-end"><?php echo $BL['be_article_akeywords'] ?> <i class="fa-solid fa-info-circle text-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
         <div class="col">
           <input class="form-control form-control-sm" type="text" id="article_keyword_autosuggest" aria-label="<?php echo html_specialchars($BL['be_article_akeywords']) ?>" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html($article['article_keyword']) ?>" />
         </div>
@@ -551,7 +551,7 @@ $langstr = '';
               </div>
               <label class="input-group-text" for="article_begin_input"><?php echo $BL['be_msg_from'] ?></label>
               <input name="article_begin" type="text" id="article_begin_input" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($article['article_begin'], $BL['be_longdatetime'], ''); ?>" autocomplete="off" >
-              <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('article_begin_input')._flatpickr&&document.getElementById('article_begin_input')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+              <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('article_begin_input')._flatpickr&&document.getElementById('article_begin_input')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
             </div>
             <div id="article_end" class="input-group input-group-sm" style="max-width: 280px;">
               <div class="input-group-text">
@@ -559,7 +559,7 @@ $langstr = '';
               </div>
               <label class="input-group-text" for="article_end_input"><?php echo $BL['be_article_aend'] ?></label>
               <input name="article_end" type="text" id="article_end_input" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($article['article_end'], $BL['be_longdatetime'], ''); ?>" autocomplete="off" >
-              <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('article_end_input')._flatpickr&&document.getElementById('article_end_input')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+              <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('article_end_input')._flatpickr&&document.getElementById('article_end_input')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 ?>
-<h1 class="title mb-3"><i class="fas fa-rss text-warning me-2"></i><?php echo $BLM['listing_title'] ?></h1>
+<h1 class="title mb-3"><i class="fa-solid fa-rss text-warning me-2"></i><?php echo $BLM['listing_title'] ?></h1>
 
 <div class="card">
 	<div class="card-body">
@@ -64,8 +64,8 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '      <input name="file_'.$key.'" type="text" id="file_'.$key.'" class="form-control text-muted bg-light" value="'.$plugin['file_'.$key].'" readonly />'.LF;
 		echo '      <input type="hidden" name="'.$key.'" id="fileid_'.$key.'" value="'.html($plugin['data'][$key]).'" />'.LF;
 		echo '      '.LF;
-		echo '        <button class="btn btn-secondary" type="button" title="'.$BL['be_cnt_openfilebrowser'].'" onclick="openFileBrowser(\''.$key.'\');"><i class="fas fa-folder-open"></i></button>'.LF;
-		echo '        <button class="btn btn-danger" type="button" title="'.$BL['be_cnt_delfile'].'" onclick="deleteIdData(\''.$key.'\',this);"><i class="fas fa-trash-alt"></i></button>'.LF;
+		echo '        <button class="btn btn-secondary" type="button" title="'.$BL['be_cnt_openfilebrowser'].'" onclick="openFileBrowser(\''.$key.'\');"><i class="fa-solid fa-folder-open"></i></button>'.LF;
+		echo '        <button class="btn btn-danger" type="button" title="'.$BL['be_cnt_delfile'].'" onclick="deleteIdData(\''.$key.'\',this);"><i class="fa-solid fa-trash-alt"></i></button>'.LF;
 		echo '      '.LF;
 		echo '    </div>'.LF;
 		echo '  </div>'.LF;
@@ -345,7 +345,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '  <div class="col-sm-10">'.LF;
 		echo '    <div class="input-group input-group-sm" style="max-width: 220px;">'.LF;
 		echo '      <input type="text" class="form-control datetimepicker-input" name="'.$key.'" id="'.$key.'" value="'.html($plugin['data'][$key]).'" maxlength="10" placeholder="'.$BL['default_date_format'].'" autocomplete="off" />'.LF;
-		echo '      <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById(\''. $key .'\')._flatpickr&&document.getElementById(\''. $key .'\')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>'.LF;
+		echo '      <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById(\''. $key .'\')._flatpickr&&document.getElementById(\''. $key .'\')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>'.LF;
 		echo '    </div>'.LF;
 		echo '    <script type="text/javascript">'.LF;
 		echo '    $(function () {'.LF;

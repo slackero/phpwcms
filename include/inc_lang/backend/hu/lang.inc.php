@@ -1359,7 +1359,7 @@ $BL['ADD_ALL_CONFIRM']             = 'A(z) »{VAL}« mappa összes fájlja hozz�
 
 Kattintson az [OK] gombra a fájlböngésző bezárásához…';
 $BL['be_fileuploader_uploadButtonText'] = 'Válasszon fájlokat vagy húzza ide';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Válasszon fájlokat vagy húzza ide</span><br><small class="text-muted">Kattintson vagy húzza a fájlokat erre a területre</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Válasszon fájlokat vagy húzza ide</span><br><small class="text-muted">Kattintson vagy húzza a fájlokat erre a területre</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'A böngészője nem támogatja a fájlok húzással történő feltöltését.';
 $BL['be_fileuploader_dictFileTooBig'] = 'A fájl túl nagy ({{filesize}}MiB). Maximális méret: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Az ilyen típusú fájlok a jelenlegi szűrőmódban nem tölthetők fel.';

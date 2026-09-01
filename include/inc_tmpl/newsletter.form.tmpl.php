@@ -144,7 +144,7 @@ function insertNewsletterPlaceholder(tag) {
         <div class="input-group" id="newsletter_pub_wrap">
           <input name="newsletter_pub" type="text" id="newsletter_pub" class="form-control form-control-sm" placeholder="<?php echo $BL['default_date_format']; ?>" value="<?php echo phpwcms_strtotime($newsletter['newsletter_pub'], 'd.m.Y', ''); ?>" autocomplete="off" required />
 
-            <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('newsletter_pub')._flatpickr && document.getElementById('newsletter_pub')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+            <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('newsletter_pub')._flatpickr && document.getElementById('newsletter_pub')._flatpickr.open();"><i class="fa-regular fa-calendar-alt fa-fw"></i></span>
 
         </div>
       </div>

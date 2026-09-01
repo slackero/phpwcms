@@ -1481,7 +1481,7 @@ $BL['ADD_ALL_CONFIRM']             = 'Tất cả các tập tin từ thư mục 
 
 Nhấp vào [OK] để đóng trình duyệt tập tin…';
 $BL['be_fileuploader_uploadButtonText'] = 'Chọn tập tin hoặc kéo thả vào đây';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Chọn tập tin hoặc kéo thả vào đây</span><br><small class="text-muted">Nhấp hoặc kéo thả tập tin vào khu vực này</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Chọn tập tin hoặc kéo thả vào đây</span><br><small class="text-muted">Nhấp hoặc kéo thả tập tin vào khu vực này</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Trình duyệt của bạn không hỗ trợ kéo và thả.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Tập tin quá lớn ({{filesize}}MiB). Kích thước tối đa: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Không thể tải lên các tập tin thuộc loại này trong chế độ lọc hiện tại.';

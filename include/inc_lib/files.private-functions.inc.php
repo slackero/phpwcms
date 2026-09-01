@@ -112,9 +112,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
         if(!$count_wert) {
             echo '<a class="dropdown-item" href="include/inc_act/act_file.php?delete='.$row["f_id"].'%7C'.'9'.
                  '" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname.'" data-confirm-danger="'.html_specialchars($GLOBALS['BL']['be_fprivfunc_jsdeldir'] . " \n[".$dirname."]? ") . '">';
-            echo '<i class="ms-1 disabled far fa-fw fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_deldir'].'</a>';
+            echo '<i class="ms-1 disabled fa-regular fa-fw fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_deldir'].'</a>';
         } else {
-            echo '<div class="dropdown-item disabled text-muted"><i class="ms-1 disabled far fa-fw fa-trash-alt text-muted" aria-hidden="true" data-bs-toggle="tooltip" title="';
+            echo '<div class="dropdown-item disabled text-muted"><i class="ms-1 disabled fa-regular fa-fw fa-trash-alt text-muted" aria-hidden="true" data-bs-toggle="tooltip" title="';
             echo str_replace('{VAL}', $dirname, $GLOBALS['BL']['be_fprivfunc_notempty']).'"></i> '.$GLOBALS['BL']['be_fprivfunc_notempty_short'].'</div>';
         }
         echo '</div></div>';
@@ -202,9 +202,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                         $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
                         echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash=' . $file_row["f_id"] . '%7C' . '1' .
                              '" data-bs-toggle="tooltip" title="' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '" data-confirm-danger="' . html_specialchars($confirm_msg) . '">' .
-                             '<i class="ms-1 far fa-fw fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . '</a>';
+                             '<i class="ms-1 fa-regular fa-fw fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . '</a>';
                     } else {
-                        echo '<div class="dropdown-item disabled text-muted"><i class="far fa-fw fa-trash-alt text-muted ms-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+                        echo '<div class="dropdown-item disabled text-muted"><i class="fa-regular fa-fw fa-trash-alt text-muted ms-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
                     }
                     echo '</div></div>'; // Close dropdown-menu & inner btn-group
 

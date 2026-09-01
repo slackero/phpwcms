@@ -140,6 +140,12 @@ select.form-select-sm:not([size]):not([multiple]) {
 .form-group.fmp-intern {
     margin-bottom: .166rem;
 }
+/* stacked action buttons beside a multi-select list */
+.btn-col {
+    display: flex;
+    flex-direction: column;
+    gap: .333rem;
+}
 
 .col-form-label {
     font-weight: 600;
@@ -411,13 +417,13 @@ label a:focus,
 }
 
 .input-group .btn .fa,
-.input-group .btn .far,
-.input-group .btn .fab,
-.input-group .btn .fas,
+.input-group .btn .fa-regular,
+.input-group .btn .fa-brands,
+.input-group .btn .fa-solid,
 .btn .fa,
-.btn .far,
-.btn .fab,
-.btn .fas {
+.btn .fa-regular,
+.btn .fa-brands,
+.btn .fa-solid {
     line-height: 1.5;
     width: 1.25em;
 }
@@ -1696,10 +1702,10 @@ body.filebrowser {
     min-width: 7rem;
 }
 /* reset the stacked-form margin that pushes the radio below its label */
-.input-group-text.fmp-toggle .form-check-input {
+.input-group-text .form-check-input {
     margin: 0;
 }
-.input-group-text.fmp-toggle .form-check-label {
+.input-group-text .form-check-label {
     line-height: 1;
 }
 [data-bs-theme="dark"] .filebrowser tr.filebrowser-dir-current > td,

@@ -46,7 +46,7 @@ if(!isset($_GET["s"])) {
             echo '<a class="btn btn-danger btn-sm" role="button" data-bs-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
             echo 'title="'.$BL['be_tt_delete_pagelayout'].'" ';
             echo 'data-confirm-danger="'.html($BL['be_cnt_delete'].":\n[".$row["pagelayout_name"].']').'">';
-            echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
+            echo '<i class="fa-regular fa-trash-alt" aria-hidden="true"></i></a>';
 
             echo "</td>\n</tr>\n";
 

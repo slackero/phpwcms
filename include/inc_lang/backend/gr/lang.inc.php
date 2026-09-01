@@ -1463,7 +1463,7 @@ $BL['ADD_ALL_CONFIRM']             = 'Όλα τα αρχεία από τον φ�
 
 Κάντε κλικ στο [Εντάξει] για να κλείσετε το πρόγραμμα περιήγησης αρχείων…';
 $BL['be_fileuploader_uploadButtonText'] = 'Επιλέξτε αρχεία ή σύρετε εδώ';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Επιλέξτε αρχεία ή σύρετε εδώ</span><br><small class="text-muted">Κάντε κλικ ή σύρετε αρχεία σε αυτήν την περιοχή</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Επιλέξτε αρχεία ή σύρετε εδώ</span><br><small class="text-muted">Κάντε κλικ ή σύρετε αρχεία σε αυτήν την περιοχή</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Το πρόγραμμα περιήγησής σας δεν υποστηρίζει μεταφορά και απόθεση αρχείων.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Το αρχείο είναι πολύ μεγάλο ({{filesize}}MiB). Μέγιστο μέγεθος: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Αρχεία αυτού του τύπου δεν μπορούν να μεταφορτωθούν στην τρέχουσα λειτουργία φίλτρου.';

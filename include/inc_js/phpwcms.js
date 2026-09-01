@@ -87,24 +87,24 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
 
     let btnClass = 'btn-info text-white';
     let textClass = 'text-info';
-    let iconClass = 'fas fa-info-circle';
+    let iconClass = 'fa-solid fa-info-circle';
 
     if (type === 'danger' || type === 'delete') {
         btnClass = 'btn-danger text-white';
         textClass = 'text-danger';
-        iconClass = 'fas fa-trash-alt';
+        iconClass = 'fa-solid fa-trash-alt';
     } else if (type === 'primary' || type === 'move') {
         btnClass = 'btn-primary text-white';
         textClass = 'text-primary';
-        iconClass = 'fas fa-arrows-alt';
+        iconClass = 'fa-solid fa-arrows-alt';
     } else if (type === 'warning' || type === 'flush') {
         btnClass = 'btn-warning text-dark';
         textClass = 'text-warning';
-        iconClass = 'fas fa-exclamation-triangle';
+        iconClass = 'fa-solid fa-exclamation-triangle';
     } else if (type === 'success') {
         btnClass = 'btn-success text-white';
         textClass = 'text-success';
-        iconClass = 'fas fa-check-circle';
+        iconClass = 'fa-solid fa-check-circle';
     }
 
     $modal.find('.alert-container')
@@ -278,7 +278,7 @@ function bsAlert(message, callback) {
             '      <div class="alert alert-light shadow-lg mb-0 p-4" role="alert" style="border-radius: 8px; border: 1px solid #dee2e6;">' +
             '        <div class="d-flex align-items-start">' +
             '          <div class="me-3 text-primary" style="font-size: 2rem; line-height: 1;">' +
-            '            <i class="fas fa-info-circle"></i>' +
+            '            <i class="fa-solid fa-info-circle"></i>' +
             '          </div>' +
             '          <div style="flex: 1; min-width: 0;">' +
             '            <p class="confirm-message mb-3 text-dark fw-bold" style="font-size: 1.1rem;"></p>' +
@@ -851,17 +851,6 @@ $(function () {
         }
     });
 
-    $('#cimage_pos').on('change', function () {
-        const x = parseInt($(this).val(), 10);
-        for (let i = 0; i <= 9; i++) {
-            if (i === x) {
-                $('#imgpos' + i).removeClass('btn-blue').addClass('btn-success');
-            } else {
-                $('#imgpos' + i).removeClass('btn-success').addClass('btn-blue');
-            }
-        }
-    });
-
     $('#side-menu li').on('click', function () {
         $('#side-menu ul').css('display', 'none');
         $(this).children('ul').css('display', 'block');
@@ -1170,13 +1159,13 @@ function showHide_CntFormfieldRow(whichLayer, status, rowplus) {
         if (rowplus === 5) {
             innerLink += ', 5';
         }
-        innerLink += ')"><i class="fas fa-caret-down fa-lg"></i></a>';
+        innerLink += ')"><i class="fa-solid fa-caret-down fa-lg"></i></a>';
     } else {
         innerLink += "'block'";
         if (rowplus === 5) {
             innerLink += ', 5';
         }
-        innerLink += ')"><i class="fas fa-caret-right fa-lg"></i></a>';
+        innerLink += ')"><i class="fa-solid fa-caret-right fa-lg"></i></a>';
     }
 
     const rows = [1, 2, 3, 4];
@@ -1390,14 +1379,14 @@ function initAceForTextarea(textarea) {
     btnWrap.className = 'btn-ace-tool active';
     btnWrap.title = langWrap;
     btnWrap.setAttribute('aria-label', langWrap);
-    btnWrap.innerHTML = '<i class="fas fa-align-left"></i>';
+    btnWrap.innerHTML = '<i class="fa-solid fa-align-left"></i>';
 
     const btnFullscreen = document.createElement('button');
     btnFullscreen.type = 'button';
     btnFullscreen.className = 'btn-ace-tool';
     btnFullscreen.title = langFull;
     btnFullscreen.setAttribute('aria-label', langFull);
-    btnFullscreen.innerHTML = '<i class="fas fa-expand"></i>';
+    btnFullscreen.innerHTML = '<i class="fa-solid fa-expand"></i>';
 
     btnGroup.appendChild(btnWrap);
     btnGroup.appendChild(btnFullscreen);
@@ -1477,7 +1466,7 @@ function initAceForTextarea(textarea) {
         e.preventDefault();
         const isFull = wrap.classList.toggle('ace-fullscreen');
         btnFullscreen.classList.toggle('active', isFull);
-        btnFullscreen.innerHTML = isFull ? '<i class="fas fa-compress"></i>' : '<i class="fas fa-expand"></i>';
+        btnFullscreen.innerHTML = isFull ? '<i class="fa-solid fa-compress"></i>' : '<i class="fa-solid fa-expand"></i>';
         if (isFull) {
             editor.setOption('maxLines', null);
         } else {

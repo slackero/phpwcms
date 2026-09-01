@@ -86,7 +86,7 @@ if (!isset($content['felogin']['felogin_accept_email_login'])) {
         <input name="date_format" type="text" class="form-control form-control-sm" id="date_format" value="<?php echo $content['felogin']['felogin_date_format']; ?>"/>
     </div>
     <div class="col col-form-label">
-        <a href="http://www.php.net/strftime" target="_blank"><i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" title="PHP strftime"></i></a>
+        <a href="http://www.php.net/strftime" target="_blank"><i class="fa-solid fa-info-circle text-blue" data-bs-toggle="tooltip" title="PHP strftime"></i></a>
     </div>
 </div>
 
@@ -96,7 +96,7 @@ if (!isset($content['felogin']['felogin_accept_email_login'])) {
         <input name="locale" type="text" class="form-control form-control-sm" id="locale" value="<?php echo $content['felogin']['felogin_locale']; ?>"/>
     </div>
     <div class="col-sm-auto col-form-label">
-        <a href="http://www.php.net/setlocale" target="_blank"><i class="fas fa-info-circle text-blue" data-bs-toggle="tooltip" title="PHP setlocale"></i></a>
+        <a href="http://www.php.net/setlocale" target="_blank"><i class="fa-solid fa-info-circle text-blue" data-bs-toggle="tooltip" title="PHP setlocale"></i></a>
     </div>
     <div class="col-sm-auto col-form-label">
         (de, de_DE)
@@ -138,9 +138,9 @@ if (!isset($content['felogin']['felogin_accept_email_login'])) {
 <div class="form-group row g-2">
     <label class="col-sm-2 col-form-label text-end" for="profile_manage_redirect"><?php echo $BL['be_alias'], ', aid=ID', ', id=ID' ?></label>
     <div class="col-sm-auto">
-        <div class="input-group">
-            <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=6&amp;field=profile_manage_redirect" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
-            <input type="text" name="profile_manage_redirect" id="profile_manage_redirect" value="<?php echo html($content['felogin']['felogin_profile_manage_redirect']); ?>" class="form-control form-control-sm" data-bs-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>"/>
+        <div class="input-group input-group-sm">
+            <button class="modalButton btn btn-secondary sitemap-open" type="button" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="articlebrowser.php?opt=6&amp;field=profile_manage_redirect" title="<?php echo $BL['be_cnt_openarticlebrowser'] ?>"><i class="fa-solid fa-sitemap fa-fw" aria-hidden="true"></i></button>
+            <input type="text" name="profile_manage_redirect" id="profile_manage_redirect" value="<?php echo html($content['felogin']['felogin_profile_manage_redirect']); ?>" class="form-control" data-bs-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>"/>
         </div>
     </div>
 </div>

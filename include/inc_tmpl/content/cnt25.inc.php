@@ -157,7 +157,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
                 <i class="fa-solid fa-fw fa-folder-open"></i>
             </button>
             <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_h264').value='';document.getElementById('fmp_internal_id_h264').value='0';this.blur();return false;">
-                <i class="far fa-fw fa-trash-alt"></i>
+                <i class="fa-regular fa-fw fa-trash-alt"></i>
             </button>
         </div>
     </div>
@@ -194,7 +194,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
                 <i class="fa-solid fa-fw fa-folder-open"></i>
             </button>
             <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_webm').value='';document.getElementById('fmp_internal_id_webm').value='0';this.blur();return false;">
-                <i class="far fa-fw fa-trash-alt"></i>
+                <i class="fa-regular fa-fw fa-trash-alt"></i>
             </button>
         </div>
     </div>
@@ -231,7 +231,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
                 <i class="fa-solid fa-fw fa-folder-open"></i>
             </button>
             <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_ogg').value='';document.getElementById('fmp_internal_id_ogg').value='0';this.blur();return false;">
-                <i class="far fa-fw fa-trash-alt"></i>
+                <i class="fa-regular fa-fw fa-trash-alt"></i>
             </button>
         </div>
     </div>
@@ -273,7 +273,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
                 <i class="fa-solid fa-fw fa-folder-open"></i>
             </button>
             <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name').value='';document.getElementById('fmp_internal_id').value='0';this.blur();return false;">
-                <i class="far fa-fw fa-trash-alt"></i>
+                <i class="fa-regular fa-fw fa-trash-alt"></i>
             </button>
         </div>
     </div>
@@ -320,7 +320,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
                 <i class="fa-solid fa-fw fa-folder-open"></i>
             </button>
             <button type="button" class="btn btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_img_name').value='';document.getElementById('fmp_img_id').value='0';this.blur();return false;">
-                <i class="far fa-fw fa-trash-alt"></i>
+                <i class="fa-regular fa-fw fa-trash-alt"></i>
             </button>
         </div>
     </div>

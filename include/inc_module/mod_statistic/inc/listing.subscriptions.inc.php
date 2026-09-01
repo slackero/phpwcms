@@ -139,11 +139,11 @@ $_controller_link =  statistic_url('controller=subscriptions');
             echo '    <td class="text-end p-1 align-middle text-nowrap">';
           }
 
-          echo '      <a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$data["log_id"].'" title="delete: '.html_specialchars($data["log_msg"]).'" onclick="return confirm(\''.$BLM['log_delete_entry'].' \');"><i class="fas fa-trash-alt"></i></a>';
+          echo '      <a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$data["log_id"].'" title="delete: '.html_specialchars($data["log_msg"]).'" onclick="return confirm(\''.$BLM['log_delete_entry'].' \');"><i class="fa-solid fa-trash-alt"></i></a>';
 
           if (stristr($data["log_msg"], '::')) {
             $email_array = explode('::', $data["log_msg"]);
-            echo '    <a class="btn btn-sm btn-dark ms-1" href="'.$_controller_link.'&amp;blacklist='.$email_array[1].'" title="Add to blacklist: '.html_specialchars($email_array[1]).'" onclick="return confirm(\''.html_specialchars($email_array[1]).' '.$BLM['log_insert_blacklist'].' \');"><i class="fas fa-ban"></i></a>';
+            echo '    <a class="btn btn-sm btn-dark ms-1" href="'.$_controller_link.'&amp;blacklist='.$email_array[1].'" title="Add to blacklist: '.html_specialchars($email_array[1]).'" onclick="return confirm(\''.html_specialchars($email_array[1]).' '.$BLM['log_insert_blacklist'].' \');"><i class="fa-solid fa-ban"></i></a>';
           }
           echo '    </td></tr>' . LF;
           $x++;

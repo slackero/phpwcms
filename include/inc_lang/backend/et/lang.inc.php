@@ -1358,7 +1358,7 @@ $BL['ADD_ALL_CONFIRM']             = 'Kõik failid kaustast »{VAL}« on lisatud
 
 Klõpsake [OK] faililehitseja sulgemiseks…';
 $BL['be_fileuploader_uploadButtonText'] = 'Valige failid või lohistage siia';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Valige failid või lohistage siia</span><br><small class="text-muted">Klõpsake või lohistage failid siia alasse</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Valige failid või lohistage siia</span><br><small class="text-muted">Klõpsake või lohistage failid siia alasse</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Teie brauser ei toeta failide lohistamist ja kukutamist.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Fail on liiga suur ({{filesize}}MiB). Maksimaalne suurus: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Seda tüüpi faile ei saa praeguses filtriseisundis üles laadida.';

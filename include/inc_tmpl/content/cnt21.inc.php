@@ -25,27 +25,19 @@ if(!isset($content["page_file"])) {
 ?>
 
 <div class="form-group align-items-center row g-2">
-  <label for="cpage_source_0" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_pages_from'] ?></label>
-  <div class="col">
-  <div class="form-check form-check-inline">
-      <label class="form-check-label">
-		<input class="form-check-input" type="radio" name="cpage_source" id="cpage_source_0" value="0" <?php is_checked(0, $content["page_file"]["source"]) ?>>
-		<?php echo $BL['be_cnt_pages_fromfile'] ?>
-      </label>
-	</div>
-  <div class="form-check form-check-inline">
-  	<label class="form-check-label">
-    	<input class="form-check-input" type="radio" name="cpage_source" value="1" <?php is_checked(1, $content["page_file"]["source"]) ?>>
-    	<?php echo $BL['be_cnt_pages_manually'] ?>
-  	</label>
-	</div>
-  </div>
-</div>
-
-<div class="form-group align-items-center row g-2">
   <label for="cpage_custom" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_pages_cust'] ?></label>
-  <div class="col">
-    <input name="cpage_custom" type="text" class="form-control form-control-sm" id="cpage_custom" value="<?php echo  html($content["page_file"]["pfile"]) ?>">
+  <div class="col-sm-9">
+    <div class="input-group input-group-sm">
+        <span class="input-group-text fmp-toggle">
+            <input class="form-check-input me-1" type="radio" name="cpage_source" id="cpage_source_0" value="0" <?php is_checked(0, $content["page_file"]["source"]) ?>>
+            <label class="form-check-label" for="cpage_source_0"><?php echo $BL['be_cnt_pages_fromfile'] ?></label>
+        </span>
+        <input name="cpage_custom" type="text" class="form-control" id="cpage_custom" value="<?php echo html($content["page_file"]["pfile"]) ?>">
+        <span class="input-group-text fmp-toggle">
+            <input class="form-check-input me-1" type="radio" name="cpage_source" id="cpage_source_1" value="1" <?php is_checked(1, $content["page_file"]["source"]) ?>>
+            <label class="form-check-label" for="cpage_source_1"><?php echo $BL['be_cnt_pages_manually'] ?></label>
+        </span>
+    </div>
   </div>
 </div>
 

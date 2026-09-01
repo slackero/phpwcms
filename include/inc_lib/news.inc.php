@@ -200,7 +200,7 @@ class phpwcmsNews {
                 $next_page = $max_page - 1;
             }
 
-            $paginate .= '<i class="fas fa-chevron-left text-primary cursor-pointer';
+            $paginate .= '<i class="fa-solid fa-chevron-left text-primary cursor-pointer';
             if($current_page == 1) {
                 $paginate .= ' text-muted inactive"';
             } else {
@@ -210,7 +210,7 @@ class phpwcmsNews {
 
             $paginate .= '&nbsp;<b>' . $current_page . '</b>/' . $max_page . '&nbsp;';
 
-            $paginate .= '</td><td class="text-nowrap"><i class="fas fa-chevron-right text-primary cursor-pointer';
+            $paginate .= '</td><td class="text-nowrap"><i class="fa-solid fa-chevron-right text-primary cursor-pointer';
             if($current_page == $max_page) {
                 $paginate .= ' text-muted inactive"';
             } else {
@@ -433,7 +433,7 @@ class phpwcmsNews {
                     '<a class="btn btn-sm btn-danger ms-1" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;status=9'.
                     '" data-bs-toggle="tooltip" title="'.$this->BL['be_delete_dataset'].' '.html($news['cnt_name']).'" onclick="return confirm(\''.
                     $this->BL['be_delete_dataset'].' \n'.js_singlequote($news['cnt_name']).'\');">'.
-                    '<i class="far fa-trash-alt"></i></a>
+                    '<i class="fa-regular fa-trash-alt"></i></a>
                 </td>';
 
                 $list[] = '</tr>';

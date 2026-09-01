@@ -110,7 +110,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 <h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
 <div class="form-group mb-3 text-center text-sm-start">
-    <a class="btn btn-sm btn-blue" href="<?php echo MODULE_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fas fa-address-card fa-fw"></i> <span><?php echo $BLM['create_new'] ?></span></a>
+    <a class="btn btn-sm btn-blue" href="<?php echo MODULE_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fa-solid fa-address-card fa-fw"></i> <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 
 <div class="card">
@@ -123,10 +123,10 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 				<div class="col-auto">
 					<div class="btn-group btn-group-sm">
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
-							<i class="fas fa-eye"></i>
+							<i class="fa-solid fa-eye"></i>
 						</button>
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
-							<i class="fas fa-eye-slash"></i>
+							<i class="fa-solid fa-eye-slash"></i>
 						</button>
 					</div>
 				</div>
@@ -136,18 +136,18 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						<div class="input-group input-group-sm">
 							
 								<?php if($_SESSION['userdetail_page'] > 1): ?>
-									<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;page=<?php echo ($_SESSION['userdetail_page']-1) ?>" class="btn btn-secondary"><i class="fas fa-chevron-left"></i></a>
+									<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;page=<?php echo ($_SESSION['userdetail_page']-1) ?>" class="btn btn-secondary"><i class="fa-solid fa-chevron-left"></i></a>
 								<?php else: ?>
-									<button class="btn btn-secondary" disabled><i class="fas fa-chevron-left"></i></button>
+									<button class="btn btn-secondary" disabled><i class="fa-solid fa-chevron-left"></i></button>
 								<?php endif; ?>
 							
 							<input type="number" name="page" id="page" value="<?php echo $_SESSION['userdetail_page'] ?>" class="form-control text-center w-25" />
 							
 								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 								<?php if($_SESSION['userdetail_page'] < $_entry['pages_total']): ?>
-									<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;page=<?php echo ($_SESSION['userdetail_page']+1) ?>" class="btn btn-secondary"><i class="fas fa-chevron-right"></i></a>
+									<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;page=<?php echo ($_SESSION['userdetail_page']+1) ?>" class="btn btn-secondary"><i class="fa-solid fa-chevron-right"></i></a>
 								<?php else: ?>
-									<button class="btn btn-secondary" disabled><i class="fas fa-chevron-right"></i></button>
+									<button class="btn btn-secondary" disabled><i class="fa-solid fa-chevron-right"></i></button>
 								<?php endif; ?>
 							
 						</div>
@@ -168,7 +168,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 							<?php echo list_country( isset($_SESSION['filter_country']) ? $_SESSION['filter_country'] : '-'  ); ?>
 						</select>
 						
-							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fa-solid fa-search"></i></button>
 						
 					</div>
 				</div>
@@ -209,7 +209,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 					foreach($data as $row) {
 						$row['listname'] = trim($row["detail_company"] . ', ' . trim($row["detail_firstname"] . ' ' . $row["detail_lastname"]), ', ');
 						echo '<tr>';
-						echo '<td class="text-center"><i class="fas fa-address-card text-muted"></i></td>';
+						echo '<td class="text-center"><i class="fa-solid fa-address-card text-muted"></i></td>';
 						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="text-dark fw-bold">' . html($row['listname']) . '</a></td>';
 						echo '<td>' . html($row["detail_city"] . ($row["detail_zip"] ? ', ' . $row["detail_zip"] : '')) . '</td>';
 						echo '<td>' . html($row["detail_country"]) . '</td>';
@@ -225,7 +225,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						
 						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["detail_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row["detail_name"]) . '"';
 						echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["detail_name"]) . '\');">';
-						echo '<i class="far fa-trash-alt"></i></a>';
+						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';
 						$row_count++;

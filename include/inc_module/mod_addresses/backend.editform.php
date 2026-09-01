@@ -68,8 +68,8 @@ foreach($plugin['fields'] as $key => $value) {
 			echo '        </div>';
 			echo '      </div>';
 			echo '      <div class="col-auto mb-sm-1">';
-			echo '        <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="getLocation(true);return false;"><i class="fas fa-map-marker-alt me-1"></i> '.$BLM['get_coordinates'].'</button>';
-			echo '        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="showMap();return false;"><i class="fas fa-globe me-1"></i> '.$BLM['show_map'].'</button>';
+			echo '        <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="getLocation(true);return false;"><i class="fa-solid fa-map-marker-alt me-1"></i> '.$BLM['get_coordinates'].'</button>';
+			echo '        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="showMap();return false;"><i class="fa-solid fa-globe me-1"></i> '.$BLM['show_map'].'</button>';
 			echo '      </div>';
 			echo '    </div>';
 			echo '  </div>';
@@ -254,7 +254,7 @@ foreach($plugin['fields'] as $key => $value) {
 			echo '          <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" title="'.$BL['be_cnt_openfilebrowser'].'"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button><br>';
 			echo '          <button type="button" class="btn btn-sm btn-secondary mb-1" title="'.$BL['be_cnt_sortup'].'" onclick="moveOptionUp(document.articlecontent[\''.$key.'[]\']);return false;"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br>';
 			echo '          <button type="button" class="btn btn-sm btn-secondary mb-1" title="'.$BL['be_cnt_sortdown'].'" onclick="moveOptionDown(document.articlecontent[\''.$key.'[]\']);return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button><br>';
-			echo '          <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent[\''.$key.'[]\']);return false;" title="'.$BL['be_cnt_delfile'].'"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>';
+			echo '          <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent[\''.$key.'[]\']);return false;" title="'.$BL['be_cnt_delfile'].'"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></button>';
 			echo '      </div>';
 			echo '    </div>';
 			echo '  </div>';

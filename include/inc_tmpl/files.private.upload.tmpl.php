@@ -336,7 +336,7 @@ if (exifFileInput) {
 ?>
 <div class="row">
   <div class="col"><h1><?php echo $BL['be_fprivup_title'] ?></h1></div>
-  <div class="col text-end"><a href="phpwcms.php?do=files&amp;f=0"><span aria-hidden="true"><i class="fas fa-times-square fa-2x text-danger"></i></span></a></div>
+  <div class="col text-end"><a href="phpwcms.php?do=files&amp;f=0"><span aria-hidden="true"><i class="fa-solid fa-times-square fa-2x text-danger"></i></span></a></div>
 </div>
 
 <form action="phpwcms.php?do=files&amp;f=0" method="post" enctype="multipart/form-data" name="uploadfile" id="uploadfile">
@@ -360,13 +360,13 @@ if (exifFileInput) {
       </div>
       <?php if(!empty($file_error["upload"])) { ?>
         <div class="alert alert-danger d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">
-          <i class="fas fa-exclamation-triangle me-2 mt-1 flex-shrink-0"></i>
+          <i class="fa-solid fa-exclamation-triangle me-2 mt-1 flex-shrink-0"></i>
           <div><?php echo $file_error["upload"]; ?></div>
         </div>
       <?php } ?>
       <?php if(!empty($file_error["file"])) { ?>
         <div class="alert alert-danger d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">
-          <i class="fas fa-exclamation-triangle me-2 mt-1 flex-shrink-0"></i>
+          <i class="fa-solid fa-exclamation-triangle me-2 mt-1 flex-shrink-0"></i>
           <div><?php echo $file_error["file"]; ?></div>
         </div>
       <?php } ?>
@@ -549,7 +549,7 @@ if (exifFileInput) {
 
     <div class="form-group row g-2 align-items-center">
         <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-end">
-            <?php echo $BL['be_tags']; ?> <i class="fas fa-info-circle text-blue ms-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab']; ?>"></i>
+            <?php echo $BL['be_tags']; ?> <i class="fa-solid fa-info-circle text-blue ms-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_input_text_tab']; ?>"></i>
         </label>
         <div class="col">
             <input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']); ?>" />

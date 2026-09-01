@@ -114,10 +114,10 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
 		<div class="col-auto">
 			<div class="btn-group btn-group-sm">
 				<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
-					<i class="fas fa-eye"></i>
+					<i class="fa-solid fa-eye"></i>
 				</button>
 				<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
-					<i class="fas fa-eye-slash"></i>
+					<i class="fa-solid fa-eye-slash"></i>
 				</button>
 			</div>
 		</div>
@@ -126,7 +126,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
             <div class="input-group input-group-sm">
                 <input name="filter" id="filter" size="15" data-bs-toggle="tooltip" title="<?php echo html($BL['be_filter']); ?>" class="form-control" value="<?php echo html($_entry['post_filter']); ?>" type="search" style="min-width: 250px;" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." />
                 
-                    <button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+                    <button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fa-solid fa-search"></i></button>
                 
             </div>
         </div>
@@ -193,7 +193,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
                 echo '<a class="btn btn-sm btn-danger ms-1" href="' . $_controller_link . '&amp;delete=' . $row['cat_id'];
                 echo '" title="delete: ' . html_specialchars($row['cat_name']) . '"';
                 echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . js_singlequote($row['cat_name']) . '\');">';
-                echo '<i class="far fa-trash-alt"></i></a>';
+                echo '<i class="fa-regular fa-trash-alt"></i></a>';
 
                 echo '</td>' . LF;
                 echo '</tr>' . LF;

@@ -48,7 +48,7 @@ if(isset($file_result[0]['f_id'])) {
 
         echo '<a class="btn btn-sm btn-danger" href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'|9'.
              '" data-bs-toggle="tooltip" title="'.$BL['be_ftrash_delfinal'].': '.$filename.'" data-confirm-danger="'.html_specialchars($delete_msg).'">'.
-             '<i class="far fa-trash-alt fa-fw"></i></a>';
+             '<i class="fa-regular fa-trash-alt fa-fw"></i></a>';
 
         echo "</td>\n";
         echo "</tr>\n";

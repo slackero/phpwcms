@@ -349,7 +349,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                     <span class="badge text-bg-success me-2"><i class="fa-solid fa-check"></i> <?php echo html($existing_tpl_path); ?></span>
                   <?php endif; ?>
                   <button type="button" class="btn btn-sm btn-secondary" onclick="copyTemplateScaffold(this);" title="<?php echo html($BL['be_admin_custom_cpt_copy'] ?? 'Copy to Clipboard'); ?>">
-                    <i class="far fa-copy"></i> <?php echo html($BL['be_admin_custom_cpt_copy'] ?? 'Copy to Clipboard'); ?>
+                    <i class="fa-regular fa-copy"></i> <?php echo html($BL['be_admin_custom_cpt_copy'] ?? 'Copy to Clipboard'); ?>
                   </button>
                 </div>
               </div>
@@ -452,7 +452,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                 </div>
               </td>
               <td class="align-middle text-center">
-                <button type="button" class="btn btn-danger btn-sm" onclick="removeFieldRow(this);" title="<?php echo html($BL['be_tt_delete'] ?? 'Delete'); ?>"><i class="far fa-trash-alt fa-fw"></i></button>
+                <button type="button" class="btn btn-danger btn-sm" onclick="removeFieldRow(this);" title="<?php echo html($BL['be_tt_delete'] ?? 'Delete'); ?>"><i class="fa-regular fa-trash-alt fa-fw"></i></button>
               </td>
             </tr>`;
         }
@@ -824,7 +824,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                               <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;edit=<?php echo $cpt['cpt_id']; ?>" class="btn btn-blue btn-sm" role="button" data-bs-toggle="tooltip" title="<?php echo html($BL['be_tt_edit'] ?? 'Edit'); ?>"><i class="fa-solid fa-pencil-alt"></i></a>
                               <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;export=<?php echo $cpt['cpt_id']; ?>" class="btn btn-blue btn-sm" role="button" data-bs-toggle="tooltip" title="<?php echo html($BL['be_admin_custom_cpt_export'] ?? 'Export JSON'); ?>"><i class="fa-solid fa-download"></i></a>
                             </div>
-                            <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;delete=<?php echo $cpt['cpt_id']; ?>" class="btn btn-danger btn-sm ms-1" role="button" data-bs-toggle="tooltip" title="<?php echo html($BL['be_tt_delete'] ?? 'Delete') . ': ' . html($cpt['cpt_title']); ?>" data-confirm-danger="<?php echo html(($BL['be_admin_custom_cpt_delete_confirm'] ?? 'Delete this custom content part definition?') . "\n[" . $cpt['cpt_title'] . ']'); ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+                            <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;delete=<?php echo $cpt['cpt_id']; ?>" class="btn btn-danger btn-sm ms-1" role="button" data-bs-toggle="tooltip" title="<?php echo html($BL['be_tt_delete'] ?? 'Delete') . ': ' . html($cpt['cpt_title']); ?>" data-confirm-danger="<?php echo html(($BL['be_admin_custom_cpt_delete_confirm'] ?? 'Delete this custom content part definition?') . "\n[" . $cpt['cpt_title'] . ']'); ?>"><i class="fa-regular fa-trash-alt fa-fw"></i></a>
                           <?php else: ?>
                             <span class="small text-muted"><?php echo html($BL['be_admin_custom_cpt_readonly_file'] ?? 'Read-only (File)'); ?></span>
                           <?php endif; ?>

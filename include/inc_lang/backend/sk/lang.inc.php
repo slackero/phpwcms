@@ -1324,7 +1324,7 @@ $BL['ADD_ALL_CONFIRM']             = 'Všetky súbory z priečinka »{VAL}« bol
 
 Kliknite na [OK] pre zatvorenie prehliadača súborov…';
 $BL['be_fileuploader_uploadButtonText'] = 'Vyberte súbory alebo presuňte sem';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Vyberte súbory alebo presuňte sem</span><br><small class="text-muted">Kliknite alebo presuňte súbory do tejto oblasti</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Vyberte súbory alebo presuňte sem</span><br><small class="text-muted">Kliknite alebo presuňte súbory do tejto oblasti</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Váš prehliadač nepodporuje nahrávanie súborov presunutím.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Súbor je príliš veľký ({{filesize}}MiB). Maximálna veľkosť: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Súbory tohto typu nie je možné v aktuálnom režime filtra nahrať.';

@@ -1446,7 +1446,7 @@ $BL['ADD_ALL_CONFIRM']             = 'Všechny soubory ze složky ť{VAL}Ť byly
 
 Klikněte na [OK] pro zavření prohlížeče souborů…';
 $BL['be_fileuploader_uploadButtonText'] = 'Vyberte soubory nebo přetáhněte sem';
-$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Vyberte soubory nebo přetáhněte sem</span><br><small class="text-muted">Klikněte nebo přetáhněte soubory do této oblasti</small>';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fa-solid fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="fw-bold">Vyberte soubory nebo přetáhněte sem</span><br><small class="text-muted">Klikněte nebo přetáhněte soubory do této oblasti</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Váš prohlížeč nepodporuje nahrávání souborů přetažením.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Soubor je příliš velký ({{filesize}}MiB). Maximální velikost: {{maxFilesize}}MiB.';
 $BL['be_fileuploader_dictInvalidFileType'] = 'Soubory tohoto typu nelze v aktuálním režimu filtru nahrát.';

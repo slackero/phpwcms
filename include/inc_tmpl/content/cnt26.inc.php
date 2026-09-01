@@ -55,7 +55,7 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 					}
 					?>
 				</select>
-				<button type="button" class="btn btn-sm btn-light border" onclick="insertAtCursorPos(document.articlecontent.recipe_category, ', ' + document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);"><i class="fas fa-plus"></i></button>
+				<button type="button" class="btn btn-sm btn-light border" onclick="insertAtCursorPos(document.articlecontent.recipe_category, ', ' + document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);"><i class="fa-solid fa-plus"></i></button>
 			</div>
 		</div>
 	</div>

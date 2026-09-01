@@ -38,7 +38,7 @@ $cinfo_result = implode(' / ', $cinfo);
 echo '<div class="col-12">';
 if ($content['link'] !== '') {
     echo '<a class="me-2" href="' . html($content['link']) . '" target="_blank" title="' . html($content['link']) . '">';
-    echo '<i class="fas fa-external-link-alt"></i>';
+    echo '<i class="fa-solid fa-external-link-alt"></i>';
     echo '</a>';
 }
 if ($cinfo_result !== '') {

@@ -26,7 +26,7 @@ function backend_list_keywords() {
 	$list .= '		<h5 class="mb-0 fw-bold"><i class="fa-solid fa-tags me-2 text-primary"></i>' . ($GLOBALS['BL']['be_admin_keywords'] ?? 'Keywords') . '</h5>' . LF;
 	$list .= '		<div>' . LF;
 	$list .= '			<button type="button" class="btn btn-sm btn-blue fw-bold me-2" onclick="keyword_submit_action(this, 0, \'edit\');"><i class="fa-solid fa-plus me-1"></i>' . ($GLOBALS['BL']['be_newsletter_new'] ?? 'New Keyword') . '</button>' . LF;
-	$list .= '			<button type="button" class="btn btn-sm btn-danger confirm-link" data-confirm="' . ($GLOBALS['BL']['be_cnt_delete_confirm'] ?? 'Delete selected items?') . '" onclick="keyword_submit_action(this, 0, \'delete\');"><i class="far fa-trash-alt me-1"></i>' . ($GLOBALS['BL']['be_cnt_delete'] ?? 'Delete Selected') . '</button>' . LF;
+	$list .= '			<button type="button" class="btn btn-sm btn-danger confirm-link" data-confirm="' . ($GLOBALS['BL']['be_cnt_delete_confirm'] ?? 'Delete selected items?') . '" onclick="keyword_submit_action(this, 0, \'delete\');"><i class="fa-regular fa-trash-alt me-1"></i>' . ($GLOBALS['BL']['be_cnt_delete'] ?? 'Delete Selected') . '</button>' . LF;
 	$list .= '		</div>' . LF;
 	$list .= '	</div>' . LF;
 	$list .= '	<div class="card-body">' . LF;
@@ -53,7 +53,7 @@ function backend_list_keywords() {
 			$list .= '						<td><a href="#" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\'); return false;" class="fw-bold text-dark">' . html($value['keyword_name']) . '</a></td>' . LF;
 			$list .= '						<td class="text-end text-nowrap">' . LF;
 			$list .= '							<button type="button" class="btn btn-sm btn-blue py-0 px-1 me-1" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\');" title="Edit"><i class="fa-solid fa-pencil-alt"></i></button>' . LF;
-			$list .= '							<button type="button" class="btn btn-sm btn-danger py-0 px-1" onclick="if(confirm(\'' . ($GLOBALS['BL']['be_cnt_delete_confirm'] ?? 'Delete keyword?') . '\')) keyword_submit_action(this, ' . $value['keyword_id'] . ', \'delete_single\');" title="Delete"><i class="far fa-trash-alt"></i></button>' . LF;
+			$list .= '							<button type="button" class="btn btn-sm btn-danger py-0 px-1" onclick="if(confirm(\'' . ($GLOBALS['BL']['be_cnt_delete_confirm'] ?? 'Delete keyword?') . '\')) keyword_submit_action(this, ' . $value['keyword_id'] . ', \'delete_single\');" title="Delete"><i class="fa-regular fa-trash-alt"></i></button>' . LF;
 			$list .= '						</td>' . LF;
 			$list .= '					</tr>' . LF;
 		}

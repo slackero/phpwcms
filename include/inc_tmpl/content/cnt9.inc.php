@@ -130,60 +130,45 @@ if(is_array($tmpllist) && count($tmpllist)) {
   </div>
 </div>
 
-<?php
-$cmedia_src_minw = max(mb_strlen(strip_tags($BL['be_cnt_internal'])), mb_strlen(strip_tags($BL['be_cnt_external']))) + 4;
-?>
 <div class="form-group align-items-center row g-2">
   <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_source'] ?></label>
   <div class="col-sm-10">
     <div class="input-group input-group-sm mb-2">
       
-        <div class="input-group-text py-0" style="min-width: <?php echo $cmedia_src_minw; ?>ch;">
-          <div class="form-check">
-            <input type="radio" id="cmedia_src_0" name="cmedia_src" value="0" class="form-check-input" <?php is_checked(0, $content["media_src"]); ?>>
-            <label class="form-check-label" for="cmedia_src_0"><?php echo $BL['be_cnt_internal'] ?></label>
-          
-        </div>
-      </div>
-      <input name="cmedia_name" type="text" id="cmedia_name" class="form-control form-control-sm" value="<?php echo isset($content["media_name"]) ? html($content["media_name"]) : '' ?>" readonly>
+        <span class="input-group-text fmp-toggle">
+          <input type="radio" id="cmedia_src_0" name="cmedia_src" value="0" class="form-check-input me-1" <?php is_checked(0, $content["media_src"]); ?>>
+          <label class="form-check-label" for="cmedia_src_0"><?php echo $BL['be_cnt_internal'] ?></label>
+      </span>
+      <input name="cmedia_name" type="text" id="cmedia_name" class="form-control" value="<?php echo isset($content["media_name"]) ? html($content["media_name"]) : '' ?>" readonly>
       
-        <button type="button" class="modalButton btn btn-sm btn-blue folder-open" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=2&amp;target=nolist" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>"></button>
-        <button type="button" class="btn btn-sm btn-danger trash" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.articlecontent.cmedia_name.value='';document.articlecontent.cmedia_id.value='0';return false;"></button>
+        <button type="button" class="modalButton btn btn-blue folder-open" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=2&amp;target=nolist" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>"><i class="fa-solid fa-folder-open" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-danger trash" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.articlecontent.cmedia_name.value='';document.articlecontent.cmedia_id.value='0';return false;"><i class="fa-regular fa-trash-alt" aria-hidden="true"></i></button>
       
     </div>
-    <input name="cmedia_id" type="hidden" id="cmedia_id2" value="<?php echo isset($content["media_id"]) ? $content["media_id"] : '' ?>">
+    <input name="cmedia_id" type="hidden" id="cmedia_id" value="<?php echo isset($content["media_id"]) ? $content["media_id"] : '' ?>">
 
     <div class="input-group input-group-sm">
       
-        <div class="input-group-text py-0" style="min-width: <?php echo $cmedia_src_minw; ?>ch;">
-          <div class="form-check">
-            <input type="radio" id="cmedia_src_1" name="cmedia_src" value="1" class="form-check-input" <?php is_checked(1, $content["media_src"]); ?>>
-            <label class="form-check-label" for="cmedia_src_1"><?php echo $BL['be_cnt_external'] ?></label>
-          
-        </div>
-      </div>
-      <input name="cmedia_extern" type="text" id="cmedia_extern" class="form-control form-control-sm" value="<?php echo isset($content["media_extern"]) ? html($content["media_extern"]) : '' ?>" placeholder="https://...">
+        <span class="input-group-text fmp-toggle">
+          <input type="radio" id="cmedia_src_1" name="cmedia_src" value="1" class="form-check-input me-1" <?php is_checked(1, $content["media_src"]); ?>>
+          <label class="form-check-label" for="cmedia_src_1"><?php echo $BL['be_cnt_external'] ?></label>
+      </span>
+      <input name="cmedia_extern" type="text" id="cmedia_extern" class="form-control" value="<?php echo isset($content["media_extern"]) ? html($content["media_extern"]) : '' ?>" placeholder="https://...">
     </div>
   </div>
 </div>
 
 <div class="form-group align-items-center row g-2">
   <label for="cimage_pos" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_position'] ?></label>
-  <div class="col-sm-auto">
-    <select name="cimage_pos" id="cimage_pos" class="form-select form-select-sm">
-      <option value="0" <?php is_selected(0, $content["media_pos"]) ?>><?php echo $BL['be_cnt_mediapos0'] ?></option>
-      <option value="1" <?php is_selected(1, $content["media_pos"]) ?>><?php echo $BL['be_cnt_mediapos1'] ?></option>
-      <option value="2" <?php is_selected(2, $content["media_pos"]) ?>><?php echo $BL['be_cnt_mediapos2'] ?></option>
-      <option value="3" <?php is_selected(3, $content["media_pos"]) ?>><?php echo $BL['be_cnt_mediapos3'] ?></option>
-      <option value="4" <?php is_selected(4, $content["media_pos"]) ?>><?php echo $BL['be_cnt_mediapos4'] ?></option>
-    </select>
-  </div>
-  <div class="col-sm-auto mt-2 mt-sm-0">
-    <div id="imgpos0" class="btn btn-sm <?php echo ($content["image_pos"]==0 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos0.svg" alt="" width="15" height="15" border="0" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos0i'] ?>"></div>
-    <div id="imgpos1" class="btn btn-sm <?php echo ($content["image_pos"]==1 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos1.svg" alt="" width="15" height="15" border="0" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos1i'] ?>"></div>
-    <div id="imgpos2" class="btn btn-sm <?php echo ($content["image_pos"]==2 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos2.svg" alt="" width="15" height="15" border="0" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos2i'] ?>"></div>
-    <div id="imgpos3" class="btn btn-sm <?php echo ($content["image_pos"]==3 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos6.svg" alt="" width="15" height="15" border="0" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos3i'] ?>"></div>
-    <div id="imgpos4" class="btn btn-sm <?php echo ($content["image_pos"]==4 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos7.svg" alt="" width="15" height="15" border="0" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos4i'] ?>"></div>
+  <div class="col">
+    <input type="hidden" name="cimage_pos" id="cimage_pos" value="<?php echo $content["media_pos"] ?>">
+    <div class="input-group input-group-sm">
+      <div id="imgpos0" class="btn <?php echo ($content["media_pos"]==0 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos0.svg" alt="" width="15" height="15" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos0i'] ?>"></div>
+      <div id="imgpos1" class="btn <?php echo ($content["media_pos"]==1 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos1.svg" alt="" width="15" height="15" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos1i'] ?>"></div>
+      <div id="imgpos2" class="btn <?php echo ($content["media_pos"]==2 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos2.svg" alt="" width="15" height="15" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos2i'] ?>"></div>
+      <div id="imgpos3" class="btn <?php echo ($content["media_pos"]==3 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos6.svg" alt="" width="15" height="15" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos3i'] ?>"></div>
+      <div id="imgpos4" class="btn <?php echo ($content["media_pos"]==4 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos7.svg" alt="" width="15" height="15" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_mediapos4i'] ?>"></div>
+    </div>
   </div>
 </div>
 
@@ -194,7 +179,7 @@ $cmedia_src_minw = max(mb_strlen(strip_tags($BL['be_cnt_internal'])), mb_strlen(
       
         <span class="input-group-text"><?php echo $BL['be_admin_page_width'] ?></span>
       
-      <input name="cmedia_width" type="text" class="form-control form-control-sm" id="cmedia_width" style="width: 50px;" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content["media_width"]) ? $content["media_width"] : '' ?>">
+      <input name="cmedia_width" type="text" class="form-control" id="cmedia_width" style="width: 50px;" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content["media_width"]) ? $content["media_width"] : '' ?>">
       
         <span class="input-group-text">px</span>
       
@@ -206,7 +191,7 @@ $cmedia_src_minw = max(mb_strlen(strip_tags($BL['be_cnt_internal'])), mb_strlen(
       
         <span class="input-group-text"><?php echo $BL['be_admin_page_height'] ?></span>
       
-      <input name="cmedia_height" type="text" class="form-control form-control-sm" id="cmedia_height" style="width: 50px;" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content["media_height"]) ? $content["media_height"] : '' ?>">
+      <input name="cmedia_height" type="text" class="form-control" id="cmedia_height" style="width: 50px;" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content["media_height"]) ? $content["media_height"] : '' ?>">
       
         <span class="input-group-text">px</span>
       
@@ -220,7 +205,7 @@ $cmedia_src_minw = max(mb_strlen(strip_tags($BL['be_cnt_internal'])), mb_strlen(
       <button type="button" class="btn btn-outline-secondary" title="<?php echo $BL['be_cnt_set2'] ?>" onclick="document.articlecontent.cmedia_width.value='240';document.articlecontent.cmedia_height.value='180';">240x180</button>
       <button type="button" class="btn btn-outline-secondary" title="<?php echo $BL['be_cnt_set3'] ?>" onclick="document.articlecontent.cmedia_width.value='320';document.articlecontent.cmedia_height.value='240';">320x240</button>
       <button type="button" class="btn btn-outline-secondary" title="<?php echo $BL['be_cnt_set4'] ?>" onclick="document.articlecontent.cmedia_width.value='480';document.articlecontent.cmedia_height.value='360';">480x360</button>
-      <button type="button" class="btn btn-outline-danger" title="<?php echo $BL['be_cnt_set5'] ?>" onclick="document.articlecontent.cmedia_width.value='';document.articlecontent.cmedia_height.value='';"><i class="fas fa-times"></i></button>
+      <button type="button" class="btn btn-outline-danger" title="<?php echo $BL['be_cnt_set5'] ?>" onclick="document.articlecontent.cmedia_width.value='';document.articlecontent.cmedia_height.value='';"><i class="fa-solid fa-times"></i></button>
     </div>
   </div>
 </div>
@@ -229,10 +214,10 @@ $cmedia_src_minw = max(mb_strlen(strip_tags($BL['be_cnt_internal'])), mb_strlen(
   <label for="cimage_name" class="col-sm-2 col-form-label text-end"><?php echo $BL['alt_image'] ?></label>
   <div class="col-sm-8">
     <div class="input-group input-group-sm">
-      <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo html($content["image_name"]) ?>" maxlength="250" readonly>
+      <input name="cimage_name" type="text" id="cimage_name" class="form-control" value="<?php echo html($content["image_name"]) ?>" maxlength="250" readonly>
       
-        <button type="button" class="modalButton btn btn-sm btn-blue folder-open" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"></button>
-        <button type="button" class="btn btn-sm btn-danger trash" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0';return false;"></button>
+        <button type="button" class="modalButton btn btn-blue folder-open" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa-solid fa-folder-open" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-danger trash" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0';return false;"><i class="fa-regular fa-trash-alt" aria-hidden="true"></i></button>
       
     </div>
     <input name="cimage_id" type="hidden" value="<?php echo $content["image_id"] ?>">

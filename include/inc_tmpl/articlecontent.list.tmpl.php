@@ -21,7 +21,7 @@ $buttonAction .= '<i class="fa-solid fa-list me-1"></i>' . $BL['be_article_cnt_c
 // Article Preview (new window)
 $buttonActionLink = rel_url(array('phpwcms-preview' => 1), array(), empty($article['article_alias']) ? 'aid=' . $article['article_id'] : $article['article_alias']);
 $buttonAction .= '<a class="btn btn-sm btn-blue" href="' . html($buttonActionLink) . '" target="articlePreviewWindows" data-bs-toggle="tooltip" title="' . html($BL['be_func_struct_preview']) . '">';
-$buttonAction .= '<i class="far fa-eye me-1"></i>' . $BL['be_func_struct_preview'] . '</a>';
+$buttonAction .= '<i class="fa-regular fa-eye me-1"></i>' . $BL['be_func_struct_preview'] . '</a>';
 
 ?>
 <script>
@@ -93,7 +93,7 @@ $(function() {
             <a class="btn btn-sm btn-blue" role="button" title="<?php echo $BL['be_article_cnt_ledit']; ?>" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id']; ?>"><i class="fa-solid fa-pencil-alt"></i></a>
             <a id="abtnarticle<?php echo $article['article_id']; ?>" class="btn fa btn-sm visible <?php echo ($article['article_aktiv'] == 0 ? 'btn-warning' : 'btn-success'); ?>" data-id="<?php echo $article['article_id']; ?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" data-bs-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible']; ?>"></a>
           </div>
-          <a class="btn btn-sm btn-danger ms-1" role="button" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-bs-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '1,' . $article['article_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_ldeljs'] . "\n[" . $article['article_title'] . ']'); ?>"><i class="far fa-trash-alt"></i></a>
+          <a class="btn btn-sm btn-danger ms-1" role="button" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-bs-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '1,' . $article['article_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_ldeljs'] . "\n[" . $article['article_title'] . ']'); ?>"><i class="fa-regular fa-trash-alt"></i></a>
         </div>
       </div>
 
@@ -439,7 +439,7 @@ $(function() {
                     case 'CONTENT':
                       $contentpart_block_name = $BL['be_main_content'].$contentpart_block_name;
                       if($article['article_paginate']) {
-                        $contentpart_block_name .= ' / <i class="fas fa-indent text-muted me-1"></i>';
+                        $contentpart_block_name .= ' / <i class="fa-solid fa-indent text-muted me-1"></i>';
                         $contentpart_block_name .= $BL['be_cnt_pagination'];
                       }
                       $contentpart_block_class = 'cp-block-content';
@@ -578,7 +578,7 @@ $(function() {
             echo '</span></small>';
           }
           if($row['acontent_top']) {
-            echo '<small><i class="far fa-caret-square-up fa-fw mx-1" aria-hidden="true" data-bs-toggle="tooltip" title="TOP"></i></small>';
+            echo '<small><i class="fa-regular fa-caret-square-up fa-fw mx-1" aria-hidden="true" data-bs-toggle="tooltip" title="TOP"></i></small>';
           }
           if($row['acontent_anchor']) {
             echo '<small><i class="fa-solid fa-anchor fa-fw mx-1" aria-hidden="true" data-bs-toggle="tooltip" title="Anchor"></i></small>';
@@ -599,7 +599,7 @@ $(function() {
                   echo date($BL['be_shortdatetime'], $row['acontent_date']) . '&nbsp;';
                   if($contentpart_block !== 'CPSET' && $article['article_paginate']) {
                       //Display cp paginate page number
-                      echo '<i class="fas fa-indent text-muted" data-bs-toggle="tooltip" title="subsection"></i>';
+                      echo '<i class="fa-solid fa-indent text-muted" data-bs-toggle="tooltip" title="subsection"></i>';
                       echo $row['acontent_paginate_page'] == 0 ? 1 : $row['acontent_paginate_page'];
                   }
               ?>
@@ -617,7 +617,7 @@ $(function() {
               echo '<a id="abtnacontent' . $row['acontent_id'] . '" class="btn fa btn-sm visible ' . ($row['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $row['acontent_id'] . '" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"></a>';
               ?>
             </div>
-            <a class="btn btn-sm btn-danger ms-1" role="button" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-bs-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '9,' . $article['article_id'] . ',' . $row['acontent_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_delpartjs'] . ' [ID: ' . $row['acontent_id'] . ']'); ?>"><i class="far fa-trash-alt"></i></a>
+            <a class="btn btn-sm btn-danger ms-1" role="button" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-bs-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '9,' . $article['article_id'] . ',' . $row['acontent_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_delpartjs'] . ' [ID: ' . $row['acontent_id'] . ']'); ?>"><i class="fa-regular fa-trash-alt"></i></a>
           </div>
         </div>
         <?php

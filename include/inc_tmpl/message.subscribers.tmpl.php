@@ -203,7 +203,7 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
 
     <div class="mb-3 text-center text-sm-start">
         <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="phpwcms.php?do=messages&amp;p=4&amp;s=0&amp;edit=1"><i class="fa-solid fa-user-plus"></i> <?php echo $BL['be_cnt_new_recipient'] ?></a>
-        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="phpwcms.php?do=messages&amp;p=4&amp;duplicate=remove" onclick="return confirm('<?php echo $BL['be_cnt_delete_duplicates'] ?>?');"><i class="far fa-trash-alt"></i> <?php echo $BL['be_cnt_delete_duplicates'] ?></a>
+        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="phpwcms.php?do=messages&amp;p=4&amp;duplicate=remove" onclick="return confirm('<?php echo $BL['be_cnt_delete_duplicates'] ?>?');"><i class="fa-regular fa-trash-alt"></i> <?php echo $BL['be_cnt_delete_duplicates'] ?></a>
         <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="phpwcms.php?do=messages&amp;p=4&amp;import=1" target="_blank"><i class="fa-solid fa-download" aria-hidden="true"></i> <?php echo $BL['be_newsletter_newimport'] ?></a>
         <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" href="include/inc_act/act_export.php?<?php echo CSRF_GET_TOKEN; ?>&amp;action=exportsubscriber" target="_blank" ><i class="fa-solid fa-upload" aria-hidden="true"></i> <?php echo $BL['be_cnt_export_selection'] ?></a>
     </div>
@@ -216,10 +216,10 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
       <div class="col-12 col-sm-auto">
         <div class="btn-group btn-group-sm" role="group" aria-label="subscribers-filter">
           <button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
-            <i class="fas fa-eye"></i>
+            <i class="fa-solid fa-eye"></i>
           </button>
           <button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
-            <i class="fas fa-eye-slash"></i>
+            <i class="fa-solid fa-eye-slash"></i>
           </button>
         </div>
       </div>
@@ -366,7 +366,7 @@ if($_userInfo['list_channel']) {
 		echo '<button id="abtnaddress'.$row["address_id"].'" class="btn fa btn-sm visible '.($row["address_verified"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["address_id"].'" data-type="address" data-table="address" data-field="address_verified" data-fieldid="address_id" data-bs-toggle="tooltip" title="'.sprintf($BL['be_mailinglist_verified'], $row["address_email"]).' "></button>';
 		echo '</div>';
 
-		echo '<a class="btn btn-sm btn-danger ms-1" role="button" title="'.$BL['be_mailinglist_delete_subscriber'].': '.html_specialchars($row["address_email"]).'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;del='.$row["address_id"].'" onclick="return confirm(\''.$BL['be_mailinglist_delete_subscriber'].' '.js_singlequote($row["address_email"]).'\');"><i class="far fa-trash-alt"></i></a>'.LF;
+		echo '<a class="btn btn-sm btn-danger ms-1" role="button" title="'.$BL['be_mailinglist_delete_subscriber'].': '.html_specialchars($row["address_email"]).'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;del='.$row["address_id"].'" onclick="return confirm(\''.$BL['be_mailinglist_delete_subscriber'].' '.js_singlequote($row["address_email"]).'\');"><i class="fa-regular fa-trash-alt"></i></a>'.LF;
 
 		echo "</td>\n</tr>".LF;
 
