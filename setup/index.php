@@ -114,7 +114,6 @@ require_once __DIR__ . '/inc/setup.func.inc.php';
     </div>
 </div>
 
-<script src="../include/inc_js/jquery/jquery-3.7.1.min.js"></script>
 <script src="../include/inc_js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

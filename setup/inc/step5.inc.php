@@ -13,7 +13,7 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 $_SERVER['DOCUMENT_ROOT'] = $phpwcms['DOC_ROOT'];
-$phpwcms["root"] = !empty($phpwcms["root"]) ? "/" . $phpwcms["root"] : "";
+$phpwcms['root'] = !empty($phpwcms['root']) ? "/" . $phpwcms['root'] : "";
 
 ?>
 <h2 class="h4 text-primary fw-normal mb-3">7. Finalization &amp; Permissions Check</h2>
@@ -59,9 +59,8 @@ $phpwcms["root"] = !empty($phpwcms["root"]) ? "/" . $phpwcms["root"] : "";
 </div>
 
 <?php
-$this_root = dirname(dirname(dirname(__FILE__)));
+$this_root = dirname(__DIR__, 2);
 $config_setup = read_textfile($this_root . '/setup/setup.conf.inc.php');
-$config_setup = str_replace('?>', "\$NO_ACCESS = true;\n\n", $config_setup);
 $result = false;
 
 if (!is_file($this_root . '/include/config/conf.inc.php')) {

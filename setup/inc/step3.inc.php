@@ -24,7 +24,7 @@ if (!defined('PHPWCMS_SETUP')) {
             <div class="form-group row">
                 <label for="doc_root" class="col-sm-3 col-form-label fw-bold">Document Root</label>
                 <div class="col-sm-6">
-                    <input name="doc_root" type="text" class="form-control" id="doc_root" value="<?php echo html_specialchars($phpwcms["DOC_ROOT"]) ?>" placeholder="<?php echo html_specialchars($_SERVER['DOCUMENT_ROOT']) ?>" maxlength="100" />
+                    <input name="doc_root" type="text" class="form-control" id="doc_root" value="<?php echo html_specialchars($phpwcms['DOC_ROOT']) ?>" placeholder="<?php echo html_specialchars($_SERVER['DOCUMENT_ROOT']) ?>" maxlength="100" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Detected: <code><?php echo html_specialchars($_SERVER['DOCUMENT_ROOT']) ?></code></div>
             </div>
@@ -32,7 +32,7 @@ if (!defined('PHPWCMS_SETUP')) {
             <div class="form-group row">
                 <label for="root" class="col-sm-3 col-form-label fw-bold">phpwcms Subdirectory</label>
                 <div class="col-sm-6">
-                    <input name="root" type="text" class="form-control" id="root" value="<?php echo html_specialchars($phpwcms["root"]) ?>" placeholder="" maxlength="100" />
+                    <input name="root" type="text" class="form-control" id="root" value="<?php echo html_specialchars($phpwcms['root']) ?>" placeholder="" maxlength="100" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Default: empty (if at domain root)</div>
             </div>
@@ -40,7 +40,7 @@ if (!defined('PHPWCMS_SETUP')) {
             <div class="form-group row">
                 <label for="file_path" class="col-sm-3 col-form-label fw-bold">File Archive Directory</label>
                 <div class="col-sm-6">
-                    <input name="file_path" type="text" class="form-control" id="file_path" value="<?php echo html_specialchars($phpwcms["file_path"]) ?>" placeholder="filearchive" maxlength="100" />
+                    <input name="file_path" type="text" class="form-control" id="file_path" value="<?php echo html_specialchars($phpwcms['file_path']) ?>" placeholder="filearchive" maxlength="100" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Default: <code>filearchive</code></div>
             </div>
@@ -48,7 +48,7 @@ if (!defined('PHPWCMS_SETUP')) {
             <div class="form-group row">
                 <label for="templates" class="col-sm-3 col-form-label fw-bold">Template Directory</label>
                 <div class="col-sm-6">
-                    <input name="templates" type="text" class="form-control" id="templates" value="<?php echo html_specialchars($phpwcms["templates"]) ?>" placeholder="template" maxlength="100" />
+                    <input name="templates" type="text" class="form-control" id="templates" value="<?php echo html_specialchars($phpwcms['templates']) ?>" placeholder="template" maxlength="100" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Default: <code>template</code></div>
             </div>
@@ -56,7 +56,7 @@ if (!defined('PHPWCMS_SETUP')) {
             <div class="form-group row mb-0">
                 <label for="ftp_path" class="col-sm-3 col-form-label fw-bold">FTP Upload Directory</label>
                 <div class="col-sm-6">
-                    <input name="ftp_path" type="text" class="form-control" id="ftp_path" value="<?php echo html_specialchars($phpwcms["ftp_path"]) ?>" placeholder="upload" maxlength="100" />
+                    <input name="ftp_path" type="text" class="form-control" id="ftp_path" value="<?php echo html_specialchars($phpwcms['ftp_path']) ?>" placeholder="upload" maxlength="100" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Default: <code>upload</code></div>
             </div>

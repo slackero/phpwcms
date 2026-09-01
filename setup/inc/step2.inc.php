@@ -27,9 +27,9 @@ if (!defined('PHPWCMS_SETUP')) {
             <div class="form-group row mb-0">
                 <label for="site" class="col-sm-3 col-form-label fw-bold">Site Basis URL</label>
                 <div class="col-sm-6">
-                    <input name="site" type="url" class="form-control" id="site" value="<?php echo html_specialchars($phpwcms["site"]) ?>" placeholder="<?php echo get_url_origin(true); ?>" />
+                    <input name="site" type="url" class="form-control" id="site" value="<?php echo html_specialchars($phpwcms['site']) ?>" placeholder="<?php echo html_specialchars(get_url_origin(true)); ?>" />
                 </div>
-                <div class="col-sm-3 form-text text-muted small align-self-center">Detected: <code><?php echo get_url_origin(true); ?></code></div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Detected: <code><?php echo html_specialchars(get_url_origin(true)); ?></code></div>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@ if (!defined('PHPWCMS_SETUP')) {
             <div class="form-group row">
                 <label for="smtp_from_email" class="col-sm-3 col-form-label fw-bold">From / Reply-To Email</label>
                 <div class="col-sm-6">
-                    <input name="smtp_from_email" type="email" class="form-control" id="smtp_from_email" value="<?php echo ($phpwcms['SMTP_FROM_EMAIL']) ? html_specialchars($phpwcms['SMTP_FROM_EMAIL']) : html_specialchars($phpwcms["admin_email"]) ?>" />
+                    <input name="smtp_from_email" type="email" class="form-control" id="smtp_from_email" value="<?php echo ($phpwcms['SMTP_FROM_EMAIL']) ? html_specialchars($phpwcms['SMTP_FROM_EMAIL']) : html_specialchars($phpwcms['admin_email']) ?>" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Sender email address</div>
             </div>
@@ -97,14 +97,14 @@ if (!defined('PHPWCMS_SETUP')) {
             <div class="form-group row">
                 <label for="smtp_user" class="col-sm-3 col-form-label">SMTP Username</label>
                 <div class="col-sm-6">
-                    <input name="smtp_user" type="text" class="form-control" id="smtp_user" value="<?php echo html_specialchars($phpwcms["SMTP_USER"] ?? '') ?>" autocomplete="off" />
+                    <input name="smtp_user" type="text" class="form-control" id="smtp_user" value="<?php echo html_specialchars($phpwcms['SMTP_USER'] ?? '') ?>" autocomplete="off" />
                 </div>
             </div>
 
             <div class="form-group row mb-0">
                 <label for="smtp_pass" class="col-sm-3 col-form-label">SMTP Password</label>
                 <div class="col-sm-6">
-                    <input name="smtp_pass" type="password" class="form-control" id="smtp_pass" value="<?php echo html_specialchars($phpwcms["SMTP_PASS"] ?? '') ?>" autocomplete="off" />
+                    <input name="smtp_pass" type="password" class="form-control" id="smtp_pass" value="<?php echo html_specialchars($phpwcms['SMTP_PASS'] ?? '') ?>" autocomplete="off" />
                 </div>
             </div>
         </div>

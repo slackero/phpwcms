@@ -34,13 +34,13 @@ if(!empty($step)) {
             $phpwcms['admin_name'] = empty($_POST['admin_name']) ? $phpwcms['admin_name'] : slweg($_POST['admin_name']);
             $phpwcms['admin_user'] = empty($_POST['admin_user']) ? $phpwcms['admin_user'] : slweg($_POST['admin_user']);
 
-            if ($_POST['admin_pass'] !== $_POST['admin_passrepeat'] || empty($phpwcms['admin_pass'])) {
+            if (($_POST['admin_pass'] ?? '') !== ($_POST['admin_passrepeat'] ?? '') || empty($phpwcms['admin_pass'])) {
                 $admin_err_pass = 1;
             } elseif (!empty($_POST['admin_pass'])) {
                 $phpwcms['admin_pass'] = password_hash(slweg($_POST['admin_pass']), PASSWORD_DEFAULT);
             }
 
-            $phpwcms['admin_email'] = clean_slweg($_POST['admin_email']);
+            $phpwcms['admin_email'] = clean_slweg($_POST['admin_email'] ?? '');
 
             if (empty($admin_err_pass) && empty($_SESSION['admin_save'])) {
                 write_conf_file($phpwcms);
@@ -52,7 +52,7 @@ if(!empty($step)) {
         // main settings
 
         $phpwcms['db_host'] = slweg($_POST['db_host']);
-        $phpwcms['db_port'] = empty($_POST['db_port']) || !intval($_POST['db_port']) ? 3306 : intval($_POST['db_port']);
+        $phpwcms['db_port'] = empty($_POST['db_port']) ? 3306 : (int)$_POST['db_port'];
         $phpwcms['db_user'] = slweg($_POST['db_user']);
         $phpwcms['db_pass'] = slweg($_POST['db_pass']);
         $phpwcms['db_table'] = slweg($_POST['db_table']);
@@ -298,7 +298,7 @@ if(!empty($step)) {
         if(!$phpwcms['SMTP_HOST']) {
             $phpwcms['SMTP_HOST'] = 'localhost';
         }
-        $phpwcms['SMTP_PORT'] = intval($_POST['smtp_port']);
+        $phpwcms['SMTP_PORT'] = (int)$_POST['smtp_port'];
         if(!$phpwcms['SMTP_PORT']) {
             $phpwcms['SMTP_PORT'] = 25;
         }
@@ -322,10 +322,10 @@ if(!empty($step)) {
                     $phpwcms['db_table'],
                     $phpwcms['db_port']
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $db = false;
             }
-            if(!$db || mysqli_connect_error()) {
+            if (!$db || mysqli_connect_error()) {
                 $err = 1;
             } else {
                 mysqli_query($db, 'SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION');
@@ -368,13 +368,13 @@ if(!empty($step)) {
     }
 
     if($step == 4 && $do) {
-        $phpwcms['file_maxsize']     = intval($_POST['file_maxsize']);
-        $phpwcms['content_width']    = intval($_POST['content_width']);
-        $phpwcms['img_list_width']   = intval($_POST['img_list_width']);
-        $phpwcms['img_list_height']  = intval($_POST['img_list_height']);
-        $phpwcms['img_prev_width']   = intval($_POST['img_prev_width']);
-        $phpwcms['img_prev_height']  = intval($_POST['img_prev_height']);
-        $phpwcms['max_time']         = intval($_POST['max_time']);
+        $phpwcms['file_maxsize']     = (int)$_POST['file_maxsize'];
+        $phpwcms['content_width']    = (int)$_POST['content_width'];
+        $phpwcms['img_list_width']   = (int)$_POST['img_list_width'];
+        $phpwcms['img_list_height']  = (int)$_POST['img_list_height'];
+        $phpwcms['img_prev_width']   = (int)$_POST['img_prev_width'];
+        $phpwcms['img_prev_height']  = (int)$_POST['img_prev_height'];
+        $phpwcms['max_time']         = (int)$_POST['max_time'];
         $phpwcms['file_maxsize']     = ($phpwcms['file_maxsize']) ?: 2097152;
         $phpwcms['content_width']    = ($phpwcms['content_width']) ?: 538;
         $phpwcms['img_list_width']   = ($phpwcms['img_list_width']) ?: 100;
@@ -390,13 +390,13 @@ if(!empty($step)) {
             $phpwcms['library_path'] = trim($_POST['library_path']);
         }
         if (isset($_POST['sharpen_level'])) {
-            $phpwcms['sharpen_level'] = intval($_POST['sharpen_level']);
+            $phpwcms['sharpen_level'] = (int)$_POST['sharpen_level'];
         }
         if (isset($_POST['jpg_quality'])) {
-            $phpwcms['jpg_quality'] = max(10, min(100, intval($_POST['jpg_quality'])));
+            $phpwcms['jpg_quality'] = max(10, min(100, (int)$_POST['jpg_quality']));
         }
         if (isset($_POST['webp_quality'])) {
-            $phpwcms['webp_quality'] = max(10, min(100, intval($_POST['webp_quality'])));
+            $phpwcms['webp_quality'] = max(10, min(100, (int)$_POST['webp_quality']));
         }
 
         write_conf_file($phpwcms);

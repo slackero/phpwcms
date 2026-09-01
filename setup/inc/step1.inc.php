@@ -25,7 +25,7 @@ if (!defined('PHPWCMS_SETUP')) {
         </div>
     </div>
     <?php $_SESSION['admin_set'] = false; ?>
-<?php elseif (isset($_POST["dbsavesubmit"]) && $err): ?>
+<?php elseif (isset($_POST['dbsavesubmit']) && $err): ?>
     <div class="alert alert-danger mb-4">
         <div><i class="fa fa-exclamation-triangle"></i> Please check your database connection settings below.</div>
         <?php if (!empty($db_error_message)): ?>
@@ -53,7 +53,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             <div class="form-group row">
                 <label for="db_host" class="col-sm-3 col-form-label fw-bold">Host &amp; Port</label>
                 <div class="col-sm-6 d-flex">
-                    <input name="db_host" type="text" class="form-control me-2" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" />
+                    <input name="db_host" type="text" class="form-control me-2" id="db_host" value="<?php echo html_specialchars($phpwcms['db_host']) ?>" placeholder="localhost" />
                     <input name="db_port" type="text" class="form-control" id="db_port" style="max-width: 90px;" value="<?php echo html_specialchars($display_db_port) ?>" placeholder="3306" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center"><?php echo ($detected_db_port !== 3306) ? 'Auto-detected port: ' . $detected_db_port : 'Default: localhost / 3306' ?></div>
@@ -62,7 +62,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             <div class="form-group row">
                 <label for="db_user" class="col-sm-3 col-form-label fw-bold">DB Username</label>
                 <div class="col-sm-6">
-                    <input name="db_user" type="text" class="form-control" id="db_user" value="<?php echo html_specialchars($phpwcms["db_user"]) ?>" placeholder="database user" />
+                    <input name="db_user" type="text" class="form-control" id="db_user" value="<?php echo html_specialchars($phpwcms['db_user']) ?>" placeholder="database user" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Database user name</div>
             </div>
@@ -70,7 +70,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             <div class="form-group row">
                 <label for="db_pass" class="col-sm-3 col-form-label fw-bold">DB Password</label>
                 <div class="col-sm-6">
-                    <input name="db_pass" type="password" class="form-control" id="db_pass" value="<?php echo html_specialchars($phpwcms["db_pass"]) ?>" placeholder="database password" />
+                    <input name="db_pass" type="password" class="form-control" id="db_pass" value="<?php echo html_specialchars($phpwcms['db_pass']) ?>" placeholder="database password" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Database password</div>
             </div>
@@ -78,7 +78,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             <div class="form-group row">
                 <label for="db_table" class="col-sm-3 col-form-label fw-bold">Database Name</label>
                 <div class="col-sm-6">
-                    <input name="db_table" type="text" class="form-control" id="db_table" value="<?php echo html_specialchars($phpwcms["db_table"]) ?>" placeholder="database name" maxlength="255" />
+                    <input name="db_table" type="text" class="form-control" id="db_table" value="<?php echo html_specialchars($phpwcms['db_table']) ?>" placeholder="database name" maxlength="255" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Will be created if missing</div>
             </div>
@@ -86,7 +86,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             <div class="form-group row">
                 <label for="db_prepend" class="col-sm-3 col-form-label fw-bold">Table Prefix</label>
                 <div class="col-sm-6">
-                    <input name="db_prepend" type="text" class="form-control" id="db_prepend" value="<?php echo html_specialchars($phpwcms["db_prepend"]) ?>" placeholder="optional" maxlength="10" />
+                    <input name="db_prepend" type="text" class="form-control" id="db_prepend" value="<?php echo html_specialchars($phpwcms['db_prepend']) ?>" placeholder="optional" maxlength="10" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Table prefix (e.g. <code>my_</code>)</div>
             </div>
@@ -207,7 +207,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 $db_sql                 = false;
 
             } elseif (isset($db_create_err) || !empty($db_no_create)) {
-                $_db_prepend = $phpwcms["db_prepend"] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . '_' : '';
+                $_db_prepend = $phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '';
                 $check = _dbQuery("SHOW TABLES LIKE '" . $_db_prepend . "phpwcms_%'");
 
                 if ($check && count($check)) {
@@ -247,14 +247,14 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 <div class="form-group row">
                     <label for="admin_name" class="col-sm-3 col-form-label fw-bold">Admin Full Name</label>
                     <div class="col-sm-6">
-                        <input name="admin_name" type="text" id="admin_name" class="form-control" value="<?php echo empty($phpwcms["admin_name"]) ? "Webmaster" : html_specialchars($phpwcms["admin_name"]) ?>" />
+                        <input name="admin_name" type="text" id="admin_name" class="form-control" value="<?php echo empty($phpwcms['admin_name']) ? "Webmaster" : html_specialchars($phpwcms['admin_name']) ?>" />
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="admin_user" class="col-sm-3 col-form-label fw-bold">Admin Username</label>
                     <div class="col-sm-6">
-                        <input name="admin_user" type="text" id="admin_user" class="form-control" value="<?php echo empty($phpwcms["admin_user"]) ? "webmaster" : html_specialchars($phpwcms["admin_user"]) ?>" />
+                        <input name="admin_user" type="text" id="admin_user" class="form-control" value="<?php echo empty($phpwcms['admin_user']) ? "webmaster" : html_specialchars($phpwcms['admin_user']) ?>" />
                     </div>
                 </div>
 
@@ -279,19 +279,19 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 <div class="form-group row mb-0">
                     <label for="admin_email" class="col-sm-3 col-form-label fw-bold">Admin Email</label>
                     <div class="col-sm-6">
-                        <input name="admin_email" type="email" id="admin_email" class="form-control" value="<?php echo html_specialchars($phpwcms["admin_email"]) ?>" />
+                        <input name="admin_email" type="email" id="admin_email" class="form-control" value="<?php echo html_specialchars($phpwcms['admin_email']) ?>" />
                     </div>
                 </div>
             <?php else: ?>
                 <?php
-                $_db_prepend = $phpwcms["db_prepend"] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . '_' : '';
+                $_db_prepend = $phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '';
                 $user_check = _dbQuery('SELECT * FROM ' . $_db_prepend . "phpwcms_user WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "'");
 
                 if ($user_check !== false && count($user_check)) {
                     $sql  = "UPDATE " . $_db_prepend . "phpwcms_user SET ";
                     $sql .= "usr_login      = '" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', ";
-                    $sql .= "usr_pass       = '" . mysqli_real_escape_string($db, $phpwcms["admin_pass"]) . "', ";
-                    $sql .= "usr_email      = '" . mysqli_real_escape_string($db, $phpwcms["admin_email"]) . "', ";
+                    $sql .= "usr_pass       = '" . mysqli_real_escape_string($db, $phpwcms['admin_pass']) . "', ";
+                    $sql .= "usr_email      = '" . mysqli_real_escape_string($db, $phpwcms['admin_email']) . "', ";
                     $sql .= "usr_admin      = 1, usr_aktiv = 1, ";
                     $sql .= "usr_name       = '" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', ";
                     $sql .= "usr_lang       = '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', ";
@@ -302,7 +302,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                     $sql  = "INSERT INTO " . $_db_prepend . "phpwcms_user (";
                     $sql .= "usr_login, usr_pass, usr_email, usr_admin, usr_aktiv, usr_name, usr_var_structure, usr_var_publicfile, usr_var_privatefile, usr_lang, usr_wysiwyg, usr_fe, usr_2fa_enabled, usr_2fa_secret, usr_vars";
                     $sql .= ") VALUES (";
-                    $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', '" . mysqli_real_escape_string($db, $phpwcms["admin_pass"]) . "', '" . mysqli_real_escape_string($db, $phpwcms["admin_email"]) . "', 1, 1, ";
+                    $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', '" . mysqli_real_escape_string($db, $phpwcms['admin_pass']) . "', '" . mysqli_real_escape_string($db, $phpwcms['admin_email']) . "', 1, 1, ";
                     $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', '', '', '', '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', 2, 2, 0, '', '')";
                     $create_user = _dbQuery($sql, 'INSERT');
                 } else {

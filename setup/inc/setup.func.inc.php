@@ -10,7 +10,7 @@
 
 //setup functions
 
-$DOCROOT = rtrim(str_replace('\\', '/', dirname(dirname(dirname(__FILE__)))), '/');
+$DOCROOT = rtrim(str_replace('\\', '/', dirname(__DIR__, 2)), '/');
 include $DOCROOT . '/include/inc_lib/revision/revision.php';
 
 if (empty($_SERVER['DOCUMENT_ROOT'])) {
@@ -24,21 +24,13 @@ define('PHPWCMS_SETUP', true);
 
 function read_textfile($filename) {
     if (is_file($filename)) {
-        $fd = @fopen($filename, 'rb');
-        $text = fread($fd, filesize($filename));
-        fclose($fd);
-        return $text;
+        return file_get_contents($filename);
     }
     return false;
 }
 
 function write_textfile($filename, $text) {
-    if ($fp = @fopen($filename, 'w+b')) {
-        fwrite($fp, $text);
-        fclose($fp);
-        return true;
-    }
-    return false;
+    return file_put_contents($filename, $text, LOCK_EX) !== false;
 }
 
 function set_chmod($path, $rights, $status, $file_folder = 0) {
@@ -63,30 +55,6 @@ function check_file_status($path) {
         return is_writable($path) ? 2 : 1;
     }
     return 0;
-}
-
-function gib_bg_color($status) {
-    if ($status === 1 || $status === 2) {
-        return ' bgcolor="#99CC00"';
-    }
-    return ' bgcolor="#FF3300"';
-}
-
-function gib_status_text($status) {
-    switch ($status) {
-        case 2:
-            $msg = '&nbsp;<b>OK</b> (exists + writable)';
-            break;
-        case 1:
-            $msg = '&nbsp;<b>FALSE</b> (exists + not writable)';
-            break;
-        case 3:
-            $msg = '&nbsp;<b>OK</b> (exists + not writable)';
-            break;
-        default:
-            $msg = '&nbsp;<b>FALSE</b> (not existing)';
-    }
-    return $msg;
 }
 
 function slweg($string_wo_slashes_weg, $string_laenge = 0) {
@@ -117,12 +85,12 @@ function write_conf_file($val) {
     $conf_file = '<?' . "php\n\n";
     $conf_file .= "// database values\n";
     $conf_file .= "\$phpwcms['db_host'] = '" . escape_quote($val['db_host'] ?? 'localhost') . "';\n";
-    $conf_file .= "\$phpwcms['db_port'] = " . (empty($val['db_port']) || !intval($val['db_port']) ? 3306 : (int)$val['db_port']) . ";\n";
+    $conf_file .= "\$phpwcms['db_port'] = " . (empty($val['db_port']) ? 3306 : (int)$val['db_port']) . ";\n";
     $conf_file .= "\$phpwcms['db_user'] = '" . escape_quote($val['db_user'] ?? '') . "';\n";
     $conf_file .= "\$phpwcms['db_pass'] = '" . escape_quote($val['db_pass'] ?? '') . "';\n";
     $conf_file .= "\$phpwcms['db_table'] = '" . escape_quote($val['db_table'] ?? '') . "';\n";
     $conf_file .= "\$phpwcms['db_prepend'] = '" . escape_quote($val['db_prepend'] ?? '') . "';\n";
-    $conf_file .= "\$phpwcms['db_pers'] = " . intval($val['db_pers'] ?? 0) . ";\n";
+    $conf_file .= "\$phpwcms['db_pers'] = " . (int)($val['db_pers'] ?? 0) . ";\n";
     $conf_file .= "\$phpwcms['db_charset'] = '" . escape_quote($val['db_charset'] ?? 'utf8mb4') . "';\n";
     $conf_file .= "\$phpwcms['db_collation'] = '" . escape_quote($val['db_collation'] ?? 'utf8mb4_unicode_ci') . "';\n";
     $conf_file .= "\$phpwcms['db_version'] = '" . escape_quote($val['db_version'] ?? '') . "';\n";
@@ -157,7 +125,7 @@ function write_conf_file($val) {
         $conf_file .= "\$phpwcms['DOC_ROOT'] = '" . escape_quote($doc_root) . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
     }
 
-    $real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
+    $real_doc = str_replace('\\', '/', dirname(__DIR__, 2));
     $root_val = $val['root'] ?? '';
     if ($root_val !== '') {
         $real_doc_parts = explode($root_val, $real_doc);
@@ -173,13 +141,13 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['ads_path'] = 'marketing'; // it's the former 'ads' dir in '/content'\n";
 
     $conf_file .= "\n// content values\n";
-    $conf_file .= "\$phpwcms['file_maxsize'] = " . intval($val['file_maxsize'] ?? 52428800) . "; //Bytes (50 x 1024 x 1024)\n";
-    $conf_file .= "\$phpwcms['content_width'] = " . intval($val['content_width'] ?? 538) . "; //max width of the article content column - important for rendering multi column images\n";
-    $conf_file .= "\$phpwcms['img_list_width'] = " . intval($val['img_list_width'] ?? 100) . "; //max with of the list thumbnail image\n";
-    $conf_file .= "\$phpwcms['img_list_height'] = " . intval($val['img_list_height'] ?? 75) . "; //max height of the list thumbnail image\n";
-    $conf_file .= "\$phpwcms['img_prev_width'] = " . intval($val['img_prev_width'] ?? 538) . "; //max width of the large preview image\n";
-    $conf_file .= "\$phpwcms['img_prev_height'] = " . intval($val['img_prev_height'] ?? 400) . "; //max height of the large preview image\n";
-    $conf_file .= "\$phpwcms['max_time'] = " . intval($val['max_time'] ?? 1800) . "; //logout after max_time/60 seconds\n";
+    $conf_file .= "\$phpwcms['file_maxsize'] = " . (int)($val['file_maxsize'] ?? 52428800) . "; //Bytes (50 x 1024 x 1024)\n";
+    $conf_file .= "\$phpwcms['content_width'] = " . (int)($val['content_width'] ?? 538) . "; //max width of the article content column - important for rendering multi column images\n";
+    $conf_file .= "\$phpwcms['img_list_width'] = " . (int)($val['img_list_width'] ?? 100) . "; //max with of the list thumbnail image\n";
+    $conf_file .= "\$phpwcms['img_list_height'] = " . (int)($val['img_list_height'] ?? 75) . "; //max height of the list thumbnail image\n";
+    $conf_file .= "\$phpwcms['img_prev_width'] = " . (int)($val['img_prev_width'] ?? 538) . "; //max width of the large preview image\n";
+    $conf_file .= "\$phpwcms['img_prev_height'] = " . (int)($val['img_prev_height'] ?? 400) . "; //max height of the large preview image\n";
+    $conf_file .= "\$phpwcms['max_time'] = " . (int)($val['max_time'] ?? 1800) . "; //logout after max_time/60 seconds\n";
     $conf_file .= "\$phpwcms['responsive'] = 1; // 0 max. image width = \$phpwcms['content_width'], 1 = as given\n";
     $conf_file .= "\$phpwcms['preserve_image_name'] = 0; // keep file name for resized versions of the image\n";
 
@@ -203,11 +171,11 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['charset'] = '" . escape_quote($val['charset'] ?? 'utf-8') . "';  //default charset 'utf-8'\n";
     $conf_file .= "\$phpwcms['php_charset'] = false; // set PHP default charset to \$phpwcms['charset']\n";
     $conf_file .= "\$phpwcms['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
-    $conf_file .= "\$phpwcms['jpg_quality'] = " . (isset($val['jpg_quality']) ? intval($val['jpg_quality']) : 85) . "; //JPG Quality Range 25-100\n";
+    $conf_file .= "\$phpwcms['jpg_quality'] = " . (isset($val['jpg_quality']) ? (int)$val['jpg_quality'] : 85) . "; //JPG Quality Range 25-100\n";
     $conf_file .= "\$phpwcms['webp_enable'] = 1; // Render all images as WebP if the client browser supports it\n";
-    $conf_file .= "\$phpwcms['webp_quality'] = " . (isset($val['webp_quality']) ? intval($val['webp_quality']) : 85) . "; // Set the WebP quality\n";
+    $conf_file .= "\$phpwcms['webp_quality'] = " . (isset($val['webp_quality']) ? (int)$val['webp_quality'] : 85) . "; // Set the WebP quality\n";
     $conf_file .= "\$phpwcms['resize_animated_gif']  = true; // Try to resize animated GIF, this can lead to bigger file sizes\n";
-    $conf_file .= "\$phpwcms['sharpen_level'] = " . (isset($val['sharpen_level']) ? intval($val['sharpen_level']) : 1) . "; //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
+    $conf_file .= "\$phpwcms['sharpen_level'] = " . (isset($val['sharpen_level']) ? (int)$val['sharpen_level'] : 1) . "; //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
     $conf_file .= "\$phpwcms['allow_ext_init'] = 1; //allow including of custom external scripts at frontend initialization\n";
     $conf_file .= "\$phpwcms['allow_ext_render'] = 1; //allow including of custom external scripts at frontend rendering\n";
     $conf_file .= "\$phpwcms['cache_enabled'] = 0; //cache On/Off - 1 = caching On / 0 = caching Off (default)\n";
@@ -296,19 +264,19 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['SMTP_FROM_EMAIL'] = '" . escape_quote($val['SMTP_FROM_EMAIL'] ?? '') . "'; // reply/from email address\n";
     $conf_file .= "\$phpwcms['SMTP_FROM_NAME'] = '" . escape_quote($val['SMTP_FROM_NAME'] ?? '') . "'; // reply/from name\n";
     $conf_file .= "\$phpwcms['SMTP_HOST'] = '" . escape_quote($val['SMTP_HOST'] ?? 'localhost') . "'; // SMTP server (host/IP)\n";
-    $conf_file .= "\$phpwcms['SMTP_PORT'] = " . intval($val['SMTP_PORT'] ?? 25) . "; // SMTP server port (default 25)\n";
+    $conf_file .= "\$phpwcms['SMTP_PORT'] = " . (int)($val['SMTP_PORT'] ?? 25) . "; // SMTP server port (default 25)\n";
     $conf_file .= "\$phpwcms['SMTP_MAILER'] = '" . escape_quote($val['SMTP_MAILER'] ?? 'mail') . "'; // mail method: mail (default), smtp, sendmail\n";
     $conf_file .= "\$phpwcms['SMTP_USER'] = '" . escape_quote($val['SMTP_USER'] ?? '') . "'; // default SMTP login (user) name\n";
     $conf_file .= "\$phpwcms['SMTP_PASS'] = '" . escape_quote($val['SMTP_PASS'] ?? '') . "'; // default SMTP password\n";
     $conf_file .= "\$phpwcms['SMTP_SECURE'] = '" . escape_quote($val['SMTP_SECURE'] ?? '') . "'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
-    $conf_file .= "\$phpwcms['SMTP_AUTH'] = " . intval($val['SMTP_AUTH'] ?? 0) . "; // SMTP authentication, ON=1/OFF=0\n";
+    $conf_file .= "\$phpwcms['SMTP_AUTH'] = " . (int)($val['SMTP_AUTH'] ?? 0) . "; // SMTP authentication, ON=1/OFF=0\n";
     $conf_file .= "\$phpwcms['SMTP_AUTH_TYPE'] = '" . escape_quote($val['SMTP_AUTH_TYPE'] ?? '') . "'; // sets SMTP auth type: CRAM-MD5, LOGIN, PLAIN, XOAUTH2\n";
     $conf_file .= "\$phpwcms['SMTP_XOAUTH_PROVIDER'] = '" . escape_quote($val['SMTP_XOAUTH_PROVIDER'] ?? '') . "'; // XOAUTH2 authentication provider: 'Google', 'Microsoft' or 'Azure'\n";
     $conf_file .= "\$phpwcms['SMTP_CLIENT_ID'] = '" . escape_quote($val['SMTP_CLIENT_ID'] ?? '') . "'; // The client ID for OAuth2 authentication\n";
     $conf_file .= "\$phpwcms['SMTP_CLIENT_SECRET'] = '" . escape_quote($val['SMTP_CLIENT_SECRET'] ?? '') . "'; // The client secret for OAuth2 authentication\n";
     $conf_file .= "\$phpwcms['SMTP_TENANT_ID'] = '" . escape_quote($val['SMTP_TENANT_ID'] ?? '') . "'; // The tenant ID for Microsoft OAuth2 authentication\n";
     $conf_file .= "\$phpwcms['SMTP_REFRESH_TOKEN'] = '" . escape_quote($val['SMTP_REFRESH_TOKEN'] ?? '') . "'; // The OAuth2 refresh token\n";
-    $conf_file .= "\$phpwcms['SMTP_DEBUG'] = " . intval($val['SMTP_DEBUG'] ?? 0) . "; // SMTP debug level, 0 = off, 1 = client messages, 2 = client and server messages\n";
+    $conf_file .= "\$phpwcms['SMTP_DEBUG'] = " . (int)($val['SMTP_DEBUG'] ?? 0) . "; // SMTP debug level, 0 = off, 1 = client messages, 2 = client and server messages\n";
 
     $conf_file .= "\n// Backend Dashboard Support/Contact settings\n";
     $conf_file .= "\$phpwcms['support'] = array(\n";
@@ -333,34 +301,6 @@ function html_specialchars($h = '') {
     $h = str_replace("'", '&#039;', $h);
     $h = str_replace("\\", '&#92;', $h);
     return $h;
-}
-
-// taken from http://de.php.net/manual/de/function.phpinfo.php#59573
-function parsePHPModules() {
-    ob_start();
-    phpinfo(INFO_MODULES);
-    $s = strip_tags(ob_get_clean(), '<h2><th><td>');
-    $s = preg_replace('/<th[^>]*>([^<]+)<\/th>/', "<info>\\1</info>", $s);
-    $s = preg_replace('/<td[^>]*>([^<]+)<\/td>/', "<info>\\1</info>", $s);
-    $vTmp = preg_split('/(<h2>[^<]+<\/h2>)/', $s, -1, PREG_SPLIT_DELIM_CAPTURE);
-    $vModules = [];
-    for ($i = 1, $count = count($vTmp); $i < $count; $i++) {
-        if (preg_match('/<h2>([^<]+)<\/h2>/', $vTmp[$i], $vMat)) {
-            $vName = trim($vMat[1]);
-            $vTmp2 = explode("\n", $vTmp[$i + 1]);
-            foreach ($vTmp2 AS $vOne) {
-                $vPat = '<info>([^<]+)<\/info>';
-                $vPat3 = "/$vPat\s*$vPat\s*$vPat/";
-                $vPat2 = "/$vPat\s*$vPat/";
-                if (preg_match($vPat3, $vOne, $vMat)) { // 3cols
-                    $vModules[$vName][trim($vMat[1])] = [trim($vMat[2]), trim($vMat[3])];
-                } elseif (preg_match($vPat2, $vOne, $vMat)) { // 2cols
-                    $vModules[$vName][trim($vMat[1])] = trim($vMat[2]);
-                }
-            }
-        }
-    }
-    return $vModules;
 }
 
 function errorWarning($warning = '') {
@@ -438,7 +378,7 @@ function _dbQuery($query = '', $_queryMode = 'ASSOC') {
 
     global $db;
     $queryResult = [];
-    $queryCount = 0;
+    $insertId = null;
 
     if ($result = mysqli_query($db, $query)) {
 
@@ -446,76 +386,73 @@ function _dbQuery($query = '', $_queryMode = 'ASSOC') {
 
             // INSERT, UPDATE, DELETE
             case 'INSERT':
-                $queryResult['INSERT_ID'] = mysqli_insert_id($db);
+                $insertId = mysqli_insert_id($db);
+                // fall through by design
 
             case 'DELETE':
             case 'UPDATE':
+                $queryResult['INSERT_ID'] = $insertId;
                 $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($db);
                 return $queryResult;
 
             // SELECT Queries
             case 'ROW':
-                $_queryMode = 'mysqli_fetch_row';
+                $fetchMode = MYSQLI_NUM;
                 break;
 
             case 'ARRAY':
-                $_queryMode = 'mysqli_fetch_array';
+                $fetchMode = MYSQLI_BOTH;
                 break;
 
             default:
-                $_queryMode = 'mysqli_fetch_assoc';
+                $fetchMode = MYSQLI_ASSOC;
         }
 
-        while ($row = $_queryMode($result)) {
-
-            $queryResult[$queryCount] = $row;
-            $queryCount++;
-        }
-
-        return $queryResult;
+        return mysqli_fetch_all($result, $fetchMode);
     } else {
 
         return false;
     }
 }
 
-if (!function_exists('convertDecChar')) {
-    function convertDecChar($decChar) {
-        if ($decChar < 128) {
-            return chr($decChar);
-        } elseif ($decChar < 2048) {
-            return chr(($decChar >> 6) + 192) . chr(($decChar & 63) + 128);
-        } elseif ($decChar < 65536) {
-            return chr(($decChar >> 12) + 224) . chr((($decChar >> 6) & 63) + 128) . chr(($decChar & 63) + 128);
-        } elseif ($decChar < 2097152) {
-            return chr($decChar >> 18 + 240) . chr((($decChar >> 12) & 63) + 128) . chr(($decChar >> 6) & 63 + 128) . chr($decChar & 63 + 128);
+function get_db_collations($db) {
+    $collations = array();
+    if (!$db) {
+        return $collations;
+    }
+    if ($result = mysqli_query($db, "SHOW COLLATION WHERE Charset = 'utf8mb4'")) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            if (!empty($row['Collation'])) {
+                $collations[] = $row['Collation'];
+            }
         }
-
-        return $decChar;
+        mysqli_free_result($result);
     }
+    sort($collations);
+    return $collations;
+}
 
-    function convertHexNumericToChar($matches) {
-        return convertDecChar(hexdec($matches[1]));
+function get_server_default_collation($db) {
+    if (!$db) {
+        return '';
     }
-
-    function convertNumericToChar($matches) {
-        return convertDecChar($matches[1]);
+    if ($result = mysqli_query($db, "SHOW VARIABLES LIKE 'collation_server'")) {
+        $row = mysqli_fetch_row($result);
+        mysqli_free_result($result);
+        return $row[1] ?? '';
     }
+    return '';
 }
 
 if (!function_exists('decode_entities')) {
     function decode_entities($text) {
-        $text = @html_entity_decode($text, ENT_QUOTES, PHPWCMS_CHARSET);
-        if (!str_contains($text, '&')) {
+        $text = html_entity_decode((string)$text, ENT_QUOTES, 'UTF-8');
+        if (!str_contains($text, '&#')) {
             return $text;
         }
-        $text = preg_replace_callback('/&#x([0-9a-f]+);/i', 'convertHexNumericToChar', $text);
-        $text = preg_replace_callback('/&#([0-9]+);/', 'convertNumericToChar', $text);
-
-        return $text;
+        return mb_decode_numericentity($text, [0x0, 0x10FFFF, 0, 0x1FFFFF], 'UTF-8');
     }
 }
-
 function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enable_port = true) {
     $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off');
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
@@ -525,7 +462,7 @@ function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enab
         $protocol = '';
     }
     if ($enable_port) {
-        $port = intval($_SERVER['SERVER_PORT']);
+        $port = (int)($_SERVER['SERVER_PORT'] ?? 80);
         $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : ':' . $port;
     } else {
         $port = '';
@@ -542,7 +479,7 @@ function check_htaccess($val) {
 
     if ($val['rewrite_url']) {
 
-        $root = dirname(__FILE__, 3);
+        $root = dirname(__DIR__, 2);
         $htaccess_content = '';
         $htaccess_new_content = '';
 
@@ -614,8 +551,8 @@ function render_setup_steps($current_step = 'license') {
             $aria = ' aria-current="step"';
         } else {
             $class = 'setup-step disabled';
-            $href = ' href="#" tabindex="-1" aria-disabled="true"';
-            $aria = '';
+            $href = '';
+            $aria = ' aria-disabled="true"';
         }
 
         $html .= '        <a class="' . $class . '"' . $href . $aria . '>' . $title . '</a>' . "\n";

@@ -21,13 +21,13 @@ if (is_file($DOCROOT . '/include/config/conf.inc.php')) {
     exit();
 }
 
-$step     = isset($_GET["step"]) ? intval($_GET["step"]) : 0;
-$do       = isset($_POST["do"]) ? intval($_POST["do"]) : 0;
+$step     = isset($_GET['step']) ? (int)$_GET['step'] : 0;
+$do       = isset($_POST['do']) ? (int)$_POST['do'] : 0;
 $err      = 0;
 $prepend  = $phpwcms["db_prepend"];
 
 if ($do) {
-    require_once($DOCROOT . '/setup/inc/setup.check.inc.php');
+    require_once $DOCROOT . '/setup/inc/setup.check.inc.php';
 }
 
 ?><!DOCTYPE html>
@@ -121,7 +121,6 @@ if ($do) {
     </div>
 </div>
 
-<script src="../include/inc_js/jquery/jquery-3.7.1.min.js"></script>
 <script src="../include/inc_js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -24,7 +24,7 @@ if (!defined('PHPWCMS_SETUP')) {
                 <label for="file_maxsize" class="col-sm-3 col-form-label fw-bold">Max File Upload Size</label>
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input name="file_maxsize" type="number" min="0" step="1024" class="form-control" id="file_maxsize" value="<?php echo (int)$phpwcms["file_maxsize"] ?>" />
+                        <input name="file_maxsize" type="number" min="0" step="1024" class="form-control" id="file_maxsize" value="<?php echo (int)$phpwcms['file_maxsize'] ?>" />
                         
                             <span class="input-group-text">Bytes</span>
                         
@@ -37,7 +37,7 @@ if (!defined('PHPWCMS_SETUP')) {
                 <label for="content_width" class="col-sm-3 col-form-label fw-bold">Content Column Width</label>
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input name="content_width" type="number" min="100" class="form-control" id="content_width" value="<?php echo (int)$phpwcms["content_width"] ?>" />
+                        <input name="content_width" type="number" min="100" class="form-control" id="content_width" value="<?php echo (int)$phpwcms['content_width'] ?>" />
                         
                             <span class="input-group-text">px</span>
                         
@@ -50,11 +50,11 @@ if (!defined('PHPWCMS_SETUP')) {
                 <label for="img_list_width" class="col-sm-3 col-form-label fw-bold">Thumbnail Dimensions</label>
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input name="img_list_width" type="number" min="10" class="form-control" id="img_list_width" value="<?php echo (int)$phpwcms["img_list_width"] ?>" placeholder="Width" />
+                        <input name="img_list_width" type="number" min="10" class="form-control" id="img_list_width" value="<?php echo (int)$phpwcms['img_list_width'] ?>" placeholder="Width" />
                         
                             <span class="input-group-text">&times;</span>
                         
-                        <input name="img_list_height" type="number" min="10" class="form-control" id="img_list_height" value="<?php echo (int)$phpwcms["img_list_height"] ?>" placeholder="Height" />
+                        <input name="img_list_height" type="number" min="10" class="form-control" id="img_list_height" value="<?php echo (int)$phpwcms['img_list_height'] ?>" placeholder="Height" />
                         
                             <span class="input-group-text">px</span>
                         
@@ -67,11 +67,11 @@ if (!defined('PHPWCMS_SETUP')) {
                 <label for="img_prev_width" class="col-sm-3 col-form-label fw-bold">Preview Dimensions</label>
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input name="img_prev_width" type="number" min="10" class="form-control" id="img_prev_width" value="<?php echo (int)$phpwcms["img_prev_width"] ?>" placeholder="Width" />
+                        <input name="img_prev_width" type="number" min="10" class="form-control" id="img_prev_width" value="<?php echo (int)$phpwcms['img_prev_width'] ?>" placeholder="Width" />
                         
                             <span class="input-group-text">&times;</span>
                         
-                        <input name="img_prev_height" type="number" min="10" class="form-control" id="img_prev_height" value="<?php echo (int)$phpwcms["img_prev_height"] ?>" placeholder="Height" />
+                        <input name="img_prev_height" type="number" min="10" class="form-control" id="img_prev_height" value="<?php echo (int)$phpwcms['img_prev_height'] ?>" placeholder="Height" />
                         
                             <span class="input-group-text">px</span>
                         
@@ -84,7 +84,7 @@ if (!defined('PHPWCMS_SETUP')) {
                 <label for="max_time" class="col-sm-3 col-form-label fw-bold">Session Timeout</label>
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <input name="max_time" type="number" min="60" class="form-control" id="max_time" value="<?php echo (int)$phpwcms["max_time"] ?>" />
+                        <input name="max_time" type="number" min="60" class="form-control" id="max_time" value="<?php echo (int)$phpwcms['max_time'] ?>" />
                         
                             <span class="input-group-text">seconds</span>
                         
