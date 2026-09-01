@@ -29,7 +29,7 @@ $phpwcms['db_errorlog']          = false; // Log DB queries - false|true
 $phpwcms['site']                 = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/';
 $phpwcms['site_ssl_mode']        = 0; // turns the SSL Support of WCMS on (1) or off (0), default value 0
 $phpwcms['site_ssl_url']         = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.$_SERVER['SERVER_NAME'].'/'
-$phpwcms['site_ssl_port']        = 443; // The Port on which your SSL Service serve the secure Sites, default SSL port is 443
+$phpwcms['site_ssl_port']        = 443; // The port on which your SSL service serves the secure sites, default SSL port is 443
 
 $phpwcms['admin_name']           = 'Webmaster';
 $phpwcms['admin_user']           = 'admin';
@@ -53,7 +53,7 @@ $phpwcms['img_list_width']       = 160; // max width of the list thumbnail image
 $phpwcms['img_list_height']      = 100; // max height of the list thumbnail image (100px)
 $phpwcms['img_prev_width']       = 978; // max width of the large preview image
 $phpwcms['img_prev_height']      = 734; // max height of the large preview image
-$phpwcms['max_time']             = 1800; // logout after max_time/60 seconds
+$phpwcms['max_time']             = 1800; // logout after max_time seconds
 $phpwcms['responsive']           = 1; // 0 max. image width = $phpwcms['content_width'], 1 = as given
 $phpwcms['preserve_image_name']  = 1; // keep file name for resized versions of the image
 
@@ -84,8 +84,8 @@ $phpwcms['allow_ext_init']       = 1; // allow including of custom external scri
 $phpwcms['allow_ext_render']     = 1; // allow including of custom external scripts at frontend rendering
 $phpwcms['cache_enabled']        = 0; // cache On/Off - 1 = caching On / 0 = caching Off (default)
 $phpwcms['cache_timeout']        = 0; // default cache timeout setting in seconds - 0 = caching Off
-$phpwcms['imgext_disabled']      = ''; // comma seperated list of imagetypes which should not be handled 'pdf,ps'
-$phpwcms['multimedia_ext']       = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia
+$phpwcms['imgext_disabled']      = ''; // comma separated list of image types which should not be handled 'pdf,ps'
+$phpwcms['multimedia_ext']       = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma separated list of file extensions allowed for multimedia
 $phpwcms['recipient_count']      = 0;
 $phpwcms['inline_download']      = 1; // try to open download document in browser window
 $phpwcms['sanitize_dlname']      = 0; // if there are problems downloading files with special chars in name try to enable this setting
@@ -105,7 +105,7 @@ $phpwcms['SESSION_FEinit']       = 0; // set 1 to enable sessions in frontend, 0
 $phpwcms['Login_IPcheck']        = 0;
 $phpwcms['frontend_edit']        = 0; // enable content specific direct links - linking direct into the backend
 $phpwcms['gd_memcheck_off']      = 0; // disable GD php memory check before resize an image
-$phpwcms['enable_messages']      = 0; // enable or disable internal messags, by default it is disabled - not recommend anymore to use it
+$phpwcms['enable_messages']      = 0; // enable or disable internal messages, by default it is disabled - no longer recommended to use it
 $phpwcms['enable_seolog']        = 1; // enable or disable logging of search engine referrer data
 $phpwcms['i18n_parse']           = 1; // enable|disable browser based language parser - all @@Text@@ will be parsed and checked for translation/var based replacement
 $phpwcms['i18n_complex']         = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars "en"), true - "en-gb"...
@@ -117,7 +117,7 @@ $phpwcms['glightbox_options']    = array(); // GLightbox options, e.g. array('se
 $phpwcms['video-js']             = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/8.24.0/)
 $phpwcms['render_device']        = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio']    = 0; // will inject the page with JavaScript to detect Retina devices
-$phpwcms['im_fix_colorspace']    = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
+$phpwcms['im_fix_colorspace']    = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors look bad try SRGB
 $phpwcms['wkhtmltopdf_path']     = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'
 $phpwcms['render_clean_html']    = 0; // clean up HTML source a bit, experimental can have unexpected side effects
 $phpwcms['browser_check']        = array('fe' => false, 'be' => false, 'vs' => '', 'insecure' => true, 'required' => ''); // enable Browser Update check in frontend and/or backend, use "vs" to which browser version, see http://www.browser-update.org/index.html#install

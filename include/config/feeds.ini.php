@@ -28,7 +28,7 @@ timeZone            = "+01:00"          ; your local timezone, set to "" to disa
 cacheTTL            = 3600              ; if 0 no caching will be used otherwise these are seconds
 
 structureID         = ""                    ; if empty it will return the list of all articles sort by date, or use an phpwcms alias as starting point
-                                        ; you can also use structureID there seperated by ','
+                                        ; you can also use structureID there separated by ','
 maxentries          = 10
 encoding            = UTF-8     ;ISO-8859-1
 defaultFormat       = RSS2.0            ; available: 0.91/RSS0.91, 1.0/RSS1.0, 2.0/RSS2.0, ATOM/ATOM0.3

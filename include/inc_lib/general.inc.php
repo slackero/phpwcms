@@ -1268,7 +1268,7 @@ function getJavaScriptTranslations() {
 }
 
 function convertStringToArray($string = '', $seperator = ',', $mode = 'UNIQUE', $rmvDblWSp = true) {
-    // clean up a seperator seperated string and return as array
+    // clean up a separator-separated string and return as array
     if (trim($string) === '') {
         return [];
     }
