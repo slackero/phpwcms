@@ -58,7 +58,7 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
         return false;
     }
 
-    // Gather relevent info about file
+    // Gather relevant info about file
     $filename     = empty($fileinfo['realfname']) ? basename($file) : $fileinfo['realfname'];
     $disposition  = empty($fileinfo['method']) || $fileinfo['method'] !== 'inline' ? 'attachment' : 'inline';
     $force_mimetype_check = array(
@@ -160,7 +160,7 @@ function rangeDownload($file) {
         // Make sure the client hasn't sent us a multibyte range
         if (strpos($range, ',') !== false) {
 
-            // (?) Shoud this be issued here, or should the first
+            // (?) Should this be issued here, or should the first
             // range be used? Or should the header be ignored and
             // we output the whole content?
             header('HTTP/1.1 416 Requested Range Not Satisfiable');

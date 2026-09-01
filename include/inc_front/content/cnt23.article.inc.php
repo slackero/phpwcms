@@ -2202,7 +2202,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             // check if user should be registered for newsletter
             if(isset($form_newletter_setting['selection']) && count($form_newletter_setting['selection'])) {
 
-                // first check if neccessary form field is valid email
+                // first check if necessary form field is valid email
                 if(isset($POST_val[ $form_newletter_setting['email_field'] ]) && is_valid_email($POST_val[ $form_newletter_setting['email_field'] ])) {
 
                     // ok now I know we can store email as newsletter recipient

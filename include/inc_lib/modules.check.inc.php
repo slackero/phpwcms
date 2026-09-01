@@ -49,7 +49,7 @@ foreach($phpwcms_modules as $value) {
       $phpwcms['modules'][$_module_name]['search']  = $_module_fe_search;
       $phpwcms['modules'][$_module_name]['setting'] = $_module_fe_setting;
 
-      // main module language include -> english is always neccessary
+      // main module language include -> english is always necessary
       // but not necessary in frontend
       if(!isset($IS_A_BOT)) {
 

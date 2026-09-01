@@ -8,7 +8,7 @@
  *
  **/
 
-// neccessary frontend functions for search
+// necessary frontend functions for search
 function get_SearchForStructureID($search_at) {
 
 	$k = array();

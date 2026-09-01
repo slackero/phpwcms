@@ -226,7 +226,7 @@ function is_date($PASSED, $TXT_DATE_FORMAT='Y-m-d') {
         } // END else get the date value
     }
     if (isset($store_arr['hours'])) { // are hours are set?
-        if ($bln_twelve_hour_cycle) { // If the recieved data was 12-hour cycle, we may need to test for PM and do some math!
+        if ($bln_twelve_hour_cycle) { // If the received data was 12-hour cycle, we may need to test for PM and do some math!
             if (isset($store_arr['ampm'])) {
                 if ($store_arr['ampm']=="PM") { // Is it PM? If so test to see if hour is set
                     $store_arr['hours']=$store_arr['hours']+12; // The 12 hour date was in PM. Example 11 pm really is 11+12 or 23!

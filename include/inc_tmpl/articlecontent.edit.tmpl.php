@@ -87,7 +87,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
 </script>
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $content["aid"]."&amp;acid=".$content["id"] ?>" method="post" name="articlecontent" id="articlecontent" class="form-horizontal" <?php
 
-    // Some javascript actions neccessary on submit
+    // Some javascript actions necessary on submit
     switch ($content["type"]) {
 
         case 2:

@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //guestbook/comments
 
-// include neccessary frontend functions, but only once
+// include necessary frontend functions, but only once
 include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt18.func.inc.php';
 
 $crow['attr_class_id'] = array();
@@ -156,7 +156,7 @@ if($guestbook['visible']) {
                                 case 3: $guestbook['image']['file'] .= 'png';   break;  //PNG
                             }
 
-                            // create neccessary guestbook image directory
+                            // create necessary guestbook image directory
                             if(!is_dir($guestbook['image_dir'])) {
                                 $old_umask = umask(0);
                                 $guestbook['owner'] = fileowner(PHPWCMS_ROOT.'/'.PHPWCMS_FILES);
@@ -455,7 +455,7 @@ if($guestbook['visible']) {
 
             } else {
                 $guestbook['readform'] = 0;
-                $CNT_TMP .= '<div style="color:#FF3300;">A technical problem occured while signing to the guestbook</div>';
+                $CNT_TMP .= '<div style="color:#FF3300;">A technical problem occurred while signing to the guestbook</div>';
             }
         }
 
@@ -718,12 +718,12 @@ if($guestbook['visible']) {
             $guestbook['counter'] = $guestbook['start_entry']+1;
 
         } else {
-            // no navigation neccessary
+            // no navigation necessary
             $guestbook['nav'] = '';
         }
 
     } else {
-        // no navigation neccessary
+        // no navigation necessary
         $guestbook['nav'] = '';
     }
 

@@ -459,7 +459,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
                 ));
             }
 
-            // now try to build caption and if neccessary add alt to image or set external link for image
+            // now try to build caption and if necessary add alt to image or set external link for image
             $caption = getImageCaption($imagelist['images'][$key][6]);
             // set caption and ALT Image Text for imagelist
             $capt_cur   = !$type ? html($caption[0]) : $caption[0];

@@ -636,7 +636,7 @@ $translate = [];
 function removeSessionName($str = '') {
     // is used to remove all &hashID=...
     // not useful when when storing in cache
-    // because it stores unneccessary session IDs too
+    // because it stores unnecessary session IDs too
     $sessName = session_name();
     if ($sessName) {
         $str = preg_replace('/[&|\?]{0,1}' . $sessName . '=[a-zA-Z0-9]{1,}/', '', $str);
@@ -1036,7 +1036,7 @@ function getAnonymizedIp() {
     return '0.0.0.0';
 }
 
-// Get user agent informations, based on concepts of OpenAds 2.0 (c) 2000-2007 by the OpenAds developers
+// Get user agent information, based on concepts of OpenAds 2.0 (c) 2000-2007 by the OpenAds developers
 function phpwcms_getUserAgent($USER_AGENT = '') {
 
     if (empty($USER_AGENT)) {

@@ -916,7 +916,7 @@ $BL['MEDIA_TITLE']                 = 'phpwcms media browser';
 $BL['IMAGE_FILES']                 = 'image files';
 $BL['MEDIA_FILES']                 = 'media files';
 $BL['ROOT_DIR']                    = 'storage (root dir)';
-$BL['DOWNLOAD_ERR1']               = 'An error (NR:{VAL}) occured while trying to download a file.';
+$BL['DOWNLOAD_ERR1']               = 'An error (NR:{VAL}) occurred while trying to download a file.';
 $BL['DOWNLOAD_ERR2']               = 'If you think that this might be a technical problem send an email to the <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
 $BL['DOWNLOAD_TITLE']              = 'File Download Error';
 $BL['FILEINFO_TITLE']              = 'phpwcms: file info';

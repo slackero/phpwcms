@@ -97,7 +97,7 @@ if($err):
 </head>
 <body>
     <h1>Download Error</h1>
-    <p><strong><?php echo $err ?></strong> occured while trying to download a file of your directory.</p>
+    <p><strong><?php echo $err ?></strong> occurred while trying to download a file of your directory.</p>
     <p>Please <a href="<?php echo PHPWCMS_URL.get_login_file() ?>"><strong>login</strong></a> again and try another file.</p>
     <p>If you think that this might be a technical problem send an email to the webmaster.</p>
 </body>

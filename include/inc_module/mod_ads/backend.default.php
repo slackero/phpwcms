@@ -30,7 +30,7 @@ if (!defined('PHPWCMS_ROOT')) {
  *
  */
 
-// first check if neccessary db exists
+// first check if necessary db exists
 if(isset($phpwcms['modules'][$module]['path'])) {
 
 	// module default stuff

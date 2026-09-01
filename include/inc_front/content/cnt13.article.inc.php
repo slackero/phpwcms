@@ -87,7 +87,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
         $content["search"]["start_at"] = array(0);
     }
 
-    // include neccessary frontend functions, but only once
+    // include necessary frontend functions, but only once
     include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt13.func.inc.php';
     $content["search"]["start_at"] = get_SearchForStructureID($content["search"]["start_at"]);
 

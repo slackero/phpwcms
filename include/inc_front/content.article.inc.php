@@ -583,7 +583,7 @@ if(isset($result[0]['article_id'])) {
             continue;
         }
 
-        // do everything neccessary for alias content part
+        // do everything necessary for alias content part
         if($crow["acontent_type"] == 24) {
             $crow = getContentPartAlias($crow);
             if($crow === false) {

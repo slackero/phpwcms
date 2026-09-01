@@ -542,7 +542,7 @@ function get_actcat_articles_data($act_cat_id) {
                 break;
         case 1: $sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
                 break;
-        //case 2: admin mode no additional neccessary
+        //case 2: admin mode no additional necessary
     }
     $sql .= ' AND article_deleted=0';
     if(!PREVIEW_MODE) {
@@ -1876,7 +1876,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
                     break;
             case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
                     break;
-            //case 2: admin mode no additional neccessary
+            //case 2: admin mode no additional necessary
         }
         if(!PREVIEW_MODE) {
             $sql .= "(article_begin IS NULL OR article_begin < NOW()) AND ";
@@ -2005,7 +2005,7 @@ function get_new_articles($template_default, $max_cnt_links=0, $cat='', $dbcon=n
                 break;
         case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
                 break;
-        //case 2: admin mode no additional neccessary
+        //case 2: admin mode no additional necessary
     }
     $sql .= 'article_deleted=0 ';
     if(!PREVIEW_MODE) {
@@ -2124,7 +2124,7 @@ function get_keyword_link($keywords) {
                     break;
             case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
                     break;
-            //case 2: admin mode no additional neccessary
+            //case 2: admin mode no additional necessary
         }
         $sql .= 'article_deleted=0 AND ';
         if(!PREVIEW_MODE) {
@@ -2489,7 +2489,7 @@ function build_sitemap_articlelist($cat, $counter=0, $sitemap=array()) {
                 break;
         case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
                 break;
-        //case 2: admin mode no additional neccessary
+        //case 2: admin mode no additional necessary
     }
     $sql .= 'article_deleted=0 ';
     if(!PREVIEW_MODE) {

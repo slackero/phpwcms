@@ -29,7 +29,7 @@ if (!defined('PHPWCMS_ROOT')) {
  *
  */
 
-// first check if neccessary db exists
+// first check if necessary db exists
 if(isset($phpwcms['modules'][$module]['path'])) {
 
     // Proof existence of necessary fields only once per Session

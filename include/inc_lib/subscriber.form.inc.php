@@ -66,7 +66,7 @@ if(empty($_POST['subscribe_all']) && !empty($_POST['subscribe_to']) && is_array(
 // OK lets insert or update
 if($_userInfo['error']['email'] == 0) {
 
-  // check if update neccessary in case email still exists
+  // check if update necessary in case email still exists
   $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_address ";
   $sql .= "WHERE address_email='".aporeplace($_userInfo['subscriber_data']['address_email'])."'";
   if($_userInfo['subscriber_data']['address_id']) {
