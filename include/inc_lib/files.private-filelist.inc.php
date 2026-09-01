@@ -91,9 +91,9 @@ if(isset($file_result[0]['f_id'])) {
         echo '</div></div>'; // Close dropdown-menu & inner btn-group
 
         // Toggle active/inactive button
-        echo '<button id="abtnfileaktiv'.$file_row["f_id"].'" class="btn fa-solid fa-fw btn-xs visible '.($file_row["f_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].': '.$filename.'"></button>';
+        echo '<button id="abtnfileaktiv'.$file_row["f_id"].'" class="btn fa-solid fa-fw btn-xs visible '.($file_row["f_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].': '.$filename.'"><i class="fa-solid '.($file_row["f_aktiv"]==0 ? "fa-eye-slash" : "fa-eye").' fa-fw" aria-hidden="true"></i></button>';
         // Toggle public/private button
-        echo '<button id="abtnfilepublic'.$file_row["f_id"].'" class="btn fa-solid fa-fw btn-xs public '.($file_row["f_public"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cpublicfile'].': '.$filename.'"></button>';
+        echo '<button id="abtnfilepublic'.$file_row["f_id"].'" class="btn fa-solid fa-fw btn-xs public '.($file_row["f_public"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cpublicfile'].': '.$filename.'"><i class="fa-solid '.($file_row["f_public"]==0 ? "fa-lock" : "fa-lock-open").' fa-fw" aria-hidden="true"></i></button>';
         echo '</div>'; // Close outer btn-group
 
         // end

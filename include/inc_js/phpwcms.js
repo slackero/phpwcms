@@ -826,10 +826,19 @@ $(function () {
                 if (!$target.length) {
                     $target = $this;
                 }
+                const $icon = $target.find('i');
                 if ($target.hasClass('btn-success')) {
                     $target.removeClass('btn-success').addClass('btn-warning');
+                    if ($icon.length) {
+                        $icon.removeClass('fa-eye fa-lock-open')
+                             .addClass($target.hasClass('public') ? 'fa-lock' : 'fa-eye-slash');
+                    }
                 } else {
                     $target.removeClass('btn-warning btn-danger').addClass('btn-success');
+                    if ($icon.length) {
+                        $icon.removeClass('fa-eye-slash fa-lock')
+                             .addClass($target.hasClass('public') ? 'fa-lock-open' : 'fa-eye');
+                    }
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {

@@ -890,8 +890,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
                         if(!empty($content['form']["fields"][$key]['profile']) && isset($content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ])) {
 
-                            $field_js['varcharFields'][$field_counter]  = '<"+"option value=\"'.$content['form']["fields"][$key]['profile'].'\" selected=\"selected\">';
-                            $field_js['varcharFields'][$field_counter] .= $content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ].'<"+"/option>';
+                            $field_js['varcharFields'][$field_counter]  = '<"+"option value=\"'.html($content['form']["fields"][$key]['profile']).'\" selected=\"selected\">';
+                            $field_js['varcharFields'][$field_counter] .= html($content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ]).'<"+"/option>';
                             unset($content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ]);
 
                         } else {
@@ -1478,7 +1478,7 @@ if(!empty($field_counter) && $field_counter > 1) {
 
         $field_js['options'] = '';
         foreach($content['profile_fields_varchar'] as $fieldKey => $fieldValue) {
-            $field_js['options'] .= '<"+"option value=\"'.$fieldKey.'\">'.$fieldValue.'<"+"/option>';
+            $field_js['options'] .= '<"+"option value=\"'.html($fieldKey).'\">'.html($fieldValue).'<"+"/option>';
         }
 
         foreach($field_js['varcharFields'] as $tdID => $tdIDvalue) {
@@ -1496,7 +1496,7 @@ if(!empty($field_counter) && $field_counter > 1) {
 
         $field_js['options'] = '';
         foreach($content['profile_fields_longtext'] as $fieldKey => $fieldValue) {
-            $field_js['options'] .= '<"+"option value=\"'.$fieldKey.'\">'.$fieldValue.'<"+"/option>';
+            $field_js['options'] .= '<"+"option value=\"'.html($fieldKey).'\">'.html($fieldValue).'<"+"/option>';
         }
 
         foreach($field_js['longtextFields'] as $tdID => $tdIDvalue) {

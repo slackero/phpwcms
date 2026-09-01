@@ -588,12 +588,11 @@ if(!isset($_GET["s"])) {
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-sm-auto">
-                                <button type="button" class="btn btn-sm btn-blue" onclick="moveOptionUp(document.blocks.template_css);">
+                            <div class="col-sm-auto btn-col">
+                                <button type="button" class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.blocks.template_css);">
                                     <i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i>
                                 </button>
-                                <br/>
-                                <button type="button" class="btn btn-sm btn-blue mt-1" onclick="moveOptionDown(document.blocks.template_css);">
+                                <button type="button" class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.blocks.template_css);">
                                     <i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i>
                                 </button>
                             </div>

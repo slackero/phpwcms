@@ -256,7 +256,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     echo '    <td class="text-end text-nowrap">';
     echo '<div class="btn-group btn-group-sm" role="group" aria-label="redirect-actions-'.$data["rid"].'">';
     echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=14&amp;rid='.$data["rid"].'"><i class="fa-solid fa-pencil-alt"></i></a>';
-    echo '<button id="abtnredirect'.$data['rid'].'" class="btn fa btn-sm visible '.($data['active']==0 ? "btn-warning" : "btn-success").'" data-id="'.$data['rid'].'" data-type="redirect" data-table="redirect" data-field="active" data-fieldid="rid" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactive'].'"></button>';
+    echo '<button id="abtnredirect'.$data['rid'].'" class="btn fa btn-sm visible '.($data['active']==0 ? "btn-warning" : "btn-success").'" data-id="'.$data['rid'].'" data-type="redirect" data-table="redirect" data-field="active" data-fieldid="rid" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactive'].'"><i class="fa-solid '.($data['active']==0 ? "fa-eye-slash" : "fa-eye").' fa-fw" aria-hidden="true"></i></button>';
     echo '</div>';
     echo '</td>'.LF;
     $x++;

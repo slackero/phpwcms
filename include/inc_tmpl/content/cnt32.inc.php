@@ -175,7 +175,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
                 <div class="col"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html($value['tabtitle']); ?>" class="form-control form-control-sm" /></div>
             </div>
 
-            <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#tabs">
+            <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-bs-parent="#tabs">
                 <div class="form-group align-items-center row g-2">
 					<label for="tabheadline<?php echo $key ?>" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_headline'] ?></label>
 					<div class="col-sm-4">
@@ -225,7 +225,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
            $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
            $custom_field_class = empty($cnt_fieldgroup['fields'][$custom_field]['class']) ? '' : ' ' . $cnt_fieldgroup['fields'][$custom_field]['class'];
 ?>
- 			<div class="form-group align-items-center row g-2 tab-collapsable-row<?= $custom_field_class; ?>">
+ 			<div class="form-group<?php if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'file' && (empty($tab_fieldgroup['fields'][$custom_field]['rows']) || $tab_fieldgroup['fields'][$custom_field]['rows'] < 2)): ?> align-items-center<?php endif; ?> row g-2 tab-collapsable-row<?= $custom_field_class; ?>">
                 <label class="col-sm-2 col-form-label text-end"><?php
                   if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                     if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
@@ -419,7 +419,7 @@ function addNewTab(pos) {
                 <label class="col-sm-2 col-form-label text-end" for="tabtitle${entries}"><?php echo $BL['be_tab_name']; ?></label>
                 <div class="col"><input type="text" name="tabtitle[${entries}]" id="tabtitle${entries}" value="" class="form-control form-control-sm" /></div>
             </div>
-            <div id="collapse_${entries}" class="collapse show" role="tabpanel" aria-labelledby="heading_${entries}" data-parent="#tabs">
+            <div id="collapse_${entries}" class="collapse show" role="tabpanel" aria-labelledby="heading_${entries}" data-bs-parent="#tabs">
                 <div class="form-group align-items-center row g-2">
 					<label for="tabheadline${entries}" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_headline'] ?></label>
 					<div class="col-sm-4">

@@ -119,7 +119,7 @@ $_last10_article = _dbQuery($_asql_1);
               echo '<span class="me-3 flag-icon flag-icon-' . ($lang = strtolower(empty($value["article_lang"]) ? $phpwcms['default_lang'] : $value["article_lang"])) . '" title="' . get_language_name($lang) . '"></span>';
           }
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="home-article-'.$value['article_id'].'">';
-          echo '<button id="abtnarticle'.$value['article_id'].'" class="btn fa btn-sm visible '.($value['article_aktiv'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['article_id'].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" data-bs-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
+          echo '<button id="abtnarticle'.$value['article_id'].'" class="btn fa btn-sm visible '.($value['article_aktiv'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['article_id'].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" data-bs-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"><i class="fa-solid '.($value['article_aktiv'] == 0 ? 'fa-eye-slash' : 'fa-eye').' fa-fw" aria-hidden="true"></i></button>';
           echo '<a class="btn btn-sm btn-blue" role="button" title="'.html($BL['be_func_struct_edit']).'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa-solid fa-pencil-alt"></i></a>';
           echo '</div>';
           echo '</td>';
@@ -214,7 +214,7 @@ $_last10_article = _dbQuery($_asql_1);
           echo '  <td class="text-nowrap home-date">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
           echo '  <td class="text-end text-nowrap home-actions">';
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="home-cp-'.$value['acontent_id'].'">';
-          echo '<button id="abtnacontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['acontent_id'].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" data-bs-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
+          echo '<button id="abtnacontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['acontent_id'].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" data-bs-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"><i class="fa-solid '.($value['acontent_visible'] == 0 ? 'fa-eye-slash' : 'fa-eye').' fa-fw" aria-hidden="true"></i></button>';
           echo '<a class="btn btn-sm btn-blue" title="'.html($BL['be_func_content_edit']).'" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'"><i class="fa-solid fa-pencil-alt"></i></a>';
           echo '</div>';
           echo '</td>'.LF;

@@ -74,7 +74,7 @@ $img_thumbs = '';
 <div class="form-group row g-2">
 	<label for="cimage_list" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_image']; ?></label>
 	<div class="col">
-		<select name="cimage_list[]" size="<?php echo isset($content['reference']["select"]) && count($content['reference']["select"]) ? count($content['reference']["select"]) + 6 : 6; ?>" multiple="multiple" class="form-select form-control form-control-sm" id="cimage_list">
+		<select name="cimage_list[]" size="<?php echo isset($content['reference']["select"]) && count($content['reference']["select"]) ? count($content['reference']["select"]) + 6 : 6; ?>" multiple="multiple" class="form-select form-select-sm" id="cimage_list">
 			<?php
 			if(is_array($content['reference']["list"]) && count($content['reference']["list"])) {
 				foreach($content['reference']["list"] as $key => $value) {
@@ -191,7 +191,7 @@ $img_thumbs = '';
 <div class="form-group row g-2 align-items-center">
 	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_reference_basis'] ?></label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<div class="form-check form-check-inline me-3">
 				<input name="creference_basis" id="creference_basis_0" type="radio" value="0" class="form-check-input" <?php is_checked(0, $content["reference"]["basis"]); ?> />
 				<label class="form-check-label" for="creference_basis_0"><?php echo $BL['be_cnt_reference_horizontal'] ?></label>

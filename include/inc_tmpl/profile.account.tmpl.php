@@ -269,7 +269,7 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
             <h5 class="fw-bold mb-2">2. <?php echo $BL['be_profile_2fa_step2'] ?? 'Enter Verification Code'; ?></h5>
             <p class="small text-muted mb-3"><?php echo $BL['be_profile_2fa_step2_text'] ?? 'Enter the 6-digit verification code from your authenticator app to complete setup:'; ?></p>
 
-            <form action="phpwcms.php?do=profile" method="post" class="form-inline" autocomplete="off">
+            <form action="phpwcms.php?do=profile" method="post" class="d-flex flex-wrap align-items-center gap-2" autocomplete="off">
               <input type="hidden" name="form_aktion" value="enable_2fa" />
               <div class="input-group input-group-sm me-2 mb-2">
                 

@@ -274,7 +274,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
           <td class="text-nowrap text-end">
           <?php
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="user-actions-'.$userlist['usr_id'].'">';
-          echo '<button id="abtnuser'.$userlist['usr_id'].'" class="btn fa btn-sm visible '.($userlist["usr_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$userlist['usr_id'].'" data-type="user" data-table="user" data-field="usr_aktiv" data-fieldid="usr_id" data-bs-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
+          echo '<button id="abtnuser'.$userlist['usr_id'].'" class="btn fa btn-sm visible '.($userlist["usr_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$userlist['usr_id'].'" data-type="user" data-table="user" data-field="usr_aktiv" data-fieldid="usr_id" data-bs-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"><i class="fa-solid '.($userlist["usr_aktiv"]==0 ? "fa-eye-slash" : "fa-eye").' fa-fw" aria-hidden="true"></i></button>';
           echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]).'" data-bs-toggle="tooltip" href="'.$goto .'"><i class="fa-solid fa-pencil-alt"></i></a>';
           echo '</div>';
           $confirm_usr = $BL['be_admin_usr_ldel'] . "\n[" . $userlist['usr_login'] . "]";

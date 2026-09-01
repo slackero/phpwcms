@@ -203,13 +203,16 @@ if($data) {
 
       if (empty($row["shopprod_status"])) {
           echo "btn-warning";
+          $shop_icon = "fa-eye-slash";
       } elseif (!empty($row["shopprod_var"]['request']) && !empty($row["shopprod_var"]['request_url'])) {
           echo "btn-warning";
+          $shop_icon = "fa-eye-slash";
       } else {
           echo "btn-success";
+          $shop_icon = "fa-eye";
       }
 
-      echo '" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
+      echo '" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"><i class="fa-solid '.$shop_icon.' fa-fw" aria-hidden="true"></i></button>';
       echo '</div>';
 
       echo '<a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];

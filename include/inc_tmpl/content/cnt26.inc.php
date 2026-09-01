@@ -46,7 +46,7 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 <?php if(count($content['recipe']['all_keywords'])): ?>
 	<div class="form-group row g-2">
 		<div class="col-sm-10 offset-sm-2">
-			<div class="form-inline">
+			<div class="d-flex flex-wrap align-items-center gap-2">
 				<select name="ph1" id="ph1" class="form-select form-select-sm me-2" onchange="insertAtCursorPos(document.articlecontent.recipe_category, ', ' + document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);">
 					<?php
 					foreach($content['recipe']['all_keywords'] as $temp_val) {
@@ -102,7 +102,7 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 <div class="form-group row g-2">
 	<label for="recipe_time" class="col-sm-2 col-form-label text-end">Zuber.Zeit</label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<input name="recipe_time" type="text" id="recipe_time" class="form-control form-control-sm me-1" style="width: 50px;" value="<?php echo empty($content['recipe']['time']) ? '' : intval($content['recipe']['time']) ?>" onkeyup="this.value=this.value.replace(/\D/g,'');" size="5" />
 			<span class="me-2 text-muted small"><?php echo $BL['be_date_minutes'] ?></span>
 			<input name="recipe_time_add" type="text" id="recipe_time_add" class="form-control form-control-sm" style="width: 120px;" value="<?php echo html($content['recipe']['time_add']) ?>" placeholder="<?php echo $BL['be_cnt_additional'] ?>" />
@@ -113,7 +113,7 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 <div class="form-group row g-2">
 	<label for="recipe_calorificvalue" class="col-sm-2 col-form-label text-end">N&auml;hrwert</label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<input name="recipe_calorificvalue" type="text" id="recipe_calorificvalue" class="form-control form-control-sm me-1" style="width: 50px;" value="<?php echo empty($content['recipe']['calorificvalue']) ? '' : intval($content['recipe']['calorificvalue']) ?>" size="5" onkeyup="this.value=this.value.replace(/\D/g,'');" />
 			<span class="me-2 text-muted small">kJ</span>
 			<input name="recipe_calorificvalue_add" type="text" id="recipe_calorificvalue_add" class="form-control form-control-sm" style="width: 120px;" value="<?php echo html($content['recipe']['calorificvalue_add']) ?>" placeholder="<?php echo $BL['be_cnt_additional'] ?>" />

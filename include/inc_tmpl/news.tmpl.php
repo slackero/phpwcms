@@ -73,7 +73,7 @@ $news = new phpwcmsNews();
       </div>
 
       <div class="col-sm-auto">
-            <select name="keyword" data-bs-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_for'] ?> <?php echo $BL['be_tags'] ?>" class="form-select form-control form-control-sm" onchange="this.form.submit();">
+            <select name="keyword" data-bs-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_for'] ?> <?php echo $BL['be_tags'] ?>" class="form-select form-select-sm" onchange="this.form.submit();">
                 <option value=""<?php is_selected('', $news->filter_keyword) ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
                     <?php if(count($news_categories)):
                         foreach($news_categories as $item):
@@ -298,7 +298,7 @@ if($news->data['cnt_id']) {
   <div class="form-group align-items-center row g-2">
     <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_media_format'] ?></label>
     <div class="col-sm-10">
-      <div class="btn-group btn-group-xs" role="group" aria-label="cnt_textformat">
+      <div class="btn-group btn-group-sm" role="group" aria-label="cnt_textformat">
         <input class="btn-check" type="radio" id="text_format0" name="cnt_textformat" value="plain" autocomplete="off"<?php is_checked('plain', $news->data['cnt_textformat']); ?> />
         <label class="btn btn-outline-blue" for="text_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
 
@@ -535,7 +535,7 @@ if($news->data['cnt_id']) {
   <div class="form-group row g-2" >
       <label for="cfile_list" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_files'] ?></label>
       <div class="col">
-        <select name="cnt_files[]" size="<?php echo $news->fileRows ?>" multiple="multiple" id="cfile_list" class="form-select form-control form-control-sm h-100">
+        <select name="cnt_files[]" size="<?php echo $news->fileRows ?>" multiple="multiple" id="cfile_list" class="form-select form-select-sm h-100">
       <?php if($news->fileCount) {
             foreach($news->files as $f_id => $item) {
               echo '<option value="' . $item['f_id'] . '">' . (empty($item['f_name']) ? '-- ' . $BL['be_msg_del'] . ' --' : html($item['f_name'])) . '</option>' . LF;
@@ -544,11 +544,11 @@ if($news->data['cnt_id']) {
       ?>
         </select>
       </div>
-      <div class="col-sm-auto">
-        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=summary" ><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.getElementById('cfile_list'));return false;"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.getElementById('cfile_list'));return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.getElementById('cfile_list'));return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+      <div class="col-sm-auto btn-col">
+        <button type="button" class="modalButton btn btn-sm btn-blue" title="<?php echo $BL['be_cnt_openfilebrowser'] ?>" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=summary" ><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.getElementById('cfile_list'));return false;"><i class="fa-solid fa-angle-up fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.getElementById('cfile_list'));return false;"><i class="fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-sm btn-danger" onclick="removeSelectedOptions(document.getElementById('cfile_list'));return false;" data-bs-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></button>
       </div>
   </div>
 

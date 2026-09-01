@@ -43,7 +43,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="form-group row g-2">
 	<label for="cguestbook_aliasID" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_alias_ID']; ?></label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<input name="cguestbook_aliasID" type="text" class="form-control form-control-sm me-2" id="cguestbook_aliasID" style="width: 70px;" size="10" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='';" value="<?php echo isset($content['guestbook']['aliasID']) ? $content['guestbook']['aliasID'] : ''; ?>" />
 			<?php
 			$_aliasID_Query  = 'SELECT acontent_id, acontent_visible, article_title, acontent_form FROM ' . DB_PREPEND . 'phpwcms_articlecontent';
@@ -77,7 +77,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="form-group row g-2">
 	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_guestbook_listing']; ?></label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<?php
 			if (!isset($content['guestbook']['listing'])) {
 				$content['guestbook']['listing'] = 0;
@@ -121,7 +121,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="form-group row g-2">
 	<label for="cguestbook_imgupload" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_imgupload']; ?></label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<?php
 			if (!isset($content['guestbook']['image_upload'])) {
 				$content['guestbook']['image_upload'] = 0;
@@ -167,7 +167,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="form-group row g-2">
 	<label for="cguestbook_captcha" class="col-sm-2 col-form-label text-end">Captcha</label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<?php
 			if (!isset($content['guestbook']['captcha'])) {
 				$content['guestbook']['captcha'] = 1;
@@ -212,7 +212,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="form-group row g-2">
 	<label for="cguestbook_cookie" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_guestbook_flooding']; ?></label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<div class="form-check form-check-inline me-2">
 				<input name="cguestbook_cookie" id="cguestbook_cookie" type="checkbox" value="1" class="form-check-input" <?php if (!isset($content['guestbook']['cookie'])) $content['guestbook']['cookie'] = 1; is_checked(1, intval($content['guestbook']['cookie'])); ?> />
 				<label class="form-check-label" for="cguestbook_cookie"><?php echo $BL['be_cnt_guestbook_setcookie']; ?></label>
@@ -226,7 +226,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="form-group row g-2">
 	<label for="cguestbook_notify" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_email_notify']; ?></label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<?php
 			if (!isset($content['guestbook']['notify'])) {
 				$content['guestbook']['notify'] = 0;

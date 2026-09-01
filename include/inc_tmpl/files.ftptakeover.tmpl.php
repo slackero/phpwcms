@@ -245,7 +245,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
                 $ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : '<i class="fa-solid fa-exclamation-circle text-danger me-1"></i>';
                 $k .= "<div class=\"form-group row g-2 align-items-center\">\n";
                 $k .= "<label for=\"be_ftptakeover_additional\" class=\"col-sm-2 col-form-label text-end\">".$ke.html($row["fcat_name"]).":&nbsp;</label>\n";
-                $k .= "<div class=\"col-sm-5\"><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"form-select form-control form-control-sm\">\n";
+                $k .= "<div class=\"col-sm-5\"><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"form-select form-select-sm\">\n";
                 $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";

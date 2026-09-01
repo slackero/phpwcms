@@ -73,7 +73,7 @@ if(!empty($content['poll_form']['choice']) && is_array($content['poll_form']['ch
 <div class="form-group row g-2">
 	<label for="cimage_list" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_image']; ?></label>
 	<div class="col">
-		<select name="cimage_list[]" size="<?php echo is_array($content['poll_select']) && count($content['poll_select']) ? count($content['poll_select'])+6 : 6 ?>" multiple="multiple" class="form-select form-control form-control-sm" id="cimage_list">
+		<select name="cimage_list[]" size="<?php echo is_array($content['poll_select']) && count($content['poll_select']) ? count($content['poll_select'])+6 : 6 ?>" multiple="multiple" class="form-select form-select-sm" id="cimage_list">
 			<?php
 			if(isset($content['poll_list']['images']) && is_array($content['poll_list']['images']) && count($content['poll_list']['images'])) {
 				foreach($content['poll_list']['images'] as $key => $value) {

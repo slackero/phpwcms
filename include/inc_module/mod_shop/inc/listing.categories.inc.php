@@ -188,7 +188,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
                 echo '<button id="abtnshop' . $row['cat_id'] . '" class="btn fa btn-sm visible ';
                 echo ((int)$row['cat_status'] === 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $row['cat_id'];
                 echo '" data-type="shop" data-table="categories" data-field="cat_status" data-fieldid="cat_id" aria-disabled="true" data-bs-toggle="tooltip" title="';
-                echo $BL['be_tooltip_visibility'] . '"></button>';
+                echo $BL['be_tooltip_visibility'] . '"><i class="fa-solid ' . ((int)$row['cat_status'] === 0 ? 'fa-eye-slash' : 'fa-eye') . ' fa-fw" aria-hidden="true"></i></button>';
                 echo '</div>';
                 echo '<a class="btn btn-sm btn-danger ms-1" href="' . $_controller_link . '&amp;delete=' . $row['cat_id'];
                 echo '" title="delete: ' . html_specialchars($row['cat_name']) . '"';

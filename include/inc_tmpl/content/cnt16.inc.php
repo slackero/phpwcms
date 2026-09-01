@@ -99,7 +99,7 @@ if(!isset($content['ecard'])) {
 <div class="form-group row g-2">
 	<label for="cimage_list" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_image']; ?></label>
 	<div class="col">
-		<select name="cimage_list[]" size="<?php echo isset($content['ecard']['select']) && count($content['ecard']['select']) ? count($content['ecard']['select'])+6 : 6 ?>" multiple="multiple" class="form-select form-control form-control-sm" id="cimage_list">
+		<select name="cimage_list[]" size="<?php echo isset($content['ecard']['select']) && count($content['ecard']['select']) ? count($content['ecard']['select'])+6 : 6 ?>" multiple="multiple" class="form-select form-select-sm" id="cimage_list">
 			<?php
 			if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) {
 				foreach($content['ecard']['images'] as $key => $value) {
@@ -186,7 +186,7 @@ if(!isset($content['ecard'])) {
 <div class="form-group row g-2">
 	<label for="cecard_col" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_column']; ?></label>
 	<div class="col-sm-10">
-		<div class="form-inline">
+		<div class="d-flex flex-wrap align-items-center gap-2">
 			<select name="cecard_col" id="cecard_col" class="form-select form-select-sm me-3" style="width: auto;">
 				<?php
 				for ($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {

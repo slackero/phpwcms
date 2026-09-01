@@ -363,7 +363,7 @@ if($_userInfo['list_channel']) {
 		echo '<div class="btn-group btn-group-sm" role="group" aria-label="subscriber-actions-'.$row["address_id"].'">';
 		echo '<a class="btn btn-sm btn-blue" role="button" title="'.$BL['be_tt_edit'].'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1"><i class="fa-solid fa-pencil-alt"></i></a>';
 
-		echo '<button id="abtnaddress'.$row["address_id"].'" class="btn fa btn-sm visible '.($row["address_verified"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["address_id"].'" data-type="address" data-table="address" data-field="address_verified" data-fieldid="address_id" data-bs-toggle="tooltip" title="'.sprintf($BL['be_mailinglist_verified'], $row["address_email"]).' "></button>';
+		echo '<button id="abtnaddress'.$row["address_id"].'" class="btn fa btn-sm visible '.($row["address_verified"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["address_id"].'" data-type="address" data-table="address" data-field="address_verified" data-fieldid="address_id" data-bs-toggle="tooltip" title="'.sprintf($BL['be_mailinglist_verified'], $row["address_email"]).' "><i class="fa-solid '.($row["address_verified"]==0 ? "fa-eye-slash" : "fa-eye").' fa-fw" aria-hidden="true"></i></button>';
 		echo '</div>';
 
 		echo '<a class="btn btn-sm btn-danger ms-1" role="button" title="'.$BL['be_mailinglist_delete_subscriber'].': '.html_specialchars($row["address_email"]).'" data-bs-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;del='.$row["address_id"].'" onclick="return confirm(\''.$BL['be_mailinglist_delete_subscriber'].' '.js_singlequote($row["address_email"]).'\');"><i class="fa-regular fa-trash-alt"></i></a>'.LF;

@@ -123,13 +123,13 @@ if(empty($content["alist"]["label"])) {
      	</div>
     </div>
     <div class="col-sm-auto">
-    	<div class="row g-2 form-inline ms-sm-3">
+    	<div class="row g-2 ms-sm-3">
 			<label class="col-form-label fw-normal" for="calist_label"><?php echo $BL['be_cnt_label'] ?></label>
 			<input type="text" name="calist_label" id="calist_label" class="form-control form-control-sm" value="<?php echo html($content["alist"]["label"]) ?>">
 		</div>
     </div>
     <div class="col-sm-auto">
-    	<div class="row g-2 form-inline ms-sm-3">
+    	<div class="row g-2 ms-sm-3">
 			<label class="col-form-label fw-normal" for="calist_break"><?php echo $BL['be_cnt_field']['break'] ?></label>
 			<input type="text" name="calist_break" id="calist_break" class="form-control form-control-sm" value="<?php echo html($content["alist"]["break"]) ?>">
 		</div>
@@ -145,13 +145,13 @@ if(empty($content["alist"]["label"])) {
      	</div>
     </div>
     <div class="col-sm-auto">
-    	<div class="row g-2 form-inline ms-sm-3">
+    	<div class="row g-2 ms-sm-3">
 			<label class="col-form-label fw-normal" for="calist_maxchar"><?php echo $BL['be_cnt_articlemenu_maxchar'] ?></label>
 			<input type="text" name="calist_maxchar" id="calist_maxchar" class="form-control form-control-sm" value="<?php echo $content["alist"]["maxchar"] ?>">
 		</div>
     </div>
     <div class="col-sm-auto">
-    	<div class="row g-2 form-inline ms-sm-3">
+    	<div class="row g-2 ms-sm-3">
 			<label class="col-form-label fw-normal" for="calist_morelink"><?php echo $BL['be_article_morelink'] ?></label>
 			<input type="text" name="calist_morelink" id="calist_morelink" class="form-control form-control-sm" value="<?php echo html($content["alist"]["morelink"]) ?>">
 		</div>

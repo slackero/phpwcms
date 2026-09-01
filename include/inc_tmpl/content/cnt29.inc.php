@@ -225,7 +225,7 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
     <div class="col">
         <div class="row g-2">
             <div class="col">
-                <select name="cimage_list[]" size="<?php echo $img_count+6 ?>" multiple="multiple" class="form-select form-control form-control-sm" id="cimage_list">
+                <select name="cimage_list[]" size="<?php echo $img_count+6 ?>" multiple="multiple" class="form-select form-select-sm" id="cimage_list">
 <?php
 if($img_count) {
 
@@ -429,7 +429,7 @@ if($content['custom_field_items']):
                 endforeach;
 
             elseif($cnt_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($cnt_fieldgroup['fields'][$custom_field]['values'])): ?>
-                <select name="customfield[<?php echo $custom_field; ?>]" class="form-select form-control form-control-sm"><?php
+                <select name="customfield[<?php echo $custom_field; ?>]" class="form-select form-select-sm"><?php
                 foreach($cnt_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
                     <option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
                         if(isset($content['custom_fields'][$custom_field]) && $content['custom_fields'][$custom_field] === $option_key): ?> selected="selected"<?php

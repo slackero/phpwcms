@@ -49,7 +49,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group align-items-center row g-2">
   <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_media_format']; ?></label>
   <div class="col">
-    <div class="btn-group btn-group-xs" role="group" aria-label="ctext_format">
+    <div class="btn-group btn-group-sm" role="group" aria-label="ctext_format">
       <input name="ctext_format" type="radio" id="ctext_format0" value="plain" class="btn-check" autocomplete="off" <?php is_checked('plain', $content['ctext_format']); ?> />
       <label class="btn btn-outline-blue" for="ctext_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
 

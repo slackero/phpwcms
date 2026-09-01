@@ -163,8 +163,8 @@ function showAction() {
             <td class="text-end text-nowrap">
                 <?php
                 //Icons Public/Non-Public
-                echo '<div class="btn fa btn-sm visible '.($file_row["f_aktiv"]==0 ? "btn-danger" : "btn-success").' me-1 disabled"></div>';
-                echo '<div class="btn fa btn-sm public '.($file_row["f_public"]==0 ? "btn-danger" : "btn-success").' disabled"></div>';
+                echo '<div class="btn fa btn-sm visible '.($file_row["f_aktiv"]==0 ? "btn-danger" : "btn-success").' me-1 disabled"><i class="fa-solid '.($file_row["f_aktiv"]==0 ? "fa-eye-slash" : "fa-eye").' fa-fw" aria-hidden="true"></i></div>';
+                echo '<div class="btn fa btn-sm public '.($file_row["f_public"]==0 ? "btn-danger" : "btn-success").' disabled"><i class="fa-solid '.($file_row["f_public"]==0 ? "fa-lock" : "fa-lock-open").' fa-fw" aria-hidden="true"></i></div>';
                  ?>&nbsp;
                 <input name="ftp_fileid[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_row["f_id"] ?>" />
             </td>

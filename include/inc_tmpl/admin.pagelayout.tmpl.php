@@ -410,18 +410,9 @@ if(!isset($_GET["s"])) {
 		<div class="row g-2 align-items-center">
 			<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_page_align']  ?></label>
 			<div class="col">
-				<div class="col-sm-auto"><div class="form-check">
-					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_0" value="0" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
-					<label class="form-check-label" for="layout_align_0"><img src="img/symbole/layout_left.svg" alt="<?php echo $BL['be_admin_page_align_left'] ?>" width="56" height="44" border="0"></label>
-				</div></div>
-				<div class="col-sm-auto"><div class="form-check">
-					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_1" value="1" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
-					<label class="form-check-label" for="layout_align_1"><img src="img/symbole/layout_center.svg" alt="<?php echo $BL['be_admin_page_align_center'] ?>" width="56" height="44" border="0"></label>
-				</div></div>
-				<div class="col-sm-auto"><div class="form-check">
-					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_2" value="2" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
-					<label class="form-check-label" for="layout_align_2" ><img src="img/symbole/layout_right.svg" alt="<?php echo $BL['be_admin_page_align_right'] ?>" width="56" height="44" border="0"></label>
-				</div></div>
+				<div class="col-sm-auto"><div class="form-check"><input class="form-check-input" type="radio" name="layout_align" id="layout_align_0" value="0" <?php is_checked(0, $pagelayout["layout_align"]); ?>><label class="form-check-label" for="layout_align_0"><img src="img/symbole/layout_left.svg" alt="<?php echo $BL['be_admin_page_align_left'] ?>" width="56" height="44" border="0"></label></div></div>
+				<div class="col-sm-auto"><div class="form-check"><input class="form-check-input" type="radio" name="layout_align" id="layout_align_1" value="1" <?php is_checked(1, $pagelayout["layout_align"]); ?>><label class="form-check-label" for="layout_align_1"><img src="img/symbole/layout_center.svg" alt="<?php echo $BL['be_admin_page_align_center'] ?>" width="56" height="44" border="0"></label></div></div>
+				<div class="col-sm-auto"><div class="form-check"><input class="form-check-input" type="radio" name="layout_align" id="layout_align_2" value="2" <?php is_checked(2, $pagelayout["layout_align"]); ?>><label class="form-check-label" for="layout_align_2"><img src="img/symbole/layout_right.svg" alt="<?php echo $BL['be_admin_page_align_right'] ?>" width="56" height="44" border="0"></label></div></div>
 			</div>
 		</div>
 	</fieldset>

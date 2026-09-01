@@ -337,7 +337,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
         </div>
     </div>
 
-    <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" data-parent="#images">
+    <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" data-bs-parent="#images">
       <div class="card-body ">
         <div class="row mb-3">
           <div class="col-sm-6">
@@ -422,8 +422,8 @@ if($value['custom_field_items']):
         $custom_field_class = empty($cnt_fieldgroup['fields'][$custom_field]['class']) ? '' : ' ' . $cnt_fieldgroup['fields'][$custom_field]['class'];
 ?>
 
-      <div class="form-group align-items-center row g-2<?= $custom_field_class; ?>">
-        <label class="col-sm-2 col-form-label text-end align-self-start"><?php
+      <div class="form-group<?php if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'file' && (empty($tab_fieldgroup['fields'][$custom_field]['rows']) || $tab_fieldgroup['fields'][$custom_field]['rows'] < 2)): ?> align-items-center<?php endif; ?> row g-2<?= $custom_field_class; ?>">
+        <label class="col-sm-2 col-form-label text-end"><?php
             if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                 if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
                     echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
@@ -789,7 +789,7 @@ function addNewImage(where) {
     new_entry += '<a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\')"><i class="fa-regular fa-trash-alt"></i></a></div>';
     new_entry += '</div>';
     new_entry += '</div>';
-    new_entry += '<div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#images">';
+    new_entry += '<div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-bs-parent="#images">';
     new_entry += '<div class="card-body">';
     new_entry += '<div class="row mb-3">';
     new_entry += '<div class="col-sm-6">';

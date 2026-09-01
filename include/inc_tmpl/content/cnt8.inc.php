@@ -108,12 +108,12 @@ initJsAutocompleter();
 <div class="form-group align-items-center row g-2">
   <label for="calink_unique" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_rendering'] ?></label>
   <div class="col-sm-auto">
-    <div class="form-check-inline">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" name="calink_unique" id="calink_unique" value="1"<?php is_checked(1, $content['alink']['alink_unique']) ?> />
       <label class="form-check-label" for="calink_unique"><?php echo $BL['be_unique_teaser_entry'] ?></label>
     </div>
   </div>
-  <div class="col form-inline">
+  <div class="col d-flex flex-wrap align-items-center gap-2">
     <label for="calink_columns" class="col-form-label text-end mx-sm-3"><?php echo $BL['be_cnt_column'] ?></label>
     <input name="calink_columns" type="text" id="calink_columns" class="form-control form-control-sm" value="<?php echo $content['alink']['alink_columns']; ?>" maxlength="3" />
   </div>
@@ -122,7 +122,7 @@ initJsAutocompleter();
 <div class="form-group align-items-center row g-2">
   <label for="calink_categoryalias" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_morelink'] ?></label>
   <div class="col-sm-auto">
-    <div class="form-check-inline">
+    <div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" name="calink_categoryalias" id="calink_categoryalias" value="1"<?php is_checked(1, $content['alink']['alink_categoryalias']) ?> />
       <label class="form-check-label" for="calink_categoryalias"><?php echo $BL['be_check_against_category_alias'] ?></label>
     </div>
@@ -132,13 +132,13 @@ initJsAutocompleter();
 <div class="form-group align-items-center row g-2">
   <label for="calink_wordlimit" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_article_asummary'] ?></label>
   <div class="col-sm-auto">
-    <div class="form-inline">
+    <div class="d-flex flex-wrap align-items-center gap-2">
       <input name="calink_wordlimit" type="text" id="calink_wordlimit" class="form-control form-control-sm me-sm-3" value="<?php echo empty($content['alink']['alink_wordlimit']) ? '' : $content['alink']['alink_wordlimit']; ?>" maxlength="5" />
       <?php echo $BL['be_cnt_results_wordlimit'] ?>
     </div>
   </div>
   <div class="col mt-2 mt-sm-0">
-    <div class="form-inline">
+    <div class="form-check form-check-inline">
 			<input class="form-check-input ms-sm-3" name="calink_hidesummary" type="checkbox" id="calink_hidesummary" value="1"<?php is_checked(1, $content['alink']['alink_hidesummary']); ?> />
 			<label class="form-check-label" for="calink_hidesummary"><?php echo $BL['be_article_nosummary'] ?></label>
     </div>
@@ -341,7 +341,7 @@ initJsAutocompleter();
      </select>
   </div>
   <div class="col">
-    <div class="form-inline">
+    <div class="form-check form-check-inline">
 			<input class="form-check-input ms-sm-3" type="checkbox" name="teaser_filter_category_by_tags" id="filter_category_by_tags" value="1"<?php if($content['alink']['filter_tags'] !== null) echo ' checked="checked"'; ?> />
 			<label class="form-check-label" for="filter_category_by_tags"><?php echo $BL['be_filter_with_tags'] ?><button class="btn btn-blue btn-sm ms-sm-1" name="Submit"><i class="fa-solid fa-search"></i></button></label>
     </div>
@@ -351,7 +351,7 @@ initJsAutocompleter();
 <div class="form-group row g-2" id="calink_auto_0"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
   <label class="col-sm-2 col-form-label text-end"></label>
   <div class="col">
-    <div class="form-inline">
+    <div class="d-flex flex-wrap align-items-center gap-2">
       <?php echo $BL['be_cnt_rssfeed_max'] ?>
       <input name="calink_max" type="text" id="calink_max" class="form-control form-control-sm mx-sm-2" value="<?php echo empty($content['alink']['alink_max']) ? '' : $content['alink']['alink_max']; ?>" size="5" maxlength="5" />
       <?php echo $BL['be_cnt_articles'] ?>

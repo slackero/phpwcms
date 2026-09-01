@@ -281,9 +281,9 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
           <td class="text-end text-nowrap">
             <div class="btn-group btn-group-sm" role="group" aria-label="group-actions-<?php echo $grouplist['group_id']; ?>">
             <?php if ($grouplist["group_syskey"]) {
-                echo '<button class="btn fa btn-sm visible btn-success disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5; min-width: 32px;" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
+                echo '<button class="btn fa btn-sm visible btn-success disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5; min-width: 32px;" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"><i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i></button>';
               } else {
-                echo '<button id="abtngroup'.$grouplist["group_id"].'" class="btn fa btn-sm visible '.($grouplist["group_active"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$grouplist["group_id"].'" data-type="group" data-table="usergroup" data-field="group_active" data-fieldid="group_id" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
+                echo '<button id="abtngroup'.$grouplist["group_id"].'" class="btn fa btn-sm visible '.($grouplist["group_active"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$grouplist["group_id"].'" data-type="group" data-table="usergroup" data-field="group_active" data-fieldid="group_id" data-bs-toggle="tooltip" title="aktivieren/deaktivieren"><i class="fa-solid '.($grouplist["group_active"]==0 ? "fa-eye-slash" : "fa-eye").' fa-fw" aria-hidden="true"></i></button>';
               }
             ?>
             <a class="btn btn-sm btn-blue" role="button" title="<?php
