@@ -66,6 +66,7 @@ class phpwcms_update
     public function run(string $expectedTag): array
     {
         $result = ['success' => false, 'error' => '', 'files' => 0, 'backup' => '', 'log' => []];
+        $stageDir = '';
         $lock = $this->lock();                       // flock on workDir/update.lock
         if (!$lock) {
             return array_merge($result, ['error' => 'Update already running (lock held).']);
@@ -126,20 +127,23 @@ class phpwcms_update
             // P9 inline revision run + success row
             $revisionOk = phpwcms_revision_check((int)PHPWCMS_REVISION);
             $this->finishLogRow($revisionOk ? 'success' : 'failed', count($plan['added']) + count($plan['modified']) + count($plan['deleted']));
-            $this->rrmdir($stageDir);
             return array_merge($result, [
                 'success' => $revisionOk,
                 'error' => $revisionOk ? '' : 'Files updated but DB revision failed — check revision_error log.',
                 'files' => count($plan['added']) + count($plan['modified']) + count($plan['deleted']),
                 'backup' => $this->backupDir,
+                'log' => $this->logTail(),
             ]);
         } catch (Throwable $e) {
             $this->log('FAILED: ' . $e->getMessage());
             if ($this->updateId) {
                 $this->finishLogRow('failed', 0, $e->getMessage());
             }
-            return array_merge($result, ['error' => $e->getMessage()]);
+            return array_merge($result, ['error' => $e->getMessage(), 'log' => $this->logTail()]);
         } finally {
+            if ($stageDir !== '') {
+                $this->rrmdir($stageDir);
+            }
             $this->unlock($lock);
         }
     }
@@ -148,42 +152,50 @@ class phpwcms_update
     public function rollback(int $updateId): array
     {
         $result = ['success' => false, 'error' => ''];
-        $row = _dbQuery('SELECT * FROM ' . DB_PREPEND . 'phpwcms_update_log WHERE update_id = ' . (int)$updateId);
-        if (!$row || !isset($row[0])) {
-            return array_merge($result, ['error' => 'Update run not found.']);
+        $lock = $this->lock();                       // flock on workDir/update.lock
+        if (!$lock) {
+            return array_merge($result, ['error' => 'Update already running (lock held).']);
         }
-        $row = $row[0];
-        $backupDir = (string)($row['update_backup'] ?? '');
-        if ($backupDir === '' || !is_dir($backupDir . 'files/')) {
-            return array_merge($result, ['error' => 'No file backup available for this run.']);
-        }
-        $mirror = $backupDir . 'files/';
-        $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($mirror, FilesystemIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::SELF_FIRST
-        );
-        foreach ($iterator as $item) {
-            if (!$item->isFile()) {
-                continue;
+        try {
+            $row = _dbQuery('SELECT * FROM ' . DB_PREPEND . 'phpwcms_update_log WHERE update_id = ' . (int)$updateId);
+            if (!$row || !isset($row[0])) {
+                return array_merge($result, ['error' => 'Update run not found.']);
             }
-            $rel = substr($item->getPathname(), strlen($mirror));
-            $target = PHPWCMS_ROOT . '/' . $rel;
-            $dir = dirname($target);
-            if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
-                return array_merge($result, ['error' => 'Could not create restore dir ' . $dir]);
+            $row = $row[0];
+            $backupDir = (string)($row['update_backup'] ?? '');
+            if ($backupDir === '' || !is_dir($backupDir . 'files/')) {
+                return array_merge($result, ['error' => 'No file backup available for this run.']);
             }
-            if (!@copy($item->getPathname(), $target)) {
-                return array_merge($result, ['error' => 'Failed restoring ' . $rel]);
+            $mirror = $backupDir . 'files/';
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($mirror, FilesystemIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::SELF_FIRST
+            );
+            foreach ($iterator as $item) {
+                if (!$item->isFile()) {
+                    continue;
+                }
+                $rel = substr($item->getPathname(), strlen($mirror));
+                $target = PHPWCMS_ROOT . '/' . $rel;
+                $dir = dirname($target);
+                if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
+                    return array_merge($result, ['error' => 'Could not create restore dir ' . $dir]);
+                }
+                if (!@copy($item->getPathname(), $target)) {
+                    return array_merge($result, ['error' => 'Failed restoring ' . $rel]);
+                }
             }
+            $res = _dbQuery(
+                'UPDATE ' . DB_PREPEND . 'phpwcms_update_log SET update_status = \'rolled_back\' WHERE update_id = ' . (int)$updateId,
+                'UPDATE'
+            );
+            if (empty($res['AFFECTED_ROWS'])) {
+                return array_merge($result, ['error' => 'Could not mark run as rolled back.']);
+            }
+            return array_merge($result, ['success' => true]);
+        } finally {
+            $this->unlock($lock);
         }
-        $res = _dbQuery(
-            'UPDATE ' . DB_PREPEND . 'phpwcms_update_log SET update_status = \'rolled_back\' WHERE update_id = ' . (int)$updateId,
-            'UPDATE'
-        );
-        if (empty($res['AFFECTED_ROWS'])) {
-            return array_merge($result, ['error' => 'Could not mark run as rolled back.']);
-        }
-        return array_merge($result, ['success' => true]);
     }
 
     public function clearMaintenance(): void
@@ -232,6 +244,19 @@ class phpwcms_update
         @file_put_contents($this->logFile, date('Y-m-d H:i:s') . ' ' . $message . LF, FILE_APPEND);
     }
 
+    /** Last ~40 lines of the run log, newest last. Empty array if no log yet. */
+    private function logTail(): array
+    {
+        if (!is_file($this->logFile)) {
+            return [];
+        }
+        $lines = file($this->logFile, FILE_IGNORE_NEW_LINES);
+        if ($lines === false) {
+            return [];
+        }
+        return array_slice($lines, -40);
+    }
+
     private function initBackupDir(): void
     {
         $this->backupDir = PHPWCMS_ROOT . '/content/backup/' . date('Y-m-d-His') . '/';
@@ -258,22 +283,25 @@ class phpwcms_update
     {
         $table = DB_PREPEND . 'phpwcms_update_log';
         $sql = 'INSERT INTO ' . $table . ' (update_from, update_to, update_tag, update_status, update_backup, update_files, update_user) VALUES ('
-            . '\'' . _dbEscape(PHPWCMS_VERSION) . '\', '
-            . '\'' . _dbEscape($release['version']) . '\', '
-            . '\'' . _dbEscape($release['tag']) . '\', '
+            . _dbEscape(PHPWCMS_VERSION) . ', '
+            . _dbEscape($release['version']) . ', '
+            . _dbEscape($release['tag']) . ', '
             . '\'running\', '
-            . '\'' . _dbEscape($this->backupDir) . '\', '
+            . _dbEscape($this->backupDir) . ', '
             . '0, '
             . (int)$this->userId . ')';
         $res = _dbQuery($sql, 'INSERT');
         $this->updateId = (int)($res['INSERT_ID'] ?? 0);
+        if ($this->updateId <= 0) {
+            throw new RuntimeException('Could not create update log row.');
+        }
     }
 
     private function finishLogRow(string $status, int $files, string $error = ''): void
     {
         $table = DB_PREPEND . 'phpwcms_update_log';
-        $sql = 'UPDATE ' . $table . ' SET update_status = \'' . _dbEscape($status) . '\', update_files = ' . (int)$files
-            . ', update_error = ' . ($error === '' ? 'NULL' : '\'' . _dbEscape($error) . '\'')
+        $sql = 'UPDATE ' . $table . ' SET update_status = ' . _dbEscape($status) . ', update_files = ' . (int)$files
+            . ', update_error = ' . ($error === '' ? 'NULL' : _dbEscape($error))
             . ' WHERE update_id = ' . (int)$this->updateId;
         $res = _dbQuery($sql, 'UPDATE');
         if (empty($res['AFFECTED_ROWS'])) {
