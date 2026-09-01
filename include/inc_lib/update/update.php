@@ -142,7 +142,7 @@ class phpwcms_update
             }
             phpwcms_update_change_report($this->backupDir, $plan['added'], $plan['modified'], $plan['deleted']);
             // P9 inline revision run + success row
-            $revisionOk = phpwcms_revision_check((int)PHPWCMS_REVISION);
+            $revisionOk = phpwcms_revision_check($this->targetRevision());
             $this->finishLogRow($revisionOk ? 'success' : 'failed', count($plan['added']) + count($plan['modified']) + count($plan['deleted']));
             return array_merge($result, [
                 'success' => $revisionOk,
@@ -202,13 +202,19 @@ class phpwcms_update
                     return array_merge($result, ['error' => 'Failed restoring ' . $rel]);
                 }
             }
-            $res = _dbQuery(
-                'UPDATE ' . DB_PREPEND . 'phpwcms_update_log SET update_status = \'rolled_back\' WHERE update_id = ' . (int)$updateId,
-                'UPDATE'
-            );
-            if (empty($res['AFFECTED_ROWS'])) {
-                return array_merge($result, ['error' => 'Could not mark run as rolled back.']);
+            $currentStatus = (string)($row['update_status'] ?? '');
+            if ($currentStatus !== 'rolled_back') {
+                $res = _dbQuery(
+                    'UPDATE ' . DB_PREPEND . 'phpwcms_update_log SET update_status = \'rolled_back\' WHERE update_id = ' . (int)$updateId,
+                    'UPDATE'
+                );
+                if (empty($res['AFFECTED_ROWS'])) {
+                    return array_merge($result, ['error' => 'Could not mark run as rolled back.']);
+                }
             }
+            // Files are back to the old version; drop the new manifest so the next
+            // update treats the install as manifest-less (no spurious deletions).
+            @unlink(PHPWCMS_ROOT . '/.update-manifest');
             return array_merge($result, ['success' => true]);
         } finally {
             $this->unlock($lock);
@@ -499,9 +505,34 @@ class phpwcms_update
             }
             $parts = preg_split('/\s+/', $line, 2);
             if (count($parts) === 2 && $parts[1] !== '') {
-                $manifest[$parts[1]] = $parts[0];
+                $rel = $parts[1];
+                // zip-slip defense: reject traversal ('..' segments), absolute
+                // paths (leading '/') and backslash separators so a hostile
+                // manifest cannot escape the docroot via extract/apply/backup.
+                if (str_starts_with($rel, '/')
+                    || str_contains($rel, '\\')
+                    || in_array('..', explode('/', $rel), true)) {
+                    continue;
+                }
+                $manifest[$rel] = $parts[0];
             }
         }
         return $manifest;
+    }
+
+    /**
+     * Target DB revision for the inline revision run after apply. Derived from
+     * the NEWLY applied revision.php (the bootstrap-time PHPWCMS_REVISION
+     * constant still holds the pre-update value). Falls back to the constant
+     * only if the file is missing or the pattern does not match.
+     */
+    private function targetRevision(): int
+    {
+        $revisionFile = PHPWCMS_ROOT . '/include/inc_lib/revision/revision.php';
+        $source = is_file($revisionFile) ? (string)@file_get_contents($revisionFile) : '';
+        if ($source !== '' && preg_match("/PHPWCMS_REVISION\s*=\s*'([^']+)'/", $source, $m)) {
+            return (int)$m[1];
+        }
+        return (int)PHPWCMS_REVISION;
     }
 }

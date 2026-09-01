@@ -36,7 +36,9 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 if (is_file(PHPWCMS_ROOT . '/include/inc_lib/update/update.php')) {
     require_once PHPWCMS_ROOT . '/include/inc_lib/update/update.php';
     if (phpwcms_update::maintenanceActive()) {
+        http_response_code(503);
         header('Retry-After: 60');
+        header('Cache-Control: no-store, must-revalidate');
         header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
         die('<!DOCTYPE html><html lang="en"><head><meta charset="' . PHPWCMS_CHARSET . '"><title>Maintenance</title><meta name="robots" content="noindex"></head><body style="font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0"><p style="font-size:1.25rem">This site is currently being updated. Please try again in a few minutes.</p></body></html>');
     }

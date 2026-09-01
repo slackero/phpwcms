@@ -212,8 +212,10 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
                         $badge = 'secondary';
                     }
                     $backupDir = (string)($row['update_backup'] ?? '');
-                    $canRollback = in_array($status, ['success', 'failed'], true)
-                        && $backupDir !== ''
+                    // Rollback is offered whenever a file backup exists, even for a
+                    // stuck 'running' row (crash/OOM mid-run) — the files/ mirror is
+                    // the source of truth, not the status column.
+                    $canRollback = $backupDir !== ''
                         && is_dir($backupDir . 'files/');
                     ?>
                     <tr>

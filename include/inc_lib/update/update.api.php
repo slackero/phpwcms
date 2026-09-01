@@ -167,17 +167,138 @@ function phpwcms_update_fetch_latest_release(): array|false
 }
 
 /**
- * Download the release zip asset to $targetPath. Returns bool.
- * Redirects are followed only to allowlisted HTTPS hosts.
+ * HEAD request returning [code, location] without buffering a body.
+ * Used by the redirect walk so the final URL can be found without pulling
+ * the (potentially tens-of-MB) asset into memory.
+ */
+function phpwcms_update_http_probe(string $url): array|false
+{
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_NOBODY => true,
+            CURLOPT_FOLLOWLOCATION => false,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
+            CURLOPT_USERAGENT => 'phpwcms-selfupdate/' . PHPWCMS_VERSION,
+        ]);
+        curl_exec($ch);
+        $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $errno = curl_errno($ch);
+        $location = (string)curl_getinfo($ch, CURLINFO_REDIRECT_URL);
+        curl_close($ch);
+        if ($errno) {
+            return false;
+        }
+        return [$code, $location];
+    }
+    if (!ini_get('allow_url_fopen')) {
+        return false;
+    }
+    $context = stream_context_create(['http' => [
+        'timeout' => 30,
+        'user_agent' => 'phpwcms-selfupdate/' . PHPWCMS_VERSION,
+        'follow_location' => 0,
+        'max_redirects' => 0,
+    ]]);
+    $fp = @fopen($url, 'rb', false, $context);
+    if ($fp === false) {
+        return false;
+    }
+    $code = 0;
+    $location = '';
+    foreach ($http_response_header as $header) {
+        if (preg_match('/^HTTP\/\S+\s+(\d{3})/', $header, $m)) {
+            $code = (int)$m[1];
+        }
+        if (stripos($header, 'Location:') === 0) {
+            $location = trim(substr($header, 9));
+        }
+    }
+    fclose($fp);
+    return [$code, $location];
+}
+
+/**
+ * Walk redirects from $url to the final URL, validating each hop's host.
+ * Uses HEAD probes so no body is buffered. Returns the final URL (HTTP 200)
+ * or false.
+ */
+function phpwcms_update_resolve_redirects(string $url, bool $restrictHosts): string|false
+{
+    $redirects = 0;
+    while (true) {
+        if (str_starts_with($url, 'http://')) {
+            return false; // never plain http
+        }
+        $host = (string)parse_url($url, PHP_URL_HOST);
+        if ($restrictHosts && !phpwcms_update_is_allowed_host($host)) {
+            return false;
+        }
+        $probe = phpwcms_update_http_probe($url);
+        if ($probe === false) {
+            return false;
+        }
+        [$code, $location] = $probe;
+        if (in_array($code, [301, 302, 303, 307, 308], true) && $location !== '') {
+            if (++$redirects > 3) {
+                return false;
+            }
+            if (preg_match('#^https?://#i', $location)) {
+                $url = $location;
+            } else {
+                $url = (string)parse_url($url, PHP_URL_SCHEME) . '://' . (string)parse_url($url, PHP_URL_HOST) . $location;
+            }
+            continue;
+        }
+        if ($code !== 200) {
+            return false;
+        }
+        return $url;
+    }
+}
+
+/**
+ * Download the release zip asset to $targetPath, streaming to disk so the
+ * archive is never buffered in memory. Redirects are walked (HEAD probes) to
+ * the final allowlisted HTTPS URL, then that URL is streamed once to file.
+ * Returns bool.
  */
 function phpwcms_update_download_asset(string $zipUrl, string $targetPath): bool
 {
-    if (!phpwcms_update_is_allowed_host((string)parse_url($zipUrl, PHP_URL_HOST))) {
+    $finalUrl = phpwcms_update_resolve_redirects($zipUrl, true);
+    if ($finalUrl === false) {
         return false;
     }
-    $body = phpwcms_update_http_get($zipUrl, true);
-    if ($body === false) {
+    if (function_exists('curl_init')) {
+        $handle = @fopen($targetPath, 'wb');
+        if ($handle === false) {
+            return false;
+        }
+        $ch = curl_init($finalUrl);
+        curl_setopt_array($ch, [
+            CURLOPT_FILE => $handle,
+            CURLOPT_FOLLOWLOCATION => false,
+            CURLOPT_TIMEOUT => 300,
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_PROTOCOLS => CURLPROTO_HTTPS,
+            CURLOPT_USERAGENT => 'phpwcms-selfupdate/' . PHPWCMS_VERSION,
+        ]);
+        $ok = curl_exec($ch);
+        $errno = curl_errno($ch);
+        curl_close($ch);
+        fclose($handle);
+        return $ok !== false && $errno === 0;
+    }
+    if (!ini_get('allow_url_fopen')) {
         return false;
     }
-    return (bool)@file_put_contents($targetPath, $body);
+    $context = stream_context_create(['http' => [
+        'timeout' => 300,
+        'user_agent' => 'phpwcms-selfupdate/' . PHPWCMS_VERSION,
+        'follow_location' => 0,
+        'max_redirects' => 0,
+    ]]);
+    return @copy($finalUrl, $targetPath, $context);
 }

@@ -24,6 +24,9 @@ define('LF', "\n");
 // --- DB layer stubs (query-aware, ASSOC-shaped like the real _dbQuery) ---
 $GLOBALS['logInserts'] = 0;
 $GLOBALS['forceDbDumpFail'] = false;
+$GLOBALS['logStatus'] = 'success';
+$GLOBALS['logBackup'] = '';
+$GLOBALS['lastRevisionCheck'] = null;
 
 function _dbQuery($q, $type = '')
 {
@@ -36,6 +39,13 @@ function _dbQuery($q, $type = '')
     if (str_starts_with($q, 'SHOW CREATE TABLE')) {
         return [['Table' => 'phpwcms_user', 'Create Table' => 'CREATE TABLE `phpwcms_user` (`id` int(11) NOT NULL)']];
     }
+    if (str_starts_with($q, 'SELECT * FROM') && str_contains($q, 'phpwcms_update_log')) {
+        return [[
+            'update_id' => 1,
+            'update_status' => $GLOBALS['logStatus'],
+            'update_backup' => $GLOBALS['logBackup'],
+        ]];
+    }
     if (str_starts_with($q, 'SELECT * FROM')) {
         return [['id' => 1, 'name' => 'admin']];
     }
@@ -44,6 +54,9 @@ function _dbQuery($q, $type = '')
         return ['INSERT_ID' => 1];
     }
     if (str_starts_with($q, 'UPDATE')) {
+        if (str_contains($q, 'rolled_back')) {
+            $GLOBALS['logStatus'] = 'rolled_back';
+        }
         return ['AFFECTED_ROWS' => 1];
     }
     return [];
@@ -53,7 +66,7 @@ function _dbCount($t) { return 1; }
 function _dbColumnExists($t, $c) { return true; }
 function _dbTableExists($t) { return true; }
 // phpwcms_revision_check lives in backend.functions.inc.php (not loaded here).
-function phpwcms_revision_check($rev) { return true; }
+function phpwcms_revision_check($rev) { $GLOBALS['lastRevisionCheck'] = (int)$rev; return true; }
 
 require_once __DIR__ . '/../../include/inc_lib/update/update.php';
 
@@ -93,7 +106,7 @@ function resetDocroot(): void
  * Build a docroot-rooted release zip: given files + a staged revision.php with
  * $version, plus a sha256 .update-manifest (same layout the engine expects).
  */
-function buildReleaseZip(string $zipPath, array $files, string $version): void
+function buildReleaseZip(string $zipPath, array $files, string $version, string $revision = '559'): void
 {
     $zip = new ZipArchive();
     if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
@@ -104,7 +117,7 @@ function buildReleaseZip(string $zipPath, array $files, string $version): void
         $zip->addFromString($rel, $content);
         $manifest[$rel] = hash('sha256', $content);
     }
-    $rev = "<?php\nconst PHPWCMS_VERSION = '" . $version . "';\n";
+    $rev = "<?php\nconst PHPWCMS_VERSION = '" . $version . "';\nconst PHPWCMS_REVISION = '" . $revision . "';\n";
     $zip->addFromString('include/inc_lib/revision/revision.php', $rev);
     $manifest['include/inc_lib/revision/revision.php'] = hash('sha256', $rev);
     $lines = [];
@@ -142,13 +155,14 @@ buildReleaseZip($zip1, [
     'phpwcms.php' => 'PHPWCMS-NEW',
     'template/inc_default/startup.php' => 'TPL-RELEASE',
     'include/inc_lib/newfile.php' => 'NEWFILE',
-], '9.9.9');
+], '9.9.9', '560');
 
 $u = new phpwcms_update(1, $zip1);
 $res = $u->run('v9.9.9');
 assert($res['success'] === true, 'S1: fresh install succeeds: ' . ($res['error'] ?? ''));
 assert(file_get_contents(PHPWCMS_ROOT . '/phpwcms.php') === 'PHPWCMS-NEW', 'S1: phpwcms.php updated');
 assert(strpos(file_get_contents(PHPWCMS_ROOT . '/include/inc_lib/revision/revision.php'), '9.9.9') !== false, 'S1: revision bumped');
+assert($GLOBALS['lastRevisionCheck'] === 560, 'S1: inline revision check uses NEWLY applied revision, not bootstrap constant');
 assert(is_file(PHPWCMS_ROOT . '/include/inc_lib/newfile.php'), 'S1: added file present');
 assert(is_file(PHPWCMS_ROOT . '/.update-manifest'), 'S1: new manifest written');
 $backup1 = newestBackupDir();
@@ -220,6 +234,52 @@ clearstatcache();
 $active = phpwcms_update::maintenanceActive();
 assert($active === false, 'S5: stale flag inactive');
 @unlink($flag);
+
+// --- Scenario 6: rollback restores files, marks rolled_back, drops manifest, idempotent ---
+resetDocroot();
+$zip6a = $base . '/rel-6a.zip';
+buildReleaseZip($zip6a, ['phpwcms.php' => 'PHPWCMS-NEW'], '9.9.9');
+$u = new phpwcms_update(1, $zip6a);
+$res = $u->run('v9.9.9');
+assert($res['success'] === true, 'S6a: first run succeeds: ' . ($res['error'] ?? ''));
+$zip6b = $base . '/rel-6b.zip';
+buildReleaseZip($zip6b, ['phpwcms.php' => 'PHPWCMS-NEW2'], '9.9.9');
+$u = new phpwcms_update(1, $zip6b);
+$res = $u->run('v9.9.9');
+assert($res['success'] === true, 'S6b: second run succeeds: ' . ($res['error'] ?? ''));
+assert(file_get_contents(PHPWCMS_ROOT . '/phpwcms.php') === 'PHPWCMS-NEW2', 'S6: new file applied');
+assert(is_file(PHPWCMS_ROOT . '/.update-manifest'), 'S6: manifest present before rollback');
+$GLOBALS['logBackup'] = newestBackupDir();
+$GLOBALS['logStatus'] = 'success';
+$res = $u->rollback(1);
+assert($res['success'] === true, 'S6: rollback succeeds: ' . ($res['error'] ?? ''));
+assert(file_get_contents(PHPWCMS_ROOT . '/phpwcms.php') === 'PHPWCMS-NEW', 'S6: file restored to pre-run version');
+assert(!file_exists(PHPWCMS_ROOT . '/.update-manifest'), 'S6: manifest removed after rollback');
+assert($GLOBALS['logStatus'] === 'rolled_back', 'S6: status marked rolled_back');
+$res = $u->rollback(1);
+assert($res['success'] === true, 'S6: second rollback idempotent: ' . ($res['error'] ?? ''));
+
+// --- Scenario 7: zip-slip manifest entries rejected ---
+resetDocroot();
+$zip7 = $base . '/rel-7.zip';
+$zip = new ZipArchive();
+$zip->open($zip7, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+$zip->addFromString('phpwcms.php', 'PHPWCMS-NEW');
+$zip->addFromString('include/inc_lib/revision/revision.php', "<?php\nconst PHPWCMS_VERSION = '9.9.9';\n");
+$manifest = [
+    hash('sha256', 'PHPWCMS-NEW') . '  phpwcms.php',
+    hash('sha256', 'x') . '  ../../evil.php',
+    hash('sha256', 'x') . '  /abs/path.php',
+    hash('sha256', 'x') . '  ..\\win.php',
+];
+$zip->addFromString('.update-manifest', implode("\n", $manifest) . "\n");
+$zip->close();
+$u = new phpwcms_update(1, $zip7);
+$res = $u->run('v9.9.9');
+assert($res['success'] === true, 'S7: run succeeds with malicious entries rejected: ' . ($res['error'] ?? ''));
+assert(!file_exists(PHPWCMS_ROOT . '/evil.php'), 'S7: traversal entry not extracted');
+assert(!file_exists(PHPWCMS_ROOT . '/abs/path.php'), 'S7: absolute entry not extracted');
+assert(!file_exists(PHPWCMS_ROOT . '/win.php'), 'S7: backslash entry not extracted');
 
 // --- cleanup ---
 rrmdir($base);
