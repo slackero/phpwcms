@@ -192,7 +192,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
                 ?>
             </select>
         </div>
-      <div class="col-sm-auto d-flex flex-column justify-content-center gap-2 py-1">
+      <div class="col-sm-auto btn-col justify-content-center">
           <button type="button" class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-double-left fa-fw" aria-hidden="true"></i></button>
           <button type="button" class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button>
           <button type="button" class="btn btn-sm btn-blue" data-bs-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button>
