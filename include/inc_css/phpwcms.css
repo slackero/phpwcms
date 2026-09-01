@@ -106,7 +106,6 @@ textarea {
     font-size: 1rem;
 }
 
-
 .form-control-sm,
 .input-group-sm > .form-control,
 .input-group-sm > .btn,
@@ -216,14 +215,14 @@ label a:focus,
 }
 
 /* Content part block headers & subheaders */
-.cp-block-default { background-color: #E0D6EB; color: var(--bs-body-color); }
-.cp-block-content { background-color: #F5CCCC; color: var(--bs-body-color); }
-.cp-block-left { background-color: #E0EBD6; color: var(--bs-body-color); }
-.cp-block-right { background-color: #FFF5CC; color: var(--bs-body-color); }
-.cp-block-header { background-color: #EBEBD6; color: var(--bs-body-color); }
-.cp-block-footer { background-color: #E1E8F7; color: var(--bs-body-color); }
-.cp-block-cpset { background-color: #cceaf5; color: var(--bs-body-color); }
-.cp-block-system { background-color: #ffdc9d; color: var(--bs-body-color); }
+.cp-block-default { background-color: #E0D6EB; color: #212529; }
+.cp-block-content { background-color: #F5CCCC; color: #212529; }
+.cp-block-left { background-color: #E0EBD6; color: #212529; }
+.cp-block-right { background-color: #FFF5CC; color: #212529; }
+.cp-block-header { background-color: #EBEBD6; color: #212529; }
+.cp-block-footer { background-color: #E1E8F7; color: #212529; }
+.cp-block-cpset { background-color: #cceaf5; color: #212529; }
+.cp-block-system { background-color: #ffdc9d; color: #212529; }
 
 .copyrightInfo {
     background: #fdfdfd;
@@ -238,6 +237,10 @@ label a:focus,
 
 .bg-grey {
     background-color: #F5F6F5;
+}
+
+.img-bg {
+    background-color: #EDF0F6;
 }
 
 .article-thumb,
@@ -391,7 +394,6 @@ label a:focus,
     height: 48px;
 }
 
-
 #content {
     padding: 85px 15px 20px;
 }
@@ -489,6 +491,7 @@ label a:focus,
     --bs-btn-disabled-color: #31709b;
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: #31709b;
+    --bs-gradient: none;
     color: var(--bs-btn-color);
     border-color: var(--bs-btn-border-color);
     background-color: transparent;
@@ -559,9 +562,8 @@ label a:focus,
     border-color: transparent;
 }
 
-/* icon nudge inside small blue edit buttons (higher specificity beats the utility) */
 .btn-blue .mt-1 {
-    margin-top: .15rem;
+    margin-top: .15rem !important;
 }
 
 .dropdown-menu {
@@ -569,9 +571,41 @@ label a:focus,
     border-radius: 0;
 }
 
-/* Action buttons wrapping prevention */
-.btn-group {
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: var(--bs-body-color);
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0;
+    border: 0;
+}
+
+.nav .btn-sm {
+    font-size: 1rem;
+}
+
+.btn-success, .btn-danger {
+    color: #fff !important;
+    appearance: none !important;
+}
+
+/* Action buttons wrapping prevention & icon consistency */
+.cell-actions,
+.btn-group,
+.action-buttons {
     white-space: nowrap !important;
+}
+
+/* 1px subtle separation border between adjacent buttons in button groups */
+.btn-group > .btn + .btn,
+.btn-group > .btn + .btn-group,
+.btn-group > .btn-group + .btn,
+.btn-group > .btn-group + .btn-group {
+    border-left: 1px solid rgba(0, 0, 0, 0.15) !important;
 }
 
 .visible.btn-success,
@@ -586,19 +620,21 @@ label a:focus,
     justify-content: center;
 }
 
-/* Distinct amber styling for inactive/invisible status toggle buttons */
+/* Distinct pastel amber/orange styling for inactive/invisible status toggle buttons */
 .visible.btn-danger,
-.public.btn-danger {
+.public.btn-danger,
+.btn-group > .btn-danger:not([title*="Delete"]):not([onclick*="delete"]):not([onclick*="confirm"]):not([href*="delete"]):not([href*="trash"]) {
     color: #fff !important;
-    background-color: var(--bs-warning) !important;
-    border-color: var(--bs-warning) !important;
+    background-color: #f0ad4e !important;
+    border-color: #eea236 !important;
 }
 
 .visible.btn-danger:hover,
-.public.btn-danger:hover {
+.public.btn-danger:hover,
+.btn-group > .btn-danger:not([title*="Delete"]):not([onclick*="delete"]):not([onclick*="confirm"]):not([href*="delete"]):not([href*="trash"]):hover {
     color: #fff !important;
-    background-color: var(--bs-warning) !important;
-    filter: brightness(0.9);
+    background-color: #ec971f !important;
+    border-color: #d58512 !important;
 }
 
 /* Ensure buttons in action containers never wrap */
@@ -622,7 +658,6 @@ label a:focus,
     color: #f4c017;
     margin-right: 5px;
 }
-
 
 a.filein {
     display: block;
@@ -1102,7 +1137,7 @@ li.placeholder:before {
 }
 
 .handle {
-    color: var(--bs-secondary-color, #868e96);
+    color: #868e96;
     cursor: grab;
     user-select: none;
 }
@@ -1262,6 +1297,18 @@ li.sortme {
     margin-left: 1.7rem;
 }
 
+.input-group > .input-group-text.success {
+    color: rgb(255, 255, 255);
+    background-color: rgb(92, 184, 92);
+    border-color: rgb(76, 174, 76);
+}
+
+.input-group > .input-group-text.danger {
+    color: rgb(255, 255, 255);
+    background-color: rgb(217, 83, 79);
+    border-color: rgb(212, 63, 58);
+}
+
 .fa-file {
     color: #7D7E7D;
 }
@@ -1319,7 +1366,7 @@ li.sortme {
     }
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     #header .navbar-nav .nav-link {
         line-height: 45px;
     }
@@ -1339,7 +1386,7 @@ li.sortme {
         padding-top: 65px;
     }
 
-    #header .dropdown-menu {
+    header .dropdown-menu {
         position: fixed !important;
         top: 45px;
         left: 0;
@@ -1347,7 +1394,7 @@ li.sortme {
     }
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 560px) {
     #basic-search .fa {
         font-size: 1em;
         padding-top: 0;
@@ -1441,6 +1488,16 @@ tr.hover-success > td,
 tr.hover-warning > td,
 tr.hover-amber > td {
     border-bottom: 1px solid #dfdfdf;
+}
+
+.border-bottom-medium,
+.border-bottom-medium td,
+.border-bottom-medium th,
+tr.border-bottom-medium > td,
+tr.border-bottom-medium > th,
+td.border-bottom-medium,
+th.border-bottom-medium {
+    border-bottom: 1px solid #cbd6e2 !important;
 }
 
 .bg-row-pink {
@@ -1676,14 +1733,14 @@ div#images > div, div#tabs > div {
 }
 
 div#images > div.nomove, div#tabs > div.nomove {
-    background: var(--bs-tertiary-bg, #f3f5f8);
+    background: #f3f5f8;
     border-bottom: 1px solid #4e789f;
     border-top: 1px solid #4e789f;
     margin-top: 10px;
 }
 
 div#images > div:hover, div#tabs > div:hover {
-    background-color: var(--bs-tertiary-bg, #f3f5f8);
+    background-color: #f3f5f8;
 }
 
 div#images td.backend_preview_img {
@@ -1794,10 +1851,6 @@ body.filebrowser table img,
   height: auto;
   object-fit: contain;
 }
-
-
-
-
 
 /* =============================================================================
    12. Setup Wizard Steps
@@ -1918,7 +1971,13 @@ body.filebrowser table img,
     top: 50%;
     transform: translateY(-50%);
     animation: fa-spin 1s infinite linear;
-    color: var(--bs-success, #28a745);
+    color: #28a745;
+}
+
+.overflow-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .nowrap {
@@ -2533,8 +2592,8 @@ body.filebrowser table img,
     color: #212529;
 }
 .phpwcms-ace-toolbar .btn-ace-tool.active {
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
+    background-color: #007bff;
+    border-color: #007bff;
     color: #fff;
 }
 .phpwcms-ace-editor {
