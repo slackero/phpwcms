@@ -329,17 +329,17 @@
         },
         {
             "name": "enshrined/svg-sanitize",
-            "version": "0.22.0",
-            "version_normalized": "0.22.0.0",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-                "reference": "0afa95ea74be155a7bcd6c6fb60c276c39984500"
+                "reference": "f3300fcd1bbf67d205b52217c75d0f7d6a8c47ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/0afa95ea74be155a7bcd6c6fb60c276c39984500",
-                "reference": "0afa95ea74be155a7bcd6c6fb60c276c39984500",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/f3300fcd1bbf67d205b52217c75d0f7d6a8c47ff",
+                "reference": "f3300fcd1bbf67d205b52217c75d0f7d6a8c47ff",
                 "shasum": ""
             },
             "require": {
@@ -350,7 +350,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^6.5 || ^8.5"
             },
-            "time": "2025-08-12T10:13:48+00:00",
+            "time": "2026-09-01T09:35:47+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -371,7 +371,7 @@
             "description": "An SVG sanitizer for PHP",
             "support": {
                 "issues": "https://github.com/darylldoyle/svg-sanitizer/issues",
-                "source": "https://github.com/darylldoyle/svg-sanitizer/tree/0.22.0"
+                "source": "https://github.com/darylldoyle/svg-sanitizer/tree/1.0.0"
             },
             "install-path": "../enshrined/svg-sanitize"
         },
@@ -2064,12 +2064,12 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.9",
-            "version_normalized": "2.2.9.0",
+            "version": "2.2.12",
+            "version_normalized": "2.2.12.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/13d6b4f347bad222da436580c8304fa6f83e6bd0",
-                "reference": "13d6b4f347bad222da436580c8304fa6f83e6bd0",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/174b0d88710f00a42598886504dd7a146f91ace5",
+                "reference": "174b0d88710f00a42598886504dd7a146f91ace5",
                 "shasum": ""
             },
             "require": {
@@ -2078,7 +2078,7 @@
             "conflict": {
                 "phpstan/phpstan-shim": "*"
             },
-            "time": "2026-08-22T07:38:16+00:00",
+            "time": "2026-08-31T19:09:43+00:00",
             "bin": [
                 "phpstan",
                 "phpstan.phar"
@@ -2526,12 +2526,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0de4cd39951f4d88f6083e1e18e0c661ed983a10"
+                "reference": "75320b4f4aea335128da75a67d55a77dc1f0e8c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0de4cd39951f4d88f6083e1e18e0c661ed983a10",
-                "reference": "0de4cd39951f4d88f6083e1e18e0c661ed983a10",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/75320b4f4aea335128da75a67d55a77dc1f0e8c1",
+                "reference": "75320b4f4aea335128da75a67d55a77dc1f0e8c1",
                 "shasum": ""
             },
             "conflict": {
@@ -2870,7 +2870,7 @@
                 "getgrav/grav": "<=2.0.19",
                 "getgrav/grav-plugin-api": "<1.0.0.0-beta15",
                 "getgrav/grav-plugin-form": "<9.1",
-                "getkirby/cms": "<=4.9.3|>=5,<=5.4.3",
+                "getkirby/cms": "<=4.9.4|>=5,<5.5.2",
                 "getkirby/kirby": "<3.9.8.3-dev|>=3.10,<3.10.1.2-dev|>=4,<4.7.1",
                 "getkirby/panel": "<2.5.14",
                 "getkirby/starterkit": "<=3.7.0.2",
@@ -3003,7 +3003,7 @@
                 "lavalite/cms": "<=10.1",
                 "lavitto/typo3-form-to-database": "<2.2.5|>=3,<3.2.2|>=4,<4.2.3|>=5,<5.0.2",
                 "lcobucci/jwt": ">=3.4,<3.4.6|>=4,<4.0.4|>=4.1,<4.1.5",
-                "league/commonmark": "<2.9",
+                "league/commonmark": "<2.10",
                 "league/flysystem": "<1.1.4|>=2,<2.1.1",
                 "league/oauth2-server": ">=8.3.2,<8.4.2|>=8.5,<8.5.3",
                 "leantime/leantime": "<3.3",
@@ -3196,7 +3196,7 @@
                 "phppgadmin/phppgadmin": "<=7.13",
                 "phpseclib/phpseclib": "<=2.0.54|>=3,<=3.0.53",
                 "phpservermon/phpservermon": "<3.6",
-                "phpsysinfo/phpsysinfo": "<3.4.3",
+                "phpsysinfo/phpsysinfo": "<=3.4.5",
                 "phpunit/phpunit": "<8.5.52|>=9,<9.6.33|>=10,<10.5.62|>=11,<11.5.50|>=12,<12.5.8|>=12.5.21,<12.5.22|>=13.1.5,<13.1.6",
                 "phpwhois/phpwhois": "<=4.2.5",
                 "phpxmlrpc/extras": "<0.6.1",
@@ -3210,7 +3210,8 @@
                 "pimcore/demo": "<10.3",
                 "pimcore/ecommerce-framework-bundle": "<1.0.10",
                 "pimcore/perspective-editor": "<1.5.1",
-                "pimcore/pimcore": "<12.3.9|>=2026.1,<=2026.1.4",
+                "pimcore/pimcore": "<=12.3.9|>=2026.1,<=2026.1.5",
+                "pimcore/studio-backend-bundle": "<2025.4.6|>=2026.1,<2026.1.6",
                 "pimcore/web2print-tools-bundle": "<=5.2.1|>=6.0.0.0-RC1-dev,<=6.1",
                 "piwik/piwik": "<1.11",
                 "pixelfed/pixelfed": "<0.12.5",
@@ -3234,7 +3235,7 @@
                 "prestashop/ps_emailsubscription": "<2.6.1",
                 "prestashop/ps_facetedsearch": "<4.0.4",
                 "prestashop/ps_linklist": "<3.1",
-                "privatebin/privatebin": "<1.4|>=1.5,<1.7.4|>=1.7.7,<2.0.3",
+                "privatebin/privatebin": "<=2.0.4",
                 "processwire/processwire": "<=3.0.255",
                 "propel/propel": ">=2.0.0.0-alpha1,<2.0.0.0-alpha8",
                 "propel/propel1": ">=1,<1.7.2",
@@ -3357,9 +3358,9 @@
                 "starcitizentools/short-description": ">=4,<4.0.1",
                 "starcitizentools/tabber-neue": ">=1.9.1,<2.7.2|>=3,<3.1.1",
                 "starcitizenwiki/embedvideo": "<=4",
-                "statamic/cms": "<5.74.3|>=6,<6.24.2",
+                "statamic/cms": "<5.74.3|>=6,<=6.30",
                 "stormpath/sdk": "<9.9.99",
-                "studio-42/elfinder": "<=2.1.67",
+                "studio-42/elfinder": "<=2.1.69",
                 "studiomitte/friendlycaptcha": "<0.1.4",
                 "subhh/libconnect": "<7.0.8|>=8,<8.1",
                 "sukohi/surpass": "<1",
@@ -3531,7 +3532,7 @@
                 "web-feet/coastercms": "==5.5",
                 "web-token/jwt-bundle": "<3.4.10|>=4,<4.0.7|>=4.1,<4.1.7",
                 "web-token/jwt-experimental": "<4.1.7",
-                "web-token/jwt-framework": "<4.1.7",
+                "web-token/jwt-framework": "<3.4.10|>=4,<4.0.7|>=4.1,<4.1.7",
                 "web-token/jwt-library": "<3.4.10|>=4,<4.0.7|>=4.1,<4.1.7",
                 "web-tp3/wec_map": "<3.0.3",
                 "webbuilders-group/silverstripe-kapost-bridge": "<0.4",
@@ -3624,7 +3625,7 @@
                 "zoujingli/thinkadmin": "<=6.1.53",
                 "zumba/json-serializer": "<3.2.3"
             },
-            "time": "2026-08-28T09:46:03+00:00",
+            "time": "2026-09-01T20:37:29+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
@@ -4498,20 +4499,20 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "8.8.2",
-            "version_normalized": "8.8.2.0",
+            "version": "8.9.0",
+            "version_normalized": "8.9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "e985cd41c60ecda5b7f92cec73fe8f234a6f32ff"
+                "reference": "091dfa397f303c8330a970f52946d9a4b89ac87e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/e985cd41c60ecda5b7f92cec73fe8f234a6f32ff",
-                "reference": "e985cd41c60ecda5b7f92cec73fe8f234a6f32ff",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/091dfa397f303c8330a970f52946d9a4b89ac87e",
+                "reference": "091dfa397f303c8330a970f52946d9a4b89ac87e",
                 "shasum": ""
             },
-            "time": "2026-07-27T04:10:15+00:00",
+            "time": "2026-08-31T03:52:44+00:00",
             "type": "component",
             "extra": {
                 "component": {
@@ -4554,7 +4555,7 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/8.8.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/8.9.0"
             },
             "install-path": "../tinymce/tinymce"
         }
