@@ -168,11 +168,20 @@ label a:focus,
     vertical-align: middle;
 }
 
-/* .bg-light chips need an explicit dark text color - the BS4
-   .badge-light compat layer had one, .bg-light sets background only,
-   so inherited (light) dark-mode text turned the chips unreadable */
+/* Explicit text contrast for badges using .bg-* helpers */
 .badge.bg-light {
     color: #212529;
+}
+.badge.bg-warning,
+.badge.bg-info {
+    color: #000;
+}
+.badge.bg-primary,
+.badge.bg-secondary,
+.badge.bg-success,
+.badge.bg-danger,
+.badge.bg-dark {
+    color: #fff;
 }
 
 .badge-align {

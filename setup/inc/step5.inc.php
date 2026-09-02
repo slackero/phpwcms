@@ -50,9 +50,9 @@ $phpwcms['root'] = !empty($phpwcms['root']) ? '/' . $phpwcms['root'] : '';
                     <code><?php echo html_specialchars($path) ?></code>
                 </div>
                 <?php if ($is_ok): ?>
-                    <span class="badge badge-success rounded-pill">Writable (OK)</span>
+                    <span class="badge text-bg-success rounded-pill">Writable (OK)</span>
                 <?php else: ?>
-                    <span class="badge badge-danger rounded-pill">Not Writable</span>
+                    <span class="badge text-bg-danger rounded-pill">Not Writable</span>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>

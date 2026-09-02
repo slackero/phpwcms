@@ -864,10 +864,10 @@ function render_format_badges($supported_formats, $standard_formats = array()) {
         $is_supported = in_array($fmt, $supported_formats, true);
         if ($is_supported) {
             $is_doc = in_array($fmt, array('PDF', 'EPS', 'PS', 'AI', 'SVG'), true);
-            $badge_class = $is_doc ? 'badge badge-info text-white' : 'badge badge-secondary text-white';
+            $badge_class = $is_doc ? 'badge text-bg-info' : 'badge text-bg-secondary';
             $html .= '<span class="' . $badge_class . ' me-1 mb-1 fw-normal">' . html_specialchars($fmt) . '</span> ';
         } else {
-            $html .= '<span class="badge badge-light text-muted border me-1 mb-1 fw-normal" style="opacity: 0.45; text-decoration: line-through;" title="' . html_specialchars($fmt) . ' is not supported">' . html_specialchars($fmt) . '</span> ';
+            $html .= '<span class="badge text-bg-light text-muted border me-1 mb-1 fw-normal" style="opacity: 0.45; text-decoration: line-through;" title="' . html_specialchars($fmt) . ' is not supported">' . html_specialchars($fmt) . '</span> ';
         }
     }
     return trim($html);

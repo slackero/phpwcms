@@ -32,7 +32,7 @@ require_once __DIR__ . '/inc/setup.func.inc.php';
                 <a href="https://www.phpwcms.org" target="_blank" class="d-inline-block">
                     <img src="../img/phpwcms-logo-white.svg" alt="phpwcms" height="38" class="align-middle">
                 </a>
-                <span class="badge badge-primary ms-3">SETUP</span>
+                <span class="badge text-bg-primary ms-3">SETUP</span>
             </div>
             <div class="text-end small text-white-50">
                 <div>VERSION <?php echo html_specialchars($phpwcms_version) ?></div>
