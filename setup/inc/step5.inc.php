@@ -9,11 +9,11 @@
  **/
 
 if (!defined('PHPWCMS_SETUP')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 
 $_SERVER['DOCUMENT_ROOT'] = $phpwcms['DOC_ROOT'];
-$phpwcms['root'] = !empty($phpwcms['root']) ? "/" . $phpwcms['root'] : "";
+$phpwcms['root'] = !empty($phpwcms['root']) ? '/' . $phpwcms['root'] : '';
 
 ?>
 <h2 class="h4 text-primary fw-normal mb-3">7. Finalization &amp; Permissions Check</h2>
@@ -23,7 +23,7 @@ $phpwcms['root'] = !empty($phpwcms['root']) ? "/" . $phpwcms['root'] : "";
     <div class="card-header bg-light fw-bold">Directory Permissions</div>
     <div class="list-group list-group-flush">
         <?php
-        $dir_checks = array(
+        $dir_checks = [
             'Filestorage' => $phpwcms['root'] . '/' . $phpwcms['file_path'],
             'Deleted Files' => $phpwcms['root'] . '/' . $phpwcms['file_path'] . '/can_be_deleted',
             'Templates' => $phpwcms['root'] . '/' . $phpwcms['templates'],
@@ -35,7 +35,7 @@ $phpwcms['root'] = !empty($phpwcms['root']) ? "/" . $phpwcms['root'] : "";
             'Frontend Tmp' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/tmp',
             'Frontend RSS' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/rss',
             'Frontend Pages' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/pages'
-        );
+        ];
 
         foreach ($dir_checks as $label => $path):
             $status = check_path_status($path);
@@ -46,7 +46,8 @@ $phpwcms['root'] = !empty($phpwcms['root']) ? "/" . $phpwcms['root'] : "";
             ?>
             <div class="list-group-item d-flex justify-content-between align-items-center py-2">
                 <div>
-                    <strong><?php echo html_specialchars($label) ?>:</strong> <code><?php echo html_specialchars($path) ?></code>
+                    <strong><?php echo html_specialchars($label) ?>:</strong>
+                    <code><?php echo html_specialchars($path) ?></code>
                 </div>
                 <?php if ($is_ok): ?>
                     <span class="badge badge-success rounded-pill">Writable (OK)</span>
@@ -64,12 +65,11 @@ $config_setup = read_textfile($this_root . '/setup/setup.conf.inc.php');
 $result = false;
 
 if (!is_file($this_root . '/include/config/conf.inc.php')) {
-    if (!write_textfile($this_root . '/include/config/conf.inc.php', $config_setup)) {
-        if (!@copy($this_root . '/setup/setup.conf.inc.php', $this_root . '/include/config/conf.inc.php')) {
-            if (@rename($this_root . '/setup/setup.conf.inc.php', $this_root . '/include/config/conf.inc.php')) {
-                $result = true;
-            }
-        } else {
+    if (
+        !write_textfile($this_root . '/include/config/conf.inc.php', $config_setup)
+        && !@copy($this_root . '/setup/setup.conf.inc.php', $this_root . '/include/config/conf.inc.php')
+    ) {
+        if (@rename($this_root . '/setup/setup.conf.inc.php', $this_root . '/include/config/conf.inc.php')) {
             $result = true;
         }
     } else {
@@ -101,8 +101,7 @@ if (!is_file($this_root . '/include/config/conf.inc.php')) {
             }
             if ($ht_result):
                 if ($phpwcms['root'] && $htaccess = @read_textfile($this_root . '/.htaccess')) {
-                    $htaccess = str_replace('RewriteBase /', '#RewriteBase /', $htaccess);
-                    $htaccess = str_replace('#RewriteBase /subfolder/', 'RewriteBase /' . trim($phpwcms['root'], '/') . '/', $htaccess);
+                    $htaccess = str_replace(['RewriteBase /', '#RewriteBase /subfolder/'], ['#RewriteBase /', 'RewriteBase /' . trim($phpwcms['root'], '/') . '/'], $htaccess);
                     write_textfile($this_root . '/.htaccess', $htaccess);
                 }
                 ?>

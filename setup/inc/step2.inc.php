@@ -19,17 +19,31 @@ if (!defined('PHPWCMS_SETUP')) {
     <div class="alert alert-danger mb-4"><i class="fa fa-exclamation-triangle"></i> Please check your site and email settings.</div>
 <?php endif; ?>
 
+<?php
+$detected_timezone = ini_get('date.timezone') ?: (date_default_timezone_get() ?: 'UTC');
+$selected_timezone = !empty($phpwcms['php_timezone']) ? $phpwcms['php_timezone'] : $detected_timezone;
+?>
 <form action="setup.php?step=2" method="post">
 
     <div class="card mb-4 border">
-        <div class="card-header bg-light fw-bold">Site URL Basis</div>
+        <div class="card-header bg-light fw-bold">Site URL &amp; Timezone</div>
         <div class="card-body">
-            <div class="form-group row mb-0">
+            <div class="form-group row">
                 <label for="site" class="col-sm-3 col-form-label fw-bold">Site Basis URL</label>
                 <div class="col-sm-6">
                     <input name="site" type="url" class="form-control" id="site" value="<?php echo html_specialchars($phpwcms['site']) ?>" placeholder="<?php echo html_specialchars(get_url_origin(true)); ?>" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Detected: <code><?php echo html_specialchars(get_url_origin(true)); ?></code></div>
+            </div>
+
+            <div class="form-group row mb-0">
+                <label for="php_timezone" class="col-sm-3 col-form-label fw-bold">PHP Timezone</label>
+                <div class="col-sm-6">
+                    <select name="php_timezone" id="php_timezone" class="form-select">
+                        <?php echo render_timezone_options($selected_timezone); ?>
+                    </select>
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Detected: <code><?php echo html_specialchars($detected_timezone); ?></code></div>
             </div>
         </div>
     </div>

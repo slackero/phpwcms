@@ -61,12 +61,36 @@ if(!empty($step)) {
 
         $phpwcms['charset'] = 'utf-8'; // Fixed
         $phpwcms['db_charset'] = 'utf8mb4';
-        if (!empty($_POST['charset'])) {
+
+        if (!empty($_POST['default_lang'])) {
+            $phpwcms['default_lang'] = clean_slweg($_POST['default_lang']);
+            $_collation_warning = false;
+        } elseif (!empty($_POST['charset'])) {
             $phpwcms['default_lang'] = substr($_POST['charset'], 0, 2);
             $_collation_warning = false;
         } elseif (empty($phpwcms['default_lang'])) {
             $phpwcms['default_lang'] = 'en';
         }
+
+        if (!empty($_POST['allowed_lang']) && is_array($_POST['allowed_lang'])) {
+            $cleaned_allowed = [];
+            foreach ($_POST['allowed_lang'] as $al) {
+                $cal = clean_slweg($al);
+                if (!empty($cal)) {
+                    $cleaned_allowed[] = $cal;
+                }
+            }
+            if (!empty($cleaned_allowed)) {
+                $phpwcms['allowed_lang'] = array_values(array_unique($cleaned_allowed));
+            }
+        }
+        if (empty($phpwcms['allowed_lang']) || !is_array($phpwcms['allowed_lang'])) {
+            $phpwcms['allowed_lang'] = [$phpwcms['default_lang']];
+        }
+        if (!in_array($phpwcms['default_lang'], $phpwcms['allowed_lang'], true)) {
+            array_unshift($phpwcms['allowed_lang'], $phpwcms['default_lang']);
+        }
+
         if (!empty($_POST['collation']) && preg_match('/^utf8mb4[a-zA-Z0-9_]*$/i', $_POST['collation'])) {
             $phpwcms['db_collation'] = clean_slweg($_POST['collation']);
         } elseif (empty($phpwcms['db_collation'])) {
@@ -284,7 +308,11 @@ if(!empty($step)) {
 
     if($step == 2 && $do) {
 
-        $phpwcms['site'] = clean_slweg($_POST['site']);
+        $phpwcms['site'] = clean_slweg($_POST['site'] ?? '');
+
+        if (!empty($_POST['php_timezone']) && in_array($_POST['php_timezone'], DateTimeZone::listIdentifiers(), true)) {
+            $phpwcms['php_timezone'] = clean_slweg($_POST['php_timezone']);
+        }
 
         $phpwcms['SMTP_FROM_EMAIL'] = clean_slweg($_POST['smtp_from_email']);
         if(!$phpwcms['SMTP_FROM_EMAIL']) {

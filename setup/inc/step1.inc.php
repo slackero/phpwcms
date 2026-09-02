@@ -142,30 +142,52 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
     if (!empty($selected_collation) && !in_array($selected_collation, $db_collations, true)) {
         array_unshift($db_collations, $selected_collation);
     }
+    $browser_langs = detect_browser_languages();
+    $clean_langs = get_clean_languages();
+    $valid_browser_langs = array_values(array_intersect($browser_langs, array_keys($clean_langs)));
+
+    if (!empty($phpwcms['allowed_lang']) && is_array($phpwcms['allowed_lang'])) {
+        $selected_allowed = $phpwcms['allowed_lang'];
+    } elseif (!empty($valid_browser_langs)) {
+        $selected_allowed = $valid_browser_langs;
+    } else {
+        $selected_allowed = ['en'];
+    }
+
+    if (!empty($phpwcms['default_lang'])) {
+        $selected_default = $phpwcms['default_lang'];
+    } elseif (!empty($valid_browser_langs)) {
+        $selected_default = $valid_browser_langs[0];
+    } else {
+        $selected_default = 'en';
+    }
     ?>
     <div class="card mb-4 border">
         <div class="card-header bg-light fw-bold">Language &amp; Charset Settings (MySQL v<?php echo html_specialchars($row[0]) ?>)</div>
         <div class="card-body">
             <div class="form-group row">
-                <label for="charset" class="col-sm-3 col-form-label fw-bold">Default Language</label>
+                <label for="default_lang" class="col-sm-3 col-form-label fw-bold">Default Language</label>
                 <div class="col-sm-6">
-                    <select name="charset" class="form-select" id="charset">
-                    <?php
-                    foreach ($available_languages as $key => $value) {
-                        list(, $_lang_charset)  = explode('-', $value[1], 2);
-                        list(, $_lang_en)       = explode('|', $value[0]);
-
-                        echo '<option value="' . $key . '"';
-                        if ($key === strtolower(str_replace('-', '', $phpwcms['default_lang']) . '-' . $phpwcms['charset'])) {
-                            echo ' selected="selected"';
-                        }
-                        echo '>';
-                        echo empty($value[3]) ? '' : $value[3] . ' - ';
-                        echo ucfirst($_lang_en);
-                        echo '</option>';
-                    }
-                    ?>
+                    <select name="default_lang" class="form-select" id="default_lang" onchange="var cb = document.getElementById('lang_' + this.value); if (cb) cb.checked = true;">
+                        <?php echo render_default_language_options($selected_default); ?>
                     </select>
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Primary frontend language</div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label fw-bold">Allowed Languages</label>
+                <div class="col-sm-6">
+                    <div class="border rounded p-3 bg-white" style="max-height: 200px; overflow-y: auto;">
+                        <?php echo render_language_checkboxes($selected_allowed); ?>
+                    </div>
+                    <div class="form-text text-muted small mt-1">Check all languages supported on your frontend. Allowed languages can also be configured directly in <code>conf.inc.php</code> at any time.</div>
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-start pt-2">
+                    <?php if (!empty($valid_browser_langs)): ?>
+                        <div>Detected browser language<?php echo count($valid_browser_langs) > 1 ? 's' : '' ?>: <code><?php echo html_specialchars(implode(', ', $valid_browser_langs)) ?></code></div>
+                    <?php endif; ?>
+                    <div class="text-muted small mt-1">Can be modified directly in <code>include/config/conf.inc.php</code>.</div>
                 </div>
             </div>
 

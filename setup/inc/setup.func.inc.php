@@ -114,10 +114,18 @@ function write_conf_file($val) {
         $conf_file .= "\$phpwcms['site'] = '" . escape_quote($site_url) . "';";
     }
 
-    $conf_file .= " // leave empty to auto configure or try 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
-    $conf_file .= "\$phpwcms['site_ssl_mode'] = 0; // turns the SSL Support of WCMS on (1) or off (0), default value 0\n";
-    $conf_file .= "\$phpwcms['site_ssl_url'] = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
-    $conf_file .= "\$phpwcms['site_ssl_port'] = 443; // The port on which your SSL service serves the secure sites, default SSL port is 443\n\n";
+    $is_ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https')
+        || (isset($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off')
+        || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443);
+
+    $ssl_mode = isset($val['site_ssl_mode']) ? (int)$val['site_ssl_mode'] : ($is_ssl ? 1 : 0);
+    $ssl_url  = isset($val['site_ssl_url']) ? escape_quote($val['site_ssl_url']) : '';
+    $ssl_port = isset($val['site_ssl_port']) ? (int)$val['site_ssl_port'] : 443;
+
+    $conf_file .= "\$phpwcms['site_ssl_mode'] = " . $ssl_mode . "; // turns the SSL Support of WCMS on (1) or off (0), default value 0\n";
+    $conf_file .= "\$phpwcms['site_ssl_url'] = '" . $ssl_url . "'; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
+    $conf_file .= "\$phpwcms['site_ssl_port'] = " . $ssl_port . "; // The port on which your SSL service serves the secure sites, default SSL port is 443\n\n";
 
     $conf_file .= "\$phpwcms['admin_name'] = '" . escape_quote($val['admin_name'] ?? 'Webmaster') . "'; //default: Webmaster\n";
     $conf_file .= "\$phpwcms['admin_user'] = '" . escape_quote($val['admin_user'] ?? 'admin') . "'; //default: admin\n";
@@ -167,14 +175,22 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
     $conf_file .= "\$phpwcms['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
     $conf_file .= "\$phpwcms['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
-    $conf_file .= "\$phpwcms['wysiwyg_editor'] = 2; //0 = no wysiwyg editor, 1 = CKEditor (legacy), 2 = TinyMCE 8\n";
-    $conf_file .= "\$phpwcms['allowed_lang'] = array('en','de','fr','es'); //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
+    $allowed_lang = !empty($val['allowed_lang']) && is_array($val['allowed_lang'])
+        ? array_values(array_filter(array_map('trim', $val['allowed_lang'])))
+        : ['en', 'de', 'fr', 'es'];
+    $default_lang = !empty($val['default_lang']) ? trim($val['default_lang']) : ($allowed_lang[0] ?? 'en');
+    if (!in_array($default_lang, $allowed_lang, true)) {
+        array_unshift($allowed_lang, $default_lang);
+    }
+    $allowed_lang_export = "array('" . implode("', '", array_map('escape_quote', $allowed_lang)) . "')";
+
+    $conf_file .= "\$phpwcms['allowed_lang'] = " . $allowed_lang_export . "; //array of allowed languages\n";
     $conf_file .= "\$phpwcms['frontend_lang_key'] = 'phpwcms_frontend_lang'; // session and cookie key for frontend language selection\n";
     $conf_file .= "\$phpwcms['lang_parse'] = true; // enable|disable global frontend language block tag parsing [LANG:xx]...[/LANG] / [xx]...[/xx]\n";
     $conf_file .= "\$phpwcms['use_content_lang'] = false; // if true use content language based on article and/or structure level\n";
     $conf_file .= "\$phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
     $conf_file .= "\$phpwcms['DOCTYPE_LANG'] = ''; //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
-    $conf_file .= "\$phpwcms['default_lang'] = '" . escape_quote($val['default_lang'] ?? 'en') . "';  //default language\n";
+    $conf_file .= "\$phpwcms['default_lang'] = '" . escape_quote($default_lang) . "';  //default language\n";
     $conf_file .= "\$phpwcms['charset'] = '" . escape_quote($val['charset'] ?? 'utf-8') . "';  //default charset 'utf-8'\n";
     $conf_file .= "\$phpwcms['php_charset'] = false; // set PHP default charset to \$phpwcms['charset']\n";
     $conf_file .= "\$phpwcms['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
@@ -201,7 +217,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['mode_XHTML'] = 3; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5 \n";
     $conf_file .= "\$phpwcms['header_XML'] = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
     $conf_file .= "\$phpwcms['IE7-js'] = 0; // load IE7-js - fix for HTML/CSS/PNG bugs in IE\n";
-    $conf_file .= "\$phpwcms['php_timezone'] = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
+    $conf_file .= "\$phpwcms['php_timezone'] = '" . escape_quote($val['php_timezone'] ?? '') . "'; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
     $conf_file .= "\$phpwcms['wysiwyg_template'] = array(); // deprecated\n";
     $conf_file .= "\$phpwcms['GET_pageinfo'] = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";
     $conf_file .= "\$phpwcms['version_check'] = 1; // checks for current release of phpwcms online \n";
@@ -461,21 +477,24 @@ if (!function_exists('decode_entities')) {
     }
 }
 function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enable_port = true) {
-    $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off');
-    $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
+    $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https')
+        || (isset($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off')
+        || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443);
+    $sp = strtolower($_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1');
     if ($set_protocol) {
         $protocol = substr($sp, 0, strpos($sp, '/')) . ($ssl ? 's' : '') . '://';
     } else {
         $protocol = '';
     }
     if ($enable_port) {
-        $port = (int)($_SERVER['SERVER_PORT'] ?? 80);
+        $port = (int)($_SERVER['SERVER_PORT'] ?? ($ssl ? 443 : 80));
         $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : ':' . $port;
     } else {
         $port = '';
     }
     $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : ($_SERVER['HTTP_HOST'] ?? null);
-    $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
+    $host = empty($host) ? ($_SERVER['SERVER_NAME'] ?? 'localhost') . $port : $host;
 
     return $protocol . $host;
 }
@@ -917,3 +936,172 @@ function detect_mysql_port($host = 'localhost', $current_port = null) {
 
     return 3306;
 }
+
+function render_timezone_options($selected = '') {
+    $zones = DateTimeZone::listIdentifiers();
+    $grouped = array();
+    foreach ($zones as $zone) {
+        $parts = explode('/', $zone, 2);
+        $group = count($parts) > 1 ? $parts[0] : 'Other';
+        $grouped[$group][] = $zone;
+    }
+
+    $html = '';
+    foreach ($grouped as $group => $list) {
+        $html .= '<optgroup label="' . html_specialchars($group) . '">' . "\n";
+        foreach ($list as $tz) {
+            $is_selected = ($tz === $selected) ? ' selected="selected"' : '';
+            $html .= '    <option value="' . html_specialchars($tz) . '"' . $is_selected . '>' . html_specialchars($tz) . '</option>' . "\n";
+        }
+        $html .= '</optgroup>' . "\n";
+    }
+
+    return $html;
+}
+
+function get_clean_languages() {
+    return [
+        'en' => ['code' => 'en', 'name' => 'English', 'native' => 'English'],
+        'de' => ['code' => 'de', 'name' => 'German', 'native' => 'Deutsch'],
+        'fr' => ['code' => 'fr', 'name' => 'French', 'native' => 'Français'],
+        'it' => ['code' => 'it', 'name' => 'Italian', 'native' => 'Italiano'],
+        'es' => ['code' => 'es', 'name' => 'Spanish', 'native' => 'Español'],
+        'af' => ['code' => 'af', 'name' => 'Afrikaans', 'native' => 'Afrikaans'],
+        'ar' => ['code' => 'ar', 'name' => 'Arabic', 'native' => 'العربية'],
+        'az' => ['code' => 'az', 'name' => 'Azerbaijani', 'native' => 'Azərbaycanca'],
+        'be' => ['code' => 'be', 'name' => 'Belarusian', 'native' => 'Беларуская'],
+        'bg' => ['code' => 'bg', 'name' => 'Bulgarian', 'native' => 'Български'],
+        'bs' => ['code' => 'bs', 'name' => 'Bosnian', 'native' => 'Bosanski'],
+        'ca' => ['code' => 'ca', 'name' => 'Catalan', 'native' => 'Català'],
+        'cs' => ['code' => 'cs', 'name' => 'Czech', 'native' => 'Česky'],
+        'da' => ['code' => 'da', 'name' => 'Danish', 'native' => 'Dansk'],
+        'el' => ['code' => 'el', 'name' => 'Greek', 'native' => 'Ελληνικά'],
+        'et' => ['code' => 'et', 'name' => 'Estonian', 'native' => 'Eesti'],
+        'eu' => ['code' => 'eu', 'name' => 'Basque', 'native' => 'Euskara'],
+        'fa' => ['code' => 'fa', 'name' => 'Persian', 'native' => 'فارسی'],
+        'fi' => ['code' => 'fi', 'name' => 'Finnish', 'native' => 'Suomi'],
+        'gl' => ['code' => 'gl', 'name' => 'Galician', 'native' => 'Galego'],
+        'he' => ['code' => 'he', 'name' => 'Hebrew', 'native' => 'עברית'],
+        'hi' => ['code' => 'hi', 'name' => 'Hindi', 'native' => 'हिन्दी'],
+        'hr' => ['code' => 'hr', 'name' => 'Croatian', 'native' => 'Hrvatski'],
+        'hu' => ['code' => 'hu', 'name' => 'Hungarian', 'native' => 'Magyar'],
+        'id' => ['code' => 'id', 'name' => 'Indonesian', 'native' => 'Bahasa Indonesia'],
+        'ja' => ['code' => 'ja', 'name' => 'Japanese', 'native' => '日本語'],
+        'ka' => ['code' => 'ka', 'name' => 'Georgian', 'native' => 'ქართული'],
+        'ko' => ['code' => 'ko', 'name' => 'Korean', 'native' => '한국어'],
+        'lt' => ['code' => 'lt', 'name' => 'Lithuanian', 'native' => 'Lietuvių'],
+        'lv' => ['code' => 'lv', 'name' => 'Latvian', 'native' => 'Latviešu'],
+        'mn' => ['code' => 'mn', 'name' => 'Mongolian', 'native' => 'Монгол'],
+        'ms' => ['code' => 'ms', 'name' => 'Malay', 'native' => 'Bahasa Melayu'],
+        'nl' => ['code' => 'nl', 'name' => 'Dutch', 'native' => 'Nederlands'],
+        'no' => ['code' => 'no', 'name' => 'Norwegian', 'native' => 'Norsk'],
+        'pl' => ['code' => 'pl', 'name' => 'Polish', 'native' => 'Polski'],
+        'pt' => ['code' => 'pt', 'name' => 'Portuguese', 'native' => 'Português'],
+        'ro' => ['code' => 'ro', 'name' => 'Romanian', 'native' => 'Română'],
+        'ru' => ['code' => 'ru', 'name' => 'Russian', 'native' => 'Русский'],
+        'sk' => ['code' => 'sk', 'name' => 'Slovak', 'native' => 'Slovenčina'],
+        'sl' => ['code' => 'sl', 'name' => 'Slovenian', 'native' => 'Slovenščina'],
+        'sq' => ['code' => 'sq', 'name' => 'Albanian', 'native' => 'Shqip'],
+        'sr' => ['code' => 'sr', 'name' => 'Serbian', 'native' => 'Српски'],
+        'sv' => ['code' => 'sv', 'name' => 'Swedish', 'native' => 'Svenska'],
+        'th' => ['code' => 'th', 'name' => 'Thai', 'native' => 'ภาษาไทย'],
+        'tr' => ['code' => 'tr', 'name' => 'Turkish', 'native' => 'Türkçe'],
+        'tt' => ['code' => 'tt', 'name' => 'Tatarish', 'native' => 'Tatarça'],
+        'uk' => ['code' => 'uk', 'name' => 'Ukrainian', 'native' => 'Українська'],
+        'zh' => ['code' => 'zh', 'name' => 'Chinese', 'native' => '中文']
+    ];
+}
+
+function detect_browser_languages() {
+    $langs = [];
+    if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        if (preg_match_all('/([a-z]{1,8}(?:-[a-z]{1,8})?)(?:;\s*q=\s*([0-9.]+))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $matches, PREG_SET_ORDER)) {
+            $pref = [];
+            foreach ($matches as $m) {
+                $code = strtolower(explode('-', $m[1])[0]);
+                $q = isset($m[2]) ? (float)$m[2] : 1.0;
+                if (!isset($pref[$code]) || $q > $pref[$code]) {
+                    $pref[$code] = $q;
+                }
+            }
+            arsort($pref);
+            $langs = array_keys($pref);
+        }
+    }
+    return $langs;
+}
+
+function get_ordered_languages() {
+    $all = get_clean_languages();
+    $top_keys = ['en', 'de', 'fr', 'it', 'es'];
+    $top = [];
+    foreach ($top_keys as $k) {
+        if (isset($all[$k])) {
+            $top[$k] = $all[$k];
+            unset($all[$k]);
+        }
+    }
+    uasort($all, static function($a, $b) {
+        return strcasecmp($a['name'], $b['name']);
+    });
+    return [
+        'top' => $top,
+        'other' => $all
+    ];
+}
+
+function render_language_checkboxes($selected_codes = []) {
+    $ordered = get_ordered_languages();
+    $html = '';
+
+    $render_item = static function($lang, $selected_codes) {
+        $code = html_specialchars($lang['code']);
+        $label = ($lang['name'] !== $lang['native'] && !empty($lang['native']))
+            ? html_specialchars($lang['name'] . ' / ' . $lang['native'] . ' (' . $lang['code'] . ')')
+            : html_specialchars($lang['name'] . ' (' . $lang['code'] . ')');
+        $is_checked = in_array($lang['code'], $selected_codes, true) ? ' checked="checked"' : '';
+        return '<div class="form-check">' . "\n"
+            . '    <input class="form-check-input lang-checkbox" type="checkbox" name="allowed_lang[]" value="' . $code . '" id="lang_' . $code . '"' . $is_checked . ' />' . "\n"
+            . '    <label class="form-check-label" for="lang_' . $code . '">' . $label . '</label>' . "\n"
+            . '</div>' . "\n";
+    };
+
+    foreach ($ordered['top'] as $lang) {
+        $html .= $render_item($lang, $selected_codes);
+    }
+    $html .= '<hr class="my-2" />' . "\n";
+    foreach ($ordered['other'] as $lang) {
+        $html .= $render_item($lang, $selected_codes);
+    }
+
+    return $html;
+}
+
+function render_default_language_options($selected_default = '') {
+    $ordered = get_ordered_languages();
+    $html = '';
+
+    $render_opt = static function($lang, $selected_default) {
+        $code = html_specialchars($lang['code']);
+        $label = ($lang['name'] !== $lang['native'] && !empty($lang['native']))
+            ? html_specialchars($lang['name'] . ' / ' . $lang['native'] . ' (' . $lang['code'] . ')')
+            : html_specialchars($lang['name'] . ' (' . $lang['code'] . ')');
+        $is_selected = ($lang['code'] === $selected_default) ? ' selected="selected"' : '';
+        return '<option value="' . $code . '"' . $is_selected . '>' . $label . '</option>' . "\n";
+    };
+
+    $html .= '<optgroup label="Common">' . "\n";
+    foreach ($ordered['top'] as $lang) {
+        $html .= '    ' . $render_opt($lang, $selected_default);
+    }
+    $html .= '</optgroup>' . "\n";
+
+    $html .= '<optgroup label="All Languages">' . "\n";
+    foreach ($ordered['other'] as $lang) {
+        $html .= '    ' . $render_opt($lang, $selected_default);
+    }
+    $html .= '</optgroup>' . "\n";
+
+    return $html;
+}
+
