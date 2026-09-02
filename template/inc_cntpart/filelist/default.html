@@ -14,8 +14,8 @@ set_locale      = "en_US.UTF-8"
 <!--FILE_ENTRY_START//-->
     <div class="file-entry pb-2 mb-2 border-bottom">
         <h6 class="file-title mb-1">
-            [FILE_IMAGE_ELSE]<img src="{FILE_ICON}" alt="" class="me-1">[/FILE_IMAGE_ELSE]
-            [FILE_IMAGE]<img src="{FILE_IMAGE}" alt="" class="me-1">[/FILE_IMAGE]
+            [FILE_IMAGE_ELSE]<img src="{FILE_ICON}" alt="" class="me-1"{LAZY_LOADING}>[/FILE_IMAGE_ELSE]
+            [FILE_IMAGE]<img src="{FILE_IMAGE}" alt="{FILE_NAME}" class="me-1"{LAZY_LOADING}>[/FILE_IMAGE]
             <a href="{FILE_LINK}"{FILE_TARGET}>[FILE_TITLE]{FILE_TITLE}[/FILE_TITLE][FILE_TITLE_ELSE]{FILE_NAME}[/FILE_TITLE_ELSE]</a>
         </h6>
         [FILE_DESCRIPTION]<p class="file-description text-muted small mb-1">{FILE_DESCRIPTION}</p>[/FILE_DESCRIPTION]

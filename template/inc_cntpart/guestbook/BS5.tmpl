@@ -37,28 +37,42 @@
     </div>
     <div class="card-body p-4">
         <form name="guestbook_form" method="post" action="{FORM_ACTION}" enctype="multipart/form-data">
-            <input type="hidden" name="gb_action" value="post">
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="gb_name_{ID}" class="form-label">@@Name@@ *</label>
-                    <input type="text" name="gb_name" id="gb_name_{ID}" value="{NAME}" class="form-control" autocomplete="name" required>
+                    <label for="guestbook_name_{ID}" class="form-label">@@Name@@ *</label>
+                    <input type="text" name="guestbook_name" id="guestbook_name_{ID}" value="{NAME}" class="form-control" autocomplete="name" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="gb_email_{ID}" class="form-label">@@Email@@ *</label>
-                    <input type="email" name="gb_email" id="gb_email_{ID}" value="{EMAIL}" class="form-control" autocomplete="email" required>
+                    <label for="guestbook_email_{ID}" class="form-label">@@Email@@ *</label>
+                    <input type="email" name="guestbook_email" id="guestbook_email_{ID}" value="{EMAIL}" class="form-control" autocomplete="email" required>
                 </div>
                 <div class="col-12">
-                    <label for="gb_url_{ID}" class="form-label">@@Website@@</label>
-                    <input type="url" name="gb_url" id="gb_url_{ID}" value="{URL}" class="form-control" placeholder="https://">
+                    <label for="guestbook_url_{ID}" class="form-label">@@Website@@</label>
+                    <input type="url" name="guestbook_url" id="guestbook_url_{ID}" value="{URL}" class="form-control" placeholder="https://">
                 </div>
                 <div class="col-12">
-                    <label for="gb_msg_{ID}" class="form-label">@@Message@@ *</label>
-                    <textarea name="gb_msg" id="gb_msg_{ID}" rows="5" class="form-control" required>{MSG}</textarea>
+                    <label for="guestbook_msg_{ID}" class="form-label">@@Message@@ *</label>
+                    <textarea name="guestbook_msg" id="guestbook_msg_{ID}" rows="5" class="form-control" required>{MSG}</textarea>
+                </div>
+                <div class="col-12">
+                    <label class="form-label d-block">@@display@@</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="guestbook_show" id="guestbook_show0_{ID}" value="0"{GBSHOW_0}>
+                        <label class="form-check-label" for="guestbook_show0_{ID}">@@show email@@</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="guestbook_show" id="guestbook_show1_{ID}" value="1"{GBSHOW_1}>
+                        <label class="form-check-label" for="guestbook_show1_{ID}">@@hide email@@</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="guestbook_show" id="guestbook_show2_{ID}" value="2"{GBSHOW_2}>
+                        <label class="form-check-label" for="guestbook_show2_{ID}">@@as "info at mail dot com"@@</label>
+                    </div>
                 </div>
 <!--IMAGE_UPLOAD_START//-->
                 <div class="col-12">
-                    <label for="gb_img_{ID}" class="form-label">@@Attach Image (jpg, gif, png)@@</label>
-                    <input type="file" name="gb_img" id="gb_img_{ID}" class="form-control" accept="image/*">
+                    <label for="guestbook_image_{ID}" class="form-label">@@Attach Image (jpg, gif, png)@@</label>
+                    <input type="file" name="guestbook_image" id="guestbook_image_{ID}" class="form-control" accept="image/*">
                 </div>
 <!--IMAGE_UPLOAD_END//-->
 <!--CAPTCHA_START//-->
@@ -66,12 +80,12 @@
                     <label class="form-label d-block">@@Security Check@@</label>
                     <div class="d-flex align-items-center gap-3 flex-wrap">
                         {CAPTCHA}
-                        <input type="text" name="gb_captcha" class="form-control" style="max-width:120px;" placeholder="@@Type code@@" required>
+                        <input type="text" name="guestbook_captcha" id="guestbook_captcha_{ID}" class="form-control" style="max-width:120px;" placeholder="@@Type code@@" required>
                     </div>
                 </div>
 <!--CAPTCHA_END//-->
                 <div class="col-12 pt-2">
-                    <button type="submit" name="gb_submit" class="btn btn-primary">@@Submit Entry@@</button>
+                    <button type="submit" name="guestbook_send" class="btn btn-primary">@@Submit Entry@@</button>
                 </div>
             </div>
         </form>

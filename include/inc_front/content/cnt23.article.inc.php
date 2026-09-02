@@ -647,7 +647,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                 }
                 //
-                $form_field .= '<input type="password" name="'.$form_name.'" id="'.$form_name.'" ';
+                $form_field .= '<input type="password" name="'.$form_name.'" id="'.$form_name.'" autocomplete="new-password" ';
                 $form_field .= 'value="'.html_specialchars($cnt_form["fields"][$key]['value']).'"';
                 if($cnt_form["fields"][$key]['size']) {
                     $form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';

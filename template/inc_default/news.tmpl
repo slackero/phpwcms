@@ -57,13 +57,13 @@ gallery_filecenter_info = 1
 	[IMAGE]
 		[ZOOM_ELSE]
 			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}[TITLE] title="{TITLE}"[/TITLE]>[/IMAGE_URL]
-				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]">
+				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]"{LAZY_LOADING}>
 			[IMAGE_URL]</a>[/IMAGE_URL]
 			[CAPTION]<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
 		[/ZOOM_ELSE]
 		[ZOOM]
 			<a href="{PHPWCMS_RESIZE_IMAGE}/600x400/{IMAGE_ID}{IMAGE_EXT}"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}[LIGHTBOX_COPYRIGHT], {LIGHTBOX_COPYRIGHT}[/LIGHTBOX_COPYRIGHT]"[/LIGHTBOX_CAPTION]>
-				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]">
+				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]"{LAZY_LOADING}>
 			</a>
 			<!-- Full size, can be used for calculation if needed. Remove the replacers if not needed!!! {IMAGE_WIDTH}x{IMAGE_HEIGHT}px and {IMAGE_HASH} -->
 		[/ZOOM]
@@ -81,7 +81,7 @@ gallery_filecenter_info = 1
 				<!-- Zoom -->
 				<a href="{PHPWCMS_RESIZE_IMAGE}/900x600/{IMAGE_HASH}.{IMAGE_EXT}"[CAPTION] title="{CAPTION}[COPYRIGHT], {COPYRIGHT}[/COPYRIGHT]"[/CAPTION] rel="lightbox" data-gallery="1">
 					<!-- Thumbnail --><!-- Full size, can be used for calculation if needed. Remove the replacers if not needed!!! {IMAGE_WIDTH}x{IMAGE_HEIGHT}px -->
-					<img src="{PHPWCMS_RESIZE_IMAGE}/50x50x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}">
+					<img src="{PHPWCMS_RESIZE_IMAGE}/50x50x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}"{LAZY_LOADING}>
 				</a>
 			</div>
 			<!--GALLERY_ITEM_END//-->
@@ -131,13 +131,13 @@ gallery_filecenter_info = 1
 	[IMAGE]
 		[ZOOM_ELSE]
 			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}[TITLE] title="{TITLE}"[/TITLE]>[/IMAGE_URL]
-				<img src="{PHPWCMS_RESIZE_IMAGE}/150x150x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]">
+				<img src="{PHPWCMS_RESIZE_IMAGE}/150x150x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]"{LAZY_LOADING}>
 			[IMAGE_URL]</a>[/IMAGE_URL]
 			[CAPTION]<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
 		[/ZOOM_ELSE]
 		[ZOOM]
 			<a href="{PHPWCMS_RESIZE_IMAGE}/600x400/{IMAGE_ID}{IMAGE_EXT}" target="_blank"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}[LIGHTBOX_COPYRIGHT], {LIGHTBOX_COPYRIGHT}[/LIGHTBOX_COPYRIGHT]"[/LIGHTBOX_CAPTION]>
-				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]">
+				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]"{LAZY_LOADING}>
 			</a>
 		[/ZOOM]
 	[/IMAGE]
@@ -153,7 +153,7 @@ gallery_filecenter_info = 1
 				<!-- Zoom -->
 				<a href="{PHPWCMS_RESIZE_IMAGE}/900x600/{IMAGE_HASH}.{IMAGE_EXT}"[CAPTION] title="{CAPTION}[COPYRIGHT], {COPYRIGHT}[/COPYRIGHT]"[/CAPTION] rel="lightbox" data-gallery="1">
 					<!-- Thumbnail -->
-					<img src="{PHPWCMS_RESIZE_IMAGE}/150x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}">
+					<img src="{PHPWCMS_RESIZE_IMAGE}/150x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}"{LAZY_LOADING}>
 				</a>
 			</div>
 			<!--GALLERY_ITEM_END//-->

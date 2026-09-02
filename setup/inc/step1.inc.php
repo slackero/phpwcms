@@ -70,7 +70,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             <div class="form-group row">
                 <label for="db_pass" class="col-sm-3 col-form-label fw-bold">DB Password</label>
                 <div class="col-sm-6">
-                    <input name="db_pass" type="password" class="form-control" id="db_pass" value="<?php echo html_specialchars($phpwcms['db_pass']) ?>" placeholder="database password" />
+                    <input name="db_pass" type="password" class="form-control" id="db_pass" value="<?php echo html_specialchars($phpwcms['db_pass']) ?>" placeholder="database password" autocomplete="new-password" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Database password</div>
             </div>

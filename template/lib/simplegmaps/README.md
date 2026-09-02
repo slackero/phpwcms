@@ -1,356 +1,313 @@
-simplegmaps v1.1.3
-===========
+# simplegmaps v2.5.0
 
 simplegmaps - Add google maps to your web without knowing squat about JavaScript
 
-##Background
-I found that other scripts was too complicated to deal with and needed much scripting just to set a marker on a map. I want to separate HTML markup from JavaScript as much as possible and I want the user of the script to be able to add markers to a map without writing a single line JavaScript.
+## Background
+
+SimpleGMaps is a javascript library for presenting Google Maps without the need for writing any js!
+
+SimpleGMaps is an easy way to present Google Maps on your website. You don't need to know complex javascript, or javascript at all to know how to work this. Just follow the examples and add simple HTML markup. SimpleGMaps takes care of the rest!
+
+With version 2 of SimpleGMaps now runs on vanilla javascript. No frameworks required!
 
 Meet simplegmaps!
 
-##Features
-* Display one or multiple markers on your map
-* Add info windows to markers with custom html markup
-* Display routes on your map
-* No scripting necessary
-* Support for traffic layers (new!)
-* Support for weather layers (new!)
-* Support for automatic geo location (new!)
-* Support for bicycle route layer (new!)
-* Support for custom marker icons (new!)
-* Support for geo location on demand, by clicking a button for example (new!)
-* Custom InfowWindow - Position and style your own custom infowindow.
+## Features
 
-##Browser Support
-* Google Chrome
-* Internet Explorer 8+
-* Firefox
-* Safari 6+
+- Display one or multiple markers on your map
+- Add info windows to markers with custom html markup
+- Display routes on your map
+- Support for traffic layers
+- Support for automatic geo location
+- Support for bicycle route layer
+- Support for custom marker icons
+- Support for geo location on demand, by clicking a button for example
+- Custom InfowWindow - Position and style your own custom infowindow.
+- AutoComplete for searching places and addresses.
 
-###[View demo](http://www.andreasnorman.com/simplegmaps)
+## Browser Support
+
+- Google Chrome
+- MS Edge
+- Firefox
+- Safari 15+
+
+### [View demo](http://subzane.github.io/simplegmaps/)
 
 ##Installation
+
 ```
-bower install simplegmaps --save
+yarn add simplegmaps-js
 ```
 
-##Setup
+## Setup
+
 ```html
-<!-- You'll need jquery -->
-<script src="dependencies/jquery/dist/jquery.min.js"></script>
-<!-- You'll also need access to google maps api -->
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<!-- You'll need access to google maps api -->
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=YOUR-API-KEY-HERE&libraries=places"
+	type="text/javascript"
+></script>
 <!-- and you'll need to include simplegmaps of course! -->
-<script src="../src/jquery.simplegmaps.js"></script>
+<script src="simplegmaps.js"></script>
 ```
 
-##Usage
+## Usage
+
 ```javascript
-$('#id_of_your_div').simplegmaps();
+simplegmaps.init({
+	container: "#id_of_your_div",
+});
 ```
 
-###Settings and Defaults
+### Settings and Defaults
+
 ```javascript
-defaults = {
+var defaults = {
+	debug: false,
 	GeoLocation: false,
 	ZoomToFitBounds: true,
-  MapOptions: {
-    draggable: true,
-    zoom: 8,
-    scrollwheel: false,
-    streetViewControl: false,
-    panControl: true,
-    zoomControl: true,
-    zoomControlOptions: {
-      style: 'DEFAULT'
-    }
-  },
-	getRouteButton: '#simplegmaps-getroute',
-	getTravelMode: '#simplegmaps-travelmode',
-	routeDirections: '#simplegmaps-directions',
-	externalLink: '#simplegmaps-external',
-	getFromAddress: '#simplegmaps-fromaddress',
-	defaultTravelMode: 'DRIVING'
+	jsonsource: false, // if set to "false". Load from HTML markup.
+	AutoComplete: false,
+	AutoCompleteOptions: {
+		// Supported types (https://developers.google.com/places/supported_types#table3)
+		types: ["geocode"],
+		// Country Codes (ISO 3166-1 alpha-2): https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+		// https://developers.google.com/maps/documentation/javascript/places-autocomplete?hl=en
+		componentRestrictions: {
+			country: "se",
+		},
+		moveMap: false,
+		setMarker: false,
+	},
+	MapOptions: {
+		draggable: true,
+		zoom: 7,
+		center: "55.604981,13.003822",
+		scrollwheel: false,
+		streetViewControl: false,
+		panControl: true,
+		zoomControl: true,
+		zoomControlOptions: {
+			style: "DEFAULT",
+		},
+	},
+
+	onInit: function () {},
+	onDestroy: function () {},
+
+	onDrawMap: function () {},
+
+	onSearchInit: function () {},
+	onSearchComplete: function () {},
+	onSearchFail: function () {},
+
+	onZoomToFitBounds: function () {},
+	onPlaceChanged: function () {},
+
+	onDirectionsInit: function () {},
+	onRouteComplete: function () {},
+	onRouteError: function () {},
+
+	onJSONConnectionFail: function () {},
+	onJSONLoadFail: function () {},
+	onJSONLoadSuccess: function () {},
 };
-
 ```
-* `GeoLocation`: Active or deactive automatic geolocation. Default false (inactive)
-* `ZoomToFitBounds`: Will auto zoom the map to fit all markers within bounds. Setting this to true will disable the user of "zoom" in MapOptions, disable this to set your own zoom level. Default true (active)
-* `MapOptions`: [Google Maps MapOptions](https://developers.google.com/maps/documentation/javascript/reference?csw=1#MapOptions)
-* `getRouteButton`: ID of the button used to submit the route to the map
-* `getTravelMode`: ID of the select element to hold the travelmode data
-* `getFromAddress`: ID of the input element to hold the address to set the route start point
-* `externalLink`: ID of the link element to be used when targeting a button to open up the map in a new tab. On mobile devices either Apple Maps or Google Maps app is opened instead.
-* `defaultTravelMode`: The default travel mode is nothing else specified. Choose between DRIVING, WALKING or BICYCLING
 
+- `debug`: Activate or deactive debug messages in console.
+- `cluster`: Activate or deactive Marker Clustering.
+- `ClusterImagePathPrefix`: Path prefix to images needed for Marker Clustering. Default 'img/markercluster/m',
+- `jsonsource`: Path to externa JSON-file with map marker data. Provide path here or as a data-attribute. data-attribute will override this property.
+- `GeoLocation`: Active or deactive automatic geolocation. Default false (inactive)
+- `AutoComplete`: Active or deactive autocomplete search.
+- `AutoCompleteOptions`: [AutoCompleteOptions](https://developers.google.com/places/supported_types#table3)
+- `ZoomToFitBounds`: Will auto zoom the map to fit all markers within bounds. Setting this to true will disable the user of "zoom" in MapOptions, disable this to set your own zoom level. Default true (active)
+- `MapOptions`: [Google Maps MapOptions](https://developers.google.com/maps/documentation/javascript/reference?csw=1#MapOptions)
+- `getRouteButton`: ID of the button used to submit the route to the map
+- `getTravelMode`: ID of the select element to hold the travelmode data
+- `getFromAddress`: ID of the input element to hold the address to set the route start point
+- `externalLink`: ID of the link element to be used when targeting a button to open up the map in a new tab. On mobile devices either Apple Maps or Google Maps app is opened instead.
+- `defaultTravelMode`: The default travel mode is nothing else specified. Choose between DRIVING, WALKING or BICYCLING
+- `multipleInfoWindows`: Set to true to allow opening multiple infoWindows at the same time.
 
-###Adding markers to a map
+#### Events
+
+- `onInit`: Triggers when plugin has initialized.
+- `onDestroy`: Triggers when plugin has been destroyed.
+- `onSearchInit`: Triggers when search has initialized.
+- `onSearchComplete`: Triggers when a search has been completed.
+- `onSearchFail`: Triggers when a search has failed.
+- `onZoomToFitBounds`: Triggers when ZoomToFitBounds has run.
+- `onPlaceChanged`: Triggers when map has been moved.
+- `onDirectionsInit`: Triggers when Directions has initialized.
+- `onRouteComplete`: Triggers when a route has been routed.
+- `onRouteError`: Triggers when a routed rout has failed to rout (yeah!).
+- `onJSONConnectionFail`: Triggers when plugin is unable to conntect to the JSON url. For example: The JSON url is unreachable.
+- `onJSONLoadFail`: Triggers when the JSON-data is unable to load. For example when the JSON-string is corrupt.
+- `onJSONLoadSuccess`: Triggers when the JSON-data has successfully been loaded.
+
+You can also use Google Maps native events found here: https://developers.google.com/maps/documentation/javascript/events
+Attach them like this: simplegmaps.map.addListener('bounds_changed', function (event) {});
+
+### Simple example. Adding two markers to a map
+
 You can use an address or latitude and longitude to position a marker on a map using the `data` attribute.
+
 ```html
-<div id="simplegmap">
-	<div class="map-marker" data-title="Lorem ipsum" data-latlng="55.5897407,13.012268899999981"></div>
-	<div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
+<div id="simplegmaps-1">
+	<div
+		class="map-marker"
+		data-title="Lorem ipsum"
+		data-latlng="55.5897407,13.012268899999981"
+	></div>
+	<div
+		class="map-marker"
+		data-title="Remi"
+		data-address="Remi 145 W 53rd St, New York, NY, United States"
+	></div>
 </div>
 ```
 
-###Adding markers to a map and set which to center the map on
-If you disable `ZoomToFitBounds` you must set where to center the map. You can do that by adding a `data` attribute to the marker you wish the map to center on.
-```html
-<div id="simplegmap">
-	<div class="map-marker" data-title="Lorem ipsum" data-center="true" data-latlng="55.5897407,13.012268899999981"></div>
-	<div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
-</div>
-```
-
-###Adding a info window to a maker
-You can add any html markup you wish to an info window but you need to add the class `map-infowindow` to the outer element.
-```html
-<div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
-	<div class="map-infowindow">
-	  <h2>Remi</h2>
-	  <p>Remi 145 W 53rd St, New York, NY, United States</p>
-	</div>
-</div>
-```
-
-###Adding a map with route funtionality
-```html
-<div id="simplegmap">
-	<div class="map-marker" data-title="Applejack Diner" data-address="Applejack Diner 1725 Broadway New York, NY 10019"></div>
-</div>
-
-<div>
-	<div>
-  	<label>From address</label>
-   	<input type="text" id="simplegmaps-fromaddress">
-  </div>
-  <div>
-     <label>Travel Mode</label>
-     <select class="custom-select form-control" id="simplegmaps-travelmode">
-      <option value="DRIVING">Driving</option>
-      <option value="WALKING">Walking</option>
-      <option value="BICYCLING">Bicycling</option>
-    </select>
-  </div>
-  <div>
-    <button type="submit" id="simplegmaps-getroute">Get route</button>
-  </div>
-</div>
-```
-
-If you change any default element ID's you'll need to set some options when you initiate the map
 ```javascript
-$('#simplegmap').simplegmaps({
-  getRouteButton: '#simplegmaps-getroute',
-  getTravelMode: '#simplegmaps-travelmode',
-  getFromAddress: '#simplegmaps-fromaddress'
+simplegmaps.init({
+	container: "#simplegmaps-1",
 });
 ```
 
-###Adding a map with automatic geolocation
-```html
-<div id="simplegmap" class="google-map"></div>
-```
+### More examples on how to use SimpleGMaps.
 
-```javascript
-$('#simplegmap').simplegmaps({
-  GeoLocation: true
-});
-```
+You can find more examples on how to implement this plugin on the demo website
 
-###Adding a map with geolocation by user click
-```html
-<div id="simplegmap" class="google-map"></div>
-<a href="#" id="geoLocationButton">Geolocate me dawg!</a>
-```
+http://subzane.github.io/simplegmaps/
 
-```javascript
-$('#simplegmap').simplegmaps();
-$('#geoLocationButton').on('click', function(event) {
-  event.preventDefault();
-  $('#simplegmap-1').simplegmaps('setGeoLocation');
-});
-```
+## changelog
 
-###Adding a map with different layers
-Currently this plugin supports traffic and bicycle layers.
+#### 2.5.0
 
-```html
-<div id="simplegmap" class="google-map">
-  <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
-</div>
-<a href="#" id="toggleTraffic" class="btn btn-primary">Toggle Traffic Layer</a>
-<a href="#" id="toggleBicycle" class="btn btn-primary">Toggle Bicycle Layer</a>
+- CHANGE: Uses Gulp instead of Grunt
+- CHANGE: Links to ClusterMarker script instead of including it in the project
 
-```
+#### 2.4.0
 
-```javascript
-$('#simplegmap').simplegmaps();
+- NEW: Added option to enable bounce Animation on marker click-event. View demo for demonstration and source code.
+- NEW: Added option to swap marker icon when selected. View demo for demonstration and source code.
 
-$('#toggleTraffic').on('click', function(e) {
-  e.preventDefault();
-  $('#simplegmap').simplegmaps('toggleTrafficLayer');
-});
-$('#toggleBicycle').on('click', function(e) {
-  e.preventDefault();
-  $('#simplegmap').simplegmaps('toggleBicycleLayer');
-});
-```
+#### 2.3.3
 
-###Example using snazzy maps to spice up the map style a bit
-[Snazzy Maps](http://snazzymaps.com) is a nice resource to find color and style themes for Google Maps. Snazzy Maps themes are 100% compatible with simplegmaps (as it simply works out of the box with Google Maps API).
+- FIX: Fixed url to ClusterMarker
+- FIX: Fixed api key
 
-```html
-<div id="simplegmap" class="google-map">
-  <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
-</div>
-```
+#### 2.3.2
 
-```javascript
-$('#simplegmap').simplegmaps({
-  MapOptions: {
-    styles: [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}]
-  }
-});
-```
+- OTHER: Replaced Bower with Yarn
+- Moved script to Yarn
 
-###Adding custom marker icons
-Use the data attribute `data-icon` to specify the path to an image you wish to use as icon.
-```html
-<div id="simplegmap" class="google-map">
-  <div class="map-marker" data-title="Remi" data-icon="img/mmazure.png" data-address="Remi 145 W 53rd St, New York, NY, United States"></div>
-</div>
-```
+#### 2.3.1
 
-###Creating custom info windows
-If you want to totally customize the position, layout and design of the info window you'll need to first wrap your map with div that has the following CSS
-```css
-overflow: hidden;
-position: relative;
-```
+- FIX: Fixes bug with custom marker icon.
+- FIX: CSS styling to directions for demo
+- OTHER: Adjustments to environment
 
-You can then create your info window as usual, but instead use the class name `map-custom-infowindow`
+#### 2.3.0
 
-```html
-<div class="simplegmap-content">
-  <div id="simplegmap" class="google-map">
-    <div class="map-marker" data-title="Remi" data-address="Remi 145 W 53rd St, New York, NY, United States">
-      <div class="map-custom-infowindow">
-        <button type="button" class="close" aria-hidden="true">&times;</button>
-        <img src="img/photo.png" alt="a house" class="img-responsive">
-        <h2>Remi</h2>
-        <p>Remi 145 W 53rd St, New York, NY, United States</p>
-      </div>
-    </div>
-  </div>
-</div>
-```
+- NEW: Route turn by turn description can now be displayed.
 
-And to make it shine, add some style to your custom info window
-```css
-.map-custom-infowindow {
-  position: absolute;
-  display: block;
-  bottom: 30px;
-  left: 0;
-  margin-left: 15%;
-  margin-right: 15%;
-  width: 70%;
-  min-height: 120px;
-  border: 1px solid #bcb8ac;
-  background-color: #fff;
-  color: #333;
-  z-index: 10;
-  padding: 10px;
-  border-radius: 10px;
-}
-```
+#### 2.1.0
 
-###Creating native map links
-You can create native links to open up a specific address in the users native map application. You can also force the use of the Google Maps app if needed.
+- NEW: New option `multipleInfoWindows`: Set to true to allow opening multiple infoWindows at the same time.
 
-Create a link that will open an address in Google Maps app. (Works on iOS and on Android)
-```javascript
-var link = $('#simplemap').simplegmaps('getGoogleMapLink', 'Remi 145 W 53rd St, New York, NY, United States')
-```
+#### 2.1.0
 
-Create a link that will open an address in Apple Maps app. (Works on iOS and OSX)
-```javascript
-var link = $('#simplemap').simplegmaps('getAppleMapsLink', 'Remi 145 W 53rd St, New York, NY, United States')
-```
+- NEW: Added support for [Marker Clustering](https://developers.google.com/maps/documentation/javascript/marker-clustering). To use this feature set "cluster" to true when initializing.
+- UPDATE: There's a geolocation limit on how many addresses you can requests during a short period of time. Try not to over use it if possible. If the requests are too many, you'll se a warning in the console "google.maps.GeocoderStatus.OVER_QUERY_LIMIT" and the affected markers will be ignored.
 
-Create a link that will open an address in Windows 7 Maps app. (Works on Windows Phone 7)
-```javascript
-var link = $('#simplemap').simplegmaps('getWindowsPhone7MapLink', 'Remi 145 W 53rd St, New York, NY, United States')
-```
+#### 2.0.1-beta
 
-Create a link that will open an address in Google Maps in the current browser.
-```javascript
-var link = $('#simplemap').simplegmaps('getDesktopMapLink', 'Remi 145 W 53rd St, New York, NY, United States')
-```
+- FIX: Adress for demo "Single marker by address" had stopped working.
 
-Create a link that will open an address in the native maps app on the current device. On smartphones and tablets it will open the native maps app. On desktop it will simply open the normal google maps in the browser.
-```javascript
-var link = $('#simplemap').simplegmaps('getNativeMapLink', 'Remi 145 W 53rd St, New York, NY, United States')
-```
+#### 2.0.0-beta
 
-##changelog
-####1.1.3
-* FIX: When using custom icons together with longitude/latitude positioning the icons where places wrong. This has now been resolved.
+- NEW: Rewritten using only vanilla JavaScript.
+- NEW: Now supports placing markers using a JSON-data feed as source.
+- NEW: Better support for native google maps events.
+- NEW: Easier to extend.
+- CHANGE: Dropped support for IE8-9
+- CHANGE: Dropped support for Safari 6-7
 
-####1.1.2
-* FIX: Option `ZoomToFitBounds` wasn't used properly, preventing custom zoom.
+#### 1.1.3
 
-####1.1.1
-* FIX: Method `setGeoLocation` wasn't public.
+- FIX: When using custom icons together with longitude/latitude positioning the icons where places wrong. This has now been resolved.
 
-####1.1.0
-* NEW: Added option `ZoomToFitBounds`: Will auto zoom the map to fit all markers within bounds. Setting this to true will disable the user of "zoom" in MapOptions, disable this to set your own zoom level. Default true (active)
-* NEW: Added `data` attribute to control where the map center will be. Use `data-center="true"` on the marker you wish the map to center on. Can only be used if `ZoomToFitBounds` is set to false.
+#### 1.1.2
 
-####1.0.2
-* Fixed bug with map links on Android.
+- FIX: Option `ZoomToFitBounds` wasn't used properly, preventing custom zoom.
 
-####1.0.1
-* Fixed bug with map links
+#### 1.1.1
 
-####1.0.0
-* Added support for autocomplete for routing address. By @jhnsndstrm
-* Added search for address with and without autocomplete. By @jhnsndstrm
+- FIX: Method `setGeoLocation` wasn't public.
 
-####0.9.0
-* Added support for retina custom markers. Check out the demo 'Single marker with custom icon' for an example.
+#### 1.1.0
 
-####0.8.0
-* Added functions for creating native map links for iPhone, Android, Windows Phone and Desktop.
+- NEW: Added option `ZoomToFitBounds`: Will auto zoom the map to fit all markers within bounds. Setting this to true will disable the user of "zoom" in MapOptions, disable this to set your own zoom level. Default true (active)
+- NEW: Added `data` attribute to control where the map center will be. Use `data-center="true"` on the marker you wish the map to center on. Can only be used if `ZoomToFitBounds` is set to false.
 
-####0.7.0
-* Extends routing functionality to provide [DirectionsRequest Options](https://developers.google.com/maps/documentation/javascript/3.19/reference#DirectionsService)
+#### 1.0.2
 
-####0.6.0
-* Removed weather layer because of [Google Maps deprication](https://developers.google.com/maps/documentation/javascript/examples/layer-weather)
+- Fixed bug with map links on Android.
 
-####0.5.0
-* Added custom info windows
+#### 1.0.1
 
-####0.4.0
-* Added support for custom marker icons.
-* Added toggle function for bicycle layer
+- Fixed bug with map links
 
-####0.3.2
-* FIX: Error occured when no markers was placed.
-* FIX: MapOptions.Center did work as expected.
-* FIX: Noticed that the zoom property of MapOptions was mandatory. Added fallback to default zoom setting.
+#### 1.0.0
 
-####0.3.1
-* FIX: Will no longer autofit when no markers has been added.
+- Added support for autocomplete for routing address. By @jhnsndstrm
+- Added search for address with and without autocomplete. By @jhnsndstrm
 
-####0.3.0
-* Added support for traffic layer
-* Added support for weather layer
-* Added support for automatic geo location
-* Added support for geo location on demand (by clicking a button for example)
-* Added example with snazzy maps
+#### 0.9.0
 
-####0.2.0
+- Added support for retina custom markers. Check out the demo 'Single marker with custom icon' for an example.
+
+#### 0.8.0
+
+- Added functions for creating native map links for iPhone, Android, Windows Phone and Desktop.
+
+#### 0.7.0
+
+- Extends routing functionality to provide [DirectionsRequest Options](https://developers.google.com/maps/documentation/javascript/3.19/reference#DirectionsService)
+
+#### 0.6.0
+
+- Removed weather layer because of [Google Maps deprication](https://developers.google.com/maps/documentation/javascript/examples/layer-weather)
+
+#### 0.5.0
+
+- Added custom info windows
+
+#### 0.4.0
+
+- Added support for custom marker icons.
+- Added toggle function for bicycle layer
+
+#### 0.3.2
+
+- FIX: Error occured when no markers was placed.
+- FIX: MapOptions.Center did work as expected.
+- FIX: Noticed that the zoom property of MapOptions was mandatory. Added fallback to default zoom setting.
+
+#### 0.3.1
+
+- FIX: Will no longer autofit when no markers has been added.
+
+#### 0.3.0
+
+- Added support for traffic layer
+- Added support for weather layer
+- Added support for automatic geo location
+- Added support for geo location on demand (by clicking a button for example)
+- Added example with snazzy maps
+
+#### 0.2.0
+
 First public release.

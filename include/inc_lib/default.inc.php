@@ -618,7 +618,7 @@ define('PHPWCMS_HEADER_COMMENT', '
 if (empty($phpwcms['lazy_loading']) || !in_array($phpwcms['lazy_loading'], ['lazy', 'eager', 'auto'])) {
     define('PHPWCMS_LAZY_LOADING', '');
 } else {
-    define('PHPWCMS_LAZY_LOADING', ' loading="' . $phpwcms['lazy_loading'] . '"');
+    define('PHPWCMS_LAZY_LOADING', ' loading="' . $phpwcms['lazy_loading'] . '" decoding="async"');
 }
 
 // Todo: Later remove these

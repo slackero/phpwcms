@@ -246,10 +246,6 @@ label a:focus,
     background-color: #F5F6F5;
 }
 
-.img-bg {
-    background-color: #EDF0F6;
-}
-
 .article-thumb,
 .backend_previewsmall_img img,
 .card-body .table td img.img-thumbnail,
@@ -429,11 +425,12 @@ label a:focus,
 .btn .fa-regular,
 .btn .fa-brands,
 .btn .fa-solid {
-    line-height: 1.5;
+    /* Keep next line commented, we just want to be sure to preserve */
+    /* line-height: 1.5; */
     width: 1.25em;
 }
 
-.btn-group-xs > .btn, .btn-xs {
+.btn-xs {
     padding: .25rem .5rem;
     font-size: .875rem;
     line-height: 1.35;
@@ -601,9 +598,7 @@ label a:focus,
 }
 
 /* Action buttons wrapping prevention & icon consistency */
-.cell-actions,
-.btn-group,
-.action-buttons {
+.btn-group {
     white-space: nowrap !important;
 }
 
@@ -685,11 +680,7 @@ a.filein {
 }
 
 .table-valign-middle td,
-.table-valign-middle th,
-.table-align-middle td,
-.table-align-middle th,
-.table-v-align-middle td,
-.table-v-align-middle th {
+.table-valign-middle th {
     vertical-align: middle;
 }
 
@@ -1497,15 +1488,6 @@ tr.hover-amber > td {
     border-bottom: 1px solid #dfdfdf;
 }
 
-.border-bottom-medium,
-.border-bottom-medium td,
-.border-bottom-medium th,
-tr.border-bottom-medium > td,
-tr.border-bottom-medium > th,
-td.border-bottom-medium,
-th.border-bottom-medium {
-    border-bottom: 1px solid #cbd6e2 !important;
-}
 
 .bg-row-pink {
     background-color: #FFC4CB;
@@ -1981,11 +1963,6 @@ body.filebrowser table img,
     color: #28a745;
 }
 
-.overflow-ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
 
 .nowrap {
     white-space: nowrap;
@@ -2294,8 +2271,7 @@ body.filebrowser table img,
 }
 
 /* Misc app surfaces */
-[data-bs-theme="dark"] .bg-grey,
-[data-bs-theme="dark"] .img-bg {
+[data-bs-theme="dark"] .bg-grey {
     background-color: var(--pw-bg-raised);
 }
 

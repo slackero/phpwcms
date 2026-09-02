@@ -13,7 +13,7 @@
         This snippet builds the nav from each panel's title (vanilla JS, no jQuery).
     -->
     <!-- JS:
-    (function(){
+    document.addEventListener('DOMContentLoaded', function(){
         var root = document.getElementById('bs-tabs-content-{ID}');
         if(!root) return;
         var panes = root.querySelectorAll(':scope > .tab-pane');
@@ -42,7 +42,7 @@
             nav.appendChild(li);
         });
         root.parentNode.insertBefore(nav, root);
-    })();
+    });
     -->
 [/TABS_ENTRIES]
 </div>
