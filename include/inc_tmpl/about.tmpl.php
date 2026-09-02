@@ -19,11 +19,27 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
 <div class="about-header mb-3">
     <h1 class="title"><?php echo html($BL['be_about_headline']); ?></h1>
+<?php if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL): ?>
+    <div class="alert alert-info py-2 px-3 mb-3">
+        <i class="fa-solid fa-certificate me-1"></i>
+        <strong>White Label Licensed:</strong> <?php echo html(get_brand_name()); ?>
+        <?php if (!empty($phpwcms['whitelabel']['licensee'])): ?>
+            &bull; Licensed to <strong><?php echo html($phpwcms['whitelabel']['licensee']); ?></strong>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
     <p>
         <strong><?php echo html($BL['be_about_version']); ?>:</strong> <?php echo html(PHPWCMS_VERSION); ?> (<?php echo html(PHPWCMS_RELEASE_DATE); ?>, r<?php echo html(PHPWCMS_REVISION); ?>)<br>
+<?php if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL): ?>
+        <?php if ($brand_url = get_brand_url()): ?>
+        <strong><?php echo html($BL['be_about_website']); ?>:</strong> <a href="<?php echo htmlspecialchars($brand_url, ENT_QUOTES, 'UTF-8'); ?>" target="_blank"><?php echo htmlspecialchars($brand_url, ENT_QUOTES, 'UTF-8'); ?></a><br>
+        <?php endif; ?>
+        <strong><?php echo html($BL['be_about_copyright']); ?>:</strong> <?php echo get_brand_copyright(); ?>
+<?php else: ?>
         <strong><?php echo html($BL['be_about_maintainer']); ?>:</strong> <a href="mailto:og@phpwcms.org">Oliver Georgi</a><br>
         <strong><?php echo html($BL['be_about_website']); ?>:</strong> <a href="https://www.phpwcms.org" target="_blank">https://www.phpwcms.org</a><br>
         <strong><?php echo html($BL['be_about_copyright']); ?>:</strong> &copy; 2002&ndash;<?php echo date('Y'); ?> Oliver Georgi <?php echo $BL['be_about_contributors']; ?>
+<?php endif; ?>
     </p>
 </div>
 
@@ -32,13 +48,13 @@ if (!defined('PHPWCMS_ROOT')) {
 //-->
 <div class="copyrightInfo code mb-3 p-3">
     <p class="mt-0">
-        <strong>phpwcms</strong> is free software; you can redistribute it and/or modify
+        <strong><?php echo html(get_brand_name()); ?></strong> is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published
         by the Free Software Foundation; either version 2 of the License,
         or (at your option) any later version.
     </p>
     <p>
-        <strong>phpwcms</strong> is distributed in the hope that it will be useful,
+        <strong><?php echo html(get_brand_name()); ?></strong> is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
         <a href="https://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU General Public License</a>

@@ -207,7 +207,7 @@ if($phpwcms['cache_timeout']) {
 }
 
 // write phpwcms release information in a custom HTTP header
-if(empty($phpwcms['disable_generator'])) {
+if (empty($phpwcms['disable_generator']) && (!defined('PHPWCMS_WHITELABEL') || !PHPWCMS_WHITELABEL)) {
     header('X-phpwcms-Release: ' . PHPWCMS_VERSION);
 }
 

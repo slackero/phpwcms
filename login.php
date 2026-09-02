@@ -197,6 +197,8 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
     $BL['be_cnt_field'] = array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
 }
 
+$BL = apply_brand_replacements($BL);
+
 //WYSIWYG EDITOR:
 //0 = no wysiwyg editor (default)
 //1 = CKEditor
@@ -707,6 +709,7 @@ $reason_types = array(
 	<meta name="robots" content="noindex, nofollow">
 	<?php echo get_theme_boot_script(); ?>
 	<link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
+	<?php echo get_brand_custom_css(); ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 	<script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
 	<script src="include/inc_js/bootstrap.bundle.min.js"></script>
@@ -718,7 +721,7 @@ $reason_types = array(
         <header id="header" class="navbar navbar-expand navbar-static-top">
             <div class="container-fluid px-0 px-sm-3">
                 <div id="header-logo" class="navbar-header d-flex align-items-center">
-                    <a href="index.php" class="navbar-brand"><img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System" /></a>
+                    <?php echo get_brand_logo('navbar-brand', 'index.php'); ?>
                 </div>
                 <ul class="nav navbar-nav ms-auto">
                     <li class="nav-item dropdown theme-switcher">
@@ -780,9 +783,7 @@ $reason_types = array(
         </div>
 
         <footer id="footer" class="text-center mt-3">
-            <strong><a href="https://www.phpwcms.org/" target="_blank" style="text-decoration:none;">phpwcms</a></strong>
-            |
-            Copyright &copy; 2002-<?php echo date('Y'); ?> Oliver Georgi.
+            <?php echo get_brand_footer(); ?>
         </footer>
     </div>
 <?php

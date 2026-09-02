@@ -71,7 +71,11 @@ if(!empty($_SESSION['wcs_user_lang_custom'])) {
     unset($BL['merge_lang_array']);
 }
 
+$BL = apply_brand_replacements($BL);
+
 require_once PHPWCMS_ROOT.'/include/inc_lib/navi_text.inc.php';
+
+$wcsnav = apply_brand_replacements($wcsnav);
 require_once PHPWCMS_ROOT.'/include/inc_lib/checkmessage.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
@@ -274,6 +278,7 @@ header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
     <!-- phpwcms CSP -->
     <?php echo get_theme_boot_script(); ?>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
+    <?php echo get_brand_custom_css(); ?>
     <script>
         const CSRF_GET_TOKEN = <?php echo json_encode(CSRF_GET_TOKEN); ?>;
         if (localStorage.getItem('phpwcms_sidebar_collapsed') === 'true') {
@@ -299,9 +304,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
   <header id="header" class="navbar navbar-expand navbar-static-top">
     <div class="container-fluid px-0 px-sm-3">
       <div id="header-logo" class="navbar-header d-none d-md-flex align-items-center ms-1">
-          <a href="phpwcms.php?<?php echo get_token_get_string(); ?>" class="navbar-brand">
-              <img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System">
-          </a>
+          <?php echo get_brand_logo('navbar-brand', 'phpwcms.php?' . get_token_get_string()); ?>
       </div>
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa-solid fa-bars"></span></a>
       <ul class="nav navbar-nav ms-auto">

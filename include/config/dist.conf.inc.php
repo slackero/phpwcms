@@ -189,4 +189,14 @@ $phpwcms['support'] = array(
     'email'   => ''  // Custom support email address (falls back to GitHub support page if empty)
 );
 
+// White Label Branding (Requires valid signed license key)
+$phpwcms['whitelabel_key']       = ''; // Signed white label license key
+$phpwcms['brand_name']           = ''; // Custom product name replacing phpwcms
+$phpwcms['brand_logo_light']     = ''; // Custom logo URL or path for light theme
+$phpwcms['brand_logo_dark']      = ''; // Custom logo URL or path for dark theme
+$phpwcms['brand_custom_css']     = ''; // Custom backend stylesheet URL or path
+$phpwcms['brand_support_url']    = ''; // Custom support / documentation URL
+$phpwcms['brand_url']            = ''; // Custom website URL (defaults to brand_support_url if empty)
+$phpwcms['brand_copyright']      = ''; // Custom copyright text (defaults to licensee if empty)
+
 define('PHPWCMS_INCLUDE_CHECK', true);

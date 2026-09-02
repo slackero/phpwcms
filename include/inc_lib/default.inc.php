@@ -138,7 +138,10 @@ define('PHPWCMS_ALIAS_UTF8', !(empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CH
 // Mime-Type definitions
 require_once PHPWCMS_ROOT . '/include/inc_lib/mimetype.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/revision/revision.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/whitelabel.inc.php';
 require_once PHPWCMS_ROOT . '/include/vendor/autoload.php';
+
+phpwcms_whitelabel_init($phpwcms);
 
 phpwcms_getUserAgent();
 define('BROWSER_NAME', $phpwcms['USER_AGENT']['agent']);
@@ -606,7 +609,23 @@ $phpwcms['htmlhead_inject_prefix'] = '';
 $phpwcms['htmlhead_inject_suffix'] = '';
 $phpwcms['htmlhead_inject'] = '';
 
-define('PHPWCMS_HEADER_COMMENT', '
+if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL) {
+    $whitelabel_comment = '    ' . html_specialchars($phpwcms['whitelabel']['brand_name']);
+    $whitelabel_copyright = get_brand_copyright();
+    if ($whitelabel_copyright) {
+        $whitelabel_comment .= LF . '    ' . html_entity_decode(strip_tags($whitelabel_copyright), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+    $whitelabel_url = get_brand_url();
+    if ($whitelabel_url) {
+        $whitelabel_comment .= LF . '    ' . $whitelabel_url;
+    }
+    define('PHPWCMS_HEADER_COMMENT', '
+  <!--%s
+' . $whitelabel_comment . '
+  -->
+');
+} else {
+    define('PHPWCMS_HEADER_COMMENT', '
   <!--%s
     phpwcms | free open source content management system
     created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
@@ -614,6 +633,7 @@ define('PHPWCMS_HEADER_COMMENT', '
     their respective owners. Visit project page for details: http://www.phpwcms.org/
   -->
 ');
+}
 
 if (empty($phpwcms['lazy_loading']) || !in_array($phpwcms['lazy_loading'], ['lazy', 'eager', 'auto'])) {
     define('PHPWCMS_LAZY_LOADING', '');

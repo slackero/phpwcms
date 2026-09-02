@@ -309,6 +309,14 @@ function write_conf_file($val) {
     $conf_file .= "    'email'   => ''  // Custom support email address (falls back to GitHub support page if empty)\n";
     $conf_file .= ");\n";
 
+    $conf_file .= "\n// White Label Branding (Requires valid signed license key)\n";
+    $conf_file .= "\$phpwcms['whitelabel_key']   = '" . escape_quote($val['whitelabel_key'] ?? '') . "'; // Signed white label license key\n";
+    $conf_file .= "\$phpwcms['brand_name']       = '" . escape_quote($val['brand_name'] ?? '') . "'; // Custom product name replacing phpwcms\n";
+    $conf_file .= "\$phpwcms['brand_logo_light'] = '" . escape_quote($val['brand_logo_light'] ?? '') . "'; // Custom logo URL or path for light theme\n";
+    $conf_file .= "\$phpwcms['brand_logo_dark']  = '" . escape_quote($val['brand_logo_dark'] ?? '') . "'; // Custom logo URL or path for dark theme\n";
+    $conf_file .= "\$phpwcms['brand_custom_css'] = '" . escape_quote($val['brand_custom_css'] ?? '') . "'; // Custom backend stylesheet URL or path\n";
+    $conf_file .= "\$phpwcms['brand_support_url'] = '" . escape_quote($val['brand_support_url'] ?? '') . "'; // Custom support / documentation URL\n";
+
     $conf_file .= "\ndefine('PHPWCMS_INCLUDE_CHECK', true);\n";
 
     write_textfile(__DIR__ . '/../setup.conf.inc.php', $conf_file);
