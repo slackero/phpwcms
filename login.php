@@ -606,7 +606,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'send_reset_link')
                 'html'       => $email_html,
                 'text'       => $email_body,
                 'from'       => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '',
-                'fromName'   => 'phpwcms'
+                'fromName'   => get_brand_name()
             ]);
         }
 

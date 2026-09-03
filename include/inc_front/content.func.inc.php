@@ -1308,7 +1308,7 @@ if($content['opengraph']['render'] && !empty($content['opengraph']['support'])) 
     }
 }
 
-if (empty($phpwcms['disable_generator']) && (!defined('PHPWCMS_WHITELABEL') || !PHPWCMS_WHITELABEL)) {
+if (empty($phpwcms['disable_generator']) && !is_whitelabel()) {
     set_meta('generator', 'phpwcms ' . PHPWCMS_VERSION);
 }
 

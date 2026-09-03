@@ -776,16 +776,17 @@ function getAltTitle($string = '', $altAndTitle = 0, $echo = 0) {
 function renderSystemEmailHTML($title, $contentHtml, $preheader = '') {
     global $phpwcms;
 
-    $siteName = empty($phpwcms['site']) ? 'phpwcms' : $phpwcms['site'];
+    $siteName = empty($phpwcms['site']) ? get_brand_name() : $phpwcms['site'];
     $siteUrl = PHPWCMS_URL;
     $siteLink = '<a href="' . html($siteUrl) . '" style="color:#6c757d;text-decoration:none;">' . html(PHPWCMS_HOST) . '</a>';
 
     // header: site name, optionally preceded by a logo image
     // mail_logo_url accepts https?:// URLs and data:image/*;base64, URIs
     // (raster formats only — SVG does not render in Outlook desktop);
-    // default is the bundled phpwcms PNG logo (2x retina) embedded as data URI
     $logoUrl = empty($phpwcms['mail_logo_url']) ? '' : $phpwcms['mail_logo_url'];
-    if ($logoUrl === '' && is_file(PHPWCMS_ROOT . '/img/phpwcms-logo.png')) {
+    if ($logoUrl === '' && is_whitelabel()) {
+        $logoUrl = get_brand_email_logo();
+    } elseif ($logoUrl === '' && is_file(PHPWCMS_ROOT . '/img/phpwcms-logo.png')) {
         $logoUrl = 'data:image/png;base64,' . base64_encode((string)file_get_contents(PHPWCMS_ROOT . '/img/phpwcms-logo.png'));
     }
     // header: logo wrapped in the site link; the URL itself is not shown as text
@@ -890,7 +891,7 @@ function sendEmail($data = [
     $fromName = empty($data['fromName']) ? '' : cleanUpForEmailHeader(i18n_substitute_text($data['fromName']));
     $senderName = empty($data['senderName']) ? $fromName : cleanUpForEmailHeader(i18n_substitute_text($data['senderName']));
     $toName = empty($data['toName']) ? '' : cleanUpForEmailHeader(i18n_substitute_text($data['toName']));
-    $subject = empty($data['subject']) ? 'Email sent by phpwcms' : cleanUpForEmailHeader(i18n_substitute_text($data['subject']));
+    $subject = empty($data['subject']) ? 'Email sent by ' . get_brand_name() : cleanUpForEmailHeader(i18n_substitute_text($data['subject']));
     if (empty($data['html'])) {
         $data['html'] = '';
         $data['isHTML'] = false;

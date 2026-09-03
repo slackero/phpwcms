@@ -757,7 +757,9 @@ forward_to($forward_to_message_center, PHPWCMS_URL. 'phpwcms.php?do=messages', 2
 $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
 
 // retrieve complete processing time
-header('X-phpwcms-Page-Processed-In: ' . number_format((hrtime(true) - $phpwcms_rendering_start) / 1e9, 4) . ' s');
+if (empty($phpwcms['disable_processed_in']) && !is_whitelabel()) {
+    header('X-phpwcms-Page-Processed-In: ' . number_format((hrtime(true) - $phpwcms_rendering_start) / 1e9, 4) . ' s');
+}
 
 $BE['HTML'] = ob_get_clean();
 

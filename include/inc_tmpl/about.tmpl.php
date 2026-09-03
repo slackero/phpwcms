@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
 <div class="about-header mb-3">
     <h1 class="title"><?php echo html($BL['be_about_headline']); ?></h1>
-<?php if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL): ?>
+<?php if (is_whitelabel()): ?>
     <div class="alert alert-info py-2 px-3 mb-3">
         <i class="fa-solid fa-certificate me-1"></i>
         <strong>White Label Licensed:</strong> <?php echo html(get_brand_name()); ?>
@@ -30,7 +30,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <?php endif; ?>
     <p>
         <strong><?php echo html($BL['be_about_version']); ?>:</strong> <?php echo html(PHPWCMS_VERSION); ?> (<?php echo html(PHPWCMS_RELEASE_DATE); ?>, r<?php echo html(PHPWCMS_REVISION); ?>)<br>
-<?php if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL): ?>
+<?php if (is_whitelabel()): ?>
         <?php if ($brand_url = get_brand_url()): ?>
         <strong><?php echo html($BL['be_about_website']); ?>:</strong> <a href="<?php echo htmlspecialchars($brand_url, ENT_QUOTES, 'UTF-8'); ?>" target="_blank"><?php echo htmlspecialchars($brand_url, ENT_QUOTES, 'UTF-8'); ?></a><br>
         <?php endif; ?>

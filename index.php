@@ -207,12 +207,12 @@ if($phpwcms['cache_timeout']) {
 }
 
 // write phpwcms release information in a custom HTTP header
-if (empty($phpwcms['disable_generator']) && (!defined('PHPWCMS_WHITELABEL') || !PHPWCMS_WHITELABEL)) {
+if (empty($phpwcms['disable_generator']) && !is_whitelabel()) {
     header('X-phpwcms-Release: ' . PHPWCMS_VERSION);
 }
 
 // retrieve complete processing time
-if(empty($phpwcms['disable_processed_in'])) {
+if (empty($phpwcms['disable_processed_in']) && !is_whitelabel()) {
     header('X-phpwcms-Page-Processed-In: ' . number_format((hrtime(true) - $phpwcms_rendering_start) / 1e9, 4) . ' s');
 }
 

@@ -609,7 +609,7 @@ $phpwcms['htmlhead_inject_prefix'] = '';
 $phpwcms['htmlhead_inject_suffix'] = '';
 $phpwcms['htmlhead_inject'] = '';
 
-if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL) {
+if (is_whitelabel()) {
     $whitelabel_comment = '    ' . html_specialchars($phpwcms['whitelabel']['brand_name']);
     $whitelabel_copyright = get_brand_copyright();
     if ($whitelabel_copyright) {

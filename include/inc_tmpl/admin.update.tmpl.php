@@ -166,16 +166,16 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
                 <div class="fs-5 fw-semibold text-success"><?php echo html($updateCheck['version']); ?></div>
                 <div class="small text-muted"><?php echo html($updateCheck['tag']); ?> &middot; <?php echo html($updateCheck['date']); ?></div>
               <?php else: ?>
-                <div class="text-success"><i class="fa-solid fa-circle-check"></i> <?php echo html($BL['be_update_uptodate'] ?? 'phpwcms is up to date.'); ?></div>
+                <div class="text-success"><i class="fa-solid fa-circle-check"></i> <?php echo html($BL['be_update_uptodate'] ?? (get_brand_name() . ' is up to date.')); ?></div>
               <?php endif; ?>
             </div>
           </div>
 
           <?php if ($updateCheck !== false && !empty($updateCheck['newer'])): ?>
             <hr>
-            <h6 class="text-muted text-uppercase small mb-2"><?php echo html($updateCheck['name']); ?></h6>
+            <h6 class="text-muted text-uppercase small mb-2"><?php echo html(apply_brand_replacements($updateCheck['name'])); ?></h6>
             <div class="mb-3">
-              <?php echo be_update_markdown(html($updateCheck['notes'])); ?>
+              <?php echo be_update_markdown(html(apply_brand_replacements($updateCheck['notes']))); ?>
             </div>
             <?php if ($revisionsPending): ?>
               <div class="alert alert-warning py-2 mb-0"><i class="fa-solid fa-triangle-exclamation"></i> <?php echo html($BL['be_update_revision_pending'] ?? 'Database migrations are pending or failed — run them (backend login) before updating.'); ?></div>

@@ -72,6 +72,7 @@ function phpwcms_whitelabel_init(array &$phpwcms): bool {
         'brand_name'      => 'phpwcms',
         'logo_light'      => '',
         'logo_dark'       => '',
+        'logo_email'      => '',
         'custom_css'      => '',
         'support_url'     => '',
         'url'             => '',
@@ -190,6 +191,7 @@ function phpwcms_whitelabel_init(array &$phpwcms): bool {
         'brand_name'      => $brand_name,
         'logo_light'      => $phpwcms['brand_logo_light'] ?? '',
         'logo_dark'       => $phpwcms['brand_logo_dark'] ?? '',
+        'logo_email'      => $phpwcms['brand_logo_email'] ?? '',
         'custom_css'      => $phpwcms['brand_custom_css'] ?? '',
         'support_url'     => $phpwcms['brand_support_url'] ?? ($payload['support_url'] ?? ''),
         'url'             => $brand_url,
@@ -207,11 +209,18 @@ function phpwcms_whitelabel_init(array &$phpwcms): bool {
 }
 
 /**
+ * Check if white label mode is active
+ */
+function is_whitelabel(): bool {
+    return defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL;
+}
+
+/**
  * Get current brand name
  */
 function get_brand_name(): string {
     global $phpwcms;
-    if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL && !empty($phpwcms['whitelabel']['brand_name'])) {
+    if (is_whitelabel() && !empty($phpwcms['whitelabel']['brand_name'])) {
         return (string)$phpwcms['whitelabel']['brand_name'];
     }
 
@@ -223,7 +232,7 @@ function get_brand_name(): string {
  */
 function get_brand_url(): string {
     global $phpwcms;
-    if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL) {
+    if (is_whitelabel()) {
         if (!empty($phpwcms['whitelabel']['url'])) {
             return (string)$phpwcms['whitelabel']['url'];
         }
@@ -241,7 +250,7 @@ function get_brand_url(): string {
  */
 function get_brand_copyright(): string {
     global $phpwcms;
-    if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL) {
+    if (is_whitelabel()) {
         $copyright = !empty($phpwcms['whitelabel']['copyright']) ? (string)$phpwcms['whitelabel']['copyright'] : '';
         if ($copyright !== '') {
             if (stripos($copyright, 'copyright') !== false || str_contains($copyright, '&copy;') || str_contains($copyright, '©')) {
@@ -296,7 +305,7 @@ function get_brand_logo(string $class = '', string $link = 'index.php'): string 
     $title = $brand_name . ' Content Management System';
     $class_attr = $class ? ' class="' . html_specialchars($class) . '"' : '';
 
-    if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL) {
+    if (is_whitelabel()) {
         $logo_light = !empty($phpwcms['whitelabel']['logo_light']) ? $phpwcms['whitelabel']['logo_light'] : '';
         $logo_dark  = !empty($phpwcms['whitelabel']['logo_dark'])  ? $phpwcms['whitelabel']['logo_dark']  : $logo_light;
 
@@ -318,12 +327,32 @@ function get_brand_logo(string $class = '', string $link = 'index.php'): string 
 }
 
 /**
+ * Get brand bitmap email logo URL or data URI
+ */
+function get_brand_email_logo(): string {
+    global $phpwcms;
+
+    // Check explicit whitelabel email logo first
+    if (is_whitelabel()) {
+        if (!empty($phpwcms['whitelabel']['logo_email'])) {
+            return (string)$phpwcms['whitelabel']['logo_email'];
+        }
+        if (!empty($phpwcms['whitelabel']['logo_light']) && (preg_match('#\.(png|jpe?g|gif|webp)$#i', $phpwcms['whitelabel']['logo_light']) || preg_match('#^data:image/(png|jpe?g|gif|webp);base64,#i', $phpwcms['whitelabel']['logo_light']))) {
+            return (string)$phpwcms['whitelabel']['logo_light'];
+        }
+        return '';
+    }
+
+    return '';
+}
+
+/**
  * Get brand custom CSS link tag if configured
  */
 function get_brand_custom_css(): string {
     global $phpwcms;
     $lf = defined('LF') ? LF : "\n";
-    if (defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL && !empty($phpwcms['whitelabel']['custom_css'])) {
+    if (is_whitelabel() && !empty($phpwcms['whitelabel']['custom_css'])) {
         $css_file = $phpwcms['whitelabel']['custom_css'];
         return '<link href="' . html_specialchars($css_file) . '" rel="stylesheet" type="text/css">' . $lf;
     }
@@ -335,7 +364,7 @@ function get_brand_custom_css(): string {
  * Filter language strings or arbitrary text to replace 'phpwcms' with brand name
  */
 function apply_brand_replacements(mixed $data): mixed {
-    if (!defined('PHPWCMS_WHITELABEL') || !PHPWCMS_WHITELABEL) {
+    if (!is_whitelabel()) {
         return $data;
     }
 

@@ -194,6 +194,7 @@ $phpwcms['whitelabel_key']       = ''; // Signed white label license key
 $phpwcms['brand_name']           = ''; // Custom product name replacing phpwcms
 $phpwcms['brand_logo_light']     = ''; // Custom logo URL or path for light theme
 $phpwcms['brand_logo_dark']      = ''; // Custom logo URL or path for dark theme
+$phpwcms['brand_logo_email']     = ''; // Custom email logo URL or data URI (raster format PNG/JPG/WebP/GIF)
 $phpwcms['brand_custom_css']     = ''; // Custom backend stylesheet URL or path
 $phpwcms['brand_support_url']    = ''; // Custom support / documentation URL
 $phpwcms['brand_url']            = ''; // Custom website URL (defaults to brand_support_url if empty)

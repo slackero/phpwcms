@@ -314,6 +314,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['brand_name']       = '" . escape_quote($val['brand_name'] ?? '') . "'; // Custom product name replacing phpwcms\n";
     $conf_file .= "\$phpwcms['brand_logo_light'] = '" . escape_quote($val['brand_logo_light'] ?? '') . "'; // Custom logo URL or path for light theme\n";
     $conf_file .= "\$phpwcms['brand_logo_dark']  = '" . escape_quote($val['brand_logo_dark'] ?? '') . "'; // Custom logo URL or path for dark theme\n";
+    $conf_file .= "\$phpwcms['brand_logo_email'] = '" . escape_quote($val['brand_logo_email'] ?? '') . "'; // Custom email logo URL or data URI (raster format PNG/JPG/WebP/GIF)\n";
     $conf_file .= "\$phpwcms['brand_custom_css'] = '" . escape_quote($val['brand_custom_css'] ?? '') . "'; // Custom backend stylesheet URL or path\n";
     $conf_file .= "\$phpwcms['brand_support_url'] = '" . escape_quote($val['brand_support_url'] ?? '') . "'; // Custom support / documentation URL\n";
 
