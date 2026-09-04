@@ -63,6 +63,13 @@ function load_system_email_defaults(?string $lang = 'en'): array {
         $content = file_get_contents($json_file);
         $data = json_decode($content, true);
         if (is_array($data)) {
+            if (defined('PHPWCMS_CHARSET') && PHPWCMS_CHARSET !== 'utf-8') {
+                array_walk_recursive($data, function (&$val) {
+                    if (is_string($val)) {
+                        $val = mb_convert_encoding($val, PHPWCMS_CHARSET, 'UTF-8');
+                    }
+                });
+            }
             $cache[$clean_lang] = $data;
             return $cache[$clean_lang];
         }
