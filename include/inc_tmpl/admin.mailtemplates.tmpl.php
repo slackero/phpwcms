@@ -291,7 +291,7 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                 </tbody>
                 <thead class="table-light">
                     <tr>
-                        <th style="width: 25%;"><?php echo html($BL['be_admin_mail_templates'] ?? 'Email Templates'); ?></th>
+                        <th style="width: 25%;"><?php echo html($BL['be_admin_mail_template'] ?? 'Email Template'); ?></th>
                         <th style="width: 40%;"></th>
                         <th style="width: 15%;"><?php echo html($BL['be_fpriv_status'] ?? 'Status'); ?></th>
                         <th style="width: 20%;" class="text-end"><?php echo html($BL['be_admin_custom_cpt_table_actions'] ?? 'Actions'); ?></th>

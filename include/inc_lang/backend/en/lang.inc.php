@@ -1748,3 +1748,4 @@ $BL['be_admin_mail_title_mail_footer'] = 'Email Footer Component';
 $BL['be_admin_mail_desc_mail_footer']  = 'Sub-template for the email bottom footer/imprint (rendered via {FOOTER} in master layout).';
 $BL['be_admin_mail_ph_logo']        = 'Logo image tag or styled site name';
 $BL['be_admin_mail_component_html_note'] = 'HTML markup for this component. It is embedded into the master layout via its corresponding placeholder.';
+$BL['be_admin_mail_template']       = 'Email Template';

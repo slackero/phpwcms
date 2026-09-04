@@ -1748,3 +1748,4 @@ $BL['be_admin_mail_title_mail_footer'] = 'E-Mail-Footer-Komponente';
 $BL['be_admin_mail_desc_mail_footer']  = 'Teilvorlage f&uuml;r den unteren E-Mail-Footer / das Impressum (wird &uuml;ber {FOOTER} im Haupt-Layout ausgegeben).';
 $BL['be_admin_mail_ph_logo']        = 'Logo-Bild oder formatierter Website-Name';
 $BL['be_admin_mail_component_html_note'] = 'HTML-Markup dieser Komponente. Sie wird &uuml;ber den entsprechenden Platzhalter in das Haupt-Layout eingebettet.';
+$BL['be_admin_mail_template']       = 'E-Mail Vorlage';
