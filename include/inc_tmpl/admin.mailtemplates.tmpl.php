@@ -286,8 +286,19 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                         <th style="width: 20%;" class="text-end"><?php echo html($BL['be_admin_custom_cpt_table_actions'] ?? 'Actions'); ?></th>
                     </tr>
                 </thead>
-                <tbody>
                     <?php foreach ($definitions as $key => $def): ?>
+                        <?php if ($key === 'mail_layout'): ?>
+                </tbody>
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 25%;"><?php echo html($BL['be_admin_mail_templates'] ?? 'Email Templates'); ?></th>
+                        <th style="width: 40%;"></th>
+                        <th style="width: 15%;"><?php echo html($BL['be_fpriv_status'] ?? 'Status'); ?></th>
+                        <th style="width: 20%;" class="text-end"><?php echo html($BL['be_admin_custom_cpt_table_actions'] ?? 'Actions'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <?php endif; ?>
                         <?php
                             $tpl_data = get_system_email_template($key, $current_lang);
                             $is_custom = $tpl_data['is_custom'];
