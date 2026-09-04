@@ -4,4 +4,4 @@
 - Always use single quotes for PHP strings unless variable interpolation is required.
 - NEVER use `--delete` with `rsync` when syncing to the web server. Existing files in `/filearchive/`, `content/images/`, and `content/tmp/` on the web server must NEVER be deleted. Copying and overwriting with new repository files is allowed.
 - Always run `/Applications/MAMP/bin/php/php8.2.32/bin/php -l` to check syntax on PHP files without requiring permission.
-
+- When a translation string in a PHP single-quoted lang file contains an apostrophe or single quote (e.g. French `d'images`, `l'accès`), use the typographic apostrophe character ’ (U+2019) instead of an escaped backslash-quote `\'`. This prevents over-escaping and keeps the source clean. Example: `$BL['key'] = 'galerie d’images';` — correct. `$BL['key'] = 'galerie d\'images';` — avoid.
