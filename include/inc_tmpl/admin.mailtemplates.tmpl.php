@@ -152,15 +152,16 @@ if (!empty($_POST['send_test_mail'])) {
                 '{ADMIN_EMAIL}'=> $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? 'admin@' . PHPWCMS_HOST
             ];
 
-            if ($post_key === 'mail_layout') {
-                $sample_body = '<p>This is a preview of the master email layout containing sample text.</p>'
+            if (in_array($post_key, ['mail_layout', 'mail_header', 'mail_footer'], true)) {
+                $sample_body = '<p>This is a preview of the email layout/component containing sample text.</p>'
                     . '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.</p>'
                     . renderEmailButtonHTML(PHPWCMS_URL, 'Sample CTA Button')
                     . renderEmailSignatureHTML();
+                $preview_title = $definitions[$post_key]['title'] ?? 'Sample Preview';
                 $rendered = [
-                    'subject' => 'Sample Master Email Layout Preview',
+                    'subject' => '[TEST] ' . $preview_title,
                     'html'    => renderSystemEmailHTML('Sample Headline', $sample_body, 'Preview Preheader', $post_lang),
-                    'text'    => "Sample Headline\n\nThis is a preview of the master email layout containing sample text.\n\n" . PHPWCMS_URL
+                    'text'    => "Sample Headline\n\nThis is a preview containing sample text.\n\n" . PHPWCMS_URL
                 ];
             } else {
                 $rendered = render_system_email($post_key, $dummy_vars, $post_lang);
@@ -307,7 +308,7 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                                 </div>
                             </td>
                             <td>
-                                <?php if ($key === 'mail_layout'): ?>
+                                <?php if (in_array($key, ['mail_layout', 'mail_header', 'mail_footer'], true)): ?>
                                     <span class="text-muted fst-italic">&mdash;</span>
                                 <?php else: ?>
                                     <div class="text-truncate" style="max-width: 380px;" title="<?php echo html($tpl_data['subject']); ?>">
@@ -413,7 +414,7 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                 <input type="hidden" name="tpl_lang" value="<?php echo html($current_lang); ?>" />
 
                 <!-- Subject -->
-                <?php if ($edit_key === 'mail_layout'): ?>
+                <?php if (in_array($edit_key, ['mail_layout', 'mail_header', 'mail_footer'], true)): ?>
                     <input type="hidden" name="tpl_subject" value="" />
                 <?php else: ?>
                     <div class="form-group row g-2 mb-3">
@@ -438,7 +439,7 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                                         <span class="text-muted"><?php echo html($ph_desc); ?></span>
                                     </div>
                                 <?php endforeach; ?>
-                                <?php if ($edit_key !== 'mail_layout'): ?>
+                                <?php if (!in_array($edit_key, ['mail_layout', 'mail_header', 'mail_footer'], true)): ?>
                                     <div class="col-md-6">
                                         <a href="#" class="badge bg-secondary font-monospace text-decoration-none me-1" onclick="insertPlaceholder('{BUTTON}'); return false;">
                                             {BUTTON}
@@ -480,6 +481,8 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                                     <?php
                                         if ($edit_key === 'mail_layout') {
                                             echo $BL['be_admin_mail_layout_html_note'] ?? 'The master HTML document structure. Use <code>{CONTENT}</code> for the inner email message, <code>{HEADER}</code> and <code>{FOOTER}</code> for standard branding, and <code>{TITLE}</code> for the headline.';
+                                        } elseif (in_array($edit_key, ['mail_header', 'mail_footer'], true)) {
+                                            echo $BL['be_admin_mail_component_html_note'] ?? 'This sub-template is rendered into the master email layout at <code>{HEADER}</code> or <code>{FOOTER}</code>.';
                                         } else {
                                             echo $BL['be_admin_mail_html_note'] ?? 'The HTML markup is wrapped into the standard responsive email layout automatically (header logo, container, footer).';
                                         }

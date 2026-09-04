@@ -790,15 +790,44 @@ function renderSystemEmailHTML($title, $contentHtml, $preheader = '', ?string $l
     } elseif ($logoUrl === '' && is_file(PHPWCMS_ROOT . '/img/phpwcms-logo.png')) {
         $logoUrl = 'data:image/png;base64,' . base64_encode((string)file_get_contents(PHPWCMS_ROOT . '/img/phpwcms-logo.png'));
     }
-    // header: logo wrapped in the site link; the URL itself is not shown as text
+    // logo element
     if ($logoUrl !== '' && (preg_match('#^https?://#i', $logoUrl) || preg_match('#^data:image/(png|jpe?g|gif|webp);base64,#i', $logoUrl))) {
-        $headerHtml = '<a href="' . html($siteUrl) . '"><img src="' . html($logoUrl) . '" alt="' . html($siteName) . '" height="50" style="display:block;height:50px;max-width:240px;border:0;" /></a>';
+        $logoHtml = '<img src="' . html($logoUrl) . '" alt="' . html($siteName) . '" height="50" style="display:block;height:50px;max-width:240px;border:0;" />';
+        $headerHtml = '<a href="' . html($siteUrl) . '">' . $logoHtml . '</a>';
     } else {
+        $logoHtml = '<span style="font-size:18px;font-weight:bold;color:#212529;">' . html(PHPWCMS_HOST) . '</span>';
         $headerHtml = '<a href="' . html($siteUrl) . '" style="font-size:18px;font-weight:bold;color:#212529;text-decoration:none;">' . html(PHPWCMS_HOST) . '</a>';
+    }
+
+    // Check if custom or default mail_header sub-template exists
+    if (function_exists('get_system_email_template')) {
+        $header_def = get_system_email_template('mail_header', $lang);
+        if (!empty($header_def['active']) && !empty($header_def['content_html'])) {
+            $h_replacements = [
+                '{LOGO}'        => $logoHtml,
+                '{SITE}'        => PHPWCMS_HOST,
+                '{SITE_URL}'    => $siteUrl,
+                '{ADMIN_EMAIL}' => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? ''
+            ];
+            $headerHtml = str_replace(array_keys($h_replacements), array_values($h_replacements), $header_def['content_html']);
+        }
     }
 
     // footer: custom line or site link
     $footerHtml = empty($phpwcms['mail_footer']) ? $siteLink : html($phpwcms['mail_footer']);
+
+    // Check if custom or default mail_footer sub-template exists
+    if (function_exists('get_system_email_template')) {
+        $footer_def = get_system_email_template('mail_footer', $lang);
+        if (!empty($footer_def['active']) && !empty($footer_def['content_html'])) {
+            $f_replacements = [
+                '{SITE}'        => PHPWCMS_HOST,
+                '{SITE_URL}'    => $siteUrl,
+                '{ADMIN_EMAIL}' => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? ''
+            ];
+            $footerHtml = str_replace(array_keys($f_replacements), array_values($f_replacements), $footer_def['content_html']);
+        }
+    }
 
     // Check if custom or default mail_layout template exists
     $layout_tpl = '';

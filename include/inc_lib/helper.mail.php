@@ -37,6 +37,7 @@ function get_system_email_placeholders(): array {
         '{OLD_EMAIL}'   => $BL['be_admin_mail_ph_old_email'] ?? 'Previous email address',
         '{IP}'          => $BL['be_admin_mail_ph_ip'] ?? 'Client IP address of the attempt',
         '{DATE}'        => $BL['be_admin_mail_ph_date'] ?? 'Date and time of the attempt',
+        '{LOGO}'        => $BL['be_admin_mail_ph_logo'] ?? 'Logo image tag or styled site name',
         '{PREHEADER}'   => $BL['be_admin_mail_ph_preheader'] ?? 'Hidden preview text snippet',
         '{HEADER}'      => $BL['be_admin_mail_ph_header'] ?? 'Rendered email header (logo or site name)',
         '{TITLE}'       => $BL['be_admin_mail_ph_title'] ?? 'Email subject / headline',
@@ -206,6 +207,27 @@ function get_system_email_definitions(?string $merge_lang = null): array {
                 '{TITLE}',
                 '{CONTENT}',
                 '{FOOTER}',
+                '{SITE}',
+                '{SITE_URL}',
+                '{ADMIN_EMAIL}'
+            ]
+        ],
+        'mail_header' => [
+            'key' => 'mail_header',
+            'title' => $BL['be_admin_mail_title_mail_header'] ?? 'Email Header Component',
+            'desc' => $BL['be_admin_mail_desc_mail_header'] ?? 'Sub-template for the email top header (rendered via {HEADER} in master layout).',
+            'placeholder_keys' => [
+                '{LOGO}',
+                '{SITE}',
+                '{SITE_URL}',
+                '{ADMIN_EMAIL}'
+            ]
+        ],
+        'mail_footer' => [
+            'key' => 'mail_footer',
+            'title' => $BL['be_admin_mail_title_mail_footer'] ?? 'Email Footer Component',
+            'desc' => $BL['be_admin_mail_desc_mail_footer'] ?? 'Sub-template for the email bottom footer/imprint (rendered via {FOOTER} in master layout).',
+            'placeholder_keys' => [
                 '{SITE}',
                 '{SITE_URL}',
                 '{ADMIN_EMAIL}'
