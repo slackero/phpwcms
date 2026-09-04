@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Wachtwoord herstellen voor {SITE}",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Er is een aanvraag ingediend om het wachtwoord van uw account <strong>{LOGIN}</strong> op {SITE} opnieuw in te stellen.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Als u deze aanvraag niet heeft gedaan, kunt u deze e-mail negeren. De link verloopt over 1 uur.</p>\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nEr is een aanvraag ingediend om het wachtwoord van uw account {LOGIN} op {SITE} opnieuw in te stellen.\n\nStel hier uw wachtwoord opnieuw in:\n{RESET_LINK}\n\nAls u deze aanvraag niet heeft gedaan, kunt u deze e-mail negeren.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Welkom in het beheergedeelte van {SITE}",
+    "content_html": "<p>Welkom bij {SITE}!</p>\n<p>Er is een gebruikersaccount voor u aangemaakt met de volgende inloggegevens:</p>\n{CREDENTIALS_TABLE}\n<p>U kunt inloggen via onderstaande knop:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "WELKOM IN HET PHPWCMS BEHEERGEDEELTE\n\n    Gebruikersnaam: {LOGIN}\n    Wachtwoord:     {PASSWORD}\n\nHier inloggen: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - accountgegevens gewijzigd",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Uw accountgegevens op {SITE} zijn bijgewerkt:</p>\n{CREDENTIALS_TABLE}\n<p>U kunt inloggen met uw bijgewerkte gegevens:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "PHPWCMS ACCOUNTGEGEVENS GEWIJZIGD\n\n    Gebruikersnaam: {LOGIN}\n    Wachtwoord:     {PASSWORD}\n\nHier inloggen: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Uw account op {SITE} is gedeactiveerd",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Uw account op {SITE} is door een beheerder gedeactiveerd.</p>\n<p>Neem contact op met de beheerder als u vragen heeft of meent dat dit een vergissing is.</p>\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nUw account op {SITE} is gedeactiveerd.\n\nNeem contact op met de beheerder voor meer informatie.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Wachtwoord gewijzigd voor uw account op {SITE}",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Het wachtwoord voor uw account <strong>{LOGIN}</strong> op {SITE} is succesvol gewijzigd.</p>\n<p>Als u deze wijziging zelf heeft doorgevoerd, is er geen verdere actie vereist.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Als u deze wijziging niet heeft geautoriseerd, neem dan onmiddellijk contact op met de beheerder.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nHet wachtwoord voor uw account {LOGIN} op {SITE} is succesvol gewijzigd.\n\nAls u deze wijziging zelf heeft doorgevoerd, is er geen verdere actie vereist.\n\nAls u deze wijziging niet heeft geautoriseerd, neem dan onmiddellijk contact op met de beheerder.\n\nInloggen: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "E-mailadres gewijzigd voor uw account op {SITE}",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Het e-mailadres dat is gekoppeld aan uw account <strong>{LOGIN}</strong> op {SITE} is gewijzigd in <strong>{NEW_EMAIL}</strong>.</p>\n<p>Als u deze wijziging zelf heeft aangevraagd, is er geen verdere actie vereist.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Als u deze wijziging niet heeft geautoriseerd, neem dan onmiddellijk contact op met de beheerder.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nHet e-mailadres gekoppeld aan uw account {LOGIN} op {SITE} is gewijzigd in {NEW_EMAIL}.\n\nAls u deze wijziging zelf heeft aangevraagd, is er geen verdere actie vereist.\n\nAls u deze wijziging niet heeft geautoriseerd, neem dan onmiddellijk contact op met de beheerder.\n\nInloggen: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Beveiligingswaarschuwing: Mislukte inlogpogingen op {SITE}",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Er zijn meerdere opeenvolgende mislukte inlogpogingen gedetecteerd voor uw account <strong>{LOGIN}</strong> op {SITE}.</p>\n<p><strong>IP-adres:</strong> {IP}<br><strong>Datum en tijd:</strong> {DATE}</p>\n<p>Als u dit niet zelf was, probeert mogelijk iemand toegang te krijgen tot uw account. We raden u dringend aan om direct uw wachtwoord opnieuw in te stellen.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nEr zijn meerdere opeenvolgende mislukte inlogpogingen gedetecteerd voor uw account {LOGIN} op {SITE}.\n\nIP-adres:    {IP}\nDatum en tijd: {DATE}\n\nAls u dit niet zelf was, probeert mogelijk iemand toegang te krijgen tot uw account. We raden u aan uw wachtwoord direct te resetten:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

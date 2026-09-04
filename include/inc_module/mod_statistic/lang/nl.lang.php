@@ -61,7 +61,7 @@ $BLM['tab_guestbook'] = 'Gastenboek';
 $BLM['tab_user'] = 'Gebruiker';
 $BLM['tab_activ'] = 'Activeringen';
 $BLM['tab_seo'] = 'SEO-logboek';
-$BLM['seo_title'] = 'Top 20 meest opgevraagde pagina\'s';
+$BLM['seo_title'] = 'Top 20 meest opgevraagde pagina’s';
 $BLM['username'] = 'Gebruiker';
 $BLM['userdatum'] = 'Inloggen';
 

@@ -35,6 +35,17 @@ if (empty($default_lang)) {
 $allowed_langs[$default_lang] = $default_lang;
 $allowed_langs['en'] = 'en';
 $allowed_langs['de'] = 'de';
+
+// Also check for language JSON files in include/inc_lang/email/
+$email_lang_dir = PHPWCMS_ROOT . '/include/inc_lang/email';
+if (is_dir($email_lang_dir)) {
+    foreach (glob($email_lang_dir . '/*.json') as $json_path) {
+        $json_code = sanitize_language_code(pathinfo($json_path, PATHINFO_FILENAME));
+        if ($json_code !== '') {
+            $allowed_langs[$json_code] = $json_code;
+        }
+    }
+}
 ksort($allowed_langs);
 
 // Current selected language

@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Solicitud de restablecimiento de contraseña para {SITE}",
+    "content_html": "<p>Hola {NAME}:</p>\n<p>Se ha solicitado el restablecimiento de contraseña para tu cuenta <strong>{LOGIN}</strong> en {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Si no has solicitado este restablecimiento, puedes ignorar este mensaje tranquilamente. El enlace expirará en 1 hora.</p>\n{SIGNATURE}",
+    "content_text": "Hola {NAME}:\n\nSe ha solicitado el restablecimiento de contraseña para tu cuenta {LOGIN} en {SITE}.\n\nRestablece tu contraseña aquí:\n{RESET_LINK}\n\nSi no has solicitado este restablecimiento, puedes ignorar este correo.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Bienvenido al panel de administración de {SITE}",
+    "content_html": "<p>¡Bienvenido a {SITE}!</p>\n<p>Se ha creado una cuenta para ti con las siguientes credenciales de acceso:</p>\n{CREDENTIALS_TABLE}\n<p>Puedes iniciar sesión usando el siguiente botón:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "BIENVENIDO AL PANEL DE ADMINISTRACIÓN DE PHPWCMS\n\n    Nombre de usuario: {LOGIN}\n    Contraseña:        {PASSWORD}\n\nInicia sesión aquí: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - datos de cuenta actualizados",
+    "content_html": "<p>Hola {NAME}:</p>\n<p>La información de tu cuenta de usuario en {SITE} ha sido actualizada:</p>\n{CREDENTIALS_TABLE}\n<p>Puedes iniciar sesión con tus credenciales actualizadas:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "DATOS DE CUENTA DE USUARIO PHPWCMS ACTUALIZADOS\n\n    Nombre de usuario: {LOGIN}\n    Contraseña:        {PASSWORD}\n\nInicia sesión aquí: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Tu cuenta en {SITE} ha sido desactivada",
+    "content_html": "<p>Hola {NAME}:</p>\n<p>Un administrador ha desactivado tu cuenta en {SITE}.</p>\n<p>Si tienes alguna pregunta o crees que se trata de un error, ponte en contacto con el administrador del sitio.</p>\n{SIGNATURE}",
+    "content_text": "Hola {NAME}:\n\nTu cuenta en {SITE} ha sido desactivada.\n\nPonte en contacto con el administrador para más información.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Contraseña modificada para tu cuenta en {SITE}",
+    "content_html": "<p>Hola {NAME}:</p>\n<p>La contraseña de tu cuenta <strong>{LOGIN}</strong> en {SITE} se ha modificado correctamente.</p>\n<p>Si has realizado tú este cambio, no se requiere ninguna otra acción.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Si no has autorizado este cambio, contacta inmediatamente con el administrador del sitio.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hola {NAME}:\n\nLa contraseña de tu cuenta {LOGIN} en {SITE} se ha modificado correctamente.\n\nSi has realizado tú este cambio, no se requiere ninguna otra acción.\n\nSi no has autorizado este cambio, contacta inmediatamente con el administrador del sitio.\n\nAcceso: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Dirección de correo modificada para tu cuenta en {SITE}",
+    "content_html": "<p>Hola {NAME}:</p>\n<p>La dirección de correo electrónico asociada a tu cuenta <strong>{LOGIN}</strong> en {SITE} se ha cambiado a <strong>{NEW_EMAIL}</strong>.</p>\n<p>Si has solicitado tú este cambio, no se requiere ninguna acción adicional.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Si no has autorizado este cambio, contacta inmediatamente con el administrador del sitio.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hola {NAME}:\n\nLa dirección de correo asociada a tu cuenta {LOGIN} en {SITE} ha sido cambiada a {NEW_EMAIL}.\n\nSi has solicitado tú este cambio, no se requiere ninguna acción adicional.\n\nSi no has autorizado este cambio, contacta inmediatamente con el administrador del sitio.\n\nAcceso: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Alerta de seguridad: Intentos de inicio de sesión fallidos en {SITE}",
+    "content_html": "<p>Hola {NAME}:</p>\n<p>Se han detectado múltiples intentos fallidos consecutivos de inicio de sesión en tu cuenta <strong>{LOGIN}</strong> en {SITE}.</p>\n<p><strong>Dirección IP:</strong> {IP}<br><strong>Fecha y hora:</strong> {DATE}</p>\n<p>Si no has sido tú, es posible que alguien esté intentando acceder a tu cuenta. Te recomendamos encarecidamente restablecer tu contraseña de inmediato.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hola {NAME}:\n\nSe han detectado múltiples intentos fallidos consecutivos de inicio de sesión en tu cuenta {LOGIN} en {SITE}.\n\nDirección IP: {IP}\nFecha y hora: {DATE}\n\nSi no has sido tú, es posible que alguien esté intentando acceder a tu cuenta. Te recomendamos restablecer tu contraseña inmediatamente:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

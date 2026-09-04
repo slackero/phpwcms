@@ -151,7 +151,7 @@ function reset_failed_login_count() {
     unset($_SESSION['wcs_login_fails']);
 }
 
-$lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr', 'uk' => 'ua', 'zh' => 'zh-cn', 'in' => 'id'];
+$lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr', 'uk' => 'ua', 'zh' => 'zh-cn', 'in' => 'id', 'my' => 'ms'];
 
 //define language and check if language file is available
 if(isset($_COOKIE['phpwcmsBELang'])) {

@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Forespørsel om tilbakestilling av passord for {SITE}",
+    "content_html": "<p>Hei {NAME},</p>\n<p>En forespørsel om å tilbakestille passordet er mottatt for din konto <strong>{LOGIN}</strong> på {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Hvis du ikke har bedt om å tilbakestille passordet, kan du ignorere denne e-posten. Lenken utløper om 1 time.</p>\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nEn forespørsel om å tilbakestille passordet er mottatt for din konto {LOGIN} på {SITE}.\n\nTilbakestill passordet ditt her:\n{RESET_LINK}\n\nHvis du ikke har bedt om å tilbakestille passordet, kan du ignorere denne e-posten.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Velkommen til {SITE} administrasjon",
+    "content_html": "<p>Velkommen til {SITE}!</p>\n<p>Det er opprettet en brukerkonto for deg med følgende påloggingsopplysninger:</p>\n{CREDENTIALS_TABLE}\n<p>Du kan logge inn ved å klikke på knappen nedenfor:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "VELKOMMEN TIL PHPWCMS ADMINISTRASJON\n\n    brukernavn: {LOGIN}\n    passord:    {PASSWORD}\n\nDu kan logge inn her: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} – kontoopplysninger endret",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Kontoopplysningene dine på {SITE} har blitt oppdatert:</p>\n{CREDENTIALS_TABLE}\n<p>Du kan logge inn med dine oppdaterte opplysninger:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "KONTOOPPLYSNINGER ENDRET FOR PHPWCMS\n\n    brukernavn: {LOGIN}\n    passord:    {PASSWORD}\n\nDu kan logge inn her: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Kontoen din på {SITE} har blitt deaktivert",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Kontoen din på {SITE} har blitt deaktivert av en administrator.</p>\n<p>Hvis du har spørsmål eller mener dette skyldes en feil, vennligst kontakt nettstedets administrator.</p>\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nKontoen din på {SITE} har blitt deaktivert.\n\nVennligst kontakt administratoren for mer informasjon.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Passordet for din konto på {SITE} er endret",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Passordet for din konto <strong>{LOGIN}</strong> på {SITE} har blitt endret.</p>\n<p>Hvis du selv har gjort denne endringen, er ingen ytterligere handling nødvendig.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Hvis du ikke har gjort denne endringen, vennligst kontakt nettstedets administrator umiddelbart.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nPassordet for din konto {LOGIN} på {SITE} har blitt endret.\n\nHvis du selv har gjort denne endringen, er ingen ytterligere handling nødvendig.\n\nHvis du ikke har gjort denne endringen, vennligst kontakt nettstedets administrator umiddelbart.\n\nInnlogging: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "E-postadressen for din konto på {SITE} er endret",
+    "content_html": "<p>Hei {NAME},</p>\n<p>E-postadressen knyttet til din konto <strong>{LOGIN}</strong> på {SITE} har blitt endret til <strong>{NEW_EMAIL}</strong>.</p>\n<p>Hvis du selv har bedt om denne endringen, er ingen ytterligere handling nødvendig.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Hvis du ikke har autorisert denne endringen, vennligst kontakt nettstedets administrator umiddelbart.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nE-postadressen knyttet til din konto {LOGIN} på {SITE} har blitt endret til {NEW_EMAIL}.\n\nHvis du selv har bedt om denne endringen, er ingen ytterligere handling nødvendig.\n\nHvis du ikke har autorisert denne endringen, vennligst kontakt nettstedets administrator umiddelbart.\n\nInnlogging: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Sikkerhetsadvarsel: Mislykkede påloggingsforsøk på {SITE}",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Det er registrert flere gjentatte mislykkede påloggingsforsøk for din konto <strong>{LOGIN}</strong> på {SITE}.</p>\n<p><strong>IP-adresse:</strong> {IP}<br><strong>Dato og klokkeslett:</strong> {DATE}</p>\n<p>Hvis dette ikke var deg, kan noen prøve å få tilgang til kontoen din. Vi anbefaler på det sterkeste at du tilbakestiller passordet ditt umiddelbart.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nDet er registrert flere gjentatte mislykkede påloggingsforsøk for din konto {LOGIN} på {SITE}.\n\nIP-adresse:          {IP}\nDato og klokkeslett: {DATE}\n\nHvis dette ikke var deg, kan noen prøve å få tilgang til kontoen din. Vi anbefaler at du tilbakestiller passordet ditt umiddelbart:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Passwort zurücksetzen für {SITE}",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Für Ihr Benutzerkonto <strong>{LOGIN}</strong> auf {SITE} wurde das Zurücksetzen des Passworts angefordert.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Falls Sie diese Anfrage nicht gestellt haben, können Sie diese E-Mail ignorieren. Der Link ist 1 Stunde gültig.</p>\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nFür Ihr Benutzerkonto {LOGIN} auf {SITE} wurde das Zurücksetzen des Passworts angefordert.\n\nKlicken Sie auf den folgenden Link, um ein neues Passwort festzulegen:\n{RESET_LINK}\n\nFalls Sie diese Anfrage nicht gestellt haben, können Sie diese E-Mail ignorieren.\n\nphpwcms Admin"
+  },
+  "new_user": {
+    "subject": "Willkommen im Backend von {SITE}",
+    "content_html": "<p>Willkommen bei {SITE}!</p>\n<p>Für Sie wurde ein Benutzerkonto mit folgenden Zugangsdaten angelegt:</p>\n{CREDENTIALS_TABLE}\n<p>Über den folgenden Button können Sie sich anmelden:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "WILLKOMMEN IM PHPWCMS BACKEND\n\n    Benutzername: {LOGIN}\n    Passwort:     {PASSWORD}\n\nHier anmelden: {LOGIN_PAGE}\n\nphpwcms Admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - Benutzerdaten geändert",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Ihre Benutzerdaten auf {SITE} wurden aktualisiert:</p>\n{CREDENTIALS_TABLE}\n<p>Über den folgenden Button können Sie sich anmelden:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "PHPWCMS BENUTZERDATEN GEÄNDERT\n\n    Benutzername: {LOGIN}\n    Passwort:     {PASSWORD}\n\nHier anmelden: {LOGIN_PAGE}\n\nphpwcms Admin"
+  },
+  "account_deactivated": {
+    "subject": "Ihr Benutzerkonto auf {SITE} wurde deaktiviert",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Ihr Benutzerkonto auf {SITE} wurde durch einen Administrator deaktiviert.</p>\n<p>Bei Fragen wenden Sie sich bitte an den Administrator.</p>\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nIhr Benutzerkonto auf {SITE} wurde deaktiviert.\n\nBitte wenden Sie sich an den Administrator für weitere Informationen.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Passwort für Ihr Benutzerkonto auf {SITE} geändert",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Das Passwort für Ihr Benutzerkonto <strong>{LOGIN}</strong> auf {SITE} wurde erfolgreich geändert.</p>\n<p>Wenn Sie diese Änderung selbst vorgenommen haben, ist keine weitere Aktion erforderlich.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Falls Sie diese Änderung nicht veranlasst haben, wenden Sie sich bitte umgehend an den Administrator.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nDas Passwort für Ihr Benutzerkonto {LOGIN} auf {SITE} wurde erfolgreich geändert.\n\nWenn Sie diese Änderung selbst vorgenommen haben, ist keine weitere Aktion erforderlich.\n\nFalls Sie diese Änderung nicht veranlasst haben, wenden Sie sich bitte umgehend an den Administrator.\n\nAnmelden: {LOGIN_PAGE}\n\nphpwcms Admin"
+  },
+  "user_email_changed": {
+    "subject": "E-Mail-Adresse für Ihr Benutzerkonto auf {SITE} geändert",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Die E-Mail-Adresse für Ihr Benutzerkonto <strong>{LOGIN}</strong> auf {SITE} wurde in <strong>{NEW_EMAIL}</strong> geändert.</p>\n<p>Wenn Sie diese Änderung veranlasst haben, ist keine weitere Aktion erforderlich.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Falls Sie diese Änderung nicht autorisiert haben, wenden Sie sich bitte umgehend an den Administrator.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nDie E-Mail-Adresse für Ihr Benutzerkonto {LOGIN} auf {SITE} wurde in {NEW_EMAIL} geändert.\n\nWenn Sie diese Änderung veranlasst haben, ist keine weitere Aktion erforderlich.\n\nFalls Sie diese Änderung nicht autorisiert haben, wenden Sie sich bitte umgehend an den Administrator.\n\nAnmelden: {LOGIN_PAGE}\n\nphpwcms Admin"
+  },
+  "account_locked": {
+    "subject": "Sicherheitshinweis: Fehlgeschlagene Anmeldeversuche auf {SITE}",
+    "content_html": "<p>Hallo {NAME},</p>\n<p>Für Ihr Benutzerkonto <strong>{LOGIN}</strong> auf {SITE} wurden mehrere aufeinanderfolgende fehlgeschlagene Anmeldeversuche festgestellt.</p>\n<p><strong>IP-Adresse:</strong> {IP}<br><strong>Zeitpunkt:</strong> {DATE}</p>\n<p>Falls diese Versuche nicht von Ihnen stammen, empfehlen wir dringend, Ihr Passwort zur Sicherheit umgehend zurückzusetzen.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hallo {NAME},\n\nFür Ihr Benutzerkonto {LOGIN} auf {SITE} wurden mehrere fehlgeschlagene Anmeldeversuche festgestellt.\n\nIP-Adresse: {IP}\nZeitpunkt:  {DATE}\n\nFalls diese Versuche nicht von Ihnen stammen, ändern Sie bitte umgehend Ihr Passwort:\n\n{LOGIN_PAGE}\n\nphpwcms Admin"
+  }
+}

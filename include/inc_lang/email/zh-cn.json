@@ -1,0 +1,37 @@
+{
+    "password_reset": {
+        "subject": "{SITE} 密码重置请求",
+        "content_html": "<p>您好 {NAME}，</p>\n<p>您在 {SITE} 上的账户 <strong>{LOGIN}</strong> 已发起密码重置请求。</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">如果您未曾请求重置密码，请忽略此邮件。该链接将在 1 小时后失效。</p>\n{SIGNATURE}",
+        "content_text": "您好 {NAME}，\n\n您在 {SITE} 上的账户 {LOGIN} 已发起密码重置请求。\n\n请点击以下链接重置您的密码：\n{RESET_LINK}\n\n如果您未曾请求重置密码，请忽略此邮件。\n\nphpwcms admin"
+    },
+    "new_user": {
+        "subject": "欢迎来到 {SITE} 后台管理系统",
+        "content_html": "<p>欢迎来到 {SITE}！</p>\n<p>已为您创建用户账户，登录凭据如下：</p>\n{CREDENTIALS_TABLE}\n<p>您可以点击下方按钮登录：</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "欢迎来到 PHPWCMS 后台管理系统\n\n    用户名：{LOGIN}\n    密码：  {PASSWORD}\n\n您可以在此登录：{LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "edit_user": {
+        "subject": "{SITE} - 账户信息已更改",
+        "content_html": "<p>您好 {NAME}，</p>\n<p>您在 {SITE} 上的用户账户信息已更新：</p>\n{CREDENTIALS_TABLE}\n<p>您可以使用更新后的登录凭据进行登录：</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "PHPWCMS 用户账户信息已更改\n\n    用户名：{LOGIN}\n    密码：  {PASSWORD}\n\n您可以在此登录：{LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "account_deactivated": {
+        "subject": "您在 {SITE} 上的账户已被停用",
+        "content_html": "<p>您好 {NAME}，</p>\n<p>管理员已停用您在 {SITE} 上的账户。</p>\n<p>如有任何疑问或认为此操作有误，请与网站管理员联系。</p>\n{SIGNATURE}",
+        "content_text": "您好 {NAME}，\n\n您在 {SITE} 上的账户已被停用。\n\n如需了解更多信息，请联系网站管理员。\n\n{SITE_URL}"
+    },
+    "password_changed": {
+        "subject": "{SITE} 账户密码已更改",
+        "content_html": "<p>您好 {NAME}，</p>\n<p>您在 {SITE} 上的账户 <strong>{LOGIN}</strong> 密码已成功修改。</p>\n<p>如果您亲自进行了此修改，则无需采取进一步操作。</p>\n<p style=\"color:#b02a37;font-size:13px;\">如果您未曾进行此操作，请立即与网站管理员联系。</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "您好 {NAME}，\n\n您在 {SITE} 上的账户 {LOGIN} 密码已成功修改。\n\n如果您亲自进行了此修改，则无需采取进一步操作。\n\n如果您未曾进行此操作，请立即与网站管理员联系。\n\n登录：{LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "user_email_changed": {
+        "subject": "{SITE} 账户关联的电子邮件地址已更改",
+        "content_html": "<p>您好 {NAME}，</p>\n<p>与您在 {SITE} 上的账户 <strong>{LOGIN}</strong> 关联的电子邮件地址已更改为 <strong>{NEW_EMAIL}</strong>。</p>\n<p>如果您请求了此更改，则无需采取进一步操作。</p>\n<p style=\"color:#b02a37;font-size:13px;\">如果您未授权此更改，请立即与网站管理员联系。</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "您好 {NAME}，\n\n与您在 {SITE} 上的账户 {LOGIN} 关联的电子邮件地址已更改为 {NEW_EMAIL}。\n\n如果您请求了此更改，则无需采取进一步操作。\n\n如果您未授权此更改，请立即与网站管理员联系。\n\n登录：{LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "account_locked": {
+        "subject": "安全警告：{SITE} 登录失败尝试",
+        "content_html": "<p>您好 {NAME}，</p>\n<p>系统检测到针对您在 {SITE} 上的账户 <strong>{LOGIN}</strong> 的多次连续失败登录尝试。</p>\n<p><strong>IP 地址：</strong>{IP}<br><strong>时间：</strong>{DATE}</p>\n<p>如果这不是您本人的操作，可能有人正在尝试访问您的账户。我们强烈建议您立即重置密码。</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "您好 {NAME}，\n\n系统检测到针对您在 {SITE} 上的账户 {LOGIN} 的多次连续失败登录尝试。\n\nIP 地址：{IP}\n时间：   {DATE}\n\n如果这不是您本人的操作，可能有人正在尝试访问您的账户。建议您立即重置密码：\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+    }
+}

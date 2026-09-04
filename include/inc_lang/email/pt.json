@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Pedido de redefinição de palavra-passe para {SITE}",
+    "content_html": "<p>Olá {NAME},</p>\n<p>Foi solicitado um pedido de redefinição de palavra-passe para a sua conta <strong>{LOGIN}</strong> em {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Se não solicitou a redefinição de palavra-passe, pode ignorar este e-mail. A ligação irá expirar dentro de 1 hora.</p>\n{SIGNATURE}",
+    "content_text": "Olá {NAME},\n\nFoi solicitado um pedido de redefinição de palavra-passe para a sua conta {LOGIN} em {SITE}.\n\nRedefina a sua palavra-passe aqui:\n{RESET_LINK}\n\nSe não solicitou a redefinição de palavra-passe, ignore este e-mail.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Bem-vindo ao painel de administração de {SITE}",
+    "content_html": "<p>Bem-vindo ao {SITE}!</p>\n<p>Foi criada uma conta para si com os seguintes dados de acesso:</p>\n{CREDENTIALS_TABLE}\n<p>Pode iniciar sessão utilizando o botão abaixo:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "BEM-VINDO AO PAINEL DE ADMINISTRAÇÃO DO PHPWCMS\n\n    Nome de utilizador: {LOGIN}\n    Palavra-passe:     {PASSWORD}\n\nInicie sessão aqui: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - dados de conta atualizados",
+    "content_html": "<p>Olá {NAME},</p>\n<p>Os dados da sua conta de utilizador em {SITE} foram atualizados:</p>\n{CREDENTIALS_TABLE}\n<p>Pode iniciar sessão com as suas novas credenciais:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "DADOS DA CONTA DE UTILIZADOR PHPWCMS ATUALIZADOS\n\n    Nome de utilizador: {LOGIN}\n    Palavra-passe:     {PASSWORD}\n\nInicie sessão aqui: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "A sua conta em {SITE} foi desativada",
+    "content_html": "<p>Olá {NAME},</p>\n<p>A sua conta em {SITE} foi desativada por um administrador.</p>\n<p>Se tiver alguma dúvida ou considerar que se trata de um erro, contacte o administrador do site.</p>\n{SIGNATURE}",
+    "content_text": "Olá {NAME},\n\nA sua conta em {SITE} foi desativada.\n\nContacte o administrador para mais informações.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Palavra-passe alterada para a sua conta em {SITE}",
+    "content_html": "<p>Olá {NAME},</p>\n<p>A palavra-passe da sua conta <strong>{LOGIN}</strong> em {SITE} foi alterada com sucesso.</p>\n<p>Se efetuou esta alteração, não é necessária qualquer ação adicional.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Se não autorizou esta alteração, contacte imediatamente o administrador do site.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Olá {NAME},\n\nA palavra-passe da sua conta {LOGIN} em {SITE} foi alterada com sucesso.\n\nSe efetuou esta alteração, não é necessária qualquer ação adicional.\n\nSe não autorizou esta alteração, contacte imediatamente o administrador do site.\n\nIniciar sessão: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Endereço de e-mail alterado para a sua conta em {SITE}",
+    "content_html": "<p>Olá {NAME},</p>\n<p>O endereço de e-mail associado à sua conta <strong>{LOGIN}</strong> em {SITE} foi alterado para <strong>{NEW_EMAIL}</strong>.</p>\n<p>Se solicitou esta alteração, não é necessária qualquer ação adicional.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Se não autorizou esta alteração, contacte imediatamente o administrador do site.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Olá {NAME},\n\nO endereço de e-mail associado à sua conta {LOGIN} em {SITE} foi alterado para {NEW_EMAIL}.\n\nSe solicitou esta alteração, não é necessária qualquer ação adicional.\n\nSe não autorizou esta alteração, contacte imediatamente o administrador do site.\n\nIniciar sessão: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Alerta de segurança: Tentativas de início de sessão falhadas em {SITE}",
+    "content_html": "<p>Olá {NAME},</p>\n<p>Foram detetadas várias tentativas consecutivas de início de sessão falhadas na sua conta <strong>{LOGIN}</strong> em {SITE}.</p>\n<p><strong>Endereço IP:</strong> {IP}<br><strong>Data e hora:</strong> {DATE}</p>\n<p>Se não realizou estas tentativas, alguém poderá estar a tentar aceder à sua conta. Recomendamos vivamente que redefina a sua palavra-passe de imediato.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Olá {NAME},\n\nForam detetadas várias tentativas consecutivas de início de sessão falhadas na sua conta {LOGIN} em {SITE}.\n\nEndereço IP: {IP}\nData e hora: {DATE}\n\nSe não realizou estas tentativas, alguém poderá estar a tentar aceder à sua conta. Recomendamos que redefina a sua palavra-passe imediatamente:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

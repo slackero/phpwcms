@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Richiesta di reimpostazione password per {SITE}",
+    "content_html": "<p>Ciao {NAME},</p>\n<p>È stata richiesta la reimpostazione della password per il tuo account <strong>{LOGIN}</strong> su {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Se non hai richiesto la reimpostazione della password, puoi ignorare questa email. Il link scadrà tra 1 ora.</p>\n{SIGNATURE}",
+    "content_text": "Ciao {NAME},\n\nÈ stata richiesta la reimpostazione della password per il tuo account {LOGIN} su {SITE}.\n\nReimposta la password qui:\n{RESET_LINK}\n\nSe non hai richiesto la reimpostazione della password, puoi ignorare questa email.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Benvenuto nel pannello di amministrazione di {SITE}",
+    "content_html": "<p>Benvenuto su {SITE}!</p>\n<p>È stato creato un account per te con le seguenti credenziali di accesso:</p>\n{CREDENTIALS_TABLE}\n<p>Puoi accedere utilizzando il pulsante sottostante:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "BENVENUTO NEL PANNELLO DI AMMINISTRAZIONE PHPWCMS\n\n    Nome utente: {LOGIN}\n    Password:    {PASSWORD}\n\nAccedi qui: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - dati dell’account modificati",
+    "content_html": "<p>Ciao {NAME},</p>\n<p>I dati del tuo account utente su {SITE} sono stati aggiornati:</p>\n{CREDENTIALS_TABLE}\n<p>Puoi accedere con le tue credenziali aggiornate:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "DATI ACCOUNT UTENTE PHPWCMS AGGIORNATI\n\n    Nome utente: {LOGIN}\n    Password:    {PASSWORD}\n\nAccedi qui: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Il tuo account su {SITE} è stato disattivato",
+    "content_html": "<p>Ciao {NAME},</p>\n<p>Il tuo account su {SITE} è stato disattivato da un amministratore.</p>\n<p>Per eventuali chiarimenti o se ritieni si tratti di un errore, contatta l’amministratore del sito.</p>\n{SIGNATURE}",
+    "content_text": "Ciao {NAME},\n\nIl tuo account su {SITE} è stato disattivato.\n\nContatta l’amministratore per maggiori informazioni.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Password modificata per il tuo account su {SITE}",
+    "content_html": "<p>Ciao {NAME},</p>\n<p>La password per il tuo account <strong>{LOGIN}</strong> su {SITE} è stata modificata con successo.</p>\n<p>Se hai effettuato tu questa modifica, non sono necessarie ulteriori azioni.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Se non hai autorizzato questa modifica, contatta immediatamente l’amministratore del sito.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Ciao {NAME},\n\nLa password per il tuo account {LOGIN} su {SITE} è stata modificata con successo.\n\nSe hai effettuato tu questa modifica, non sono necessarie ulteriori azioni.\n\nSe non hai autorizzato questa modifica, contatta immediatamente l’amministratore del sito.\n\nAccesso: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Indirizzo email modificato per il tuo account su {SITE}",
+    "content_html": "<p>Ciao {NAME},</p>\n<p>L’indirizzo email associato al tuo account <strong>{LOGIN}</strong> su {SITE} è stato modificato in <strong>{NEW_EMAIL}</strong>.</p>\n<p>Se hai richiesto tu questa modifica, non sono necessarie ulteriori azioni.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Se non hai autorizzato questa modifica, contatta immediatamente l’amministratore del sito.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Ciao {NAME},\n\nL’indirizzo email associato al tuo account {LOGIN} su {SITE} è stato modificato in {NEW_EMAIL}.\n\nSe hai richiesto tu questa modifica, non sono necessarie ulteriori azioni.\n\nSe non hai autorizzato questa modifica, contatta immediatamente l’amministratore del sito.\n\nAccesso: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Avviso di sicurezza: Tentativi di accesso falliti su {SITE}",
+    "content_html": "<p>Ciao {NAME},</p>\n<p>Sono stati rilevati molteplici tentativi consecutivi di accesso falliti per il tuo account <strong>{LOGIN}</strong> su {SITE}.</p>\n<p><strong>Indirizzo IP:</strong> {IP}<br><strong>Data e ora:</strong> {DATE}</p>\n<p>Se non eri tu, qualcuno potrebbe tentare di accedere al tuo account. Ti consigliamo vivamente di reimpostare la password immediatamente.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Ciao {NAME},\n\nSono stati rilevati molteplici tentativi consecutivi di accesso falliti per il tuo account {LOGIN} su {SITE}.\n\nIndirizzo IP: {IP}\nData e ora:   {DATE}\n\nSe non eri tu, qualcuno potrebbe tentare di accedere al tuo account. Ti consigliamo di reimpostare immediatamente la password:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

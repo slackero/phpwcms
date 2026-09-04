@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Salasanan palautuspyyntö sivustolle {SITE}",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Tilillesi <strong>{LOGIN}</strong> sivustolla {SITE} on vastaanotettu salasanan palautuspyyntö.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Jos et ole pyytänyt salasanan palautusta, voit jättää tämän viestin huomiotta. Linkki vanhenee 1 tunnissa.</p>\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nTilillesi {LOGIN} sivustolla {SITE} on vastaanotettu salasanan palautuspyyntö.\n\nPalauta salasanasi tästä:\n{RESET_LINK}\n\nJos et ole pyytänyt salasanan palautusta, voit jättää tämän viestin huomiotta.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Tervetuloa sivuston {SITE} hallintaan",
+    "content_html": "<p>Tervetuloa sivustolle {SITE}!</p>\n<p>Sinulle on luotu käyttäjätili seuraavilla kirjautumistiedoilla:</p>\n{CREDENTIALS_TABLE}\n<p>Voit kirjautua sisään alla olevasta painikkeesta:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "TERVETULOA PHPWCMS-HALLINTAAN\n\n    käyttäjätunnus: {LOGIN}\n    salasana:       {PASSWORD}\n\nVoit kirjautua sisään tästä: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} – käyttäjätilin tietoja muutettu",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Käyttäjätilisi tietoja sivustolla {SITE} on päivitetty:</p>\n{CREDENTIALS_TABLE}\n<p>Voit kirjautua sisään päivitetyillä tiedoillasi:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "PHPWCMS-KÄYTTÄJÄTILIN TIEDOT PÄIVITETTY\n\n    käyttäjätunnus: {LOGIN}\n    salasana:       {PASSWORD}\n\nVoit kirjautua sisään tästä: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Tilisi sivustolla {SITE} on poistettu käytöstä",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Ylläpitäjä on poistanut tilisi käytöstä sivustolla {SITE}.</p>\n<p>Jos sinulla on kysyttävää tai uskot tämän olevan virhe, ota yhteyttä sivuston ylläpitäjään.</p>\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nTilisi sivustolla {SITE} on poistettu käytöstä.\n\nOta yhteyttä ylläpitäjään saadaksesi lisätietoja.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Tilisi salasana sivustolla {SITE} on vaihdettu",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Tilisi <strong>{LOGIN}</strong> salasana sivustolla {SITE} on vaihdettu onnistuneesti.</p>\n<p>Jos teit tämän muutoksen itse, lisätoimenpiteitä ei tarvita.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jos et tehnyt tätä muutosta, ota välittömästi yhteyttä sivuston ylläpitäjään.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nTilisi {LOGIN} salasana sivustolla {SITE} on vaihdettu onnistuneesti.\n\nJos teit tämän muutoksen itse, lisätoimenpiteitä ei tarvita.\n\nJos et tehnyt tätä muutosta, ota välittömästi yhteyttä sivuston ylläpitäjään.\n\nKirjautuminen: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Tilisi sähköpostiosoite sivustolla {SITE} on vaihdettu",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Tiliisi <strong>{LOGIN}</strong> liitetty sähköpostiosoite sivustolla {SITE} on vaihdettu osoitteeseen <strong>{NEW_EMAIL}</strong>.</p>\n<p>Jos pyysit tätä muutosta, lisätoimenpiteitä ei tarvita.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jos et hyväksynyt tätä muutosta, ota välittömästi yhteyttä sivuston ylläpitäjään.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nTiliisi {LOGIN} liitetty sähköpostiosoite sivustolla {SITE} on vaihdettu osoitteeseen {NEW_EMAIL}.\n\nJos pyysit tätä muutosta, lisätoimenpiteitä ei tarvita.\n\nJos et hyväksynyt tätä muutosta, ota välittömästi yhteyttä sivuston ylläpitäjään.\n\nKirjautuminen: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Turvallisuusvaroitus: Epäonnistuneita kirjautumisyrityksiä sivustolla {SITE}",
+    "content_html": "<p>Hei {NAME},</p>\n<p>Tilillesi <strong>{LOGIN}</strong> sivustolla {SITE} havaittiin useita peräkkäisiä epäonnistuneita kirjautumisyrityksiä.</p>\n<p><strong>IP-osoite:</strong> {IP}<br><strong>Päivämäärä ja kellonaika:</strong> {DATE}</p>\n<p>Jos tämä et ollut sinä, joku saattaa yrittää päästä tilillesi. Suosittelemme vahvasti vaihtamaan salasanasi välittömästi.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Hei {NAME},\n\nTilillesi {LOGIN} sivustolla {SITE} havaittiin useita peräkkäisiä epäonnistuneita kirjautumisyrityksiä.\n\nIP-osoite:               {IP}\nPäivämäärä ja kellonaika: {DATE}\n\nJos tämä et ollut sinä, joku saattaa yrittää päästä tilillesi. Suosittelemme vaihtamaan salasanasi välittömästi:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

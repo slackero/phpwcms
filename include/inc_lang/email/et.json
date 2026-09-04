@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Parooli lähtestamise taotlus lehel {SITE}",
+    "content_html": "<p>Tere {NAME},</p>\n<p>Teie lehe {SITE} kasutajakonto <strong>{LOGIN}</strong> jaoks on esitatud parooli lähtestamise taotlus.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Kui te ei ole parooli lähtestamist taotlenud, ignoreerige seda e-kirja. Link aegub 1 tunni pärast.</p>\n{SIGNATURE}",
+    "content_text": "Tere {NAME},\n\nTeie lehe {SITE} kasutajakonto {LOGIN} jaoks on esitatud parooli lähtestamise taotlus.\n\nLähtestage oma parool siin:\n{RESET_LINK}\n\nKui te ei ole parooli lähtestamist taotlenud, ignoreerige seda e-kirja.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Tere tulemast saidi {SITE} haldusliidesesse",
+    "content_html": "<p>Tere tulemast saidile {SITE}!</p>\n<p>Teile on loodud kasutajakonto järgmiste sisselogimisandmetega:</p>\n{CREDENTIALS_TABLE}\n<p>Saate sisse logida, klõpsates alloleval nupul:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "TERE TULEMAST PHPWCMS-I HALDUSLIIDESESSE\n\n    kasutajatunnus: {LOGIN}\n    parool:         {PASSWORD}\n\nSaate sisse logida siin: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} – konto andmed muudetud",
+    "content_html": "<p>Tere {NAME},</p>\n<p>Teie kasutajakonto andmeid lehel {SITE} on uuendatud:</p>\n{CREDENTIALS_TABLE}\n<p>Saate sisse logida oma uuendatud andmetega:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "PHPWCMS-I KONTO ANDMED ON MUUDETUD\n\n    kasutajatunnus: {LOGIN}\n    parool:         {PASSWORD}\n\nSaate sisse logida siin: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Teie konto lehel {SITE} on deaktiveeritud",
+    "content_html": "<p>Tere {NAME},</p>\n<p>Administraator on teie konto lehel {SITE} deaktiveerinud.</p>\n<p>Küsimuste korral või kui arvate, et tegemist on veaga, võtke ühendust saidi administraatoriga.</p>\n{SIGNATURE}",
+    "content_text": "Tere {NAME},\n\nTeie konto lehel {SITE} on deaktiveeritud.\n\nLisateabe saamiseks võtke ühendust administraatoriga.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Teie konto parool lehel {SITE} on muudetud",
+    "content_html": "<p>Tere {NAME},</p>\n<p>Teie lehe {SITE} konto <strong>{LOGIN}</strong> parool on edukalt muudetud.</p>\n<p>Kui tegite selle muudatuse ise, ei ole vaja midagi teha.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Kui teie seda muudatust ei teinud, võtke kohe ühendust saidi administraatoriga.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Tere {NAME},\n\nTeie lehe {SITE} konto {LOGIN} parool on edukalt muudetud.\n\nKui tegite selle muudatuse ise, ei ole vaja midagi teha.\n\nKui teie seda muudatust ei teinud, võtke kohe ühendust saidi administraatoriga.\n\nSisselogimine: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Teie konto e-posti aadress lehel {SITE} on muudetud",
+    "content_html": "<p>Tere {NAME},</p>\n<p>Teie lehe {SITE} kontoga <strong>{LOGIN}</strong> seotud e-posti aadress on muudetud aadressiks <strong>{NEW_EMAIL}</strong>.</p>\n<p>Kui teie seda muudatust taotlesite, ei ole vaja midagi teha.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Kui teie seda muudatust ei volitanud, võtke kohe ühendust saidi administraatoriga.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Tere {NAME},\n\nTeie lehe {SITE} kontoga {LOGIN} seotud e-posti aadress on muudetud aadressiks {NEW_EMAIL}.\n\nKui teie seda muudatust taotlesite, ei ole vaja midagi teha.\n\nKui teie seda muudatust ei volitanud, võtke kohe ühendust saidi administraatoriga.\n\nSisselogimine: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Turvahoiatus: ebaõnnestunud sisselogimiskatsed lehel {SITE}",
+    "content_html": "<p>Tere {NAME},</p>\n<p>Teie lehe {SITE} kontole <strong>{LOGIN}</strong> tuvastati mitu järjestikust ebaõnnestunud sisselogimiskatset.</p>\n<p><strong>IP-aadress:</strong> {IP}<br><strong>Kuupäev ja kellaaeg:</strong> {DATE}</p>\n<p>Kui see ei olnud teie, võib keegi proovida teie kontole ligi pääseda. Soovitame tungivalt oma parool viivitamatult lähtestada.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Tere {NAME},\n\nTeie lehe {SITE} kontole {LOGIN} tuvastati mitu järjestikust ebaõnnestunud sisselogimiskatset.\n\nIP-aadress:           {IP}\nKuupäev ja kellaaeg:  {DATE}\n\nKui see ei olnud teie, võib keegi proovida teie kontole ligi pääseda. Soovitame parooli viivitamatult lähtestada:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

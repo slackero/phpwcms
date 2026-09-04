@@ -126,5 +126,5 @@ $BLM['shopprod_inventory'] = 'Stok';
 $BLM['shopprod_autosubtract_off'] = 'Siparişte stoktan DÜŞME';
 $BLM['order_edit'] = 'Siparişi düzenle';
 $BLM['shopprod_on_request'] = 'Yalnızca talep üzerine sipariş';
-$BLM['shopprod_on_request_button'] = 'Talep URL\'si';
+$BLM['shopprod_on_request_button'] = 'Talep URL’si';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';

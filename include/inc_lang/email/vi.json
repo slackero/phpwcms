@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Yêu cầu đặt lại mật khẩu cho {SITE}",
+    "content_html": "<p>Xin chào {NAME},</p>\n<p>Một yêu cầu đặt lại mật khẩu đã được khởi tạo cho tài khoản <strong>{LOGIN}</strong> của bạn trên {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này. Liên kết sẽ hết hạn sau 1 giờ.</p>\n{SIGNATURE}",
+    "content_text": "Xin chào {NAME},\n\nMột yêu cầu đặt lại mật khẩu đã được khởi tạo cho tài khoản {LOGIN} của bạn trên {SITE}.\n\nĐặt lại mật khẩu của bạn tại đây:\n{RESET_LINK}\n\nNếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Chào mừng bạn đến với khu vực quản trị {SITE}",
+    "content_html": "<p>Chào mừng bạn đến với {SITE}!</p>\n<p>Một tài khoản đã được tạo cho bạn với thông tin đăng nhập sau:</p>\n{CREDENTIALS_TABLE}\n<p>Bạn có thể đăng nhập bằng cách sử dụng nút bên dưới:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "CHÀO MỪNG BẠN ĐẾN VỚI KHU VỰC QUẢN TRỊ PHPWCMS\n\n    tên đăng nhập: {LOGIN}\n    mật khẩu:      {PASSWORD}\n\nBạn có thể đăng nhập tại đây: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - thông tin tài khoản đã thay đổi",
+    "content_html": "<p>Xin chào {NAME},</p>\n<p>Thông tin tài khoản người dùng của bạn trên {SITE} đã được cập nhật:</p>\n{CREDENTIALS_TABLE}\n<p>Bạn có thể đăng nhập bằng thông tin đăng nhập đã cập nhật:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "THÔNG TIN TÀI KHOẢN NGƯỜI DÙNG PHPWCMS ĐÃ THAY ĐỔI\n\n    tên đăng nhập: {LOGIN}\n    mật khẩu:      {PASSWORD}\n\nBạn có thể đăng nhập tại đây: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Tài khoản của bạn trên {SITE} đã bị vô hiệu hóa",
+    "content_html": "<p>Xin chào {NAME},</p>\n<p>Tài khoản của bạn trên {SITE} đã bị quản trị viên vô hiệu hóa.</p>\n<p>Nếu bạn có bất kỳ câu hỏi nào hoặc cho rằng đây là một sự nhầm lẫn, vui lòng liên hệ với quản trị viên trang web.</p>\n{SIGNATURE}",
+    "content_text": "Xin chào {NAME},\n\nTài khoản của bạn trên {SITE} đã bị vô hiệu hóa.\n\nVui lòng liên hệ với quản trị viên để biết thêm thông tin.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Mật khẩu cho tài khoản của bạn trên {SITE} đã được thay đổi",
+    "content_html": "<p>Xin chào {NAME},</p>\n<p>Mật khẩu cho tài khoản <strong>{LOGIN}</strong> của bạn trên {SITE} đã được thay đổi thành công.</p>\n<p>Nếu bạn đã thực hiện thay đổi này, bạn không cần làm gì thêm.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Nếu bạn không thực hiện thay đổi này, vui lòng liên hệ với quản trị viên trang web ngay lập tức.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Xin chào {NAME},\n\nMật khẩu cho tài khoản {LOGIN} của bạn trên {SITE} đã được thay đổi thành công.\n\nNếu bạn đã thực hiện thay đổi này, bạn không cần làm gì thêm.\n\nNếu bạn không thực hiện thay đổi này, vui lòng liên hệ với quản trị viên trang web ngay lập tức.\n\nĐăng nhập: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Địa chỉ email cho tài khoản của bạn trên {SITE} đã được thay đổi",
+    "content_html": "<p>Xin chào {NAME},</p>\n<p>Địa chỉ email liên kết với tài khoản <strong>{LOGIN}</strong> của bạn trên {SITE} đã được đổi thành <strong>{NEW_EMAIL}</strong>.</p>\n<p>Nếu bạn đã yêu cầu thay đổi này, bạn không cần làm gì thêm.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Nếu bạn không cho phép thay đổi này, vui lòng liên hệ với quản trị viên trang web ngay lập tức.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Xin chào {NAME},\n\nĐịa chỉ email liên kết với tài khoản {LOGIN} của bạn trên {SITE} đã được đổi thành {NEW_EMAIL}.\n\nNếu bạn đã yêu cầu thay đổi này, bạn không cần làm gì thêm.\n\nNếu bạn không cho phép thay đổi này, vui lòng liên hệ với quản trị viên trang web ngay lập tức.\n\nĐăng nhập: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Cảnh báo bảo mật: Nhiều lần đăng nhập thất bại trên {SITE}",
+    "content_html": "<p>Xin chào {NAME},</p>\n<p>Nhiều lần đăng nhập thất bại liên tiếp đã được phát hiện cho tài khoản <strong>{LOGIN}</strong> của bạn trên {SITE}.</p>\n<p><strong>Địa chỉ IP:</strong> {IP}<br><strong>Thời gian:</strong> {DATE}</p>\n<p>Nếu không phải là bạn, có thể ai đó đang cố gắng truy cập vào tài khoản của bạn. Chúng tôi khuyến nghị bạn nên đặt lại mật khẩu ngay lập tức.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Xin chào {NAME},\n\nNhiều lần đăng nhập thất bại liên tiếp đã được phát hiện cho tài khoản {LOGIN} của bạn trên {SITE}.\n\nĐịa chỉ IP: {IP}\nThời gian:   {DATE}\n\nNếu không phải là bạn, có thể ai đó đang cố gắng truy cập vào tài khoản của bạn. Chúng tôi khuyến nghị bạn nên đặt lại mật khẩu ngay lập tức:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

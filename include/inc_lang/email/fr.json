@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Demande de réinitialisation de mot de passe pour {SITE}",
+    "content_html": "<p>Bonjour {NAME},</p>\n<p>Une demande de réinitialisation de mot de passe a été effectuée pour votre compte <strong>{LOGIN}</strong> sur {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail en toute sécurité. Le lien expirera dans 1 heure.</p>\n{SIGNATURE}",
+    "content_text": "Bonjour {NAME},\n\nUne demande de réinitialisation de mot de passe a été effectuée pour votre compte {LOGIN} sur {SITE}.\n\nRéinitialisez votre mot de passe ici :\n{RESET_LINK}\n\nSi vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Bienvenue sur le panneau d’administration de {SITE}",
+    "content_html": "<p>Bienvenue sur {SITE} !</p>\n<p>Un compte utilisateur a été créé pour vous avec les identifiants suivants :</p>\n{CREDENTIALS_TABLE}\n<p>Vous pouvez vous connecter en utilisant le bouton ci-dessous :</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "BIENVENUE SUR LE PANNEAU D’ADMINISTRATION PHPWCMS\n\n    Identifiant :    {LOGIN}\n    Mot de passe :   {PASSWORD}\n\nConnectez-vous ici : {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - données de compte modifiées",
+    "content_html": "<p>Bonjour {NAME},</p>\n<p>Les informations de votre compte utilisateur sur {SITE} ont été mises à jour :</p>\n{CREDENTIALS_TABLE}\n<p>Vous pouvez vous connecter avec vos identifiants mis à jour :</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "INFORMATIONS DU COMPTE PHPWCMS MODIFIÉES\n\n    Identifiant :    {LOGIN}\n    Mot de passe :   {PASSWORD}\n\nConnectez-vous ici : {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Votre compte sur {SITE} a été désactivé",
+    "content_html": "<p>Bonjour {NAME},</p>\n<p>Votre compte sur {SITE} a été désactivé par un administrateur.</p>\n<p>Si vous avez des questions ou pensez qu’il s’agit d’une erreur, veuillez contacter l’administrateur du site.</p>\n{SIGNATURE}",
+    "content_text": "Bonjour {NAME},\n\nVotre compte sur {SITE} a été désactivé.\n\nVeuillez contacter l’administrateur pour plus d’informations.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Mot de passe modifié pour votre compte sur {SITE}",
+    "content_html": "<p>Bonjour {NAME},</p>\n<p>Le mot de passe de votre compte <strong>{LOGIN}</strong> sur {SITE} a été modifié avec succès.</p>\n<p>Si vous êtes à l’origine de cette modification, aucune action supplémentaire n’est requise.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Si vous n’avez pas initié ce changement, veuillez contacter immédiatement l’administrateur du site.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Bonjour {NAME},\n\nLe mot de passe de votre compte {LOGIN} sur {SITE} a été modifié avec succès.\n\nSi vous êtes à l’origine de cette modification, aucune action supplémentaire n’est requise.\n\nSi vous n’avez pas initié ce changement, veuillez contacter immédiatement l’administrateur du site.\n\nConnexion : {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Adresse e-mail modifiée pour votre compte sur {SITE}",
+    "content_html": "<p>Bonjour {NAME},</p>\n<p>L’adresse e-mail associée à votre compte <strong>{LOGIN}</strong> sur {SITE} a été remplacée par <strong>{NEW_EMAIL}</strong>.</p>\n<p>Si vous êtes à l’origine de cette modification, aucune action supplémentaire n’est requise.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Si vous n’avez pas autorisé ce changement, veuillez contacter immédiatement l’administrateur du site.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Bonjour {NAME},\n\nL’adresse e-mail associée à votre compte {LOGIN} sur {SITE} a été modifiée en {NEW_EMAIL}.\n\nSi vous avez effectué ce changement, aucune action supplémentaire n’est requise.\n\nSi vous n’avez pas autorisé ce changement, veuillez contacter immédiatement l’administrateur du site.\n\nConnexion : {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Alerte de sécurité : Tentatives de connexion échouées sur {SITE}",
+    "content_html": "<p>Bonjour {NAME},</p>\n<p>Plusieurs tentatives consécutives de connexion infructueuses ont été détectées pour votre compte <strong>{LOGIN}</strong> sur {SITE}.</p>\n<p><strong>Adresse IP :</strong> {IP}<br><strong>Date et heure :</strong> {DATE}</p>\n<p>Si vous n’êtes pas à l’origine de ces tentatives, quelqu’un essaie peut-être d’accéder à votre compte. Nous vous recommandons vivement de réinitialiser votre mot de passe immédiatement.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Bonjour {NAME},\n\nPlusieurs tentatives consécutives de connexion infructueuses ont été détectées pour votre compte {LOGIN} sur {SITE}.\n\nAdresse IP :    {IP}\nDate et heure : {DATE}\n\nSi vous n’êtes pas à l’origine de ces tentatives, quelqu’un essaie peut-être d’accéder à votre compte. Nous vous recommandons de réinitialiser immédiatement votre mot de passe :\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

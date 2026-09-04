@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Slaptažodžio atstatymo užklausa svetainei {SITE}",
+    "content_html": "<p>Sveiki, {NAME},</p>\n<p>Gauta slaptažodžio atstatymo užklausa jūsų paskyrai <strong>{LOGIN}</strong> svetainėje {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Jei neprašėte atstatyti slaptažodžio, ignoruokite šį el. laišką. Nuoroda nustos galioti po 1 valandos.</p>\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME},\n\nGauta slaptažodžio atstatymo užklausa jūsų paskyrai {LOGIN} svetainėje {SITE}.\n\nAtstatykite slaptažodį čia:\n{RESET_LINK}\n\nJei neprašėte atstatyti slaptažodžio, ignoruokite šį el. laišką.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Sveiki atvykę į {SITE} valdymo pultą",
+    "content_html": "<p>Sveiki atvykę į {SITE}!</p>\n<p>Jums sukurta naudotojo paskyra su šiais prisijungimo duomenimis:</p>\n{CREDENTIALS_TABLE}\n<p>Prisijungti galite paspaudę žemiau esantį mygtuką:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "SVEIKI ATVYKĘ Į PHPWCMS VALDYMO PULTĄ\n\n    vartotojo vardas: {LOGIN}\n    slaptažodis:      {PASSWORD}\n\nPrisijungti galite čia: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} – paskyros duomenys pakeisti",
+    "content_html": "<p>Sveiki, {NAME},</p>\n<p>Jūsų paskyros duomenys svetainėje {SITE} buvo atnaujinti:</p>\n{CREDENTIALS_TABLE}\n<p>Galite prisijungti su atnaujintais duomenimis:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "PHPWCMS NAUDOTOJO PASKYROS DUOMENYS PAKEISTI\n\n    vartotojo vardas: {LOGIN}\n    slaptažodis:      {PASSWORD}\n\nPrisijungti galite čia: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Jūsų paskyra svetainėje {SITE} buvo deaktyvuota",
+    "content_html": "<p>Sveiki, {NAME},</p>\n<p>Administratorius deaktyvavo jūsų paskyrą svetainėje {SITE}.</p>\n<p>Jei turite klausimų arba manote, kad tai klaida, susisiekite su svetainės administratoriumi.</p>\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME},\n\nJūsų paskyra svetainėje {SITE} buvo deaktyvuota.\n\nNorėdami gauti daugiau informacijos, susisiekite su administratoriumi.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Pakeistas jūsų paskyros slaptažodis svetainėje {SITE}",
+    "content_html": "<p>Sveiki, {NAME},</p>\n<p>Jūsų paskyros <strong>{LOGIN}</strong> slaptažodis svetainėje {SITE} sėkmingai pakeistas.</p>\n<p>Jei šį pakeitimą atlikote jūs, jokių papildomų veiksmų imtis nereikia.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jei šio pakeitimo neatlikote, nedelsdami susisiekite su svetainės administratoriumi.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME},\n\nJūsų paskyros {LOGIN} slaptažodis svetainėje {SITE} sėkmingai pakeistas.\n\nJei šį pakeitimą atlikote jūs, jokių papildomų veiksmų imtis nereikia.\n\nJei šio pakeitimo neatlikote, nedelsdami susisiekite su svetainės administratoriumi.\n\nPrisijungimas: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Pakeistas jūsų paskyros el. pašto adresas svetainėje {SITE}",
+    "content_html": "<p>Sveiki, {NAME},</p>\n<p>Su jūsų paskyra <strong>{LOGIN}</strong> svetainėje {SITE} susietas el. pašto adresas pakeistas į <strong>{NEW_EMAIL}</strong>.</p>\n<p>Jei šį pakeitimą inicijavote jūs, jokių papildomų veiksmų imtis nereikia.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jei šio pakeitimo nepatvirtinote, nedelsdami susisiekite su svetainės administratoriumi.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME},\n\nSu jūsų paskyra {LOGIN} svetainėje {SITE} susietas el. pašto adresas pakeistas į {NEW_EMAIL}.\n\nJei šį pakeitimą inicijavote jūs, jokių papildomų veiksmų imtis nereikia.\n\nJei šio pakeitimo nepatvirtinote, nedelsdami susisiekite su svetainės administratoriumi.\n\nPrisijungimas: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Saugumo įspėjimas: nepavykę bandymai prisijungti svetainėje {SITE}",
+    "content_html": "<p>Sveiki, {NAME},</p>\n<p>Aptikti keli iš eilės nepavykę bandymai prisijungti prie jūsų paskyros <strong>{LOGIN}</strong> svetainėje {SITE}.</p>\n<p><strong>IP adresas:</strong> {IP}<br><strong>Data ir laikas:</strong> {DATE}</p>\n<p>Jei tai buvote ne jūs, kažkas gali bandyti pasiekti jūsų paskyrą. Primygtinai rekomenduojame nedelsiant atstatyti slaptažodį.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME},\n\nAptikti keli iš eilės nepavykę bandymai prisijungti prie jūsų paskyros {LOGIN} svetainėje {SITE}.\n\nIP adresas:     {IP}\nData ir laikas: {DATE}\n\nJei tai buvote ne jūs, kažkas gali bandyti pasiekti jūsų paskyrą. Rekomenduojame nedelsiant atstatyti slaptažodį:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  }
+}

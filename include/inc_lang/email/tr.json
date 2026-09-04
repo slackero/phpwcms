@@ -1,0 +1,37 @@
+{
+    "password_reset": {
+        "subject": "{SITE} için şifre sıfırlama talebi",
+        "content_html": "<p>Merhaba {NAME},</p>\n<p>{SITE} üzerindeki <strong>{LOGIN}</strong> hesabınız için bir şifre sıfırlama talebi alındı.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Şifre sıfırlama talebinde bulunmadıysanız, lütfen bu e-postayı dikkate almayın. Bağlantının geçerlilik süresi 1 saattir.</p>\n{SIGNATURE}",
+        "content_text": "Merhaba {NAME},\n\n{SITE} üzerindeki {LOGIN} hesabınız için bir şifre sıfırlama talebi alındı.\n\nŞifrenizi buradan sıfırlayabilirsiniz:\n{RESET_LINK}\n\nŞifre sıfırlama talebinde bulunmadıysanız bu e-postayı dikkate almayın.\n\nphpwcms admin"
+    },
+    "new_user": {
+        "subject": "{SITE} yönetim paneline hoş geldiniz",
+        "content_html": "<p>{SITE} sitesine hoş geldiniz!</p>\n<p>Sizin için aşağıdaki giriş bilgileriyle bir kullanıcı hesabı oluşturuldu:</p>\n{CREDENTIALS_TABLE}\n<p>Aşağıdaki butona tıklayarak giriş yapabilirsiniz:</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "PHPWCMS YÖNETİM PANELİNE HOŞ GELDİNİZ\n\n    kullanıcı adı: {LOGIN}\n    şifre:         {PASSWORD}\n\nBuradan giriş yapabilirsiniz: {LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "edit_user": {
+        "subject": "{SITE} - hesap bilgileri güncellendi",
+        "content_html": "<p>Merhaba {NAME},</p>\n<p>{SITE} üzerindeki kullanıcı hesabı bilgileriniz güncellendi:</p>\n{CREDENTIALS_TABLE}\n<p>Güncellenen bilgilerinizle giriş yapabilirsiniz:</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "PHPWCMS KULLANICI HESAP BİLGİLERİ GÜNCELLENDİ\n\n    kullanıcı adı: {LOGIN}\n    şifre:         {PASSWORD}\n\nBuradan giriş yapabilirsiniz: {LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "account_deactivated": {
+        "subject": "{SITE} üzerindeki hesabınız devre dışı bırakıldı",
+        "content_html": "<p>Merhaba {NAME},</p>\n<p>{SITE} üzerindeki hesabınız bir yönetici tarafından devre dışı bırakıldı.</p>\n<p>Herhangi bir sorunuz varsa veya bunun bir hata olduğunu düşünüyorsanız, lütfen site yöneticisiyle iletişime geçin.</p>\n{SIGNATURE}",
+        "content_text": "Merhaba {NAME},\n\n{SITE} üzerindeki hesabınız devre dışı bırakıldı.\n\nDaha fazla bilgi için lütfen yöneticiyle iletişime geçin.\n\n{SITE_URL}"
+    },
+    "password_changed": {
+        "subject": "{SITE} hesabınızın şifresi değiştirildi",
+        "content_html": "<p>Merhaba {NAME},</p>\n<p>{SITE} üzerindeki <strong>{LOGIN}</strong> hesabınızın şifresi başarıyla değiştirildi.</p>\n<p>Bu değişikliği siz yaptıysanız başka bir işlem yapmanıza gerek yoktur.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Bu değişikliği siz yapmadıysanız, lütfen derhal site yöneticisiyle iletişime geçin.</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "Merhaba {NAME},\n\n{SITE} üzerindeki {LOGIN} hesabınızın şifresi başarıyla değiştirildi.\n\nBu değişikliği siz yaptıysanız başka bir işlem yapmanıza gerek yoktur.\n\nBu değişikliği siz yapmadıysanız lütfen derhal site yöneticisiyle iletişime geçin.\n\nGiriş: {LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "user_email_changed": {
+        "subject": "{SITE} hesabınızın e-posta adresi değiştirildi",
+        "content_html": "<p>Merhaba {NAME},</p>\n<p>{SITE} üzerindeki <strong>{LOGIN}</strong> hesabınıza bağlı e-posta adresi <strong>{NEW_EMAIL}</strong> olarak değiştirildi.</p>\n<p>Bu değişikliği siz talep ettiyseniz başka bir işlem yapmanıza gerek yoktur.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Bu değişikliği siz onaylamadıysanız, lütfen derhal site yöneticisiyle iletişime geçin.</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "Merhaba {NAME},\n\n{SITE} üzerindeki {LOGIN} hesabınıza bağlı e-posta adresi {NEW_EMAIL} olarak değiştirildi.\n\nBu değişikliği siz talep ettiyseniz başka bir işlem yapmanıza gerek yoktur.\n\nBu değişikliği siz onaylamadıysanız lütfen derhal site yöneticisiyle iletişime geçin.\n\nGiriş: {LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "account_locked": {
+        "subject": "Güvenlik Uyarısı: {SITE} üzerinde başarısız giriş denemeleri",
+        "content_html": "<p>Merhaba {NAME},</p>\n<p>{SITE} üzerindeki <strong>{LOGIN}</strong> hesabınız için art arda birden fazla başarısız giriş denemesi tespit edildi.</p>\n<p><strong>IP Adresi:</strong> {IP}<br><strong>Tarih ve Saat:</strong> {DATE}</p>\n<p>Bu denemeleri siz yapmadıysanız, birisi hesabınıza erişmeye çalışıyor olabilir. Şifrenizi hemen sıfırlamanızı önemle tavsiye ederiz.</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "Merhaba {NAME},\n\n{SITE} üzerindeki {LOGIN} hesabınız için art arda birden fazla başarısız giriş denemesi tespit edildi.\n\nIP Adresi:     {IP}\nTarih ve Saat: {DATE}\n\nBu denemeleri siz yapmadıysanız birisi hesabınıza erişmeye çalışıyor olabilir. Şifrenizi derhal sıfırlamanızı tavsiye ederiz:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+    }
+}

@@ -25,13 +25,13 @@ $BLM['cnt_object-author_name'] = 'Fallback ' . ($BL['be_article_username'] ?? ''
 $BLM['cnt_object-feed_cache'] = 'Abilita intervalli di aggiornamento personalizzati';
 $BLM['cnt_object-feed_cache_timeout'] = 'Intervallo di aggiornamento';
 $BLM['cnt_object-feed_import_trigger_url'] = 'URL trigger di importazione';
-$BLM['cnt_object-source_link_add'] = 'Aggiungi link di origine dell\'elemento feed';
+$BLM['cnt_object-source_link_add'] = 'Aggiungi link di origine dell’elemento feed';
 $BLM['cnt_object-source_link_text'] = 'Testo link di origine';
 $BLM['cnt_object-activate_after_import'] = 'Imposta i nuovi articoli come visibili per impostazione predefinita';
-$BLM['cnt_object-image_url_replace'] = 'Stringa di ricerca per sostituire l\'URL dell\'immagine';
+$BLM['cnt_object-image_url_replace'] = 'Stringa di ricerca per sostituire l’URL dell’immagine';
 $BLM['error_name'] = 'Definisci il titolo per questo elemento di importazione feed';
 $BLM['error_url'] = 'Nessun URL di origine feed fornito';
-$BLM['error_url_notvalid'] = 'L\'URL della fonte feed non è valido o non è raggiungibile';
+$BLM['error_url_notvalid'] = 'L’URL della fonte feed non è valido o non è raggiungibile';
 $BLM['error_structure_level_id'] = 'Scegli la categoria in cui importare gli elementi feed come articoli';
 $BLM['error_false_id'] = 'Impossibile aprire per la modifica la fonte feed con ID %s';
 

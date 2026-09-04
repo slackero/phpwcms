@@ -1,0 +1,37 @@
+{
+  "password_reset": {
+    "subject": "Permintaan set semula kata laluan untuk {SITE}",
+    "content_html": "<p>Salam {NAME},</p>\n<p>Permintaan set semula kata laluan telah dimulakan untuk akaun anda <strong>{LOGIN}</strong> di {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Jika anda tidak meminta set semula kata laluan, sila abaikan e-mel ini. Pautan ini akan tamat tempoh dalam masa 1 jam.</p>\n{SIGNATURE}",
+    "content_text": "Salam {NAME},\n\nPermintaan set semula kata laluan telah dimulakan untuk akaun anda {LOGIN} di {SITE}.\n\nSet semula kata laluan anda di sini:\n{RESET_LINK}\n\nJika anda tidak meminta set semula kata laluan, sila abaikan e-mel ini.\n\nPentadbir phpwcms"
+  },
+  "new_user": {
+    "subject": "Selamat datang ke backend {SITE}",
+    "content_html": "<p>Selamat datang ke {SITE}!</p>\n<p>Akaun telah dicipta untuk anda dengan butiran log masuk berikut:</p>\n{CREDENTIALS_TABLE}\n<p>Anda boleh log masuk menggunakan butang di bawah:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "SELAMAT DATANG KE BACKEND PHPWCMS\n\n    nama pengguna: {LOGIN}\n    kata laluan: {PASSWORD}\n\nAnda boleh log masuk di sini: {LOGIN_PAGE}\n\nPentadbir phpwcms"
+  },
+  "edit_user": {
+    "subject": "{SITE} - data akaun telah dikemas kini",
+    "content_html": "<p>Salam {NAME},</p>\n<p>Maklumat akaun pengguna anda di {SITE} telah dikemas kini:</p>\n{CREDENTIALS_TABLE}\n<p>Anda boleh log masuk dengan butiran log masuk terkini anda:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "MAKLUMAT AKAUN PENGGUNA PHPWCMS TELAH DIKEMAS KINI\n\n    nama pengguna: {LOGIN}\n    kata laluan: {PASSWORD}\n\nAnda boleh log masuk di sini: {LOGIN_PAGE}\n\nPentadbir phpwcms"
+  },
+  "account_deactivated": {
+    "subject": "Akaun anda di {SITE} telah dinyahaktifkan",
+    "content_html": "<p>Salam {NAME},</p>\n<p>Akaun anda di {SITE} telah dinyahaktifkan oleh pentadbir.</p>\n<p>Sekiranya anda mempunyai sebarang pertanyaan atau berpendapat ini adalah kesilapan, sila hubungi pentadbir laman web.</p>\n{SIGNATURE}",
+    "content_text": "Salam {NAME},\n\nAkaun anda di {SITE} telah dinyahaktifkan.\n\nSila hubungi pentadbir untuk maklumat lanjut.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Kata laluan ditukar untuk akaun anda di {SITE}",
+    "content_html": "<p>Salam {NAME},</p>\n<p>Kata laluan untuk akaun anda <strong>{LOGIN}</strong> di {SITE} telah berjaya ditukar.</p>\n<p>Jika anda membuat pertukaran ini, tiada tindakan lanjut diperlukan.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jika anda tidak membuat pertukaran ini, sila hubungi pentadbir laman web dengan segera.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Salam {NAME},\n\nKata laluan untuk akaun anda {LOGIN} di {SITE} telah berjaya ditukar.\n\nJika anda membuat pertukaran ini, tiada tindakan lanjut diperlukan.\n\nJika anda tidak membuat pertukaran ini, sila hubungi pentadbir laman web dengan segera.\n\nLog masuk: {LOGIN_PAGE}\n\nPentadbir phpwcms"
+  },
+  "user_email_changed": {
+    "subject": "Alamat e-mel ditukar untuk akaun anda di {SITE}",
+    "content_html": "<p>Salam {NAME},</p>\n<p>Alamat e-mel yang dikaitkan dengan akaun anda <strong>{LOGIN}</strong> di {SITE} telah ditukar kepada <strong>{NEW_EMAIL}</strong>.</p>\n<p>Jika anda meminta perubahan ini, tiada tindakan lanjut diperlukan.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jika anda tidak membenarkan pertukaran ini, sila hubungi pentadbir laman web dengan segera.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Salam {NAME},\n\nAlamat e-mel yang dikaitkan dengan akaun anda {LOGIN} di {SITE} telah ditukar kepada {NEW_EMAIL}.\n\nJika anda meminta perubahan ini, tiada tindakan lanjut diperlukan.\n\nJika anda tidak membenarkan pertukaran ini, sila hubungi pentadbir laman web dengan segera.\n\nLog masuk: {LOGIN_PAGE}\n\nPentadbir phpwcms"
+  },
+  "account_locked": {
+    "subject": "Amaran Keselamatan: Percubaan log masuk gagal di {SITE}",
+    "content_html": "<p>Salam {NAME},</p>\n<p>Beberapa percubaan log masuk berturut-turut yang gagal telah dikesan untuk akaun anda <strong>{LOGIN}</strong> di {SITE}.</p>\n<p><strong>Alamat IP:</strong> {IP}<br><strong>Masa:</strong> {DATE}</p>\n<p>Jika ini bukan anda, kemungkinan ada pihak yang cuba mengakses akaun anda. Kami amat mengesyorkan anda menetapkan semula kata laluan anda dengan segera.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Salam {NAME},\n\nBeberapa percubaan log masuk berturut-turut yang gagal telah dikesan untuk akaun anda {LOGIN} di {SITE}.\n\nAlamat IP: {IP}\nMasa:      {DATE}\n\nJika ini bukan anda, kemungkinan ada pihak yang cuba mengakses akaun anda. Kami mengesyorkan anda menetapkan semula kata laluan anda dengan segera:\n\n{LOGIN_PAGE}\n\nPentadbir phpwcms"
+  }
+}

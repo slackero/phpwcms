@@ -1,0 +1,37 @@
+{
+    "password_reset": {
+        "subject": "Sol·licitud de restabliment de contrasenya per a {SITE}",
+        "content_html": "<p>Hola {NAME},</p>\n<p>S’ha iniciat una sol·licitud de restabliment de contrasenya per al vostre compte <strong>{LOGIN}</strong> a {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Si no heu sol·licitat aquest restabliment, ignoreu aquest correu. L’enllaç caducarà en 1 hora.</p>\n{SIGNATURE}",
+        "content_text": "Hola {NAME},\n\nS’ha iniciat una sol·licitud de restabliment de contrasenya per al vostre compte {LOGIN} a {SITE}.\n\nRestabliu la contrasenya aquí:\n{RESET_LINK}\n\nSi no heu sol·licitat aquest restabliment, ignoreu aquest correu.\n\nphpwcms admin"
+    },
+    "new_user": {
+        "subject": "Benvingut al backend de {SITE}",
+        "content_html": "<p>Benvingut a {SITE}!</p>\n<p>S’ha creat un compte d’usuari per a vós amb les següents credencials:</p>\n{CREDENTIALS_TABLE}\n<p>Podeu iniciar la sessió amb el botó següent:</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "BENVINGUT AL BACKEND DE PHPWCMS\n\n    nom d’usuari: {LOGIN}\n    contrasenya:  {PASSWORD}\n\nPodeu iniciar la sessió aquí: {LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "edit_user": {
+        "subject": "{SITE} - dades del compte modificades",
+        "content_html": "<p>Hola {NAME},</p>\n<p>La informació del vostre compte d’usuari a {SITE} s’ha actualitzat:</p>\n{CREDENTIALS_TABLE}\n<p>Podeu iniciar sessió amb les vostres credencials actualitzades:</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "DADES DEL COMPTE D’USUARI DE PHPWCMS MODIFICADES\n\n    nom d’usuari: {LOGIN}\n    contrasenya:  {PASSWORD}\n\nPodeu iniciar la sessió aquí: {LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "account_deactivated": {
+        "subject": "El vostre compte a {SITE} s’ha desactivat",
+        "content_html": "<p>Hola {NAME},</p>\n<p>El vostre compte a {SITE} ha estat desactivat per un administrador.</p>\n<p>Si teniu cap pregunta o creieu que es tracta d’un error, poseu-vos en contacte amb l’administrador del lloc.</p>\n{SIGNATURE}",
+        "content_text": "Hola {NAME},\n\nEl vostre compte a {SITE} ha estat desactivat.\n\nPoseu-vos en contacte amb l’administrador per a més informació.\n\n{SITE_URL}"
+    },
+    "password_changed": {
+        "subject": "S’ha canviat la contrasenya del vostre compte a {SITE}",
+        "content_html": "<p>Hola {NAME},</p>\n<p>La contrasenya del vostre compte <strong>{LOGIN}</strong> a {SITE} s’ha canviat correctament.</p>\n<p>Si heu fet vós aquest canvi, no cal fer res més.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Si no heu fet aquest canvi, poseu-vos en contacte immediatament amb l’administrador del lloc.</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "Hola {NAME},\n\nLa contrasenya del vostre compte {LOGIN} a {SITE} s’ha canviat correctament.\n\nSi heu fet vós aquest canvi, no cal fer res més.\n\nSi no heu fet aquest canvi, poseu-vos en contacte immediatament amb l’administrador del lloc.\n\nInici de sessió: {LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "user_email_changed": {
+        "subject": "S’ha canviat l’adreça de correu del vostre compte a {SITE}",
+        "content_html": "<p>Hola {NAME},</p>\n<p>L’adreça de correu associada al vostre compte <strong>{LOGIN}</strong> a {SITE} s’ha canviat a <strong>{NEW_EMAIL}</strong>.</p>\n<p>Si heu sol·licitat aquest canvi, no cal fer res més.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Si no heu autoritzat aquest canvi, poseu-vos en contacte immediatament amb l’administrador del lloc.</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "Hola {NAME},\n\nL’adreça de correu associada al vostre compte {LOGIN} a {SITE} s’ha canviat a {NEW_EMAIL}.\n\nSi heu sol·licitat aquest canvi, no cal fer res més.\n\nSi no heu autoritzat aquest canvi, poseu-vos en contacte immediatament amb l’administrador del lloc.\n\nInici de sessió: {LOGIN_PAGE}\n\nphpwcms admin"
+    },
+    "account_locked": {
+        "subject": "Alerta de seguretat: Intents d’inici de sessió fallits a {SITE}",
+        "content_html": "<p>Hola {NAME},</p>\n<p>S’han detectat diversos intents consecutius d’inici de sessió fallits per al vostre compte <strong>{LOGIN}</strong> a {SITE}.</p>\n<p><strong>Adreça IP:</strong> {IP}<br><strong>Data i hora:</strong> {DATE}</p>\n<p>Si no heu estat vós, algú podria estar intentant accedir al vostre compte. Us recomanem encaridament restablir la contrasenya immediatament.</p>\n{BUTTON}\n{SIGNATURE}",
+        "content_text": "Hola {NAME},\n\nS’han detectat diversos intents consecutius d’inici de sessió fallits per al vostre compte {LOGIN} a {SITE}.\n\nAdreça IP:    {IP}\nData i hora:  {DATE}\n\nSi no heu estat vós, algú podria estar intentant accedir al vostre compte. Us recomanem restablir la contrasenya immediatament:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+    }
+}
