@@ -60,7 +60,7 @@ function i18n_get_language($complex=false) {
 	}
 	// 5. Check HTTP ACCEPT_LANGUAGE header
 	elseif(empty($detected_lang) && !empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-		$complex = isset($phpwcms['i18n_complex']) ? $phpwcms['i18n_complex'] : $complex;
+		$complex = $phpwcms['i18n_complex'] ?? $complex;
 		if($complex) {
 			$lang = explode(';', trim($_SERVER['HTTP_ACCEPT_LANGUAGE']), 2);
 			$lang = explode(',', $lang[0], 2);
@@ -90,7 +90,7 @@ function i18n_get_language($complex=false) {
 	if(!empty($_GET['lang'])) {
 		$_SESSION[$lang_key] = $detected_lang;
 		$cookie_domain = function_exists('getCookieDomain') ? getCookieDomain() : '';
-		$ssl_active    = defined('PHPWCMS_SSL') ? PHPWCMS_SSL : false;
+		$ssl_active    = defined('PHPWCMS_SSL') && PHPWCMS_SSL;
 		@setcookie($lang_key, $detected_lang, time() + 31536000, '/', $cookie_domain, $ssl_active, true);
 	}
 
@@ -110,38 +110,41 @@ function i18n_get_file_open_text() {
 // substitutes a single token
 function i18n_substitute_text_token($token) {
 	global $i18n_tokens;
-	$a = trim(isset($token[1]) ? $token[1] : $token);
+	$a = trim($token[1] ?? $token);
 	if($a === '') {
 		return '';
 	}
 	if(isset($i18n_tokens[$a])) {
 		return $i18n_tokens[$a];
-	} else {
-		$f = i18n_get_filename();
-		if(is_readable($f)) {
-			include $f;
-		} elseif($handle = fopen($f, 'ab')) {
-			fwrite($handle, i18n_get_file_open_text() );
-			fclose($handle);
-		} else {
-			return $a;
-		}
-		if(isset($i18n_tokens[$a])) {
-			return $i18n_tokens[$a];
-		}
-		$i18n_tokens[$a] = $a;
-		$as = str_replace("'", "\\'", $a);
-		$s = '$i18n_tokens' . "['" . $as . "']" . " = '" . $as . "'; // NEW " . now('Y-m-d H:i:s') . LF;
-		if($handle = fopen($f, 'ab')) {
-			fwrite($handle, $s);
-			fclose($handle);
-		}
 	}
-	return $a;
+
+    $f = i18n_get_filename();
+    if(is_readable($f)) {
+        include $f;
+    } elseif($handle = fopen($f, 'ab')) {
+        fwrite($handle, i18n_get_file_open_text() );
+        fclose($handle);
+    } else {
+        return $a;
+    }
+
+    if(isset($i18n_tokens[$a])) {
+        return $i18n_tokens[$a];
+    }
+
+    $i18n_tokens[$a] = $a;
+    $as = str_replace("'", "\\'", $a);
+    $s = '$i18n_tokens' . "['" . $as . "']" . " = '" . $as . "'; // NEW " . now('Y-m-d H:i:s') . LF;
+    if($handle = fopen($f, 'ab')) {
+        fwrite($handle, $s);
+        fclose($handle);
+    }
+
+    return $a;
 }
 // all contents starting and ending with @@ are replaced
 function i18n_substitute_text($tpl_output) {
-	if(strpos($tpl_output, '@@') === false) {
+	if(!str_contains($tpl_output, '@@')) {
 		return $tpl_output;
 	}
 	global $i18n_tokens;
@@ -154,5 +157,141 @@ function i18n_substitute_text($tpl_output) {
 			fclose($handle);
 		}
 	}
+
 	return preg_replace_callback('/@@(.+?)@@/', 'i18n_substitute_text_token', $tpl_output);
+}
+
+function sanitize_language_code($code) {
+	$code = strtolower(trim((string)$code));
+	if(preg_match('/^[a-z]{2}(?:-[a-z0-9]{2,})?$/', $code)) {
+		return $code;
+	}
+
+	return '';
+}
+
+function get_language_flag_img($code, $extra_class = '') {
+	$code = sanitize_language_code($code);
+	if(empty($code)) {
+		return '';
+	}
+
+	static $lang_flag_map = [
+		'en'    => 'gb',
+		'de'    => 'de',
+		'de-at' => 'at',
+		'de-ch' => 'ch',
+		'da'    => 'dk',
+		'el'    => 'gr',
+		'es'    => 'es',
+		'et'    => 'ee',
+		'eu'    => 'es-pv',
+		'fa'    => 'ir',
+		'fi'    => 'fi',
+		'fr'    => 'fr',
+		'gl'    => 'es-ga',
+		'he'    => 'il',
+		'hi'    => 'in',
+		'hr'    => 'hr',
+		'hu'    => 'hu',
+		'hy'    => 'am',
+		'id'    => 'id',
+		'is'    => 'is',
+		'it'    => 'it',
+		'ja'    => 'jp',
+		'ka'    => 'ge',
+		'kk'    => 'kz',
+		'ko'    => 'kr',
+		'lt'    => 'lt',
+		'lv'    => 'lv',
+		'mk'    => 'mk',
+		'mn'    => 'mn',
+		'ms'    => 'my',
+		'nb'    => 'no',
+		'nl'    => 'nl',
+		'nn'    => 'no',
+		'no'    => 'no',
+		'pl'    => 'pl',
+		'pt'    => 'pt',
+		'pt-br' => 'br',
+		'ro'    => 'ro',
+		'ru'    => 'ru',
+		'sk'    => 'sk',
+		'sl'    => 'si',
+		'sq'    => 'al',
+		'sr'    => 'rs',
+		'sv'    => 'se',
+		'th'    => 'th',
+		'tr'    => 'tr',
+		'uk'    => 'ua',
+		'ur'    => 'pk',
+		'vi'    => 'vn',
+		'zh'    => 'cn',
+		'zh-cn' => 'cn',
+		'zh-tw' => 'tw'
+	];
+
+	$flag = $lang_flag_map[$code] ?? '';
+	if($flag === '' && str_contains($code, '-')) {
+		$parts = explode('-', $code);
+		$flag = end($parts);
+	}
+	if($flag === '') {
+		$flag = $code;
+	}
+
+	$svg_path = PHPWCMS_ROOT . '/img/flags/4x3/' . $flag . '.svg';
+	if(is_file($svg_path)) {
+		$cls = 'flag-img badge-align' . ($extra_class !== '' ? ' ' . $extra_class : '');
+		return '<img src="img/flags/4x3/' . html($flag) . '.svg" alt="' . html(strtoupper($code)) . '" class="' . $cls . '" style="width: 1.15em; height: auto; border-radius: 2px; box-shadow: 0 0 1px rgba(0,0,0,0.4);" />';
+	}
+
+	return '';
+}
+
+function template_lang_load_file($lang_code) {
+	$lang_code = sanitize_language_code($lang_code);
+	if(empty($lang_code)) {
+		return [];
+	}
+	$file = PHPWCMS_TEMPLATE . 'template_lang/' . $lang_code . '.php';
+	if(!is_file($file) || !is_readable($file)) {
+		return [];
+	}
+	$i18n_tokens = [];
+	include $file;
+	return is_array($i18n_tokens) ? $i18n_tokens : [];
+}
+
+function template_lang_save_file($lang_code, array $tokens) {
+	$lang_code = sanitize_language_code($lang_code);
+	if(empty($lang_code)) {
+		return false;
+	}
+	$dir = PHPWCMS_TEMPLATE . 'template_lang/';
+	if(!is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) {
+        throw new RuntimeException(sprintf('Directory "%s" was not created', $dir));
+    }
+	$file = $dir . $lang_code . '.php';
+
+	$content  = '<?php' . LF;
+	$content .= '// phpwcms template language file "' . $lang_code . '" (' . now('Y-m-d H:i:s') . ')' . LF;
+	$content .= '// ATTENTION! Never add the closing PHP tag "? >" at the end of this file!' . LF . LF;
+
+	ksort($tokens, SORT_NATURAL | SORT_FLAG_CASE);
+
+	foreach($tokens as $token_key => $token_val) {
+		$content .= '$i18n_tokens[' . var_export((string)$token_key, true) . '] = ' . var_export((string)$token_val, true) . ';' . LF;
+	}
+
+	$tmp_file = $file . '.tmp.' . uniqid('', true);
+	if(@file_put_contents($tmp_file, $content) !== false) {
+		if(@rename($tmp_file, $file)) {
+			@chmod($file, 0666);
+			return true;
+		}
+		@unlink($tmp_file);
+	}
+
+	return false;
 }

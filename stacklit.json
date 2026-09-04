@@ -1298,6 +1298,7 @@
         "admin.imagealiaslist.tmpl.php",
         "admin.keyword.tmpl.php",
         "admin.listuser.tmpl.php",
+        "admin.mailtemplates.tmpl.php",
         "admin.newuser.tmpl.php",
         "admin.pagelayout.tmpl.php",
         "admin.phpinfo.tmpl.php",

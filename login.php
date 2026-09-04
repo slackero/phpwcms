@@ -107,10 +107,43 @@ if ($revision_status && !empty($GLOBALS['phpwcms']['revision_success'])) {
  * delay each retry with exponential backoff (capped at 8 seconds).
  * The counter is reset on every successful authentication.
  */
-function register_failed_login() {
+function register_failed_login($login_name = '') {
     $fails = empty($_SESSION['wcs_login_fails']) ? 0 : (int)$_SESSION['wcs_login_fails'];
     $fails++;
     $_SESSION['wcs_login_fails'] = $fails;
+
+    // Send security alert notification after 5 failed attempts
+    if ($fails === 5 && !empty($login_name)) {
+        $u_sql = 'SELECT usr_id, usr_login, usr_email, usr_name, usr_lang FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_login = ' . _dbEscape($login_name) . ' AND usr_aktiv = 1 LIMIT 1';
+        $u_res = _dbQuery($u_sql);
+        if (!empty($u_res[0]['usr_email']) && is_valid_email($u_res[0]['usr_email'])) {
+            $u_row = $u_res[0];
+            $u_lang = !empty($u_row['usr_lang']) ? $u_row['usr_lang'] : ($_SESSION['wcs_user_lang'] ?? 'en');
+            $rendered_alert = render_system_email('account_locked', [
+                '{NAME}'       => empty($u_row['usr_name']) ? $u_row['usr_login'] : $u_row['usr_name'],
+                '{LOGIN}'      => $u_row['usr_login'],
+                '{IP}'         => PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(),
+                '{DATE}'       => date('Y-m-d H:i:s'),
+                '{SITE}'       => PHPWCMS_HOST,
+                '{SITE_URL}'   => PHPWCMS_URL,
+                '{LOGIN_PAGE}' => PHPWCMS_URL . get_login_file(),
+                '{RESET_LINK}' => PHPWCMS_URL . get_login_file() . '?reset=1',
+                '{ADMIN_EMAIL}'=> $GLOBALS['phpwcms']['admin_email'] ?? $GLOBALS['phpwcms']['SMTP_FROM_EMAIL'] ?? ''
+            ], $u_lang);
+
+            sendEmail([
+                'recipient'  => $u_row['usr_email'],
+                'toName'     => $u_row['usr_name'],
+                'subject'    => $rendered_alert['subject'],
+                'isHTML'     => true,
+                'html'       => $rendered_alert['html'],
+                'text'       => $rendered_alert['text'],
+                'from'       => $GLOBALS['phpwcms']['admin_email'] ?? $GLOBALS['phpwcms']['SMTP_FROM_EMAIL'] ?? '',
+                'fromName'   => get_brand_name()
+            ]);
+        }
+    }
+
     usleep(min(100000 * (2 ** min($fails, 6)), 8000000));
 }
 
@@ -525,14 +558,14 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
 
     } elseif (!$step_2fa) {
 
-        register_failed_login();
+        register_failed_login($wcs_user);
         $err = 1;
 
     }
 
 } elseif(isset($_POST['form_loginname']) && $json_check !== 2) {
 
-    register_failed_login();
+    register_failed_login(slweg($_POST['form_loginname']));
     $err = 1;
 
 }
@@ -579,32 +612,22 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'send_reset_link')
             _dbUpdate('phpwcms_user', ['usr_vars' => serialize($u_vars)], 'WHERE usr_id = ' . (int)$user['usr_id']);
 
             $reset_link = PHPWCMS_URL . get_login_file() . '?reset_token=' . rawurlencode($raw_token) . '&u=' . (int)$user['usr_id'];
-            $email_body = str_replace(
-                ['{NAME}', '{LOGIN}', '{SITE}', '{RESET_LINK}'],
-                [empty($user['usr_name']) ? $user['usr_login'] : $user['usr_name'], $user['usr_login'], PHPWCMS_HOST, $reset_link],
-                $BL['login_reset_email_body'] ?? ''
-            );
-            $email_subject = str_replace('{SITE}', PHPWCMS_HOST, $BL['login_reset_email_subject'] ?? 'Password reset request for {SITE}');
-            // plain text part must not contain HTML entities like &#13; or &uuml;
-            $email_body = html_entity_decode($email_body, ENT_QUOTES, PHPWCMS_CHARSET);
-
-            $email_html = renderSystemEmailHTML(
-                $email_subject,
-                '<p>' . html(str_replace('{NAME}', empty($user['usr_name']) ? $user['usr_login'] : $user['usr_name'], $BL['login_reset_email_greeting'])) . '</p>'
-                . '<p>' . html(str_replace(['{LOGIN}', '{SITE}'], [$user['usr_login'], PHPWCMS_HOST], $BL['login_reset_email_intro'])) . '</p>'
-                . renderEmailButtonHTML($reset_link, $BL['login_reset_title'])
-                . '<p>' . html($BL['login_reset_email_note']) . '</p>'
-                . renderEmailSignatureHTML(),
-                html(str_replace('{SITE}', PHPWCMS_HOST, $BL['login_reset_email_subject']))
-            );
+            $rendered_mail = render_system_email('password_reset', [
+                '{NAME}'       => empty($user['usr_name']) ? $user['usr_login'] : $user['usr_name'],
+                '{LOGIN}'      => $user['usr_login'],
+                '{SITE}'       => PHPWCMS_HOST,
+                '{SITE_URL}'   => PHPWCMS_URL,
+                '{RESET_LINK}' => $reset_link,
+                '{EXPIRES}'    => '1 hour'
+            ]);
 
             sendEmail([
                 'recipient'  => $user['usr_email'],
                 'toName'     => $user['usr_name'],
-                'subject'    => $email_subject,
+                'subject'    => $rendered_mail['subject'],
                 'isHTML'     => true,
-                'html'       => $email_html,
-                'text'       => $email_body,
+                'html'       => $rendered_mail['html'],
+                'text'       => $rendered_mail['text'],
                 'from'       => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '',
                 'fromName'   => get_brand_name()
             ]);
@@ -661,7 +684,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'set_new_password'
     } elseif ($new_pw !== $repeat_pw) {
         $reset_error_msg = $BL['login_reset_password_mismatch'] ?? 'Passwords do not match!';
     } else {
-        $sql = 'SELECT usr_id, usr_login, usr_name, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . $user_id_param . ' AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
+        $sql = 'SELECT usr_id, usr_login, usr_email, usr_name, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . $user_id_param . ' AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
         $user_res = _dbQuery($sql);
 
         if (!empty($user_res[0]['usr_id'])) {
@@ -681,6 +704,29 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'set_new_password'
 
                         $reset_done_success = true;
                         $step_reset_set     = false;
+
+                        // Send confirmation email
+                        if (!empty($user_res[0]['usr_email']) && is_valid_email($user_res[0]['usr_email'])) {
+                            $rendered_mail = render_system_email('password_changed', [
+                                '{NAME}'       => empty($user_res[0]['usr_name']) ? $user_res[0]['usr_login'] : $user_res[0]['usr_name'],
+                                '{LOGIN}'      => $user_res[0]['usr_login'],
+                                '{SITE}'       => PHPWCMS_HOST,
+                                '{SITE_URL}'   => PHPWCMS_URL,
+                                '{LOGIN_PAGE}' => PHPWCMS_URL . get_login_file(),
+                                '{ADMIN_EMAIL}'=> $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? ''
+                            ]);
+
+                            sendEmail([
+                                'recipient'  => $user_res[0]['usr_email'],
+                                'toName'     => $user_res[0]['usr_name'],
+                                'subject'    => $rendered_mail['subject'],
+                                'isHTML'     => true,
+                                'html'       => $rendered_mail['html'],
+                                'text'       => $rendered_mail['text'],
+                                'from'       => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '',
+                                'fromName'   => get_brand_name()
+                            ]);
+                        }
                     }
                 }
             }

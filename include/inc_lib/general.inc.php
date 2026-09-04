@@ -24,6 +24,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/helper.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/classes/PhpwcmsMailer.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/classes/PhpwcmsTwoFactor.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/custom_fields.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/helper.mail.php';
 
 function str_empty($string) {
     return $string === null || $string === '';
@@ -928,9 +929,15 @@ function sendEmail($data = [
         // convert body and subject so mail clients never see mixed encodings
         if (PHPWCMS_CHARSET !== 'utf-8') {
             $mail->CharSet = 'UTF-8';
-            $data['html'] = mb_convert_encoding($data['html'], 'UTF-8', PHPWCMS_CHARSET);
-            $data['text'] = mb_convert_encoding($data['text'], 'UTF-8', PHPWCMS_CHARSET);
-            $subject = mb_convert_encoding($subject, 'UTF-8', PHPWCMS_CHARSET);
+            if (!mb_check_encoding($data['html'], 'UTF-8')) {
+                $data['html'] = mb_convert_encoding($data['html'], 'UTF-8', PHPWCMS_CHARSET);
+            }
+            if (!mb_check_encoding($data['text'], 'UTF-8')) {
+                $data['text'] = mb_convert_encoding($data['text'], 'UTF-8', PHPWCMS_CHARSET);
+            }
+            if (!mb_check_encoding($subject, 'UTF-8')) {
+                $subject = mb_convert_encoding($subject, 'UTF-8', PHPWCMS_CHARSET);
+            }
         }
         $mail->isHTML($data['isHTML']);
         $mail->Subject = $subject;

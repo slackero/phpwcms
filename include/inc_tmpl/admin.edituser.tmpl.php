@@ -111,35 +111,27 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                 $user_ok = 1;
                 $new_user_id = NULL;
                 if($send_verification) {
-                    $emailbody = str_replace('{LOGIN}',         $new_login, $BL['be_admin_usr_emailbody']);
-                    $emailbody = str_replace('{PASSWORD}',      (($new_password) ? $new_password : $BL['be_admin_usr_passnochange']), $emailbody);
-                    $emailbody = str_replace('{SITE}',          PHPWCMS_URL, $emailbody);
-                    $emailbody = str_replace('{LOGIN_PAGE}',    PHPWCMS_URL.get_login_file(), $emailbody);
-                    // plain text part must not contain HTML entities
-                    $emailbody = html_entity_decode($emailbody, ENT_QUOTES, PHPWCMS_CHARSET);
+                    $pass_label = $new_password ? $new_password : ($BL['be_admin_usr_passnochange'] ?? '[No change - use known password]');
+                    $rendered_mail = render_system_email('edit_user', [
+                        '{NAME}'       => $new_name ?: $new_login,
+                        '{LOGIN}'      => $new_login,
+                        '{PASSWORD}'   => $pass_label,
+                        '{SITE}'       => PHPWCMS_HOST,
+                        '{SITE_URL}'   => PHPWCMS_URL,
+                        '{LOGIN_PAGE}' => PHPWCMS_URL . get_login_file()
+                    ]);
 
-                    $email_html = renderSystemEmailHTML(
-                        $BL['be_admin_usr_emailsubject'],
-                        '<p>' . html($BL['be_admin_usr_mailchanged']) . '</p>'
-                        . renderEmailFieldTableHTML([
-                            $BL['login_username'] => $new_login,
-                            $BL['login_userpass'] => (($new_password) ? $new_password : $BL['be_admin_usr_passnochange'])
-                        ])
-                        . '<p>' . html($BL['be_admin_usr_maillogin']) . '</p>'
-                        . renderEmailButtonHTML(PHPWCMS_URL.get_login_file(), $BL['login_button'])
-                        . renderEmailSignatureHTML()
-                    );
-
-                    sendEmail(array(
-                            'recipient' => $new_email,
-                            'toName'    => $new_name,
-                            'subject'   => $BL['be_admin_usr_emailsubject'],
-                            'isHTML'    => true,
-                            'html'      => $email_html,
-                            'text'      => $emailbody,
-                            'from'      => $phpwcms["admin_email"],
-                            'sender'    => $phpwcms["admin_email"]
-                    ));
+                    sendEmail([
+                        'recipient' => $new_email,
+                        'toName'    => $new_name,
+                        'subject'   => $rendered_mail['subject'],
+                        'isHTML'    => true,
+                        'html'      => $rendered_mail['html'],
+                        'text'      => $rendered_mail['text'],
+                        'from'      => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '',
+                        'fromName'  => get_brand_name(),
+                        'sender'    => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? ''
+                    ]);
                 }
             }
         }

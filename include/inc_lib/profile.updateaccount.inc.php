@@ -99,6 +99,55 @@ if($_SESSION["wcs_user"] != "guest") { // Check for guest account
         $result = _dbQuery($sql, 'UPDATE');
 
         if(isset($result['AFFECTED_ROWS'])) {
+            // Send confirmation email if password was changed
+            if (!empty($new_password) && is_valid_email($new_email)) {
+                $rendered_mail = render_system_email('password_changed', [
+                    '{NAME}'       => $_SESSION['wcs_user_name'] ?? $new_username,
+                    '{LOGIN}'      => $new_username,
+                    '{SITE}'       => PHPWCMS_HOST,
+                    '{SITE_URL}'   => PHPWCMS_URL,
+                    '{LOGIN_PAGE}' => PHPWCMS_URL . get_login_file(),
+                    '{ADMIN_EMAIL}'=> $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? ''
+                ], $new_language);
+
+                sendEmail([
+                    'recipient'  => $new_email,
+                    'toName'     => $_SESSION['wcs_user_name'] ?? $new_username,
+                    'subject'    => $rendered_mail['subject'],
+                    'isHTML'     => true,
+                    'html'       => $rendered_mail['html'],
+                    'text'       => $rendered_mail['text'],
+                    'from'       => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '',
+                    'fromName'   => get_brand_name()
+                ]);
+            }
+
+            // Send notification to old address if email was changed
+            $old_email = $_SESSION['wcs_user_email'] ?? '';
+            if ($old_email !== '' && $new_email !== $old_email && is_valid_email($old_email)) {
+                $rendered_email_mail = render_system_email('user_email_changed', [
+                    '{NAME}'       => $_SESSION['wcs_user_name'] ?? $new_username,
+                    '{LOGIN}'      => $new_username,
+                    '{NEW_EMAIL}'  => $new_email,
+                    '{OLD_EMAIL}'  => $old_email,
+                    '{SITE}'       => PHPWCMS_HOST,
+                    '{SITE_URL}'   => PHPWCMS_URL,
+                    '{LOGIN_PAGE}' => PHPWCMS_URL . get_login_file(),
+                    '{ADMIN_EMAIL}'=> $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? ''
+                ], $new_language);
+
+                sendEmail([
+                    'recipient'  => $old_email,
+                    'toName'     => $_SESSION['wcs_user_name'] ?? $new_username,
+                    'subject'    => $rendered_email_mail['subject'],
+                    'isHTML'     => true,
+                    'html'       => $rendered_email_mail['html'],
+                    'text'       => $rendered_email_mail['text'],
+                    'from'       => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '',
+                    'fromName'   => get_brand_name()
+                ]);
+            }
+
             //Wenn Aktualisierung erfolgreich war
             //neue Werte den Sessionvariablen zuweisen
             $_SESSION["wcs_user"]           = $new_username;

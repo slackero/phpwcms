@@ -5,7 +5,10 @@ require_once __DIR__ . '/../../include/inc_lib/revision/r559.php';
 
 function _dbTableExists($t) { return $t === 'phpwcms_update_log'; }
 function _dbColumnExists($t, $c) { return $t === 'phpwcms_update_log'; }
-function _dbQuery($q, $type = '') { echo 'QUERY: ' . $q . PHP_EOL; return true; }
+function _dbQuery($q, $type = '') { echo 'QUERY: ' . $q . PHP_EOL; return in_array($type, ['CREATE', 'ALTER'], true) ? true : []; }
+function _dbCount($q) { return 0; }
+function _dbInsert($t, $d) { return ['INSERT_ID' => 1]; }
+function _dbGetCreateCharsetCollation() { return 'DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'; }
 define('DB_PREPEND', '');
 
 $result = phpwcms_revision_r559();

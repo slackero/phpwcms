@@ -11,6 +11,8 @@
 /**
  * Revision 559:
  * - Create table phpwcms_update_log for the self-update history
+ * - Create table phpwcms_mailtemplates for backend email templates
+ * - Add admmailtpl permission to phpwcms_usergroup
  *
  * @return bool
  */
@@ -42,6 +44,56 @@ function phpwcms_revision_r559() {
                     $status = false;
                 }
             }
+        }
+    }
+
+    // Ensure phpwcms_mailtemplates table exists
+    if (!_dbTableExists('phpwcms_mailtemplates')) {
+        $charset_collate = _dbGetCreateCharsetCollation();
+        $create_mail = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . 'phpwcms_mailtemplates` (
+            `tpl_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+            `tpl_key` varchar(64) NOT NULL DEFAULT "",
+            `tpl_lang` varchar(10) NOT NULL DEFAULT "en",
+            `tpl_subject` varchar(255) NOT NULL DEFAULT "",
+            `tpl_content_html` mediumtext NOT NULL,
+            `tpl_content_text` mediumtext NOT NULL,
+            `tpl_active` tinyint(1) NOT NULL DEFAULT 1,
+            `tpl_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `tpl_changed` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (`tpl_id`),
+            UNIQUE KEY `key_lang` (`tpl_key`, `tpl_lang`),
+            KEY `tpl_key` (`tpl_key`),
+            KEY `tpl_lang` (`tpl_lang`)
+        ) ENGINE=InnoDB ' . $charset_collate;
+        if (!_dbQuery($create_mail, 'CREATE')) {
+            $status = false;
+        }
+    }
+
+    // Add admmailtpl permission to phpwcms_usergroup if not exists
+    $count = _dbCount('SELECT COUNT(*) FROM `' . DB_PREPEND . 'phpwcms_usergroup` WHERE `group_syskey`="admmailtpl" AND `group_trash`=0');
+    if ($count === 0) {
+        $adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'phpwcms_user` WHERE `usr_admin` = 1');
+        $adminids = [];
+        if (!empty($adminusers)) {
+            foreach ($adminusers as $admins) {
+                $adminids[] = $admins['usr_id'];
+            }
+        }
+        $admin_members = implode(',', $adminids) ?: '1';
+
+        $result = _dbInsert('phpwcms_usergroup', [
+            'group_name'   => 'SYSGROUP',
+            'group_member' => $admin_members,
+            'group_value'  => '',
+            'group_trash'  => 0,
+            'group_active' => 1,
+            'group_modkey' => '',
+            'group_syskey' => 'admmailtpl'
+        ]);
+
+        if (empty($result['INSERT_ID'])) {
+            $status = false;
         }
     }
 

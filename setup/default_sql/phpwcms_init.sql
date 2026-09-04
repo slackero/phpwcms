@@ -619,6 +619,22 @@ CREATE TABLE `phpwcms_map` (
   PRIMARY KEY (`map_id`)
 );
 
+CREATE TABLE `phpwcms_mailtemplates` (
+  `tpl_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tpl_key` varchar(64) NOT NULL DEFAULT '',
+  `tpl_lang` varchar(10) NOT NULL DEFAULT 'en',
+  `tpl_subject` varchar(255) NOT NULL DEFAULT '',
+  `tpl_content_html` mediumtext NOT NULL,
+  `tpl_content_text` mediumtext NOT NULL,
+  `tpl_active` tinyint(1) NOT NULL DEFAULT '1',
+  `tpl_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tpl_changed` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`tpl_id`),
+  UNIQUE KEY `key_lang` (`tpl_key`,`tpl_lang`),
+  KEY `tpl_key` (`tpl_key`),
+  KEY `tpl_lang` (`tpl_lang`)
+);
+
 CREATE TABLE `phpwcms_message` (
   `msg_id` int(11) NOT NULL AUTO_INCREMENT,
   `msg_pid` int(11) NOT NULL DEFAULT '0',

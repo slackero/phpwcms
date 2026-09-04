@@ -66,35 +66,26 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] === "create_account") {
             $new_user_id = $result['INSERT_ID'];
             $user_ok = 1;
             if($send_verification) {
-                $emailbody = str_replace('{LOGIN}', $new_login, $BL['be_admin_usr_mailbody']);
-                $emailbody = str_replace('{PASSWORD}', $new_password, $emailbody);
-                $emailbody = str_replace('{SITE}', PHPWCMS_URL, $emailbody);
-                $emailbody = str_replace('{LOGIN_PAGE}', PHPWCMS_URL.get_login_file(), $emailbody);
-                // plain text part must not contain HTML entities
-                $emailbody = html_entity_decode($emailbody, ENT_QUOTES, PHPWCMS_CHARSET);
+                $rendered_mail = render_system_email('new_user', [
+                    '{NAME}'       => $new_name ?: $new_login,
+                    '{LOGIN}'      => $new_login,
+                    '{PASSWORD}'   => $new_password,
+                    '{SITE}'       => PHPWCMS_HOST,
+                    '{SITE_URL}'   => PHPWCMS_URL,
+                    '{LOGIN_PAGE}' => PHPWCMS_URL . get_login_file()
+                ]);
 
-                $email_html = renderSystemEmailHTML(
-                    $BL['be_admin_usr_mailsubject'],
-                    '<p>' . html(str_replace('{SITE}', PHPWCMS_HOST, $BL['be_admin_usr_mailwelcome'])) . '</p>'
-                    . renderEmailFieldTableHTML([
-                        $BL['login_username'] => $new_login,
-                        $BL['login_userpass'] => $new_password
-                    ])
-                    . '<p>' . html($BL['be_admin_usr_maillogin']) . '</p>'
-                    . renderEmailButtonHTML(PHPWCMS_URL.get_login_file(), $BL['login_button'])
-                    . renderEmailSignatureHTML()
-                );
-
-                sendEmail(  array(
+                sendEmail([
                     'recipient' => $new_email,
                     'toName'    => $new_name,
-                    'subject'   => $BL['be_admin_usr_mailsubject'],
+                    'subject'   => $rendered_mail['subject'],
                     'isHTML'    => true,
-                    'html'      => $email_html,
-                    'text'      => $emailbody,
-                    'from'      => $phpwcms["admin_email"],
-                    'sender'    => $phpwcms["admin_email"]
-                ));
+                    'html'      => $rendered_mail['html'],
+                    'text'      => $rendered_mail['text'],
+                    'from'      => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '',
+                    'fromName'  => get_brand_name(),
+                    'sender'    => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? ''
+                ]);
             }
         }
     }

@@ -17,156 +17,17 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $template_lang_dir = PHPWCMS_TEMPLATE . 'template_lang/';
 
-// Helper to sanitize language code (e.g., 'en', 'de', 'de-ch', 'zh-cn')
-function _tpl_lang_sanitize_code($code) {
-    $code = strtolower(trim((string)$code));
-    if (preg_match('/^[a-z]{2}(?:-[a-z0-9]{2,})?$/', $code)) {
-        return $code;
-    }
-    return '';
-}
-
-// Helper to get flag image HTML for a given language code
-function _tpl_lang_get_flag_img($code, $extra_class = '') {
-    $code = _tpl_lang_sanitize_code($code);
-    if (empty($code)) {
-        return '';
-    }
-    // Language to ISO country code mapping for flags
-    static $lang_flag_map = [
-        'en'    => 'gb',
-        'de'    => 'de',
-        'de-at' => 'at',
-        'de-ch' => 'ch',
-        'da'    => 'dk',
-        'el'    => 'gr',
-        'es'    => 'es',
-        'et'    => 'ee',
-        'eu'    => 'es-pv',
-        'fa'    => 'ir',
-        'fi'    => 'fi',
-        'fr'    => 'fr',
-        'gl'    => 'es-ga',
-        'he'    => 'il',
-        'hi'    => 'in',
-        'hr'    => 'hr',
-        'hu'    => 'hu',
-        'hy'    => 'am',
-        'id'    => 'id',
-        'is'    => 'is',
-        'it'    => 'it',
-        'ja'    => 'jp',
-        'ka'    => 'ge',
-        'kk'    => 'kz',
-        'ko'    => 'kr',
-        'lt'    => 'lt',
-        'lv'    => 'lv',
-        'mk'    => 'mk',
-        'mn'    => 'mn',
-        'ms'    => 'my',
-        'nb'    => 'no',
-        'nl'    => 'nl',
-        'nn'    => 'no',
-        'no'    => 'no',
-        'pl'    => 'pl',
-        'pt'    => 'pt',
-        'pt-br' => 'br',
-        'ro'    => 'ro',
-        'ru'    => 'ru',
-        'sk'    => 'sk',
-        'sl'    => 'si',
-        'sq'    => 'al',
-        'sr'    => 'rs',
-        'sv'    => 'se',
-        'th'    => 'th',
-        'tr'    => 'tr',
-        'uk'    => 'ua',
-        'ur'    => 'pk',
-        'vi'    => 'vn',
-        'zh'    => 'cn',
-        'zh-cn' => 'cn',
-        'zh-tw' => 'tw'
-    ];
-
-    $flag = $lang_flag_map[$code] ?? '';
-    if ($flag === '' && strpos($code, '-') !== false) {
-        $parts = explode('-', $code);
-        $flag = end($parts);
-    }
-    if ($flag === '') {
-        $flag = $code;
-    }
-
-    $svg_path = PHPWCMS_ROOT . '/img/flags/4x3/' . $flag . '.svg';
-    if (is_file($svg_path)) {
-        $cls = 'flag-img badge-align' . ($extra_class !== '' ? ' ' . $extra_class : '');
-        return '<img src="img/flags/4x3/' . html($flag) . '.svg" alt="' . html(strtoupper($code)) . '" class="' . $cls . '" style="width: 1.15em; height: auto; border-radius: 2px; box-shadow: 0 0 1px rgba(0,0,0,0.4);" />';
-    }
-
-    return '';
-}
-
-// Helper to read tokens from a language file safely
-function _tpl_lang_load_file($lang_code) {
-    global $template_lang_dir;
-    $lang_code = _tpl_lang_sanitize_code($lang_code);
-    if (empty($lang_code)) {
-        return [];
-    }
-    $file = $template_lang_dir . $lang_code . '.php';
-    if (!is_file($file) || !is_readable($file)) {
-        return [];
-    }
-    $i18n_tokens = [];
-    include $file;
-    return is_array($i18n_tokens) ? $i18n_tokens : [];
-}
-
-// Helper to write tokens to a language file
-function _tpl_lang_save_file($lang_code, array $tokens) {
-    global $template_lang_dir;
-    $lang_code = _tpl_lang_sanitize_code($lang_code);
-    if (empty($lang_code)) {
-        return false;
-    }
-    if (!is_dir($template_lang_dir)) {
-        @mkdir($template_lang_dir, 0777, true);
-    }
-    $file = $template_lang_dir . $lang_code . '.php';
-
-    $content  = '<?php' . LF;
-    $content .= '// phpwcms template language file "' . $lang_code . '" (' . now('Y-m-d H:i:s') . ')' . LF;
-    $content .= '// ATTENTION! Never add the closing PHP tag "? >" at the end of this file!' . LF . LF;
-
-    ksort($tokens, SORT_NATURAL | SORT_FLAG_CASE);
-
-    foreach ($tokens as $token_key => $token_val) {
-        $content .= '$i18n_tokens[' . var_export((string)$token_key, true) . '] = ' . var_export((string)$token_val, true) . ';' . LF;
-    }
-
-    $tmp_file = $file . '.tmp.' . uniqid('', true);
-    if (@file_put_contents($tmp_file, $content) !== false) {
-        if (@rename($tmp_file, $file)) {
-            @chmod($file, 0666);
-            return true;
-        }
-        @unlink($tmp_file);
-    }
-
-    return false;
-}
-
 // Collect available languages
 $allowed_langs = [];
 if (!empty($phpwcms['allowed_lang']) && is_array($phpwcms['allowed_lang'])) {
     foreach ($phpwcms['allowed_lang'] as $al) {
-        $clean_al = _tpl_lang_sanitize_code($al);
+        $clean_al = sanitize_language_code($al);
         if ($clean_al !== '') {
             $allowed_langs[$clean_al] = $clean_al;
         }
     }
 }
-$default_lang = !empty($phpwcms['default_lang']) ? _tpl_lang_sanitize_code($phpwcms['default_lang']) : 'en';
+$default_lang = !empty($phpwcms['default_lang']) ? sanitize_language_code($phpwcms['default_lang']) : 'en';
 if (empty($default_lang)) {
     $default_lang = 'en';
 }
@@ -179,7 +40,7 @@ if (is_dir($template_lang_dir)) {
         foreach ($files as $f) {
             if (substr($f, -4) === '.php') {
                 $code = substr($f, 0, -4);
-                $code = _tpl_lang_sanitize_code($code);
+                $code = sanitize_language_code($code);
                 if ($code !== '') {
                     $allowed_langs[$code] = $code;
                 }
@@ -190,7 +51,7 @@ if (is_dir($template_lang_dir)) {
 ksort($allowed_langs);
 
 // Active language
-$current_lang = isset($_GET['lang']) ? _tpl_lang_sanitize_code($_GET['lang']) : $default_lang;
+$current_lang = isset($_GET['lang']) ? sanitize_language_code($_GET['lang']) : $default_lang;
 if (!isset($allowed_langs[$current_lang])) {
     $current_lang = $default_lang;
 }
@@ -201,12 +62,12 @@ $action_error = '';
 // Handle Actions
 // 1. Delete token
 if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['token'])) {
-    if (function_exists('validate_csrf_get_token') ? validate_csrf_get_token() : true) {
+    if (validate_csrf_get_token()) {
         $del_token = rawurldecode((string)$_GET['token']);
-        $all_tokens = _tpl_lang_load_file($current_lang);
+        $all_tokens = template_lang_load_file($current_lang);
         if (array_key_exists($del_token, $all_tokens)) {
             unset($all_tokens[$del_token]);
-            if (_tpl_lang_save_file($current_lang, $all_tokens)) {
+            if (template_lang_save_file($current_lang, $all_tokens)) {
                 $action_msg = $BL['be_admin_template_lang_deleted'] ?? 'Translation token deleted successfully.';
             } else {
                 $action_error = 'Error saving language file.';
@@ -220,9 +81,9 @@ if (!empty($_POST['add_token'])) {
     $new_token_key = slweg(trim((string)($_POST['new_token_key'] ?? '')));
     $new_token_val = slweg(trim((string)($_POST['new_token_val'] ?? '')));
     if ($new_token_key !== '') {
-        $all_tokens = _tpl_lang_load_file($current_lang);
+        $all_tokens = template_lang_load_file($current_lang);
         $all_tokens[$new_token_key] = ($new_token_val !== '') ? $new_token_val : $new_token_key;
-        if (_tpl_lang_save_file($current_lang, $all_tokens)) {
+        if (template_lang_save_file($current_lang, $all_tokens)) {
             $action_msg = $BL['be_admin_template_lang_token_added'] ?? 'New translation token added successfully.';
         } else {
             $action_error = 'Error saving language file.';
@@ -232,14 +93,14 @@ if (!empty($_POST['add_token'])) {
 
 // 3. Save modified tokens list
 if (!empty($_POST['save_translations']) && isset($_POST['tokens']) && is_array($_POST['tokens'])) {
-    $existing_tokens = _tpl_lang_load_file($current_lang);
+    $existing_tokens = template_lang_load_file($current_lang);
     foreach ($_POST['tokens'] as $t_key_b64 => $t_val) {
         $orig_key = base64_decode($t_key_b64);
         if ($orig_key !== false && array_key_exists($orig_key, $existing_tokens)) {
             $existing_tokens[$orig_key] = slweg((string)$t_val);
         }
     }
-    if (_tpl_lang_save_file($current_lang, $existing_tokens)) {
+    if (template_lang_save_file($current_lang, $existing_tokens)) {
         $action_msg = $BL['be_admin_template_lang_saved'] ?? 'Translations saved successfully.';
     } else {
         $action_error = 'Error saving language file.';
@@ -247,10 +108,10 @@ if (!empty($_POST['save_translations']) && isset($_POST['tokens']) && is_array($
 }
 
 // Read current tokens for active language
-$active_tokens = _tpl_lang_load_file($current_lang);
+$active_tokens = template_lang_load_file($current_lang);
 
 // Read default lang tokens if inspecting another language to help find missing keys
-$default_tokens = ($current_lang !== $default_lang) ? _tpl_lang_load_file($default_lang) : [];
+$default_tokens = ($current_lang !== $default_lang) ? template_lang_load_file($default_lang) : [];
 
 // Merge all keys from active and default language
 $all_token_keys = array_unique(array_merge(array_keys($active_tokens), array_keys($default_tokens)));
@@ -392,8 +253,8 @@ $current_lang_upper = strtoupper($current_lang);
 $current_lang_name = $BL[$current_lang_upper] ?? '';
 $default_lang_upper = strtoupper($default_lang);
 $default_lang_name = $BL[$default_lang_upper] ?? '';
-$current_flag_img = _tpl_lang_get_flag_img($current_lang, 'me-1');
-$default_flag_img = _tpl_lang_get_flag_img($default_lang, 'me-1');
+$current_flag_img = get_language_flag_img($current_lang, 'me-1');
+$default_flag_img = get_language_flag_img($default_lang, 'me-1');
 ?>
 
 <!-- Main Table Card -->

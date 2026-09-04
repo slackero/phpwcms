@@ -159,6 +159,7 @@ $sys_groups = [
     'admialias'   => 'SYSGROUP',
     'admctptemp'  => 'SYSGROUP',
     'admlink'     => 'SYSGROUP',
+    'admmailtpl'  => 'SYSGROUP',
     'profile'     => 'SYSGROUP',
     'admfilecat'  => 'SYSGROUP'
 ];
@@ -453,6 +454,9 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
                 if (has_admin_permission('admcustomcpt') || !empty($_SESSION['wcs_user_admin'])) {
                     $subnav .= subnavtext($BL['be_admin_custom_cpt'] ?? 'Custom Content Parts', 'phpwcms.php?do=admin&amp;p=16', $p, 16, 0);
                 }
+                if (has_admin_permission('admmailtpl') || !empty($_SESSION['wcs_user_admin'])) {
+                    $subnav .= subnavtext($BL['be_admin_mail_templates'] ?? 'Email Templates', 'phpwcms.php?do=admin&amp;p=19', $p, 19, 0);
+                }
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['admuser'])) {
                     $subnav .= subnavtext($BL['be_subnav_admin_users'], 'phpwcms.php?do=admin', $p, 0, 0);
                 }
@@ -669,6 +673,12 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
             case 18: //Self-update
               if (!empty($_SESSION['wcs_user_admin'])) {
                   include PHPWCMS_ROOT.'/include/inc_tmpl/admin.update.tmpl.php';
+              }
+              break;
+
+            case 19: //Email templates
+              if (has_admin_permission('admmailtpl') || !empty($_SESSION['wcs_user_admin'])) {
+                  include PHPWCMS_ROOT.'/include/inc_tmpl/admin.mailtemplates.tmpl.php';
               }
               break;
 
