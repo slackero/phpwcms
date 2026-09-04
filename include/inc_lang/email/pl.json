@@ -1,37 +1,42 @@
 {
-    "password_reset": {
-        "subject": "Prośba o zresetowanie hasła dla {SITE}",
-        "content_html": "<p>Witaj {NAME},</p>\n<p>Otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta <strong>{LOGIN}</strong> w serwisie {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Jeśli nie prosiłeś o zresetowanie hasła, zignoruj tę wiadomość. Link wygaśnie za 1 godzinę.</p>\n{SIGNATURE}",
-        "content_text": "Witaj {NAME},\n\nOtrzymaliśmy prośbę o zresetowanie hasła do Twojego konta {LOGIN} w serwisie {SITE}.\n\nZresetuj swoje hasło tutaj:\n{RESET_LINK}\n\nJeśli nie prosiłeś o zresetowanie hasła, zignoruj tę wiadomość.\n\nphpwcms admin"
-    },
-    "new_user": {
-        "subject": "Witamy w panelu {SITE}",
-        "content_html": "<p>Witamy w {SITE}!</p>\n<p>Twoje konto użytkownika zostało utworzone z następującymi danymi dostępowymi:</p>\n{CREDENTIALS_TABLE}\n<p>Możesz zalogować się za pomocą poniższego przycisku:</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "WITAMY W PANELU ADMINISTRACYJNYM PHPWCMS\n\n    użytkownik: {LOGIN}\n    hasło: {PASSWORD}\n\nMożesz zalogować się tutaj: {LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "edit_user": {
-        "subject": "{SITE} - zmiana danych konta",
-        "content_html": "<p>Witaj {NAME},</p>\n<p>Dane Twojego konta użytkownika w serwisie {SITE} zostały zaktualizowane:</p>\n{CREDENTIALS_TABLE}\n<p>Możesz zalogować się za pomocą zaktualizowanych danych:</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "ZMIANA DANYCH KONTA UŻYTKOWNIKA PHPWCMS\n\n    użytkownik: {LOGIN}\n    hasło: {PASSWORD}\n\nMożesz zalogować się tutaj: {LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "account_deactivated": {
-        "subject": "Twoje konto w serwisie {SITE} zostało dezaktywowane",
-        "content_html": "<p>Witaj {NAME},</p>\n<p>Twoje konto w serwisie {SITE} zostało dezaktywowane przez administratora.</p>\n<p>W razie pytań lub wątpliwości skontaktuj się z administratorem strony.</p>\n{SIGNATURE}",
-        "content_text": "Witaj {NAME},\n\nTwoje konto w serwisie {SITE} zostało dezaktywowane.\n\nSkontaktuj się z administratorem, aby uzyskać więcej informacji.\n\n{SITE_URL}"
-    },
-    "password_changed": {
-        "subject": "Hasło do Twojego konta w {SITE} zostało zmienione",
-        "content_html": "<p>Witaj {NAME},</p>\n<p>Hasło do Twojego konta <strong>{LOGIN}</strong> w serwisie {SITE} zostało pomyślnie zmienione.</p>\n<p>Jeśli to Ty dokonałeś tej zmiany, nie musisz podejmować żadnych działań.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jeśli to nie Ty zmieniłeś hasło, natychmiast skontaktuj się z administratorem strony.</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "Witaj {NAME},\n\nHasło do Twojego konta {LOGIN} w serwisie {SITE} zostało pomyślnie zmienione.\n\nJeśli to Ty dokonałeś tej zmiany, nie musisz podejmować żadnych działań.\n\nJeśli to nie Ty zmieniłeś hasło, natychmiast skontaktuj się z administratorem strony.\n\nLogowanie: {LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "user_email_changed": {
-        "subject": "Adres e-mail Twojego konta w {SITE} został zmieniony",
-        "content_html": "<p>Witaj {NAME},</p>\n<p>Adres e-mail powiązany z Twoim kontem <strong>{LOGIN}</strong> w serwisie {SITE} został zmieniony na <strong>{NEW_EMAIL}</strong>.</p>\n<p>Jeśli ta zmiana była przez Ciebie zlecona, nie musisz podejmować żadnych działań.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jeśli nie autoryzowałeś tej zmiany, natychmiast skontaktuj się z administratorem strony.</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "Witaj {NAME},\n\nAdres e-mail powiązany z Twoim kontem {LOGIN} w serwisie {SITE} został zmieniony na {NEW_EMAIL}.\n\nJeśli ta zmiana była przez Ciebie zlecona, nie musisz podejmować żadnych działań.\n\nJeśli nie autoryzowałeś tej zmiany, natychmiast skontaktuj się z administratorem strony.\n\nLogowanie: {LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "account_locked": {
-        "subject": "Ostrzeżenie bezpieczeństwa: Nieudane próby logowania w {SITE}",
-        "content_html": "<p>Witaj {NAME},</p>\n<p>Wykryto serię nieudanych prób logowania na Twoje konto <strong>{LOGIN}</strong> w serwisie {SITE}.</p>\n<p><strong>Adres IP:</strong> {IP}<br><strong>Data i godzina:</strong> {DATE}</p>\n<p>Jeśli to nie Ty, ktoś może próbować uzyskać dostęp do Twojego konta. Zdecydowanie zalecamy natychmiastowe zresetowanie hasła.</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "Witaj {NAME},\n\nWykryto serię nieudanych prób logowania na Twoje konto {LOGIN} w serwisie {SITE}.\n\nAdres IP:         {IP}\nData i godzina:   {DATE}\n\nJeśli to nie Ty, ktoś może próbować uzyskać dostęp do Twojego konta. Zalecamy natychmiastowe zresetowanie hasła:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
-    }
+  "password_reset": {
+    "subject": "Prośba o zresetowanie hasła dla {SITE}",
+    "content_html": "<p>Witaj {NAME},</p>\n<p>Otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta <strong>{LOGIN}</strong> w serwisie {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Jeśli nie prosiłeś o zresetowanie hasła, zignoruj tę wiadomość. Link wygaśnie za 1 godzinę.</p>\n{SIGNATURE}",
+    "content_text": "Witaj {NAME},\n\nOtrzymaliśmy prośbę o zresetowanie hasła do Twojego konta {LOGIN} w serwisie {SITE}.\n\nZresetuj swoje hasło tutaj:\n{RESET_LINK}\n\nJeśli nie prosiłeś o zresetowanie hasła, zignoruj tę wiadomość.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Witamy w panelu {SITE}",
+    "content_html": "<p>Witamy w {SITE}!</p>\n<p>Twoje konto użytkownika zostało utworzone z następującymi danymi dostępowymi:</p>\n{CREDENTIALS_TABLE}\n<p>Możesz zalogować się za pomocą poniższego przycisku:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "WITAMY W PANELU ADMINISTRACYJNYM PHPWCMS\n\n    użytkownik: {LOGIN}\n    hasło: {PASSWORD}\n\nMożesz zalogować się tutaj: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - zmiana danych konta",
+    "content_html": "<p>Witaj {NAME},</p>\n<p>Dane Twojego konta użytkownika w serwisie {SITE} zostały zaktualizowane:</p>\n{CREDENTIALS_TABLE}\n<p>Możesz zalogować się za pomocą zaktualizowanych danych:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "ZMIANA DANYCH KONTA UŻYTKOWNIKA PHPWCMS\n\n    użytkownik: {LOGIN}\n    hasło: {PASSWORD}\n\nMożesz zalogować się tutaj: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Twoje konto w serwisie {SITE} zostało dezaktywowane",
+    "content_html": "<p>Witaj {NAME},</p>\n<p>Twoje konto w serwisie {SITE} zostało dezaktywowane przez administratora.</p>\n<p>W razie pytań lub wątpliwości skontaktuj się z administratorem strony.</p>\n{SIGNATURE}",
+    "content_text": "Witaj {NAME},\n\nTwoje konto w serwisie {SITE} zostało dezaktywowane.\n\nSkontaktuj się z administratorem, aby uzyskać więcej informacji.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Hasło do Twojego konta w {SITE} zostało zmienione",
+    "content_html": "<p>Witaj {NAME},</p>\n<p>Hasło do Twojego konta <strong>{LOGIN}</strong> w serwisie {SITE} zostało pomyślnie zmienione.</p>\n<p>Jeśli to Ty dokonałeś tej zmiany, nie musisz podejmować żadnych działań.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jeśli to nie Ty zmieniłeś hasło, natychmiast skontaktuj się z administratorem strony.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Witaj {NAME},\n\nHasło do Twojego konta {LOGIN} w serwisie {SITE} zostało pomyślnie zmienione.\n\nJeśli to Ty dokonałeś tej zmiany, nie musisz podejmować żadnych działań.\n\nJeśli to nie Ty zmieniłeś hasło, natychmiast skontaktuj się z administratorem strony.\n\nLogowanie: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Adres e-mail Twojego konta w {SITE} został zmieniony",
+    "content_html": "<p>Witaj {NAME},</p>\n<p>Adres e-mail powiązany z Twoim kontem <strong>{LOGIN}</strong> w serwisie {SITE} został zmieniony na <strong>{NEW_EMAIL}</strong>.</p>\n<p>Jeśli ta zmiana była przez Ciebie zlecona, nie musisz podejmować żadnych działań.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Jeśli nie autoryzowałeś tej zmiany, natychmiast skontaktuj się z administratorem strony.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Witaj {NAME},\n\nAdres e-mail powiązany z Twoim kontem {LOGIN} w serwisie {SITE} został zmieniony na {NEW_EMAIL}.\n\nJeśli ta zmiana była przez Ciebie zlecona, nie musisz podejmować żadnych działań.\n\nJeśli nie autoryzowałeś tej zmiany, natychmiast skontaktuj się z administratorem strony.\n\nLogowanie: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Ostrzeżenie bezpieczeństwa: Nieudane próby logowania w {SITE}",
+    "content_html": "<p>Witaj {NAME},</p>\n<p>Wykryto serię nieudanych prób logowania na Twoje konto <strong>{LOGIN}</strong> w serwisie {SITE}.</p>\n<p><strong>Adres IP:</strong> {IP}<br><strong>Data i godzina:</strong> {DATE}</p>\n<p>Jeśli to nie Ty, ktoś może próbować uzyskać dostęp do Twojego konta. Zdecydowanie zalecamy natychmiastowe zresetowanie hasła.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Witaj {NAME},\n\nWykryto serię nieudanych prób logowania na Twoje konto {LOGIN} w serwisie {SITE}.\n\nAdres IP:         {IP}\nData i godzina:   {DATE}\n\nJeśli to nie Ty, ktoś może próbować uzyskać dostęp do Twojego konta. Zalecamy natychmiastowe zresetowanie hasła:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "mail_layout": {
+    "subject": "",
+    "content_html": "<!DOCTYPE html>\n<html>\n<body style=\"margin:0;padding:0;background-color:#f4f5f7;\">\n<div style=\"display:none;font-size:1px;color:#f4f5f7;max-height:0;overflow:hidden;\">{PREHEADER}</div>\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background-color:#f4f5f7;padding:24px 12px;\">\n<tr><td align=\"center\">\n<table role=\"presentation\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:600px;max-width:600px;background-color:#ffffff;border-radius:8px;\">\n<tr><td style=\"padding:24px 32px 12px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;\">\n    {HEADER}\n</td></tr>\n<tr><td style=\"padding:0 32px;border-bottom:1px solid #e9ecef;\"><div style=\"height:1px;line-height:1px;font-size:0;\">&nbsp;</div></td></tr>\n<tr><td style=\"padding:24px 32px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.6;color:#212529;\">\n    <div style=\"font-size:20px;font-weight:bold;color:#212529;margin-bottom:16px;\">{TITLE}</div>\n    {CONTENT}\n</td></tr>\n<tr><td style=\"padding:16px 32px 24px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:12px;line-height:1.5;color:#6c757d;border-top:1px solid #e9ecef;\">\n    {FOOTER}\n</td></tr>\n</table>\n</td></tr>\n</table>\n</body>\n</html>",
+    "content_text": "{CONTENT}\n\n--\n{FOOTER}"
+  }
 }

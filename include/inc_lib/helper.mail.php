@@ -37,6 +37,11 @@ function get_system_email_placeholders(): array {
         '{OLD_EMAIL}'   => $BL['be_admin_mail_ph_old_email'] ?? 'Previous email address',
         '{IP}'          => $BL['be_admin_mail_ph_ip'] ?? 'Client IP address of the attempt',
         '{DATE}'        => $BL['be_admin_mail_ph_date'] ?? 'Date and time of the attempt',
+        '{PREHEADER}'   => $BL['be_admin_mail_ph_preheader'] ?? 'Hidden preview text snippet',
+        '{HEADER}'      => $BL['be_admin_mail_ph_header'] ?? 'Rendered email header (logo or site name)',
+        '{TITLE}'       => $BL['be_admin_mail_ph_title'] ?? 'Email subject / headline',
+        '{CONTENT}'     => $BL['be_admin_mail_ph_content'] ?? 'Body content of the specific email',
+        '{FOOTER}'      => $BL['be_admin_mail_ph_footer'] ?? 'Rendered email footer / disclaimer',
     ];
 }
 
@@ -188,6 +193,21 @@ function get_system_email_definitions(?string $merge_lang = null): array {
                 '{SITE}',
                 '{SITE_URL}',
                 '{RESET_LINK}',
+                '{ADMIN_EMAIL}'
+            ]
+        ],
+        'mail_layout' => [
+            'key' => 'mail_layout',
+            'title' => $BL['be_admin_mail_title_mail_layout'] ?? 'Master Email Layout (HTML Shell)',
+            'desc' => $BL['be_admin_mail_desc_mail_layout'] ?? 'The responsive HTML layout wrapping all transactional system emails (header, content container, and footer).',
+            'placeholder_keys' => [
+                '{PREHEADER}',
+                '{HEADER}',
+                '{TITLE}',
+                '{CONTENT}',
+                '{FOOTER}',
+                '{SITE}',
+                '{SITE_URL}',
                 '{ADMIN_EMAIL}'
             ]
         ]
@@ -369,7 +389,7 @@ function render_system_email(string $key, array $data = [], ?string $lang = null
     $content_text = html_entity_decode(i18n_substitute_text($content_text), ENT_QUOTES, 'UTF-8');
 
     // Render inside standard HTML shell
-    $full_html = renderSystemEmailHTML($subject, $content_html, $subject);
+    $full_html = renderSystemEmailHTML($subject, $content_html, $subject, $target_lang ?? $lang ?? null);
 
     return [
         'subject' => $subject,

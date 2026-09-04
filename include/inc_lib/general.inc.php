@@ -774,7 +774,7 @@ function getAltTitle($string = '', $altAndTitle = 0, $echo = 0) {
  * @param string $preheader Optional preview text (hidden summary line)
  * @return string Complete HTML document for sendEmail('html' => ...)
  */
-function renderSystemEmailHTML($title, $contentHtml, $preheader = '') {
+function renderSystemEmailHTML($title, $contentHtml, $preheader = '', ?string $lang = null) {
     global $phpwcms;
 
     $siteName = empty($phpwcms['site']) ? get_brand_name() : $phpwcms['site'];
@@ -799,6 +799,29 @@ function renderSystemEmailHTML($title, $contentHtml, $preheader = '') {
 
     // footer: custom line or site link
     $footerHtml = empty($phpwcms['mail_footer']) ? $siteLink : html($phpwcms['mail_footer']);
+
+    // Check if custom or default mail_layout template exists
+    $layout_tpl = '';
+    if (function_exists('get_system_email_template')) {
+        $layout_def = get_system_email_template('mail_layout', $lang);
+        if (!empty($layout_def['active']) && !empty($layout_def['content_html'])) {
+            $layout_tpl = $layout_def['content_html'];
+        }
+    }
+
+    if ($layout_tpl !== '') {
+        $replacements = [
+            '{PREHEADER}' => html($preheader),
+            '{HEADER}'    => $headerHtml,
+            '{TITLE}'     => html($title),
+            '{CONTENT}'   => $contentHtml,
+            '{FOOTER}'    => $footerHtml,
+            '{SITE}'      => PHPWCMS_HOST,
+            '{SITE_URL}'  => $siteUrl,
+            '{ADMIN_EMAIL}' => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? ''
+        ];
+        return str_replace(array_keys($replacements), array_values($replacements), $layout_tpl);
+    }
 
     return '<!DOCTYPE html>
 <html>

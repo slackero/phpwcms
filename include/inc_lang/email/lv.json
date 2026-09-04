@@ -1,37 +1,42 @@
 {
-    "password_reset": {
-        "subject": "Paroles atiestatīšanas pieprasījums vietnei {SITE}",
-        "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Ir saņemts paroles atiestatīšanas pieprasījums jūsu kontam <strong>{LOGIN}</strong> vietnē {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Ja neesat pieprasījis paroles atiestatīšanu, lūdzu, ignorējiet šo e-pastu. Saite būs derīga 1 stundu.</p>\n{SIGNATURE}",
-        "content_text": "Sveiki, {NAME}!\n\nIr saņemts paroles atiestatīšanas pieprasījums jūsu kontam {LOGIN} vietnē {SITE}.\n\nAtiestatiet savu paroli šeit:\n{RESET_LINK}\n\nJa neesat pieprasījis paroles atiestatīšanu, lūdzu, ignorējiet šo e-pastu.\n\nphpwcms admin"
-    },
-    "new_user": {
-        "subject": "Laipni lūdzam {SITE} pārvaldības sistēmā",
-        "content_html": "<p>Laipni lūdzam vietnē {SITE}!</p>\n<p>Jums ir izveidots lietotāja konts ar šādiem piekļuves datiem:</p>\n{CREDENTIALS_TABLE}\n<p>Varat pieteikties, izmantojot zemāk esošo pogu:</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "LAIPNI LŪDZAM PHPWCMS PĀRVALDĪBAS SISTĒMĀ\n\n    lietotājvārds: {LOGIN}\n    parole:        {PASSWORD}\n\nVarat pieteikties šeit: {LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "edit_user": {
-        "subject": "{SITE} - konta dati ir mainīti",
-        "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Jūsu lietotāja konta informācija vietnē {SITE} ir atjaunināta:</p>\n{CREDENTIALS_TABLE}\n<p>Varat pieteikties ar atjauninātajiem piekļuves datiem:</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "PHPWCMS LIETOTĀJA KONTA DATI IR MAINĪTI\n\n    lietotājvārds: {LOGIN}\n    parole:        {PASSWORD}\n\nVarat pieteikties šeit: {LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "account_deactivated": {
-        "subject": "Jūsu konts vietnē {SITE} ir deaktivizēts",
-        "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Administrators ir deaktivizējis jūsu kontu vietnē {SITE}.</p>\n<p>Ja jums ir kādi jautājumi vai uzskatāt, ka tā ir kļūda, lūdzu, sazinieties ar vietnes administratoru.</p>\n{SIGNATURE}",
-        "content_text": "Sveiki, {NAME}!\n\nJūsu konts vietnē {SITE} ir deaktivizēts.\n\nLūdzu, sazinieties ar administratoru, lai iegūtu plašāku informāciju.\n\n{SITE_URL}"
-    },
-    "password_changed": {
-        "subject": "Jūsu konta parole vietnē {SITE} ir nomainīta",
-        "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Jūsu konta <strong>{LOGIN}</strong> parole vietnē {SITE} ir veiksmīgi nomainīta.</p>\n<p>Ja šīs izmaiņas veicāt jūs, nekādas papildu darbības nav nepieciešamas.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Ja jūs neveicāt šīs izmaiņas, lūdzu, nekavējoties sazinieties ar vietnes administratoru.</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "Sveiki, {NAME}!\n\nJūsu konta {LOGIN} parole vietnē {SITE} ir veiksmīgi nomainīta.\n\nJa šīs izmaiņas veicāt jūs, nekādas papildu darbības nav nepieciešamas.\n\nJa jūs neveicāt šīs izmaiņas, lūdzu, nekavējoties sazinieties ar vietnes administratoru.\n\nPieteikšanās: {LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "user_email_changed": {
-        "subject": "Jūsu konta e-pasta adrese vietnē {SITE} ir nomainīta",
-        "content_html": "<p>Sveiki, {NAME}!</p>\n<p>E-pasta adrese, kas piesaistīta jūsu kontam <strong>{LOGIN}</strong> vietnē {SITE}, ir nomainīta uz <strong>{NEW_EMAIL}</strong>.</p>\n<p>Ja šīs izmaiņas pieprasījāt jūs, nekādas papildu darbības nav nepieciešamas.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Ja neesat autorizējis šīs izmaiņas, lūdzu, nekavējoties sazinieties ar vietnes administratoru.</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "Sveiki, {NAME}!\n\nE-pasta adrese, kas piesaistīta jūsu kontam {LOGIN} vietnē {SITE}, ir nomainīta uz {NEW_EMAIL}.\n\nJa šīs izmaiņas pieprasījāt jūs, nekādas papildu darbības nav nepieciešamas.\n\nJa neesat autorizējis šīs izmaiņas, lūdzu, nekavējoties sazinieties ar vietnes administratoru.\n\nPieteikšanās: {LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "account_locked": {
-        "subject": "Drošības brīdinājums: Neveiksmīgi pieteikšanās mēģinājumi vietnē {SITE}",
-        "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Ir konstatēti vairāki secīgi neveiksmīgi pieteikšanās mēģinājumi jūsu kontam <strong>{LOGIN}</strong> vietnē {SITE}.</p>\n<p><strong>IP adrese:</strong> {IP}<br><strong>Datums un laiks:</strong> {DATE}</p>\n<p>Ja tas nebijāt jūs, iespējams, kāds mēģina piekļūt jūsu kontam. Mēs stingri iesakām nekavējoties atiestatīt savu paroli.</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "Sveiki, {NAME}!\n\nIr konstatēti vairāki secīgi neveiksmīgi pieteikšanās mēģinājumi jūsu kontam {LOGIN} vietnē {SITE}.\n\nIP adrese:      {IP}\nDatums un laiks: {DATE}\n\nJa tas nebijāt jūs, iespējams, kāds mēģina piekļūt jūsu kontam. Mēs iesakām nekavējoties atiestatīt savu paroli:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
-    }
+  "password_reset": {
+    "subject": "Paroles atiestatīšanas pieprasījums vietnei {SITE}",
+    "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Ir saņemts paroles atiestatīšanas pieprasījums jūsu kontam <strong>{LOGIN}</strong> vietnē {SITE}.</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">Ja neesat pieprasījis paroles atiestatīšanu, lūdzu, ignorējiet šo e-pastu. Saite būs derīga 1 stundu.</p>\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME}!\n\nIr saņemts paroles atiestatīšanas pieprasījums jūsu kontam {LOGIN} vietnē {SITE}.\n\nAtiestatiet savu paroli šeit:\n{RESET_LINK}\n\nJa neesat pieprasījis paroles atiestatīšanu, lūdzu, ignorējiet šo e-pastu.\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "Laipni lūdzam {SITE} pārvaldības sistēmā",
+    "content_html": "<p>Laipni lūdzam vietnē {SITE}!</p>\n<p>Jums ir izveidots lietotāja konts ar šādiem piekļuves datiem:</p>\n{CREDENTIALS_TABLE}\n<p>Varat pieteikties, izmantojot zemāk esošo pogu:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "LAIPNI LŪDZAM PHPWCMS PĀRVALDĪBAS SISTĒMĀ\n\n    lietotājvārds: {LOGIN}\n    parole:        {PASSWORD}\n\nVarat pieteikties šeit: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - konta dati ir mainīti",
+    "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Jūsu lietotāja konta informācija vietnē {SITE} ir atjaunināta:</p>\n{CREDENTIALS_TABLE}\n<p>Varat pieteikties ar atjauninātajiem piekļuves datiem:</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "PHPWCMS LIETOTĀJA KONTA DATI IR MAINĪTI\n\n    lietotājvārds: {LOGIN}\n    parole:        {PASSWORD}\n\nVarat pieteikties šeit: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "Jūsu konts vietnē {SITE} ir deaktivizēts",
+    "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Administrators ir deaktivizējis jūsu kontu vietnē {SITE}.</p>\n<p>Ja jums ir kādi jautājumi vai uzskatāt, ka tā ir kļūda, lūdzu, sazinieties ar vietnes administratoru.</p>\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME}!\n\nJūsu konts vietnē {SITE} ir deaktivizēts.\n\nLūdzu, sazinieties ar administratoru, lai iegūtu plašāku informāciju.\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "Jūsu konta parole vietnē {SITE} ir nomainīta",
+    "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Jūsu konta <strong>{LOGIN}</strong> parole vietnē {SITE} ir veiksmīgi nomainīta.</p>\n<p>Ja šīs izmaiņas veicāt jūs, nekādas papildu darbības nav nepieciešamas.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Ja jūs neveicāt šīs izmaiņas, lūdzu, nekavējoties sazinieties ar vietnes administratoru.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME}!\n\nJūsu konta {LOGIN} parole vietnē {SITE} ir veiksmīgi nomainīta.\n\nJa šīs izmaiņas veicāt jūs, nekādas papildu darbības nav nepieciešamas.\n\nJa jūs neveicāt šīs izmaiņas, lūdzu, nekavējoties sazinieties ar vietnes administratoru.\n\nPieteikšanās: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "Jūsu konta e-pasta adrese vietnē {SITE} ir nomainīta",
+    "content_html": "<p>Sveiki, {NAME}!</p>\n<p>E-pasta adrese, kas piesaistīta jūsu kontam <strong>{LOGIN}</strong> vietnē {SITE}, ir nomainīta uz <strong>{NEW_EMAIL}</strong>.</p>\n<p>Ja šīs izmaiņas pieprasījāt jūs, nekādas papildu darbības nav nepieciešamas.</p>\n<p style=\"color:#b02a37;font-size:13px;\">Ja neesat autorizējis šīs izmaiņas, lūdzu, nekavējoties sazinieties ar vietnes administratoru.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME}!\n\nE-pasta adrese, kas piesaistīta jūsu kontam {LOGIN} vietnē {SITE}, ir nomainīta uz {NEW_EMAIL}.\n\nJa šīs izmaiņas pieprasījāt jūs, nekādas papildu darbības nav nepieciešamas.\n\nJa neesat autorizējis šīs izmaiņas, lūdzu, nekavējoties sazinieties ar vietnes administratoru.\n\nPieteikšanās: {LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "Drošības brīdinājums: Neveiksmīgi pieteikšanās mēģinājumi vietnē {SITE}",
+    "content_html": "<p>Sveiki, {NAME}!</p>\n<p>Ir konstatēti vairāki secīgi neveiksmīgi pieteikšanās mēģinājumi jūsu kontam <strong>{LOGIN}</strong> vietnē {SITE}.</p>\n<p><strong>IP adrese:</strong> {IP}<br><strong>Datums un laiks:</strong> {DATE}</p>\n<p>Ja tas nebijāt jūs, iespējams, kāds mēģina piekļūt jūsu kontam. Mēs stingri iesakām nekavējoties atiestatīt savu paroli.</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "Sveiki, {NAME}!\n\nIr konstatēti vairāki secīgi neveiksmīgi pieteikšanās mēģinājumi jūsu kontam {LOGIN} vietnē {SITE}.\n\nIP adrese:      {IP}\nDatums un laiks: {DATE}\n\nJa tas nebijāt jūs, iespējams, kāds mēģina piekļūt jūsu kontam. Mēs iesakām nekavējoties atiestatīt savu paroli:\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "mail_layout": {
+    "subject": "",
+    "content_html": "<!DOCTYPE html>\n<html>\n<body style=\"margin:0;padding:0;background-color:#f4f5f7;\">\n<div style=\"display:none;font-size:1px;color:#f4f5f7;max-height:0;overflow:hidden;\">{PREHEADER}</div>\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background-color:#f4f5f7;padding:24px 12px;\">\n<tr><td align=\"center\">\n<table role=\"presentation\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:600px;max-width:600px;background-color:#ffffff;border-radius:8px;\">\n<tr><td style=\"padding:24px 32px 12px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;\">\n    {HEADER}\n</td></tr>\n<tr><td style=\"padding:0 32px;border-bottom:1px solid #e9ecef;\"><div style=\"height:1px;line-height:1px;font-size:0;\">&nbsp;</div></td></tr>\n<tr><td style=\"padding:24px 32px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.6;color:#212529;\">\n    <div style=\"font-size:20px;font-weight:bold;color:#212529;margin-bottom:16px;\">{TITLE}</div>\n    {CONTENT}\n</td></tr>\n<tr><td style=\"padding:16px 32px 24px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:12px;line-height:1.5;color:#6c757d;border-top:1px solid #e9ecef;\">\n    {FOOTER}\n</td></tr>\n</table>\n</td></tr>\n</table>\n</body>\n</html>",
+    "content_text": "{CONTENT}\n\n--\n{FOOTER}"
+  }
 }

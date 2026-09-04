@@ -152,7 +152,19 @@ if (!empty($_POST['send_test_mail'])) {
                 '{ADMIN_EMAIL}'=> $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? 'admin@' . PHPWCMS_HOST
             ];
 
-            $rendered = render_system_email($post_key, $dummy_vars, $post_lang);
+            if ($post_key === 'mail_layout') {
+                $sample_body = '<p>This is a preview of the master email layout containing sample text.</p>'
+                    . '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.</p>'
+                    . renderEmailButtonHTML(PHPWCMS_URL, 'Sample CTA Button')
+                    . renderEmailSignatureHTML();
+                $rendered = [
+                    'subject' => 'Sample Master Email Layout Preview',
+                    'html'    => renderSystemEmailHTML('Sample Headline', $sample_body, 'Preview Preheader', $post_lang),
+                    'text'    => "Sample Headline\n\nThis is a preview of the master email layout containing sample text.\n\n" . PHPWCMS_URL
+                ];
+            } else {
+                $rendered = render_system_email($post_key, $dummy_vars, $post_lang);
+            }
 
             $send_res = sendEmail([
                 'recipient' => $test_recipient,
@@ -295,9 +307,13 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                                 </div>
                             </td>
                             <td>
-                                <div class="text-truncate" style="max-width: 380px;" title="<?php echo html($tpl_data['subject']); ?>">
-                                    <?php echo html($tpl_data['subject']); ?>
-                                </div>
+                                <?php if ($key === 'mail_layout'): ?>
+                                    <span class="text-muted fst-italic">&mdash;</span>
+                                <?php else: ?>
+                                    <div class="text-truncate" style="max-width: 380px;" title="<?php echo html($tpl_data['subject']); ?>">
+                                        <?php echo html($tpl_data['subject']); ?>
+                                    </div>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <?php if ($is_custom): ?>
@@ -397,12 +413,16 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                 <input type="hidden" name="tpl_lang" value="<?php echo html($current_lang); ?>" />
 
                 <!-- Subject -->
-                <div class="form-group row g-2 mb-3">
-                    <label for="tpl_subject" class="col-sm-2 col-form-label text-end fw-bold"><?php echo html($BL['be_admin_mail_subject'] ?? 'Subject'); ?></label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control form-control-sm" name="tpl_subject" id="tpl_subject" value="<?php echo html($curr_tpl['subject']); ?>" required />
+                <?php if ($edit_key === 'mail_layout'): ?>
+                    <input type="hidden" name="tpl_subject" value="" />
+                <?php else: ?>
+                    <div class="form-group row g-2 mb-3">
+                        <label for="tpl_subject" class="col-sm-2 col-form-label text-end fw-bold"><?php echo html($BL['be_admin_mail_subject'] ?? 'Subject'); ?></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" name="tpl_subject" id="tpl_subject" value="<?php echo html($curr_tpl['subject']); ?>" required />
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
 
                 <!-- Placeholders Info Box -->
                 <div class="form-group row g-2 mb-3">
@@ -418,18 +438,20 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                                         <span class="text-muted"><?php echo html($ph_desc); ?></span>
                                     </div>
                                 <?php endforeach; ?>
-                                <div class="col-md-6">
-                                    <a href="#" class="badge bg-secondary font-monospace text-decoration-none me-1" onclick="insertPlaceholder('{BUTTON}'); return false;">
-                                        {BUTTON}
-                                    </a>
-                                    <span class="text-muted"><?php echo html($BL['be_admin_mail_ph_button'] ?? 'Call-to-action button'); ?></span>
-                                </div>
-                                <div class="col-md-6">
-                                    <a href="#" class="badge bg-secondary font-monospace text-decoration-none me-1" onclick="insertPlaceholder('{SIGNATURE}'); return false;">
-                                        {SIGNATURE}
-                                    </a>
-                                    <span class="text-muted"><?php echo html($BL['be_admin_mail_ph_signature'] ?? 'Closing signature block'); ?></span>
-                                </div>
+                                <?php if ($edit_key !== 'mail_layout'): ?>
+                                    <div class="col-md-6">
+                                        <a href="#" class="badge bg-secondary font-monospace text-decoration-none me-1" onclick="insertPlaceholder('{BUTTON}'); return false;">
+                                            {BUTTON}
+                                        </a>
+                                        <span class="text-muted"><?php echo html($BL['be_admin_mail_ph_button'] ?? 'Call-to-action button'); ?></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" class="badge bg-secondary font-monospace text-decoration-none me-1" onclick="insertPlaceholder('{SIGNATURE}'); return false;">
+                                            {SIGNATURE}
+                                        </a>
+                                        <span class="text-muted"><?php echo html($BL['be_admin_mail_ph_signature'] ?? 'Closing signature block'); ?></span>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -455,7 +477,13 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                         <div class="tab-content border border-top-0 rounded-bottom p-3 bg-white" id="mailTplTabsContent">
                             <div class="tab-pane fade show active" id="html-panel" role="tabpanel" aria-labelledby="html-tab">
                                 <div class="mb-2 text-muted small">
-                                    <?php echo $BL['be_admin_mail_html_note'] ?? 'The HTML markup is wrapped into the standard responsive email layout automatically (header logo, container, footer).'; ?>
+                                    <?php
+                                        if ($edit_key === 'mail_layout') {
+                                            echo $BL['be_admin_mail_layout_html_note'] ?? 'The master HTML document structure. Use <code>{CONTENT}</code> for the inner email message, <code>{HEADER}</code> and <code>{FOOTER}</code> for standard branding, and <code>{TITLE}</code> for the headline.';
+                                        } else {
+                                            echo $BL['be_admin_mail_html_note'] ?? 'The HTML markup is wrapped into the standard responsive email layout automatically (header logo, container, footer).';
+                                        }
+                                    ?>
                                 </div>
                                 <textarea name="tpl_content_html" rows="12" class="form-control form-control-sm autosize font-monospace code-editor" data-mode="html" id="tpl_content_html"><?php echo html($curr_tpl['content_html']); ?></textarea>
                             </div>

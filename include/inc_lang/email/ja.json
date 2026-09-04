@@ -1,37 +1,42 @@
 {
-    "password_reset": {
-        "subject": "{SITE} のパスワード再設定リクエスト",
-        "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウント <strong>{LOGIN}</strong> に対するパスワード再設定リクエストを受け付けました。</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">パスワードの再設定をリクエストしていない場合は、このメールを破棄してください。リンクの有効期限は1時間です。</p>\n{SIGNATURE}",
-        "content_text": "{NAME} 様、\n\n{SITE} のアカウント {LOGIN} に対するパスワード再設定リクエストを受け付けました。\n\n以下のリンクからパスワードを再設定してください：\n{RESET_LINK}\n\nパスワードの再設定をリクエストしていない場合は、このメールを破棄してください。\n\nphpwcms admin"
-    },
-    "new_user": {
-        "subject": "{SITE} 管理画面へようこそ",
-        "content_html": "<p>{SITE} へようこそ！</p>\n<p>以下のログイン情報でユーザーアカウントが作成されました：</p>\n{CREDENTIALS_TABLE}\n<p>以下のボタンをクリックしてログインできます：</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "PHPWCMS 管理画面へようこそ\n\n    ユーザー名：{LOGIN}\n    パスワード：{PASSWORD}\n\nこちらからログインできます：{LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "edit_user": {
-        "subject": "{SITE} - アカウント情報が変更されました",
-        "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のユーザーアカウント情報が更新されました：</p>\n{CREDENTIALS_TABLE}\n<p>更新されたログイン情報でサインインできます：</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "PHPWCMS ユーザーアカウント情報変更\n\n    ユーザー名：{LOGIN}\n    パスワード：{PASSWORD}\n\nこちらからログインできます：{LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "account_deactivated": {
-        "subject": "{SITE} のアカウントが無効化されました",
-        "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウントが管理者によって無効化されました。</p>\n<p>ご不明な点がある場合や誤りと思われる場合は、サイト管理者にお問い合わせください。</p>\n{SIGNATURE}",
-        "content_text": "{NAME} 様、\n\n{SITE} のアカウントが無効化されました。\n\n詳細については管理者にお問い合わせください。\n\n{SITE_URL}"
-    },
-    "password_changed": {
-        "subject": "{SITE} のアカウントパスワードが変更されました",
-        "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウント <strong>{LOGIN}</strong> のパスワードが正常に変更されました。</p>\n<p>ご自身でこの変更を行われた場合、追加の操作は必要ありません。</p>\n<p style=\"color:#b02a37;font-size:13px;\">この変更に心当たりがない場合は、直ちにサイト管理者へご連絡ください。</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "{NAME} 様、\n\n{SITE} のアカウント {LOGIN} のパスワードが正常に変更されました。\n\nご自身でこの変更を行われた場合、追加の操作は必要ありません。\n\nこの変更に心当たりがない場合は、直ちにサイト管理者へご連絡ください。\n\nログイン：{LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "user_email_changed": {
-        "subject": "{SITE} のアカウントメールアドレスが変更されました",
-        "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウント <strong>{LOGIN}</strong> に登録されているメールアドレスが <strong>{NEW_EMAIL}</strong> に変更されました。</p>\n<p>ご自身でこの変更をリクエストされた場合、追加の操作は必要ありません。</p>\n<p style=\"color:#b02a37;font-size:13px;\">この変更を承認した覚えがない場合は、直ちにサイト管理者へご連絡ください。</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "{NAME} 様、\n\n{SITE} のアカウント {LOGIN} に登録されているメールアドレスが {NEW_EMAIL} に変更されました。\n\nご自身でこの変更をリクエストされた場合、追加の操作は必要ありません。\n\nこの変更を承認した覚えがない場合は、直ちにサイト管理者へご連絡ください。\n\nログイン：{LOGIN_PAGE}\n\nphpwcms admin"
-    },
-    "account_locked": {
-        "subject": "セキュリティ警告：{SITE} でのログイン失敗試行",
-        "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウント <strong>{LOGIN}</strong> に対して、複数回の連続したログイン失敗が検出されました。</p>\n<p><strong>IPアドレス：</strong>{IP}<br><strong>日時：</strong>{DATE}</p>\n<p>心当たりがない場合、第三者がアカウントへのアクセスを試みている可能性があります。直ちにパスワードを再設定することを強くお勧めします。</p>\n{BUTTON}\n{SIGNATURE}",
-        "content_text": "{NAME} 様、\n\n{SITE} のアカウント {LOGIN} に対して、複数回の連続したログイン失敗が検出されました。\n\nIPアドレス：{IP}\n日時：      {DATE}\n\n心当たりがない場合、第三者がアカウントへのアクセスを試みている可能性があります。直ちにパスワードを再設定することをお勧めします：\n\n{LOGIN_PAGE}\n\nphpwcms admin"
-    }
+  "password_reset": {
+    "subject": "{SITE} のパスワード再設定リクエスト",
+    "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウント <strong>{LOGIN}</strong> に対するパスワード再設定リクエストを受け付けました。</p>\n{BUTTON}\n<p style=\"color:#6c757d;font-size:13px;\">パスワードの再設定をリクエストしていない場合は、このメールを破棄してください。リンクの有効期限は1時間です。</p>\n{SIGNATURE}",
+    "content_text": "{NAME} 様、\n\n{SITE} のアカウント {LOGIN} に対するパスワード再設定リクエストを受け付けました。\n\n以下のリンクからパスワードを再設定してください：\n{RESET_LINK}\n\nパスワードの再設定をリクエストしていない場合は、このメールを破棄してください。\n\nphpwcms admin"
+  },
+  "new_user": {
+    "subject": "{SITE} 管理画面へようこそ",
+    "content_html": "<p>{SITE} へようこそ！</p>\n<p>以下のログイン情報でユーザーアカウントが作成されました：</p>\n{CREDENTIALS_TABLE}\n<p>以下のボタンをクリックしてログインできます：</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "PHPWCMS 管理画面へようこそ\n\n    ユーザー名：{LOGIN}\n    パスワード：{PASSWORD}\n\nこちらからログインできます：{LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "edit_user": {
+    "subject": "{SITE} - アカウント情報が変更されました",
+    "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のユーザーアカウント情報が更新されました：</p>\n{CREDENTIALS_TABLE}\n<p>更新されたログイン情報でサインインできます：</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "PHPWCMS ユーザーアカウント情報変更\n\n    ユーザー名：{LOGIN}\n    パスワード：{PASSWORD}\n\nこちらからログインできます：{LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_deactivated": {
+    "subject": "{SITE} のアカウントが無効化されました",
+    "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウントが管理者によって無効化されました。</p>\n<p>ご不明な点がある場合や誤りと思われる場合は、サイト管理者にお問い合わせください。</p>\n{SIGNATURE}",
+    "content_text": "{NAME} 様、\n\n{SITE} のアカウントが無効化されました。\n\n詳細については管理者にお問い合わせください。\n\n{SITE_URL}"
+  },
+  "password_changed": {
+    "subject": "{SITE} のアカウントパスワードが変更されました",
+    "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウント <strong>{LOGIN}</strong> のパスワードが正常に変更されました。</p>\n<p>ご自身でこの変更を行われた場合、追加の操作は必要ありません。</p>\n<p style=\"color:#b02a37;font-size:13px;\">この変更に心当たりがない場合は、直ちにサイト管理者へご連絡ください。</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "{NAME} 様、\n\n{SITE} のアカウント {LOGIN} のパスワードが正常に変更されました。\n\nご自身でこの変更を行われた場合、追加の操作は必要ありません。\n\nこの変更に心当たりがない場合は、直ちにサイト管理者へご連絡ください。\n\nログイン：{LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "user_email_changed": {
+    "subject": "{SITE} のアカウントメールアドレスが変更されました",
+    "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウント <strong>{LOGIN}</strong> に登録されているメールアドレスが <strong>{NEW_EMAIL}</strong> に変更されました。</p>\n<p>ご自身でこの変更をリクエストされた場合、追加の操作は必要ありません。</p>\n<p style=\"color:#b02a37;font-size:13px;\">この変更を承認した覚えがない場合は、直ちにサイト管理者へご連絡ください。</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "{NAME} 様、\n\n{SITE} のアカウント {LOGIN} に登録されているメールアドレスが {NEW_EMAIL} に変更されました。\n\nご自身でこの変更をリクエストされた場合、追加の操作は必要ありません。\n\nこの変更を承認した覚えがない場合は、直ちにサイト管理者へご連絡ください。\n\nログイン：{LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "account_locked": {
+    "subject": "セキュリティ警告：{SITE} でのログイン失敗試行",
+    "content_html": "<p>{NAME} 様、</p>\n<p>{SITE} のアカウント <strong>{LOGIN}</strong> に対して、複数回の連続したログイン失敗が検出されました。</p>\n<p><strong>IPアドレス：</strong>{IP}<br><strong>日時：</strong>{DATE}</p>\n<p>心当たりがない場合、第三者がアカウントへのアクセスを試みている可能性があります。直ちにパスワードを再設定することを強くお勧めします。</p>\n{BUTTON}\n{SIGNATURE}",
+    "content_text": "{NAME} 様、\n\n{SITE} のアカウント {LOGIN} に対して、複数回の連続したログイン失敗が検出されました。\n\nIPアドレス：{IP}\n日時：      {DATE}\n\n心当たりがない場合、第三者がアカウントへのアクセスを試みている可能性があります。直ちにパスワードを再設定することをお勧めします：\n\n{LOGIN_PAGE}\n\nphpwcms admin"
+  },
+  "mail_layout": {
+    "subject": "",
+    "content_html": "<!DOCTYPE html>\n<html>\n<body style=\"margin:0;padding:0;background-color:#f4f5f7;\">\n<div style=\"display:none;font-size:1px;color:#f4f5f7;max-height:0;overflow:hidden;\">{PREHEADER}</div>\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background-color:#f4f5f7;padding:24px 12px;\">\n<tr><td align=\"center\">\n<table role=\"presentation\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:600px;max-width:600px;background-color:#ffffff;border-radius:8px;\">\n<tr><td style=\"padding:24px 32px 12px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;\">\n    {HEADER}\n</td></tr>\n<tr><td style=\"padding:0 32px;border-bottom:1px solid #e9ecef;\"><div style=\"height:1px;line-height:1px;font-size:0;\">&nbsp;</div></td></tr>\n<tr><td style=\"padding:24px 32px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:1.6;color:#212529;\">\n    <div style=\"font-size:20px;font-weight:bold;color:#212529;margin-bottom:16px;\">{TITLE}</div>\n    {CONTENT}\n</td></tr>\n<tr><td style=\"padding:16px 32px 24px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:12px;line-height:1.5;color:#6c757d;border-top:1px solid #e9ecef;\">\n    {FOOTER}\n</td></tr>\n</table>\n</td></tr>\n</table>\n</body>\n</html>",
+    "content_text": "{CONTENT}\n\n--\n{FOOTER}"
+  }
 }
