@@ -26,7 +26,12 @@ class PhpwcmsMailer extends PHPMailer
         //'yahoo' => 'Yahoo'
     ];
 
-    public function __construct($config = []) {
+    /**
+     * @var string|null Holds an initialization error message if constructor validation fails
+     */
+    protected ?string $initError = null;
+
+    public function __construct(array $config = [], ?bool $exceptions = null) {
 
         if (!empty($config['SMTP_DEBUG'])) {
             $this->SMTPDebug = (int)$config['SMTP_DEBUG'];
@@ -34,7 +39,9 @@ class PhpwcmsMailer extends PHPMailer
 
         $this->edebug('Init PHPMailer');
         $this->edebug('Debug level set to ' . $this->SMTPDebug);
-        parent::__construct();
+
+        $exceptions = $exceptions ?? (isset($config['exceptions']) ? (bool)$config['exceptions'] : null);
+        parent::__construct($exceptions);
 
         $this->edebug('Start to configure phpwcmsMailer');
 
@@ -55,8 +62,8 @@ class PhpwcmsMailer extends PHPMailer
         }
         $this->edebug('Mailer set to ' . $this->Mailer);
 
-        $this->Host = $config['SMTP_HOST'];
-        $this->edebug('Host set to ' . $config['SMTP_HOST']);
+        $this->Host = (string)($config['SMTP_HOST'] ?? 'localhost');
+        $this->edebug('Host set to ' . $this->Host);
 
         $config['SMTP_PORT'] = empty($config['SMTP_PORT']) ? 0 : (int)$config['SMTP_PORT'];
         if ($config['SMTP_PORT']) {
@@ -64,8 +71,8 @@ class PhpwcmsMailer extends PHPMailer
         }
         if (!empty($config['SMTP_AUTH'])) {
             $this->SMTPAuth = true;
-            $this->Username = $config['SMTP_USER'];
-            $this->Password = $config['SMTP_PASS'];
+            $this->Username = (string)($config['SMTP_USER'] ?? '');
+            $this->Password = (string)($config['SMTP_PASS'] ?? '');
         }
 
         if (!empty($config['SMTP_SECURE'])) {
@@ -86,6 +93,7 @@ class PhpwcmsMailer extends PHPMailer
                 }
             } else {
                 $errorMessage = 'Invalid SMTP_SECURE value (must be "tls" or "ssl")';
+                $this->initError = $errorMessage;
                 $this->setError($errorMessage);
                 $this->edebug($errorMessage);
                 if ($this->exceptions) {
@@ -98,6 +106,7 @@ class PhpwcmsMailer extends PHPMailer
             $config['SMTP_AUTH_TYPE'] = strtoupper($config['SMTP_AUTH_TYPE']);
             if ($config['SMTP_AUTH_TYPE'] === 'NTLM') {
                 $errorMessage = 'NTLM authentication is not supported any longer';
+                $this->initError = $errorMessage;
                 $this->setError($errorMessage);
                 $this->edebug($errorMessage);
                 if ($this->exceptions) {
@@ -108,8 +117,9 @@ class PhpwcmsMailer extends PHPMailer
             $this->AuthType = $config['SMTP_AUTH_TYPE'];
         }
 
-        $this->edebug('Set CharSet to ' . $config['charset']);
-        $this->CharSet = $config['charset'];
+        $charset = (string)($config['charset'] ?? 'utf-8');
+        $this->edebug('Set CharSet to ' . $charset);
+        $this->CharSet = $charset;
 
         if (!empty($config['default_lang']) && strtolower($config['default_lang']) !== 'en') {
             $this->edebug('Try to set language to ' . $config['default_lang']);
@@ -117,117 +127,132 @@ class PhpwcmsMailer extends PHPMailer
         }
 
         if ($this->AuthType === 'XOAUTH2') {
+            $hasOAuthError = false;
+
             if (empty($config['SMTP_XOAUTH_PROVIDER'])) {
                 $errorMessage = 'SMTP_XOAUTH_PROVIDER is required for OAuth2 authentication';
+                $this->initError = $errorMessage;
                 $this->setError($errorMessage);
                 $this->edebug($errorMessage);
                 if ($this->exceptions) {
                     throw new RuntimeException($errorMessage);
                 }
+                $hasOAuthError = true;
             }
-            $config['SMTP_XOAUTH_PROVIDER'] = strtolower($config['SMTP_XOAUTH_PROVIDER']);
+            $providerKey = strtolower((string)($config['SMTP_XOAUTH_PROVIDER'] ?? ''));
             $allowedProviders = implode(', ', array_keys(self::OAUTH_PROVIDERS));
-            if (!isset(self::OAUTH_PROVIDERS[$config['SMTP_XOAUTH_PROVIDER']])) {
+            if (!$hasOAuthError && !isset(self::OAUTH_PROVIDERS[$providerKey])) {
                 $errorMessage = 'Invalid SMTP_XOAUTH_PROVIDER value (must be one of: ' . $allowedProviders . ')';
+                $this->initError = $errorMessage;
                 $this->setError($errorMessage);
                 $this->edebug($errorMessage);
                 if ($this->exceptions) {
                     throw new RuntimeException($errorMessage);
                 }
+                $hasOAuthError = true;
             }
             if (empty($config['SMTP_CLIENT_ID'])) {
                 $errorMessage = 'SMTP_CLIENT_ID is required for OAuth2 authentication';
+                $this->initError = $errorMessage;
                 $this->setError($errorMessage);
                 $this->edebug($errorMessage);
                 if ($this->exceptions) {
                     throw new RuntimeException($errorMessage);
                 }
+                $hasOAuthError = true;
             }
             if (empty($config['SMTP_CLIENT_SECRET'])) {
                 $errorMessage = 'SMTP_CLIENT_SECRET is required for OAuth2 authentication';
+                $this->initError = $errorMessage;
                 $this->setError($errorMessage);
                 $this->edebug($errorMessage);
                 if ($this->exceptions) {
                     throw new RuntimeException($errorMessage);
                 }
+                $hasOAuthError = true;
             }
             if (empty($config['SMTP_REFRESH_TOKEN'])) {
                 $errorMessage = 'SMTP_REFRESH_TOKEN is required for OAuth2 authentication';
+                $this->initError = $errorMessage;
                 $this->setError($errorMessage);
                 $this->edebug($errorMessage);
                 if ($this->exceptions) {
                     throw new RuntimeException($errorMessage);
                 }
+                $hasOAuthError = true;
             }
             if (empty($config['SMTP_USER'])) {
                 $errorMessage = 'SMTP_USER is required for OAuth2 authentication';
+                $this->initError = $errorMessage;
                 $this->setError($errorMessage);
                 $this->edebug($errorMessage);
                 if ($this->exceptions) {
                     throw new RuntimeException($errorMessage);
                 }
+                $hasOAuthError = true;
             }
 
             $this->isSMTP();
             $this->SMTPAuth = true;
             $this->Password = '';
 
-            if ($config['SMTP_XOAUTH_PROVIDER'] === 'google') {
-                $this->edebug('XOAUTH2 provider is Google');
-                if (empty($config['SMTP_HOST']) || $config['SMTP_HOST'] === 'localhost') {
-                    $this->edebug('SMTP_HOST is empty or localhost, set Host to smtp.gmail.com');
-                    $this->Host = 'smtp.gmail.com';
-                }
-                $this->edebug('Force Port to 465');
-                $this->Port = 465;
-                $this->edebug('Set SMTPSecure to ssl');
-                $this->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $provider = null;
 
-                $provider = new Google(
-                    [
-                        'clientId' => $config['SMTP_CLIENT_ID'],
-                        'clientSecret' => $config['SMTP_CLIENT_SECRET'],
-                    ]
-                );
-            } elseif (
-                $config['SMTP_XOAUTH_PROVIDER'] === 'azure'
-                ||
-                $config['SMTP_XOAUTH_PROVIDER'] === 'microsoft'
-            ) {
-                $this->edebug('XOAUTH2 provider is ' . self::OAUTH_PROVIDERS[$config['SMTP_XOAUTH_PROVIDER']]);
-
-                if (empty($config['SMTP_TENANT_ID'])) {
-                    $errorMessage = 'SMTP_TENANT_ID is required for OAuth2 authentication';
-                    $this->setError($errorMessage);
-                    $this->edebug($errorMessage);
-                    if ($this->exceptions) {
-                        throw new RuntimeException($errorMessage);
+            if (!$hasOAuthError) {
+                if ($providerKey === 'google') {
+                    $this->edebug('XOAUTH2 provider is Google');
+                    if (empty($config['SMTP_HOST']) || $config['SMTP_HOST'] === 'localhost') {
+                        $this->edebug('SMTP_HOST is empty or localhost, set Host to smtp.gmail.com');
+                        $this->Host = 'smtp.gmail.com';
                     }
-                }
+                    if (empty($config['SMTP_PORT'])) {
+                        $this->edebug('Default Port to 465');
+                        $this->Port = 465;
+                    }
+                    if (empty($config['SMTP_SECURE'])) {
+                        $this->edebug('Default SMTPSecure to ssl');
+                        $this->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                    }
 
-                if (empty($config['SMTP_HOST']) || $config['SMTP_HOST'] === 'localhost') {
-                    $this->edebug('SMTP_HOST is empty or localhost, set Host to smtp.office365.com');
-                    $this->Host = 'smtp.office365.com';
-                }
-                $this->edebug('Force Port to 587');
-                $this->Port = 587;
-                $this->edebug('Set SMTPSecure to tls');
-                $this->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $provider = new Google(
+                        [
+                            'clientId'     => $config['SMTP_CLIENT_ID'],
+                            'clientSecret' => $config['SMTP_CLIENT_SECRET'],
+                        ]
+                    );
+                } elseif ($providerKey === 'azure' || $providerKey === 'microsoft') {
+                    $this->edebug('XOAUTH2 provider is ' . self::OAUTH_PROVIDERS[$providerKey]);
 
-                $provider = new Azure(
-                    [
-                        'clientId' => $config['SMTP_CLIENT_ID'],
-                        'clientSecret' => $config['SMTP_CLIENT_SECRET'],
-                        'tenantId' => $config['SMTP_TENANT_ID'],
-                    ]
-                );
-            } else {
-                $provider = null;
-                $errorMessage = 'Invalid SMTP_XOAUTH_PROVIDER value (must be one of: ' . $allowedProviders . ')';
-                $this->setError($errorMessage);
-                $this->edebug($errorMessage);
-                if ($this->exceptions) {
-                    throw new RuntimeException($errorMessage);
+                    if (empty($config['SMTP_TENANT_ID'])) {
+                        $errorMessage = 'SMTP_TENANT_ID is required for OAuth2 authentication';
+                        $this->initError = $errorMessage;
+                        $this->setError($errorMessage);
+                        $this->edebug($errorMessage);
+                        if ($this->exceptions) {
+                            throw new RuntimeException($errorMessage);
+                        }
+                    } else {
+                        if (empty($config['SMTP_HOST']) || $config['SMTP_HOST'] === 'localhost') {
+                            $this->edebug('SMTP_HOST is empty or localhost, set Host to smtp.office365.com');
+                            $this->Host = 'smtp.office365.com';
+                        }
+                        if (empty($config['SMTP_PORT'])) {
+                            $this->edebug('Default Port to 587');
+                            $this->Port = 587;
+                        }
+                        if (empty($config['SMTP_SECURE'])) {
+                            $this->edebug('Default SMTPSecure to tls');
+                            $this->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        }
+
+                        $provider = new Azure(
+                            [
+                                'clientId'     => $config['SMTP_CLIENT_ID'],
+                                'clientSecret' => $config['SMTP_CLIENT_SECRET'],
+                                'tenantId'     => $config['SMTP_TENANT_ID'],
+                            ]
+                        );
+                    }
                 }
             }
 
@@ -237,11 +262,11 @@ class PhpwcmsMailer extends PHPMailer
                 $this->setOAuth(
                     new OAuth(
                         [
-                            'provider' => $provider,
-                            'clientId' => $config['SMTP_CLIENT_ID'],
+                            'provider'     => $provider,
+                            'clientId'     => $config['SMTP_CLIENT_ID'],
                             'clientSecret' => $config['SMTP_CLIENT_SECRET'],
                             'refreshToken' => $config['SMTP_REFRESH_TOKEN'],
-                            'userName' => $config['SMTP_USER'],
+                            'userName'     => $config['SMTP_USER'],
                         ]
                     )
                 );
@@ -249,5 +274,25 @@ class PhpwcmsMailer extends PHPMailer
         }
 
         $this->edebug('Init phpwcmsMailer done');
+    }
+
+    /**
+     * Prepares message for sending.
+     * Overridden to prevent sending if constructor validation failed.
+     *
+     * @return bool
+     * @throws \PHPMailer\PHPMailer\Exception
+     */
+    public function preSend()
+    {
+        if ($this->initError !== null) {
+            $this->setError($this->initError);
+            if ($this->exceptions) {
+                throw new \PHPMailer\PHPMailer\Exception($this->initError);
+            }
+            return false;
+        }
+
+        return parent::preSend();
     }
 }

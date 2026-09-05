@@ -178,7 +178,7 @@ $phpwcms['SMTP_XOAUTH_PROVIDER'] = ''; // XOAUTH2 authentication provider, curre
 $phpwcms['SMTP_CLIENT_ID']       = ''; // The client ID for OAuth2 authentication
 $phpwcms['SMTP_CLIENT_SECRET']   = ''; // The client secret for OAuth2 authentication
 $phpwcms['SMTP_TENANT_ID']       = ''; // The tenant ID for Microsoft OAuth2 authentication
-$phpwcms['SMTP_REFRESH_TOKEN']   = ''; // The OAuth2 refresh token (see the backend to obtain it)
+$phpwcms['SMTP_REFRESH_TOKEN']   = ''; // The OAuth2 refresh token (obtain via bin/get-oauth-token.php)
 $phpwcms['SMTP_DEBUG']           = 0; // SMTP debug level, 0 = off, 1 = client messages, 2 = client and server messages, 3 = plus connection status, 4 = low-level data
 
 // Backend Dashboard Support/Contact settings

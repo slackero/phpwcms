@@ -62,4 +62,5 @@ include/config.codekit3
 /.phpstan/cache/
 node_modules/
 /doc/
-/bin/
+/bin/*
+!/bin/get-oauth-token.php

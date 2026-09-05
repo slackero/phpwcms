@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-08-15T06:22:33Z",
+  "generated_at": "2026-09-05T13:36:23Z",
   "stacklit_version": "dev",
-  "merkle_hash": "caa3f8643e935b9c5bc87984cd2a2a8b53cae5ecc6d8f0acaf40b9dd3d48440f",
+  "merkle_hash": "0c0333177afc88ff20f9f446d8685abe70cd83183773c4b70db908be2e28daf4",
   "project": {
     "name": "phpwcms-dev",
     "root": ".",
@@ -13,20 +13,20 @@
     "primary_language": "php",
     "languages": {
       "javascript": {
-        "files": 454,
-        "lines": 18914
+        "files": 487,
+        "lines": 18511
       },
       "php": {
-        "files": 766,
-        "lines": 167106
+        "files": 1160,
+        "lines": 230061
       },
-      "ruby": {
+      "python": {
         "files": 1,
-        "lines": 10
+        "lines": 368
       },
       "sql": {
         "files": 2,
-        "lines": 1484
+        "lines": 1519
       },
       "typescript": {
         "files": 2,
@@ -39,17 +39,31 @@
   },
   "structure": {
     "entrypoints": null,
-    "total_files": 1225,
-    "total_lines": 187558
+    "total_files": 1652,
+    "total_lines": 250503
   },
   "modules": {
     ".phpstan": {
       "purpose": ".phpstan",
       "language": "php",
       "files": 1,
-      "lines": 92,
+      "lines": 99,
       "file_list": [
         "phpstan-bootstrap.php"
+      ],
+      "activity": "low"
+    },
+    ".superpowers/sdd/2026-09-01-self-update": {
+      "purpose": "2026-09-01-self-update",
+      "language": "python",
+      "files": 1,
+      "lines": 368,
+      "file_list": [
+        "insert_lang.py"
+      ],
+      "exports": [
+        "build_block(vals)",
+        "insert_after_discuss(path, block)"
       ],
       "activity": "low"
     },
@@ -57,7 +71,7 @@
       "purpose": "Img",
       "language": "php",
       "files": 5,
-      "lines": 665,
+      "lines": 654,
       "file_list": [
         "blank.php",
         "captcha.php",
@@ -71,7 +85,7 @@
       "purpose": "Configuration management",
       "language": "php",
       "files": 7,
-      "lines": 1787,
+      "lines": 1800,
       "file_list": [
         "conf.indexpage.inc.php",
         "conf.template_default.inc.php",
@@ -81,13 +95,13 @@
         "feeds.ini.php",
         "sitemap.custom.php"
       ],
-      "activity": "medium"
+      "activity": "low"
     },
     "include/inc_act": {
       "purpose": "Inc Act",
       "language": "php",
       "files": 23,
-      "lines": 3839,
+      "lines": 3920,
       "file_list": [
         "act_articlecontent.php",
         "act_articlesort.php",
@@ -116,7 +130,7 @@
       "purpose": "Inc Ext",
       "language": "php",
       "files": 3,
-      "lines": 1419,
+      "lines": 1421,
       "file_list": [
         "SPAF_FormValidator.class.php",
         "htmlfilter.php",
@@ -231,7 +245,7 @@
       "purpose": "Inc Front",
       "language": "php",
       "files": 10,
-      "lines": 10243,
+      "lines": 10431,
       "file_list": [
         "calendar.func.inc.php",
         "cnt.lang.inc.php",
@@ -250,7 +264,7 @@
       "purpose": "Content",
       "language": "php",
       "files": 37,
-      "lines": 12162,
+      "lines": 11818,
       "file_list": [
         "cnt0.article.inc.php",
         "cnt1.article.inc.php",
@@ -297,7 +311,7 @@
       "purpose": "Shared library code",
       "language": "php",
       "files": 49,
-      "lines": 1521,
+      "lines": 1540,
       "file_list": [
         "js.jquery-1.10-migrate.inc.php",
         "js.jquery-1.10.inc.php",
@@ -326,7 +340,7 @@
       "purpose": "Inc Js",
       "language": "javascript",
       "files": 7,
-      "lines": 1220,
+      "lines": 1746,
       "file_list": [
         "bootstrap.bundle.min.js",
         "dayjs.min.js",
@@ -337,6 +351,35 @@
         "phpwcms.min.js"
       ],
       "activity": "high"
+    },
+    "include/inc_js/ace": {
+      "purpose": "Ace",
+      "language": "javascript",
+      "files": 41,
+      "lines": 287,
+      "file_list": [
+        "ace.js",
+        "ext-beautify.js",
+        "ext-emmet.js",
+        "ext-language_tools.js",
+        "ext-searchbox.js",
+        "ext-settings_menu.js",
+        "mode-apache_conf.js",
+        "mode-css.js",
+        "mode-html.js",
+        "mode-ini.js",
+        "mode-javascript.js",
+        "mode-json.js",
+        "mode-less.js",
+        "mode-markdown.js",
+        "mode-mysql.js",
+        "mode-pgsql.js",
+        "mode-php.js",
+        "mode-plain_text.js",
+        "mode-scss.js",
+        "mode-sh.js"
+      ],
+      "activity": "low"
     },
     "include/inc_js/dayjs-locale": {
       "purpose": "Dayjs-locale",
@@ -383,7 +426,7 @@
       "purpose": "Inc Lang",
       "language": "php",
       "files": 1,
-      "lines": 56,
+      "lines": 77,
       "file_list": [
         "code.lang.inc.php"
       ],
@@ -393,17 +436,27 @@
       "purpose": "Ar",
       "language": "php",
       "files": 1,
-      "lines": 1663,
+      "lines": 1777,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "include/inc_lang/backend/bg": {
       "purpose": "Bg",
       "language": "php",
       "files": 1,
-      "lines": 1678,
+      "lines": 1787,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/bn": {
+      "purpose": "Bn",
+      "language": "php",
+      "files": 1,
+      "lines": 1787,
       "file_list": [
         "lang.inc.php"
       ],
@@ -413,7 +466,7 @@
       "purpose": "Bs",
       "language": "php",
       "files": 1,
-      "lines": 1734,
+      "lines": 1758,
       "file_list": [
         "lang.inc.php"
       ],
@@ -423,7 +476,7 @@
       "purpose": "Ca",
       "language": "php",
       "files": 1,
-      "lines": 1703,
+      "lines": 1789,
       "file_list": [
         "lang.inc.php"
       ],
@@ -433,7 +486,7 @@
       "purpose": "Cs",
       "language": "php",
       "files": 1,
-      "lines": 1685,
+      "lines": 1770,
       "file_list": [
         "lang.inc.php"
       ],
@@ -443,7 +496,7 @@
       "purpose": "Da",
       "language": "php",
       "files": 1,
-      "lines": 1673,
+      "lines": 1788,
       "file_list": [
         "lang.inc.php"
       ],
@@ -453,17 +506,27 @@
       "purpose": "De",
       "language": "php",
       "files": 1,
-      "lines": 1769,
+      "lines": 1750,
       "file_list": [
         "lang.inc.php"
       ],
       "activity": "high"
     },
+    "include/inc_lang/backend/de-at": {
+      "purpose": "De-at",
+      "language": "php",
+      "files": 1,
+      "lines": 1750,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
     "include/inc_lang/backend/de-ch": {
       "purpose": "De-ch",
       "language": "php",
       "files": 1,
-      "lines": 1769,
+      "lines": 1750,
       "file_list": [
         "lang.inc.php"
       ],
@@ -473,7 +536,7 @@
       "purpose": "En",
       "language": "php",
       "files": 1,
-      "lines": 1775,
+      "lines": 1749,
       "file_list": [
         "lang.inc.php"
       ],
@@ -483,7 +546,7 @@
       "purpose": "Es",
       "language": "php",
       "files": 1,
-      "lines": 1645,
+      "lines": 1751,
       "file_list": [
         "lang.inc.php"
       ],
@@ -493,7 +556,17 @@
       "purpose": "Et",
       "language": "php",
       "files": 1,
-      "lines": 1705,
+      "lines": 1788,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/eu": {
+      "purpose": "Eu",
+      "language": "php",
+      "files": 1,
+      "lines": 1751,
       "file_list": [
         "lang.inc.php"
       ],
@@ -503,7 +576,7 @@
       "purpose": "Fi",
       "language": "php",
       "files": 1,
-      "lines": 1713,
+      "lines": 1782,
       "file_list": [
         "lang.inc.php"
       ],
@@ -513,7 +586,17 @@
       "purpose": "Fr",
       "language": "php",
       "files": 1,
-      "lines": 1715,
+      "lines": 1752,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "high"
+    },
+    "include/inc_lang/backend/gl": {
+      "purpose": "Gl",
+      "language": "php",
+      "files": 1,
+      "lines": 1776,
       "file_list": [
         "lang.inc.php"
       ],
@@ -523,7 +606,27 @@
       "purpose": "Gr",
       "language": "php",
       "files": 1,
-      "lines": 1716,
+      "lines": 1768,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "high"
+    },
+    "include/inc_lang/backend/hi": {
+      "purpose": "Hi",
+      "language": "php",
+      "files": 1,
+      "lines": 1787,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/hr": {
+      "purpose": "Hr",
+      "language": "php",
+      "files": 1,
+      "lines": 1757,
       "file_list": [
         "lang.inc.php"
       ],
@@ -533,7 +636,27 @@
       "purpose": "Hu",
       "language": "php",
       "files": 1,
-      "lines": 1693,
+      "lines": 1789,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/id": {
+      "purpose": "Id",
+      "language": "php",
+      "files": 1,
+      "lines": 1787,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/is": {
+      "purpose": "Is",
+      "language": "php",
+      "files": 1,
+      "lines": 1778,
       "file_list": [
         "lang.inc.php"
       ],
@@ -543,17 +666,57 @@
       "purpose": "It",
       "language": "php",
       "files": 1,
-      "lines": 1650,
+      "lines": 1751,
       "file_list": [
         "lang.inc.php"
       ],
       "activity": "high"
     },
+    "include/inc_lang/backend/ja": {
+      "purpose": "Ja",
+      "language": "php",
+      "files": 1,
+      "lines": 1787,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
     "include/inc_lang/backend/lt": {
       "purpose": "Lt",
       "language": "php",
       "files": 1,
-      "lines": 1675,
+      "lines": 1787,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/lv": {
+      "purpose": "Lv",
+      "language": "php",
+      "files": 1,
+      "lines": 1777,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/mk": {
+      "purpose": "Mk",
+      "language": "php",
+      "files": 1,
+      "lines": 1777,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/ms": {
+      "purpose": "Ms",
+      "language": "php",
+      "files": 1,
+      "lines": 1787,
       "file_list": [
         "lang.inc.php"
       ],
@@ -563,7 +726,7 @@
       "purpose": "Nl",
       "language": "php",
       "files": 1,
-      "lines": 1719,
+      "lines": 1751,
       "file_list": [
         "lang.inc.php"
       ],
@@ -573,7 +736,17 @@
       "purpose": "No",
       "language": "php",
       "files": 1,
-      "lines": 1718,
+      "lines": 1779,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/pa": {
+      "purpose": "Pa",
+      "language": "php",
+      "files": 1,
+      "lines": 1787,
       "file_list": [
         "lang.inc.php"
       ],
@@ -583,7 +756,7 @@
       "purpose": "Pl",
       "language": "php",
       "files": 1,
-      "lines": 1764,
+      "lines": 1751,
       "file_list": [
         "lang.inc.php"
       ],
@@ -593,7 +766,7 @@
       "purpose": "Pt",
       "language": "php",
       "files": 1,
-      "lines": 1693,
+      "lines": 1786,
       "file_list": [
         "lang.inc.php"
       ],
@@ -603,7 +776,7 @@
       "purpose": "Ro",
       "language": "php",
       "files": 1,
-      "lines": 1704,
+      "lines": 1778,
       "file_list": [
         "lang.inc.php"
       ],
@@ -613,7 +786,7 @@
       "purpose": "Ru",
       "language": "php",
       "files": 1,
-      "lines": 1688,
+      "lines": 1786,
       "file_list": [
         "lang.inc.php"
       ],
@@ -623,7 +796,7 @@
       "purpose": "Sk",
       "language": "php",
       "files": 1,
-      "lines": 1681,
+      "lines": 1787,
       "file_list": [
         "lang.inc.php"
       ],
@@ -633,7 +806,27 @@
       "purpose": "Sl",
       "language": "php",
       "files": 1,
-      "lines": 1725,
+      "lines": 1761,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/sq": {
+      "purpose": "Sq",
+      "language": "php",
+      "files": 1,
+      "lines": 1751,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/sr": {
+      "purpose": "Sr",
+      "language": "php",
+      "files": 1,
+      "lines": 1757,
       "file_list": [
         "lang.inc.php"
       ],
@@ -643,7 +836,17 @@
       "purpose": "Sv",
       "language": "php",
       "files": 1,
-      "lines": 1673,
+      "lines": 1788,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/ta": {
+      "purpose": "Ta",
+      "language": "php",
+      "files": 1,
+      "lines": 1797,
       "file_list": [
         "lang.inc.php"
       ],
@@ -653,7 +856,27 @@
       "purpose": "Tr",
       "language": "php",
       "files": 1,
-      "lines": 1725,
+      "lines": 1760,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/ua": {
+      "purpose": "Ua",
+      "language": "php",
+      "files": 1,
+      "lines": 1786,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/ur": {
+      "purpose": "Ur",
+      "language": "php",
+      "files": 1,
+      "lines": 1777,
       "file_list": [
         "lang.inc.php"
       ],
@@ -663,7 +886,17 @@
       "purpose": "Vi",
       "language": "php",
       "files": 1,
-      "lines": 1807,
+      "lines": 1844,
+      "file_list": [
+        "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/zh-cn": {
+      "purpose": "Zh-cn",
+      "language": "php",
+      "files": 1,
+      "lines": 1787,
       "file_list": [
         "lang.inc.php"
       ],
@@ -672,29 +905,29 @@
     "include/inc_lang/date": {
       "purpose": "Date",
       "language": "php",
-      "files": 24,
-      "lines": 830,
+      "files": 47,
+      "lines": 1587,
       "file_list": [
         "ar.date.lang.php",
         "bg.date.lang.php",
+        "bn.date.lang.php",
+        "bs.date.lang.php",
         "ca.date.lang.php",
         "cs.date.lang.php",
         "da.date.lang.php",
+        "de-at.date.lang.php",
         "de-ch.date.lang.php",
         "de.date.lang.php",
+        "en.date.lang.php",
         "es.date.lang.php",
         "et.date.lang.php",
+        "eu.date.lang.php",
         "fi.date.lang.php",
         "fr.date.lang.php",
-        "hu.date.lang.php",
-        "it.date.lang.php",
-        "nl.date.lang.php",
-        "no.date.lang.php",
-        "pl.date.lang.php",
-        "pt.date.lang.php",
-        "ru.date.lang.php",
-        "ru.date.lang.utf-8.php",
-        "sk.date.lang.php"
+        "gl.date.lang.php",
+        "gr.date.lang.php",
+        "hi.date.lang.php",
+        "hr.date.lang.php"
       ],
       "activity": "low"
     },
@@ -728,8 +961,8 @@
     "include/inc_lib": {
       "purpose": "Inc Lib",
       "language": "php",
-      "files": 46,
-      "lines": 17510,
+      "files": 49,
+      "lines": 19999,
       "file_list": [
         "admin.functions.inc.php",
         "admin.structure.inc.php",
@@ -743,14 +976,14 @@
         "checklogin.inc.php",
         "checkmessage.inc.php",
         "contentpart.functions.php",
+        "custom_fields.inc.php",
         "dbcon.inc.php",
         "default.backend.inc.php",
         "default.inc.php",
         "files.private-delfilelist.inc.php",
         "files.private-filelist.inc.php",
         "files.private-functions.inc.php",
-        "files.private.additions.inc.php",
-        "files.public-functions.inc.php"
+        "files.private.additions.inc.php"
       ],
       "exports": [
         "Phpwcms_Image_lib",
@@ -767,10 +1000,11 @@
     "include/inc_lib/classes": {
       "purpose": "Classes",
       "language": "php",
-      "files": 4,
-      "lines": 1145,
+      "files": 5,
+      "lines": 1315,
       "file_list": [
         "PhpwcmsMailer.php",
+        "PhpwcmsTwoFactor.php",
         "class.iptc.php",
         "class.recaptcha.php",
         "class.svg-reader.php"
@@ -778,12 +1012,14 @@
       "exports": [
         "IPTC",
         "PhpwcmsMailer",
+        "PhpwcmsTwoFactor",
         "SVGMetadataExtractor",
         "phpwcmsRecaptcha"
       ],
       "type_defs": {
         "IPTC": "IPTC",
         "PhpwcmsMailer": "function __construct ($config = [])",
+        "PhpwcmsTwoFactor": "function getInstance () Google2FA; function generateSecret (int $length = 32) string; function getCode (string $secret, ?int $timeSlice = null) string; function verifyCode (string $secret, string $code, int $discrepancy = 1, ?int...; function getOtpAuthUrl (string $label, string $secret, string $issuer = 'phpw...; function generateBackupCodes (int $count = 8) array; function hashBackupCodes (array $plainCodes) array; function verifyAndConsumeBackupCode (array \u0026$hashedCodes, string $submittedCo...; function getQrCodeSvg (string $text, int $size = 200) string",
         "SVGMetadataExtractor": "function getMetadata ($filename, $sanitize = true); function scaleSVGUnit ($length, $viewportSize = 512)",
         "phpwcmsRecaptcha": "function __construct ($sitekey=null, $secretkey=null); function get_site_key (); function get_secret_key (); function get_callback (); function verify_response ($recaptcha); function get_api_src ($lang=null, $script_tag=false); function get_onsubmit_function ($uniquekey='', $formid='', $script=true)"
       },
@@ -793,7 +1029,7 @@
       "purpose": "Content",
       "language": "php",
       "files": 111,
-      "lines": 5150,
+      "lines": 5054,
       "file_list": [
         "cnt0.readform.inc.php",
         "cnt0.sql.inc.php",
@@ -821,8 +1057,8 @@
     "include/inc_lib/revision": {
       "purpose": "Revision",
       "language": "php",
-      "files": 42,
-      "lines": 2818,
+      "files": 44,
+      "lines": 3059,
       "file_list": [
         "r401.php",
         "r402.php",
@@ -847,11 +1083,29 @@
       ],
       "activity": "low"
     },
+    "include/inc_lib/update": {
+      "purpose": "Update",
+      "language": "php",
+      "files": 3,
+      "lines": 1037,
+      "file_list": [
+        "update.api.php",
+        "update.backup.php",
+        "update.php"
+      ],
+      "exports": [
+        "phpwcms_update"
+      ],
+      "type_defs": {
+        "phpwcms_update": "function __construct (int $userId, string $zipPath = ''); function isSkipped (string $rel) bool; function isNewer (string $version) bool; function check () array|false; function run (string $expectedTag) array; function rollback (int $updateId) array; function clearMaintenance () void; function maintenanceActive () bool"
+      },
+      "activity": "low"
+    },
     "include/inc_module/mod_addresses": {
       "purpose": "Mod Addresses",
       "language": "php",
       "files": 6,
-      "lines": 758,
+      "lines": 757,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -878,16 +1132,29 @@
     "include/inc_module/mod_addresses/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 7,
-      "lines": 397,
+      "files": 46,
+      "lines": 2576,
       "file_list": [
+        "ar.lang.php",
+        "bg.lang.php",
+        "bn.lang.php",
+        "bs.lang.php",
+        "ca.lang.php",
+        "cs.lang.php",
+        "da.lang.php",
+        "de-at.lang.php",
         "de-ch.lang.php",
         "de.lang.php",
         "en.lang.php",
         "es.lang.php",
+        "et.lang.php",
+        "eu.lang.php",
+        "fi.lang.php",
         "fr.lang.php",
-        "it.lang.php",
-        "pl.lang.php"
+        "gl.lang.php",
+        "gr.lang.php",
+        "hi.lang.php",
+        "hr.lang.php"
       ],
       "activity": "low"
     },
@@ -905,7 +1172,7 @@
       "purpose": "Mod Ads",
       "language": "php",
       "files": 8,
-      "lines": 1154,
+      "lines": 1146,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -922,7 +1189,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 14,
-      "lines": 1403,
+      "lines": 1394,
       "file_list": [
         "ads.fe_init.inc.php",
         "ads.fe_render.inc.php",
@@ -944,16 +1211,29 @@
     "include/inc_module/mod_ads/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 7,
-      "lines": 623,
+      "files": 46,
+      "lines": 4098,
       "file_list": [
+        "ar.lang.php",
+        "bg.lang.php",
+        "bn.lang.php",
+        "bs.lang.php",
+        "ca.lang.php",
+        "cs.lang.php",
+        "da.lang.php",
+        "de-at.lang.php",
         "de-ch.lang.php",
         "de.lang.php",
         "en.lang.php",
         "es.lang.php",
+        "et.lang.php",
+        "eu.lang.php",
+        "fi.lang.php",
         "fr.lang.php",
-        "it.lang.php",
-        "pl.lang.php"
+        "gl.lang.php",
+        "gr.lang.php",
+        "hi.lang.php",
+        "hr.lang.php"
       ],
       "activity": "low"
     },
@@ -961,7 +1241,7 @@
       "purpose": "Template",
       "language": "javascript",
       "files": 1,
-      "lines": 110,
+      "lines": 143,
       "file_list": [
         "ads.js"
       ],
@@ -971,7 +1251,7 @@
       "purpose": "Mod Calendar",
       "language": "php",
       "files": 6,
-      "lines": 956,
+      "lines": 936,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1004,16 +1284,29 @@
     "include/inc_module/mod_calendar/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 7,
-      "lines": 500,
+      "files": 47,
+      "lines": 3337,
       "file_list": [
+        "ar.lang.php",
+        "bg.lang.php",
+        "bn.lang.php",
+        "bs.lang.php",
+        "ca.lang.php",
+        "cs.lang.php",
+        "da.lang.php",
+        "de-at.lang.php",
         "de-ch.lang.php",
         "de.lang.php",
         "en.lang.php",
         "es.lang.php",
+        "et.lang.php",
+        "eu.lang.php",
+        "fi.lang.php",
         "fr.lang.php",
-        "it.lang.php",
-        "pl.lang.php"
+        "gl.lang.php",
+        "gr.lang.php",
+        "hi.lang.php",
+        "hr.lang.php"
       ],
       "activity": "low"
     },
@@ -1021,7 +1314,7 @@
       "purpose": "Mod Feedimport",
       "language": "php",
       "files": 5,
-      "lines": 980,
+      "lines": 978,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1045,16 +1338,29 @@
     "include/inc_module/mod_feedimport/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 7,
-      "lines": 262,
+      "files": 46,
+      "lines": 1702,
       "file_list": [
+        "ar.lang.php",
+        "bg.lang.php",
+        "bn.lang.php",
+        "bs.lang.php",
+        "ca.lang.php",
+        "cs.lang.php",
+        "da.lang.php",
+        "de-at.lang.php",
         "de-ch.lang.php",
         "de.lang.php",
         "en.lang.php",
         "es.lang.php",
+        "et.lang.php",
+        "eu.lang.php",
+        "fi.lang.php",
         "fr.lang.php",
-        "it.lang.php",
-        "pl.lang.php"
+        "gl.lang.php",
+        "gr.lang.php",
+        "hi.lang.php",
+        "hr.lang.php"
       ],
       "activity": "low"
     },
@@ -1062,7 +1368,7 @@
       "purpose": "Mod Glossary",
       "language": "php",
       "files": 6,
-      "lines": 533,
+      "lines": 532,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1092,17 +1398,29 @@
     "include/inc_module/mod_glossary/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 8,
-      "lines": 163,
+      "files": 46,
+      "lines": 920,
       "file_list": [
+        "ar.lang.php",
+        "bg.lang.php",
+        "bn.lang.php",
+        "bs.lang.php",
+        "ca.lang.php",
+        "cs.lang.php",
+        "da.lang.php",
+        "de-at.lang.php",
         "de-ch.lang.php",
         "de.lang.php",
         "en.lang.php",
         "es.lang.php",
+        "et.lang.php",
+        "eu.lang.php",
+        "fi.lang.php",
         "fr.lang.php",
-        "it.lang.php",
-        "pl.lang.php",
-        "tr.lang.php"
+        "gl.lang.php",
+        "gr.lang.php",
+        "hi.lang.php",
+        "hr.lang.php"
       ],
       "activity": "low"
     },
@@ -1131,16 +1449,29 @@
     "include/inc_module/mod_modules/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 7,
-      "lines": 98,
+      "files": 46,
+      "lines": 598,
       "file_list": [
+        "ar.lang.php",
+        "bg.lang.php",
+        "bn.lang.php",
+        "bs.lang.php",
+        "ca.lang.php",
+        "cs.lang.php",
+        "da.lang.php",
+        "de-at.lang.php",
         "de-ch.lang.php",
         "de.lang.php",
         "en.lang.php",
         "es.lang.php",
+        "et.lang.php",
+        "eu.lang.php",
+        "fi.lang.php",
         "fr.lang.php",
-        "it.lang.php",
-        "pl.lang.php"
+        "gl.lang.php",
+        "gr.lang.php",
+        "hi.lang.php",
+        "hr.lang.php"
       ],
       "activity": "low"
     },
@@ -1159,16 +1490,29 @@
     "include/inc_module/mod_seolog/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 7,
-      "lines": 45,
+      "files": 46,
+      "lines": 276,
       "file_list": [
+        "ar.lang.php",
+        "bg.lang.php",
+        "bn.lang.php",
+        "bs.lang.php",
+        "ca.lang.php",
+        "cs.lang.php",
+        "da.lang.php",
+        "de-at.lang.php",
         "de-ch.lang.php",
         "de.lang.php",
         "en.lang.php",
         "es.lang.php",
+        "et.lang.php",
+        "eu.lang.php",
+        "fi.lang.php",
         "fr.lang.php",
-        "it.lang.php",
-        "pl.lang.php"
+        "gl.lang.php",
+        "gr.lang.php",
+        "hi.lang.php",
+        "hr.lang.php"
       ],
       "activity": "low"
     },
@@ -1191,7 +1535,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 20,
-      "lines": 3977,
+      "lines": 3976,
       "file_list": [
         "cart.items.inc.php",
         "cart.parse.inc.php",
@@ -1225,17 +1569,29 @@
     "include/inc_module/mod_shop/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 8,
-      "lines": 1007,
+      "files": 46,
+      "lines": 5980,
       "file_list": [
+        "ar.lang.php",
+        "bg.lang.php",
+        "bn.lang.php",
+        "bs.lang.php",
+        "ca.lang.php",
+        "cs.lang.php",
+        "da.lang.php",
+        "de-at.lang.php",
         "de-ch.lang.php",
         "de.lang.php",
         "en.lang.php",
         "es.lang.php",
+        "et.lang.php",
+        "eu.lang.php",
+        "fi.lang.php",
         "fr.lang.php",
-        "it.lang.php",
-        "pl.lang.php",
-        "tr.lang.php"
+        "gl.lang.php",
+        "gr.lang.php",
+        "hi.lang.php",
+        "hr.lang.php"
       ],
       "activity": "low"
     },
@@ -1271,27 +1627,41 @@
     "include/inc_module/mod_statistic/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 7,
-      "lines": 472,
+      "files": 46,
+      "lines": 3082,
       "file_list": [
+        "ar.lang.php",
+        "bg.lang.php",
+        "bn.lang.php",
+        "bs.lang.php",
+        "ca.lang.php",
+        "cs.lang.php",
+        "da.lang.php",
+        "de-at.lang.php",
         "de-ch.lang.php",
         "de.lang.php",
         "en.lang.php",
         "es.lang.php",
+        "et.lang.php",
+        "eu.lang.php",
+        "fi.lang.php",
         "fr.lang.php",
-        "it.lang.php",
-        "pl.lang.php"
+        "gl.lang.php",
+        "gr.lang.php",
+        "hi.lang.php",
+        "hr.lang.php"
       ],
       "activity": "low"
     },
     "include/inc_tmpl": {
       "purpose": "Inc Tmpl",
       "language": "php",
-      "files": 47,
-      "lines": 15282,
+      "files": 49,
+      "lines": 17532,
       "file_list": [
         "about.tmpl.php",
         "admin.aliaslist.tmpl.php",
+        "admin.custom_cpt.tmpl.php",
         "admin.edituser.tmpl.php",
         "admin.filecat.tmpl.php",
         "admin.groups.tmpl.php",
@@ -1303,14 +1673,12 @@
         "admin.pagelayout.tmpl.php",
         "admin.phpinfo.tmpl.php",
         "admin.redirect.tmpl.php",
-        "admin.templatelang.tmpl.php",
         "admin.structform.tmpl.php",
         "admin.structlist.tmpl.php",
+        "admin.templatelang.tmpl.php",
         "admin.templates.tmpl.php",
-        "article.editsummary.tmpl.php",
-        "article.structlist.tmpl.php",
-        "articlecontent.edit.tmpl.php",
-        "articlecontent.list.tmpl.php"
+        "admin.update.tmpl.php",
+        "article.editsummary.tmpl.php"
       ],
       "activity": "high"
     },
@@ -1318,7 +1686,7 @@
       "purpose": "Content",
       "language": "php",
       "files": 75,
-      "lines": 12178,
+      "lines": 11861,
       "file_list": [
         "cnt0.inc.php",
         "cnt0.list.inc.php",
@@ -1375,7 +1743,7 @@
       "purpose": "Root package",
       "language": "php",
       "files": 14,
-      "lines": 4143,
+      "lines": 4807,
       "file_list": [
         "articlebrowser.php",
         "dbdown.php",
@@ -1398,12 +1766,12 @@
       "purpose": "Setup",
       "language": "php",
       "files": 4,
-      "lines": 476,
+      "lines": 2204,
       "file_list": [
         "get_conf_file.php",
         "index.php",
-        "setup.conf.inc.php",
-        "setup.php"
+        "setup.php",
+        "upgrade.php"
       ],
       "activity": "low"
     },
@@ -1411,7 +1779,7 @@
       "purpose": "Default Sql",
       "language": "sql",
       "files": 2,
-      "lines": 1484,
+      "lines": 1519,
       "file_list": [
         "phpwcms_init.sql",
         "phpwcms_inserts.sql"
@@ -1421,19 +1789,17 @@
     "setup/inc": {
       "purpose": "Inc",
       "language": "php",
-      "files": 10,
-      "lines": 2484,
+      "files": 8,
+      "lines": 2764,
       "file_list": [
         "setup.check.inc.php",
         "setup.func.inc.php",
-        "showsql.php",
         "step0.inc.php",
         "step1.inc.php",
         "step2.inc.php",
         "step3.inc.php",
         "step4.inc.php",
-        "step5.inc.php",
-        "upgrade.func.inc.php"
+        "step5.inc.php"
       ],
       "activity": "low"
     },
@@ -1453,7 +1819,7 @@
       "purpose": "Inc Default",
       "language": "php",
       "files": 1,
-      "lines": 41,
+      "lines": 45,
       "file_list": [
         "startup.php"
       ],
@@ -1463,20 +1829,10 @@
       "purpose": "Inc Js",
       "language": "javascript",
       "files": 2,
-      "lines": 161,
+      "lines": 229,
       "file_list": [
         "frontend.js",
         "imagezoom.js"
-      ],
-      "activity": "low"
-    },
-    "template/inc_script/access": {
-      "purpose": "Access",
-      "language": "javascript",
-      "files": 1,
-      "lines": 73,
-      "file_list": [
-        "access.js"
       ],
       "activity": "low"
     },
@@ -1484,7 +1840,7 @@
       "purpose": "Felogin",
       "language": "php",
       "files": 1,
-      "lines": 68,
+      "lines": 66,
       "file_list": [
         "felogin.ini.php"
       ],
@@ -1494,7 +1850,7 @@
       "purpose": "Disabled",
       "language": "php",
       "files": 6,
-      "lines": 439,
+      "lines": 450,
       "file_list": [
         "domaincheck.php",
         "felogin.init.php",
@@ -1508,16 +1864,12 @@
     "template/inc_script/frontend_render/disabled": {
       "purpose": "Disabled",
       "language": "php",
-      "files": 32,
-      "lines": 2765,
+      "files": 20,
+      "lines": 1623,
       "file_list": [
-        "access_dialog.php",
         "breadcrumb.php",
         "calendar.php",
-        "cmsimage.fix.php",
         "customPageTitle.php",
-        "day_based_counter.php",
-        "deluxe-menu.com.php",
         "email_subject.php",
         "fe_user.php",
         "felogin.render.php",
@@ -1527,10 +1879,14 @@
         "keywords.php",
         "lang.render.php",
         "lang_replace.php",
-        "linkme.php",
         "list_form_entries.php",
         "logged_in.php",
-        "majonavi.php"
+        "makeEmailSpamSave.php",
+        "memory_usage.php",
+        "menuStructure.php",
+        "switchCSS.php",
+        "switchFontSize.php",
+        "vgwort.php"
       ],
       "activity": "low"
     },
@@ -1548,7 +1904,7 @@
       "purpose": "Bootstrap5",
       "language": "javascript",
       "files": 1,
-      "lines": 7,
+      "lines": 6,
       "file_list": [
         "bootstrap.bundle.min.js"
       ],
@@ -1581,20 +1937,6 @@
       "lines": 7,
       "file_list": [
         "cookieconsent-core.umd.js"
-      ],
-      "activity": "low"
-    },
-    "template/lib/fancybox": {
-      "purpose": "Fancybox",
-      "language": "javascript",
-      "files": 5,
-      "lines": 1461,
-      "file_list": [
-        "jquery.easing.1.3.js",
-        "jquery.easing.1.3.min.js",
-        "jquery.fancybox-1.3.4.js",
-        "jquery.fancybox-1.3.4.min.js",
-        "jquery.mousewheel-3.0.4.min.js"
       ],
       "activity": "low"
     },
@@ -1653,36 +1995,25 @@
       ],
       "activity": "low"
     },
-    "template/lib/js-cookie": {
-      "purpose": "Js-cookie",
-      "language": "javascript",
-      "files": 1,
-      "lines": 3,
-      "file_list": [
-        "js.cookie.min.js"
-      ],
-      "activity": "low"
-    },
     "template/lib/simplegmaps": {
       "purpose": "Simplegmaps",
       "language": "javascript",
       "files": 2,
-      "lines": 693,
+      "lines": 1055,
       "file_list": [
-        "jquery.simplegmaps.js",
-        "jquery.simplegmaps.min.js"
+        "simplegmaps.js",
+        "simplegmaps.min.js"
       ],
       "activity": "low"
     },
-    "template/lib/slick": {
-      "purpose": "Slick",
+    "template/lib/splide": {
+      "purpose": "Splide",
       "language": "javascript",
-      "files": 3,
-      "lines": 3048,
+      "files": 2,
+      "lines": 3163,
       "file_list": [
-        "config.rb",
-        "slick.js",
-        "slick.min.js"
+        "splide.js",
+        "splide.min.js"
       ],
       "activity": "low"
     },
@@ -1702,6 +2033,7 @@
     "entrypoints": null,
     "most_depended": [
       ".phpstan",
+      ".superpowers/sdd/2026-09-01-self-update",
       "img",
       "include/config",
       "include/inc_act",
@@ -1709,11 +2041,11 @@
       "include/inc_ext/ConvertCharset",
       "include/inc_ext/ckeditor",
       "include/inc_ext/ckeditor/adapters",
-      "include/inc_ext/ckeditor/lang",
-      "include/inc_ext/ckeditor/plugins"
+      "include/inc_ext/ckeditor/lang"
     ],
     "isolated": [
       ".phpstan",
+      ".superpowers/sdd/2026-09-01-self-update",
       "img",
       "include/config",
       "include/inc_act",
@@ -1728,37 +2060,57 @@
       "include/inc_front/content/cnt_functions",
       "include/inc_front/lib",
       "include/inc_js",
+      "include/inc_js/ace",
       "include/inc_js/dayjs-locale",
       "include/inc_js/jquery",
       "include/inc_lang",
       "include/inc_lang/backend/ar",
       "include/inc_lang/backend/bg",
+      "include/inc_lang/backend/bn",
       "include/inc_lang/backend/bs",
       "include/inc_lang/backend/ca",
       "include/inc_lang/backend/cs",
       "include/inc_lang/backend/da",
       "include/inc_lang/backend/de",
+      "include/inc_lang/backend/de-at",
       "include/inc_lang/backend/de-ch",
       "include/inc_lang/backend/en",
       "include/inc_lang/backend/es",
       "include/inc_lang/backend/et",
+      "include/inc_lang/backend/eu",
       "include/inc_lang/backend/fi",
       "include/inc_lang/backend/fr",
+      "include/inc_lang/backend/gl",
       "include/inc_lang/backend/gr",
+      "include/inc_lang/backend/hi",
+      "include/inc_lang/backend/hr",
       "include/inc_lang/backend/hu",
+      "include/inc_lang/backend/id",
+      "include/inc_lang/backend/is",
       "include/inc_lang/backend/it",
+      "include/inc_lang/backend/ja",
       "include/inc_lang/backend/lt",
+      "include/inc_lang/backend/lv",
+      "include/inc_lang/backend/mk",
+      "include/inc_lang/backend/ms",
       "include/inc_lang/backend/nl",
       "include/inc_lang/backend/no",
+      "include/inc_lang/backend/pa",
       "include/inc_lang/backend/pl",
       "include/inc_lang/backend/pt",
       "include/inc_lang/backend/ro",
       "include/inc_lang/backend/ru",
       "include/inc_lang/backend/sk",
       "include/inc_lang/backend/sl",
+      "include/inc_lang/backend/sq",
+      "include/inc_lang/backend/sr",
       "include/inc_lang/backend/sv",
+      "include/inc_lang/backend/ta",
       "include/inc_lang/backend/tr",
+      "include/inc_lang/backend/ua",
+      "include/inc_lang/backend/ur",
       "include/inc_lang/backend/vi",
+      "include/inc_lang/backend/zh-cn",
       "include/inc_lang/date",
       "include/inc_lang/formmailer",
       "include/inc_lang/image",
@@ -1766,6 +2118,7 @@
       "include/inc_lib/classes",
       "include/inc_lib/content",
       "include/inc_lib/revision",
+      "include/inc_lib/update",
       "include/inc_module/mod_addresses",
       "include/inc_module/mod_addresses/inc",
       "include/inc_module/mod_addresses/lang",
@@ -1805,7 +2158,6 @@
       "template/config/ckeditor",
       "template/inc_default",
       "template/inc_js",
-      "template/inc_script/access",
       "template/inc_script/felogin",
       "template/inc_script/frontend_init/disabled",
       "template/inc_script/frontend_render/disabled",
@@ -1814,128 +2166,129 @@
       "template/lib/cookieconsent2",
       "template/lib/cookieconsent3",
       "template/lib/cookieconsent3/core",
-      "template/lib/fancybox",
       "template/lib/glightbox",
       "template/lib/jquery",
       "template/lib/jquery/plugin",
-      "template/lib/js-cookie",
       "template/lib/simplegmaps",
-      "template/lib/slick",
+      "template/lib/splide",
       "template/lib/video-js"
     ]
   },
   "git": {
     "hot_files": [
       {
-        "path": "include/inc_css/phpwcmsspecial.css",
-        "commits_90d": 18
-      },
-      {
-        "path": "include/inc_lib/backend.functions.inc.php",
-        "commits_90d": 16
-      },
-      {
-        "path": "phpwcms.php",
-        "commits_90d": 15
-      },
-      {
-        "path": "include/inc_js/phpwcms.js",
-        "commits_90d": 14
-      },
-      {
-        "path": "include/inc_lang/backend/de/lang.inc.php",
-        "commits_90d": 14
-      },
-      {
-        "path": "include/inc_tmpl/files.private.editfile.tmpl.php",
-        "commits_90d": 14
-      },
-      {
-        "path": "filebrowser.php",
-        "commits_90d": 13
-      },
-      {
-        "path": "include/inc_lang/backend/en/lang.inc.php",
-        "commits_90d": 12
-      },
-      {
-        "path": "include/inc_lib/default.inc.php",
-        "commits_90d": 12
-      },
-      {
-        "path": "login.php",
-        "commits_90d": 12
-      },
-      {
-        "path": "include/inc_lang/backend/es/lang.inc.php",
-        "commits_90d": 11
-      },
-      {
-        "path": "include/inc_lang/backend/it/lang.inc.php",
-        "commits_90d": 11
-      },
-      {
-        "path": "include/inc_lang/backend/nl/lang.inc.php",
-        "commits_90d": 11
-      },
-      {
-        "path": "include/inc_lang/backend/pl/lang.inc.php",
-        "commits_90d": 11
-      },
-      {
-        "path": "include/inc_tmpl/files.private.upload.tmpl.php",
-        "commits_90d": 11
-      },
-      {
-        "path": "include/build/build-css.js",
-        "commits_90d": 10
-      },
-      {
-        "path": "include/config/dist.conf.inc.php",
-        "commits_90d": 10
-      },
-      {
         "path": "include/inc_css/backend.min.css",
-        "commits_90d": 10
+        "commits_90d": 49
       },
       {
         "path": "include/inc_css/phpwcms.css",
-        "commits_90d": 10
+        "commits_90d": 49
       },
       {
-        "path": "include/inc_css/phpwcmsspecial.min.css",
-        "commits_90d": 10
+        "path": "phpwcms.php",
+        "commits_90d": 43
+      },
+      {
+        "path": "include/inc_lang/backend/de/lang.inc.php",
+        "commits_90d": 39
+      },
+      {
+        "path": "include/inc_lang/backend/en/lang.inc.php",
+        "commits_90d": 38
+      },
+      {
+        "path": "include/inc_lib/backend.functions.inc.php",
+        "commits_90d": 34
+      },
+      {
+        "path": "login.php",
+        "commits_90d": 33
+      },
+      {
+        "path": "include/inc_js/phpwcms.js",
+        "commits_90d": 30
+      },
+      {
+        "path": "include/inc_lang/backend/nl/lang.inc.php",
+        "commits_90d": 29
+      },
+      {
+        "path": "include/inc_lib/general.inc.php",
+        "commits_90d": 29
+      },
+      {
+        "path": "include/inc_lang/backend/es/lang.inc.php",
+        "commits_90d": 28
+      },
+      {
+        "path": "include/inc_lang/backend/fr/lang.inc.php",
+        "commits_90d": 28
+      },
+      {
+        "path": "include/inc_lang/backend/it/lang.inc.php",
+        "commits_90d": 28
+      },
+      {
+        "path": "include/inc_lang/backend/pl/lang.inc.php",
+        "commits_90d": 28
+      },
+      {
+        "path": "include/inc_js/phpwcms.min.js",
+        "commits_90d": 26
+      },
+      {
+        "path": "include/inc_tmpl/articlecontent.list.tmpl.php",
+        "commits_90d": 25
+      },
+      {
+        "path": "filebrowser.php",
+        "commits_90d": 24
+      },
+      {
+        "path": "include/inc_lang/backend/ar/lang.inc.php",
+        "commits_90d": 24
+      },
+      {
+        "path": "include/inc_lang/backend/gr/lang.inc.php",
+        "commits_90d": 24
+      },
+      {
+        "path": "include/inc_lib/default.inc.php",
+        "commits_90d": 24
       }
     ],
     "recent": [
-      "Makefile",
-      "include/inc_css/backend.min.css",
-      "include/inc_css/phpwcms.css",
-      "include/config/dist.conf.inc.php",
-      "include/inc_lib/default.inc.php",
-      "include/inc_lib/helper.image.php",
-      "setup/inc/setup.check.inc.php",
-      "setup/inc/setup.func.inc.php",
-      "setup/inc/step0.inc.php",
-      "setup/inc/step1.inc.php"
+      "ai.txt",
+      "example.ai.txt",
+      "example.llms.txt",
+      "llms.txt",
+      "img/random_image.php",
+      "include/inc_act/act_ftptakeover.php",
+      "include/inc_lib/helper.inc.php",
+      "include/inc_lib/update/update.api.php",
+      "include/inc_lib/whitelabel.inc.php",
+      "setup/upgrade.php"
     ],
     "stable": [
-      ".mcp.json",
-      "ANTIGRAVITY.md",
+      ".dockerignore",
       "LICENSE",
       "SECURITY.md",
+      "ai.txt",
+      "build/make-release.sh",
       "content/cache/.htaccess",
       "content/less/index.html",
       "content/marketing/index.html",
-      "example.robots.txt",
-      "favicon.ico",
-      "image_resized.php"
+      "example.ai.txt",
+      "example.llms.txt"
     ]
   },
   "hints": {
     "test_command": "npm test",
     "env_vars": [
+      "\"1026",
+      "\"8026",
       "\"8081",
+      "MP_MAX_MESSAGES",
       "MYSQL_DATABASE",
       "MYSQL_PASSWORD",
       "MYSQL_ROOT_PASSWORD",
@@ -1947,6 +2300,7 @@
       "db_data",
       "depends_on",
       "image",
+      "mailpit",
       "phpmyadmin",
       "ports",
       "restart",
