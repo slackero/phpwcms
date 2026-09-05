@@ -1,0 +1,95 @@
+# ai.txt — AI Crawler & Usage Permissions
+# Example policy file for a phpwcms installation
+# Place at domain root: https://example.com/ai.txt
+#
+# Related specifications and conventions:
+# - Spawning AI TDM: https://site.spawning.ai/spawning-ai-txt
+# - LLMs.txt standard: https://llmstxt.org/
+
+User-Agent: *
+# Default: allow search and generative AI discovery of public content
+Allow: /
+
+# Block AI crawlers, scrapers, and training bots from internal system and admin paths
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+Disallow: /content/tmp/
+Disallow: /content/form/
+Disallow: /content/pages/
+Disallow: /include/
+Disallow: /setup/
+
+# Major AI User-Agents (customize permissions based on your site policy)
+# ----------------------------------------------------------------------
+# To disallow a specific bot completely from training or scraping, use:
+# Disallow: /
+
+User-Agent: GPTBot
+Allow: /
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+Disallow: /content/tmp/
+Disallow: /include/
+Disallow: /setup/
+
+User-Agent: ChatGPT-User
+Allow: /
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+
+User-Agent: ClaudeBot
+Allow: /
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+Disallow: /content/tmp/
+Disallow: /include/
+Disallow: /setup/
+
+User-Agent: Claude-Web
+Allow: /
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+
+User-Agent: PerplexityBot
+Allow: /
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+
+User-Agent: Google-Extended
+Allow: /
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+
+User-Agent: Applebot-Extended
+Allow: /
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+
+User-Agent: Bytespider
+Allow: /
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+
+User-Agent: CCBot
+Allow: /
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /filearchive/
+
+# Text and Data Mining (TDM) Reservation Notice
+# Under Article 4(3) of the EU Directive on Copyright in the Digital Single Market (Directive (EU) 2019/790),
+# automated data mining for commercial AI training purposes may be reserved by the site owner.
+# Uncomment the following line if you wish to signal a machine-readable TDM reservation:
+# TDM-Reservation: 1
+
+# Structured project information for Large Language Models
+LLM-Reference: /llms.txt

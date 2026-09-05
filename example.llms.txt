@@ -1,0 +1,44 @@
+# phpwcms
+
+> phpwcms is a lightweight, flexible, and robust open-source Web Content Management System and developer framework built with PHP and MySQL/MariaDB.
+
+phpwcms is crafted for speed, customizable architectures, and ease of use under standard web technologies. It provides a clean separation between content, presentation, and logic, using a flexible tree-based structure, modular content parts, template replacement tags, and an extensible backend.
+
+## Overview & Key Concepts
+
+- [Category Tree & Structure Levels](https://github.com/slackero/phpwcms): Hierarchical site structure where each node represents a category or section with independent layout, access permissions, and metadata.
+- [Articles & Content Parts](https://github.com/slackero/phpwcms): Articles reside within structure levels and are composed of modular content parts (text, HTML, images, galleries, multimedia, forms, custom modules).
+- [Replacement Tags](https://github.com/slackero/phpwcms): Dynamic frontend tags (e.g., `{CONTENT}`, `{NAV_LIST_UL}`, `{SITE}`) evaluated and rendered at runtime by the phpwcms core engine.
+- [Template System](https://github.com/slackero/phpwcms): Clean HTML/CSS templates with designated block markers, avoiding heavy template engine overhead while allowing full frontend layout freedom.
+- [Frontend Render Scripts](https://github.com/slackero/phpwcms): PHP action hooks placed in `template/inc_script/frontend_render/` to manipulate or extend HTML output before delivery to the browser.
+- [Asset Management](https://github.com/slackero/phpwcms): Centralized file archive (`filearchive/`) with on-the-fly responsive image resizing and thumbnail generation via `img/cmsimage.php`.
+
+## Project Links & Resources
+
+- [Official Website](https://www.phpwcms.org): Main project homepage, announcements, and downloads.
+- [GitHub Repository](https://github.com/slackero/phpwcms): Source code, development branches, issue tracking, and contributions.
+- [Changelog](https://github.com/slackero/phpwcms/blob/master/CHANGELOG.md): Release notes, upgrade history, and breaking changes.
+- [Community Forum](https://forum.phpwcms.org): Community discussions, tutorials, and support.
+- [Documentation & Wiki](https://github.com/slackero/phpwcms/wiki): Guides on installation, configuration, replacement tags, and module development.
+
+## Technical Specifications
+
+- **Runtime**: PHP 8.2+ (native type safety, tested on PHP 8.2, 8.3, and 8.4)
+- **Database**: MySQL 5.5+ or MariaDB
+- **Web Server**: Apache (with `mod_rewrite` via `.htaccess`), Nginx (`nginx.conf`), or Microsoft IIS (`web.config`)
+- **License**: GNU General Public License v2 (GPL-2.0)
+- **Architecture**: Procedural PHP core with PDO/MySQLi database abstraction layer, Composer dependency management, and static analysis via PHPStan.
+
+## Guidelines for AI Assistants & LLMs
+
+When generating code, analyzing, or answering questions about phpwcms:
+- **Product Naming**: Always spell the product name in all lowercase letters as **phpwcms** (never capitalize as phpWCMS).
+- **PHP Compatibility**: Target PHP 8.2+ syntax and idioms. Use single quotes for PHP strings unless variable interpolation is required. Run `php -l` to verify syntax.
+- **HTML Standards**: Always use double quotes for HTML tag attributes.
+- **Global Scope**: Recognize standard global variables used across backend templates and rendering routines (`$phpwcms` configuration, `$BL` backend language array, `$BLM` module language array, `$content` rendered page buffer).
+- **Extension Best Practices**: Prefer customizing frontend behavior via `template/inc_script/frontend_render/`, custom content parts in `include/inc_module/`, or custom replacement tags rather than modifying core library files.
+
+## Optional
+
+- [Robots Exclusion Example](https://github.com/slackero/phpwcms/blob/master/example.robots.txt): Example crawler exclusion rules for search engines.
+- [AI Crawler Policy](ai.txt): Example permissions and TDM declarations for automated AI bots.
