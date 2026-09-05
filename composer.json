@@ -51,7 +51,7 @@
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "phpstan/phpstan": "^2.2.12"
+        "phpstan/phpstan": "^2.2.13"
     },
     "scripts": {
         "phpstan": "phpstan analyse -c .phpstan/phpstan.neon"
