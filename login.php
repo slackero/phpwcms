@@ -892,20 +892,26 @@ elseif ($step_reset_set):
     <div class="form-group">
         <label class="visually-hidden" for="form_new_password"><?php echo $BL['login_reset_new_password'] ?? 'New password'; ?></label>
         <div class="input-group">
-
-                <span class="input-group-text"><i class="fa-solid fa-lock fa-fw"></i></span>
-
-            <input name="form_new_password" type="password" id="form_new_password" class="form-control" placeholder="<?php echo $BL['login_reset_new_password'] ?? 'New password'; ?>" autofocus="autofocus" required="required" autocomplete="new-password" />
+            <span class="input-group-text"><i class="fa-solid fa-lock fa-fw"></i></span>
+            <div class="form-password">
+                <input name="form_new_password" type="password" id="form_new_password" class="form-control" placeholder="<?php echo $BL['login_reset_new_password'] ?? 'New password'; ?>" autofocus="autofocus" required="required" autocomplete="new-password" />
+                <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="<?php echo html($BL['be_password_show']); ?>">
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+            </div>
         </div>
     </div>
 
     <div class="form-group">
         <label class="visually-hidden" for="form_repeat_password"><?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?></label>
         <div class="input-group">
-
-                <span class="input-group-text"><i class="fa-solid fa-lock fa-fw"></i></span>
-
-            <input name="form_repeat_password" type="password" id="form_repeat_password" class="form-control" placeholder="<?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?>" required="required" autocomplete="new-password" />
+            <span class="input-group-text"><i class="fa-solid fa-lock fa-fw"></i></span>
+            <div class="form-password">
+                <input name="form_repeat_password" type="password" id="form_repeat_password" class="form-control" placeholder="<?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?>" required="required" autocomplete="new-password" />
+                <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="<?php echo html($BL['be_password_show']); ?>">
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -998,9 +1004,7 @@ else:
 <div class="form-group">
 	<label class="visually-hidden" for="form_loginname"><?php echo $BL["login_username"] ?></label>
 	<div class="input-group">
-
-            <span class="input-group-text"><i class="fa-solid fa-user fa-fw"></i></span>
-
+        <span class="input-group-text"><i class="fa-solid fa-user fa-fw"></i></span>
 		<input name="form_loginname" type="text" id="form_loginname" class="form-control" placeholder="<?php echo $BL["login_username"] ?>" value="<?php echo html_specialchars($wcs_user); ?>" required="required" />
 	</div>
 </div>
@@ -1008,10 +1012,13 @@ else:
 <div class="form-group">
 	<label class="visually-hidden" for="form_password"><?php echo $BL["login_userpass"] ?></label>
     <div class="input-group">
-
-            <span class="input-group-text"><i class="fa-solid fa-lock fa-fw"></i></span>
-
-        <input name="form_password" type="password" id="form_password" placeholder="<?php echo $BL["login_userpass"] ?>" class="form-control" required="required"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="new-password"<?php endif; ?> />
+        <span class="input-group-text"><i class="fa-solid fa-lock fa-fw"></i></span>
+        <div class="form-password">
+            <input name="form_password" type="password" id="form_password" placeholder="<?php echo $BL["login_userpass"] ?>" class="form-control" required="required"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="new-password"<?php endif; ?> />
+            <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="<?php echo html($BL['be_password_show']); ?>">
+                <i class="fa-regular fa-eye"></i>
+            </button>
+        </div>
 	</div>
 </div>
 

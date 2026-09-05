@@ -122,5 +122,24 @@ if ($do) {
 </div>
 
 <script src="../include/inc_js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-coreui-toggle="password"], [data-toggle="password"], .form-password-action');
+    if (!btn) return;
+    e.preventDefault();
+    var container = btn.closest('.form-password, .input-group');
+    if (!container) return;
+    var input = container.querySelector('input[type="password"], input[type="text"]');
+    if (!input) return;
+    input.type = input.type === 'password' ? 'text' : 'password';
+    var isShown = input.type === 'text';
+    btn.setAttribute('aria-pressed', isShown ? 'true' : 'false');
+    var icon = btn.querySelector('i');
+    if (icon) {
+        icon.classList.toggle('fa-eye', !isShown);
+        icon.classList.toggle('fa-eye-slash', isShown);
+    }
+});
+</script>
 </body>
 </html>

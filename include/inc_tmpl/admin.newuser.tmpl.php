@@ -115,13 +115,15 @@ if(empty($user_ok)) {
 					</div>
 				</div>
 
-				<div class="form-group row g-2">
+				<div class="form-group row g-2 align-items-center">
 					<label for="form_newpassword" class="col-sm-2 col-form-label text-end"><?php echo $BL["login_userpass"] ?></label>
-					<div class="col">
-						<input type="password" class="form-control form-control-sm col-sm-5" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password" />
-						<span class="text-blue small" onclick="this.innerText = (togglePasswordVisibility('form_newpassword') === 'hide') ? '<?php echo $BL['be_password_hide']; ?>' : '<?php echo $BL['be_password_show']; ?>';" style="cursor:pointer">
-							<?php echo $BL['be_password_show']; ?>
-						</span>
+					<div class="col-sm-5">
+						<div class="form-password">
+							<input type="password" class="form-control form-control-sm" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password" />
+							<button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="<?php echo html($BL['be_password_show']); ?>">
+								<i class="fa-regular fa-eye"></i>
+							</button>
+						</div>
 					</div>
 				</div>
 

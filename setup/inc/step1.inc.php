@@ -70,7 +70,12 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             <div class="form-group row">
                 <label for="db_pass" class="col-sm-3 col-form-label fw-bold">DB Password</label>
                 <div class="col-sm-6">
-                    <input name="db_pass" type="password" class="form-control" id="db_pass" value="<?php echo html_specialchars($phpwcms['db_pass']) ?>" placeholder="database password" autocomplete="new-password" />
+                    <div class="form-password">
+                        <input name="db_pass" type="password" class="form-control" id="db_pass" value="<?php echo html_specialchars($phpwcms['db_pass']) ?>" placeholder="database password" autocomplete="new-password" />
+                        <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="Toggle password visibility">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Database password</div>
             </div>
@@ -287,14 +292,24 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 <div class="form-group row">
                     <label for="admin_pass" class="col-sm-3 col-form-label fw-bold">Password</label>
                     <div class="col-sm-6">
-                        <input name="admin_pass" type="password" id="admin_pass" class="form-control" autocomplete="new-password" />
+                        <div class="form-password">
+                            <input name="admin_pass" type="password" id="admin_pass" class="form-control" autocomplete="new-password" />
+                            <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="Toggle password visibility">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="admin_passrepeat" class="col-sm-3 col-form-label fw-bold">Repeat Password</label>
                     <div class="col-sm-6">
-                        <input name="admin_passrepeat" type="password" id="admin_passrepeat" class="form-control" autocomplete="new-password" />
+                        <div class="form-password">
+                            <input name="admin_passrepeat" type="password" id="admin_passrepeat" class="form-control" autocomplete="new-password" />
+                            <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="Toggle password visibility">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

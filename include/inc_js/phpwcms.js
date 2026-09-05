@@ -632,12 +632,51 @@ function flush_image_cache(link, url, confirm_msg, success_msg) {
 }
 
 
-function togglePasswordVisibility(id) {
-    const pwdField = document.getElementById(id);
+function togglePasswordVisibility(id, trigger) {
+    const pwdField = typeof id === 'string' ? document.getElementById(id) : id;
     if (pwdField) {
-        pwdField.type = pwdField.type === "password" ? "text" : "password";
-        return pwdField.type === 'text' ? 'hide' : 'show';
+        pwdField.type = pwdField.type === 'password' ? 'text' : 'password';
+        const isShown = pwdField.type === 'text';
+        if (trigger) {
+            const icon = trigger.querySelector('i, svg');
+            if (icon) {
+                if (icon.classList.contains('fa-eye') || icon.classList.contains('fa-eye-slash')) {
+                    icon.classList.toggle('fa-eye', !isShown);
+                    icon.classList.toggle('fa-eye-slash', isShown);
+                } else if (icon.classList.contains('bi-eye') || icon.classList.contains('bi-eye-slash')) {
+                    icon.classList.toggle('bi-eye', !isShown);
+                    icon.classList.toggle('bi-eye-slash', isShown);
+                }
+            }
+            if (trigger.hasAttribute('aria-pressed')) {
+                trigger.setAttribute('aria-pressed', isShown ? 'true' : 'false');
+            }
+        }
+        return isShown ? 'hide' : 'show';
     }
+}
+
+function initPasswordToggle() {
+    if (window._phpwcmsPasswordToggleBound) return;
+    window._phpwcmsPasswordToggleBound = true;
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-coreui-toggle="password"], [data-toggle="password"], [data-bs-toggle="password"], .form-password-action');
+        if (!btn) return;
+        e.preventDefault();
+        let target = null;
+        const targetSelector = btn.getAttribute('data-target') || btn.getAttribute('data-bs-target') || btn.getAttribute('data-coreui-target') || btn.getAttribute('href');
+        if (targetSelector && targetSelector !== '#') {
+            target = document.querySelector(targetSelector);
+        } else {
+            const container = btn.closest('.form-password, .input-group');
+            if (container) {
+                target = container.querySelector('input[type="password"], input[type="text"]');
+            }
+        }
+        if (target) {
+            togglePasswordVisibility(target, btn);
+        }
+    });
 }
 
 function copyToClipboard(str) {
@@ -1669,12 +1708,14 @@ if (typeof document !== 'undefined') {
             initPhpwcmsCodeEditors();
             initSidebarToggle();
             initScrollAnchor();
+            initPasswordToggle();
         });
     } else {
         initPhpwcmsTheme();
         initPhpwcmsCodeEditors();
         initSidebarToggle();
         initScrollAnchor();
+        initPasswordToggle();
     }
     window.addEventListener('load', () => {
         initScrollAnchor();

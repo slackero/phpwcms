@@ -179,9 +179,11 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
         <div class="form-group row g-2 align-items-center">
           <label for="form_newpassword" class="col-sm-2 col-form-label text-end"><?php echo $BL["login_userpass"] ?></label>
           <div class="col-sm-5">
-            <div class="input-group input-group-sm">
+            <div class="form-password">
               <input type="password" class="form-control form-control-sm" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password" />
-              <button class="btn btn-outline-secondary" type="button" onclick="const p=document.getElementById('form_newpassword');p.type=p.type==='password'?'text':'password';this.querySelector('i').classList.toggle('fa-eye');this.querySelector('i').classList.toggle('fa-eye-slash');"><i class="fa-solid fa-eye"></i></button>
+              <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="<?php echo html($BL['be_password_show']); ?>">
+                <i class="fa-regular fa-eye"></i>
+              </button>
             </div>
           </div>
         </div>

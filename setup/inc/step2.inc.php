@@ -118,7 +118,12 @@ $selected_timezone = !empty($phpwcms['php_timezone']) ? $phpwcms['php_timezone']
             <div class="form-group row mb-0">
                 <label for="smtp_pass" class="col-sm-3 col-form-label">SMTP Password</label>
                 <div class="col-sm-6">
-                    <input name="smtp_pass" type="password" class="form-control" id="smtp_pass" value="<?php echo html_specialchars($phpwcms['SMTP_PASS'] ?? '') ?>" autocomplete="off" />
+                    <div class="form-password">
+                        <input name="smtp_pass" type="password" class="form-control" id="smtp_pass" value="<?php echo html_specialchars($phpwcms['SMTP_PASS'] ?? '') ?>" autocomplete="off" />
+                        <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="Toggle password visibility">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

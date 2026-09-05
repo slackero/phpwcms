@@ -126,10 +126,7 @@ textarea {
 
 .form-select-sm,
 .input-group-sm > .form-select {
-    padding-top: .25rem;
-    padding-bottom: .25rem;
-    padding-left: .5rem;
-    padding-right: 2.25rem;
+    padding: .25rem 2.25rem .25rem .5rem;
     line-height: 1.5;
 }
 
@@ -728,10 +725,7 @@ a.filein {
     border-top: 0 !important;
     border-bottom: 0 !important;
     background-color: transparent !important;
-    padding-top: 2px !important;
-    padding-bottom: 2px !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 2px 0 !important;
 }
 
 .table-borderless td.dir,
@@ -740,21 +734,11 @@ a.filein {
 }
 
 /*LOGIN FORM*/
-
 #login .card-title {
     margin-top: 0;
     margin-bottom: 0;
     font-size: 1.125rem;
     color: inherit;
-}
-
-#login .input-group .form-control {
-    margin: 0;
-    font-size: 1rem;
-}
-
-#login_formular .fa {
-    font-size: 13px;
 }
 
 /*SEARCH FORM*/
@@ -776,7 +760,6 @@ a.filein {
 .submenu,
 .submenu li {
     list-style: none !important;
-    list-style-type: none !important;
     margin: 0;
     padding: 0;
 }
@@ -1714,50 +1697,6 @@ body.filebrowser {
     scroll-margin-top: 120px;
 }
 
-div#images, div#tabs {
-    margin: 3px 0 0;
-    padding: 0;
-}
-
-div#images a, div#tabs a {
-    margin-left: 3px;
-}
-
-div#images em.handle, div#tabs em.handle {
-    background: transparent url(../../img/button/sort_up_down.gif) no-repeat left top;
-    cursor: move;
-    float: right;
-    height: 16px;
-    position: relative;
-    right: 2px;
-    width: 16px;
-}
-
-div#images > div, div#tabs > div {
-    background: url(../../img/lines/be_dotted_line.gif) repeat-x left top;
-    list-style: none;
-    margin: 0 3px 0 0;
-    padding: 6px 4px 7px;
-}
-
-div#images > div.nomove, div#tabs > div.nomove {
-    background: #f3f5f8;
-    border-bottom: 1px solid #4e789f;
-    border-top: 1px solid #4e789f;
-    margin-top: 10px;
-}
-
-div#images > div:hover, div#tabs > div:hover {
-    background-color: #f3f5f8;
-}
-
-div#images td.backend_preview_img {
-    height: 1px;
-}
-
-div#images td.backend_preview_img img {
-    margin: 5px 0 3px;
-}
 
 ul.checkbox-list, ul.radio-list {
     list-style: none;
@@ -2711,4 +2650,65 @@ body.filebrowser table img,
     width: 65px !important;
     min-width: 60px !important;
     flex: 0 0 auto !important;
+}
+
+/* Password Input Toggle Component */
+.form-password {
+    position: relative;
+}
+.input-group.form-password,
+.input-group > .form-password {
+    position: relative;
+}
+.input-group > .form-password {
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+}
+.input-group > .form-password > .form-control {
+    position: relative;
+    width: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-password .form-control,
+.input-group.form-password .form-control {
+    padding-inline-end: 2.25rem;
+}
+.form-password .form-password-action {
+    inset-inline-end: .25rem;
+    border-radius: var(--bs-border-radius-sm, .25rem);
+    background: 0 0;
+    border: 0;
+    width: 1.875rem;
+    height: 1.875rem;
+    margin-top: -.9375rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    position: absolute;
+    top: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bs-tertiary-color, #21252980);
+    padding: 0;
+}
+.form-password .form-password-action:hover {
+    color: var(--bs-secondary-color, #6c757d);
+}
+.form-password .form-password-action:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(var(--bs-primary-rgb, 13, 110, 253), .25);
+}
+.form-password-action:not(:disabled),
+button:not(:disabled),
+[type=button]:not(:disabled),
+[type=reset]:not(:disabled),
+[type=submit]:not(:disabled) {
+    cursor: pointer;
+}
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+    -webkit-appearance: button;
 }

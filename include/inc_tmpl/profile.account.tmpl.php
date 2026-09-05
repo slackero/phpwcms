@@ -56,15 +56,25 @@ if (!empty($_SESSION['wcs_user_admin'])) {
 
     <div class="form-group row align-items-center">
       <label for="form_password" class="col-sm-2 col-form-label text-end"><?php echo $BL["be_profile_label_newpass"]  ?></label>
-      <div class="col">
-        <input type="password" class="form-control form-control-sm col-sm-5" name="form_password" id="form_password" value="" autocomplete="new-password">
+      <div class="col-sm-5">
+        <div class="form-password">
+          <input type="password" class="form-control form-control-sm" name="form_password" id="form_password" value="" autocomplete="new-password">
+          <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="<?php echo html($BL['be_password_show']); ?>">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </div>
       </div>
     </div>
 
     <div class="form-group row align-items-center">
       <label for="form_password2" class="col-sm-2 col-form-label text-end"><?php echo $BL["be_profile_label_repeatpass"]  ?></label>
-      <div class="col">
-        <input type="password" class="form-control form-control-sm col-sm-5" name="form_password2" id="form_password2" value="" autocomplete="new-password">
+      <div class="col-sm-5">
+        <div class="form-password">
+          <input type="password" class="form-control form-control-sm" name="form_password2" id="form_password2" value="" autocomplete="new-password">
+          <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="<?php echo html($BL['be_password_show']); ?>">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -230,7 +240,12 @@ $stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa
         <div class="form-group row align-items-center">
           <label for="disable_2fa_pass" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_currpass'] ?? 'Current Password'; ?></label>
           <div class="col-sm-4">
-            <input type="password" class="form-control form-control-sm" name="disable_2fa_password" id="disable_2fa_pass" placeholder="<?php echo $BL['be_profile_2fa_currpass_placeholder'] ?? 'Enter current password to disable'; ?>" required="required" autocomplete="current-password" />
+            <div class="form-password">
+              <input type="password" class="form-control form-control-sm" name="disable_2fa_password" id="disable_2fa_pass" placeholder="<?php echo $BL['be_profile_2fa_currpass_placeholder'] ?? 'Enter current password to disable'; ?>" required="required" autocomplete="current-password" />
+              <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="<?php echo html($BL['be_password_show']); ?>">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
           </div>
           <div class="col-sm-auto mt-2 mt-sm-0">
             <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-power-off me-1"></i> <?php echo $BL['be_profile_2fa_btn_disable'] ?? 'Disable 2FA'; ?></button>
