@@ -31,7 +31,7 @@ if(isset($_GET["all"])) { // Hide/Show
 
         if(isset($result[0]['f_id'])) {
             foreach($result as $row) {
-                $_SESSION["klapp"][intval(['f_id'])] = 1;
+                $_SESSION["klapp"][intval($row['f_id'])] = 1;
             }
         }
     }

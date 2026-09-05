@@ -58,6 +58,7 @@ if($_SESSION["wcs_user_thumb"]) {
     </li>
   </ul>
   <div class="pb-1 align-self-end align-self-lg-center order-1 order-lg-2 text-nowrap">
+    <div class="btn-group btn-group-sm" role="group" aria-label="files-toolbar">
     <?php if($files_folder == 0) { ?>
       <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;upload=0" data-bs-toggle="tooltip" title="<?php echo $BL['be_ftab_upload'] ?>">
         <i class="fa-solid fa-fw fa-upload"></i>
@@ -77,7 +78,10 @@ if($_SESSION["wcs_user_thumb"]) {
       <a class="btn btn-blue btn-sm" data-bs-toggle="modal" data-bs-target="#help" style="cursor: pointer;">
         <i class="fa-solid fa-fw fa-info"></i>
       </a>
-      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=0&amp;all=close" data-bs-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
+      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=1&amp;all=open" data-bs-toggle="tooltip" title="<?php echo $BL['be_ftab_open'] ?>">
+        <i class="fa-solid fa-fw fa-folder-open"></i>
+      </a>
+      <a class="btn btn-blue btn-sm" href="phpwcms.php?do=files&amp;f=1&amp;all=close" data-bs-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
         <i class="fa-solid fa-fw fa-folder"></i>
       </a>
       <?php echo $change_thumbnail_icon ?>
@@ -91,6 +95,7 @@ if($_SESSION["wcs_user_thumb"]) {
       </a>
       <?php echo $change_thumbnail_icon ?>
     <?php } ?>
+    </div>
   </div>
 </div>
 

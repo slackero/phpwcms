@@ -215,9 +215,7 @@ if($data) {
       echo '" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"><i class="fa-solid '.$shop_icon.' fa-fw" aria-hidden="true"></i></button>';
       echo '</div>';
 
-      echo '<a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
-      echo '" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';
-      echo ' onclick="return confirm(\''.$BLM['delete_product'].js_singlequote($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'\');">';
+      echo '<a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"].'" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'" data-confirm-type="danger" data-confirm-action="'.$BLM['delete_product'].'" data-confirm="'.$BLM['delete_product'].js_singlequote($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'">';
       echo '<i class="fa-regular fa-trash-alt"></i></a>';
 
     echo '</td>'.LF;

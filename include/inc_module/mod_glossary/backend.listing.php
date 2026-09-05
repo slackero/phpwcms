@@ -217,8 +217,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						echo '<i class="fas ' . (($row["glossary_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
 						echo '</div>';
 						
-						echo '<a href="' . GLOSSARY_HREF . '&amp;delete=' . $row["glossary_id"] . '" class="btn btn-sm btn-danger ms-1" title="Delete"';
-						echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["glossary_title"]) . '\');">';
+						echo '<a href="' . GLOSSARY_HREF . '&amp;delete=' . $row["glossary_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row["glossary_title"]) . '" data-confirm-type="danger" data-confirm-action="' . $BLM['delete_entry'] . '" data-confirm="' . $BLM['delete_entry'] . ' ' . js_singlequote($row["glossary_title"]) . '">';
 						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';

@@ -392,10 +392,10 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
             if($_entry['date']['calendar_status'] == 0) echo ' class="off"';
             echo '><i class="fa-solid fa-pencil-alt" aria-hidden="true"></i></a>';
 
-            echo '<a class="btn btn-sm btn-danger ms-1 me-2" href="'.MODULE_HREF.'&amp;delete='.$_entry['date']['calendar_id'];
-            echo '" data-bs-toggle="tooltip" title="'.$BLM['delete'].': '. $_entry['link '] .'"';
-            echo ' onclick="return confirm(\''.$BLM['delete_entry'].' \n'.js_singlequote($_entry['date']['calendar_title']).'\');">';
-            echo '<i class="fa-regular fa-trash-alt" aria-hidden="true"></i></a>';
+            echo '<a class="btn btn-sm btn-danger ms-1 me-2" href="'.MODULE_HREF.'&amp;delete='.$_entry['date']['calendar_id'].'"';
+            echo ' data-bs-toggle="tooltip" title="'.$BLM['delete'].': '. $_entry['link '] .'"';
+            echo ' data-confirm-type="danger" data-confirm-action="'.$BLM['delete_entry'].'" data-confirm="'.$BLM['delete_entry'].' '.js_singlequote($_entry['date']['calendar_title']).'"';
+            echo '><i class="fa-regular fa-trash-alt" aria-hidden="true"></i></a>';
 
             echo '<a href="'.MODULE_HREF.'&amp;edit='.$_entry['date']['calendar_id'].'"';
             if($_entry['date']['calendar_status'] == 0) echo ' class="off"';

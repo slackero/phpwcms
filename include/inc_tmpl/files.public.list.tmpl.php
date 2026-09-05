@@ -20,7 +20,28 @@ if (!defined('PHPWCMS_ROOT')) {
 //Default for listing public files
 $vor = 0;
 
-if(!isset($_SESSION["pklapp"]) || (isset($_GET["all"]) && $_GET["all"] == "close")) {
+if(isset($_GET["all"])) {
+    $_SESSION["pklapp"] = array();
+    if($_GET["all"] == "open") {
+        // Expand all users with public files
+        $sql_all_users = "SELECT DISTINCT f_uid FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0";
+        $result_all_users = _dbQuery($sql_all_users);
+        if(isset($result_all_users[0]['f_uid'])) {
+            foreach($result_all_users as $row) {
+                $_SESSION["pklapp"]["u".$row["f_uid"]] = 1;
+            }
+        }
+        // Expand all public folders
+        $sql_all_folders = "SELECT f_id FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=0 AND f_trash=0";
+        $result_all_folders = _dbQuery($sql_all_folders);
+        if(isset($result_all_folders[0]['f_id'])) {
+            foreach($result_all_folders as $row) {
+                $_SESSION["pklapp"][intval($row['f_id'])] = 1;
+            }
+        }
+    }
+    _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_publicfile="._dbEscape(serialize($_SESSION["pklapp"]))." WHERE usr_id=".intval($_SESSION["wcs_user_id"]), 'UPDATE');
+} elseif(!isset($_SESSION["pklapp"])) {
     $_SESSION["pklapp"] = array();
 }
 

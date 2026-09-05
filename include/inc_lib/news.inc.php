@@ -430,10 +430,8 @@ class phpwcmsNews {
                     '<a class="btn btn-sm btn-blue" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit&button=copy">'.
                     '<i class="fa-solid fa-copy"></i></a>
                     </div>'.
-                    '<a class="btn btn-sm btn-danger ms-1" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;status=9'.
-                    '" data-bs-toggle="tooltip" title="'.$this->BL['be_delete_dataset'].' '.html($news['cnt_name']).'" onclick="return confirm(\''.
-                    $this->BL['be_delete_dataset'].' \n'.js_singlequote($news['cnt_name']).'\');">'.
-                    '<i class="fa-regular fa-trash-alt"></i></a>
+                    '<a class="btn btn-sm btn-danger ms-1" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;status=9" data-bs-toggle="tooltip" title="'.$this->BL['be_delete_dataset'].' '.html($news['cnt_name']).'" data-confirm-type="danger" data-confirm-action="'.$this->BL['be_delete_dataset'].'" data-confirm="'.$this->BL['be_delete_dataset'].' '.js_singlequote($news['cnt_name']).'">
+                    <i class="fa-regular fa-trash-alt"></i></a>
                 </td>';
 
                 $list[] = '</tr>';

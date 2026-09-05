@@ -223,8 +223,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						echo '<i class="fas ' . (($row["detail_aktiv"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
 						echo '</div>';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["detail_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row["detail_name"]) . '"';
-						echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["detail_name"]) . '\');">';
+						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["detail_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row["detail_name"]) . '" data-confirm-type="danger" data-confirm-action="' . $BLM['delete_entry'] . '" data-confirm="' . $BLM['delete_entry'] . ' ' . js_singlequote($row["detail_name"]) . '">';
 						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';

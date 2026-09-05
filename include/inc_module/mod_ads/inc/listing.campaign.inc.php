@@ -120,22 +120,22 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 				<?php if($_entry['pages_total'] > 1): ?>
 					<div class="col-auto">
 						<div class="input-group input-group-sm">
-							
+
 								<?php if($_SESSION['ads_page'] > 1): ?>
 									<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;page=<?php echo ($_SESSION['ads_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-left"></i></a>
 								<?php else: ?>
 									<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-left"></i></button>
 								<?php endif; ?>
-							
+
 							<input type="number" name="page" id="page" value="<?php echo $_SESSION['ads_page'] ?>" class="form-control form-control-sm text-center w-25" />
-							
+
 								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 								<?php if($_SESSION['ads_page'] < $_entry['pages_total']): ?>
 									<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;page=<?php echo ($_SESSION['ads_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-chevron-right"></i></a>
 								<?php else: ?>
 									<button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-chevron-right"></i></button>
 								<?php endif; ?>
-							
+
 						</div>
 					</div>
 				<?php else: ?>
@@ -149,9 +149,9 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 							echo html(implode(' ', $_POST['filter']));
 						}
 						?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
-						
+
 							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fa-solid fa-search"></i></button>
-						
+
 					</div>
 				</div>
 
@@ -201,19 +201,17 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 						echo '<td>' . $row["adplace_width"] . 'x' . $row["adplace_height"] . ' {ADS_' . $row["adplace_id"] . '}</td>';
 						echo '<td class="text-end text-nowrap">';
 						echo '<div class="btn-group btn-group-sm" role="group" aria-label="campaign-actions-' . $row["adcampaign_id"] . '">';
-						
+
 						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;edit=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
-						
-						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;duplicate=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-blue" title="' . $BLM['duplicate_title'] . '"';
-						echo ' onclick="return confirm(\'' . js_singlequote($BLM['duplicate_campaign']) . ' \n' . js_singlequote($BLM['campaign_title'] . ': ' . html('"' . $row["adcampaign_title"] . '"')) . '\');">';
+
+						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;duplicate=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-blue" title="' . $BLM['duplicate_title'] . '" data-confirm-type="info" data-confirm-action="' . $BLM['duplicate_title'] . '" data-confirm="' . js_singlequote($BLM['duplicate_campaign']) . '\n' . js_singlequote($BLM['campaign_title']) . ':\n' . js_singlequote($row["adcampaign_title"]) . '">';
 						echo '<i class="fa-solid fa-copy fa-fw"></i></a>';
-						
+
 						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;editid=' . $row["adcampaign_id"] . '&amp;verify=' . (($row["adcampaign_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["adcampaign_status"]) ? 'btn-success' : 'btn-warning') . '" title="Toggle Status">';
 						echo '<i class="fas ' . (($row["adcampaign_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
 						echo '</div>';
-						
-						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;delete=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adcampaign_title"]) . '"';
-						echo ' onclick="return confirm(\'' . js_singlequote($BLM['delete_entry']) . ' \n' . js_singlequote($BLM['campaign_title'] . ': ' . html('"' . $row["adcampaign_title"] . '"')) . '\');">';
+
+						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;delete=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adcampaign_title"]) . '" data-confirm-type="danger" data-confirm-action="' . $BLM['delete_entry'] . '" data-confirm="' . js_singlequote($BLM['delete_entry']) . ' ' . js_singlequote($BLM['campaign_title'] . ': ' . $row["adcampaign_title"]) . '">';
 						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';

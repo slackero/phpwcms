@@ -64,8 +64,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					if ($adcount > 0) {
 						echo '<button class="btn btn-sm btn-danger ms-1" disabled title="Delete"><i class="fa-regular fa-trash-alt"></i></button>';
 					} else {
-						echo '<a href="' . MODULE_HREF . '&amp;adplace=1&amp;delete=' . $row["adplace_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adplace_title"]) . '"';
-						echo ' onclick="return confirm(\'' . js_singlequote($BLM['delete_adplace']) . ' \n' . js_singlequote($BLM['adplace_title'] . ': ' . html('"' . $row["adplace_title"] . '"')) . '\');">';
+						echo '<a href="' . MODULE_HREF . '&amp;adplace=1&amp;delete=' . $row["adplace_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adplace_title"]) . '" data-confirm-type="danger" data-confirm-action="' . $BLM['delete_adplace'] . '" data-confirm="' . js_singlequote($BLM['delete_adplace']) . ' ' . js_singlequote($BLM['adplace_title'] . ': ' . $row["adplace_title"]) . '">';
 						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 					}
 					echo '</td>';
