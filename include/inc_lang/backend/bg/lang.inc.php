@@ -1633,7 +1633,7 @@ $BL['be_admin_group_err1']         = 'Името на групата е задъ
 $BL['be_admin_group_err2']         = 'Името на групата вече съществува!';
 $BL['be_admin_group_del_confirm']  = 'Сигурни ли сте, че искате да изтриете тази група?';
 $BL['be_admin_group_perm']         = 'права на групата';
-$BL['be_cnt_field']                = array('text' => 'текст (един ред)', 'email' => 'имейл адрес', 'textarea' => 'текстово поле (множество редове)', 'hidden' => 'скрито поле', 'password' => 'парола', 'select' => 'падащо меню', 'checkbox' => 'квадратче за отметка', 'radio' => 'радио бутон', 'upload' => 'качване на файл', 'submit' => 'бутон за изпращане', 'reset' => 'бутон за изчистване', 'special' => 'специално поле', 'country' => 'избор на държава', 'newsletter' => 'абонамент за бюлетин', 'captchaimg' => 'captcha изображение', 'captchacode' => 'captcha код', 'break' => 'нов ред', 'html' => 'HTML код', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
+$BL['be_cnt_field']                = array('text' => 'текст (един ред)', 'email' => 'имейл адрес', 'textarea' => 'текстово поле (множество редове)', 'hidden' => 'скрито поле', 'password' => 'парола', 'select' => 'падащо меню', 'checkbox' => 'квадратче за отметка', 'radio' => 'радио бутон', 'upload' => 'качване на файл', 'submit' => 'бутон за изпращане', 'reset' => 'бутон за изчистване', 'special' => 'специално поле', 'country' => 'избор на държава', 'newsletter' => 'абонамент за бюлетин', 'captchaimg' => 'captcha изображение', 'captchacode' => 'captcha код', 'break' => 'нов ред', 'html' => 'HTML код', 'tel' => 'телефон', 'url' => 'url (уеб адрес)', 'number' => 'число', 'date' => 'дата', 'time' => 'час', 'color' => 'избор на цвят', 'range' => 'плъзгач');
 $BL['be_admin_optgroup_label']     = array('templates' => 'Шаблони', 'custom' => 'Персонализирани');
 $BL['be_ctype_pages']              = 'страници (външни/вътрешни)';
 $BL['be_cnt_pages_select']         = 'избор на източник';
@@ -1771,3 +1771,18 @@ $BL['be_admin_mail_ph_login_page']  = 'Директен URL адрес към с
 $BL['be_admin_mail_ph_admin_email'] = 'Имейл адрес за връзка с администратора';
 $BL['be_admin_mail_ph_button']      = 'Бутон за действие (CTA)';
 $BL['be_admin_mail_ph_signature']   = 'Блок за заключителен подпис';
+$BL['be_admin_mail_title_mail_layout'] = 'Основно оформление на имейл (HTML рамка)';
+$BL['be_admin_mail_desc_mail_layout']  = 'Адаптивното HTML оформление, обхващащо всички трансакционни системни имейли (заглавна част, контейнер със съдържание и футър).';
+$BL['be_admin_mail_ph_preheader']   = 'Скрит предварителен преглед на текст (preheader)';
+$BL['be_admin_mail_ph_header']      = 'Генерирана заглавна част на имейла (лого или име на сайта)';
+$BL['be_admin_mail_ph_title']       = 'Тема на имейла / основно заглавие';
+$BL['be_admin_mail_ph_content']     = 'Основно съдържание на конкретния имейл';
+$BL['be_admin_mail_ph_footer']      = 'Генериран футър на имейла / правна информация';
+$BL['be_admin_mail_layout_html_note'] = 'Основната HTML структура на документа. Използвайте <code>{CONTENT}</code> за текста на съобщението, <code>{HEADER}</code> и <code>{FOOTER}</code> за брандиране и <code>{TITLE}</code> за заглавието.';
+$BL['be_admin_mail_title_mail_header'] = 'Компонент за заглавна част на имейл';
+$BL['be_admin_mail_desc_mail_header']  = 'Подшаблон за горната заглавна част на имейла (визуализира се чрез {HEADER} в основното оформление).';
+$BL['be_admin_mail_title_mail_footer'] = 'Компонент за футър на имейл';
+$BL['be_admin_mail_desc_mail_footer']  = 'Подшаблон за долния футър на имейла / правна информация (визуализира се чрез {FOOTER} в основното оформление).';
+$BL['be_admin_mail_ph_logo']        = 'HTML таг за изображение на лого или стилизирано име на сайт';
+$BL['be_admin_mail_component_html_note'] = 'HTML код за този компонент. Вгражда се в основното оформление чрез съответния параметър.';
+$BL['be_admin_mail_template']       = 'Шаблон за имейл';

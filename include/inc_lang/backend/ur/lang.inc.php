@@ -919,7 +919,7 @@ $BL['be_cnt_error_text']           = 'نص الخطأ';
 $BL['be_cnt_css_style']            = 'نمط CSS';
 $BL['be_cnt_css_class']            = 'فئة CSS';
 $BL['be_cnt_send_copy_to']         = 'نسخة إلى';
-$BL['be_cnt_field']                = array('text' => 'حقل نصي', 'textarea' => 'منطقة نص', 'hidden' => 'حقل مخفي', 'password' => 'حقل كلمة المرور', 'select' => 'قائمة منسدلة', 'selectmulti' => 'قائمة متعددة الخيارات', 'checkbox' => 'مربع اختيار', 'checkboxmulti' => 'مربعات اختيار متعددة', 'radio' => 'زر اختيار', 'radiomulti' => 'أزرار اختيار متعددة', 'upload' => 'رفع ملف', 'submit' => 'زر إرسال', 'reset' => 'زر إعادة تعيين', 'special' => 'خاص', 'email' => 'البريد الإلكتروني (فحص)', 'copy' => 'نسخة بريد إلكتروني للمستخدم', 'country' => 'الدولة', 'state' => 'المنطقة / الولاية', 'newsletter' => 'الاشتراك في النشرة البريدية', 'break' => 'فاصل أسطر', 'button' => 'زر', 'html' => 'HTML / نص ثابت', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
+$BL['be_cnt_field']                = array('text' => 'حقل نصي', 'textarea' => 'منطقة نص', 'hidden' => 'حقل مخفي', 'password' => 'حقل كلمة المرور', 'select' => 'قائمة منسدلة', 'selectmulti' => 'قائمة متعددة الخيارات', 'checkbox' => 'مربع اختيار', 'checkboxmulti' => 'مربعات اختيار متعددة', 'radio' => 'زر اختيار', 'radiomulti' => 'أزرار اختيار متعددة', 'upload' => 'رفع ملف', 'submit' => 'زر إرسال', 'reset' => 'زر إعادة تعيين', 'special' => 'خاص', 'email' => 'البريد الإلكتروني (فحص)', 'copy' => 'نسخة بريد إلكتروني للمستخدم', 'country' => 'الدولة', 'state' => 'المنطقة / الولاية', 'newsletter' => 'الاشتراك في النشرة البريدية', 'break' => 'فاصل أسطر', 'button' => 'زر', 'html' => 'HTML / نص ثابت', 'tel' => 'فون', 'url' => 'url (ویب ایڈریس)', 'number' => 'نمبر', 'date' => 'تاریخ', 'time' => 'وقت', 'color' => 'رنگ منتخب کنندہ', 'range' => 'سلائیڈر');
 $BL['be_cnt_optin']                = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']          = 'تفعيل Double Opt-In وفقاً لـ <a href="https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%84%D8%A7%D8%A6%D8%AD%D8%A9_%D8%A7%D9%84%D8%B9%D8%A7%D9%85%D8%A9_%D9%84%D8%AD%D9%85%D8%A7%D9%8A%D8%A9_%D8%A7%D9%84%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA" target="_blank">GDPR</a>';
 $BL['be_cnt_novalidate']           = 'Novalidate';
@@ -1761,5 +1761,18 @@ $BL['be_admin_mail_ph_login_page']  = 'لاگ ان صفحے کا براہ راس
 $BL['be_admin_mail_ph_admin_email'] = 'ایڈمنسٹریٹر رابطہ ای میل';
 $BL['be_admin_mail_ph_button']      = 'کال ٹو ایکشن بٹن (CTA)';
 $BL['be_admin_mail_ph_signature']   = 'اختتامی دستخطی بلاک';
-
-
+$BL['be_admin_mail_title_mail_layout'] = 'مرکزی ای میل لے آؤٹ (HTML فریم)';
+$BL['be_admin_mail_desc_mail_layout']  = 'ریسپانسیو HTML لے آؤٹ جو سسٹم کی تمام ٹرانزیکشنل ای میلز کو گھیرے ہوئے ہے (ہیڈر، مواد کا کنٹینر، اور فوٹر)۔';
+$BL['be_admin_mail_ph_preheader']   = 'پوشیدہ پیش نظارہ ٹیکسٹ اسنیپٹ';
+$BL['be_admin_mail_ph_header']      = 'رینڈر شدہ ای میل ہیڈر (لوگو یا سائٹ کا نام)';
+$BL['be_admin_mail_ph_title']       = 'ای میل کا موضوع / اہم سرخی';
+$BL['be_admin_mail_ph_content']     = 'مخصوص ای میل کا اصل مواد';
+$BL['be_admin_mail_ph_footer']      = 'رینڈر شدہ ای میل فوٹر / قانونی معلومات';
+$BL['be_admin_mail_layout_html_note'] = 'مرکزی HTML دستاویز کا ڈھانچہ۔ پیغام کے متن کے لیے <code>{CONTENT}</code>، برانڈنگ کے لیے <code>{HEADER}</code> اور <code>{FOOTER}</code>، اور سرخی کے لیے <code>{TITLE}</code> استعمال کریں۔';
+$BL['be_admin_mail_title_mail_header'] = 'ای میل ہیڈر کا جزو';
+$BL['be_admin_mail_desc_mail_header']  = 'اوپری ای میل ہیڈر کے لیے ذیلی ٹیمپلیٹ (مرکزی لے آؤٹ میں {HEADER} کے ذریعے رینڈر کیا جاتا ہے)۔';
+$BL['be_admin_mail_title_mail_footer'] = 'ای میل فوٹر کا جزو';
+$BL['be_admin_mail_desc_mail_footer']  = 'نچلے ای میل فوٹر / قانونی معلومات کے لیے ذیلی ٹیمپلیٹ (مرکزی لے آؤٹ میں {FOOTER} کے ذریعے رینڈر کیا جاتا ہے)۔';
+$BL['be_admin_mail_ph_logo']        = 'لوگو تصویر کا ٹیگ یا سائٹ کا اسٹائل شدہ نام';
+$BL['be_admin_mail_component_html_note'] = 'اس جزو کے لیے HTML مارک اپ۔ یہ اپنے متعلقہ پلیس ہولڈر کے ذریعے مرکزی لے آؤٹ میں شامل کیا جاتا ہے۔';
+$BL['be_admin_mail_template']       = 'ای میل ٹیمپلیٹ';

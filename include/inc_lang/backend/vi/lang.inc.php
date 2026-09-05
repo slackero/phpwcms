@@ -495,7 +495,7 @@ $BL['be_admin_tmpl_add']           = 'thêm mẫu';
 $BL['be_admin_tmpl_edit']          = 'sửa mẫu';
 $BL['be_admin_tmpl_new']           = 'tạo mới';
 $BL['be_admin_tmpl_css']           = 'file css';
-$BL['be_admin_tmpl_head']          = 'html head';
+$BL['be_admin_tmpl_head']          = 'Phần đầu HTML';
 $BL['be_admin_tmpl_js']            = 'nhúng js';
 $BL['be_admin_tmpl_error']         = 'lỗi';
 $BL['be_admin_tmpl_button']        = 'lưu mẫu';
@@ -911,7 +911,7 @@ $BL['be_cnt_value']                = 'giá trị';
 $BL['be_cnt_error_text']           = 'dòng báo lỗi';
 $BL['be_cnt_css_style']            = 'định dạng CSS';
 $BL['be_article_cnt_button3']      = 'Lưu và đóng lại';
-$BL['be_cnt_field']                = array('text' => 'Trường văn bản', 'email' => 'Địa chỉ email (kiểm tra)', 'textarea' => 'Vùng văn bản', 'hidden' => 'Trường ẩn', 'password' => 'Trường mật khẩu', 'select' => 'Menu thả xuống', 'list' => 'danh sách lựa chọn', 'checkbox' => 'Hộp kiểm', 'radio' => 'Nút radio', 'upload' => 'Tải lên tập tin', 'submit' => 'Nút gửi', 'reset' => 'Nút đặt lại', 'break' => 'Ngắt dòng', 'breaktext' => 'break text', 'special' => 'Đặc biệt', 'selectmulti' => 'Menu chọn nhiều mục', 'checkboxmulti' => 'Nhiều hộp kiểm', 'radiomulti' => 'Nhiều nút radio', 'copy' => 'Bản sao email gửi người dùng', 'country' => 'Quốc gia', 'state' => 'Tỉnh / Thành phố', 'newsletter' => 'Đăng ký nhận bản tin', 'button' => 'Nút bấm', 'html' => 'HTML / Văn bản cố định', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
+$BL['be_cnt_field']                = array('text' => 'Trường văn bản', 'email' => 'Địa chỉ email (kiểm tra)', 'textarea' => 'Vùng văn bản', 'hidden' => 'Trường ẩn', 'password' => 'Trường mật khẩu', 'select' => 'Menu thả xuống', 'list' => 'danh sách lựa chọn', 'checkbox' => 'Hộp kiểm', 'radio' => 'Nút radio', 'upload' => 'Tải lên tập tin', 'submit' => 'Nút gửi', 'reset' => 'Nút đặt lại', 'break' => 'Ngắt dòng', 'breaktext' => 'văn bản chèn giữa', 'special' => 'Đặc biệt', 'selectmulti' => 'Menu chọn nhiều mục', 'checkboxmulti' => 'Nhiều hộp kiểm', 'radiomulti' => 'Nhiều nút radio', 'copy' => 'Bản sao email gửi người dùng', 'country' => 'Quốc gia', 'state' => 'Tỉnh / Thành phố', 'newsletter' => 'Đăng ký nhận bản tin', 'button' => 'Nút bấm', 'html' => 'HTML / Văn bản cố định', 'tel' => 'điện thoại', 'url' => 'url (địa chỉ web)', 'number' => 'số', 'date' => 'ngày', 'time' => 'thời gian', 'color' => 'bộ chọn màu', 'range' => 'thanh trượt');
 $BL['be_cnt_access']               = 'truy cập';
 $BL['be_cnt_activated']            = 'kích hoạt';
 $BL['be_cnt_available']            = 'sẵn sàng';
@@ -1828,5 +1828,18 @@ $BL['be_admin_mail_ph_login_page']  = 'URL trực tiếp đến trang đăng nh�
 $BL['be_admin_mail_ph_admin_email'] = 'Email liên hệ của quản trị viên';
 $BL['be_admin_mail_ph_button']      = 'Nút kêu gọi hành động (CTA)';
 $BL['be_admin_mail_ph_signature']   = 'Khối chữ ký kết thúc';
-
-
+$BL['be_admin_mail_title_mail_layout'] = 'Bố cục email chính (Khung HTML)';
+$BL['be_admin_mail_desc_mail_layout']  = 'Bố cục HTML thích ứng bao bọc tất cả email giao dịch của hệ thống (phần đầu trang, khối nội dung và chân trang).';
+$BL['be_admin_mail_ph_preheader']   = 'Đoạn văn bản xem trước ẩn (preheader)';
+$BL['be_admin_mail_ph_header']      = 'Đầu trang email được kết xuất (logo hoặc tên trang web)';
+$BL['be_admin_mail_ph_title']       = 'Tiêu đề email / dòng tiêu đề chính';
+$BL['be_admin_mail_ph_content']     = 'Nội dung chính của email cụ thể';
+$BL['be_admin_mail_ph_footer']      = 'Chân trang email được kết xuất / tuyên bố từ chối trách nhiệm';
+$BL['be_admin_mail_layout_html_note'] = 'Cấu trúc tài liệu HTML chính. Sử dụng <code>{CONTENT}</code> cho nội dung thư, <code>{HEADER}</code> và <code>{FOOTER}</code> cho nhận diện thương hiệu và <code>{TITLE}</code> cho tiêu đề.';
+$BL['be_admin_mail_title_mail_header'] = 'Thành phần đầu trang email';
+$BL['be_admin_mail_desc_mail_header']  = 'Mẫu phụ cho phần đầu trang email (được hiển thị qua {HEADER} trong bố cục chính).';
+$BL['be_admin_mail_title_mail_footer'] = 'Thành phần chân trang email';
+$BL['be_admin_mail_desc_mail_footer']  = 'Mẫu phụ cho phần chân trang email / thông tin pháp lý (được hiển thị qua {FOOTER} trong bố cục chính).';
+$BL['be_admin_mail_ph_logo']        = 'Thẻ hình ảnh logo hoặc tên trang web có định dạng';
+$BL['be_admin_mail_component_html_note'] = 'Mã đánh dấu HTML cho thành phần này. Nó được nhúng vào bố cục chính thông qua biến giữ chỗ tương ứng.';
+$BL['be_admin_mail_template']       = 'Mẫu email';

@@ -1267,7 +1267,7 @@ $BL['CSRF_GET_FAILED']             = 'فشل التحقق من معلمات GET 
 $BL['CSRF_BTN_BACK']               = 'رجوع';
 $BL['CSRF_BTN_LOGIN']              = 'تسجيل الدخول';
 $BL['CSRF_BTN_DASHBOARD']          = 'لوحة التحكم';
-$BL['be_cnt_field']                = array('text' => 'حقل نصي', 'textarea' => 'منطقة نص', 'hidden' => 'حقل مخفي', 'password' => 'حقل كلمة المرور', 'select' => 'قائمة منسدلة', 'selectmulti' => 'قائمة متعددة الخيارات', 'checkbox' => 'مربع اختيار', 'checkboxmulti' => 'مربعات اختيار متعددة', 'radio' => 'زر اختيار', 'radiomulti' => 'أزرار اختيار متعددة', 'upload' => 'رفع ملف', 'submit' => 'زر إرسال', 'reset' => 'زر إعادة تعيين', 'special' => 'خاص', 'email' => 'البريد الإلكتروني (فحص)', 'copy' => 'نسخة بريد إلكتروني للمستخدم', 'country' => 'الدولة', 'state' => 'المنطقة / الولاية', 'newsletter' => 'الاشتراك في النشرة البريدية', 'break' => 'فاصل أسطر', 'button' => 'زر', 'html' => 'HTML / نص ثابت', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
+$BL['be_cnt_field']                = array('text' => 'حقل نصي', 'textarea' => 'منطقة نص', 'hidden' => 'حقل مخفي', 'password' => 'حقل كلمة المرور', 'select' => 'قائمة منسدلة', 'selectmulti' => 'قائمة متعددة الخيارات', 'checkbox' => 'مربع اختيار', 'checkboxmulti' => 'مربعات اختيار متعددة', 'radio' => 'زر اختيار', 'radiomulti' => 'أزرار اختيار متعددة', 'upload' => 'رفع ملف', 'submit' => 'زر إرسال', 'reset' => 'زر إعادة تعيين', 'special' => 'خاص', 'email' => 'البريد الإلكتروني (فحص)', 'copy' => 'نسخة بريد إلكتروني للمستخدم', 'country' => 'الدولة', 'state' => 'المنطقة / الولاية', 'newsletter' => 'الاشتراك في النشرة البريدية', 'break' => 'فاصل أسطر', 'button' => 'زر', 'html' => 'HTML / نص ثابت', 'tel' => 'هاتف', 'url' => 'url (عنوان الويب)', 'number' => 'رقم', 'date' => 'تاريخ', 'time' => 'وقت', 'color' => 'منتقي الألوان', 'range' => 'شريط التمرير');
 $BL['be_admin_optgroup_label']     = array('custom' => 'قوالب مخصصة', 'default' => 'قوالب افتراضية', 'sample' => 'قوالب نموذجية');
 $BL['be_ctype_ullist']             = 'قائمة غير مرتبة (ul/li)';
 $BL['be_article_cnt_toplink']      = 'رابط للأعلى';
@@ -1761,5 +1761,18 @@ $BL['be_admin_mail_ph_login_page']  = 'الرابط المباشر لصفحة ت
 $BL['be_admin_mail_ph_admin_email'] = 'البريد الإلكتروني للاتصال بالمسؤول';
 $BL['be_admin_mail_ph_button']      = 'زر الحث على اتخاذ إجراء (CTA)';
 $BL['be_admin_mail_ph_signature']   = 'كتلة التوقيع الختامية';
-
-
+$BL['be_admin_mail_title_mail_layout'] = 'التخطيط الرئيسي للبريد الإلكتروني (هيكل HTML)';
+$BL['be_admin_mail_desc_mail_layout']  = 'تخطيط HTML المتجاوب الذي يغلف جميع رسائل البريد الإلكتروني الخاصة بمعاملات النظام (الترويسة، وحاوية المحتوى، والتذييل).';
+$BL['be_admin_mail_ph_preheader']   = 'مقتطف نص المعاينة المخفي (preheader)';
+$BL['be_admin_mail_ph_header']      = 'ترويسة البريد الإلكتروني التي تم تصييرها (الشعار أو اسم الموقع)';
+$BL['be_admin_mail_ph_title']       = 'موضوع البريد الإلكتروني / العنوان الرئيسي';
+$BL['be_admin_mail_ph_content']     = 'محتوى نص البريد الإلكتروني المحدد';
+$BL['be_admin_mail_ph_footer']      = 'تذييل البريد الإلكتروني المصير / إخلاء المسؤولية';
+$BL['be_admin_mail_layout_html_note'] = 'الهيكل الرئيسي لمستند HTML. استخدم <code>{CONTENT}</code> لنص الرسالة، و <code>{HEADER}</code> و <code>{FOOTER}</code> للهوية والشعار، و <code>{TITLE}</code> للعنوان الرئيسي.';
+$BL['be_admin_mail_title_mail_header'] = 'مكون ترويسة البريد الإلكتروني';
+$BL['be_admin_mail_desc_mail_header']  = 'قالب فرعي للترويسة العلوية للبريد الإلكتروني (يتم عرضه عبر {HEADER} في التخطيط الرئيسي).';
+$BL['be_admin_mail_title_mail_footer'] = 'مكون تذييل البريد الإلكتروني';
+$BL['be_admin_mail_desc_mail_footer']  = 'قالب فرعي للتذييل السفلي للبريد الإلكتروني / إخلاء المسؤولية (يتم عرضه عبر {FOOTER} في التخطيط الرئيسي).';
+$BL['be_admin_mail_ph_logo']        = 'وسم صورة الشعار أو اسم الموقع المنسق';
+$BL['be_admin_mail_component_html_note'] = 'ترميز HTML لهذا المكون. يتم تضمينه في التخطيط الرئيسي عبر العنصر النائب المقابل له.';
+$BL['be_admin_mail_template']       = 'قالب البريد الإلكتروني';
