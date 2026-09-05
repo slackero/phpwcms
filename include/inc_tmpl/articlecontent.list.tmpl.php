@@ -392,7 +392,7 @@ $(function() {
                           $sbutton[$key+1]["id"].":".$sbutton[$key]["sort"].
                           "\" data-bs-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_down']."\"><i class=\"fa-solid fa-chevron-down fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
                       }
-                      $sbutton_string[$sbutton[$key]["id"]] = '<div class="btn-group" role="group">' . $sbutton[$key]["top"] . $sbutton[$key]["bottom"] . '</div>';
+                      $sbutton_string[$sbutton[$key]["id"]] = '<div class="btn-group btn-group-sm" role="group">' . $sbutton[$key]["top"] . $sbutton[$key]["bottom"] . '</div>';
               }
               unset($sbutton);
             }

@@ -162,7 +162,7 @@ if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar'])
 <div class="card-body">
 
 	<div class="mb-3 text-center">
-		<div class="btn-group btn-group">
+		<div class="btn-group btn-group-sm">
 			<button class="btn btn-blue btn-sm" onclick="location.href='<?php echo $plugin['loc_prev_month'] ?>';return false;"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i></button>
 			<button class="btn btn-muted btn-sm" onclick="location.href='<?php echo $plugin['loc_this_month'] ?>';return false;"><?php echo $BLM['today'] ?></button>
 			<button class="btn btn-blue btn-sm" onclick="location.href='<?php echo $plugin['loc_next_month'] ?>';return false;"><i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></button>
