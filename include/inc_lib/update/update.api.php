@@ -118,7 +118,7 @@ function phpwcms_update_http_get(string $url, bool $restrictHosts = false): stri
             if (preg_match('#^https?://#i', $location)) {
                 $url = $location;
             } else {
-                $url = (string)parse_url($url, PHP_URL_SCHEME) . '://' . (string)parse_url($url, PHP_URL_HOST) . $location;
+                $url = (string)parse_url($url, PHP_URL_SCHEME) . '://' . (string)parse_url($url, PHP_URL_HOST) . (str_starts_with($location, '/') ? '' : '/') . $location;
             }
             continue;
         }
@@ -197,6 +197,7 @@ function phpwcms_update_http_probe(string $url): array|false
         return false;
     }
     $context = stream_context_create(['http' => [
+        'method' => 'HEAD',
         'timeout' => 30,
         'user_agent' => 'phpwcms-selfupdate/' . PHPWCMS_VERSION,
         'follow_location' => 0,
@@ -248,7 +249,7 @@ function phpwcms_update_resolve_redirects(string $url, bool $restrictHosts): str
             if (preg_match('#^https?://#i', $location)) {
                 $url = $location;
             } else {
-                $url = (string)parse_url($url, PHP_URL_SCHEME) . '://' . (string)parse_url($url, PHP_URL_HOST) . $location;
+                $url = (string)parse_url($url, PHP_URL_SCHEME) . '://' . (string)parse_url($url, PHP_URL_HOST) . (str_starts_with($location, '/') ? '' : '/') . $location;
             }
             continue;
         }
@@ -286,10 +287,15 @@ function phpwcms_update_download_asset(string $zipUrl, string $targetPath): bool
             CURLOPT_USERAGENT => 'phpwcms-selfupdate/' . PHPWCMS_VERSION,
         ]);
         $ok = curl_exec($ch);
+        $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $errno = curl_errno($ch);
         curl_close($ch);
         fclose($handle);
-        return $ok !== false && $errno === 0;
+        if (!$ok || $errno !== 0 || $code !== 200) {
+            @unlink($targetPath);
+            return false;
+        }
+        return true;
     }
     if (!ini_get('allow_url_fopen')) {
         return false;
@@ -300,5 +306,22 @@ function phpwcms_update_download_asset(string $zipUrl, string $targetPath): bool
         'follow_location' => 0,
         'max_redirects' => 0,
     ]]);
-    return @copy($finalUrl, $targetPath, $context);
+    $ok = @copy($finalUrl, $targetPath, $context);
+    if (!$ok) {
+        @unlink($targetPath);
+        return false;
+    }
+    $code = 0;
+    if (isset($http_response_header) && is_array($http_response_header)) {
+        foreach ($http_response_header as $header) {
+            if (preg_match('/^HTTP\/\S+\s+(\d{3})/', $header, $m)) {
+                $code = (int)$m[1];
+            }
+        }
+    }
+    if ($code !== 200) {
+        @unlink($targetPath);
+        return false;
+    }
+    return true;
 }

@@ -39,20 +39,35 @@ function phpwcms_update_db_dump(string $gzPath): bool
             break;
         }
         $write(LF . 'DROP TABLE IF EXISTS `' . $table . '`;' . LF . $create[0]['Create Table'] . ';' . LF);
-        $rows = _dbQuery('SELECT * FROM `' . $table . '`');
-        foreach ($rows as $data) {
-            $values = [];
-            foreach ($data as $value) {
-                if ($value === null) {
-                    $values[] = 'NULL';
-                } else {
-                    $escaped = !empty($GLOBALS['db'])
-                        ? mysqli_real_escape_string($GLOBALS['db'], (string)$value)
-                        : addslashes((string)$value);
-                    $values[] = '\'' . $escaped . '\'';
+        if (!empty($GLOBALS['db']) && ($GLOBALS['db'] instanceof mysqli)) {
+            $result = mysqli_query($GLOBALS['db'], 'SELECT * FROM `' . $table . '`', MYSQLI_USE_RESULT);
+            if ($result) {
+                while ($data = mysqli_fetch_assoc($result)) {
+                    $values = [];
+                    foreach ($data as $value) {
+                        if ($value === null) {
+                            $values[] = 'NULL';
+                        } else {
+                            $values[] = '\'' . mysqli_real_escape_string($GLOBALS['db'], (string)$value) . '\'';
+                        }
+                    }
+                    $write('INSERT INTO `' . $table . '` VALUES (' . implode(',', $values) . ');' . LF);
                 }
+                mysqli_free_result($result);
             }
-            $write('INSERT INTO `' . $table . '` VALUES (' . implode(',', $values) . ');' . LF);
+        } else {
+            $rows = _dbQuery('SELECT * FROM `' . $table . '`');
+            foreach ($rows as $data) {
+                $values = [];
+                foreach ($data as $value) {
+                    if ($value === null) {
+                        $values[] = 'NULL';
+                    } else {
+                        $values[] = '\'' . addslashes((string)$value) . '\'';
+                    }
+                }
+                $write('INSERT INTO `' . $table . '` VALUES (' . implode(',', $values) . ');' . LF);
+            }
         }
     }
     gzclose($gz);
@@ -65,12 +80,13 @@ function phpwcms_update_db_dump(string $gzPath): bool
  */
 function phpwcms_update_backup_files(array $files, string $backupDir): bool
 {
+    $backupDir = rtrim($backupDir, '/') . '/';
     foreach ($files as $rel) {
         $source = PHPWCMS_ROOT . '/' . $rel;
         if (!is_file($source)) {
             return false;
         }
-        $target = $backupDir . '/' . $rel;
+        $target = $backupDir . $rel;
         $dir = dirname($target);
         if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
             return false;
@@ -89,20 +105,25 @@ function phpwcms_update_backup_files(array $files, string $backupDir): bool
  */
 function phpwcms_update_change_report(string $backupDir, array $added, array $modified, array $deleted): void
 {
+    $backupDir = rtrim($backupDir, '/') . '/';
     $lines = ['# phpwcms update change report ' . date('Y-m-d H:i:s'), ''];
     $lines[] = '## ADDED';
     foreach ($added as $rel) {
-        $lines[] = $rel . '  sha256:' . (hash_file('sha256', PHPWCMS_ROOT . '/' . $rel) ?: '-');
+        $target = PHPWCMS_ROOT . '/' . $rel;
+        $hash = is_file($target) ? (hash_file('sha256', $target) ?: '-') : '-';
+        $lines[] = $rel . '  sha256:' . $hash;
     }
     $lines[] = '## MODIFIED';
     foreach ($modified as $rel) {
-        $old = hash_file('sha256', $backupDir . 'files/' . $rel) ?: '-';
-        $new = hash_file('sha256', PHPWCMS_ROOT . '/' . $rel) ?: '-';
+        $oldFile = $backupDir . 'files/' . $rel;
+        $newFile = PHPWCMS_ROOT . '/' . $rel;
+        $old = is_file($oldFile) ? (hash_file('sha256', $oldFile) ?: '-') : '-';
+        $new = is_file($newFile) ? (hash_file('sha256', $newFile) ?: '-') : '-';
         $lines[] = $rel . '  ' . $old . ' -> ' . $new;
     }
     $lines[] = '## DELETED';
     foreach ($deleted as $rel) {
         $lines[] = $rel;
     }
-    @file_put_contents($backupDir . '/changed-files.txt', implode(LF, $lines) . LF);
+    @file_put_contents($backupDir . 'changed-files.txt', implode(LF, $lines) . LF);
 }

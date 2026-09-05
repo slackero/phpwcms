@@ -138,13 +138,14 @@ class phpwcms_update
                 $this->apply($plan, $stageDir, $manifest);      // copy added+modified, delete deletions, write new manifest
                 $this->setMaintenance(false);
             } catch (Throwable $e) {
-                $this->setMaintenance(false);
+                // Keep maintenance flag active on apply failure so broken state is not exposed
                 throw $e;
             }
             phpwcms_update_change_report($this->backupDir, $plan['added'], $plan['modified'], $plan['deleted']);
             // P9 inline revision run + success row
             $revisionOk = phpwcms_revision_check($this->targetRevision());
-            $this->finishLogRow($revisionOk ? 'success' : 'failed', count($plan['added']) + count($plan['modified']) + count($plan['deleted']));
+            $revError = $revisionOk ? '' : ($GLOBALS['phpwcms']['revision_error'] ?? 'Database revision migration failed');
+            $this->finishLogRow($revisionOk ? 'success' : 'failed', count($plan['added']) + count($plan['modified']) + count($plan['deleted']), $revError);
             return array_merge($result, [
                 'success' => $revisionOk,
                 'error' => $revisionOk ? '' : 'Files updated but DB revision failed — check revision_error log.',
@@ -375,7 +376,7 @@ class phpwcms_update
         }
         $revisionSource = $zip->getFromName('include/inc_lib/revision/revision.php');
         $zip->close();
-        if ($revisionSource === false || !preg_match("/PHPWCMS_VERSION\s*=\s*'([^']+)'/", $revisionSource, $m)) {
+        if ($revisionSource === false || !preg_match('/(?:const|define\s*\(\s*[\'"])\s*PHPWCMS_VERSION[\'"]?\s*[=,]\s*[\'"]([^\'"]+)[\'"]/i', $revisionSource, $m)) {
             return false;
         }
         $version = $m[1];
@@ -408,7 +409,7 @@ class phpwcms_update
         }
         $revisionSource = $zip->getFromName('include/inc_lib/revision/revision.php');
         $zip->close();
-        if ($revisionSource === false || !preg_match("/PHPWCMS_VERSION\s*=\s*'([^']+)'/", $revisionSource, $m)) {
+        if ($revisionSource === false || !preg_match('/(?:const|define\s*\(\s*[\'"])\s*PHPWCMS_VERSION[\'"]?\s*[=,]\s*[\'"]([^\'"]+)[\'"]/i', $revisionSource, $m)) {
             throw new RuntimeException('Release zip missing revision version.');
         }
         if ($m[1] !== $release['version']) {
@@ -544,6 +545,9 @@ class phpwcms_update
                     || in_array('..', explode('/', $rel), true)) {
                     continue;
                 }
+                if (str_starts_with($rel, './')) {
+                    $rel = substr($rel, 2);
+                }
                 $manifest[$rel] = $parts[0];
             }
         }
@@ -560,7 +564,7 @@ class phpwcms_update
     {
         $revisionFile = PHPWCMS_ROOT . '/include/inc_lib/revision/revision.php';
         $source = is_file($revisionFile) ? (string)@file_get_contents($revisionFile) : '';
-        if ($source !== '' && preg_match("/PHPWCMS_REVISION\s*=\s*'([^']+)'/", $source, $m)) {
+        if ($source !== '' && preg_match('/(?:const|define\s*\(\s*[\'"])\s*PHPWCMS_REVISION[\'"]?\s*[=,]\s*[\'"]?(\d+)[\'"]?/i', $source, $m)) {
             return (int)$m[1];
         }
         return (int)PHPWCMS_REVISION;

@@ -35,18 +35,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
             $updateResult = ['success' => false, 'error' => $BL['be_update_revision_pending'] ?? 'Database migrations are pending or failed — run them (backend login) before updating.'];
         } else {
             $updateResult = $update->run((string)$_POST['update_tag']);
+            unset($_SESSION['phpwcms_update_check']);
         }
     } elseif (isset($_POST['update_rollback']) && !empty($_POST['update_rollback'])) {
         $rollbackResult = $update->rollback((int)$_POST['update_rollback']);
+        unset($_SESSION['phpwcms_update_check']);
     } elseif (isset($_POST['update_clear_maintenance'])) {
         $update->clearMaintenance();
     }
 }
 
-$updateCheck = $update->check();
-$history = _dbQuery('SELECT * FROM `' . DB_PREPEND . 'phpwcms_update_log` ORDER BY update_id DESC');
-if (!is_array($history)) {
-    $history = [];
+// Session cache for update check (invalidate on explicit check or post-action)
+if (isset($_GET['check']) || !isset($_SESSION['phpwcms_update_check']) || !is_array($_SESSION['phpwcms_update_check'])) {
+    $updateCheck = $update->check();
+    $_SESSION['phpwcms_update_check'] = $updateCheck;
+} else {
+    $updateCheck = $_SESSION['phpwcms_update_check'];
+}
+
+$history = [];
+if (_dbTableExists('phpwcms_update_log')) {
+    $history = _dbQuery('SELECT * FROM `' . DB_PREPEND . 'phpwcms_update_log` ORDER BY update_id DESC');
+    if (!is_array($history)) {
+        $history = [];
+    }
 }
 
 /**
@@ -84,7 +96,7 @@ function be_update_markdown(string $text): string
                 $out .= '</ul>';
                 $inList = false;
             }
-            $out .= $line . "\n";
+            $out .= ($line === '' ? '<br>' : $line . '<br>');
         }
     }
     if ($inList) {
@@ -102,7 +114,7 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
     <div class="col-12">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h3 mb-0 text-gray-800"><i class="fa-solid fa-rotate"></i> <?php echo html($BL['be_subnav_admin_update'] ?? 'System Update'); ?></h1>
-        <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=18" class="btn btn-sm btn-blue"><i class="fa-solid fa-magnifying-glass"></i> <?php echo html($BL['be_update_check'] ?? 'Check for update'); ?></a>
+        <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=18&amp;check=1" class="btn btn-sm btn-blue"><i class="fa-solid fa-magnifying-glass"></i> <?php echo html($BL['be_update_check'] ?? 'Check for update'); ?></a>
       </div>
 
       <?php if ($maintenanceActive): ?>
@@ -120,7 +132,10 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
         <?php if (!empty($updateResult['success'])): ?>
           <div class="alert alert-success">
             <i class="fa-solid fa-circle-check"></i>
-            <?php echo html(sprintf($BL['be_update_success'] ?? 'Update to %s completed successfully.', $updateCheck['version'] ?? '')); ?>
+            <?php
+              $updatedTo = !empty($_POST['update_tag']) ? ltrim((string)$_POST['update_tag'], 'v') : ($updateCheck['version'] ?? '');
+              echo html(sprintf($BL['be_update_success'] ?? 'Update to %s completed successfully.', $updatedTo));
+            ?>
             <?php if (!empty($updateResult['backup'])): ?>
               <div class="small mt-1"><?php echo html($BL['be_update_backup_path'] ?? 'Backup stored at'); ?>: <code><?php echo html($updateResult['backup']); ?></code></div>
             <?php endif; ?>
@@ -202,7 +217,7 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
               <table class="table table-hover align-middle mb-0">
                 <thead>
                   <tr>
-                    <th class="ps-3"><?php echo html($BL['be_update_history'] ?? 'Update history'); ?></th>
+                    <th class="ps-3"><?php echo html($BL['be_cnt_date'] ?? 'Date'); ?></th>
                     <th>From</th>
                     <th>To</th>
                     <th>Status</th>
