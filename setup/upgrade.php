@@ -1254,7 +1254,7 @@ if ($configFile === null) {
     exit(1);
 }
 
-$phpwcms = [];
+/** @var array<string, mixed> $phpwcms */
 require $configFile;
 
 if (empty($phpwcms['db_table']) || empty($phpwcms['db_user'])) {

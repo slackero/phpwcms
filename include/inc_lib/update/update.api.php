@@ -306,20 +306,29 @@ function phpwcms_update_download_asset(string $zipUrl, string $targetPath): bool
         'follow_location' => 0,
         'max_redirects' => 0,
     ]]);
-    $ok = @copy($finalUrl, $targetPath, $context);
-    if (!$ok) {
-        @unlink($targetPath);
+    $src = @fopen($finalUrl, 'rb', false, $context);
+    if ($src === false) {
         return false;
     }
     $code = 0;
-    if (isset($http_response_header) && is_array($http_response_header)) {
-        foreach ($http_response_header as $header) {
-            if (preg_match('/^HTTP\/\S+\s+(\d{3})/', $header, $m)) {
-                $code = (int)$m[1];
-            }
+    foreach ($http_response_header as $header) {
+        if (preg_match('/^HTTP\/\S+\s+(\d{3})/', $header, $m)) {
+            $code = (int)$m[1];
         }
     }
     if ($code !== 200) {
+        fclose($src);
+        return false;
+    }
+    $dest = @fopen($targetPath, 'wb');
+    if ($dest === false) {
+        fclose($src);
+        return false;
+    }
+    $copied = stream_copy_to_stream($src, $dest);
+    fclose($src);
+    fclose($dest);
+    if ($copied === false) {
         @unlink($targetPath);
         return false;
     }

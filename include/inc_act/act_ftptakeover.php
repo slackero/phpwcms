@@ -9,6 +9,7 @@
  **/
 
 $phpwcms = ['SESSION_START' => true];
+global $BL;
 $PHPWCMS_ROOT = dirname(__FILE__, 3);
 
 require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
@@ -198,7 +199,8 @@ if(!$ftp['error']) {
     }
 
 ?><p>
-            <i class="fa-solid fa-sync fa-spin text-primary me-1"></i><strong class="title"><?php echo $BL['be_ftptakeover_processing'] ?></strong></p><?php
+        <i class="fa-solid fa-sync fa-spin text-primary me-1"></i><strong class="title"><?php echo $BL['be_ftptakeover_processing'] ?></strong>
+    </p><?php
 
     echo '<p class="v10">';
     flush();

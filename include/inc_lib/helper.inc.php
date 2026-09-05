@@ -26,7 +26,7 @@ function i18n_get_language($complex=false) {
 		return $phpwcms['i18_lang'];
 	}
 
-	$allowed_languages = !empty($phpwcms['allowed_lang']) && is_array($phpwcms['allowed_lang']) ? $phpwcms['allowed_lang'] : [];
+	$allowed_languages = is_array($phpwcms['allowed_lang'] ?? null) ? $phpwcms['allowed_lang'] : [];
 	$default_language   = !empty($phpwcms['default_lang']) ? $phpwcms['default_lang'] : 'en';
 	$lang_key           = !empty($phpwcms['frontend_lang_key']) ? $phpwcms['frontend_lang_key'] : 'phpwcms_frontend_lang';
 
@@ -90,7 +90,7 @@ function i18n_get_language($complex=false) {
 	if(!empty($_GET['lang'])) {
 		$_SESSION[$lang_key] = $detected_lang;
 		$cookie_domain = function_exists('getCookieDomain') ? getCookieDomain() : '';
-		$ssl_active    = defined('PHPWCMS_SSL') && PHPWCMS_SSL;
+		$ssl_active    = defined('PHPWCMS_SSL') && (bool)constant('PHPWCMS_SSL');
 		@setcookie($lang_key, $detected_lang, time() + 31536000, '/', $cookie_domain, $ssl_active, true);
 	}
 
@@ -258,9 +258,8 @@ function template_lang_load_file($lang_code) {
 	if(!is_file($file) || !is_readable($file)) {
 		return [];
 	}
-	$i18n_tokens = [];
 	include $file;
-	return is_array($i18n_tokens) ? $i18n_tokens : [];
+	return isset($i18n_tokens) && is_array($i18n_tokens) ? $i18n_tokens : [];
 }
 
 function template_lang_save_file($lang_code, array $tokens) {

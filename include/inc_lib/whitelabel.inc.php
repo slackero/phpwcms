@@ -212,7 +212,7 @@ function phpwcms_whitelabel_init(array &$phpwcms): bool {
  * Check if white label mode is active
  */
 function is_whitelabel(): bool {
-    return defined('PHPWCMS_WHITELABEL') && PHPWCMS_WHITELABEL;
+    return defined('PHPWCMS_WHITELABEL') && (bool)constant('PHPWCMS_WHITELABEL');
 }
 
 /**
