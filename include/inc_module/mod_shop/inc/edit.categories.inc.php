@@ -93,8 +93,8 @@ if (!defined('PHPWCMS_ROOT')) {
     <div class="form-group align-items-center row g-2 ">
     <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
     <div class="col-sm-auto">
-      <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="cat_status" id="cat_status" value="1"<?php is_checked($plugin['data']['cat_status'], 1) ?> />
+      <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" name="cat_status" id="cat_status" value="1"<?php is_checked($plugin['data']['cat_status'], 1) ?> />
             <label class="form-check-label" for="cat_status"><?php echo $BL['be_cnt_activated'] ?></label>
       </div>
     </div>

@@ -140,8 +140,8 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   </div>
 
   <div class="col-sm-auto">
-    <div class="form-check form-check-inline">
-			<input class="form-check-input" type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['cimage']['cimage_crop']); ?> />
+    <div class="form-check form-switch form-check-inline">
+			<input class="form-check-input" type="checkbox" role="switch" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['cimage']['cimage_crop']); ?> />
 			<label class="form-check-label" for="cimage_crop"><?php echo $BL['be_image_crop'] ?></label>
 		</div>
 	</div>
@@ -150,16 +150,16 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 <div class="form-group align-items-center row g-2">
   <label for="cimage_zoom" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_behavior'] ?></label>
   <div class="col">
-  <div class="form-check form-check-inline">
-		<input name="cimage_zoom" class="form-check-input" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, empty($content["image_zoom"]) ? 0 : 1); ?> />
+  <div class="form-check form-switch form-check-inline">
+		<input name="cimage_zoom" class="form-check-input" type="checkbox" role="switch" id="cimage_zoom" value="1" <?php is_checked(1, empty($content["image_zoom"]) ? 0 : 1); ?> />
 		<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
 	</div>
-  <div class="form-check form-check-inline">
-		<input name="cimage_lightbox" class="form-check-input" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, empty($content['cimage']['cimage_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
+  <div class="form-check form-switch form-check-inline">
+		<input name="cimage_lightbox" class="form-check-input" type="checkbox" role="switch" id="cimage_lightbox" value="1" <?php is_checked(1, empty($content['cimage']['cimage_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
 		<label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
 	</div>
-  <div class="form-check form-check-inline">
-		<input name="cimage_nocaption" class="form-check-input" type="checkbox" id="cimage_nocaption" value="1" <?php is_checked(1, empty($content['cimage']['cimage_nocaption']) ? 0 : 1); ?> />
+  <div class="form-check form-switch form-check-inline">
+		<input name="cimage_nocaption" class="form-check-input" type="checkbox" role="switch" id="cimage_nocaption" value="1" <?php is_checked(1, empty($content['cimage']['cimage_nocaption']) ? 0 : 1); ?> />
 		<label class="form-check-label" for="cimage_nocaption"><?php echo $BL['be_cnt_imglist_nocaption'] ?></label>
 	</div>
   </div>

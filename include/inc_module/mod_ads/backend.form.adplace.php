@@ -140,8 +140,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 			<div class="form-group row">
 				<div class="col-sm-10 offset-sm-2">
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" name="adplace_status" id="adplace_status" value="1"<?php is_checked($plugin['data']['adplace_status'], 1) ?> />
+					<div class="form-check form-switch">
+						<input type="checkbox" class="form-check-input" role="switch" name="adplace_status" id="adplace_status" value="1"<?php is_checked($plugin['data']['adplace_status'], 1) ?> />
 						<label class="form-check-label" for="adplace_status"><?php echo $BL['be_cnt_activated'] ?></label>
 					</div>
 				</div>

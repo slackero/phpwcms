@@ -215,12 +215,12 @@ function showAction() {
           <div class="form-group row g-2 align-items-center">
 						<label class="col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
 						<div class="col-sm-auto">
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1" />
+							<div class="form-check form-switch form-check-inline">
+								<input class="form-check-input" name="file_aktiv" type="checkbox" role="switch" id="file_aktiv" value="1" />
 								<label class="form-check-label" for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label>
 							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" name="file_public" type="checkbox" id="file_public" value="1" />
+							<div class="form-check form-switch form-check-inline">
+								<input class="form-check-input" name="file_public" type="checkbox" role="switch" id="file_public" value="1" />
 								<label class="form-check-label" for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label>
 							</div>
 						</div>

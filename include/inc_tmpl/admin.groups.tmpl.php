@@ -221,8 +221,8 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
       <div class="form-group row g-2 align-items-center">
 				<label for="be_ftptakeover_status" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
 				<div class="col">
-					<div class="form-check">
-						<input class="form-check-input" name="group_active" type="checkbox" id="group_active" value="1" <?php is_checked(1, empty($group["active"]) ? 0 : $group["active"]); ?> <?php echo ($group["syskey"] ? 'disabled="disabled"' : '') ?> />
+					<div class="form-check form-switch">
+						<input class="form-check-input" name="group_active" type="checkbox" role="switch" id="group_active" value="1" <?php is_checked(1, empty($group["active"]) ? 0 : $group["active"]); ?> <?php echo ($group["syskey"] ? 'disabled="disabled"' : '') ?> />
 						<label for="group_active" class="form-check-label"><?php echo $BL['be_ftptakeover_active'] ?></label>
 					</div>
 				</div>

@@ -280,12 +280,12 @@ $langstr = '';
       <div class="form-group row g-2 align-items-center">
         <span class="col-sm-2 col-form-label text-sm-end"><?php echo $BL['be_cnt_several'] ?></span>
         <div class="col">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, $article['image']['zoom']); ?> />
+          <div class="form-check form-switch form-check-inline">
+            <input class="form-check-input" name="cimage_zoom" type="checkbox" role="switch" id="cimage_zoom" value="1" <?php is_checked(1, $article['image']['zoom']); ?> />
             <label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" name="cimage_lightbox" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, empty($article['image']['lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
+          <div class="form-check form-switch form-check-inline">
+            <input class="form-check-input" name="cimage_lightbox" type="checkbox" role="switch" id="cimage_lightbox" value="1" <?php is_checked(1, empty($article['image']['lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
             <label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
           </div>
         </div>
@@ -306,8 +306,8 @@ $langstr = '';
             |
             <?php echo $BL['be_copyright']; ?>
           </span>
-          <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="cimage_caption_suppress" id="cimage_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['caption_suppress']) ? 0 : 1); ?> />
+          <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" name="cimage_caption_suppress" id="cimage_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['caption_suppress']) ? 0 : 1); ?> />
               <label class="form-check-label" for="cimage_caption_suppress"><?php echo $BL['be_suppress_render_caption']; ?></label>
           </div>
         </div>
@@ -343,8 +343,8 @@ $langstr = '';
       ?>
       <div class="form-group row g-2">
         <div class="col-sm-10 offset-sm-2">
-          <div class="form-check">
-            <input class="form-check-input" name="cimage_usesummary" type="checkbox" id="cimage_usesummary" value="1" <?php is_checked(1, $article['image']['list_usesummary']); ?> />
+          <div class="form-check form-switch">
+            <input class="form-check-input" name="cimage_usesummary" type="checkbox" role="switch" id="cimage_usesummary" value="1" <?php is_checked(1, $article['image']['list_usesummary']); ?> />
             <label class="form-check-label" for="cimage_usesummary"><?php echo $BL['be_cnt_same_as_summary'] ?></label>
           </div>
         </div>
@@ -390,12 +390,12 @@ $langstr = '';
       <div class="form-group row g-2 align-items-center">
         <span class="col-sm-2 col-form-label text-sm-end"><?php echo $BL['be_cnt_several'] ?></span>
         <div class="col">
-          <div class="form-check form-check-inline">
-    				<input class="form-check-input" name="cimage_list_zoom" type="checkbox" id="cimage_list_zoom" value="1" <?php is_checked(1, $article['image']['list_zoom']); ?> />
+          <div class="form-check form-switch form-check-inline">
+    				<input class="form-check-input" name="cimage_list_zoom" type="checkbox" role="switch" id="cimage_list_zoom" value="1" <?php is_checked(1, $article['image']['list_zoom']); ?> />
     				<label class="form-check-label" for="cimage_list_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
           </div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" name="cimage_list_lightbox" type="checkbox" id="cimage_list_lightbox" value="1" <?php is_checked(1, empty($article['image']['list_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_list_zoom').checked=true;}" />
+          <div class="form-check form-switch form-check-inline">
+              <input class="form-check-input" name="cimage_list_lightbox" type="checkbox" role="switch" id="cimage_list_lightbox" value="1" <?php is_checked(1, empty($article['image']['list_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_list_zoom').checked=true;}" />
               <label class="form-check-label" for="cimage_list_lightbox">
               <?php echo $BL['be_cnt_lightbox'] ?>
             </label>
@@ -419,8 +419,8 @@ $langstr = '';
             <?php echo $BL['be_copyright']; ?>
           </span>
 
-          <div class="form-check">
-    				<input class="form-check-input" type="checkbox" name="cimage_list_caption_suppress" id="cimage_list_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['list_caption_suppress']) ? 0 : 1); ?> />
+          <div class="form-check form-switch">
+    				<input class="form-check-input" type="checkbox" role="switch" name="cimage_list_caption_suppress" id="cimage_list_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['list_caption_suppress']) ? 0 : 1); ?> />
     				<label class="form-check-label" for="cimage_list_caption_suppress"><?php echo $BL['be_suppress_render_caption']; ?></label>
           </div>
         </div>
@@ -535,8 +535,8 @@ $langstr = '';
       <div class="form-group align-items-center row g-2">
         <label for="article_aktiv" class="col-sm-2 col-form-label text-sm-end"><?php echo $BL['be_article_show'] ?></label>
         <div class="col-sm-10">
-          <div class="form-check">
-            <input class="form-check-input" name="article_aktiv" type="checkbox" id="article_aktiv" value="1"<?php is_checked(1, $article['article_aktiv']); ?> />
+          <div class="form-check form-switch">
+            <input class="form-check-input" name="article_aktiv" type="checkbox" role="switch" id="article_aktiv" value="1"<?php is_checked(1, $article['article_aktiv']); ?> />
             <label class="form-check-label fw-bold" for="article_aktiv"><?php echo $BL['be_active'] ?></label>
           </div>
         </div>

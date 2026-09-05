@@ -26,8 +26,8 @@ if (!defined('PHPWCMS_ROOT')) {
     <div class="form-group row g-2 align-items-center">
         <span class="col-sm-2 col-form-label text-end"><?php echo $BL['be_profile_label_lang'] ?></span>
         <div class="col-sm-auto">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" name="pref_felang" id="pref_felang" type="checkbox" value="1"<?php is_checked('1', $plugin['data']['shop_pref_felang']) ?> onchange="enableSubmit();" />
+            <div class="form-check form-switch form-check-inline">
+                <input class="form-check-input" name="pref_felang" id="pref_felang" type="checkbox" role="switch" value="1"<?php is_checked('1', $plugin['data']['shop_pref_felang']) ?> onchange="enableSubmit();" />
                 <label class="form-check-label" for="pref_felang"><?php echo $BLM['shopprod_lang_support'] . ' (' . strtoupper(implode('/', $phpwcms['allowed_lang'])) . ')' ?></label>
             </div>
         </div>
@@ -222,16 +222,16 @@ if (!defined('PHPWCMS_ROOT')) {
             <?php echo $BLM['shopprod_selfpickup'] ?>
         </span>
         <div class="col-sm-auto">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="pref_shipping_selfpickup" id="pref_shipping_selfpickup" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_shipping_selfpickup']) ?> onchange="enableSubmit();" />
+            <div class="form-check form-switch form-check-inline">
+                <input type="checkbox" class="form-check-input" role="switch" name="pref_shipping_selfpickup" id="pref_shipping_selfpickup" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_shipping_selfpickup']) ?> onchange="enableSubmit();" />
                 <label for="pref_shipping_selfpickup" class="form-check-label">
                     <?php echo $BLM['shopprod_allowed'] ?>
                 </label>
             </div>
         </div>
         <div class="col-sm-auto">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="pref_freeshipping_pickup" id="pref_freeshipping_pickup" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['freeshipping_pickup']) ?> onchange="enableSubmit();" />
+            <div class="form-check form-switch form-check-inline">
+                <input type="checkbox" class="form-check-input" role="switch" name="pref_freeshipping_pickup" id="pref_freeshipping_pickup" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['freeshipping_pickup']) ?> onchange="enableSubmit();" />
                 <label for="pref_freeshipping_pickup" class="form-check-label">
                     <?php echo $BLM['shopprod_freeshipping'] ?>
                 </label>
@@ -278,8 +278,8 @@ if (!defined('PHPWCMS_ROOT')) {
     <div class="form-group row g-2 align-items-center">
         <span class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_inventory'] ?></span>
         <div class="col-sm-auto">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="pref_autosubtract_off" id="pref_autosubtract_off" value="1"<?php is_checked('1', $plugin['data']['shop_pref_autosubtract_off']) ?> onchange="enableSubmit();" />
+            <div class="form-check form-switch form-check-inline">
+                <input class="form-check-input" type="checkbox" role="switch" name="pref_autosubtract_off" id="pref_autosubtract_off" value="1"<?php is_checked('1', $plugin['data']['shop_pref_autosubtract_off']) ?> onchange="enableSubmit();" />
                 <label class="form-check-label" for="pref_autosubtract_off"><?php echo $BLM['shopprod_autosubtract_off'] ?></label>
             </div>
         </div>
@@ -445,8 +445,8 @@ if (!defined('PHPWCMS_ROOT')) {
   <div class="form-group row g-2 align-items-center mt-sm-3">
         <label for="pref_api_access" class="col-sm-2 col-form-label text-end"><?php echo $BLM['shopprod_api'] ?></label>
         <div class="col-sm-auto">
-            <div class="form-check-inline">
-        <input class="form-check-input" name="pref_api_access" id="pref_api_access" type="checkbox" value="1"<?php is_checked('1', $plugin['data']['shop_pref_api_access']); ?> onchange="enableSubmit();" />
+            <div class="form-check form-switch form-check-inline">
+        <input class="form-check-input" name="pref_api_access" id="pref_api_access" type="checkbox" role="switch" value="1"<?php is_checked('1', $plugin['data']['shop_pref_api_access']); ?> onchange="enableSubmit();" />
         <label class="form-check-label" for="pref_api_access"><?php echo $BLM['shopprod_api_access']; ?></label>
       </div>
         </div>

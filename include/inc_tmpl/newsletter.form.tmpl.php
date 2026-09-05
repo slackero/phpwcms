@@ -375,8 +375,8 @@ function insertNewsletterPlaceholder(tag) {
     <div class="form-group row g-2">
       <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
       <div class="col-sm-10">
-        <div class="form-check">
-            <input class="form-check-input" name="newsletter_active" id="newsletter_active" type="checkbox" value="1"<?php is_checked(1, $newsletter["newsletter_active"]); ?> />
+        <div class="form-check form-switch">
+            <input class="form-check-input" name="newsletter_active" id="newsletter_active" type="checkbox" role="switch" value="1"<?php is_checked(1, $newsletter["newsletter_active"]); ?> />
 			<label class="form-check-label align-items-center pt-0" for="newsletter_active">
                 <strong><?php echo $BL['be_cnt_newsletter_prepare'] ?></strong><br />
                 <span class="v10"><?php echo $BL['be_cnt_newsletter_prepare1'] ?></span>

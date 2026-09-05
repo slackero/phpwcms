@@ -60,7 +60,7 @@ if(isset($file_result[0]['f_id'])) {
         echo '<div class="btn-group btn-group-sm" role="group">'.LF;
 
         // Edit file info button
-        echo '<a class="btn btn-xs btn-blue" role="button" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'" data-bs-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa-solid fa-pencil-alt fa-fw mt-1"></i></a>';
+        echo '<a class="btn btn-xs btn-blue" role="button" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'" data-bs-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
 
         echo '<div class="btn-group btn-group-sm" role="group">';
         echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';

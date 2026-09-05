@@ -89,8 +89,8 @@ initJsAutocompleter();
               <input type="text" class="form-control datetimepicker-input" name="calendar_end_time" id="calendar_end_time" value="<?php echo html($plugin['data']['calendar_end_time']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
               <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('calendar_end_time')._flatpickr&&document.getElementById('calendar_end_time')._flatpickr.open();"><i class="fa-regular fa-clock fa-fw"></i></span>
             </div>
-            <div class="form-check form-check-inline align-self-center ms-2 mb-0">
-              <input type="checkbox" name="calendar_allday" id="calendar_allday" class="form-check-input" value="1"<?php is_checked(1, $plugin['data']['calendar_allday']) ?> onchange="setCalendarAllDay();" />
+            <div class="form-check form-switch form-check-inline align-self-center ms-2 mb-0">
+              <input type="checkbox" role="switch" name="calendar_allday" id="calendar_allday" class="form-check-input" value="1"<?php is_checked(1, $plugin['data']['calendar_allday']) ?> onchange="setCalendarAllDay();" />
               <label for="calendar_allday" class="form-check-label mb-0" onclick="setCalendarAllDay()">
                 <?php echo $BLM['all_day'] ?>
               </label>
@@ -234,12 +234,12 @@ initJsAutocompleter();
 
   <div class="form-group align-items-center row g-2">
     <label class="col-sm-2 col-form-label text-end p-0"></label>
-    <div class="col-sm-auto"><div class="form-check">
-			<input class="form-check-input" type="checkbox" id="cnt_image_zoom" name="cnt_image_zoom" value="1"<?php is_checked(1, $plugin['data']['calendar_image']['zoom']); ?> />
+    <div class="col-sm-auto"><div class="form-check form-switch">
+			<input class="form-check-input" type="checkbox" role="switch" id="cnt_image_zoom" name="cnt_image_zoom" value="1"<?php is_checked(1, $plugin['data']['calendar_image']['zoom']); ?> />
 			<label class="form-check-label" for="cnt_image_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
     </div></div>
-    <div class="col-sm-auto"><div class="form-check">
-			<input class="form-check-input" type="checkbox" id="cnt_image_lightbox" name="cnt_image_lightbox" value="1"<?php is_checked(1, $plugin['data']['calendar_image']['lightbox']); ?> />
+    <div class="col-sm-auto"><div class="form-check form-switch">
+			<input class="form-check-input" type="checkbox" role="switch" id="cnt_image_lightbox" name="cnt_image_lightbox" value="1"<?php is_checked(1, $plugin['data']['calendar_image']['lightbox']); ?> />
 			<label class="form-check-label" for="cnt_image_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
     </div></div>
   </div>
@@ -265,12 +265,12 @@ initJsAutocompleter();
 
     <div class="form-group row g-2">
     	<label for="be_ftptakeover_status" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
-			<div class="col-sm-auto"><div class="form-check">
-				<input class="form-check-input" type="checkbox" name="calendar_status" id="calendar_status" value="1"<?php is_checked($plugin['data']['calendar_status'], 1) ?> />
+			<div class="col-sm-auto"><div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" role="switch" name="calendar_status" id="calendar_status" value="1"<?php is_checked($plugin['data']['calendar_status'], 1) ?> />
 				<label class="form-check-label" for="calendar_status"><?php echo $BL['be_cnt_activated'] ?></label>
 			</div></div>
-			<div class="col-sm-auto"><div class="form-check">
-				<input class="form-check-input" type="checkbox" name="calendar_duplicate" id="calendar_duplicate" value="1"<?php is_checked(empty($plugin['data']['calendar_duplicate'])?0:1, 1) ?> />
+			<div class="col-sm-auto"><div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" role="switch" name="calendar_duplicate" id="calendar_duplicate" value="1"<?php is_checked(empty($plugin['data']['calendar_duplicate'])?0:1, 1) ?> />
 				<label class="form-check-label" for="calendar_duplicate"><?php echo $BLM['save_copy'] ?></label>
 			</div></div>
     </div>

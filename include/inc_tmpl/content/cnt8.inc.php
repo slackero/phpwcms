@@ -180,8 +180,8 @@ initJsAutocompleter();
   </div>
 
   <div class="col">
-    <div class="form-check form-check-inline">
-			<input class="form-check-input ms-sm-3" name="calink_crop" type="checkbox" id="calink_crop" value="1"<?php is_checked(1, $content['alink']['alink_crop']); ?> />
+    <div class="form-check form-switch form-check-inline">
+			<input class="form-check-input ms-sm-3" name="calink_crop" type="checkbox" role="switch" id="calink_crop" value="1"<?php is_checked(1, $content['alink']['alink_crop']); ?> />
 			<label class="form-check-label" for="calink_crop"><?php echo $BL['be_image_crop'] ?></label>
 		</div>
 	</div>

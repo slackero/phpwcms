@@ -433,18 +433,18 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 
 			<div class="form-group row">
 				<div class="col-sm-9 offset-sm-3">
-					<div class="form-check mb-2">
+					<div class="form-check form-switch mb-2">
 						<?php if(empty($plugin['data']['adcampaign_id'])): ?>
-							<input type="checkbox" class="form-check-input" name="adcampaign_status" id="adcampaign_status" value="1" disabled />
+							<input type="checkbox" class="form-check-input" role="switch" name="adcampaign_status" id="adcampaign_status" value="1" disabled />
 							<label class="form-check-label text-muted" for="adcampaign_status"><?php echo $BL['be_cnt_activated'] ?></label>
 						<?php else: ?>
-							<input type="checkbox" class="form-check-input" name="adcampaign_status" id="adcampaign_status" value="1"<?php is_checked($plugin['data']['adcampaign_status'], 1) ?> />
+							<input type="checkbox" class="form-check-input" role="switch" name="adcampaign_status" id="adcampaign_status" value="1"<?php is_checked($plugin['data']['adcampaign_status'], 1) ?> />
 							<label class="form-check-label" for="adcampaign_status"><?php echo $BL['be_cnt_activated'] ?></label>
 						<?php endif; ?>
 					</div>
 					<?php if(!empty($plugin['data']['adcampaign_id'])): ?>
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" name="adcampaign_duplicate" id="adcampaign_duplicate" value="1"<?php is_checked(empty($plugin['data']['adcampaign_duplicate'])?0:1, 1) ?> />
+						<div class="form-check form-switch">
+							<input type="checkbox" class="form-check-input" role="switch" name="adcampaign_duplicate" id="adcampaign_duplicate" value="1"<?php is_checked(empty($plugin['data']['adcampaign_duplicate'])?0:1, 1) ?> />
 							<label class="form-check-label" for="adcampaign_duplicate"><?php echo $BLM['save_copy'] ?></label>
 						</div>
 					<?php endif; ?>

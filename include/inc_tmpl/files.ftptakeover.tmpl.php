@@ -135,8 +135,8 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
 
         <div class="form-group row g-2 align-items-center">
             <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_iptc_data'] ?></label>
-            <div class="col"><div class="form-check">
-                <input class="form-check-input" type="checkbox" name="file_iptc_as_caption" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> >
+            <div class="col"><div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" name="file_iptc_as_caption" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> >
                 <label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
             </div></div>
         </div>
@@ -285,20 +285,20 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
     <div class="form-group row g-2 align-items-center">
     	<label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?></label>
     	<div class="col-sm-10">
-    		<div class="form-check form-check-inline">
-					<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> />
+    		<div class="form-check form-switch form-check-inline">
+					<input class="form-check-input" name="file_aktiv" type="checkbox" role="switch" id="file_aktiv" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> />
           <label class="form-check-label" for="file_aktiv">
 					<?php echo $BL['be_ftptakeover_active'] ?>
 				</label>
 			</div>
-    		<div class="form-check form-check-inline">
-					<input class="form-check-input" name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> />
+    		<div class="form-check form-switch form-check-inline">
+					<input class="form-check-input" name="file_public" type="checkbox" role="switch" id="file_public" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> />
           <label class="form-check-label" for="file_public">
 					<?php echo $BL['be_ftptakeover_public'] ?>
 				</label>
 			</div>
-    		<div class="form-check form-check-inline">
-					<input class="form-check-input" name="file_replace" type="checkbox" id="file_replace" value="1" />
+    		<div class="form-check form-switch form-check-inline">
+					<input class="form-check-input" name="file_replace" type="checkbox" role="switch" id="file_replace" value="1" />
           <label class="form-check-label" for="file_replace">
 					<?php echo $BL['be_file_replace'] ?>
 				</label>

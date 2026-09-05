@@ -145,8 +145,8 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
         </div>
     </div>
     <div class="col-sm-auto">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_list']['crop']); ?> />
+        <div class="form-check form-switch form-check-inline">
+            <input class="form-check-input" type="checkbox" role="switch" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_list']['crop']); ?> />
             <label class="form-check-label" for="cimage_crop"><?php echo $BL['be_image_crop'] ?></label>
         </div>
     </div>
@@ -158,8 +158,8 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
 		<input name="cimage_limit" type="text" class="form-control form-control-sm" id="cimage_limit" maxlength="3" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['limit']) ? '' : $content['image_list']['limit']; ?>" />
 	</div>
 	<div class="col">
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" name="cimage_random" type="checkbox" id="cimage_random" value="1" <?php is_checked(1, empty($content['image_list']['random']) ? 0 : 1); ?> />
+		<div class="form-check form-switch form-check-inline">
+			<input class="form-check-input" name="cimage_random" type="checkbox" role="switch" id="cimage_random" value="1" <?php is_checked(1, empty($content['image_list']['random']) ? 0 : 1); ?> />
 			<label class="form-check-label" for="cimage_random"><?php echo $BL['random_image'] ?></label>
 		</div>
 	</div>
@@ -205,16 +205,16 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
 <div class="form-group align-items-center row g-2">
     <label for="cimage_zoom" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_behavior'] ?></label>
     <div class="col">
-        <div class="form-check form-check-inline">
-			<input name="cimage_zoom" class="form-check-input" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, $content['image_list']['zoom']); ?> />
+        <div class="form-check form-switch form-check-inline">
+			<input name="cimage_zoom" class="form-check-input" type="checkbox" role="switch" id="cimage_zoom" value="1" <?php is_checked(1, $content['image_list']['zoom']); ?> />
 			<label class="form-check-label"><?php echo $BL['be_cnt_enlarge'] ?></label>
         </div>
-        <div class="form-check form-check-inline">
-			<input name="cimage_lightbox" class="form-check-input" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, $content['image_list']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
+        <div class="form-check form-switch form-check-inline">
+			<input name="cimage_lightbox" class="form-check-input" type="checkbox" role="switch" id="cimage_lightbox" value="1" <?php is_checked(1, $content['image_list']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
 			<label class="form-check-label"><?php echo $BL['be_cnt_lightbox'] ?></label>
         </div>
-        <div class="form-check form-check-inline">
-			<input name="cimage_nocaption" class="form-check-input" type="checkbox" id="cimage_nocaption" value="1" <?php is_checked(1, $content['image_list']['nocaption']); ?> />
+        <div class="form-check form-switch form-check-inline">
+			<input name="cimage_nocaption" class="form-check-input" type="checkbox" role="switch" id="cimage_nocaption" value="1" <?php is_checked(1, $content['image_list']['nocaption']); ?> />
 			<label class="form-check-label"><?php echo $BL['be_cnt_imglist_nocaption'] ?></label>
         </div>
     </div>

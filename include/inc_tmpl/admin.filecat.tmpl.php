@@ -107,12 +107,12 @@ if(isset($_GET['open'])) {
             <div class="form-group row">
                 <span class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BL['be_ftptakeover_status'] ?>:</span>
                 <div class="col-sm-6 d-flex align-items-center">
-                    <div class="form-check me-4">
-                        <input class="form-check-input" name="fcat_active" type="checkbox" id="fcat_active" value="1"<?php is_checked(1, empty($fcat["active"]) ? 0 : $fcat["active"]); ?> />
+                    <div class="form-check form-switch me-4">
+                        <input class="form-check-input" name="fcat_active" type="checkbox" role="switch" id="fcat_active" value="1"<?php is_checked(1, empty($fcat["active"]) ? 0 : $fcat["active"]); ?> />
                         <label for="fcat_active" class="form-check-label"><?php echo $BL['be_ftptakeover_active'] ?></label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" name="fcat_needed" type="checkbox" id="fcat_needed" value="1"<?php is_checked(1, empty($fcat["needed"]) ? 0 : $fcat["needed"]); ?> />
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" name="fcat_needed" type="checkbox" role="switch" id="fcat_needed" value="1"<?php is_checked(1, empty($fcat["needed"]) ? 0 : $fcat["needed"]); ?> />
                         <label for="fcat_needed" class="form-check-label"><?php echo $BL['be_admin_fcat_needed'] ?></label>
                     </div>
                 </div>
@@ -231,8 +231,8 @@ if(isset($_GET['open'])) {
             <div class="form-group row">
                 <span class="col-sm-3 col-form-label text-sm-end fw-bold"><?php echo $BL['be_ftptakeover_status'] ?>:</span>
                 <div class="col-sm-6 d-flex align-items-center">
-                    <div class="form-check">
-                        <input class="form-check-input" name="fkey_active" type="checkbox" id="fkey_active" value="1"<?php is_checked(1, empty($fkey["active"]) ? 0 : $fkey["active"]); ?> />
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" name="fkey_active" type="checkbox" role="switch" id="fkey_active" value="1"<?php is_checked(1, empty($fkey["active"]) ? 0 : $fkey["active"]); ?> />
                         <label for="fkey_active" class="form-check-label"><?php echo $BL['be_ftptakeover_active'] ?></label>
                     </div>
                 </div>

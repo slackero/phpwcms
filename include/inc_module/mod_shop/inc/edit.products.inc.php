@@ -453,8 +453,8 @@ if (count($plugin['data']['shopprod_files'])) {
     <div class="form-group row g-2">
         <span class="col-2 col-form-label text-end"><?php echo $BLM['shopprod_on_request'] ?></span>
         <div class="col-10 col-sm-1">
-            <div class="form-check pt-2">
-                <input class="form-check-input" type="checkbox" name="shopprod_on_request" id="shopprod_on_request" value="1"<?php is_checked($plugin['data']['shopprod_on_request'], 1) ?> />
+            <div class="form-check form-switch pt-2">
+                <input class="form-check-input" type="checkbox" role="switch" name="shopprod_on_request" id="shopprod_on_request" value="1"<?php is_checked($plugin['data']['shopprod_on_request'], 1) ?> />
                 <label class="form-check-label" for="shopprod_on_request">
                     <?php echo $BL['be_cnt_activated'] ?>
                 </label>
@@ -473,26 +473,26 @@ if (count($plugin['data']['shopprod_files'])) {
   <div class="form-group row g-2">
     <span class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_ftptakeover_status'] ?></span>
     <div class="col">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="shopprod_status" id="shopprod_status" value="1"<?php is_checked($plugin['data']['shopprod_status'], 1) ?> />
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" name="shopprod_status" id="shopprod_status" value="1"<?php is_checked($plugin['data']['shopprod_status'], 1) ?> />
             <label class="form-check-label" for="shopprod_status">
                 <strong><?php echo $BL['be_cnt_activated'] ?></strong>
             </label>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="shopprod_listall" id="shopprod_listall" value="1"<?php is_checked($plugin['data']['shopprod_listall'], 1) ?> />
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" name="shopprod_listall" id="shopprod_listall" value="1"<?php is_checked($plugin['data']['shopprod_listall'], 1) ?> />
             <label class="form-check-label" for="shopprod_listall">
                 <?php echo $BLM['shopprod_listall'] ?>
             </label>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="shopprod_overwrite_meta" id="shopprod_overwrite_meta" value="1"<?php is_checked($plugin['data']['shopprod_overwrite_meta'], 1) ?> />
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" name="shopprod_overwrite_meta" id="shopprod_overwrite_meta" value="1"<?php is_checked($plugin['data']['shopprod_overwrite_meta'], 1) ?> />
             <label class="form-check-label" for="shopprod_overwrite_meta">
                 <?php echo $BLM['shopprod_overwrite_meta'] ?>
             </label>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="shopprod_opengraph" id="shopprod_opengraph" value="1"<?php is_checked($plugin['data']['shopprod_opengraph'], 1) ?> />
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" name="shopprod_opengraph" id="shopprod_opengraph" value="1"<?php is_checked($plugin['data']['shopprod_opengraph'], 1) ?> />
             <label class="form-check-label" for="shopprod_opengraph">
                 <?php echo $BL['be_opengraph_support'] ?>
             </label>
@@ -500,8 +500,8 @@ if (count($plugin['data']['shopprod_files'])) {
 
 <!-- save as duplicate -->
 <?php   if ($plugin['data']['shopprod_id']): ?>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="shopprod_duplicate" id="shopprod_duplicate" value="1"<?php is_checked($plugin['data']['shopprod_duplicate'], 1) ?> />
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" name="shopprod_duplicate" id="shopprod_duplicate" value="1"<?php is_checked($plugin['data']['shopprod_duplicate'], 1) ?> />
                     <label class="form-check-label" for="shopprod_duplicate">
                         <?php echo $BL['be_save_copy'] ?>
                     </label>

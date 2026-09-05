@@ -282,8 +282,8 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                   <input type="text" name="cpt_icon" id="cpt_icon" class="form-control" value="<?php echo html($edit_cpt['cpt_icon'] ?? 'fa-cube'); ?>">
                 </div>
                 <div class="col-md-2 form-group d-flex align-items-end pb-2">
-                  <div class="form-check">
-                    <input type="checkbox" name="cpt_active" id="cpt_active" value="1" class="form-check-input"<?php echo (!isset($edit_cpt['cpt_active']) || !empty($edit_cpt['cpt_active'])) ? ' checked' : ''; ?>>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" role="switch" name="cpt_active" id="cpt_active" value="1" class="form-check-input"<?php echo (!isset($edit_cpt['cpt_active']) || !empty($edit_cpt['cpt_active'])) ? ' checked' : ''; ?>>
                     <label class="form-check-label" for="cpt_active"><strong><?php echo html($BL['be_admin_struct_active'] ?? 'Active'); ?></strong></label>
                   </div>
                 </div>
@@ -324,8 +324,8 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
           <!-- Template File Options & Actions Card -->
           <div class="card mb-4">
             <div class="card-body">
-              <div class="form-check">
-                <input type="checkbox" name="create_template_file" id="create_template_file" value="1" class="form-check-input"<?php echo ($edit_id < 0 || !$tpl_exists) ? ' checked' : ''; ?>>
+              <div class="form-check form-switch">
+                <input type="checkbox" role="switch" name="create_template_file" id="create_template_file" value="1" class="form-check-input"<?php echo ($edit_id < 0 || !$tpl_exists) ? ' checked' : ''; ?>>
                 <label class="form-check-label" for="create_template_file">
                   <?php echo $tpl_exists ? html($BL['be_admin_custom_cpt_overwrite_template'] ?? 'Overwrite template file:') : html($BL['be_admin_custom_cpt_create_template_help'] ?? 'Automatically create starter template file:'); ?>
                   <code>template/inc_cntpart/custom/<strong class="tpl-key-preview" id="tplKeyPreview"><?php echo html(!empty($edit_cpt['cpt_key']) ? $edit_cpt['cpt_key'] : '{KEY}'); ?></strong>/default.tmpl</code>

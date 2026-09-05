@@ -221,8 +221,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
         <div class="form-group row g-2 align-items-center">
           <label for="form_active" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_usr_setactive'] ?></label>
           <div class="col-sm-10">
-            <div class="form-check">
-              <input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
+            <div class="form-check form-switch">
+              <input class="form-check-input" name="form_active" type="checkbox" role="switch" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
               <label class="form-check-label" for="form_active"><?php echo $BL['be_admin_usr_iflogin'] ?></label>
             </div>
           </div>
@@ -231,8 +231,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
         <div class="form-group row g-2 align-items-center">
           <label for="form_admin" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
           <div class="col-sm-10">
-            <div class="form-check">
-              <input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
+            <div class="form-check form-switch">
+              <input class="form-check-input" name="form_admin" type="checkbox" role="switch" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
               <label class="form-check-label" for="form_admin"><strong><?php echo $BL['be_admin_usr_ifadmin'] ?>!</strong></label>
             </div>
           </div>
@@ -241,8 +241,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
         <div class="form-group row g-2 align-items-center">
           <label for="verification_email" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_usr_verify'] ?></label>
           <div class="col-sm-10">
-            <div class="form-check">
-              <input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
+            <div class="form-check form-switch">
+              <input class="form-check-input" name="verification_email" type="checkbox" role="switch" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
               <label class="form-check-label" for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label>
             </div>
           </div>
@@ -252,8 +252,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
         <div class="form-group row g-2 align-items-center">
           <label for="form_reset_2fa" class="col-sm-2 col-form-label text-end text-danger"><i class="fa-solid fa-shield-alt"></i> 2FA</label>
           <div class="col-sm-10">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" name="form_reset_2fa" type="checkbox" id="form_reset_2fa" value="1" />
+            <div class="form-check form-switch form-check-inline">
+              <input class="form-check-input" name="form_reset_2fa" type="checkbox" role="switch" id="form_reset_2fa" value="1" />
               <label class="form-check-label text-danger fw-bold" for="form_reset_2fa">
                 <?php echo $BL['be_admin_usr_2fa_reset'] ?? 'Reset / Disable 2FA'; ?>
               </label>

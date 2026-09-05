@@ -87,8 +87,8 @@ if (!defined('PHPWCMS_ROOT')) {
       <div class="form-group row g-2 align-items-center">
         <label class="col-sm-2 col-form-label text-end" for="subscribe_active"><?php echo $BL['be_ftptakeover_status'] ?></label>
         <div class="col">
-          <div class="form-check">
-						<input class="form-check-input" name="subscribe_active" type="checkbox" id="subscribe_active" value="1"<?php is_checked($_userInfo['subscriber_data']['address_verified'], 1) ?> />
+          <div class="form-check form-switch">
+						<input class="form-check-input" name="subscribe_active" type="checkbox" role="switch" id="subscribe_active" value="1"<?php is_checked($_userInfo['subscriber_data']['address_verified'], 1) ?> />
 						<label class="form-check-label" for="subscribe_active"><?php echo $BL['be_cnt_activated']; ?></label>
           </div>
         </div>

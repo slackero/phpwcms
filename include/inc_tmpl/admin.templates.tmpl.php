@@ -514,8 +514,8 @@ if(!isset($_GET["s"])) {
                         <div class="form-group row g-2 align-items-center">
                             <div class="col-sm-2"></div>
                             <div class="col">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="template_onepage" type="checkbox"
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" name="template_onepage" type="checkbox" role="switch"
                                            id="template_onepage"
                                            value="1" <?php is_checked((!empty($template["onepage"]) ? 1 : 0), 1) ?> />
                                     <label class="form-check-label"
@@ -778,8 +778,8 @@ if(!isset($_GET["s"])) {
                         <div class="form-group row g-2 align-items-center mb-0">
                             <div class="col-sm-2"></div>
                             <div class="col">
-                                <div class="form-check">
-                                    <input class="form-check-input" name="template_frontendjs" id="template_frontendjs" type="checkbox" value="1"<?php is_checked($template['frontendjs'], 1); ?>>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" name="template_frontendjs" id="template_frontendjs" type="checkbox" role="switch" value="1"<?php is_checked($template['frontendjs'], 1); ?>>
                                     <label class="form-check-label" for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label>
                                 </div>
                             </div>

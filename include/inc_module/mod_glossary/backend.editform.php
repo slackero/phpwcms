@@ -74,12 +74,12 @@ if (!defined('PHPWCMS_ROOT')) {
 
 			<div class="form-group row">
 				<div class="col-sm-10 offset-sm-2">
-					<div class="form-check mb-2">
-						<input type="checkbox" class="form-check-input" name="glossary_highlight" id="glossary_highlight" value="1"<?php is_checked($glossary['data']['glossary_highlight'], 1) ?> />
+					<div class="form-check form-switch mb-2">
+						<input type="checkbox" class="form-check-input" role="switch" name="glossary_highlight" id="glossary_highlight" value="1"<?php is_checked($glossary['data']['glossary_highlight'], 1) ?> />
 						<label class="form-check-label" for="glossary_highlight"><?php echo $BLM['highlight_descr'] ?></label>
 					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" name="glossary_status" id="glossary_status" value="1"<?php is_checked($glossary['data']['glossary_status'], 1) ?> />
+					<div class="form-check form-switch">
+						<input type="checkbox" class="form-check-input" role="switch" name="glossary_status" id="glossary_status" value="1"<?php is_checked($glossary['data']['glossary_status'], 1) ?> />
 						<label class="form-check-label" for="glossary_status"><?php echo $BL['be_cnt_activated'] ?></label>
 					</div>
 				</div>

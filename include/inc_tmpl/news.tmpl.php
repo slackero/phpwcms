@@ -484,12 +484,12 @@ if($news->data['cnt_id']) {
   <div class="form-group align-items-center row g-2">
     <span class="col-sm-2"></span>
     <div class="col-sm-10">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="cnt_image_zoom" name="cnt_image_zoom" value="1"<?php is_checked(1, $news->data['cnt_image']['zoom']); ?> />
+      <div class="form-check form-switch form-check-inline">
+        <input class="form-check-input" type="checkbox" role="switch" id="cnt_image_zoom" name="cnt_image_zoom" value="1"<?php is_checked(1, $news->data['cnt_image']['zoom']); ?> />
         <label class="form-check-label" for="cnt_image_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
       </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="cnt_image_lightbox" name="cnt_image_lightbox" value="1"<?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> />
+      <div class="form-check form-switch form-check-inline">
+        <input class="form-check-input" type="checkbox" role="switch" id="cnt_image_lightbox" name="cnt_image_lightbox" value="1"<?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> />
         <label class="form-check-label" for="cnt_image_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
       </div>
     </div>
@@ -575,12 +575,12 @@ if($news->data['cnt_id']) {
   <div class="form-group align-items-center row g-2">
     <span class="col-sm-2"></span>
     <div class="col-sm-10">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="cnt_file_gallery" name="cnt_file_gallery" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery']); ?> />
+      <div class="form-check form-switch form-check-inline">
+        <input class="form-check-input" type="checkbox" role="switch" id="cnt_file_gallery" name="cnt_file_gallery" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery']); ?> />
         <label class="form-check-label" for="cnt_file_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label>
       </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="cnt_file_gallery_download" name="cnt_file_gallery_download" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery_download']); ?> />
+      <div class="form-check form-switch form-check-inline">
+        <input class="form-check-input" type="checkbox" role="switch" id="cnt_file_gallery_download" name="cnt_file_gallery_download" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery_download']); ?> />
         <label class="form-check-label" for="cnt_file_gallery_download"><?php echo $BL['be_gallerydownload'] ?></label>
       </div>
     </div>
@@ -630,28 +630,28 @@ if($news->data['cnt_id']) {
     <div class="form-group row g-2 bg-grey py-2 mb-0">
     <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
     <div class="col-sm-10">
-      <div class="form-check">
-                <input class="form-check-input" name="cnt_readmore" type="checkbox" id="cnt_readmore" value="1"<?php is_checked(1, $news->data['cnt_readmore']); ?> />
+      <div class="form-check form-switch">
+                <input class="form-check-input" name="cnt_readmore" type="checkbox" role="switch" id="cnt_readmore" value="1"<?php is_checked(1, $news->data['cnt_readmore']); ?> />
                 <label class="form-check-label" for="cnt_readmore"><?php echo $BL['be_article_morelink'] ?></label>
       </div>
-      <div class="form-check">
-                <input class="form-check-input"  name="cnt_searchoff" type="checkbox" id="cnt_searchoff" value="1"<?php is_checked(1, $news->data['cnt_searchoff']); ?> />
+      <div class="form-check form-switch">
+                <input class="form-check-input" name="cnt_searchoff" type="checkbox" role="switch" id="cnt_searchoff" value="1"<?php is_checked(1, $news->data['cnt_searchoff']); ?> />
                 <label class="form-check-label" for="cnt_searchoff"><?php echo $BL['be_no_search'] ?></label>
       </div>
-      <div class="form-check">
-                <input class="form-check-input"  name="cnt_opengraph" type="checkbox" id="cnt_opengraph" value="1"<?php is_checked(1, $news->data['cnt_opengraph']); ?> />
+      <div class="form-check form-switch">
+                <input class="form-check-input" name="cnt_opengraph" type="checkbox" role="switch" id="cnt_opengraph" value="1"<?php is_checked(1, $news->data['cnt_opengraph']); ?> />
                 <label class="form-check-label" for="cnt_opengraph"><?php echo $BL['be_opengraph_support'] ?></label>
       </div>
-      <div class="form-check">
-                <input class="form-check-input" name="cnt_archive_status" type="checkbox" id="cnt_archive_status" value="1"<?php is_checked(1, $news->data['cnt_archive_status']); ?> />
+      <div class="form-check form-switch">
+                <input class="form-check-input" name="cnt_archive_status" type="checkbox" role="switch" id="cnt_archive_status" value="1"<?php is_checked(1, $news->data['cnt_archive_status']); ?> />
                 <label class="form-check-label" for="cnt_archive_status"><?php echo $BL['be_show_archived'] ?></label>
       </div>
-      <div class="form-check">
-                <input class="form-check-input" name="cnt_duplicate" type="checkbox" id="cnt_duplicate" value="1"<?php is_checked(1, $news->data['cnt_duplicate']); ?> />
+      <div class="form-check form-switch">
+                <input class="form-check-input" name="cnt_duplicate" type="checkbox" role="switch" id="cnt_duplicate" value="1"<?php is_checked(1, $news->data['cnt_duplicate']); ?> />
                 <label class="form-check-label" for="cnt_duplicate"><?php echo $BL['be_save_copy'] ?></label>
       </div>
-      <div class="form-check">
-                <input class="form-check-input" name="cnt_status" type="checkbox" id="cnt_status" value="1"<?php is_checked(1, $news->data['cnt_status']); ?> />
+      <div class="form-check form-switch">
+                <input class="form-check-input" name="cnt_status" type="checkbox" role="switch" id="cnt_status" value="1"<?php is_checked(1, $news->data['cnt_status']); ?> />
                 <label class="form-check-label" for="cnt_status"><strong><?php echo $BL['be_published'] ?></strong></label>
       </div>
     </div>

@@ -575,20 +575,20 @@ if($ja) {
 
 
 
-            <div class="form-check me-3">
-                <input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv); ?> />
+            <div class="form-check form-switch me-3">
+                <input class="form-check-input" name="file_aktiv" type="checkbox" role="switch" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv); ?> />
                 <label class="form-check-label fw-bold" for="file_aktiv"><?php echo $BL['be_ftptakeover_active']; ?></label>
             </div>
-            <div class="form-check me-3">
-                <input class="form-check-input" name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted); ?> />
+            <div class="form-check form-switch me-3">
+                <input class="form-check-input" name="file_granted" type="checkbox" role="switch" id="file_granted" value="1"<?php is_checked("1", $file_granted); ?> />
                 <label class="form-check-label fw-bold" for="file_granted"><?php echo $BL['be_granted_download']; ?></label>
             </div>
-            <div class="form-check me-3">
-                <input class="form-check-input" name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public); ?> />
+            <div class="form-check form-switch me-3">
+                <input class="form-check-input" name="file_public" type="checkbox" role="switch" id="file_public" value="1"<?php is_checked("1", $file_public); ?> />
                 <label class="form-check-label" for="file_public"><?php echo $BL['be_ftptakeover_public']; ?></label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1"<?php is_checked(1, $file_gallerydownload); ?> />
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="file_gallerydownload" type="checkbox" role="switch" id="file_gallerydownload" value="1"<?php is_checked(1, $file_gallerydownload); ?> />
                 <label class="form-check-label" for="file_gallerydownload"><?php echo $BL['be_gallerydownload']; ?></label>
             </div>
         </div>

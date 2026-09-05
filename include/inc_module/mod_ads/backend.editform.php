@@ -176,8 +176,8 @@ initJsCalendar();
 
 			<div class="form-group row">
 				<div class="col-sm-9 offset-sm-3">
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" name="adcampaign_status" id="adcampaign_status" value="1"<?php is_checked($plugin['data']['adcampaign_status'], 1) ?> />
+					<div class="form-check form-switch">
+						<input type="checkbox" class="form-check-input" role="switch" name="adcampaign_status" id="adcampaign_status" value="1"<?php is_checked($plugin['data']['adcampaign_status'], 1) ?> />
 						<label class="form-check-label" for="adcampaign_status"><?php echo $BL['be_cnt_activated'] ?></label>
 					</div>
 				</div>

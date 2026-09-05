@@ -135,8 +135,8 @@ if (!defined('PHPWCMS_ROOT')) {
 			case 'CHECK':
 		echo '<div class="form-group row">'.LF;
 		echo '  <div class="col-sm-10 offset-sm-2">'.LF;
-		echo '    <div class="form-check">'.LF;
-		echo '      <input type="checkbox" class="form-check-input" name="'.$key.'" id="'.$key.'" value="1"';
+		echo '    <div class="form-check form-switch">'.LF;
+		echo '      <input type="checkbox" class="form-check-input" role="switch" name="'.$key.'" id="'.$key.'" value="1"';
 		is_checked($plugin['data'][$key], 1);
 		echo ' />';
 		echo '      <label class="form-check-label" for="'.$key.'">'.$BLM[$key].'</label>'.LF;

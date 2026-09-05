@@ -199,8 +199,10 @@ if ($acat_id === 'index' || $acat_id === 0) {
   <div class="form-group align-items-center row g-2">
       <label class="col-sm-2 col-form-label text-end"></label>
       <div class="col">
-        <input name="acat_onepage" type="checkbox" id="acat_onepage" value="1"<?php if(!empty($acat_onepage)) { echo ' checked="checked"';} ?> />
-        <label for="acat_onepage"><?php echo $BL['be_onepage_id']; ?></label>
+        <div class="form-check form-switch">
+          <input class="form-check-input" name="acat_onepage" type="checkbox" role="switch" id="acat_onepage" value="1"<?php if(!empty($acat_onepage)) { echo ' checked="checked"';} ?> />
+          <label class="form-check-label" for="acat_onepage"><?php echo $BL['be_onepage_id']; ?></label>
+        </div>
       </div>
   </div>
 
@@ -362,25 +364,24 @@ if ($acat_id === 'index' || $acat_id === 0) {
     </div>
 
   <div class="form-group row g-2 align-items-center">
-    <div class="col-sm-2"></div>
-    <div class="form-group col-sm-auto">
-      <label for="be_pagination"><strong><?php echo  $BL['be_pagination'] ?></strong></label>
-      <div class="form-check">
-        <input class="form-check-input" name="acat_paginate" type="checkbox" id="acat_paginate" value="1" <?php if($acat_paginate == 1) echo "checked"; ?> />
+    <label class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_pagination'] ?></label>
+    <div class="col-sm-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" name="acat_paginate" type="checkbox" role="switch" id="acat_paginate" value="1" <?php if($acat_paginate == 1) echo 'checked="checked"'; ?> />
         <label for="acat_paginate" class="form-check-label"><?php echo $BL['be_article_pagination'] ?></label>
       </div>
     </div>
     <div class="form-group col-sm-auto">
-      <label for="be_admin_struct_topcount"><strong><?php echo  $BL['be_admin_struct_topcount'] ?></strong></label>
-      <input name="acat_topcount" type="number" id="acat_topcount" class="form-control form-control-sm" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" />
+      <label for="acat_topcount"><strong><?php echo $BL['be_admin_struct_topcount'] ?></strong></label>
+      <input name="acat_topcount" type="number" id="acat_topcount" class="form-control form-control-sm" value="<?php echo intval($acat_topcount) ?>" size="10" maxlength="10" />
     </div>
     <div class="form-group col-sm-auto">
-      <label for="be_article_per_page"><strong><?php echo $BL['be_article_per_page'] ?></strong></label>
+      <label for="acat_maxlist"><strong><?php echo $BL['be_article_per_page'] ?></strong></label>
       <input name="acat_maxlist" type="number" id="acat_maxlist" class="form-control form-control-sm" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" />
     </div>
   <?php if($acat_struct_mode != 'INDEX'): ?>
     <div class="form-group col-sm-auto">
-      <label for="be_cnt_sortvalue"><strong><?php echo  $BL['be_cnt_sortvalue'] ?></strong></label>
+      <label for="acat_sort"><strong><?php echo $BL['be_cnt_sortvalue'] ?></strong></label>
       <input name="acat_sort" type="number" id="acat_sort" class="form-control form-control-sm" value="<?php echo $acat_sort; ?>" size="11" maxlength="11" />
     </div>
   <?php endif; ?>
@@ -586,8 +587,8 @@ if ($acat_id === 'index' || $acat_id === 0) {
   <div class="form-group align-items-center row g-2">
     <label class="col-form-label col-sm-2 text-end"><?php echo  $BL['be_cache'] ?></label>
     <div class="col-sm-auto me-sm-5">
-      <div class="form-check">
-        <input class="form-check-input" name="acat_cacheoff" type="checkbox" id="acat_cacheoff" value="1"<?php if($acat_timeout === '0') echo "checked"; ?> />
+      <div class="form-check form-switch">
+        <input class="form-check-input" name="acat_cacheoff" type="checkbox" role="switch" id="acat_cacheoff" value="1"<?php if($acat_timeout === '0') echo "checked"; ?> />
         <label for="acat_cacheoff" class="form-check-label"> <?php echo $BL['be_off'] ?></label>
       </div>
     </div>
@@ -622,13 +623,12 @@ if ($acat_id === 'index' || $acat_id === 0) {
   <div class="form-group align-items-center row g-2">
     <label class="col-form-label col-sm-2 text-end"><?php echo  $BL['be_ctype_search'] ?></label>
     <div class="col">
-      <div class="form-check">
+      <div class="form-check form-switch">
+        <input class="form-check-input" name="acat_nosearch" type="checkbox" role="switch" id="acat_nosearch" value="1" <?php if($acat_nosearch === '1') echo 'checked="checked"'; ?> />
+        <?php if(empty($phpwcms['force301_2struct'])): ?><input type="hidden" name="acat_disable301" value="<?php echo $acat_disable301 ?>" /><?php endif; ?>
         <label for="acat_nosearch" class="form-check-label">
-        <?php if(!empty($phpwcms['force301_2struct'])): ?><label for="be_acat_disable301" class="form-check-label"><?php endif; ?>
-        <input class="form-check-input" name="acat_nosearch" type="checkbox" id="acat_nosearch" value="1" <?php if($acat_nosearch === '1') echo 'checked="checked"'; ?> />
-        <?php if(empty($phpwcms['force301_2struct'])): ?><input type="hidden" class="form-check-input" name="acat_disable301" value="<?php echo $acat_disable301 ?>" /><?php endif; ?>
-        <?php echo $BL['be_off'] ?>
-        <?php if(!empty($phpwcms['force301_2struct'])): ?><strong><?php echo  $BL['be_acat_disable301'] ?></strong></label><?php endif; ?>
+          <?php echo $BL['be_off']; ?>
+          <?php if(!empty($phpwcms['force301_2struct'])): ?> <strong><?php echo $BL['be_acat_disable301'] ?></strong><?php endif; ?>
         </label>
       </div>
     </div>
@@ -637,16 +637,16 @@ if ($acat_id === 'index' || $acat_id === 0) {
   <div class="form-group row g-2 align-items-center">
     <label for="be_admin_struct_status" class="col-form-label col-sm-2 text-end"><?php echo $BL['be_admin_struct_status'] ?></label>
     <div class="col">
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_hidden" id="acat_hidden" value="1"<?php is_checked($acat_hidden, 1); ?> />
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_hidden" id="acat_hidden" value="1"<?php is_checked($acat_hidden, 1); ?> />
 				<label class="form-check-label" for="acat_hidden"><?php echo $BL['be_admin_struct_hide1'] ?></label>
       </div>
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_hiddenactive" id="acat_hiddenactive" value="1"<?php is_checked($acat_hiddenactive, 1); ?> />
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_hiddenactive" id="acat_hiddenactive" value="1"<?php is_checked($acat_hiddenactive, 1); ?> />
 				<label class="form-check-label" for="acat_hiddenactive"><?php echo $BL['be_admin_struct_acat_hiddenactive'] ?></label>
       </div>
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_regonly" id="acat_regonly" value="1"<?php is_checked($acat_regonly, 1); ?> />
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_regonly" id="acat_regonly" value="1"<?php is_checked($acat_regonly, 1); ?> />
 				<label class="form-check-label" for="acat_regonly"><?php echo $BL['be_admin_struct_regonly'] ?></label>
       </div>
     </div>
@@ -678,16 +678,16 @@ if ($acat_id === 'index' || $acat_id === 0) {
   <div class="form-group row g-2 align-items-center">
     <label for="be_breadcrumb" class="col-form-label col-sm-2 text-end"><?php echo $BL['be_breadcrumb'] ?></label>
     <div class="col">
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_breadcrumb_default" id="acat_breadcrumb_default" value="0"<?php is_checked($acat_breadcrumb_default_checked, 1); ?> />
-				<label class="form-check-label" for="be_admin_tmpl_default"><?php echo $BL['be_admin_tmpl_default'] ?></label>
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_breadcrumb_default" id="acat_breadcrumb_default" value="0"<?php is_checked($acat_breadcrumb_default_checked, 1); ?> />
+				<label class="form-check-label" for="acat_breadcrumb_default"><?php echo $BL['be_admin_tmpl_default'] ?></label>
       </div>
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_breadcrumb_nothidden" id="acat_breadcrumb_nothidden" value="1"<?php is_checked($acat_breadcrumb_nothidden_checked, 1); ?> />
-				<label class="form-check-label" for="be_breadcrumb_nothidden"><?php echo $BL['be_breadcrumb_nothidden'] ?></label>
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_breadcrumb_nothidden" id="acat_breadcrumb_nothidden" value="1"<?php is_checked($acat_breadcrumb_nothidden_checked, 1); ?> />
+				<label class="form-check-label" for="acat_breadcrumb_nothidden"><?php echo $BL['be_breadcrumb_nothidden'] ?></label>
       </div>
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_breadcrumb_nolink" id="acat_breadcrumb_nolink" value="2"<?php is_checked($acat_breadcrumb_nolink_checked, 1); ?> />
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_breadcrumb_nolink" id="acat_breadcrumb_nolink" value="2"<?php is_checked($acat_breadcrumb_nolink_checked, 1); ?> />
 				<label class="form-check-label" for="acat_breadcrumb_nolink"><?php echo $BL['be_breadcrumb_nolink'] ?></label>
       </div>
     </div>
@@ -696,25 +696,25 @@ if ($acat_id === 'index' || $acat_id === 0) {
   <div class="form-group row g-2 align-items-center">
     <label for="be_ftptakeover_status" class="col-form-label col-sm-2 text-end"><?php echo  $BL['be_ftptakeover_status'] ?></label>
     <div class="col">
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_aktiv" id="acat_aktiv" value="1"<?php if($acat_aktiv == 1) echo 'checked="checked"'; ?> />
-				<label class="form-check-label" for="be_admin_struct_visible"><?php echo $BL['be_admin_struct_visible'] ?></label>
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_aktiv" id="acat_aktiv" value="1"<?php if($acat_aktiv == 1) echo 'checked="checked"'; ?> />
+				<label class="form-check-label" for="acat_aktiv"><?php echo $BL['be_admin_struct_visible'] ?></label>
       </div>
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_ssl" id="acat_ssl" value="1"<?php is_checked(1, $acat_ssl); ?> />
-				<label class="form-check-label" for="ssl">SSL</label>
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_ssl" id="acat_ssl" value="1"<?php is_checked(1, $acat_ssl); ?> />
+				<label class="form-check-label" for="acat_ssl">SSL</label>
       </div>
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_nositemap" id="acat_nositemap" value="1"<?php is_checked(1, $acat_nositemap); ?> />
-				<label class="form-check-label" for="be_ctype_sitemap"><?php echo $BL['be_ctype_sitemap'] ?></label>
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_nositemap" id="acat_nositemap" value="1"<?php is_checked(1, $acat_nositemap); ?> />
+				<label class="form-check-label" for="acat_nositemap"><?php echo $BL['be_ctype_sitemap'] ?></label>
       </div>
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_archive" id="acat_archive" value="1"<?php is_checked(1, $acat_archive); ?> />
-				<label class="form-check-label" for="be_archive"><?php echo $BL['be_archive'] ?></label>
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_archive" id="acat_archive" value="1"<?php is_checked(1, $acat_archive); ?> />
+				<label class="form-check-label" for="acat_archive"><?php echo $BL['be_archive'] ?></label>
       </div>
-      <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="acat_opengraph" id="acat_opengraph" value="1"<?php if($acat_opengraph == 1) echo 'checked="checked"'; ?> />
-				<label class="form-check-label" for="be_opengraph_support"><?php echo $BL['be_opengraph_support'] ?></label>
+      <div class="form-check form-switch form-check-inline">
+				<input class="form-check-input" type="checkbox" role="switch" name="acat_opengraph" id="acat_opengraph" value="1"<?php if($acat_opengraph == 1) echo 'checked="checked"'; ?> />
+				<label class="form-check-label" for="acat_opengraph"><?php echo $BL['be_opengraph_support'] ?></label>
       </div>
     </div>
   </div>

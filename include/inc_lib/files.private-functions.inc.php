@@ -91,7 +91,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
         echo '<div class="btn-group btn-group-sm" role="group" aria-label="group'.$row["f_id"].'">';
         // Edit directory button
-        echo '<a class="btn btn-xs btn-blue" role="button" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_edit'].": ".$dirname.'" href="'.$zieldatei."&amp;editdir=".$row["f_id"].'"><i class="fa-solid fa-pencil-alt fa-fw mt-1"></i></a>';
+        echo '<a class="btn btn-xs btn-blue" role="button" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_edit'].": ".$dirname.'" href="'.$zieldatei."&amp;editdir=".$row["f_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
         echo '<div class="btn-group btn-group-sm" role="group">';
         echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownFcontentLink'.$row["f_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
         echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$row["f_id"].'">';
@@ -178,7 +178,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo '<div class="btn-group btn-group-sm" role="group">'.LF;
 
                     // Edit file info button
-                    echo '<a class="btn btn-xs btn-blue" role="button" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'" data-bs-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa-solid fa-pencil-alt fa-fw mt-1"></i></a>';
+                    echo '<a class="btn btn-xs btn-blue" role="button" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'" data-bs-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
 
                     echo '<div class="btn-group btn-group-sm" role="group">';
                     echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';

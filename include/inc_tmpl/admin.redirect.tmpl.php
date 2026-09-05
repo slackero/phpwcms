@@ -386,8 +386,8 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 	<div class="form-group row g-2 align-items-center">
 		<div class="col-sm-2"></div>
 		<div class="col-sm">
-			<div class="form-check">
-				<input class="form-check-input" type="checkbox" name="active" id="redirect_active" value="1"<?php is_checked(1, $data['active']) ?> />
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" role="switch" name="active" id="redirect_active" value="1"<?php is_checked(1, $data['active']) ?> />
 				<label for="redirect_active" class="form-check-label"><?php echo $BL['be_ftptakeover_active'] ?></label>
 			</div>
 		</div>

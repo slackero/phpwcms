@@ -173,8 +173,8 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 		</div>
   </div>
   <div class="col-sm-auto">
-    <div class="form-check form-check-inline">
-			<input class="form-check-input" type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_special']['crop']); ?> />
+    <div class="form-check form-switch form-check-inline">
+			<input class="form-check-input" type="checkbox" role="switch" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_special']['crop']); ?> />
 			<label class="form-check-label" for="cimage_crop"><?php echo $BL['be_image_crop'] ?></label>
 		</div>
 	</div>
@@ -205,8 +205,8 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 		</div>
   </div>
   <div class="col-sm-auto">
-    <div class="form-check form-check-inline">
-    	<input class="form-check-input" type="checkbox" name="cimage_crop_zoom" id="cimage_crop_zoom" value="1" <?php is_checked(1, $content['image_special']['crop_zoom']); ?> />
+    <div class="form-check form-switch form-check-inline">
+    	<input class="form-check-input" type="checkbox" role="switch" name="cimage_crop_zoom" id="cimage_crop_zoom" value="1" <?php is_checked(1, $content['image_special']['crop_zoom']); ?> />
 			<label class="form-check-label" for="cimage_crop_zoom"><?php echo $BL['be_image_cropit'] ?></label>
 		</div>
 	</div>
@@ -214,32 +214,32 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 
 <div class="form-group align-items-center row g-2">
 	<label for="cimage_zoom" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_behavior'] ?></label>
-	<div class="col-sm-auto"><div class="form-check">
-		<input class="form-check-input" id="cimage_zoom" name="cimage_zoom" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['zoom']); ?> />
+	<div class="col-sm-auto"><div class="form-check form-switch">
+		<input class="form-check-input" id="cimage_zoom" name="cimage_zoom" type="checkbox" role="switch" value="1"<?php is_checked(1, $content['image_special']['zoom']); ?> />
 		<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
 	</div></div>
-	<div class="col-sm-auto"><div class="form-check">
-		<input class="form-check-input" id="cimage_lightbox" name="cimage_lightbox" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
+	<div class="col-sm-auto"><div class="form-check form-switch">
+		<input class="form-check-input" id="cimage_lightbox" name="cimage_lightbox" type="checkbox" role="switch" value="1"<?php is_checked(1, $content['image_special']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
 		<label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
 	</div></div>
-	<div class="col-sm-auto"><div class="form-check">
-		<input class="form-check-input" id="cimage_nocaption" name="cimage_nocaption" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['nocaption']); ?> />
+	<div class="col-sm-auto"><div class="form-check form-switch">
+		<input class="form-check-input" id="cimage_nocaption" name="cimage_nocaption" type="checkbox" role="switch" value="1"<?php is_checked(1, $content['image_special']['nocaption']); ?> />
 		<label class="form-check-label" for="cimage_nocaption"><?php echo $BL['be_cnt_imglist_nocaption'] ?></label>
 	</div></div>
 </div>
 
 <div class="form-group align-items-center row g-2">
 	<label class="col-sm-2 col-form-label text-end"></label>
-	<div class="col-sm-auto"><div class="form-check">
-		<input class="form-check-input" id="cimage_fx1" name="cimage_fx1" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['fx1']); ?> />
+	<div class="col-sm-auto"><div class="form-check form-switch">
+		<input class="form-check-input" id="cimage_fx1" name="cimage_fx1" type="checkbox" role="switch" value="1"<?php is_checked(1, $content['image_special']['fx1']); ?> />
 		<label class="form-check-label" for="cimage_fx1"><?php echo $BL['be_fx_1'] ?></label>
 	</div></div>
-	<div class="col-sm-auto"><div class="form-check">
-		<input class="form-check-input" id="cimage_fx2" name="cimage_fx2" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['fx2']); ?> />
+	<div class="col-sm-auto"><div class="form-check form-switch">
+		<input class="form-check-input" id="cimage_fx2" name="cimage_fx2" type="checkbox" role="switch" value="1"<?php is_checked(1, $content['image_special']['fx2']); ?> />
 		<label class="form-check-label" for="cimage_fx2"><?php echo $BL['be_fx_2'] ?></label>
 	</div></div>
-	<div class="col-sm-auto"><div class="form-check">
-		<input class="form-check-input" id="cimage_fx3" name="cimage_fx3" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['fx3']); ?> />
+	<div class="col-sm-auto"><div class="form-check form-switch">
+		<input class="form-check-input" id="cimage_fx3" name="cimage_fx3" type="checkbox" role="switch" value="1"<?php is_checked(1, $content['image_special']['fx3']); ?> />
 		<label class="form-check-label" for="cimage_fx3"><?php echo $BL['be_fx_3'] ?></label>
 	</div></div>
 </div>

@@ -75,26 +75,26 @@ if (!defined('PHPWCMS_ROOT')) {
   <div class="align-items-center row g-2 pt-1">
     <label class="col-sm-2 col-form-label text-end"><?php echo $BL['be_ftptakeover_status'] ?>:</label>
     <div class="col-sm-auto">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" name="status_payment" id="status_payment" type="checkbox" value="PAYED"<?php echo order_status('PAYED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" />
-                <label class="form-check-label for="status_payment""><?php echo $BLM['shopprod_status_paid']?></label>
+            <div class="form-check form-switch form-check-inline">
+                <input class="form-check-input" name="status_payment" id="status_payment" type="checkbox" role="switch" value="PAYED"<?php echo order_status('PAYED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" />
+                <label class="form-check-label" for="status_payment"><?php echo $BLM['shopprod_status_paid']?></label>
             </div>
     </div>
     <div class="col-sm-auto">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" name="status_send" id="status_send" type="checkbox" value="SENT"<?php echo order_status('SENT', $plugin['data']['order_status']) ?> onchange="this.form.submit();" />
+            <div class="form-check form-switch form-check-inline">
+                <input class="form-check-input" name="status_send" id="status_send" type="checkbox" role="switch" value="SENT"<?php echo order_status('SENT', $plugin['data']['order_status']) ?> onchange="this.form.submit();" />
                 <label class="form-check-label" for="status_send"><?php echo $BLM['shopprod_status_sent'] ?></label>
             </div>
     </div>
     <div class="col-sm-auto">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" name="status_back" id="status_back" type="checkbox" value="RETURN"<?php echo order_status('RETURN', $plugin['data']['order_status']) ?> onchange="this.form.submit();" />
+            <div class="form-check form-switch form-check-inline">
+                <input class="form-check-input" name="status_back" id="status_back" type="checkbox" role="switch" value="RETURN"<?php echo order_status('RETURN', $plugin['data']['order_status']) ?> onchange="this.form.submit();" />
                 <label class="form-check-label" for="status_back"><?php echo $BLM['shopprod_status_back'] ?></label>
             </div>
     </div>
     <div class="col">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" name="status_done" id="status_done" type="checkbox" value="COMPLETED"<?php echo order_status('COMPLETED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" />
+            <div class="form-check form-switch form-check-inline">
+                <input class="form-check-input" name="status_done" id="status_done" type="checkbox" role="switch" value="COMPLETED"<?php echo order_status('COMPLETED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" />
                 <label class="form-check-label" for="status_done"><?php echo $BLM['shopprod_status_done'] ?></label>
             </div>
     </div>

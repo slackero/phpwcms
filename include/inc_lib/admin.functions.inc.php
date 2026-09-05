@@ -270,7 +270,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= '<div class="btn-group" role="group" aria-label="group'.$article[$akey]["article_id"].'">';
         //edit article
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-          $a .= '<a class="btn btn-xs btn-blue" role="button" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$article[$akey]["article_id"].'"><i class="fa-solid fa-pencil-alt fa-fw mt-1"></i></a>';
+          $a .= '<a class="btn btn-xs btn-blue" role="button" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$article[$akey]["article_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
         }
         $a .= '<div class="btn-group" role="group">';
         $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownAcontentLink'.$article[$akey]["article_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -443,7 +443,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= '<div class="btn-group" role="group" aria-label="group'.$article_content["acontent_id"].'">';
             //edit content part
             if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-              $a .= '<a class="btn btn-xs btn-blue" role="button" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article[$akey]["article_id"].'&amp;acid='.$article_content["acontent_id"].'"><i class="fa-solid fa-pencil-alt fa-fw mt-1"></i></a>';
+              $a .= '<a class="btn btn-xs btn-blue" role="button" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article[$akey]["article_id"].'&amp;acid='.$article_content["acontent_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
             }
             $a .= '<div class="btn-group" role="group">';
             $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownAcontentLink'.$article_content["acontent_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -524,7 +524,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 } else {
                     $a .= 'index';
                 }
-                $a .= '"><i class="fa-solid fa-pencil-alt fa-fw mt-1"></i></a>';
+                $a .= '"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
 
                 $a .= '<div class="btn-group" role="group">';
                 $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownStrucLink'.$struct[$key]["acat_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';

@@ -160,11 +160,10 @@ if(empty($user_ok)) {
 			</div>
 
 			<div class="row g-2 align-items-center">
-			<div class="row g-2 align-items-center">
 				<label for="form_active" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_setactive'] ?></label>
 				<div class="col">
-					<div class="form-check">
-						<input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
+					<div class="form-check form-switch">
+						<input class="form-check-input" name="form_active" type="checkbox" role="switch" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
 						<label class="form-check-label" for="form_active"><?php echo $BL['be_admin_usr_iflogin'] ?></label>
 					</div>
 				</div>
@@ -173,8 +172,8 @@ if(empty($user_ok)) {
 			<div class="row g-2 align-items-center">
 				<label for="form_admin" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
 				<div class="col">
-					<div class="form-check">
-						<input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
+					<div class="form-check form-switch">
+						<input class="form-check-input" name="form_admin" type="checkbox" role="switch" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
 						<label class="form-check-label" for="form_admin"><strong><?php echo $BL['be_admin_usr_ifadmin'] ?>!</strong></label>
 					</div>
 				</div>
@@ -183,8 +182,8 @@ if(empty($user_ok)) {
 			<div class="row g-2 align-items-center">
 				<label for="verification_email" class="col-sm-2 col-form-label text-end pt-0"><?php echo $BL['be_admin_usr_verify'] ?></label>
 				<div class="col">
-					<div class="form-check">
-						<input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
+					<div class="form-check form-switch">
+						<input class="form-check-input" name="verification_email" type="checkbox" role="switch" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
 						<label class="form-check-label" for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label>
 					</div>
 				</div>
