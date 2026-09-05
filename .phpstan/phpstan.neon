@@ -9,10 +9,19 @@ parameters:
         - ../include/vendor/*
         - ../node_modules/*
         - ../.phpstan/*
+        - ../tests/*
     bootstrapFiles:
         - phpstan-bootstrap.php
     tmpDir: cache
     treatPhpDocTypesAsCertain: false
     reportUnmatchedIgnoredErrors: false
+
+    ignoreErrors:
+        -
+            message: '#^Variable \$BL might not be defined\.$#'
+            identifier: variable.undefined
+        -
+            message: '#^Variable \$BLM might not be defined\.$#'
+            identifier: variable.undefined
 
 

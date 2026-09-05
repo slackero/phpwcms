@@ -199,12 +199,11 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     echo $a;
 
-    $listmode = 0;
     $counter = 0;
 
     if ($is_root_open) {
-        struct_articlelist(0, 0, $indexpage['acat_order'], $js, $js_aktion);
-        struct_list(0, 0, 0, 0, 0, 0, 0, $listmode, $counter, $js, $js_aktion);
+        articlebrowser_struct_articlelist(0, 0, $indexpage['acat_order'], $js, $js_aktion);
+        articlebrowser_struct_list(0, $counter, $js, $js_aktion);
         echo '<tr id="catend-0"></tr>';
     }
     ?></table>
@@ -234,7 +233,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 </html>
 <?php
 
-function struct_list($id, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode = 1, $counter = 0, $js = '', $js_aktion = 0)
+function articlebrowser_struct_list($id, $counter = 0, $js = '', $js_aktion = 0)
 {
     global $idtype;
 
@@ -253,13 +252,13 @@ function struct_list($id, $copy_article_content, $cut_article_content, $copy_id,
 
         if (isset($struct[0])) {
             foreach ($struct as $key => $value) {
-                struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $listmode, $cut_article, $js, $js_aktion);
+                articlebrowser_struct_levellist($struct, $key, $counter, $js, $js_aktion);
             }
         }
     }
 }
 
-function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $listmode, $cut_article, $js, $js_aktion) {
+function articlebrowser_struct_levellist($struct, $key, $counter, $js, $js_aktion) {
 
     global $BL, $field, $idtype;
 
@@ -270,7 +269,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $an = html($struct[$key]['acat_name']);
     $a = '<tr class="structarticle" id="cat-' . $struct[$key]['acat_id'] . '">';
     $a .= '<td width="80%">';
-    $a .= '<table class="table-borderless"' . '><tr>';
+    $a .= '<table class="table-borderless"><tr>';
     $a .= '<td class="text-end text-nowrap">';
     $target_open = $is_open ? 0 : 1;
     $a .= ($child_count) ? '<a href="articlebrowser.php?opt=' . $js_aktion . $field_param . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . $target_open) . ($target_open ? '#catend-' : '#cat-') . $struct[$key]['acat_id'] . '">' : '';
@@ -312,10 +311,8 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 
     if (!empty($_SESSION['structure'][$struct[$key]['acat_id']])) {
 
-        if (!$listmode) {
-            struct_articlelist($struct[$key]['acat_id'], $counter, $struct[$key]['acat_order'], $js, $js_aktion);
-        }
-        struct_list($struct[$key]['acat_id'], $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode, $counter, $js, $js_aktion);
+        articlebrowser_struct_articlelist($struct[$key]['acat_id'], $counter, $struct[$key]['acat_order'], $js, $js_aktion);
+        articlebrowser_struct_list($struct[$key]['acat_id'], $counter, $js, $js_aktion);
 
         echo '<tr id="catend-' . $struct[$key]['acat_id'] . '"></tr>';
     }
@@ -331,7 +328,7 @@ function get_root_childcount($id) {
     return $p1_count + $p2_count;
 }
 
-function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktion) {
+function articlebrowser_struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktion) {
 
     global $BL, $idtype;
 
@@ -424,12 +421,12 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
         echo $a;
 
         if ($js_aktion == 5) {
-            struct_articlecontentlist($article, $akey, $counter);
+            articlebrowser_struct_articlecontentlist($article, $akey, $counter);
         }
     }
 }
 
-function struct_articlecontentlist($article, $akey, $counter) {
+function articlebrowser_struct_articlecontentlist($article, $akey, $counter) {
 
     $a = '';
 
