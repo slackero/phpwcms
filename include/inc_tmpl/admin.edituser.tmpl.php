@@ -139,7 +139,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
     if(empty($user_ok)) {
 ?>
-<form action="phpwcms.php?do=admin&amp;s=2&amp;u=<?php echo $new_user_id ?>" method="post" name="edituser">
+<form action="phpwcms.php?do=admin&amp;s=2&amp;u=<?php echo $new_user_id ?>" method="post" name="edituser" autocomplete="off" <?php echo PHPWCMS_PASS_IGNORE; ?>>
 
   <h1 class="text-center text-sm-start"><?php echo $BL['be_subnav_admin_users'] ?></h1>
   <div class="card mb-4">
@@ -172,7 +172,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
         <div class="form-group row g-2 align-items-center">
           <label for="form_newloginname" class="col-sm-2 col-form-label text-end"><?php echo $BL["login_username"] ?></label>
           <div class="col-sm-5">
-            <input type="text" class="form-control form-control-sm" name="form_newloginname" id="form_newloginname" value="<?php echo html($new_login); ?>" autocomplete="off" required="required" />
+            <input type="text" class="form-control form-control-sm" name="form_newloginname" id="form_newloginname" value="<?php echo html($new_login); ?>" autocomplete="username" required="required" <?php echo PHPWCMS_PASS_IGNORE; ?> />
           </div>
         </div>
 
@@ -180,7 +180,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
           <label for="form_newpassword" class="col-sm-2 col-form-label text-end"><?php echo $BL["login_userpass"] ?></label>
           <div class="col-sm-5">
             <div class="form-password">
-              <input type="password" class="form-control form-control-sm" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password" />
+              <input type="password" class="form-control form-control-sm" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password" <?php echo PHPWCMS_PASS_IGNORE; ?> />
               <button type="button" class="form-password-action" data-coreui-toggle="password" aria-pressed="false" aria-label="<?php echo html($BL['be_password_show']); ?>">
                 <i class="fa-regular fa-eye"></i>
               </button>

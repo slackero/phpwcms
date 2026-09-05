@@ -281,7 +281,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 <div class="form-group row">
                     <label for="admin_user" class="col-sm-3 col-form-label fw-bold">Admin Username</label>
                     <div class="col-sm-6">
-                        <input name="admin_user" type="text" id="admin_user" class="form-control" value="<?php echo empty($phpwcms['admin_user']) ? "webmaster" : html_specialchars($phpwcms['admin_user']) ?>" />
+                        <input name="admin_user" type="text" id="admin_user" class="form-control" value="<?php echo empty($phpwcms['admin_user']) ? "webmaster" : html_specialchars($phpwcms['admin_user']) ?>" autocomplete="username" />
                     </div>
                 </div>
 

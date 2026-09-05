@@ -296,11 +296,10 @@ $BE['HEADER']['alias_slash_var'] = ' <script>
   </script>';
 $BE['HEADER']['phpwcms-lang.js'] = getJavaScriptTranslations();
 $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.min.js');
-
 ?>
 <!-- phpwcms HEADER -->
 </head>
-<body<?php echo $body_onload ?>><!-- phpwcms BODY_OPEN -->
+<body<?php echo $body_onload, ' ', PHPWCMS_PASS_IGNORE; ?>><!-- phpwcms BODY_OPEN -->
 <div id="container">
   <header id="header" class="navbar navbar-expand navbar-static-top">
     <div class="container-fluid px-0 px-sm-3">
@@ -780,7 +779,7 @@ $BE['HTML'] = ob_get_clean();
 
 // special body onload JavaScript
 if ($body_onload) {
-    $BE['HTML'] = str_replace('<body>', '<body '.$body_onload.'>', $BE['HTML']);
+    $BE['HTML'] = preg_replace('/<body(\s+[^>]*)?>/i', '<body$1 '.$body_onload.'>', $BE['HTML'], 1);
 }
 
 //$BE['HEADER'][] = '';
