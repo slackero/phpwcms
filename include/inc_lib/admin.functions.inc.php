@@ -456,7 +456,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;accut='.$article_content["acontent_id"].'"><i class="fa-solid fa-cut fa-fw disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_content_cut'].'</a>';
             $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=9,'.$article_content["acontent_aid"].','.$article_content["acontent_id"].'"';
             $a .= ' data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_article_cnt_delpart'].'"';
-            $a .= ' data-confirm-type="danger" data-confirm-action="'.$GLOBALS['BL']['be_article_cnt_delpart'].'" data-confirm="'.$GLOBALS['BL']['be_article_cnt_delpart'].' '.js_singlequote($at).'"';
+            $a .= ' data-confirm-type="danger" data-confirm-action="'.$GLOBALS['BL']['be_article_cnt_delpart'].'" data-confirm="'.$GLOBALS['BL']['be_article_cnt_delpart'].' \\n['.js_singlequote($at).']"';
             $a .= '><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].'</a>';
             $a .= '</div></div>';
             $a .= '<button id="abtnarticlecontent'.$article_content["acontent_id"].'" class="btn fa btn-sm visible '.($article_content["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article_content["acontent_id"].'" data-type="articlecontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"><i class="fa-solid '.($article_content["acontent_visible"]==0 ? "fa-eye-slash" : "fa-eye").' fa-fw" aria-hidden="true"></i></button>';
@@ -556,7 +556,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 if($struct[$key]["acat_id"]) {
                   $a .= '<a class="dropdown-item" href="include/inc_act/act_structure.php?do=9%7C'.$struct[$key]["acat_id"].'"';
                   $a .= ' data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_del_struct'].'"';
-                  $a .= ' data-confirm-type="danger" data-confirm-action="'.$GLOBALS['BL']['be_func_struct_del_struct'].'" data-confirm="'.$GLOBALS['BL']['be_func_struct_del_struct'].' '.js_singlequote($an).'"';
+                  $a .= ' data-confirm-type="danger" data-confirm-action="'.$GLOBALS['BL']['be_func_struct_del_struct'].'" data-confirm="'.$GLOBALS['BL']['be_func_struct_del_struct'].' \\n['.js_singlequote($an).']"';
                   $a .= '><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_del_struct'].'</a>';
                 }
 

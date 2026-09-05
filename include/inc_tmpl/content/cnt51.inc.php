@@ -125,7 +125,7 @@ if($map_selected) {
             $map_list .= '';
             $map_list .= '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
             $map_list .= 'id='.$content["aid"].'&amp;acid='.$content["id"].'&amp;dellocid='.$map_row['map_id'];
-            $map_list .= '" data-confirm-type="danger" data-confirm-action="'.$BL['be_btn_delete'].'" data-confirm="'.$BL['be_btn_delete'].' '.js_singlequote($map_row['map_title']).'">';
+            $map_list .= '" data-confirm-type="danger" data-confirm-action="'.$BL['be_btn_delete'].'" data-confirm="'.$BL['be_btn_delete'].' \\n'.js_singlequote($map_row['map_title']).'">';
             $map_list .= '<img src="img/button/del_11x11.gif" width="11" height="11" alt="" border="0">';
             $map_list .= "</a></td>\n</tr>\n";
             $map_xy[] = $map_row['map_x'].':::'.$map_row['map_y'].':::'.$map_row['map_title'];
