@@ -52,7 +52,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
         //Build row
         echo "<tr bgcolor=\"#EBF2F4\">\n"; //Open table row
         echo "<td>".$count; //Open cell
-        echo '<i class="fa-solid ffolder fa-folder fa-fw" aria-hidden="true"></i>'; //Column 1 icon
+        echo '<i class="fa-solid fa-folder fa-fw me-1" aria-hidden="true"></i>'; //Column 1 icon
         echo "<strong>".$dirname; //Column 1 name
         if($count_wert) {
             echo "</strong></a></td>\n"; //Close cell 1

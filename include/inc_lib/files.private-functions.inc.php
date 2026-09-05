@@ -72,16 +72,16 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
             case 2:
                 // gallery root dir
-                echo '<i class="fa-solid ffolder fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_gallery_root'].'"></i>';
+                echo '<i class="fa-solid fa-folder fa-fw me-1" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_gallery_root'].'"></i>';
                 break;
 
             case 3:
                 // gallery subdir
-                echo '<i class="fa-solid ffolder fa-folder fa-fw text-warning" aria-hidden="true"data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_gallery_directory'].'"></i>';
+                echo '<i class="fa-solid fa-folder fa-fw me-1 text-warning" aria-hidden="true" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_gallery_directory'].'"></i>';
                 break;
 
             default:
-                echo '<i class="fa-solid ffolder fa-folder fa-fw" aria-hidden="true"></i>';
+                echo '<i class="fa-solid fa-folder fa-fw me-1" aria-hidden="true"></i>';
         }
 
         echo "<strong>".$dirname; // Column 1 name

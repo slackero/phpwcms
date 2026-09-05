@@ -660,21 +660,8 @@ label a:focus,
     white-space: nowrap;
 }
 
-.ffolder.fa-caret-right {
-    /*margin-right: 0.5rem;*/
-    font-size: 1.5em;
-    color: #8B8C8B;
-}
-
-.ffolder.fa-caret-down {
-    /*margin-right: 0.5rem;*/
-    font-size: 1.5em;
-    color: #8B8C8B;
-}
-
 .fa-folder {
     color: #f4c017;
-    margin-right: 5px;
 }
 
 a.filein {
@@ -1294,7 +1281,7 @@ li.sortme {
 
 .admin-slist {
     display: inline-block;
-    margin-left: 1.7rem;
+    margin-left: 1.5rem;
 }
 
 .input-group > .input-group-text.success {
