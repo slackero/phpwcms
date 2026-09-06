@@ -1525,6 +1525,9 @@ function html_parser($string) {
     // internal Link to article ID or alias
     $string = preg_replace_callback('/\[ID (.*?)\](.*?)\[\/ID\]/s', 'html_parse_idlink', $string);
 
+    // internal URL to article or category: {HREF:...} with dead-link suppression
+    $string = html_parse_href($string);
+
     // anchor or page link
     $string = preg_replace_callback('/\{[aA]:(.+?)\}/', 'get_link_anchor', $string);
 
@@ -1581,6 +1584,220 @@ function html_parse_idlink($matches) {
     }
     $replace .= $target . '>' . $matches[2] . '</a>';
     return $replace;
+}
+
+function html_parse_href($string) {
+    if (stripos($string, 'HREF:') === false) {
+        return $string;
+    }
+
+    // Restore URL-encoded tags if encoded by WYSIWYG editors or browsers
+    if (stripos($string, '%7B') !== false) {
+        $string = preg_replace('/%7B(HREF:[^%]+)%7D/i', '{$1}', $string);
+    }
+
+    // 1. Process <a> elements with {HREF:...} in href attribute
+    // If target article is dead or unpublished, strip the anchor tag and preserve inner content
+    $anchor_pattern = '/<a\b([^>]*?)\bhref=(["\']?)\{HREF:(.+?)\}\2([^>]*)>(.*?)<\/a>/is';
+    $string = preg_replace_callback($anchor_pattern, 'html_parse_href_anchor_callback', $string);
+
+    // 2. Standalone {HREF:...}
+    $standalone_pattern = '/\{HREF:(.+?)\}/is';
+    $string = preg_replace_callback($standalone_pattern, 'html_parse_href_standalone_callback', $string);
+
+    return $string;
+}
+
+function html_parse_href_anchor_callback($matches) {
+    $target = trim($matches[3]);
+    $url = get_article_href($target);
+
+    if ($url !== false && $url !== '') {
+        $quote = $matches[2] !== '' ? $matches[2] : '"';
+        return '<a' . $matches[1] . 'href=' . $quote . $url . $quote . $matches[4] . '>' . $matches[5] . '</a>';
+    }
+
+    // Dead-link suppression: remove the <a> tag and keep the inner content intact
+    return $matches[5];
+}
+
+function html_parse_href_standalone_callback($matches) {
+    $target = trim($matches[1]);
+    $url = get_article_href($target);
+
+    return $url !== false ? $url : '';
+}
+
+function get_article_href($target) {
+    static $article_cache = [];
+
+    $target = trim($target);
+    if ($target === '') {
+        return false;
+    }
+
+    // Check for ABS: prefix
+    $is_abs = false;
+    if (preg_match('/^abs[:\s]+(.*)$/i', $target, $m)) {
+        $is_abs = true;
+        $target = trim($m[1]);
+    }
+
+    // Extract anchor if present
+    $anchor = '';
+    if (str_contains($target, '#')) {
+        list($target, $anchor_part) = explode('#', $target, 2);
+        if ($anchor_part !== '') {
+            $anchor = '#' . $anchor_part;
+        }
+        $target = trim($target);
+    }
+
+    if ($target === '') {
+        return false;
+    }
+
+    // Clean any 'aid=' or 'id=' / 'cat=' prefix
+    $is_explicit_cat = false;
+    $is_explicit_art = false;
+    if (preg_match('/^aid=(\d+)$/i', $target, $m)) {
+        $target = intval($m[1]);
+        $is_explicit_art = true;
+    } elseif (preg_match('/^(?:id|cat)=(\d+)$/i', $target, $m) || preg_match('/^cat:(\d+)$/i', $target, $m)) {
+        $target = intval($m[1]);
+        $is_explicit_cat = true;
+    }
+
+    $cache_key = ($is_abs ? 'abs_' : 'rel_') . ($is_explicit_cat ? 'cat_' : ($is_explicit_art ? 'art_' : '')) . $target . $anchor;
+
+    if (array_key_exists($cache_key, $article_cache)) {
+        return $article_cache[$cache_key];
+    }
+
+    // 1. If explicit category ID, look up structure level
+    if ($is_explicit_cat) {
+        $cat_id = intval($target);
+        if (isset($GLOBALS['content']['struct'][$cat_id])) {
+            $cat = $GLOBALS['content']['struct'][$cat_id];
+            if (empty($cat['acat_trash'])) {
+                $param = !empty($cat['acat_alias']) ? $cat['acat_alias'] : 'id=' . $cat_id;
+                $url = ($is_abs ? abs_url([], [], $param) : rel_url([], [], $param)) . $anchor;
+                return $article_cache[$cache_key] = $url;
+            }
+        }
+        return $article_cache[$cache_key] = false;
+    }
+
+    $is_id = is_numeric($target) && intval($target) > 0;
+    $article = null;
+
+    // Initialize shared article cache arrays if not set
+    if (!isset($GLOBALS['content']['article_cache'])) {
+        $GLOBALS['content']['article_cache'] = [];
+    }
+    if (!isset($GLOBALS['content']['article_alias_cache'])) {
+        $GLOBALS['content']['article_alias_cache'] = [];
+    }
+
+    // 2. Check in-memory caches:
+    // 2a. Active category articles ($content['articles'])
+    if (!empty($GLOBALS['content']['articles']) && is_array($GLOBALS['content']['articles'])) {
+        if ($is_id && isset($GLOBALS['content']['articles'][intval($target)])) {
+            $article = $GLOBALS['content']['articles'][intval($target)];
+        } elseif (!$is_id && !$is_explicit_art) {
+            foreach ($GLOBALS['content']['articles'] as $row) {
+                if (!empty($row['article_alias']) && strcasecmp($row['article_alias'], $target) === 0) {
+                    $article = $row;
+                    break;
+                }
+            }
+        }
+    }
+
+    // 2b. Shared global runtime article cache ($GLOBALS['content']['article_cache'])
+    if ($article === null) {
+        if ($is_id && isset($GLOBALS['content']['article_cache'][intval($target)])) {
+            $article = $GLOBALS['content']['article_cache'][intval($target)];
+        } elseif (!$is_id && !$is_explicit_art) {
+            $alias_lc = strtolower($target);
+            if (isset($GLOBALS['content']['article_alias_cache'][$alias_lc])) {
+                $aid = $GLOBALS['content']['article_alias_cache'][$alias_lc];
+                if (isset($GLOBALS['content']['article_cache'][$aid])) {
+                    $article = $GLOBALS['content']['article_cache'][$aid];
+                }
+            }
+        }
+    }
+
+    // 2c. Query database if not yet found in memory
+    if ($article === null) {
+        $db_prepend = defined('DB_PREPEND') ? DB_PREPEND : (empty($GLOBALS['phpwcms']['db_prepend']) ? '' : $GLOBALS['phpwcms']['db_prepend'] . '_');
+
+        $sql  = 'SELECT ar.article_id, ar.article_alias, ar.article_cid, ar.article_title ';
+        $sql .= 'FROM ' . $db_prepend . 'phpwcms_article ar ';
+        $sql .= 'LEFT JOIN ' . $db_prepend . 'phpwcms_articlecat ac ON ar.article_cid = ac.acat_id ';
+        if ($is_id) {
+            $sql .= 'WHERE ar.article_id = ' . intval($target) . ' ';
+        } else {
+            $sql .= 'WHERE ar.article_alias = ' . _dbEscape($target) . ' ';
+        }
+
+        // Status check
+        if (defined('VISIBLE_MODE') && VISIBLE_MODE === 1 && !empty($_SESSION['wcs_user_id'])) {
+            $sql .= 'AND (ar.article_aktiv = 1 OR ar.article_uid = ' . intval($_SESSION['wcs_user_id']) . ') ';
+        } elseif (!defined('VISIBLE_MODE') || VISIBLE_MODE === 0) {
+            $sql .= 'AND ar.article_aktiv = 1 ';
+        }
+        $sql .= 'AND ar.article_deleted = 0 ';
+
+        if (!defined('PREVIEW_MODE') || !PREVIEW_MODE) {
+            $sql .= 'AND (ar.article_begin IS NULL OR ar.article_begin < NOW()) ';
+            $sql .= 'AND IF(ac.acat_archive = 1 AND ar.article_archive_status = 1, 1, (ar.article_end IS NULL OR ar.article_end > NOW())) ';
+        }
+        $sql .= 'AND (ac.acat_trash IS NULL OR ac.acat_trash = 0) ';
+        $sql .= 'LIMIT 1';
+
+        $res = _dbQuery($sql);
+        if (is_array($res) && isset($res[0]['article_id'])) {
+            $article = $res[0];
+        }
+    }
+
+    // If article was resolved (from memory or DB)
+    if ($article !== null && is_array($article)) {
+        $aid = intval($article['article_id']);
+        $GLOBALS['content']['article_cache'][$aid] = $article;
+        if (!empty($article['article_alias'])) {
+            $GLOBALS['content']['article_alias_cache'][strtolower($article['article_alias'])] = $aid;
+        }
+
+        $param = setGetArticleAid($article);
+        $url = ($is_abs ? abs_url([], [], $param) : rel_url([], [], $param)) . $anchor;
+        return $article_cache[$cache_key] = $url;
+    }
+
+    // 3. If not found as article, and target was a string alias, check if it is a category alias
+    if (!$is_id && !$is_explicit_art) {
+        if (!empty($GLOBALS['content']['struct']) && is_array($GLOBALS['content']['struct'])) {
+            foreach ($GLOBALS['content']['struct'] as $cat) {
+                if (!empty($cat['acat_alias']) && strcasecmp($cat['acat_alias'], $target) === 0 && empty($cat['acat_trash'])) {
+                    $url = ($is_abs ? abs_url([], [], $cat['acat_alias']) : rel_url([], [], $cat['acat_alias'])) . $anchor;
+                    return $article_cache[$cache_key] = $url;
+                }
+            }
+        }
+        // Fallback DB check for category alias
+        $db_prepend = defined('DB_PREPEND') ? DB_PREPEND : (empty($GLOBALS['phpwcms']['db_prepend']) ? '' : $GLOBALS['phpwcms']['db_prepend'] . '_');
+        $cat_sql = 'SELECT acat_id, acat_alias FROM ' . $db_prepend . 'phpwcms_articlecat '
+                 . 'WHERE acat_alias = ' . _dbEscape($target) . ' AND acat_trash = 0 LIMIT 1';
+        $cat_res = _dbQuery($cat_sql);
+        if (is_array($cat_res) && isset($cat_res[0]['acat_alias'])) {
+            $url = ($is_abs ? abs_url([], [], $cat_res[0]['acat_alias']) : rel_url([], [], $cat_res[0]['acat_alias'])) . $anchor;
+            return $article_cache[$cache_key] = $url;
+        }
+    }
+
+    return $article_cache[$cache_key] = false;
 }
 
 function include_ext_php($inc_file, $t=0) {
@@ -2067,27 +2284,17 @@ function get_new_articles($template_default, $max_cnt_links=0, $cat='', $dbcon=n
 function get_article_idlink($article_id=0, $link_text="", $dbcon=null) {
     // returns the internal article link to given article ID/category
     $article_id     = intval($article_id);
-    $article_cid    = 0;
     $link_text      = decode_entities($link_text);
     $link_text      = html_specialchars($link_text);
     $article_title  = $link_text;
 
     if($article_id) {
-        $sql =  "SELECT article_id, article_title, article_cid, article_alias ".
-                "FROM ".DB_PREPEND."phpwcms_article WHERE article_id=".$article_id." AND ".
-                "article_aktiv=1 AND article_deleted=0 ";
-        if(!PREVIEW_MODE) {
-            $sql .= "AND (article_begin IS NULL OR article_begin < NOW()) ";
-            $sql .= "AND (article_end IS NULL OR article_end > NOW()) ";
-        }
-        $sql .= "LIMIT 1";
-        $data = _dbQuery($sql);
-
-        if(isset($data[0])) {
-            return '<a href="'.rel_url(array(), array('newsdetail'), setGetArticleAid($data[0])).'" title="'.$article_title.'">'.$link_text.'</a>';
+        $href = get_article_href($article_id);
+        if($href !== false) {
+            return '<a href="'.$href.'" title="'.$article_title.'">'.$link_text.'</a>';
         }
     }
-    return '<a href="'.rel_url(array(), array('newsdetail'), 'aid='.$article_id).'" title="'.$article_title.'">'.$link_text.'</a>';
+    return '<a href="'.rel_url([], [], 'aid='.$article_id).'" title="'.$article_title.'">'.$link_text.'</a>';
 }
 
 function get_keyword_link($keywords) {
