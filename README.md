@@ -3,7 +3,7 @@
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.2-8892BF.svg?style=flat-edge)](https://php.net)
 [![Database](https://img.shields.io/badge/MySQL-%3E%3D%205.5%20(MariaDB%20rec)-blue.svg?style=flat-edge)](https://mysql.com)
 [![Maintainer](https://img.shields.io/badge/Maintained%20by-Oliver%20Georgi-informational.svg?style=flat-edge)](https://www.phpwcms.org)
-[![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-green.svg?style=flat-edge)](http://opensource.org/licenses/GPL-2.0)
+[![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-green.svg?style=flat-edge)](https://opensource.org/licenses/GPL-2.0)
 
 **phpwcms** is an exceptionally flexible, fast, robust, and developer-friendly web-based Content Management System (CMS) and CMS Framework. Crafted for speed, customizable architectures, and ease of use, phpwcms empowers developers to build and manage highly-tailored digital experiences under PHP and MySQL/MariaDB.
 
@@ -80,7 +80,7 @@ To support all features, the following PHP extensions must be enabled in your en
    * `filearchive/`
    * `include/config/`
    * `template/`
-4. **Run the Installer**: Navigate to `http://your-domain.com/setup/` in your browser.
+4. **Run the Installer**: Navigate to `https://your-domain.com/setup/` in your browser.
    * The installer will verify PHP requirements and directory permissions.
    * Enter your database credentials (the installer can automatically create the database if it does not yet exist).
    * Configure administrator credentials, default language, timezone, and initial site structure.
@@ -124,6 +124,53 @@ If you are already running phpwcms with the self-update engine:
 
 ### Method 2: Standalone Upgrade Script (`setup/upgrade.php`)
 
+If your `setup/` directory was removed after initial installation (standard security practice) or you are upgrading an older phpwcms installation, you can download `setup/upgrade.php` directly into your existing site.
+
+#### Download the Upgrade Script
+
+Starting from your phpwcms document root (`cd /path/to/phpwcms`), run the following quick command:
+
+```bash
+mkdir -p setup && curl -fsSL -o setup/upgrade.php https://raw.githubusercontent.com/slackero/phpwcms/v2-dev/setup/upgrade.php
+```
+
+Or run the full bash script with document root verification and fallback support:
+
+```bash
+#!/usr/bin/env bash
+# Download setup/upgrade.php into a local phpwcms installation
+# Usage: ./download-upgrade.sh [branch-or-tag]  (default: v2-dev)
+set -euo pipefail
+
+# Verify execution inside phpwcms document root
+if [ ! -f "phpwcms.php" ] || [ ! -d "include" ]; then
+    echo "Error: Current directory is not a phpwcms document root." >&2
+    echo "Please change to your installation directory first: cd /path/to/phpwcms" >&2
+    exit 1
+fi
+
+mkdir -p setup
+
+BRANCH="${1:-v2-dev}"
+UPGRADE_URL="https://raw.githubusercontent.com/slackero/phpwcms/${BRANCH}/setup/upgrade.php"
+
+echo "Downloading setup/upgrade.php from branch '${BRANCH}'..."
+if command -v curl >/dev/null 2>&1; then
+    curl -fsSL "$UPGRADE_URL" -o setup/upgrade.php
+elif command -v wget >/dev/null 2>&1; then
+    wget -qO setup/upgrade.php "$UPGRADE_URL"
+else
+    echo "Error: Neither curl nor wget is available." >&2
+    exit 1
+fi
+
+chmod 644 setup/upgrade.php
+echo "Successfully downloaded setup/upgrade.php."
+echo "Run 'php setup/upgrade.php' or open /setup/upgrade.php in your browser."
+```
+
+#### Run the Upgrade
+
 The standalone upgrade script can update existing installations from the command line or a browser:
 
 * **Via CLI**:
@@ -131,13 +178,13 @@ The standalone upgrade script can update existing installations from the command
   php setup/upgrade.php
   ```
   *(Prompts for admin authentication, creates backups, applies file updates, and executes database revisions r401–r559).*
-  To run non-interactively in automated deployment pipelines:
-  ```bash
-  php setup/upgrade.php --yes
-  ```
+
+  Supported CLI options:
+  * `--reinstall` (or `--force`): Reinstall and overwrite the currently installed version.
+  * `--allow-unverified`: Allow unverified legacy package upgrade (phpwcms < 2.0.0 without manifest).
 
 * **Via Browser**:
-  Navigate to `http://your-domain.com/setup/upgrade.php`, log in with your admin credentials, and follow the interactive upgrade steps.
+  Navigate to `https://your-domain.com/setup/upgrade.php`, log in with your admin credentials, and follow the interactive upgrade steps.
 
 ### Method 3: Manual Upgrade (Archive Extraction)
 
@@ -182,5 +229,5 @@ phpwcms includes standard `/ai.txt` and `/llms.txt` files in the repository root
 
 ## License & Copyright 📄
 
-phpwcms is open-source software released under the **[GNU General Public License v2 (GPL-2.0)](http://opensource.org/licenses/GPL-2.0)**.  
+phpwcms is open-source software released under the **[GNU General Public License v2 (GPL-2.0)](https://opensource.org/licenses/GPL-2.0)**.  
 Copyright &copy; 2002&ndash;2026 [Oliver Georgi](https://www.phpwcms.org). All rights reserved.
