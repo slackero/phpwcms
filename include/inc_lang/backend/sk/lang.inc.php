@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Záloha uložená do';
 $BL['be_update_changed_files']      = 'Zmenené súbory';
 $BL['be_update_no_history']         = 'Zatiaľ nie sú zaznamenané žiadne aktualizácie.';
 $BL['be_update_revision_pending']   = 'Migrácie databázy čakajú alebo zlyhali — spustite ich (prihlásenie do backendu) pred aktualizáciou.';
+$BL['be_update_version_unsupported'] = 'Automatická aktualizácia je podporovaná iba pre phpwcms verziu > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Zbaliť menu';
 $BL['be_page_title']               = 'phpwcms backend (administrácia)';
 $BL['be_subnav_article_center']    = 'Centrum článkov';

@@ -22,6 +22,8 @@ $rollbackResult = null;
 // A new update must not run on a half-migrated schema — block it while DB
 // revisions are pending or failed. History/rollback stay available as the
 // recovery path.
+$installedBaseVersion = preg_replace('/[-+].*$/', '', PHPWCMS_VERSION);
+$versionUnsupported = version_compare($installedBaseVersion, phpwcms_update::MIN_SUPPORTED_VERSION, '<');
 $revisionsPending = phpwcms_revision_check_temp(PHPWCMS_REVISION) !== true;
 
 // POST actions: sysadmin + CSRF + POST only
@@ -31,7 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
     && hash_equals((string)get_token_get_value(), (string)$_POST['csrftoken'])) {
 
     if (isset($_POST['update_run']) && !empty($_POST['update_tag'])) {
-        if ($revisionsPending) {
+        $tagVersion = phpwcms_update_normalize_tag((string)$_POST['update_tag']);
+        if ($versionUnsupported || version_compare($tagVersion, phpwcms_update::MIN_SUPPORTED_VERSION, '<=')) {
+            $updateResult = ['success' => false, 'error' => $BL['be_update_version_unsupported'] ?? 'Automatic update is only supported for phpwcms version > 2.0.0.'];
+        } elseif ($revisionsPending) {
             $updateResult = ['success' => false, 'error' => $BL['be_update_revision_pending'] ?? 'Database migrations are pending or failed — run them (backend login) before updating.'];
         } else {
             $updateResult = $update->run((string)$_POST['update_tag']);
@@ -192,7 +197,9 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
             <div class="mb-3">
               <?php echo be_update_markdown(html(apply_brand_replacements($updateCheck['notes']))); ?>
             </div>
-            <?php if ($revisionsPending): ?>
+            <?php if ($versionUnsupported): ?>
+              <div class="alert alert-danger py-2 mb-0"><i class="fa-solid fa-circle-xmark"></i> <?php echo html($BL['be_update_version_unsupported'] ?? 'Automatic update is only supported for phpwcms version > 2.0.0.'); ?></div>
+            <?php elseif ($revisionsPending): ?>
               <div class="alert alert-warning py-2 mb-0"><i class="fa-solid fa-triangle-exclamation"></i> <?php echo html($BL['be_update_revision_pending'] ?? 'Database migrations are pending or failed — run them (backend login) before updating.'); ?></div>
             <?php else: ?>
             <form method="post" action="phpwcms.php?do=admin&amp;p=18" onsubmit="return confirm('<?php echo js_singlequote($BL['be_update_confirm'] ?? 'The system creates a database backup, then replaces its own files. Continue?'); ?>');">

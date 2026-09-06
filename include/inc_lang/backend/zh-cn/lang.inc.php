@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = '备份文件保存路径';
 $BL['be_update_changed_files']      = '已变更文件';
 $BL['be_update_no_history']         = '尚无更新历史记录。';
 $BL['be_update_revision_pending']   = '数据库迁移挂起或失败 — 请在更新前执行（重新登录后台）。';
+$BL['be_update_version_unsupported'] = '自动更新仅支持 phpwcms 版本 > 2.0.0。';
 $BL['be_nav_collapse_menu']        = '折叠菜单';
 $BL['be_page_title']               = 'phpwcms 后台管理';
 $BL['be_theme']                    = '主题';

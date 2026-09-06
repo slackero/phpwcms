@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'موقع النسخة الاحتياطي�
 $BL['be_update_changed_files']      = 'الملفات المتغيرة';
 $BL['be_update_no_history']         = 'لا توجد تحديثات مسجلة بعد.';
 $BL['be_update_revision_pending']   = 'ترحيلات قاعدة البيانات معلّقة أو فشلت — نفّذها (بتسجيل الدخول إلى الواجهة الخلفية) قبل التحديث.';
+$BL['be_update_version_unsupported'] = 'التحديث التلقائي مدعوم فقط لإصدار phpwcms > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'طي القائمة';
 $BL['be_page_title']               = 'إدارة المحتويات (إدارة الموقع)';
 $BL['be_subnav_article_center']    = 'مركز تحرير المقالات';

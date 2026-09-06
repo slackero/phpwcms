@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Backup salvat la';
 $BL['be_update_changed_files']      = 'Fișiere modificate';
 $BL['be_update_no_history']         = 'Nu există încă actualizări înregistrate.';
 $BL['be_update_revision_pending']   = 'Migrările bazei de date sunt în așteptare sau au eșuat — rulați-le (autentificare în backend) înainte de actualizare.';
+$BL['be_update_version_unsupported'] = 'Actualizarea automată este acceptată doar pentru phpwcms versiunea > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Restr&acirc;nge meniul';
 $BL['be_page_title']               = 'phpwcms backend (administrare)';
 $BL['be_subnav_article_center']    = 'Centru articole';

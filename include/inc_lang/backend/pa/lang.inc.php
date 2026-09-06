@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'ਬੈਕਅੱਪ ਸੁਰੱਖਿਅ�
 $BL['be_update_changed_files']      = 'ਬਦਲੀਆਂ ਫਾਈਲਾਂ';
 $BL['be_update_no_history']         = 'ਅਜੇ ਤੱਕ ਕੋਈ ਅੱਪਡੇਟ ਦਰਜ ਨਹੀਂ ਕੀਤਾ ਗਿਆ।';
 $BL['be_update_revision_pending']   = 'ਡਾਟਾਬੇਸ ਮਾਈਗ੍ਰੇਸ਼ਨ ਬਕਾਇਆ ਹਨ ਜਾਂ ਅਸਫ਼ਲ ਰਹੇ ਹਨ।';
+$BL['be_update_version_unsupported'] = 'ਸਵੈਚਲਿਤ ਅੱਪਡੇਟ ਸਿਰਫ਼ phpwcms ਵਰਜਨ > 2.0.0 ਲਈ ਸਮਰਥਿਤ ਹੈ।';
 $BL['be_nav_collapse_menu']        = 'ਮੀਨੂ ਸਮੇਟੋ';
 $BL['be_page_title']               = 'phpwcms ਪ੍ਰਬੰਧਨ';
 $BL['be_theme']                    = 'ਥੀਮ';

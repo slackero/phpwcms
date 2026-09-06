@@ -27,6 +27,7 @@ if (function_exists('ignore_user_abort')) {
 const UPGRADE_VERSION = '2.0.0';
 const UPGRADE_REPO    = 'slackero/phpwcms';
 const MIN_PHP_VERSION = '8.2.0';
+const MIN_INSTALLED_REVISION = 401;
 
 function phpwcms_logo_svg(int $height = 30): string
 {
@@ -556,6 +557,37 @@ function get_installed_phpwcms_version(string $docRoot): string
     return 'unknown';
 }
 
+function get_installed_phpwcms_revision(string $docRoot): int
+{
+    $pattern = '/(?:const|define\s*\(\s*[\'\"])\s*PHPWCMS_REVISION[\'\"]?\s*[=,]\s*[\'\"]?(\d+)[\'\"]?/i';
+
+    $revFile = $docRoot . '/include/inc_lib/revision/revision.php';
+    if (is_file($revFile)) {
+        $content = (string)@file_get_contents($revFile);
+        if (preg_match($pattern, $content, $m)) {
+            return (int)$m[1];
+        }
+    }
+
+    $setupFunc = $docRoot . '/setup/inc/setup.func.inc.php';
+    if (is_file($setupFunc)) {
+        $content = (string)@file_get_contents($setupFunc);
+        if (preg_match($pattern, $content, $m)) {
+            return (int)$m[1];
+        }
+    }
+
+    $defaultInc = $docRoot . '/include/inc_lib/default.inc.php';
+    if (is_file($defaultInc)) {
+        $content = (string)@file_get_contents($defaultInc);
+        if (preg_match($pattern, $content, $m)) {
+            return (int)$m[1];
+        }
+    }
+
+    return 0;
+}
+
 // -------------------------------------------------------------------------
 // GitHub Release Fetcher
 // -------------------------------------------------------------------------
@@ -635,8 +667,116 @@ function fetch_latest_release(string $repo = UPGRADE_REPO): array|false
     ];
 }
 
+function upgrade_is_allowed_host(string $host): bool
+{
+    if (in_array($host, ['github.com', 'objects.githubusercontent.com'], true)) {
+        return true;
+    }
+    return str_ends_with($host, '.github.com');
+}
+
+function upgrade_http_probe(string $url): array|false
+{
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_NOBODY         => true,
+            CURLOPT_FOLLOWLOCATION => false,
+            CURLOPT_TIMEOUT        => 25,
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_PROTOCOLS      => CURLPROTO_HTTPS,
+            CURLOPT_USERAGENT      => 'phpwcms-standalone-upgrade/' . UPGRADE_VERSION,
+        ]);
+        curl_exec($ch);
+        $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $errno = curl_errno($ch);
+        $location = (string)curl_getinfo($ch, CURLINFO_REDIRECT_URL);
+        curl_close($ch);
+        if ($errno) {
+            return false;
+        }
+        return [$code, $location];
+    }
+
+    if (!ini_get('allow_url_fopen')) {
+        return false;
+    }
+
+    $context = stream_context_create([
+        'http' => [
+            'method'          => 'HEAD',
+            'timeout'         => 25,
+            'user_agent'      => 'phpwcms-standalone-upgrade/' . UPGRADE_VERSION,
+            'follow_location' => 0,
+            'max_redirects'   => 0,
+        ],
+        'ssl' => [
+            'verify_peer' => true,
+        ],
+    ]);
+    $fp = @fopen($url, 'rb', false, $context);
+    if ($fp === false) {
+        return false;
+    }
+    $code = 0;
+    $location = '';
+    foreach ($http_response_header ?? [] as $header) {
+        if (preg_match('/^HTTP\/\S+\s+(\d{3})/', $header, $m)) {
+            $code = (int)$m[1];
+        }
+        if (stripos($header, 'Location:') === 0) {
+            $location = trim(substr($header, 9));
+        }
+    }
+    fclose($fp);
+    return [$code, $location];
+}
+
+function upgrade_resolve_download_url(string $url, bool $restrictHosts = true): string|false
+{
+    $redirects = 0;
+    while (true) {
+        if (!str_starts_with($url, 'https://')) {
+            return false; // enforce HTTPS
+        }
+        $host = (string)parse_url($url, PHP_URL_HOST);
+        if ($restrictHosts && !upgrade_is_allowed_host($host)) {
+            return false;
+        }
+        $probe = upgrade_http_probe($url);
+        if ($probe === false) {
+            return false;
+        }
+        [$code, $location] = $probe;
+        if ($location !== '' && in_array($code, [301, 302, 303, 307, 308], true)) {
+            if (++$redirects > 5) {
+                return false;
+            }
+            if (preg_match('#^https?://#i', $location)) {
+                $url = $location;
+            } else {
+                $parsed_url = parse_url($url);
+                if (!isset($parsed_url['scheme'], $parsed_url['host'])) {
+                    return false;
+                }
+                $url = $parsed_url['scheme'] . '://' . $parsed_url['host'] . (str_starts_with($location, '/') ? '' : '/') . $location;
+            }
+            continue;
+        }
+        if ($code !== 200) {
+            return false;
+        }
+        return $url;
+    }
+}
+
 function download_file(string $url, string $destPath): bool
 {
+    $finalUrl = upgrade_resolve_download_url($url, true);
+    if ($finalUrl === false) {
+        return false;
+    }
+
     $dir = dirname($destPath);
     if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
         return false;
@@ -648,20 +788,26 @@ function download_file(string $url, string $destPath): bool
     }
 
     if (function_exists('curl_init')) {
-        $ch = curl_init($url);
+        $ch = curl_init($finalUrl);
         curl_setopt_array($ch, [
             CURLOPT_FILE           => $fp,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_MAXREDIRS      => 6,
+            CURLOPT_FOLLOWLOCATION => false,
             CURLOPT_TIMEOUT        => 300,
             CURLOPT_CONNECTTIMEOUT => 15,
+            CURLOPT_PROTOCOLS      => CURLPROTO_HTTPS,
             CURLOPT_USERAGENT      => 'phpwcms-standalone-upgrade/' . UPGRADE_VERSION,
         ]);
         $success = curl_exec($ch);
         $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $errno = curl_errno($ch);
         curl_close($ch);
         fclose($fp);
-        return ($success !== false && $code >= 200 && $code < 300);
+
+        if (!$success || $errno !== 0 || $code !== 200) {
+            @unlink($destPath);
+            return false;
+        }
+        return (filesize($destPath) > 0);
     }
 
     if (ini_get('allow_url_fopen')) {
@@ -669,32 +815,74 @@ function download_file(string $url, string $destPath): bool
             'http' => [
                 'timeout'         => 300,
                 'user_agent'      => 'phpwcms-standalone-upgrade/' . UPGRADE_VERSION,
-                'follow_location' => 1,
-                'max_redirects'   => 6,
+                'follow_location' => 0,
+                'max_redirects'   => 0,
             ],
             'ssl' => [
                 'verify_peer' => true,
             ],
         ]);
-        $src = @fopen($url, 'rb', false, $context);
+        $src = @fopen($finalUrl, 'rb', false, $context);
         if ($src === false) {
             fclose($fp);
+            @unlink($destPath);
             return false;
         }
-        while (!feof($src)) {
-            $buffer = fread($src, 65536);
-            if ($buffer === false) {
-                break;
+        $code = 0;
+        foreach ($http_response_header ?? [] as $header) {
+            if (preg_match('/^HTTP\/\S+\s+(\d{3})/', $header, $m)) {
+                $code = (int)$m[1];
             }
-            fwrite($fp, $buffer);
         }
+        if ($code !== 200) {
+            fclose($src);
+            fclose($fp);
+            @unlink($destPath);
+            return false;
+        }
+
+        $copied = stream_copy_to_stream($src, $fp);
         fclose($src);
         fclose($fp);
-        return (filesize($destPath) > 0);
+
+        if ($copied === false || filesize($destPath) <= 0) {
+            @unlink($destPath);
+            return false;
+        }
+        return true;
     }
 
     fclose($fp);
+    @unlink($destPath);
     return false;
+}
+
+function parse_update_manifest(string $content): array
+{
+    $manifest = [];
+    foreach (preg_split('/\r?\n/', $content) as $line) {
+        $line = trim($line);
+        if ($line === '' || str_starts_with($line, '#')) {
+            continue;
+        }
+        $parts = preg_split('/\s+/', $line, 2);
+        if (count($parts) === 2 && $parts[1] !== '') {
+            $rel = $parts[1];
+            // Zip-slip defense: reject traversal ('..' segments), absolute
+            // paths (leading '/') and backslash separators so a hostile
+            // manifest cannot escape the docroot.
+            if (str_starts_with($rel, '/')
+                || str_contains($rel, '\\')
+                || in_array('..', explode('/', $rel), true)) {
+                continue;
+            }
+            if (str_starts_with($rel, './')) {
+                $rel = substr($rel, 2);
+            }
+            $manifest[$rel] = strtolower($parts[0]);
+        }
+    }
+    return $manifest;
 }
 
 // -------------------------------------------------------------------------
@@ -1061,8 +1249,14 @@ function create_files_backup(string $docRoot, array $conf, string $zipPath, bool
 // Upgrade Extraction & Apply
 // -------------------------------------------------------------------------
 
-function apply_release_zip(string $zipFile, string $docRoot, array $conf, ?callable $logger = null): array
-{
+function apply_release_zip(
+    string $zipFile,
+    string $docRoot,
+    array $conf,
+    ?callable $logger = null,
+    bool $allowUnverified = false,
+    string $expectedVersion = ''
+): array {
     $log = static function (string $msg) use ($logger) {
         if ($logger) {
             $logger($msg);
@@ -1074,124 +1268,186 @@ function apply_release_zip(string $zipFile, string $docRoot, array $conf, ?calla
         throw new RuntimeException('Cannot create staging directory: ' . $tempStage);
     }
 
-    $log('Extracting release package to staging area...');
-    if (class_exists('ZipArchive')) {
-        $zip = new ZipArchive();
-        if ($zip->open($zipFile) !== true) {
-            throw new RuntimeException('Cannot open release zip archive: ' . $zipFile);
+    $cleanupStage = static function () use ($tempStage) {
+        if (!is_dir($tempStage)) {
+            return;
         }
-        $zip->extractTo($tempStage);
-        $zip->close();
-    } elseif (function_exists('shell_exec')) {
-        $realZip = realpath($zipFile) ?: $zipFile;
-        $escapedZip = escapeshellarg($realZip);
-        $escapedStage = escapeshellarg($tempStage);
-        $hasUnzip = !empty(trim((string)@shell_exec('which unzip 2>/dev/null')));
-        if ($hasUnzip) {
-            @shell_exec("unzip -q $escapedZip -d $escapedStage");
-        } else {
-            @shell_exec("tar -xf $escapedZip -C $escapedStage 2>/dev/null");
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($tempStage, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($iterator as $item) {
+            if ($item->isDir() && !$item->isLink()) {
+                @rmdir($item->getPathname());
+            } else {
+                @unlink($item->getPathname());
+            }
         }
-    } else {
-        throw new RuntimeException('No Zip or tar extraction capability found.');
-    }
+        @rmdir($tempStage);
+    };
 
-    // Check if zip had a top-level root folder (e.g. phpwcms-2.0.0 or slackero-phpwcms-xxxx)
-    $stageRoot = $tempStage;
-    if (!is_dir($stageRoot . '/include') && !is_file($stageRoot . '/index.php')) {
-        $items = scandir($tempStage);
-        if ($items !== false) {
-            foreach ($items as $item) {
-                if ($item === '.' || $item === '..' || str_starts_with($item, '.')) {
-                    continue;
+    try {
+        $log('Extracting release package to staging area...');
+        if (class_exists('ZipArchive')) {
+            $zip = new ZipArchive();
+            if ($zip->open($zipFile) !== true) {
+                throw new RuntimeException('Cannot open release zip archive: ' . $zipFile);
+            }
+            $zip->extractTo($tempStage);
+            $zip->close();
+        } elseif (function_exists('shell_exec')) {
+            $realZip = realpath($zipFile) ?: $zipFile;
+            $escapedZip = escapeshellarg($realZip);
+            $escapedStage = escapeshellarg($tempStage);
+            $hasUnzip = !empty(trim((string)@shell_exec('which unzip 2>/dev/null')));
+            if ($hasUnzip) {
+                @shell_exec("unzip -q $escapedZip -d $escapedStage");
+            } else {
+                @shell_exec("tar -xf $escapedZip -C $escapedStage 2>/dev/null");
+            }
+        } else {
+            throw new RuntimeException('No Zip or tar extraction capability found.');
+        }
+
+        // Check if zip had a top-level root folder (e.g. phpwcms-2.0.0 or slackero-phpwcms-xxxx)
+        $stageRoot = $tempStage;
+        if (!is_dir($stageRoot . '/include') && !is_file($stageRoot . '/index.php')) {
+            $items = scandir($tempStage);
+            if ($items !== false) {
+                foreach ($items as $item) {
+                    if ($item === '.' || $item === '..' || str_starts_with($item, '.')) {
+                        continue;
+                    }
+                    $sub = $tempStage . '/' . $item;
+                    if (is_dir($sub) && (is_dir($sub . '/include') || is_file($sub . '/index.php'))) {
+                        $stageRoot = $sub;
+                        break;
+                    }
                 }
-                $sub = $tempStage . '/' . $item;
-                if (is_dir($sub) && (is_dir($sub . '/include') || is_file($sub . '/index.php'))) {
-                    $stageRoot = $sub;
+            }
+        }
+
+        // Package validity / Manifest verification
+        $manifestPath = $stageRoot . '/.update-manifest';
+        $manifestVerified = false;
+
+        if (is_file($manifestPath)) {
+            $log('Verifying package integrity via .update-manifest...');
+            $manifestContent = (string)@file_get_contents($manifestPath);
+            $manifest = parse_update_manifest($manifestContent);
+            if (empty($manifest)) {
+                throw new RuntimeException('Package .update-manifest is empty or invalid.');
+            }
+
+            // Version check in revision.php if available
+            $revisionFile = $stageRoot . '/include/inc_lib/revision/revision.php';
+            if (is_file($revisionFile)) {
+                $revContent = (string)@file_get_contents($revisionFile);
+                if (preg_match('/(?:const|define\s*\(\s*[\'"])\s*PHPWCMS_VERSION[\'"]?\s*[=,]\s*[\'"]([^\'"]+)[\'"]/i', $revContent, $m)) {
+                    $stagedVersion = trim($m[1]);
+                    if ($expectedVersion !== '' && $stagedVersion !== $expectedVersion) {
+                        throw new RuntimeException("Version mismatch: package has version $stagedVersion, expected $expectedVersion.");
+                    }
+                }
+            }
+
+            // Verify SHA-256 for all files in the manifest
+            $verifiedCount = 0;
+            foreach ($manifest as $rel => $expectedHash) {
+                $stagedFile = $stageRoot . '/' . $rel;
+                if (!is_file($stagedFile)) {
+                    throw new RuntimeException('Package verification failed: missing file ' . $rel);
+                }
+                $actualHash = strtolower((string)hash_file('sha256', $stagedFile));
+                if ($actualHash !== $expectedHash) {
+                    throw new RuntimeException('Package verification failed: SHA-256 checksum mismatch for ' . $rel);
+                }
+                $verifiedCount++;
+            }
+            $log("✓ Verified SHA-256 checksums for $verifiedCount files against .update-manifest.");
+            $manifestVerified = true;
+        } else {
+            if (!$allowUnverified) {
+                throw new RuntimeException(
+                    'Package verification failed: The release package does not contain an update manifest (.update-manifest) with SHA-256 checksums. ' .
+                    'By default, unverified packages cannot be installed. If upgrading an older release (< 2.0.0), you must explicitly enable the legacy package override.'
+                );
+            }
+            $log('⚠ NOTICE: Release package has no .update-manifest. SHA-256 checksum verification is bypassed via legacy override.');
+        }
+
+        $filePathRel    = trim($conf['file_path'] ?? 'filearchive', '/');
+        $contentPathRel = trim($conf['content_path'] ?? 'content', '/');
+        $ftpPathRel     = trim($conf['ftp_path'] ?? 'upload', '/');
+
+        $skipPaths = [
+            'include/config/',
+            'setup/backup/',
+            'setup/setup.conf.inc.php',
+            '.htaccess',
+            'robots.txt',
+            '.update-manifest',
+        ];
+        if ($filePathRel !== '') {
+            $skipPaths[] = $filePathRel . '/';
+        }
+        if ($contentPathRel !== '') {
+            $skipPaths[] = $contentPathRel . '/';
+        }
+        if ($ftpPathRel !== '') {
+            $skipPaths[] = $ftpPathRel . '/';
+        }
+
+        $log('Copying upgraded files to document root...');
+        $copied = 0;
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($stageRoot, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        foreach ($iterator as $item) {
+            $itemPath = $item->getPathname();
+            $rel = ltrim(substr($itemPath, strlen($stageRoot)), '/\\');
+            $relNormalized = str_replace('\\', '/', $rel);
+
+            // Check skip rules
+            $skip = false;
+            foreach ($skipPaths as $p) {
+                if ($relNormalized === $p || str_starts_with($relNormalized, $p)) {
+                    $skip = true;
                     break;
                 }
             }
-        }
-    }
-
-    $filePathRel    = trim($conf['file_path'] ?? 'filearchive', '/');
-    $contentPathRel = trim($conf['content_path'] ?? 'content', '/');
-    $ftpPathRel     = trim($conf['ftp_path'] ?? 'upload', '/');
-
-    $skipPaths = [
-        'include/config/',
-        'setup/backup/',
-        '.htaccess',
-        'robots.txt',
-    ];
-    if ($filePathRel !== '') {
-        $skipPaths[] = $filePathRel . '/';
-    }
-    if ($contentPathRel !== '') {
-        $skipPaths[] = $contentPathRel . '/';
-    }
-    if ($ftpPathRel !== '') {
-        $skipPaths[] = $ftpPathRel . '/';
-    }
-
-    $log('Copying upgraded files to document root...');
-    $copied = 0;
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($stageRoot, FilesystemIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
-
-    foreach ($iterator as $item) {
-        $itemPath = $item->getPathname();
-        $rel = ltrim(substr($itemPath, strlen($stageRoot)), '/\\');
-        $relNormalized = str_replace('\\', '/', $rel);
-
-        // Check skip rules
-        $skip = false;
-        foreach ($skipPaths as $p) {
-            if ($relNormalized === $p || str_starts_with($relNormalized, $p)) {
-                $skip = true;
-                break;
-            }
-        }
-        if ($skip) {
-            continue;
-        }
-
-        $dest = $docRoot . '/' . $relNormalized;
-        if ($item->isDir()) {
-            if (!is_dir($dest) && !mkdir($dest, 0775, true) && !is_dir($dest)) {
-                throw new RuntimeException(sprintf('Directory "%s" was not created', $dest));
-            }
-        } else {
-            $destDir = dirname($dest);
-            if (!is_dir($destDir) && !mkdir($destDir, 0775, true) && !is_dir($destDir)) {
-                throw new RuntimeException(sprintf('Directory "%s" was not created', $destDir));
-            }
-            if (@copy($itemPath, $dest)) {
-                $copied++;
-            }
-        }
-    }
-
-    // Clean up staging dir
-    $rmdirRecursive = static function ($dir) use (&$rmdirRecursive) {
-        if (!is_dir($dir)) {
-            return;
-        }
-        foreach (scandir($dir) as $f) {
-            if ($f === '.' || $f === '..') {
+            if ($skip) {
                 continue;
             }
-            $p = $dir . '/' . $f;
-            is_dir($p) ? $rmdirRecursive($p) : @unlink($p);
-        }
-        @rmdir($dir);
-    };
-    $rmdirRecursive($tempStage);
 
-    $log("Overwrote $copied files cleanly.");
-    return ['copied' => $copied];
+            $dest = $docRoot . '/' . $relNormalized;
+            if ($item->isDir()) {
+                if (!is_dir($dest) && !mkdir($dest, 0775, true) && !is_dir($dest)) {
+                    throw new RuntimeException(sprintf('Directory "%s" was not created', $dest));
+                }
+            } else {
+                $destDir = dirname($dest);
+                if (!is_dir($destDir) && !mkdir($destDir, 0775, true) && !is_dir($destDir)) {
+                    throw new RuntimeException(sprintf('Directory "%s" was not created', $destDir));
+                }
+                if (@copy($itemPath, $dest)) {
+                    $copied++;
+                }
+            }
+        }
+
+        // If package included a verified manifest, copy it to docroot for future updater runs
+        if ($manifestVerified && is_file($manifestPath)) {
+            @copy($manifestPath, $docRoot . '/.update-manifest');
+        }
+
+        $log("Overwrote $copied files cleanly.");
+        return ['copied' => $copied, 'manifest_verified' => $manifestVerified];
+    } finally {
+        $cleanupStage();
+    }
 }
 
 // -------------------------------------------------------------------------
@@ -1238,6 +1494,10 @@ function execute_post_upgrade_revisions(string $docRoot, ?callable $logger = nul
 // Load existing configuration
 // -------------------------------------------------------------------------
 
+if (defined('UPGRADE_SCRIPT_TEST_MODE')) {
+    return;
+}
+
 if ($configFile === null) {
     if ($isCli) {
         cli_print("Error: Could not locate phpwcms config file in $docRoot/include/config/conf.inc.php or legacy config path.\n", 'red');
@@ -1275,6 +1535,7 @@ if (empty($phpwcms['db_table']) || empty($phpwcms['db_user'])) {
 
 $dbPrepend = $phpwcms['db_prepend'] ?? '';
 $installedVersion = get_installed_phpwcms_version($docRoot);
+$installedRevision = get_installed_phpwcms_revision($docRoot);
 
 // Handle direct backup downloads in browser mode
 if (!$isCli && isset($_GET['download']) && !empty($_SESSION['upgrade_authenticated'])) {
@@ -1363,7 +1624,7 @@ if ($isCli) {
     }
 
     cli_print('Current installed version: ', 'bold');
-    cli_print("$installedVersion\n");
+    cli_print($installedVersion . ($installedRevision > 0 ? " (r$installedRevision)\n" : "\n"));
     cli_print('Target Release available:  ', 'bold');
     cli_print("v{$release['version']} ({$release['tag']})\n", 'green');
     if (!empty($release['published'])) {
@@ -1371,10 +1632,64 @@ if ($isCli) {
     }
     cli_print("\n");
 
-    if (($installedVersion !== 'unknown') && version_compare($installedVersion, $release['version'], '>=')) {
-        cli_print("Error: The target release (v{$release['version']}) is not newer than the currently installed version ($installedVersion).\n", 'red');
-        cli_print("Downgrades or overwriting newer versions is not allowed.\n\n");
+    if ($installedRevision < MIN_INSTALLED_REVISION) {
+        cli_print('Error: Automatic update is not supported for installed phpwcms < r' . MIN_INSTALLED_REVISION . ".\n", 'red');
+        cli_print('Detected installed revision: ' . ($installedRevision > 0 ? 'r' . $installedRevision : 'unknown / pre-r401') . "\n");
+        cli_print("The database revision tracking system was introduced in revision r401.\n");
+        cli_print("Earlier versions cannot be migrated automatically and require a manual upgrade path.\n\n");
         exit(1);
+    }
+
+    $isSameVersion = ($installedVersion !== 'unknown') && version_compare($installedVersion, $release['version'], '==');
+    $isDowngrade = ($installedVersion !== 'unknown') && version_compare($installedVersion, $release['version'], '>');
+
+    if ($isDowngrade) {
+        cli_print("Error: The target release (v{$release['version']}) is older than the currently installed version ($installedVersion).\n", 'red');
+        cli_print("Downgrading to older versions is not allowed.\n\n");
+        exit(1);
+    }
+
+    if ($isSameVersion) {
+        cli_print("Notice: The target release (v{$release['version']}) matches the currently installed version ($installedVersion).\n", 'yellow');
+        $forceCli = in_array('--reinstall', $argv ?? [], true) || in_array('--force', $argv ?? [], true);
+        if (!$forceCli) {
+            $confirmSame = cli_confirm('Do you want to reinstall and overwrite the same version again?', false);
+            if (!$confirmSame) {
+                cli_print("Upgrade cancelled by user. Overwrite of the same version was not confirmed.\n", 'yellow');
+                exit(0);
+            }
+        } else {
+            cli_print("Notice: Reinstall flag supplied; proceeding with same version overwrite.\n", 'yellow');
+        }
+        cli_print("\n");
+    }
+
+    $isLegacyRelease = version_compare($release['version'], '2.0.0', '<');
+    $allowUnverifiedCli = in_array('--allow-unverified', $argv ?? [], true);
+
+    if ($isLegacyRelease) {
+        cli_print("---------------------------------------------------------\n", 'yellow');
+        cli_print(" Legacy Release Notice (< 2.0.0) — No Package Manifest\n", 'bold');
+        cli_print("---------------------------------------------------------\n", 'yellow');
+        cli_print("The target release (v{$release['version']}) was released prior to phpwcms 2.0.0\n");
+        cli_print("and does not contain an .update-manifest with cryptographic SHA-256 checksums.\n\n");
+        cli_print("Consequences:\n", 'bold');
+        cli_print("  * Package file authenticity and integrity cannot be cryptographically verified.\n");
+        cli_print("  * Release files will be extracted and overwritten using legacy file copy logic.\n\n");
+
+        if (!$allowUnverifiedCli) {
+            cli_print("To proceed with upgrading to this legacy version, you must actively confirm\n");
+            cli_print("the unverified package override.\n\n");
+            $confirmOverride = cli_confirm('Do you understand the consequences and want to proceed with unverified upgrade?', false);
+            if (!$confirmOverride) {
+                cli_print("Upgrade cancelled by user. Package verification required.\n", 'red');
+                exit(1);
+            }
+            $allowUnverifiedCli = true;
+        } else {
+            cli_print("Notice: --allow-unverified flag supplied; legacy package override active.\n", 'yellow');
+        }
+        cli_print("\n");
     }
 
     // 3. Backup Confirmation & Options
@@ -1470,11 +1785,19 @@ if ($isCli) {
 
     cli_print("Applying update...\n");
     try {
-        $res = apply_release_zip($tempZip, $docRoot, $phpwcms, static function ($msg) {
-            cli_print("  * $msg\n");
-        });
+        $res = apply_release_zip(
+            $tempZip,
+            $docRoot,
+            $phpwcms,
+            static function ($msg) {
+                cli_print("  * $msg\n");
+            },
+            $allowUnverifiedCli,
+            $release['version']
+        );
         @unlink($tempZip);
     } catch (Exception $e) {
+        @unlink($tempZip);
         cli_print('Error applying update: ' . $e->getMessage() . "\n", 'red');
         exit(1);
     }
@@ -1573,11 +1896,29 @@ $isAuthenticated = !empty($_SESSION['upgrade_authenticated']);
 $releaseInfo = null;
 $isUpgradeAllowed = true;
 $versionError = '';
+$isLegacyTarget = false;
+$isRevisionTooOld = false;
+$isSameVersion = false;
+$isDowngrade = false;
 if ($isAuthenticated) {
-    $releaseInfo = fetch_latest_release();
-    if ($releaseInfo !== false && $installedVersion !== 'unknown' && version_compare($installedVersion, $releaseInfo['version'], '>=')) {
+    if ($installedRevision < MIN_INSTALLED_REVISION) {
         $isUpgradeAllowed = false;
-        $versionError = 'The target release (v' . $releaseInfo['version'] . ') is not newer than the currently installed version (' . $installedVersion . '). Downgrades or reinstalling equal/older versions is not permitted.';
+        $isRevisionTooOld = true;
+        $versionError = 'Automatic update is not supported for installed phpwcms < r' . MIN_INSTALLED_REVISION . ' (detected revision: ' . ($installedRevision > 0 ? 'r' . $installedRevision : 'unknown / pre-r401') . '). Database revision tracking began at revision r401; earlier versions cannot be migrated automatically and require a manual upgrade.';
+    }
+
+    $releaseInfo = fetch_latest_release();
+    if ($releaseInfo !== false) {
+        $isLegacyTarget = version_compare($releaseInfo['version'], '2.0.0', '<');
+        if ($isUpgradeAllowed && $installedVersion !== 'unknown') {
+            if (version_compare($installedVersion, $releaseInfo['version'], '>')) {
+                $isUpgradeAllowed = false;
+                $isDowngrade = true;
+                $versionError = 'The target release (v' . $releaseInfo['version'] . ') is older than the currently installed version (' . $installedVersion . '). Downgrading to an older version is not permitted.';
+            } elseif (version_compare($installedVersion, $releaseInfo['version'], '==')) {
+                $isSameVersion = true;
+            }
+        }
     }
 }
 
@@ -1671,12 +2012,18 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                         <div class="text-muted small">Target Release Available</div>
                         <h4 class="mb-0 text-primary">v<?= htmlspecialchars($releaseInfo['version']) ?> (<?= htmlspecialchars($releaseInfo['tag']) ?>)</h4>
                         <div class="text-muted small">
-                            Installed version: <strong><?= htmlspecialchars($installedVersion) ?></strong>
+                            Installed version: <strong><?= htmlspecialchars($installedVersion) ?></strong><?= $installedRevision > 0 ? ' <span class="badge text-bg-secondary">r' . $installedRevision . '</span>' : '' ?>
                             &bull; Published: <?= htmlspecialchars(substr($releaseInfo['published'], 0, 10)) ?>
                         </div>
                     </div>
                     <div>
-                        <?php if ($isUpgradeAllowed): ?>
+                        <?php if ($isRevisionTooOld): ?>
+                            <span class="badge text-bg-danger fs-6">Revision &lt; r401</span>
+                        <?php elseif ($isDowngrade): ?>
+                            <span class="badge text-bg-danger fs-6">Downgrade Blocked</span>
+                        <?php elseif ($isSameVersion): ?>
+                            <span class="badge text-bg-warning fs-6">Same Version (Reinstall)</span>
+                        <?php elseif ($isUpgradeAllowed): ?>
                             <span class="badge bg-success fs-6">Ready to upgrade</span>
                         <?php else: ?>
                             <span class="badge text-bg-warning fs-6">Already Up to Date</span>
@@ -1685,11 +2032,15 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                 </div>
 
                 <?php if (!$isUpgradeAllowed): ?>
-                    <div class="alert alert-warning">
+                    <div class="alert <?= $isRevisionTooOld ? 'alert-danger' : 'alert-warning' ?>">
                         <strong>Upgrade Not Permitted:</strong> <?= htmlspecialchars($versionError) ?>
                     </div>
                     <p class="text-muted">
-                        Your installation is already at or newer than the latest available release. Downgrades or reinstalling older versions is disallowed to protect your installation and database schema integrity.
+                        <?php if ($isRevisionTooOld): ?>
+                            Automated database migrations require the revision system introduced in phpwcms r401. To upgrade an older installation, please follow the manual upgrade instructions.
+                        <?php else: ?>
+                            Downgrading to an older version of phpwcms is disallowed to protect your installation and database schema integrity.
+                        <?php endif; ?>
                     </p>
                     <div class="mt-3">
                         <a href="../login.php" class="btn btn-primary">Return to Backend</a>
@@ -1698,6 +2049,14 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                     <?php if (empty($_POST['has_external_backup'])): ?>
                         <div class="alert alert-danger">
                             Please confirm that you have verified an external backup before proceeding.
+                        </div>
+                    <?php elseif ($isSameVersion && empty($_POST['confirm_same_version'])): ?>
+                        <div class="alert alert-danger">
+                            Please confirm that you want to overwrite the same version again before proceeding.
+                        </div>
+                    <?php elseif ($isLegacyTarget && empty($_POST['allow_unverified'])): ?>
+                        <div class="alert alert-danger">
+                            Please acknowledge and confirm the unverified package override before proceeding with a legacy release.
                         </div>
                     <?php else: ?>
                     <h5>Upgrade In Progress...</h5>
@@ -1767,8 +2126,9 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                             } else {
                                 $logWeb('✓ Downloaded release package.');
                                 $logWeb('Extracting package and updating files...');
+                                $allowUnverified = !empty($_POST['allow_unverified']);
                                 try {
-                                    $res = apply_release_zip($tempZip, $docRoot, $phpwcms, $logWeb);
+                                    $res = apply_release_zip($tempZip, $docRoot, $phpwcms, $logWeb, $allowUnverified, $releaseInfo['version']);
                                     $updatedFiles = $res['copied'] ?? 0;
                                     $logWeb("✓ Successfully updated $updatedFiles files.");
                                     @unlink($tempZip);
@@ -1780,6 +2140,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                     $logWeb('');
                                     $logWeb('★ Upgrade successfully finished! You may now return to the phpwcms backend.');
                                 } catch (Exception $e) {
+                                    @unlink($tempZip);
                                     $logWeb('✗ Update failed: ' . $e->getMessage());
                                 }
                             }
@@ -1810,6 +2171,31 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
 
                 <?php else: ?>
 
+                    <?php if ($isSameVersion): ?>
+                        <div class="alert alert-info border-info mb-4">
+                            <h5 class="alert-heading font-weight-bold mb-1">ℹ️ Same Version Reinstall Notice</h5>
+                            <p class="mb-0">
+                                The target release (<strong>v<?= htmlspecialchars($releaseInfo['version']) ?></strong>) matches your currently installed version. You can proceed to reinstall and overwrite files to refresh or repair your installation.
+                            </p>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($isLegacyTarget): ?>
+                        <div class="alert alert-warning border-warning mb-4">
+                            <h5 class="alert-heading font-weight-bold mb-1">⚠️ Legacy Release Package Notice (&lt; 2.0.0)</h5>
+                            <p class="mb-2">
+                                The target release (<strong>v<?= htmlspecialchars($releaseInfo['version']) ?></strong>) was released prior to phpwcms 2.0.0 and does not contain an update manifest (<code>.update-manifest</code>) with SHA-256 checksums.
+                            </p>
+                            <p class="mb-1 small font-weight-bold">Consequences &amp; Risks:</p>
+                            <ul class="mb-2 small ps-3">
+                                <li>Package file authenticity and integrity cannot be cryptographically verified against checksums.</li>
+                                <li>Files will be extracted and applied directly using legacy file copying.</li>
+                                <li>An external backup is strongly advised before proceeding.</li>
+                                <li>You must actively acknowledge and check the <strong>"Allow unverified package override"</strong> option below to unlock the upgrade button.</li>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+
                     <form method="post">
                         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['upgrade_csrf_token']) ?>">
                         <input type="hidden" name="execute_upgrade" value="1">
@@ -1828,7 +2214,27 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                             </div>
                         </div>
 
-                        <div class="card mb-4 border">
+                        <?php if ($isSameVersion): ?>
+                            <div class="card mb-3 border border-warning">
+                                <div class="card-header bg-light">
+                                    <strong>Same Version Overwrite Confirmation</strong>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="checkSameVersion" name="confirm_same_version" value="1">
+                                        <label class="form-check-label text-danger fw-bold" for="checkSameVersion">
+                                            Confirm overwrite of the same version (phpwcms v<?= htmlspecialchars($releaseInfo['version']) ?>)
+                                        </label>
+                                        <div class="text-muted small mt-1">
+                                            Target release matches your currently installed version.
+                                            Please check this box to confirm that you want to reinstall and overwrite the same version again.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="card mb-3 border">
                             <div class="card-header bg-light">
                                 <strong>2. Automated Local Backup Options</strong>
                             </div>
@@ -1837,7 +2243,13 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                     <input class="form-check-input" type="checkbox" id="checkAutoBackup" name="create_backup" value="1" checked>
                                     <label class="form-check-label" for="checkAutoBackup">
                                         <strong>Create full automated backup first</strong> (recommended)<br>
-                                        <span class="text-muted small">Creates a database dump (<?= function_exists('gzopen') ? '<code>.sql.gz</code>' : '<code>.sql</code> (uncompressed; ext-zlib unavailable)' ?>) and codebase archive (<?= class_exists('ZipArchive') ? '<code>.zip</code>' : '<code>.tar.gz</code> / <code>.zip</code>' ?>) before overwriting any files.</span>
+                                        <span class="text-muted small">
+                                            Creates a database dump
+                                            (<?= function_exists('gzopen') ? '<code>.sql.gz</code>' : '<code>.sql</code> (uncompressed; ext-zlib unavailable)' ?>)
+                                            and codebase archive
+                                            (<?= class_exists('ZipArchive') ? '<code>.zip</code>' : '<code>.tar.gz</code> / <code>.zip</code>' ?>)
+                                            before overwriting any files.
+                                        </span>
                                     </label>
                                 </div>
 
@@ -1846,14 +2258,52 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                         <input class="form-check-input" type="checkbox" id="checkFileArchive" name="include_filearchive" value="1">
                                         <label class="form-check-label" for="checkFileArchive">
                                             Include file archive folder (<code>/<?= htmlspecialchars($realFileArchive) ?></code>)<br>
-                                            <span class="text-muted small">Check this only if you want uploaded media in the backup zip. Uncheck to keep backup fast and compact.</span>
+                                            <span class="text-muted small">
+                                                Check this only if you want uploaded media in the backup zip.
+                                                Uncheck to keep backup fast and compact.
+                                            </span>
                                         </label>
                                     </div>
                                     <div class="text-muted small mt-2">
-                                        * Rebuildable cache files, temporary assets, and cached thumbnails in <code>/<?= htmlspecialchars($realContentPath) ?></code>
+                                        * Rebuildable cache files, temporary assets, and cached thumbnails in
+                                        <code>/<?= htmlspecialchars($realContentPath) ?></code>
                                         are automatically excluded from the backup to preserve disk space.
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4 border <?= $isLegacyTarget ? 'border-warning' : '' ?>">
+                            <div class="card-header bg-light">
+                                <strong>3. Package Integrity &amp; Verification</strong>
+                            </div>
+                            <div class="card-body">
+                                <?php if ($isLegacyTarget): ?>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="checkAllowUnverified" name="allow_unverified" value="1">
+                                        <label class="form-check-label text-danger fw-bold" for="checkAllowUnverified">
+                                            Allow unverified package override (Required for phpwcms &lt; 2.0.0)
+                                        </label>
+                                        <div class="text-muted small mt-1">
+                                            I acknowledge that this release package does not contain an
+                                            <code>.update-manifest</code> with SHA-256 checksums.
+                                            I understand the consequences and wish to proceed with
+                                            unverified installation.
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <p class="text-muted small mb-2">
+                                        ✓ <strong>Cryptographic manifest verification active:</strong>
+                                        Release files will be verified against SHA-256 checksums in
+                                        <code>.update-manifest</code> before being applied.
+                                    </p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="checkAllowUnverified" name="allow_unverified" value="1">
+                                        <label class="form-check-label text-danger fw-bold" for="checkAllowUnverified">
+                                            Allow unverified package override if manifest is missing (advanced fallback)
+                                        </label>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -1869,20 +2319,35 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
 
                     <script>
                         (function() {
-                            const chk = document.getElementById('checkExternalBackup');
+                            const chkBackup = document.getElementById('checkExternalBackup');
+                            const chkLegacy = document.getElementById('checkAllowUnverified');
+                            const chkSame = document.getElementById('checkSameVersion');
                             const btn = document.getElementById('btnStartUpgrade');
-                            if (chk && btn) {
-                                chk.addEventListener('change', function() {
-                                    btn.disabled = !this.checked;
-                                });
+                            const requireLegacy = <?= $isLegacyTarget ? 'true' : 'false' ?>;
+                            const requireSame = <?= $isSameVersion ? 'true' : 'false' ?>;
+
+                            function updateBtnState() {
+                                const backupOk = chkBackup && chkBackup.checked;
+                                const legacyOk = !requireLegacy || (chkLegacy && chkLegacy.checked);
+                                const sameOk = !requireSame || (chkSame && chkSame.checked);
+                                if (btn) {
+                                    btn.disabled = !(backupOk && legacyOk && sameOk);
+                                }
+                            }
+                            if (chkBackup) {
+                                chkBackup.addEventListener('change', updateBtnState);
+                            }
+                            if (chkLegacy) {
+                                chkLegacy.addEventListener('change', updateBtnState);
+                            }
+                            if (chkSame) {
+                                chkSame.addEventListener('change', updateBtnState);
                             }
                         })();
                     </script>
 
                 <?php endif; ?>
-
             <?php endif; ?>
-
         <?php endif; ?>
     </div>
 </div>

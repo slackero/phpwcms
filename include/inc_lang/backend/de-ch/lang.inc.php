@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Backup gespeichert unter';
 $BL['be_update_changed_files']      = 'Ge&auml;nderte Dateien';
 $BL['be_update_no_history']         = 'Noch keine Updates aufgezeichnet.';
 $BL['be_update_revision_pending']   = 'Datenbank-Migrationen stehen aus oder sind fehlgeschlagen — f&uuml;hre sie (Backend-Login) vor dem Update aus.';
+$BL['be_update_version_unsupported'] = 'Automatisches Update wird nur f&uuml;r phpwcms Version > 2.0.0 unterst&uuml;tzt.';
 $BL['be_nav_collapse_menu']        = 'Men&uuml; einklappen';
 $BL['be_page_title']               = 'phpwcms Backend (Verwaltung)';
 $BL['be_subnav_article_center']    = 'Artikel&uuml;bersicht';

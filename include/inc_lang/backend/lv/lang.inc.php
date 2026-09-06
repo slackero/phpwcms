@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Dublējums saglabāts';
 $BL['be_update_changed_files']      = 'Mainītie faili';
 $BL['be_update_no_history']         = 'Pagaidām nav reģistrētu atjauninājumu.';
 $BL['be_update_revision_pending']   = 'Datubāzes migrācijas ir gaidīšanas režīmā vai neveiksmīgas — izpildiet tās (pieteikšanās backend) pirms atjaunināšanas.';
+$BL['be_update_version_unsupported'] = 'Automātiskā atjaunināšana tiek atbalstīta tikai phpwcms versijai > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Suskleisti meniu';
 $BL['be_page_title']               = 'phpwcms administrēšana';
 $BL['be_theme']                    = 'Tema';

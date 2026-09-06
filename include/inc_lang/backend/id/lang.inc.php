@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Cadangan disimpan di';
 $BL['be_update_changed_files']      = 'Berkas yang berubah';
 $BL['be_update_no_history']         = 'Belum ada pembaruan yang tercatat.';
 $BL['be_update_revision_pending']   = 'Migrasi basis data tertunda atau gagal — jalankan (masuk backend) sebelum memperbarui.';
+$BL['be_update_version_unsupported'] = 'Pembaruan otomatis hanya didukung untuk phpwcms versi > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Ciutkan menu';
 $BL['be_page_title']               = 'phpwcms administrasi';
 $BL['be_theme']                    = 'Tema';

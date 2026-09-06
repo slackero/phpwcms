@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Varmuuskopio tallennettu kohteeseen';
 $BL['be_update_changed_files']      = 'Muutetut tiedostot';
 $BL['be_update_no_history']         = 'Päivityksiä ei ole vielä tallennettu.';
 $BL['be_update_revision_pending']   = 'Tietokannan migraatiot ovat odottavia tai epäonnistuneita — aja ne (backend-kirjautuminen) ennen päivitystä.';
+$BL['be_update_version_unsupported'] = 'Automaattista päivitystä tuetaan vain phpwcms-versioille > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Pienenn&auml; valikko';
 $BL['be_page_title']               = 'Ylläpidon käyttöliittymä (hallinnan työtila)';
 $BL['be_subnav_article_center']    = 'Artikkelien hallinta';

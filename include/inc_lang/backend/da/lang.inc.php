@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Sikkerhedskopi gemt på';
 $BL['be_update_changed_files']      = 'Ændrede filer';
 $BL['be_update_no_history']         = 'Der er endnu ingen registrerede opdateringer.';
 $BL['be_update_revision_pending']   = 'Databasemigrationer venter eller er fejlede — kør dem (backend-login), før du opdaterer.';
+$BL['be_update_version_unsupported'] = 'Automatisk opdatering understøttes kun for phpwcms version > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Skjul menu';
 $BL['be_page_title']               = 'phpwcms administration';
 $BL['be_subnav_article_center']    = 'Artikeldatabase';

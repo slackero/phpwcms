@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'バックアップ保存先';
 $BL['be_update_changed_files']      = '変更されたファイル';
 $BL['be_update_no_history']         = '更新履歴はまだありません。';
 $BL['be_update_revision_pending']   = '保留中または失敗したデータベース移行があります — アップデート前に実行してください (管理画面へのログイン)。';
+$BL['be_update_version_unsupported'] = '自動アップデートは phpwcms バージョン > 2.0.0 のみでサポートされています。';
 $BL['be_nav_collapse_menu']        = 'メニューを折りたたむ';
 $BL['be_page_title']               = 'phpwcms 管理画面';
 $BL['be_theme']                    = 'テーマ';

@@ -61,6 +61,7 @@ $BL['be_update_backup_path']        = 'Backup stored at';
 $BL['be_update_changed_files']      = 'Changed files';
 $BL['be_update_no_history']         = 'No updates recorded yet.';
 $BL['be_update_revision_pending']   = 'Database migrations are pending or failed — run them (backend login) before updating.';
+$BL['be_update_version_unsupported'] = 'Automatic update is only supported for phpwcms version > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Collapse menu';
 $BL['be_page_title']               = 'phpwcms backend (administration)';
 $BL['be_theme']                    = 'Theme';

@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Sandaran disimpan di';
 $BL['be_update_changed_files']      = 'Fail yang diubah';
 $BL['be_update_no_history']         = 'Belum ada kemas kini yang direkodkan.';
 $BL['be_update_revision_pending']   = 'Penghijrahan pangkalan data belum selesai atau gagal — jalankan (log masuk bahagian belakang) sebelum mengemas kini.';
+$BL['be_update_version_unsupported'] = 'Kemas kini automatik hanya disokong untuk phpwcms versi > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Runtuhkan menu';
 $BL['be_page_title']               = 'phpwcms administrasi';
 $BL['be_theme']                    = 'Tema';

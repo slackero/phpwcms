@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Резервното копие е съх
 $BL['be_update_changed_files']      = 'Променени файлове';
 $BL['be_update_no_history']         = 'Все още няма записани актуализации.';
 $BL['be_update_revision_pending']   = 'Миграциите на базата данни са чакащи или неуспешни — изпълнете ги (вход в административния панел) преди обновяване.';
+$BL['be_update_version_unsupported'] = 'Автоматичното обновяване се поддържа само за версия на phpwcms > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Свиване на менюто';
 $BL['be_page_title']               = 'phpwcms backend (администрация)';
 $BL['be_subnav_article_center']    = 'Прес-център';

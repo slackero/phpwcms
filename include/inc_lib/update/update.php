@@ -12,11 +12,12 @@ require_once __DIR__ . '/update.backup.php';
 
 class phpwcms_update
 {
-    public const SKIP_PATHS = ['include/config/', 'filearchive/', 'content/', 'upload/'];
+    public const SKIP_PATHS = ['include/config/', 'filearchive/', 'content/', 'upload/', 'setup/'];
     public const SKIP_FILES = ['.htaccess', 'robots.txt', '.update-manifest'];
     public const MAINTENANCE_FLAG = 'update/maintenance.flag';
     public const STALE_FLAG_SECONDS = 900; // 15 min
     public const MIN_FREE_DISK_BYTES = 10 * 1024 * 1024; // rough preflight floor
+    public const MIN_SUPPORTED_VERSION = '2.0.0';
 
     private string $logFile;
     private string $workDir;
@@ -58,7 +59,8 @@ class phpwcms_update
 
     public static function isNewer(string $version): bool
     {
-        return version_compare($version, PHPWCMS_VERSION, '>');
+        return version_compare($version, self::MIN_SUPPORTED_VERSION, '>')
+            && version_compare($version, PHPWCMS_VERSION, '>');
     }
 
     public function check(): array|false
@@ -81,9 +83,13 @@ class phpwcms_update
             return array_merge($result, ['error' => 'Update already running (lock held).']);
         }
         try {
-            // P0 preflight: ZipArchive, backup dir writable + .htaccess, disk space
+            // P0 preflight: ZipArchive, backup dir writable + .htaccess, disk space, min installed version
             if (!class_exists('ZipArchive')) {
                 throw new RuntimeException('PHP zip extension missing.');
+            }
+            $installedBase = preg_replace('/[-+].*$/', '', PHPWCMS_VERSION);
+            if (version_compare($installedBase, self::MIN_SUPPORTED_VERSION, '<')) {
+                throw new RuntimeException('Automatic update is only supported for phpwcms version > ' . self::MIN_SUPPORTED_VERSION . '.');
             }
             $this->initBackupDir();                  // content/backup/<run>/ + .htaccess + files/ subdir; throws on failure
             $free = @disk_free_space($this->backupDir);
@@ -112,6 +118,9 @@ class phpwcms_update
                 if (!phpwcms_update_download_asset($release['zip'], $zipPath)) {
                     throw new RuntimeException('Download failed.');
                 }
+            }
+            if (version_compare($release['version'], self::MIN_SUPPORTED_VERSION, '<=')) {
+                throw new RuntimeException('Automatic update is only supported for phpwcms version > ' . self::MIN_SUPPORTED_VERSION . '.');
             }
             if ($release['tag'] !== $expectedTag) {
                 throw new RuntimeException('Release tag changed during update.');

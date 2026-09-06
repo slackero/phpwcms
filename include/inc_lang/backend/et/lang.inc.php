@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Varukoopia salvestatud asukohta';
 $BL['be_update_changed_files']      = 'Muudetud failid';
 $BL['be_update_no_history']         = 'Uuendusi pole veel registreeritud.';
 $BL['be_update_revision_pending']   = 'Andmebaasi migratsioonid on ootel või nurjunud — käivitage need (backend-i sisselogimine) enne uuendamist.';
+$BL['be_update_version_unsupported'] = 'Automaatne uuendamine on toetatud ainult phpwcms versioonile > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Ahenda men&uuml;&uuml;';
 $BL['be_page_title']               = 'phpwcms back-end kasutajaliides (administreerimine)';
 $BL['be_subnav_article_center']    = 'Artiklite haldus';

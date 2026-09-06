@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Резервну копію збереж�
 $BL['be_update_changed_files']      = 'Змінені файли';
 $BL['be_update_no_history']         = 'Оновлень ще не записано.';
 $BL['be_update_revision_pending']   = 'Міграції бази даних очікують або завершилися помилкою — виконайте їх (вхід у бекенд) перед оновленням.';
+$BL['be_update_version_unsupported'] = 'Автоматичне оновлення підтримується лише для phpwcms версії > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Згорнути меню';
 $BL['be_page_title']               = 'phpwcms адміністрування';
 $BL['be_subnav_article_center']    = 'Центр статей';

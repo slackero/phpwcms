@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Segurtasun-kopia hemen gordeta';
 $BL['be_update_changed_files']      = 'Aldatutako fitxategiak';
 $BL['be_update_no_history']         = 'Oraindik ez dago eguneraketarik erregistratuta.';
 $BL['be_update_revision_pending']   = 'Datu-baseko migrazioak zain daude edo huts egin dute — exekutatu itzazu (backend-ean saioa hasita) eguneratu aurretik.';
+$BL['be_update_version_unsupported'] = 'Eguneratze automatikoa phpwcms > 2.0.0 bertsiorako bakarrik onartzen da.';
 $BL['be_nav_collapse_menu']        = 'Plegar men&uacute;';
 $BL['be_page_title']               = 'phpwcms kudeaketa';
 $BL['be_theme']                    = 'Tema';

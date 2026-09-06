@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Kopja rezervë ruhet në';
 $BL['be_update_changed_files']      = 'Skedarët e ndryshuar';
 $BL['be_update_no_history']         = 'Ende nuk ka përditësime të regjistruara.';
 $BL['be_update_revision_pending']   = 'Migrimet e bazës së të dhënave janë në pritje ose dështuan — ekzekutojini ato (hyrje në backend) para përditësimit.';
+$BL['be_update_version_unsupported'] = 'Përditësimi automatik mbështetet vetëm për phpwcms versionin > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Comprimi menu';
 $BL['be_page_title']               = 'phpwcms administrimi';
 $BL['be_theme']                    = 'Tema';

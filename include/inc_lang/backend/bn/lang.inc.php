@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'ব্যাকআপ সংরক্ষ�
 $BL['be_update_changed_files']      = 'পরিবর্তিত ফাইলসমূহ';
 $BL['be_update_no_history']         = 'এখনও কোনো আপডেট রেকর্ড করা হয়নি।';
 $BL['be_update_revision_pending']   = 'ডাটাবেস মাইগ্রেশন মুলতুবি বা ব্যর্থ হয়েছে — আপডেট করার আগে চালান।';
+$BL['be_update_version_unsupported'] = 'স্বয়ংক্রিয় আপডেট কেবল phpwcms সংস্করণ > 2.0.0 এর জন্য সমর্থিত।';
 $BL['be_nav_collapse_menu']        = 'মেনু সংকুচিত করুন';
 $BL['be_page_title']               = 'phpwcms প্রশাসন';
 $BL['be_theme']                    = 'থিম';

@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Varnostna kopija shranjena na';
 $BL['be_update_changed_files']      = 'Spremenjene datoteke';
 $BL['be_update_no_history']         = 'Posodobitve še niso zabeležene.';
 $BL['be_update_revision_pending']   = 'Migracije baze podatkov so v čakanju ali niso uspele — zaženite jih (prijava v backend) pred posodobitvijo.';
+$BL['be_update_version_unsupported'] = 'Samodejno posodabljanje je podprto samo za phpwcms različico > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Strni meni';
 $BL['be_page_title']               = 'phpwcms administracija';
 $BL['be_subnav_article_center']    = 'Vsi članki';

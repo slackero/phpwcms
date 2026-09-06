@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'बैकअप सहेजा गया
 $BL['be_update_changed_files']      = 'परिवर्तित फ़ाइलें';
 $BL['be_update_no_history']         = 'अभी तक कोई अपडेट दर्ज नहीं किया गया है।';
 $BL['be_update_revision_pending']   = 'डेटाबेस माइग्रेशन लंबित हैं या विफल रहे हैं — अपडेट करने से पहले उन्हें चलाएं।';
+$BL['be_update_version_unsupported'] = 'स्वचालित अपडेट केवल phpwcms संस्करण > 2.0.0 के लिए समर्थित है।';
 $BL['be_nav_collapse_menu']        = 'मेनू समेटें';
 $BL['be_page_title']               = 'phpwcms प्रशासन';
 $BL['be_theme']                    = 'थीम';

@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Yedek şurada saklandı';
 $BL['be_update_changed_files']      = 'Değiştirilen dosyalar';
 $BL['be_update_no_history']         = 'Henüz kayıtlı güncelleme yok.';
 $BL['be_update_revision_pending']   = 'Veritabanı geçişleri beklemede veya başarısız — güncellemeden önce bunları çalıştırın (yönetim paneline giriş).';
+$BL['be_update_version_unsupported'] = 'Otomatik güncelleme yalnızca phpwcms sürümü > 2.0.0 için desteklenir.';
 $BL['be_nav_collapse_menu']        = 'Men&uuml;y&uuml; daralt';
 $BL['be_page_title']               = 'Site arkası (yönetim)';
 $BL['be_subnav_article_center']    = 'Konu başlıkları';

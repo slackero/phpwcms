@@ -73,6 +73,7 @@ $BL['be_update_backup_path']        = 'Kopia zapasowa zapisana w';
 $BL['be_update_changed_files']      = 'Zmienione pliki';
 $BL['be_update_no_history']         = 'Nie zarejestrowano jeszcze żadnych aktualizacji.';
 $BL['be_update_revision_pending']   = 'Migracje bazy danych są oczekujące lub nieudane — uruchom je (logowanie do backendu) przed aktualizacją.';
+$BL['be_update_version_unsupported'] = 'Automatyczna aktualizacja jest obsługiwana tylko dla phpwcms w wersji > 2.0.0.';
 $BL['be_nav_collapse_menu']        = 'Zwiń menu';
 $BL['be_page_title']               = 'Zaplecze phpwcms (administracja)';
 $BL['be_subnav_article_center']    = 'Centrum artyku&#322;&oacute;w';
