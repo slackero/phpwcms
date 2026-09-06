@@ -736,6 +736,10 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
 
     <!--BE_MAIN_CONTENT_END//-->
   </div>
+
+  <footer id="footer" class="text-end text-muted px-3 pb-3">
+    <?php echo get_backend_footer(); ?>
+  </footer>
 </div>
 
 <?php

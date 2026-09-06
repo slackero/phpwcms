@@ -1,4 +1,10 @@
-# phpwcms 🚀
+<a href="https://www.phpwcms.org" title="phpwcms">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="img/phpwcms-logo-white.svg">
+    <source media="(prefers-color-scheme: light)" srcset="img/phpwcms-logo.svg">
+    <img alt="phpwcms" src="img/phpwcms-logo.svg" height="70">
+  </picture>
+</a>
 
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.2-8892BF.svg?style=flat-edge)](https://php.net)
 [![Database](https://img.shields.io/badge/MySQL-%3E%3D%205.5%20(MariaDB%20rec)-blue.svg?style=flat-edge)](https://mysql.com)
@@ -224,6 +230,64 @@ You can find the setup guide for Google accounts and XOAUTH2 authentication in t
 
 ### Where can I find AI crawler and LLM context files?
 phpwcms includes standard `/ai.txt` and `/llms.txt` files in the repository root. Distribution templates are also provided as `example.ai.txt` and `example.llms.txt`.
+
+---
+
+## Sponsors & Supporters 💖
+
+<a href="https://www.jetbrains.com/?from=phpwcms" target="_blank" rel="noopener noreferrer">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/JetBrains/logos/refs/heads/master/web/jetbrains/jetbrains-white.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/JetBrains/logos/refs/heads/master/web/jetbrains/jetbrains.svg">
+    <img alt="JetBrains" src="https://raw.githubusercontent.com/JetBrains/logos/refs/heads/master/web/jetbrains/jetbrains.svg" height="42">
+  </picture>
+</a>
+
+Many thanks to **[JetBrains](https://www.jetbrains.com/)** for supporting **phpwcms** with complimentary [PhpStorm](https://www.jetbrains.com/phpstorm/) licenses through their [Open Source Support Program](https://www.jetbrains.com/community/opensource/).
+
+---
+
+## Third-Party Libraries & Acknowledgements 📚
+
+**phpwcms** incorporates and builds upon outstanding open-source libraries and components:
+
+### Backend & PHP Packages (Composer)
+* **[CommonMark](https://commonmark.thephpleague.com/)**: Markdown parser based on the CommonMark specification (BSD-3-Clause).
+* **[HTML Purifier](https://htmlpurifier.org/)**: Standards-compliant HTML filter and purification library (LGPL-2.1+).
+* **[Html2Text](https://github.com/mtibben/html2text)**: Converts HTML into clean, formatted plain text (GPL-2.0+).
+* **[IDNA Convert](https://github.com/algo26-matthias/idna-convert)**: Internationalized domain name (IDN) encoder/decoder (LGPL-2.1+).
+* **[OAuth2 Client](https://github.com/thephpleague/oauth2-client)**: OAuth 2.0 client framework with providers for Google & Microsoft Azure (MIT / GPL-3.0).
+* **[PHPMailer](https://github.com/PHPMailer/PHPMailer)**: Full-featured email creation and transport library with XOAUTH2 support (LGPL-2.1).
+* **[PhpSpreadsheet](https://github.com/PHPOffice/PhpSpreadsheet)**: Reading and writing spreadsheet files (MIT).
+* **[Google2FA](https://github.com/antonioribeiro/google2fa)** & **[BaconQrCode](https://github.com/Bacon/BaconQrCode)**: Two-Factor Authentication (TOTP) and QR code generation (MIT / BSD-2-Clause).
+* **[Guzzle](https://github.com/guzzle/guzzle)**: Extensible PHP HTTP client and PSR-7 implementation (MIT).
+* **[SimplePie](http://simplepie.org/)**: RSS and Atom feed parser (BSD-3-Clause).
+* **[SVG Sanitize](https://github.com/darylldoyle/svg-sanitizer)**: SVG cleaning and sanitization utility (GPL-2.0+).
+* **[Symfony Polyfills](https://github.com/symfony/polyfill)** & **[strftime Polyfill](https://github.com/php81-bc/strftime)**: Backward compatibility and modern multibyte functions (MIT).
+* **[Textile Parser](https://github.com/textile/php-textile)**: Textile markup parser (BSD-3-Clause).
+* **[UniversalFeedCreator](https://github.com/flack/UniversalFeedCreator)**: Feed generation for RSS, Atom, and OPML formats (LGPL-2.1+).
+* **[ZipStream-PHP](https://github.com/maennchen/ZipStream-PHP)**: Streaming zip archive generator used with PhpSpreadsheet (MIT).
+
+### Frontend Libraries & Client Assets (npm)
+* **[Ace Editor](https://ace.c9.io/)**: High-performance in-browser code and template editor (BSD-3-Clause).
+* **[Bootstrap 5](https://getbootstrap.com/)**: Responsive HTML/CSS backend and template component framework (MIT).
+* **[CKEditor](https://ckeditor.com)**: WYSIWYG rich text editor (GPL / LGPL / MPL).
+* **[CookieConsent](https://cookieconsent.orestbida.com/)**: Modern cookie consent banner engine (MIT).
+* **[Day.js](https://day.js.org/)**: Fast 2kB alternative to Moment.js with internationalized date handling (MIT).
+* **[Dropzone](https://www.dropzone.dev/)**: Drag-and-drop file upload interface (MIT).
+* **[Flag Icons](https://flagicons.lipis.dev/)**: SVG flag icons for language selection (MIT).
+* **[Flatpickr](https://flatpickr.js.org/)**: Lightweight datetime picker (MIT).
+* **[Font Awesome Free](https://fontawesome.com)**: Comprehensive vector icon library (CC BY 4.0 / SIL OFL 1.1 / MIT).
+* **[GLightbox](https://biati-digital.github.io/glightbox/)**: Pure JavaScript responsive image and media lightbox (MIT).
+* **[jQuery](https://jquery.com/)**: Core JavaScript library (MIT).
+* **[SimpleGMaps](https://github.com/SubZane/simplegmaps)**: Google Maps integration (MIT).
+* **[SortableJS](https://sortablejs.github.io/Sortable/)**: Reorderable drag-and-drop lists (MIT).
+* **[Splide](https://splidejs.com/)**: Accessible, lightweight slider and carousel (MIT).
+* **[TinyMCE](https://www.tiny.cloud/)**: Default rich-text WYSIWYG editor (MIT).
+* **[Tom Select](https://tom-select.js.org/)**: Versatile select UI control with autocomplete (Apache-2.0).
+* **[Video.js](https://videojs.com/)**: HTML5 web video player framework (Apache-2.0).
+
+Extensions and third-party libraries are copyright of their respective owners. Complete licensing details can also be inspected directly in the backend under **About** (`phpwcms.php?do=about`).
 
 ---
 

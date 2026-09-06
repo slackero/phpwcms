@@ -296,6 +296,28 @@ function get_brand_footer(): string {
 }
 
 /**
+ * Get backend footer HTML markup
+ */
+function get_backend_footer(): string {
+    global $BL;
+
+    if (is_whitelabel()) {
+        $brand_url  = get_brand_url();
+        $brand_name = htmlspecialchars(get_brand_name(), ENT_QUOTES, 'UTF-8');
+        $copyright  = get_brand_copyright();
+        $product    = $brand_url !== '' ? '<a href="' . htmlspecialchars($brand_url, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' . $brand_name . ' ' . PHPWCMS_VERSION . '</a>' : $brand_name . ' ' . PHPWCMS_VERSION;
+        $html       = $product . ($copyright !== '' ? ' ' . $copyright : '');
+    } else {
+        $html = '<a href="https://github.com/slackero/phpwcms" target="_blank" rel="noopener noreferrer">phpwcms ' . PHPWCMS_VERSION . '</a> &copy; 2002&#8212;' . date('Y') . ' Oliver Georgi.';
+    }
+
+    $about_title = !empty($BL['be_aboutlink_title']) ? htmlspecialchars($BL['be_aboutlink_title'], ENT_QUOTES, 'UTF-8') : 'About';
+    $html .= ' <a href="phpwcms.php?do=about" title="' . $about_title . '">Extensions</a> are copyright of their respective owners.';
+
+    return $html;
+}
+
+/**
  * Get brand logo HTML markup supporting dark/light mode
  */
 function get_brand_logo(string $class = '', string $link = 'index.php'): string {

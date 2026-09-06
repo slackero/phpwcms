@@ -251,6 +251,7 @@ label a:focus,
     background: #fdfdfd;
     border: 1px solid #dee9ec;
     border-radius: 5px;
+    font-family: var(--bs-font-monospace);
 }
 
 .underline {

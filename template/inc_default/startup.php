@@ -33,13 +33,3 @@ if (!empty($be_support['address']) || !empty($be_support['email']) || !empty($be
 </div>
 <?php
 }
-?>
-
-<div class="text-end text-muted mt-3" style="font-size: 0.8em;">
-<?php if (is_whitelabel()): ?>
-	<?php if ($brand_url = get_brand_url()): ?><a href="<?php echo htmlspecialchars($brand_url, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer"><?php endif; ?><?php echo htmlspecialchars(get_brand_name(), ENT_QUOTES, 'UTF-8'); ?> <?php echo PHPWCMS_VERSION; ?><?php if ($brand_url): ?></a><?php endif; ?> <?php echo get_brand_copyright(); ?>
-<?php else: ?>
-	<a href="https://github.com/slackero/phpwcms" target="_blank" rel="noopener noreferrer">phpwcms <?php echo PHPWCMS_VERSION ?></a> &copy; 2002&#8212;<?php echo date('Y'); ?> Oliver Georgi.
-<?php endif; ?>
-	<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">Extensions</a> are copyright of their respective owners.
-</div>
