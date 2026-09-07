@@ -911,3 +911,17 @@ CREATE TABLE `phpwcms_userlog` (
   `logged_section` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userlog_id`)
 );
+
+CREATE TABLE `phpwcms_update_log` (
+  `update_id` int(11) NOT NULL AUTO_INCREMENT,
+  `update_from` varchar(32) NOT NULL DEFAULT '',
+  `update_to` varchar(32) NOT NULL DEFAULT '',
+  `update_tag` varchar(64) NOT NULL DEFAULT '',
+  `update_status` enum('running','success','failed','rolled_back') NOT NULL DEFAULT 'running',
+  `update_error` text DEFAULT NULL,
+  `update_backup` varchar(255) NOT NULL DEFAULT '',
+  `update_files` int(11) NOT NULL DEFAULT '0',
+  `update_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_user` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`update_id`)
+);
