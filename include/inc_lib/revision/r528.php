@@ -10,15 +10,17 @@
 
 
 // Revision 528 Update Check
-function phpwcms_revision_r528() {
+function phpwcms_revision_r528()
+{
+    $status = true;
 
-	$status = true;
+    // add field to disable forced 302 redirect for article to structure level
+    if (!_dbColumnExists('articlecat', 'acat_disable301')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "articlecat` ADD `acat_disable301` INT(1) unsigned NOT NULL DEFAULT '0'", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+    }
 
-
-	// add field to disable forced 302 redirect for article to structure level
-	if(!_dbColumnExists('phpwcms_articlecat', 'acat_disable301')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_disable301 INT(1) unsigned NOT NULL DEFAULT '0'", 'ALTER');
-	}
-
-	return $status;
+    return $status;
 }

@@ -52,7 +52,7 @@ if(isset($_POST["file_search"])) {
             $file_key = get_list_of_file_keywords(); // Read file keywords
 
             // Build search query
-            $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND f_trash=0 AND f_kid=1 AND ".$search["which"]; // public or private
+            $sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_aktiv=1 AND f_trash=0 AND f_kid=1 AND ".$search["which"]; // public or private
             $result = _dbQuery($sql);
             if(isset($result[0]['f_id'])) {
                 foreach($result as $row) {
@@ -153,7 +153,7 @@ if(isset($search["result"])) {
     }
 
     // List found files
-    $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE (" . (trim($search["filelist"]) ? $search["filelist"] : 0) . ") AND f_kid=1 AND f_trash=0 ORDER BY f_name";
+    $file_sql = "SELECT * FROM ".DB_PREPEND."file WHERE (" . (trim($search["filelist"]) ? $search["filelist"] : 0) . ") AND f_kid=1 AND f_trash=0 ORDER BY f_name";
     $file_result = _dbQuery($file_sql);
     if(isset($file_result[0]['f_id'])) {
         $file_durchlauf = 0;

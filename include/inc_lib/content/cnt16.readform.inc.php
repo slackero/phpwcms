@@ -49,7 +49,7 @@ $content["ecard"]["form"] = preg_replace("'<form[^>]*?>(.*?)</form>'si", '$1', $
 
 if(is_array($content["ecard"]["list"]) && count($content["ecard"]["list"])) {
 
-    $img_sql    = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE (";
+    $img_sql    = "SELECT * FROM ".DB_PREPEND."file WHERE (";
     $img_sort   = array();
 
     foreach($content["ecard"]["list"] as $key => $value) {

@@ -132,7 +132,7 @@ $(function() {
                 $langstr = '';
                 if (intval($article['article_lang_id']) > 0 && $article['article_lang_type'] === 'article') {
                   $where = 'article_id = ' . intval($article['article_lang_id']);
-                  $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
+                  $adata = _dbGet('article', 'article_id, article_alias, article_title', $where, '', '', 1);
                   if (is_array($adata) && isset($adata[0]['article_id'])) {
                     $langstr = '<span class="flag-icon flag-icon-de" data-bs-toggle="tooltip" title="' . get_language_name('de') . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" data-bs-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
                   } else {
@@ -144,7 +144,7 @@ $(function() {
                       continue;
                     }
                     $where = 'article_lang_id = ' . intval($article['article_lang_id']) . ' AND article_lang LIKE ' . _dbEscape($lang);
-                    $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
+                    $adata = _dbGet('article', 'article_id, article_alias, article_title', $where, '', '', 1);
                     if (isset($adata[0]['article_id'])) {
                       $langstr .= '<span class="flag-icon flag-icon-' . $lang . '" data-bs-toggle="tooltip" title="' . get_language_name($lang) . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-bs-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
                       unset($adata);
@@ -157,7 +157,7 @@ $(function() {
                       continue;
                     }
                     $where = 'article_lang_id = ' . intval($article['article_id']) . ' AND article_lang LIKE ' . _dbEscape($lang);
-                    $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
+                    $adata = _dbGet('article', 'article_id, article_alias, article_title', $where, '', '', 1);
                     if (isset($adata[0]['article_id'])) {
                       $langstr .= '<span class="flag-icon flag-icon-' . $lang . '" data-bs-toggle="tooltip" title="' . get_language_name($lang) . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-bs-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
                       unset($adata);
@@ -350,7 +350,7 @@ $(function() {
             $sc = 0;
             $scc = 0;
 
-            $sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."phpwcms_articlecontent ";
+            $sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."articlecontent ";
             $sql .= "WHERE acontent_aid=".$article["article_id"]." ORDER BY acontent_block, acontent_sorting, acontent_id";
             $result = _dbQuery($sql);
 
@@ -406,7 +406,7 @@ $(function() {
             $contentpart_tab    = '';
             $contentpart_tab_close  = '';
 
-            $sql = "SELECT *, UNIX_TIMESTAMP(acontent_tstamp) as acontent_date FROM ".DB_PREPEND."phpwcms_articlecontent ".
+            $sql = "SELECT *, UNIX_TIMESTAMP(acontent_tstamp) as acontent_date FROM ".DB_PREPEND."articlecontent ".
                 "WHERE acontent_aid=".$article["article_id"]." AND acontent_trash=0 ".
                 "ORDER BY acontent_block, acontent_sorting, acontent_tab, acontent_id";
 

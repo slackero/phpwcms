@@ -59,7 +59,7 @@ if(!empty($hash) && strlen($hash) === 32) {
 
         // ok fine - we have download information
         // then count up download try for this file
-        $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_dlstart=f_dlstart+1 ";
+        $sql  = "UPDATE ".DB_PREPEND."file SET f_dlstart=f_dlstart+1 ";
         $sql .= "WHERE f_hash="._dbEscape($download["f_hash"])." LIMIT 1";
         _dbQuery($sql, 'UPDATE');
 
@@ -137,7 +137,7 @@ if(!empty($hash) && strlen($hash) === 32) {
 if($success) {
 
     if(isset($download["f_hash"]) && $download["f_hash"] !== '') {
-        $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_dlfinal=f_dlfinal+1 ";
+        $sql  = "UPDATE ".DB_PREPEND."file SET f_dlfinal=f_dlfinal+1 ";
         $sql .= "WHERE f_hash="._dbEscape($download["f_hash"])." LIMIT 1";
         _dbQuery($sql, 'UPDATE');
     }

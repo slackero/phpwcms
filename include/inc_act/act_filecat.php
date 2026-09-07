@@ -30,7 +30,7 @@ if(has_admin_permission('admfilecat')) { //With admin/delegated permissions only
                 $do[1] = intval($do[1]); //cat ID
                 $do[2] = intval($do[2]); //active value
                 if($do[1]) {
-                    $sql =  "UPDATE ".DB_PREPEND."phpwcms_filecat SET fcat_aktiv=".$do[2]." WHERE fcat_id=".$do[1];
+                    $sql =  "UPDATE ".DB_PREPEND."filecat SET fcat_aktiv=".$do[2]." WHERE fcat_id=".$do[1];
                     _dbQuery($sql, 'UPDATE');
                 }
                 break;
@@ -39,7 +39,7 @@ if(has_admin_permission('admfilecat')) { //With admin/delegated permissions only
                 $do[1] = intval($do[1]); //key ID
                 $do[2] = intval($do[2]); //active value
                 if($do[1]) {
-                    $sql =  "UPDATE ".DB_PREPEND."phpwcms_filekey SET fkey_aktiv=".$do[2]." WHERE fkey_id=".$do[1];
+                    $sql =  "UPDATE ".DB_PREPEND."filekey SET fkey_aktiv=".$do[2]." WHERE fkey_id=".$do[1];
                     _dbQuery($sql, 'UPDATE');
                 }
                 break;
@@ -47,7 +47,7 @@ if(has_admin_permission('admfilecat')) { //With admin/delegated permissions only
         case 8: //Löschen der File Category
                 $do[1] = intval($do[1]); //delete ID
                 if($do[1]) {
-                    $sql =  "UPDATE ".DB_PREPEND."phpwcms_filecat SET fcat_deleted=9 WHERE fcat_id=".$do[1];
+                    $sql =  "UPDATE ".DB_PREPEND."filecat SET fcat_deleted=9 WHERE fcat_id=".$do[1];
                     _dbQuery($sql, 'UPDATE');
                 }
                 break;
@@ -56,7 +56,7 @@ if(has_admin_permission('admfilecat')) { //With admin/delegated permissions only
                 $do[1] = intval($do[1]); //delete ID
                 $do[2] = intval($do[2]); //cat ID
                 if($do[1] && $do[2]) {
-                    $sql =  "UPDATE ".DB_PREPEND."phpwcms_filekey SET fkey_deleted=9 WHERE fkey_id=".$do[1]." AND fkey_cid=".$do[2];
+                    $sql =  "UPDATE ".DB_PREPEND."filekey SET fkey_deleted=9 WHERE fkey_id=".$do[1]." AND fkey_cid=".$do[2];
                     _dbQuery($sql, 'UPDATE');
                 }
                 break;

@@ -32,7 +32,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // loop listing available orders
 $BLM['shopprod_payby_INVOICE'] = $BLM['shopprod_payby_onbill'];
-$sql  = "SELECT *, DATE_FORMAT(order_date,'%d.%m.%Y') AS order_fdate FROM ".DB_PREPEND."phpwcms_shop_orders WHERE ";
+$sql  = "SELECT *, DATE_FORMAT(order_date,'%d.%m.%Y') AS order_fdate FROM ".DB_PREPEND."shop_orders WHERE ";
 $sql .= "order_status NOT IN ('ARCHIVED', 'CLOSED') ORDER BY order_date DESC";
 $data = _dbQuery($sql);
 $_controller_link =  shop_url('controller=order');

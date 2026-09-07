@@ -29,7 +29,7 @@ if(empty($content['recipe']['severity']))				$content['recipe']['severity']				=
 
 
 // retrieve all available keywords
-$content['recipe']['get_keywords'] = _dbQuery('SELECT acontent_text FROM '.DB_PREPEND.'phpwcms_articlecontent WHERE acontent_type=26 AND acontent_trash=0');
+$content['recipe']['get_keywords'] = _dbQuery('SELECT acontent_text FROM '.DB_PREPEND.'articlecontent WHERE acontent_type=26 AND acontent_trash=0');
 $content['recipe']['all_keywords'] = '';
 if($content['recipe']['get_keywords']) {
 	foreach($content['recipe']['get_keywords'] as $temp_val) {

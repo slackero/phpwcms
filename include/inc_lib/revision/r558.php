@@ -14,9 +14,9 @@ function phpwcms_revision_r558() {
     $status = true;
 
     // 1. Ensure phpwcms_custom_cpt table exists
-    if (!_dbTableExists('phpwcms_custom_cpt')) {
+    if (!_dbTableExists('custom_cpt')) {
         $charset_collate = _dbGetCreateCharsetCollation();
-        $sql = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . 'phpwcms_custom_cpt` (
+        $sql = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . 'custom_cpt` (
             `cpt_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
             `cpt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `cpt_changed` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -37,9 +37,9 @@ function phpwcms_revision_r558() {
     }
 
     // 2. Add admcustomcpt permission to phpwcms_usergroup if not exists
-    $count = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_usergroup WHERE group_syskey="admcustomcpt" AND group_trash=0');
+    $count = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'usergroup WHERE group_syskey="admcustomcpt" AND group_trash=0');
     if ($count === 0) {
-        $adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'phpwcms_user` WHERE `usr_admin` = 1');
+        $adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'user` WHERE `usr_admin` = 1');
         $adminids = [];
         if (!empty($adminusers)) {
             foreach ($adminusers as $admins) {
@@ -48,7 +48,7 @@ function phpwcms_revision_r558() {
         }
         $admin_members = implode(',', $adminids) ?: '1';
 
-        $result = _dbInsert('phpwcms_usergroup', [
+        $result = _dbInsert('usergroup', [
             'group_name'   => 'SYSGROUP',
             'group_member' => $admin_members,
             'group_value'  => '',
@@ -64,13 +64,13 @@ function phpwcms_revision_r558() {
     }
 
     // 3. Ensure 2FA columns exist in phpwcms_user
-    if (!_dbColumnExists('phpwcms_user', 'usr_2fa_enabled')) {
-        if (!_dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_user` ADD `usr_2fa_enabled` tinyint(1) NOT NULL DEFAULT 0 AFTER `usr_fe`", 'ALTER')) {
+    if (!_dbColumnExists('user', 'usr_2fa_enabled')) {
+        if (!_dbQuery("ALTER TABLE `" . DB_PREPEND . "user` ADD `usr_2fa_enabled` tinyint(1) NOT NULL DEFAULT 0 AFTER `usr_fe`", 'ALTER')) {
             $status = false;
         }
     }
-    if (!_dbColumnExists('phpwcms_user', 'usr_2fa_secret')) {
-        if (!_dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_user` ADD `usr_2fa_secret` varchar(64) NOT NULL DEFAULT '' AFTER `usr_2fa_enabled`", 'ALTER')) {
+    if (!_dbColumnExists('user', 'usr_2fa_secret')) {
+        if (!_dbQuery("ALTER TABLE `" . DB_PREPEND . "user` ADD `usr_2fa_secret` varchar(64) NOT NULL DEFAULT '' AFTER `usr_2fa_enabled`", 'ALTER')) {
             $status = false;
         }
     }

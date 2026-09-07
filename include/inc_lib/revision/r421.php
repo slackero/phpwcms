@@ -10,17 +10,21 @@
 
 
 // Revision 421 Update Check
-function phpwcms_revision_r421() {
+function phpwcms_revision_r421()
+{
+    $status = true;
 
-	$status = true;
+    // Add column for default content part
+    if (_dbTableExists('categories') && !_dbColumnExists('categories', 'cat_sort')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "categories` ADD `cat_sort` INT(11) NOT NULL DEFAULT '0'", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'categories` ADD INDEX (`cat_sort`)', 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+    }
 
-	// Add column for default content part
-	if(!_dbColumnExists('phpwcms_categories', 'cat_sort')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_categories ADD cat_sort INT(11) NOT NULL DEFAULT '0'", 'ALTER');
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_categories ADD INDEX (cat_sort)", 'ALTER');
-	}
-
-
-	return $status;
-
+    return $status;
 }

@@ -150,7 +150,7 @@ if (isset($_POST['adcampaign_title'])) {
 
         if ($plugin['data']['adcampaign_id']) {
             // UPDATE
-            $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_ads_campaign SET ';
+            $sql = 'UPDATE ' . DB_PREPEND . 'ads_campaign SET ';
             $sql .= "adcampaign_changed='" . aporeplace($plugin['data']['adcampaign_changed']) . "', ";
             $sql .= "adcampaign_status=" . $plugin['data']['adcampaign_status'] . ", ";
             $sql .= "adcampaign_title='" . aporeplace($plugin['data']['adcampaign_title']) . "', ";
@@ -174,7 +174,7 @@ if (isset($_POST['adcampaign_title'])) {
             }
         } else {
             // INSERT
-            $sql = 'INSERT INTO ' . DB_PREPEND . 'phpwcms_ads_campaign (';
+            $sql = 'INSERT INTO ' . DB_PREPEND . 'ads_campaign (';
             $sql .= "   adcampaign_created, adcampaign_changed, adcampaign_status, adcampaign_title, ";
             $sql .= "   adcampaign_comment, adcampaign_datestart, adcampaign_dateend, ";
             $sql .= "   adcampaign_maxview, adcampaign_maxclick, adcampaign_maxviewuser, ";
@@ -215,7 +215,7 @@ if ($plugin['id'] && !isset($plugin['error'])) {
     $sql .= "DATE_FORMAT(adcampaign_dateend,   '%d" . $BLM['date_delimiter'] . "%m" . $BLM['date_delimiter'] . "%Y') AS adcampaign_date_end, ";
     $sql .= "DATE_FORMAT(adcampaign_datestart, '%H:%i') AS adcampaign_time_start, ";
     $sql .= "DATE_FORMAT(adcampaign_dateend,   '%H:%i') AS adcampaign_time_end ";
-    $sql .= 'FROM ' . DB_PREPEND . 'phpwcms_ads_campaign WHERE adcampaign_id=' . $plugin['id'];
+    $sql .= 'FROM ' . DB_PREPEND . 'ads_campaign WHERE adcampaign_id=' . $plugin['id'];
     $plugin['data'] = _dbQuery($sql);
     $plugin['data'] = $plugin['data'][0];
     $plugin['data']['adcampaign_data'] = @unserialize($plugin['data']['adcampaign_data'], ['allowed_classes' => false]);

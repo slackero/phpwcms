@@ -46,7 +46,7 @@ $alinkmenu['link']          = '';
 $ao                         = get_order_sort($content['struct'][ $alinkmenu["catid"] ]['acat_order']);
 
 $alink_sql  = "SELECT article_id, article_title, article_cid, article_summary, article_alias, article_menutitle FROM ";
-$alink_sql .= DB_PREPEND."phpwcms_article WHERE article_aktiv=1 AND article_deleted=0 AND article_cid=";
+$alink_sql .= DB_PREPEND."article WHERE article_aktiv=1 AND article_deleted=0 AND article_cid=";
 $alink_sql .= intval($alinkmenu["catid"]);
 if(!PREVIEW_MODE) {
 	$alink_sql .= ' AND (article_begin IS NULL OR article_begin < NOW())';

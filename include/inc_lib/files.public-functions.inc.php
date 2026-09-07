@@ -15,7 +15,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
     $userID = intval($userID);
 
     //Folder listing for public files
-    $sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE ".
+    $sql = "SELECT f_id, f_name FROM ".DB_PREPEND."file WHERE ".
            "f_pid=".$pid." AND ".
            "f_public=1 AND f_aktiv=1 AND ".
            "f_uid=".$userID." AND ".
@@ -38,7 +38,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
         $klapp_status = empty($_SESSION["pklapp"][$row["f_id"]]) ? 1 : 0;
 
         //Check if dependent files/folders exist
-        $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
+        $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."file WHERE ".
                      "f_pid=".$row["f_id"]." AND f_uid=".$userID." AND ".
                      "f_public=1 AND f_aktiv=1 AND f_trash=0";
 
@@ -68,7 +68,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
             list_public($row["f_id"], $counter+1, $zieldatei, $userID, $wcs_user_thumb, $phpwcms);
 
             //Listing of files contained in the directory
-            $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"]." AND f_uid=".$userID;
+            $file_sql  = "SELECT * FROM ".DB_PREPEND."file WHERE f_pid=".$row["f_id"]." AND f_uid=".$userID;
             $file_sql .= " AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
 
             $file_result = _dbQuery($file_sql);
@@ -170,13 +170,13 @@ function has_public_files($folder_id, $userID) {
     $userID = intval($userID);
 
     // Check if there is any file directly in this folder
-    $file_sql = 'SELECT COUNT(f_id) FROM '.DB_PREPEND.'phpwcms_file WHERE f_pid='.$folder_id.' AND f_uid='.$userID.' AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0';
+    $file_sql = 'SELECT COUNT(f_id) FROM '.DB_PREPEND.'file WHERE f_pid='.$folder_id.' AND f_uid='.$userID.' AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0';
     if(_dbQuery($file_sql, 'COUNT') > 0) {
         return true;
     }
 
     // Check if there are subfolders, and if any of them contain public files
-    $sub_sql = 'SELECT f_id FROM '.DB_PREPEND.'phpwcms_file WHERE f_pid='.$folder_id.' AND f_uid='.$userID.' AND f_public=1 AND f_aktiv=1 AND f_kid=0 AND f_trash=0';
+    $sub_sql = 'SELECT f_id FROM '.DB_PREPEND.'file WHERE f_pid='.$folder_id.' AND f_uid='.$userID.' AND f_public=1 AND f_aktiv=1 AND f_kid=0 AND f_trash=0';
     $subfolders = _dbQuery($sub_sql);
     if(isset($subfolders[0]['f_id'])) {
         foreach($subfolders as $sub) {

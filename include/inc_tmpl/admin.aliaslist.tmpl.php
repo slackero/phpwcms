@@ -24,7 +24,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <?php
 // now retrieve all structur items
 $sql  = "SELECT *, DATE_FORMAT(acat_tstamp, '%Y-%m-%d') AS acat_timestamp ";
-$sql .= "FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
+$sql .= "FROM ".DB_PREPEND."articlecat WHERE ";
 $sql .= "acat_public=1 AND acat_aktiv=1 AND acat_trash=0 ";
 $sql .= "ORDER BY acat_alias";
 
@@ -42,8 +42,8 @@ if(isset($result[0]['acat_id'])) {
     echo '<span class="badge '.(empty($data["acat_alias"]) ? "bg-danger" : "bg-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</span>';
     echo '<span class="badge '.(empty($data["acat_pagetitle"]) ? "bg-danger" : "bg-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_pagetitle'].'">T</span>';
 
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 AND template_id = " . $data["acat_template"];
-    $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($data["acat_template"]), '', '', 1);
+    $sql = "SELECT * FROM ".DB_PREPEND."template WHERE template_trash=0 AND template_id = " . $data["acat_template"];
+    $content['current_template'] = _dbGet('template', '*', 'template_trash=0 AND template_id='._dbEscape($data["acat_template"]), '', '', 1);
     echo '<span class="ms-2">' . $content['current_template'][0]['template_name'] . ' | ' . '</span>';
     echo '<a href="phpwcms.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'">'.(empty($data["acat_alias"]) ? 'no alias' : html_specialchars($data["acat_alias"]) ).'</a>';
 	  echo '</td >';
@@ -67,7 +67,7 @@ if(isset($result[0]['acat_id'])) {
   <?php
 // now retrieve all articles
 $sql  = "SELECT *, DATE_FORMAT(article_tstamp, '%Y-%m-%d') AS article_timestamp ";
-$sql .= "FROM ".DB_PREPEND."phpwcms_article WHERE ";
+$sql .= "FROM ".DB_PREPEND."article WHERE ";
 $sql .= "article_public=1 AND article_aktiv=1 AND article_deleted=0 ";
 $sql .= "ORDER BY article_alias";
 

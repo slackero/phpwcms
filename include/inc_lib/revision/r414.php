@@ -10,30 +10,41 @@
 
 
 // Revision 414 Update Check
-function phpwcms_revision_r414() {
+function phpwcms_revision_r414()
+{
+    $status = true;
 
-	$status = true;
+    // Test against new shopping module fields
+    if (_dbTableExists('shop_products')) {
+        if (!_dbColumnExists('shop_products', 'shopprod_special_price')) {
+            $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'shop_products` ADD `shopprod_special_price` TEXT NOT NULL', 'ALTER');
+            if (!$result) {
+                $status = false;
+            }
+        }
 
-	// Test against new shopping module fields
-	if(_dbTableExists('phpwcms_shop_products')) {
+        if (!_dbColumnExists('shop_products', 'shopprod_track_view')) {
+            $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "shop_products` ADD `shopprod_track_view` INT(11) NOT NULL DEFAULT '0'", 'ALTER');
+            if (!$result) {
+                $status = false;
+            }
+            $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'shop_products` ADD INDEX (`shopprod_track_view`)', 'ALTER');
+            if (!$result) {
+                $status = false;
+            }
+        }
 
-		if(!_dbColumnExists('phpwcms_shop_products', 'shopprod_special_price')) {
-			$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_shop_products ADD shopprod_special_price TEXT NOT NULL", 'ALTER');
-		}
+        if (!_dbColumnExists('shop_products', 'shopprod_lang')) {
+            $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "shop_products` ADD `shopprod_lang` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+            if (!$result) {
+                $status = false;
+            }
+            $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'shop_products` ADD INDEX (`shopprod_lang`)', 'ALTER');
+            if (!$result) {
+                $status = false;
+            }
+        }
+    }
 
-		if(!_dbColumnExists('phpwcms_shop_products', 'shopprod_track_view')) {
-			$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_shop_products ADD shopprod_track_view INT(11) NOT NULL DEFAULT '0'", 'ALTER');
-			$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_shop_products ADD INDEX (shopprod_track_view)", 'ALTER');
-		}
-
-		if(!_dbColumnExists('phpwcms_shop_products', 'shopprod_lang')) {
-			$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_shop_products ADD shopprod_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-			$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_shop_products ADD INDEX (shopprod_lang)", 'ALTER');
-		}
-
-	}
-
-
-	return $status;
-
+    return $status;
 }

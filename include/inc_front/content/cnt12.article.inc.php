@@ -139,7 +139,7 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
         //Success
         $content["newsletter"]["success"] = 1;
 
-        $check_sql = "SELECT address_id,address_key FROM ".DB_PREPEND."phpwcms_address WHERE address_email="._dbEscape($content["newsletter"]["email_address"])." LIMIT 1";
+        $check_sql = "SELECT address_id,address_key FROM ".DB_PREPEND."address WHERE address_email="._dbEscape($content["newsletter"]["email_address"])." LIMIT 1";
         $check_result = _dbQuery($check_sql);
 
         if(isset($check_result[0]['address_id'])) {
@@ -152,7 +152,7 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
         if($content["newsletter"]["reffering_key"]) {
 
             //if email exists in newsletter address list update entry
-            $e_sql = "UPDATE ".DB_PREPEND."phpwcms_address SET ".
+            $e_sql = "UPDATE ".DB_PREPEND."address SET ".
                      "address_name="._dbEscape($content["newsletter"]["email_name"]).", ".
                      "address_verified=0, ".
                      "address_subscription="._dbEscape(serialize($content["newsletter"]["email_subscription"])).", ".
@@ -171,7 +171,7 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
             // brute-forcing the deletion of someone else's subscription
             $content["newsletter"]["reffering_key"] = bin2hex(random_bytes(16));
             //if email not exists in newsletter address list insert entry
-            $e_sql = "INSERT INTO ".DB_PREPEND."phpwcms_address (".
+            $e_sql = "INSERT INTO ".DB_PREPEND."address (".
                      "address_email, address_name, address_key, address_subscription, address_url1, address_url2) VALUES (".
                      _dbEscape($content["newsletter"]["email_address"]).", ".
                      _dbEscape($content["newsletter"]["email_name"]).", ".
@@ -295,7 +295,7 @@ if($content["newsletter"]["success"]) {
     if(is_array($content["newsletter"]["subscription"]) && count($content["newsletter"]["subscription"])) {
 
         // retrieve all active newsletters
-        $content["newsletter"]['temp'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription WHERE subscription_active=1 ORDER BY subscription_name");
+        $content["newsletter"]['temp'] = _dbQuery("SELECT * FROM ".DB_PREPEND."subscription WHERE subscription_active=1 ORDER BY subscription_name");
         foreach($content["newsletter"]['temp'] as $nlvalue) {
 
             if(isset($content["newsletter"]["subscription"][ $nlvalue['subscription_id'] ])) {

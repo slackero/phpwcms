@@ -82,7 +82,7 @@ if(isset($_POST['cimage_id_thumb']) && is_array($_POST['cimage_id_thumb']) && co
             $image_entry['thumb_hash']  = '';
             $image_entry['thumb_ext']   = '';
         } else {
-            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'file WHERE ';
             $sql  .= 'f_id='.$image_entry['thumb_id'].' AND ';
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND f_public=1';
             $image_data = _dbQuery($sql);
@@ -97,7 +97,7 @@ if(isset($_POST['cimage_id_thumb']) && is_array($_POST['cimage_id_thumb']) && co
             $image_entry['zoom_hash']   = '';
             $image_entry['zoom_ext']    = '';
         } else {
-            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'file WHERE ';
             $sql  .= 'f_id='.$image_entry['zoom_id'].' AND ';
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND f_public=1';
             $image_data = _dbQuery($sql);

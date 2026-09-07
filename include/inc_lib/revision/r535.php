@@ -10,27 +10,28 @@
 
 
 // Revision 535 Update Check
-function phpwcms_revision_r535() {
+function phpwcms_revision_r535()
+{
+    $status = true;
 
-	$status = true;
-
-
-	// change type of some content related fields from TEXT to MEDIUMTEXT
+    if (!_dbTableExists('profession')) {
+        return true;
+    }
 
 	// Retrieve Type of profession name
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_profession` WHERE Field='prof_name'");
+	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."profession` WHERE Field='prof_name'");
 	if(isset($result[0]['Type']) && strtolower($result[0]['Type']) === 'varchar(100)') {
-		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_profession` CHANGE `prof_name` `prof_name` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."profession` CHANGE `prof_name` `prof_name` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		if(!$update) {
 			$status = false;
 		}
 	}
 
 	// Change profession ' n/a'
-	_dbUpdate('phpwcms_profession', array('prof_name'=>'n/a'), "prof_name=' n/a'");
+	_dbUpdate('profession', array('prof_name'=>'n/a'), "prof_name=' n/a'");
 
 	// Import new professions
-	$result = _dbCount("SELECT COUNT(*) FROM `".DB_PREPEND."phpwcms_profession`");
+	$result = _dbCount("SELECT COUNT(*) FROM `".DB_PREPEND."profession`");
 	if($result < 25) {
 		$jobs = array(
 			'academic',
@@ -293,7 +294,7 @@ function phpwcms_revision_r535() {
 			'n/a'
 		);
 		foreach($jobs as $job) {
-			$sql = 'INSERT IGNORE INTO `'.DB_PREPEND.'phpwcms_profession` (prof_name) VALUES('._dbEscape($job).')';
+			$sql = 'INSERT IGNORE INTO `'.DB_PREPEND.'profession` (prof_name) VALUES('._dbEscape($job).')';
 			_dbQuery($sql, 'INSERT');
 		}
 	}

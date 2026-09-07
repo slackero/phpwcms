@@ -21,7 +21,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if(isset($_GET['del']) && intval($_GET['del'])) {
 
-    $sql  = "UPDATE ".DB_PREPEND."phpwcms_guestbook SET guestbook_trashed=9 WHERE guestbook_cid=";
+    $sql  = "UPDATE ".DB_PREPEND."guestbook SET guestbook_trashed=9 WHERE guestbook_cid=";
     $sql .= intval($_GET['cid'])." AND guestbook_id=".intval($_GET['del'])." LIMIT 1;";
     _dbQuery($sql, 'UPDATE');
 
@@ -48,7 +48,7 @@ if(isset($_GET['edit']) && intval($_GET['edit'])) {
         }
 
         if(!$gberror) {
-            $sql  = "UPDATE ".DB_PREPEND."phpwcms_guestbook SET ";
+            $sql  = "UPDATE ".DB_PREPEND."guestbook SET ";
             $sql .= "guestbook_msg="._dbEscape($gbmsg).", ";
             $sql .= "guestbook_name="._dbEscape($gbname).", ";
             $sql .= "guestbook_email="._dbEscape($gbemail).", ";
@@ -109,7 +109,7 @@ $gbid = empty($_GET['cid']) ? 0 : intval($_GET['cid']);
 $c = 0;
 
 if($gbid) {
-    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_guestbook WHERE guestbook_cid=".$gbid;
+    $sql  = "SELECT * FROM ".DB_PREPEND."guestbook WHERE guestbook_cid=".$gbid;
     $sql .= $edit_ID." AND guestbook_trashed=0 ORDER BY guestbook_created DESC";
 
     $result = _dbQuery($sql);

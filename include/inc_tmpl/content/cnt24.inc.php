@@ -21,7 +21,7 @@ if(empty($content["alias"]['alias_ID'])) {
     $content["alias"]['alias_ID'] = '';
 } else {
     $content["alias"]['alias_ID'] = intval($content["alias"]['alias_ID']);
-    $sql_cnt  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$content["alias"]['alias_ID']." AND acontent_trash=0";
+    $sql_cnt  = "SELECT * FROM ".DB_PREPEND."articlecontent WHERE acontent_id=".$content["alias"]['alias_ID']." AND acontent_trash=0";
     $cntresult = _dbQuery($sql_cnt);
     if(isset($cntresult[0]['acontent_id'])) {
         $content['alias_link']  = '<div class="mt-1">'.$BL['be_article_cnt_edit'].':&nbsp;';

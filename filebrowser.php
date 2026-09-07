@@ -135,7 +135,7 @@ if(isset($_GET["files"])) {
 }
 
 //Does user have files and folders that can be used
-$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND (f_public=1 OR f_uid=".(int)$_SESSION["wcs_user_id"].") AND f_trash=0";
+$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."file WHERE f_aktiv=1 AND (f_public=1 OR f_uid=".(int)$_SESSION["wcs_user_id"].") AND f_trash=0";
 $count_user_files = _dbQuery($sql, 'COUNT');
 
 ?><!DOCTYPE html>
@@ -206,7 +206,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $folder_status = true_false($folder[0]);
     $counter = 0;
 
-    $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_aktiv=1 AND f_trash=0 AND (f_public=1 OR f_uid=".(int)$_SESSION["wcs_user_id"].")";
+    $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."file WHERE f_pid=0 AND f_aktiv=1 AND f_trash=0 AND (f_public=1 OR f_uid=".(int)$_SESSION["wcs_user_id"].")";
 
     if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
         $count  = '<a href="filebrowser.php?opt='.$js_aktion.'&amp;folder=0';
@@ -331,7 +331,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     }
 
-    $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
+    $file_sql  = "SELECT * FROM ".DB_PREPEND."file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
     if(is_array($filebrowser_ext_sql)) {
         $file_sql .= "f_ext IN ('" . implode("', '", $filebrowser_ext_sql) . "') AND ";
     }
@@ -791,7 +791,7 @@ function folder_list($pid, $counter, $zieldatei) {
     $folder = $_SESSION["folder"];
     $pid = (int)$pid;
     $userID = (int)$_SESSION["wcs_user_id"];
-    $sql = "SELECT f_id, f_name, f_aktiv, f_public FROM ".DB_PREPEND."phpwcms_file WHERE ".
+    $sql = "SELECT f_id, f_name, f_aktiv, f_public FROM ".DB_PREPEND."file WHERE ".
            "f_pid=".(int)$pid." AND f_aktiv=1 AND f_kid=0 AND f_trash=0 AND ".
            "(f_public=1 OR f_uid=".$userID.") ORDER BY f_sort, f_name";
 
@@ -809,7 +809,7 @@ function folder_list($pid, $counter, $zieldatei) {
             $folder_status = true_false($folder[$row["f_id"]]);
 
             //Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
-            $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"]." AND f_trash=0 AND f_aktiv=1 AND (f_public=1 OR f_uid=".$userID.")";
+            $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."file WHERE f_pid=".$row["f_id"]." AND f_trash=0 AND f_aktiv=1 AND (f_public=1 OR f_uid=".$userID.")";
 
             if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
                 $count  = '<a href="'.$zieldatei."folder=".$row["f_id"];

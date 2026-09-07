@@ -85,7 +85,7 @@ if (!empty($_POST['save_mail_template'])) {
                 'tpl_active'       => $post_active
             ];
 
-            $saved = _dbInsertOrUpdate('phpwcms_mailtemplates', $data);
+            $saved = _dbInsertOrUpdate('mailtemplates', $data);
             if ($saved !== false) {
                 $action_msg = $BL['be_admin_mail_saved'] ?? 'Email template saved successfully.';
                 if (!empty($_POST['save_and_close'])) {
@@ -105,7 +105,7 @@ if (isset($_GET['reset']) && !empty($_GET['reset'])) {
     if (validate_csrf_get_token()) {
         $reset_key = clean_slweg($_GET['reset']);
         if (isset($definitions[$reset_key])) {
-            $del_sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_mailtemplates WHERE tpl_key = ' . _dbEscape($reset_key) . ' AND tpl_lang = ' . _dbEscape($current_lang);
+            $del_sql = 'DELETE FROM ' . DB_PREPEND . 'mailtemplates WHERE tpl_key = ' . _dbEscape($reset_key) . ' AND tpl_lang = ' . _dbEscape($current_lang);
             _dbQuery($del_sql, 'DELETE');
             headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string() . '&do=admin&p=19&lang=' . urlencode($current_lang) . '&msg=reset');
         }
@@ -120,7 +120,7 @@ if (isset($_GET['toggle_active']) && !empty($_GET['toggle_active'])) {
             $tpl_info = get_system_email_template($toggle_key, $current_lang);
             if (!empty($tpl_info['is_custom'])) {
                 $new_state = empty($tpl_info['active']) ? 1 : 0;
-                $toggle_sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_mailtemplates SET tpl_active = ' . $new_state . ' WHERE tpl_key = ' . _dbEscape($toggle_key) . ' AND tpl_lang = ' . _dbEscape($current_lang);
+                $toggle_sql = 'UPDATE ' . DB_PREPEND . 'mailtemplates SET tpl_active = ' . $new_state . ' WHERE tpl_key = ' . _dbEscape($toggle_key) . ' AND tpl_lang = ' . _dbEscape($current_lang);
                 _dbQuery($toggle_sql, 'UPDATE');
             }
             headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string() . '&do=admin&p=19&lang=' . urlencode($current_lang));

@@ -35,7 +35,7 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
         foreach($file_action["mark"] as $key => $value) {
             $key = intval($key);
             if($key) {
-                $sql = 'UPDATE '.DB_PREPEND.'phpwcms_file SET f_trash=1 WHERE f_id='.$key;
+                $sql = 'UPDATE '.DB_PREPEND.'file SET f_trash=1 WHERE f_id='.$key;
                 @_dbQuery($sql, 'UPDATE');
             } else {
                 unset($key);
@@ -49,7 +49,7 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
         foreach($file_action["mark"] as $key => $value) {
             $key = intval($key);
             if($key) {
-                $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_file SET f_pid='.$newdir.' WHERE f_id='.$key;
+                $sql  = 'UPDATE '.DB_PREPEND.'file SET f_pid='.$newdir.' WHERE f_id='.$key;
                 @_dbQuery($sql, 'UPDATE');
             } else {
                 unset($key);
@@ -64,7 +64,7 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
         foreach($file_action["mark"] as $key => $value) {
             $key = intval($key);
             if($key) {
-                $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_file SET ';
+                $sql  = 'UPDATE '.DB_PREPEND.'file SET ';
                 $sql .= "f_aktiv= " . $file_action["aktiv"] . ", ";
                 $sql .= "f_public= " . $file_action["public"] . " ";
                 $sql .= "WHERE f_id='".$key."'";
@@ -81,7 +81,7 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
         foreach($file_action["mark"] as $key => $value) {
             $key = intval($key);
             if($key) {
-                $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_file SET ';
+                $sql  = 'UPDATE '.DB_PREPEND.'file SET ';
                 $sql .= "f_pid=0, ";
                 $sql .= "f_uid= " . $file_action["file_user"] . " ";
                 $sql .= "WHERE f_id='".$key."'";
@@ -147,7 +147,7 @@ function showAction() {
         <?php
         //Browse files in selected folder
         $fx = 0;
-        $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=" . $file_action["file_dir"] .
+        $file_sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_pid=" . $file_action["file_dir"] .
                     " AND f_trash=0 AND f_kid = 1 AND f_uid = " . $_SESSION["wcs_user_id"] . " ORDER BY f_name";
         $file_result = _dbQuery($file_sql);
         if(isset($file_result[0]['f_id'])) {
@@ -234,7 +234,7 @@ function showAction() {
 						<div class="col">
 							<select name="file_user" id="file_user" class="form-select form-select-sm col-sm-4">
               <?php
-                $sql = "SELECT usr_id, usr_name FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv=1 AND usr_id !=".intval($_SESSION["wcs_user_id"])." ORDER BY usr_name";
+                $sql = "SELECT usr_id, usr_name FROM ".DB_PREPEND."user WHERE usr_aktiv=1 AND usr_id !=".intval($_SESSION["wcs_user_id"])." ORDER BY usr_name";
                 $result = _dbQuery($sql);
                 if(isset($result[0]['usr_id'])) {
                   foreach($result as $row) {

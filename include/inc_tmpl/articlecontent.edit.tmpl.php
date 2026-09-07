@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 initJsCalendar();
 
 // OK check article and category information
-$sql  = 'SELECT DISTINCT * FROM '.DB_PREPEND.'phpwcms_article ar LEFT JOIN '.DB_PREPEND.'phpwcms_articlecat ac ON ';
+$sql  = 'SELECT DISTINCT * FROM '.DB_PREPEND.'article ar LEFT JOIN '.DB_PREPEND.'articlecat ac ON ';
 $sql .= "ar.article_cid=ac.acat_id WHERE ar.article_id='".$content["aid"]."' LIMIT 1";
 $content['article'] = _dbQuery($sql);
 $content['article'] = isset($content['article'][0]) ? $content['article'][0] : array('article_title' => '', 'acat_name' => '', 'acat_template'=>0);
@@ -271,13 +271,13 @@ if ($content['cp_setting_mode']):
 
         // Detect Template
         if (!empty($content['article']['acat_template'])) {
-            $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($content['article']['acat_template']), '', '', 1);
+            $content['current_template'] = _dbGet('template', '*', 'template_trash=0 AND template_id='._dbEscape($content['article']['acat_template']), '', '', 1);
         }
         if (!isset($content['current_template'][0])) {
-            $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_default=1', '', '', 1);
+            $content['current_template'] = _dbGet('template', '*', 'template_trash=0 AND template_default=1', '', '', 1);
         }
         if (!isset($content['current_template'][0])) {
-            $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0', '', 'template_default DESC', 1);
+            $content['current_template'] = _dbGet('template', '*', 'template_trash=0', '', 'template_default DESC', 1);
         }
 
         $content['blocks'] = array();

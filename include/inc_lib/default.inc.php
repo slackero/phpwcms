@@ -1334,7 +1334,7 @@ function log_message($type = 'UNDEFINED', $message = '', $userid = 0) {
         $log['log_referrer_url'] = $_SERVER['HTTP_REFERER'];
     }
 
-    _dbInsert('phpwcms_log', $log, 'LOW_PRIORITY');
+    _dbInsert('log', $log, 'LOW_PRIORITY');
 }
 
 function destroyBackendSessionData() {
@@ -1360,14 +1360,14 @@ function destroyBackendSessionData() {
 function checkLoginCount() {
     $check = 0;
     if (!empty($_SESSION['wcs_user'])) {
-        $sql = 'SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_userlog WHERE logged_user=' . _dbEscape($_SESSION['wcs_user']) . ' AND logged_in=1';
+        $sql = 'SELECT COUNT(*) FROM ' . DB_PREPEND . 'userlog WHERE logged_user=' . _dbEscape($_SESSION['wcs_user']) . ' AND logged_in=1';
         if (!PHPWCMS_GDPR_MODE && !empty($phpwcms['Login_IPcheck'])) {
             $sql .= ' AND logged_ip=' . _dbEscape(getRemoteIP());
         }
         $check = _dbCount($sql);
 
         if ($check) {
-            $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_userlog SET logged_change=' . time() . ' WHERE ';
+            $sql = 'UPDATE ' . DB_PREPEND . 'userlog SET logged_change=' . time() . ' WHERE ';
             $sql .= 'logged_user=' . _dbEscape($_SESSION['wcs_user']) . ' AND logged_in=1';
             _dbQuery($sql, 'UPDATE');
         } else {

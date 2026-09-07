@@ -174,7 +174,7 @@ if($fe_action) {
                                     // at the moment it is only possible to edit user data of "real" FRONTEND users
                                     // all BACKEND users should login to backend and edit their data there
                                     $result = _dbGet(
-                                            'phpwcms_userdetail', '*',
+                                            'userdetail', '*',
                                             "detail_filter='" . aporeplace(FEUSER_REGKEY) . "' AND detail_id=" . intval($_SESSION[ $_loginData['session_key'].'_userdata' ]['id']),
                                             '', '',  '1' );
                                     if(isset($result[0])) {
@@ -208,7 +208,7 @@ if($fe_action) {
 
         if($fe_action == '{FE_USER_REGISTER}') {
 
-            $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_userdetail WHERE ";
+            $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND."userdetail WHERE ";
             $sql .= "detail_login LIKE '" . aporeplace($udata['user_login'])."'";
 
             if( empty($udata['user_login']) ) {
@@ -239,7 +239,7 @@ if($fe_action) {
 
         }
 
-        $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_userdetail WHERE ";
+        $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND."userdetail WHERE ";
         $sql .= "detail_login != '" . aporeplace($udata['user_login']) . "' AND ";
         $sql .= "detail_email = '" . aporeplace(strtolower($udata['user_email']))."'";
 
@@ -357,7 +357,7 @@ if($fe_action) {
             $profile_data = $udata;
             unset($profile_data['user_password'], $profile_data['user_password2']);
 
-            $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_userdetail (';
+            $sql  = 'INSERT INTO '.DB_PREPEND.'userdetail (';
             $sql .= 'detail_title, detail_firstname, detail_lastname, detail_company, detail_street, detail_city, detail_zip, ';
             $sql .= 'detail_fon, detail_notes, detail_aktiv, detail_newsletter, detail_varchar1, detail_email, detail_login, detail_password) VALUES (';
             $sql .= "'" . aporeplace($udata['user_title']) . "', ";
@@ -470,7 +470,7 @@ if($fe_action) {
             $profile_data = $udata;
             unset($profile_data['user_password'], $profile_data['user_password2']);
 
-            $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_userdetail SET ';
+            $sql  = 'UPDATE '.DB_PREPEND.'userdetail SET ';
             $sql .= "detail_title       = '".aporeplace($udata['user_title'])."', ";
             $sql .= "detail_firstname   = '".aporeplace($udata['user_firstname'])."', ";
             $sql .= "detail_lastname    = '".aporeplace($udata['user_name'])."', ";

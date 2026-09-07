@@ -26,7 +26,7 @@ $id     = intval($id);
 //Message in den Papierkorb bewegen
 if($do == 1) {
     if(intval($wert)) {
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_message SET ".
+        $sql =  "UPDATE ".DB_PREPEND."message SET ".
                 "msg_deleted=1, msg_tstamp=msg_tstamp, msg_read=1 WHERE ".
                 "msg_uid=".$_SESSION["wcs_user_id"]." AND ".
                 "msg_id=".$id.";";
@@ -37,7 +37,7 @@ if($do == 1) {
 //Durch User versendete Message in den Papierkorb bewegen
 if($do == 2) {
     if(intval($wert)) {
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_message SET ".
+        $sql =  "UPDATE ".DB_PREPEND."message SET ".
                 "msg_from_del=1, msg_tstamp=msg_tstamp  WHERE ".
                 "msg_from=".$_SESSION["wcs_user_id"]." AND ".
                 "msg_id=".$id.";";
@@ -48,7 +48,7 @@ if($do == 2) {
 //Undo Normale Message
 if($do == 3) {
     if(intval($wert) == 0) {
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_message SET ".
+        $sql =  "UPDATE ".DB_PREPEND."message SET ".
                 "msg_deleted=0, msg_tstamp=msg_tstamp WHERE ".
                 "msg_uid=".$_SESSION["wcs_user_id"]." AND ".
                 "msg_id=".$id.";";
@@ -59,7 +59,7 @@ if($do == 3) {
 //Undo Sent Message
 if($do == 4) {
     if(intval($wert) == 0) {
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_message SET ".
+        $sql =  "UPDATE ".DB_PREPEND."message SET ".
                 "msg_from_del=0, msg_tstamp=msg_tstamp  WHERE ".
                 "msg_from=".$_SESSION["wcs_user_id"]." AND ".
                 "msg_id=".$id.";";
@@ -70,7 +70,7 @@ if($do == 4) {
 //Delete Normale Message
 if($do == 5) {
     if(intval($wert) == 9) {
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_message SET ".
+        $sql =  "UPDATE ".DB_PREPEND."message SET ".
                 "msg_deleted=9, msg_tstamp=msg_tstamp WHERE ".
                 "msg_uid=".$_SESSION["wcs_user_id"]." AND ".
                 "msg_id=".$id." AND msg_deleted=1;";
@@ -81,7 +81,7 @@ if($do == 5) {
 //Delete sent message (Set del to 9)
 if($do == 6) {
     if(intval($wert) == 9) {
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_message SET ".
+        $sql =  "UPDATE ".DB_PREPEND."message SET ".
                 "msg_from_del=9, msg_tstamp=msg_tstamp  WHERE ".
                 "msg_from=".$_SESSION["wcs_user_id"]." AND ".
                 "msg_id=".$id." AND msg_from_del=1;";

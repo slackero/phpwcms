@@ -22,7 +22,7 @@ if(isset($_GET["all"])) { // Hide/Show
 
     if($_GET["all"] == "open") { // All
 
-        $sql = "SELECT f_id FROM ".DB_PREPEND."phpwcms_file WHERE f_kid=0 AND f_trash=0";
+        $sql = "SELECT f_id FROM ".DB_PREPEND."file WHERE f_kid=0 AND f_trash=0";
         if(empty($_SESSION["wcs_user_admin"])) {
             $sql .= " AND f_uid=".$_SESSION["wcs_user_id"];
         }
@@ -36,7 +36,7 @@ if(isset($_GET["all"])) { // Hide/Show
         }
     }
 
-    _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile="._dbEscape(serialize($_SESSION["klapp"]))." WHERE usr_id=".intval($_SESSION["wcs_user_id"]), 'UPDATE');
+    _dbQuery("UPDATE ".DB_PREPEND."user SET usr_var_privatefile="._dbEscape(serialize($_SESSION["klapp"]))." WHERE usr_id=".intval($_SESSION["wcs_user_id"]), 'UPDATE');
 
 } elseif(!isset($_SESSION["klapp"])) {
 
@@ -61,14 +61,14 @@ if(isset($_GET["klapp"])) {
         }
     }
 
-    _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile="._dbEscape(serialize($_SESSION["klapp"]))." WHERE usr_id=".intval($_SESSION["wcs_user_id"]), 'UPDATE');
+    _dbQuery("UPDATE ".DB_PREPEND."user SET usr_var_privatefile="._dbEscape(serialize($_SESSION["klapp"]))." WHERE usr_id=".intval($_SESSION["wcs_user_id"]), 'UPDATE');
 }
 
 // Set counter for listing
 $_SESSION["list_zaehler"] = 0;
 
 // Are there any files or folders
-$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0";
+$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."file WHERE f_trash=0";
 if(empty($_SESSION["wcs_user_admin"])) {
     $sql .= " AND f_uid=".$_SESSION["wcs_user_id"];
 }

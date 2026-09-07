@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $no_durchlauf = 0;
 
 //Count message boxes
-$sql = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE ";
+$sql = "SELECT COUNT(*) FROM ".DB_PREPEND."message WHERE ";
 
 //New Messages
 $count_newmsg = _dbQuery($sql .= "msg_uid=".intval($_SESSION["wcs_user_id"])." AND (msg_read=0 OR (NOW()-msg_tstamp<86400)) AND msg_deleted=0", 'COUNT');
@@ -97,7 +97,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
             <?php
             //Read the List of User_ID and User_Name
-            $msg_user = _dbQuery("SELECT usr_id, usr_login, usr_name, usr_email FROM ".DB_PREPEND."phpwcms_user");
+            $msg_user = _dbQuery("SELECT usr_id, usr_login, usr_name, usr_email FROM ".DB_PREPEND."user");
 
             if(isset($msg_user[0]['usr_id'])) {
                 foreach($msg_user as $msg_user_result) {
@@ -108,7 +108,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             //Wenn Nachricht angezeigt werden soll
             if(!empty($_GET["msg"]) && intval($_GET["msg"])) {
                 if($msg_read == "I" && $msg) { //Wenn die Nachricht noch den Status Unread hat, setzen auf read
-                    $sql =  "UPDATE ".DB_PREPEND."phpwcms_message SET msg_tstamp=msg_tstamp, msg_read=1 WHERE ".
+                    $sql =  "UPDATE ".DB_PREPEND."message SET msg_tstamp=msg_tstamp, msg_read=1 WHERE ".
                             "msg_uid=".$_SESSION["wcs_user_id"]." AND msg_id=".$msg;
                     _dbQuery($sql);
                 }
@@ -116,7 +116,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                 if($msg) {
                     $sql =  "SELECT msg_id, msg_pid, msg_uid, msg_subject, msg_from, msg_read, msg_deleted, ".
                             "msg_from_del, msg_to, msg_text, DATE_FORMAT(msg_tstamp, '%b %e, %Y (%H:%i)') AS msg_date ".
-                            "FROM ".DB_PREPEND."phpwcms_message WHERE ((msg_uid=".$_SESSION["wcs_user_id"]." AND msg_deleted<>9)".
+                            "FROM ".DB_PREPEND."message WHERE ((msg_uid=".$_SESSION["wcs_user_id"]." AND msg_deleted<>9)".
                             " OR (msg_from=".$_SESSION["wcs_user_id"]." AND msg_from_del<>9)) AND msg_id=".$msg.
                             " LIMIT 1";
                     $result = _dbQuery($sql);
@@ -181,7 +181,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
     //Listing new messages
     $sql =  "SELECT msg_id, msg_pid, msg_uid, msg_subject, msg_from, msg_read, ".
             "DATE_FORMAT(msg_tstamp, '%m/%d/%y %H:%i') AS msg_date ".
-            "FROM ".DB_PREPEND."phpwcms_message WHERE msg_uid=".$_SESSION["wcs_user_id"].
+            "FROM ".DB_PREPEND."message WHERE msg_uid=".$_SESSION["wcs_user_id"].
             " AND (msg_read=0 OR (NOW()-msg_tstamp<86400)) AND msg_deleted=0 ".
             "ORDER BY msg_tstamp DESC LIMIT ".$msg_list;
     $result = _dbQuery($sql);
@@ -235,7 +235,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
     //Listing new messages
     $sql =  "SELECT msg_id, msg_pid, msg_uid, msg_subject, msg_from, msg_read, ".
             "DATE_FORMAT(msg_tstamp, '%m/%d/%y %H:%i') AS msg_date ".
-            "FROM ".DB_PREPEND."phpwcms_message WHERE msg_uid=".$_SESSION["wcs_user_id"].
+            "FROM ".DB_PREPEND."message WHERE msg_uid=".$_SESSION["wcs_user_id"].
             " AND msg_read=1 AND msg_deleted=0 ORDER BY msg_tstamp DESC LIMIT ".$msg_list;
     $result = _dbQuery($sql);
 
@@ -288,7 +288,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
     //Listing new messages
     $sql =  "SELECT msg_id, msg_pid, msg_uid, msg_subject, msg_from, msg_read, ".
             "DATE_FORMAT(msg_tstamp, '%m/%d/%y %H:%i') AS msg_date ".
-            "FROM ".DB_PREPEND."phpwcms_message WHERE msg_from=".$_SESSION["wcs_user_id"].
+            "FROM ".DB_PREPEND."message WHERE msg_from=".$_SESSION["wcs_user_id"].
             " AND msg_from_del=0 ORDER BY msg_tstamp DESC LIMIT ".$msg_list;
     $result = _dbQuery($sql);
 
@@ -340,7 +340,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
     //Listing new messages
     $sql =  "SELECT msg_id, msg_pid, msg_uid, msg_subject, msg_from, msg_read, ".
             "DATE_FORMAT(msg_tstamp, '%m/%d/%y %H:%i') AS msg_date, msg_from_del, msg_deleted ".
-            "FROM ".DB_PREPEND."phpwcms_message WHERE (msg_uid=".$_SESSION["wcs_user_id"]." AND msg_deleted=1) OR ".
+            "FROM ".DB_PREPEND."message WHERE (msg_uid=".$_SESSION["wcs_user_id"]." AND msg_deleted=1) OR ".
             "(msg_from=".$_SESSION["wcs_user_id"]." AND msg_from_del=1) ".
             "ORDER BY msg_tstamp DESC LIMIT ".$msg_list;
     $result = _dbQuery($sql);

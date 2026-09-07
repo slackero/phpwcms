@@ -122,7 +122,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     } elseif(!empty($_GET['hash']) && !empty($cnt_form['doubleoptin'])) {
 
         $cache_nosave = true;
-        $doubleoptin_values = _dbGet('phpwcms_formresult', 'formresult_content', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
+        $doubleoptin_values = _dbGet('formresult', 'formresult_content', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
 
         if(!isset($doubleoptin_values[0]['formresult_content'])) {
             $doubleoptin_values = null;
@@ -1623,7 +1623,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                         default:
                             if($form_value_nl[0] = intval($form_value_nl[0])) {
-                                $query = _dbGet('phpwcms_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
+                                $query = _dbGet('subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
                                 if(isset($query[0])) {
                                     if($form_value_nl[1] === '') {
                                         $form_value_nl[1] = $query[0]['subscription_name'];
@@ -2064,7 +2064,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
     // check if there are form values which should be saved in db
     if(!empty($cnt_form['savedb']) && count($POST_savedb)) {
-        $POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_formresult ';
+        $POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'formresult ';
         $POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
         $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).", ";
         $POST_savedb_sql .= _dbEscape(serialize($POST_savedb)) . ")";
@@ -2241,7 +2241,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                     $form_newletter_setting['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash( $form_newletter_setting['email_field'].time() ) );
 
                     // create SQL query to populate recipient into recipients db
-                    $form_newletter_setting['sql']  = 'INSERT INTO '.DB_PREPEND.'phpwcms_address ';
+                    $form_newletter_setting['sql']  = 'INSERT INTO '.DB_PREPEND.'address ';
                     $form_newletter_setting['sql'] .= '(address_key, address_email, address_name, address_verified, ';
                     $form_newletter_setting['sql'] .= 'address_subscription, address_url1, address_url2) VALUES (';
                     $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['hash']).", ";
@@ -2319,7 +2319,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
             if (!empty($cnt_form["doubleoptin"]) && !empty($doubleoptin_values)) {
 
-                $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_formresult ';
+                $sql  = 'UPDATE '.DB_PREPEND.'formresult ';
                 $sql .= 'SET formresult_content=' . _dbEscape(serialize($doubleoptin_values['formresult_content']));
                 $sql .= ' WHERE formresult_id=' . intval($doubleoptin_values['formresult_id']);
                 $result  = _dbQuery($sql, 'UPDATE');

@@ -69,7 +69,7 @@ if($plugin['id'] && !isset($plugin['error'])) {
     $sql .= "DATE_FORMAT(adcampaign_dateend,   '%d".$BLM['date_delimiter']."%m".$BLM['date_delimiter']."%Y') AS adcampaign_date_end, ";
     $sql .= "DATE_FORMAT(adcampaign_datestart, '%H:%i') AS adcampaign_time_start, ";
     $sql .= "DATE_FORMAT(adcampaign_dateend,   '%H:%i') AS adcampaign_time_end ";
-    $sql .= 'FROM '.DB_PREPEND.'phpwcms_ads_campaign WHERE adcampaign_id='.$plugin['id'];
+    $sql .= 'FROM '.DB_PREPEND.'ads_campaign WHERE adcampaign_id='.$plugin['id'];
     $plugin['data'] = _dbQuery($sql);
     $plugin['data'] = $plugin['data'][0];
     $plugin['data']['adcampaign_data'] = @unserialize($plugin['data']['adcampaign_data'], ['allowed_classes' => false]);

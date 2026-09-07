@@ -41,7 +41,7 @@ $imgx = 0;
 if(is_array($content["image_list"]) && sizeof($content["image_list"])) {
 
     // zuweisen der passenden ImageID und Neuvergabe des Arrays
-    $img_sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE (";
+    $img_sql = "SELECT * FROM " . DB_PREPEND . "file WHERE (";
     $img_sort = array();
 
     foreach($content["image_list"] as $key => $value) {

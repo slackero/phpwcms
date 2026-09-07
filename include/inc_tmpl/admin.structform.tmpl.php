@@ -318,7 +318,7 @@ if ($acat_id === 'index' || $acat_id === 0) {
         $_temp_cat = '';
 
         // list available
-        $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 ORDER BY template_default DESC";
+        $sql = "SELECT * FROM ".DB_PREPEND."template WHERE template_trash=0 ORDER BY template_default DESC";
         $result = _dbQuery($sql);
         if(isset($result[0]['template_id'])) {
             foreach($result as $row) {
@@ -457,7 +457,7 @@ if ($acat_id === 'index' || $acat_id === 0) {
     <label for="acat_access" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_access']; ?> (<?php echo $BL['be_subnav_admin_groups']; ?>):</label>
     <div class="col"><?php
         // list all available groups and put into temp array
-        $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_active != 9 ORDER BY group_id DESC";
+        $sql = "SELECT * FROM ".DB_PREPEND."usergroup WHERE group_active != 9 ORDER BY group_id DESC";
         $result = _dbQuery($sql);
         $_temp_group = array();
         if(isset($result[0]['group_name'])) {

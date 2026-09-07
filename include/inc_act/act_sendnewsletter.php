@@ -55,7 +55,7 @@ $newsletter_id  = empty($_GET['newsletter_id']) ? 0 : intval($_GET['newsletter_i
 
 if($newsletter_id) {
     // read the given subscription datas from db
-    $sql  = "SELECT *FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_id=".$newsletter_id." LIMIT 1";
+    $sql  = "SELECT *FROM ".DB_PREPEND."newsletter WHERE newsletter_id=".$newsletter_id." LIMIT 1";
     $newsletter = _dbQuery($sql);
     if(isset($newsletter[0]['newsletter_vars'])) {
         $newsletter[0]['newsletter_vars'] = unserialize($newsletter[0]['newsletter_vars'], ['allowed_classes' => false]);
@@ -124,11 +124,11 @@ if(!$newsletter) {
 
         // retrieve recipients for current loop
         $sql  = 'SELECT address_key, address_email, address_name, queue_id ';
-        $sql .= 'FROM '.DB_PREPEND.'phpwcms_address ';
-        $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_newsletterqueue ';
-        $sql .= 'ON '.DB_PREPEND.'phpwcms_address.address_id = '.DB_PREPEND.'phpwcms_newsletterqueue.queue_rid ';
-        $sql .= 'WHERE '.DB_PREPEND.'phpwcms_newsletterqueue.queue_status=0 AND ';
-        $sql .= DB_PREPEND.'phpwcms_newsletterqueue.queue_pid='.$newsletter["newsletter_id"];
+        $sql .= 'FROM '.DB_PREPEND.'address ';
+        $sql .= 'LEFT JOIN '.DB_PREPEND.'newsletterqueue ';
+        $sql .= 'ON '.DB_PREPEND.'address.address_id = '.DB_PREPEND.'newsletterqueue.queue_rid ';
+        $sql .= 'WHERE '.DB_PREPEND.'newsletterqueue.queue_status=0 AND ';
+        $sql .= DB_PREPEND.'newsletterqueue.queue_pid='.$newsletter["newsletter_id"];
         if($loop) {
             $sql .= ' LIMIT '.$loop;
         }
@@ -196,7 +196,7 @@ if(!$newsletter) {
             }
 
             // update newsletter queue
-            $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_newsletterqueue SET ';
+            $sql  = 'UPDATE '.DB_PREPEND.'newsletterqueue SET ';
             $sql .= 'queue_changed=NOW(), ';
             if(!($mailresult = $mail->send())) {
                 // save error information
@@ -268,7 +268,7 @@ function build_email_text($text, $value) {
 
 function updateSentDate($id=0) {
 
-    $sql  = "UPDATE ".DB_PREPEND."phpwcms_newsletter SET ";
+    $sql  = "UPDATE ".DB_PREPEND."newsletter SET ";
     $sql .= "newsletter_lastsending=NOW(), ";
     $sql .= "newsletter_changed=newsletter_changed ";
     $sql .= "WHERE newsletter_id=".$id." LIMIT 1";

@@ -41,7 +41,7 @@ if(!isset($content['glossary'])) {
 				$where .= ')';
 
 				// retrieve only single keyword that matches best
-				$entry  = _dbGet('phpwcms_glossary', 'glossary_title, glossary_keyword, glossary_text, COUNT(glossary_id) AS count_all', $where, 'glossary_id', 'count_all DESC', '1');
+				$entry  = _dbGet('glossary', 'glossary_title, glossary_keyword, glossary_text, COUNT(glossary_id) AS count_all', $where, 'glossary_id', 'count_all DESC', '1');
 
 				if(isset($entry[0])) {
 

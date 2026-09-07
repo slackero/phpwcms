@@ -40,7 +40,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] === "create_account") {
     $send_verification  = isset($_POST["verification_email"]) ? 1 : 0;
     if(empty($new_login)) {
         $user_err .= $BL['be_admin_usr_err2'].LF;
-    } elseif(($check_anzahl = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_user WHERE usr_aktiv != 9 AND usr_login='._dbEscape($new_login), 'COUNT'))) {
+    } elseif(($check_anzahl = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'user WHERE usr_aktiv != 9 AND usr_login='._dbEscape($new_login), 'COUNT'))) {
         $user_err .= $BL['be_admin_usr_err1'].LF;
     }
     if(empty($new_password)) {
@@ -51,7 +51,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] === "create_account") {
     }
     if(empty($user_err)) { //Insert new User
         $bcrypt_pass = password_hash(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8'), PASSWORD_DEFAULT);
-        $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_user (usr_login, usr_pass, usr_email, ".
+        $sql =  "INSERT INTO ".DB_PREPEND."user (usr_login, usr_pass, usr_email, ".
                 "usr_admin, usr_aktiv, usr_name, usr_wysiwyg, usr_fe ) VALUES ('".
                 aporeplace($new_login)."', '".
                 aporeplace($bcrypt_pass)."', '".

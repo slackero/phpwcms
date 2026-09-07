@@ -90,7 +90,7 @@ if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results'])) {
 }
 
 // paginating values
-$_userInfo['count_total'] = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_user ".$_userInfo['where_query'], 'COUNT');
+$_userInfo['count_total'] = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."user ".$_userInfo['where_query'], 'COUNT');
 $_userInfo['pages_total'] = ceil($_userInfo['count_total'] / $_SESSION['list_user_count']);
 if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
     $_SESSION['list_user_page'] = empty($_userInfo['pages_total']) ? 1 : $_userInfo['pages_total'];
@@ -221,7 +221,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
         $new_user_id = 0;
     }
     // Generate list of all users
-    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_user ".$_userInfo['where_query'].' ';
+    $sql  = "SELECT * FROM ".DB_PREPEND."user ".$_userInfo['where_query'].' ';
     $sql .= "ORDER BY usr_aktiv DESC, usr_fe DESC, usr_admin DESC, usr_name ASC ";
     $sql .= "LIMIT ".(($_SESSION['list_user_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
     $result = _dbQuery($sql);

@@ -16,9 +16,9 @@ function phpwcms_revision_r438() {
 
 
 	// Fix possible problem
-	_dbQuery('UPDATE '.DB_PREPEND."phpwcms_article SET article_subtitle = '' WHERE article_subtitle = '0'", 'UPDATE');
-	_dbQuery('UPDATE '.DB_PREPEND."phpwcms_article SET article_menutitle = '' WHERE article_menutitle = '0'", 'UPDATE');
-	_dbQuery('UPDATE '.DB_PREPEND."phpwcms_article SET article_description = '' WHERE article_description = '0'", 'UPDATE');
+	_dbQuery('UPDATE '.DB_PREPEND."article SET article_subtitle = '' WHERE article_subtitle = '0'", 'UPDATE');
+	_dbQuery('UPDATE '.DB_PREPEND."article SET article_menutitle = '' WHERE article_menutitle = '0'", 'UPDATE');
+	_dbQuery('UPDATE '.DB_PREPEND."article SET article_description = '' WHERE article_description = '0'", 'UPDATE');
 
 	return $status;
 }

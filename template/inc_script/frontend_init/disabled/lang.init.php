@@ -135,7 +135,7 @@ function search_opposite_alias($alias='') {
     $where .= VISIBLE_MODE != 2 ? '' : 'acat_aktiv=1 AND acat_public=1 AND '; // handle admin/editor mode
     $where .= 'acat_alias LIKE '.$alias; // use LIKE because will match also against uper/lower case, even it is a bit slower
 
-    $result = _dbGet('phpwcms_articlecat', 'acat_alias', $where, '', '', 1);
+    $result = _dbGet('articlecat', 'acat_alias', $where, '', '', 1);
 
     if(isset($result[0]['acat_alias'])) {
         return $result[0]['acat_alias'];
@@ -151,7 +151,7 @@ function search_opposite_alias($alias='') {
     }
     $where .= 'article_alias LIKE '.$alias; // use LIKE because will match also against uper/lower case, even it is a bit slower
 
-    $result = _dbGet('phpwcms_article', 'article_alias', $where, '', '', 1);
+    $result = _dbGet('article', 'article_alias', $where, '', '', 1);
 
     if (isset($result[0]['article_alias'])) {
         return $result[0]['article_alias'];

@@ -23,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
       <table class="table table-sm table-striped table-hover table-valign-middle mb-0">
         <tr>
           <td align="right" style="width: 80px;"><?php
-          echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND.'phpwcms_article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0');?></td>
+          echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND.'article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0');?></td>
           <td><?php echo $BLM['overview_aktiv'] ?></td>
         </tr>
         <tr>
@@ -31,22 +31,22 @@ if (!defined('PHPWCMS_ROOT')) {
         </tr>
         <tr>
           <td align="right"><?php
-          echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND.'phpwcms_article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0 AND (article_end IS NULL OR article_begin>NOW())');?></td>
+          echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND.'article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0 AND (article_end IS NULL OR article_begin>NOW())');?></td>
           <td><?php echo $BLM['overview_start'] ?></td>
         </tr>
         <tr>
           <td align="right"><?php
-          echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND.'phpwcms_article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0 AND (article_end IS NULL OR article_end<NOW())'); ?></td>
+          echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND.'article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0 AND (article_end IS NULL OR article_end<NOW())'); ?></td>
           <td><?php echo $BLM['overview_endd'] ?></td>
         </tr>
         <tr>
           <td align="right"><?php
-           echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND."phpwcms_article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0 AND (article_begin IS NULL OR article_begin<NOW()) AND (article_end IS NULL OR article_end>NOW()) AND (article_alias IS NULL OR article_alias = '')");?></td>
+           echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND."article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0 AND (article_begin IS NULL OR article_begin<NOW()) AND (article_end IS NULL OR article_end>NOW()) AND (article_alias IS NULL OR article_alias = '')");?></td>
           <td><?php echo $BLM['overview_aalias'] ?></td>
         </tr>
         <tr>
           <td align="right"><?php
-          echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND."phpwcms_article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0 AND (article_begin IS NULL OR article_begin<NOW()) AND (article_end IS NULL OR article_end>NOW()) AND (article_description IS NULL OR article_description = '' AND article_nositemap=1)");?></td>
+          echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND."article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0 AND (article_begin IS NULL OR article_begin<NOW()) AND (article_end IS NULL OR article_end>NOW()) AND (article_description IS NULL OR article_description = '' AND article_nositemap=1)");?></td>
           <td><?php echo $BLM['overview_beschr'] ?></td>
         </tr>
         <tr>
@@ -66,12 +66,12 @@ if (!defined('PHPWCMS_ROOT')) {
          <tr>
           <td><?php echo $BLM['overview_zentrale'] ?></td>
           <td align="right" style="width: 80px;"><?php
-          echo _dbCount('SELECT COUNT(f_name) FROM '.DB_PREPEND."phpwcms_file WHERE f_hash <> '' AND f_trash=0 AND f_ext IN ('jpg', 'gif', 'png')");?></td>
+          echo _dbCount('SELECT COUNT(f_name) FROM '.DB_PREPEND."file WHERE f_hash <> '' AND f_trash=0 AND f_ext IN ('jpg', 'gif', 'png')");?></td>
         </tr>
          <tr>
           <td><?php echo $BLM['overview_alias'] ?></td>
           <td align="right"><?php
-          echo _dbCount('SELECT COUNT(f_id) FROM '.DB_PREPEND."phpwcms_file WHERE f_alias = '' AND f_hash <> '' AND f_trash=0 AND f_ext IN ('jpg', 'gif', 'png')");?></td>
+          echo _dbCount('SELECT COUNT(f_id) FROM '.DB_PREPEND."file WHERE f_alias = '' AND f_hash <> '' AND f_trash=0 AND f_ext IN ('jpg', 'gif', 'png')");?></td>
         </tr>
       </table>
     </div>
@@ -133,7 +133,7 @@ if (!defined('PHPWCMS_ROOT')) {
       }
     }
     $sql  = "SELECT ar.article_id, ar.article_title ";
-    $sql .= "FROM ".DB_PREPEND."phpwcms_article ar LEFT JOIN ".DB_PREPEND."phpwcms_articlecontent ac ON ";
+    $sql .= "FROM ".DB_PREPEND."article ar LEFT JOIN ".DB_PREPEND."articlecontent ac ON ";
     $sql .= "ar.article_id = ac.acontent_aid WHERE ";
     $sql .= "ar.article_public=1 AND  ar.article_aktiv=1 AND ";
     $sql .= "ar.article_deleted=0 AND ac.acontent_trash=0 AND ac.acontent_type = ";
@@ -158,8 +158,8 @@ if (!defined('PHPWCMS_ROOT')) {
     <?php
     if(isset($_GET['cid'])) {
       echo "<h5 class=\"mt-3 mb-2\">".$BLM['searcharticle'].$wcs_content_type[$_GET['cid']]."</h5>";
-      $sql =  "SELECT DISTINCT ar.article_title, ar.article_id FROM ".DB_PREPEND."phpwcms_articlecontent ac ";
-      $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ar.article_id = ac.acontent_aid ";
+      $sql =  "SELECT DISTINCT ar.article_title, ar.article_id FROM ".DB_PREPEND."articlecontent ac ";
+      $sql .= "INNER JOIN " . DB_PREPEND . "article ar ON ar.article_id = ac.acontent_aid ";
       $sql .= "WHERE acontent_type=".intval($_GET['cid'])." AND acontent_trash=0 AND article_deleted = 0 AND acontent_visible = 1";
 
       $result = _dbQuery($sql);
@@ -191,7 +191,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <?php
           $_asql_1  = "SELECT article_id, article_cid, article_title, article_public, article_aktiv, article_uid, ";
           $_asql_1 .= "date_format(article_end, '".$BL['be_sqlshortdatetime']."') AS article_date ";
-          $_asql_1 .= "FROM ".DB_PREPEND."phpwcms_article ";
+          $_asql_1 .= "FROM ".DB_PREPEND."article ";
           $_asql_1 .= 'WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0 ';
           $_asql_1 .= 'AND (article_end IS NULL OR article_end < NOW()) ';
           $_asql_1 .= 'ORDER BY article_end DESC ';

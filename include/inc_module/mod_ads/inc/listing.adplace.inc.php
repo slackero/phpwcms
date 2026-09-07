@@ -34,13 +34,13 @@ if (!defined('PHPWCMS_ROOT')) {
 				<?php
 				$row_count = 0;
 
-				$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_place ap ';
-				$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_ads_formats af ON ';
+				$sql  = 'SELECT * FROM '.DB_PREPEND.'ads_place ap ';
+				$sql .= 'LEFT JOIN '.DB_PREPEND.'ads_formats af ON ';
 				$sql .=	'ap.adplace_format=af.adformat_id ';
 				$sql .= 'WHERE adplace_status!=9';
 				$data = _dbQuery($sql);
 
-				$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_ads_campaign WHERE adcampaign_status!=9 AND adcampaign_place=';
+				$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'ads_campaign WHERE adcampaign_status!=9 AND adcampaign_place=';
 
 				foreach($data as $row) {
 					echo '<tr>';

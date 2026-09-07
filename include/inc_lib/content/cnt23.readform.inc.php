@@ -397,7 +397,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                             default:
                                 if (intval($newsletter[0])) {
                                     $newsletter[0] = intval($newsletter[0]);
-                                    $query = _dbGet('phpwcms_subscription', '*', 'subscription_id=' . $newsletter[0] . ' AND subscription_active=1');
+                                    $query = _dbGet('subscription', '*', 'subscription_id=' . $newsletter[0] . ' AND subscription_active=1');
                                     if (isset($query[0])) {
                                         if ($newsletter[1] == '') {
                                             $newsletter[1] = $query[0]['subscription_name'];

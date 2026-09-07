@@ -9,28 +9,37 @@
  **/
 
 
-// Revision 548 Update Check
-function phpwcms_revision_r549() {
-
+// Revision 549 Update Check
+function phpwcms_revision_r549()
+{
     $status = true;
 
-
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecat` WHERE Field='acat_title'");
-
-    if(!isset($result[0]['Field'])) {
-
-        $alter = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` ADD `acat_title` VARCHAR(2000) NOT NULL DEFAULT '' AFTER `acat_name`", 'ALTER');
-
-        if(!$alter) {
+    if (!_dbColumnExists('articlecat', 'acat_title')) {
+        $alter = _dbQuery('ALTER TABLE `' . DB_PREPEND . "articlecat` ADD `acat_title` VARCHAR(2000) NOT NULL DEFAULT '' AFTER `acat_name`", 'ALTER');
+        if (!$alter) {
             $status = false;
-        } else {
-            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER');
-            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_pagetitle` `acat_pagetitle` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
-            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_alias` `article_alias` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER');
-            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_pagetitle` `article_pagetitle` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
-            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_menutitle` `article_menutitle` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
-            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecontent` CHANGE `acontent_paginate_title` `acontent_paginate_title` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
-            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecontent` CHANGE `acontent_tab` `acontent_tab` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
+        }
+    }
+
+    $expansions = [
+        ['articlecat', 'acat_alias', 'VARCHAR(1000)'],
+        ['articlecat', 'acat_pagetitle', 'VARCHAR(2000)'],
+        ['article', 'article_alias', 'VARCHAR(1000)'],
+        ['article', 'article_pagetitle', 'VARCHAR(2000)'],
+        ['article', 'article_menutitle', 'VARCHAR(2000)'],
+        ['articlecontent', 'acontent_paginate_title', 'VARCHAR(2000)'],
+        ['articlecontent', 'acontent_tab', 'VARCHAR(2000)'],
+    ];
+
+    foreach ($expansions as $exp) {
+        [$table, $field, $target_type] = $exp;
+        if (_dbColumnExists($table, $field)) {
+            $col = _dbQuery('SHOW COLUMNS FROM `' . DB_PREPEND . $table . '` WHERE Field=' . _dbEscape($field));
+            if (isset($col[0]['Type']) && strtolower($col[0]['Type']) !== strtolower($target_type)) {
+                if (!_dbQuery('ALTER TABLE `' . DB_PREPEND . $table . '` CHANGE `' . $field . '` `' . $field . '` ' . $target_type . " NOT NULL DEFAULT ''", 'ALTER')) {
+                    $status = false;
+                }
+            }
         }
     }
 

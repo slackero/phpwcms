@@ -36,7 +36,7 @@ if (!defined('PHPWCMS_ROOT')) {
     $content["newsletter"]['right'][0] = $BL['be_newsletter_allsubscriptions'];
 
     // retrieve all available subscriptions first
-    $result = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name");
+    $result = _dbQuery("SELECT * FROM ".DB_PREPEND."subscription ORDER BY subscription_name");
     foreach($result as $row) {
         $content["newsletter"]['right'][ $row["subscription_id"] ] = html($row["subscription_name"]);
     }

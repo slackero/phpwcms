@@ -90,7 +90,7 @@ if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
 }
 
 // reset all inactive users
-$sql  = "UPDATE " . DB_PREPEND . "phpwcms_userlog SET logged_in=0, logged_change='" . time() . "' ";
+$sql  = "UPDATE " . DB_PREPEND . "userlog SET logged_in=0, logged_change='" . time() . "' ";
 $sql .= "WHERE logged_in=1 AND (" . time() . "-logged_change) > ".intval($phpwcms["max_time"]);
 _dbQuery($sql, 'UPDATE');
 
@@ -114,7 +114,7 @@ function register_failed_login($login_name = '') {
 
     // Send security alert notification after 5 failed attempts
     if ($fails === 5 && !empty($login_name)) {
-        $u_sql = 'SELECT usr_id, usr_login, usr_email, usr_name, usr_lang FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_login = ' . _dbEscape($login_name) . ' AND usr_aktiv = 1 LIMIT 1';
+        $u_sql = 'SELECT usr_id, usr_login, usr_email, usr_name, usr_lang FROM ' . DB_PREPEND . 'user WHERE usr_login = ' . _dbEscape($login_name) . ' AND usr_aktiv = 1 LIMIT 1';
         $u_res = _dbQuery($u_sql);
         if (!empty($u_res[0]['usr_email']) && is_valid_email($u_res[0]['usr_email'])) {
             $u_row = $u_res[0];
@@ -254,7 +254,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
 
     if (!$csrf_error && $revision_status && $submitted_2fa_code !== '') {
 
-        $sql_query = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id=' . $pending_uid . ' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2) LIMIT 1';
+        $sql_query = 'SELECT * FROM ' . DB_PREPEND . 'user WHERE usr_id=' . $pending_uid . ' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2) LIMIT 1';
         $result = _dbQuery($sql_query);
 
         if (isset($result[0]['usr_id'])) {
@@ -275,7 +275,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
                 if (PhpwcmsTwoFactor::verifyAndConsumeBackupCode($user_vars['2fa_backup_codes'], $submitted_2fa_code)) {
                     $tfa_valid = true;
                     $backup_code_used = true;
-                    _dbUpdate('phpwcms_user', ['usr_vars' => serialize($user_vars)], 'WHERE usr_id=' . $pending_uid);
+                    _dbUpdate('user', ['usr_vars' => serialize($user_vars)], 'WHERE usr_id=' . $pending_uid);
                 }
             }
 
@@ -340,8 +340,8 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
                 }
 
                 // Store login information in DB
-                if (!($check = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_userlog WHERE logged_user=' . _dbEscape($wcs_user) . ' AND logged_in=1', 'COUNT'))) {
-                    $sql  = 'INSERT INTO ' . DB_PREPEND . 'phpwcms_userlog (logged_user, logged_username, logged_start, logged_change, logged_in, logged_ip) VALUES (';
+                if (!($check = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'userlog WHERE logged_user=' . _dbEscape($wcs_user) . ' AND logged_in=1', 'COUNT'))) {
+                    $sql  = 'INSERT INTO ' . DB_PREPEND . 'userlog (logged_user, logged_username, logged_start, logged_change, logged_in, logged_ip) VALUES (';
                     $sql .= _dbEscape($wcs_user) . ', ' . _dbEscape($_SESSION['wcs_user_name']) . ', ' . time() . ', ' . time() . ', 1, ' . _dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()) . ')';
                     _dbQuery($sql, 'INSERT');
                 }
@@ -386,7 +386,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
     $wcs_pass           = slweg($_POST['md5pass']);
     $plain_pass         = isset($_POST['form_password']) ? slweg($_POST['form_password']) : '';
 
-    $sql_query  = "SELECT * FROM " . DB_PREPEND . "phpwcms_user WHERE usr_login=" . _dbEscape($wcs_user) . " AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
+    $sql_query  = "SELECT * FROM " . DB_PREPEND . "user WHERE usr_login=" . _dbEscape($wcs_user) . " AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
 
     if(!$csrf_error && $revision_status) {
 
@@ -404,7 +404,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
                         if (password_verify($md5_pass, $db_pass)) {
                             $login_passed = 1;
                             $new_hash = password_hash($plain_pass, PASSWORD_DEFAULT);
-                            _dbQuery('UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_pass=' . _dbEscape($new_hash) . ' WHERE usr_id=' . (int)$result[0]['usr_id'], 'UPDATE');
+                            _dbQuery('UPDATE ' . DB_PREPEND . 'user SET usr_pass=' . _dbEscape($new_hash) . ' WHERE usr_id=' . (int)$result[0]['usr_id'], 'UPDATE');
                         }
                     }
                 } else {
@@ -412,7 +412,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
                     if ($md5_pass === $db_pass) {
                         $login_passed = 1;
                         $new_hash = password_hash($plain_pass, PASSWORD_DEFAULT);
-                        _dbQuery('UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_pass=' . _dbEscape($new_hash) . ' WHERE usr_id=' . (int)$result[0]['usr_id'], 'UPDATE');
+                        _dbQuery('UPDATE ' . DB_PREPEND . 'user SET usr_pass=' . _dbEscape($new_hash) . ' WHERE usr_id=' . (int)$result[0]['usr_id'], 'UPDATE');
                     }
                 }
             } else {
@@ -424,7 +424,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
                     if ($wcs_pass === $db_pass) {
                         $login_passed = 1;
                         $new_hash = password_hash($wcs_pass, PASSWORD_DEFAULT);
-                        _dbQuery('UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_pass=' . _dbEscape($new_hash) . ' WHERE usr_id=' . (int)$result[0]['usr_id'], 'UPDATE');
+                        _dbQuery('UPDATE ' . DB_PREPEND . 'user SET usr_pass=' . _dbEscape($new_hash) . ' WHERE usr_id=' . (int)$result[0]['usr_id'], 'UPDATE');
                     }
                 }
             }
@@ -487,7 +487,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
                         $_SESSION['wcs_user_theme'] = $_POST['form_theme'];
                         if (!isset($result[0]['usr_vars']['theme']) || $result[0]['usr_vars']['theme'] !== $_POST['form_theme']) {
                             $result[0]['usr_vars']['theme'] = $_POST['form_theme'];
-                            _dbUpdate('phpwcms_user', array('usr_vars' => serialize($result[0]['usr_vars'])), 'WHERE usr_id=' . intval($result[0]['usr_id']));
+                            _dbUpdate('user', array('usr_vars' => serialize($result[0]['usr_vars'])), 'WHERE usr_id=' . intval($result[0]['usr_id']));
                         }
                     } else {
                         $_SESSION['wcs_user_theme'] = isset($result[0]['usr_vars']['theme']) && in_array($result[0]['usr_vars']['theme'], array('auto', 'light', 'dark'), true) ? $result[0]['usr_vars']['theme'] : (!empty($_COOKIE['phpwcmsBETheme']) && in_array($_COOKIE['phpwcmsBETheme'], array('auto', 'light', 'dark'), true) ? $_COOKIE['phpwcmsBETheme'] : 'auto');
@@ -519,9 +519,9 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
     if($login_passed && !$step_2fa) {
 
         // Store login information in DB
-        if(!($check = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user="._dbEscape($wcs_user)." AND logged_in=1", 'COUNT'))) {
+        if(!($check = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."userlog WHERE logged_user="._dbEscape($wcs_user)." AND logged_in=1", 'COUNT'))) {
             // User not yet logged in, create new
-            $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_userlog (logged_user, logged_username, logged_start, logged_change, logged_in, logged_ip) VALUES (";
+            $sql  = "INSERT INTO ".DB_PREPEND."userlog (logged_user, logged_username, logged_start, logged_change, logged_in, logged_ip) VALUES (";
             $sql .= _dbEscape($wcs_user).", "._dbEscape($_SESSION["wcs_user_name"]).", ".time().", ".time().", 1, "._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).")";
             _dbQuery($sql, 'INSERT');
         }
@@ -589,7 +589,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'send_reset_link')
     $reset_account = slweg($_POST['form_reset_account'] ?? '');
 
     if (!$csrf_error && $reset_account !== '') {
-        $sql = 'SELECT usr_id, usr_login, usr_email, usr_name, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE (usr_login = ' . _dbEscape($reset_account) . ' OR LOWER(usr_email) = ' . _dbEscape(strtolower($reset_account)) . ') AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
+        $sql = 'SELECT usr_id, usr_login, usr_email, usr_name, usr_vars FROM ' . DB_PREPEND . 'user WHERE (usr_login = ' . _dbEscape($reset_account) . ' OR LOWER(usr_email) = ' . _dbEscape(strtolower($reset_account)) . ') AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
         $user_res = _dbQuery($sql);
 
         if (!empty($user_res[0]['usr_id']) && !empty($user_res[0]['usr_email']) && is_valid_email($user_res[0]['usr_email'])) {
@@ -609,7 +609,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'send_reset_link')
                 'ip'         => PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()
             ];
 
-            _dbUpdate('phpwcms_user', ['usr_vars' => serialize($u_vars)], 'WHERE usr_id = ' . (int)$user['usr_id']);
+            _dbUpdate('user', ['usr_vars' => serialize($u_vars)], 'WHERE usr_id = ' . (int)$user['usr_id']);
 
             $reset_link = PHPWCMS_URL . get_login_file() . '?reset_token=' . rawurlencode($raw_token) . '&u=' . (int)$user['usr_id'];
             $rendered_mail = render_system_email('password_reset', [
@@ -645,7 +645,7 @@ if (!empty($_GET['reset_token']) && !empty($_GET['u'])) {
     $token_param = slweg($_GET['reset_token']);
     $user_id_param = (int)$_GET['u'];
 
-    $sql = 'SELECT usr_id, usr_login, usr_name, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . $user_id_param . ' AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
+    $sql = 'SELECT usr_id, usr_login, usr_name, usr_vars FROM ' . DB_PREPEND . 'user WHERE usr_id = ' . $user_id_param . ' AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
     $user_res = _dbQuery($sql);
 
     if (!empty($user_res[0]['usr_id'])) {
@@ -684,7 +684,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'set_new_password'
     } elseif ($new_pw !== $repeat_pw) {
         $reset_error_msg = $BL['login_reset_password_mismatch'] ?? 'Passwords do not match!';
     } else {
-        $sql = 'SELECT usr_id, usr_login, usr_email, usr_name, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . $user_id_param . ' AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
+        $sql = 'SELECT usr_id, usr_login, usr_email, usr_name, usr_vars FROM ' . DB_PREPEND . 'user WHERE usr_id = ' . $user_id_param . ' AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
         $user_res = _dbQuery($sql);
 
         if (!empty($user_res[0]['usr_id'])) {
@@ -697,7 +697,7 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'set_new_password'
                         unset($u_vars['password_reset']);
                         $hashed_password = password_hash($new_pw, PASSWORD_DEFAULT);
 
-                        _dbUpdate('phpwcms_user', [
+                        _dbUpdate('user', [
                             'usr_pass' => $hashed_password,
                             'usr_vars' => serialize($u_vars)
                         ], 'WHERE usr_id = ' . (int)$user_res[0]['usr_id']);

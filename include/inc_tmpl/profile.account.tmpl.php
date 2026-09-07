@@ -186,7 +186,7 @@ if (!empty($_SESSION['wcs_user_admin'])) {
 
 <?php
 // Load current user 2FA state from DB
-$u_2fa_sql = 'SELECT usr_2fa_enabled, usr_2fa_secret, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'] . ' LIMIT 1';
+$u_2fa_sql = 'SELECT usr_2fa_enabled, usr_2fa_secret, usr_vars FROM ' . DB_PREPEND . 'user WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'] . ' LIMIT 1';
 $u_2fa_res = _dbQuery($u_2fa_sql);
 $has_2fa_enabled = !empty($u_2fa_res[0]['usr_2fa_enabled']) && !empty($u_2fa_res[0]['usr_2fa_secret']);
 $u_2fa_vars = isset($u_2fa_res[0]['usr_vars']) ? @unserialize($u_2fa_res[0]['usr_vars'], ['allowed_classes' => false]) : [];

@@ -88,7 +88,7 @@ if($shop_api_access) {
 
     if($shop_api_action === 'getorders') {
 
-        $data = _dbGet('phpwcms_shop_orders', '*', "order_status='NEW-ORDER'", '', 'order_date ASC');
+        $data = _dbGet('shop_orders', '*', "order_status='NEW-ORDER'", '', 'order_date ASC');
 
         foreach($data as $row) {
 

@@ -16,7 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Check if files/folders exist in trash for current user
-$count_user_files = _dbQuery("SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=1", 'COUNT');
+$count_user_files = _dbQuery("SELECT COUNT(f_id) FROM ".DB_PREPEND."file WHERE f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=1", 'COUNT');
 
 // If trash files exist, list them
 if($count_user_files) {

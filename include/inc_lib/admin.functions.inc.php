@@ -12,7 +12,7 @@
 function get_article_data($aid) {
     $sql  = "SELECT article_id, article_cid, article_title, article_subtitle, article_alias, article_aktiv, article_public, article_uid, article_lang, ";
     $sql .= "date_format(article_tstamp, '".$GLOBALS['BL']['be_sqlshortdatetime']."') AS article_date ";
-    $sql .= 'FROM '.DB_PREPEND.'phpwcms_article WHERE article_deleted=0 AND   article_id = ' . intval($aid) . ' LIMIT 1';
+    $sql .= 'FROM '.DB_PREPEND.'article WHERE article_deleted=0 AND   article_id = ' . intval($aid) . ' LIMIT 1';
 
     $data = _dbQuery($sql);
     return $data[0];
@@ -21,8 +21,8 @@ function get_article_data($aid) {
 function struct_list($id, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode=1, $forbid_cut=0, $forbid_copy=0, $counter=0) {
 
     $counter++;
-    $sql  = "SELECT t1.*, t2.template_default, t2.template_name, t2.template_trash FROM ".DB_PREPEND."phpwcms_articlecat t1 ";
-    $sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_template t2 ON t1.acat_template=t2.template_id ";
+    $sql  = "SELECT t1.*, t2.template_default, t2.template_name, t2.template_trash FROM ".DB_PREPEND."articlecat t1 ";
+    $sql .= "LEFT JOIN ".DB_PREPEND."template t2 ON t1.acat_template=t2.template_id ";
     $sql .= "WHERE acat_trash=0 AND acat_struct=".intval($id)." ORDER BY acat_sort";
 
     $struct = _dbQuery($sql);
@@ -109,8 +109,8 @@ function get_root_childcount($id) {
     // get amount of active child levels
     $id = intval($id);
 
-    $p1_count = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$id, 'COUNT');
-    $p2_count = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_cid=".$id, 'COUNT');
+    $p1_count = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."articlecat WHERE acat_trash=0 AND acat_struct=".$id, 'COUNT');
+    $p2_count = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."article WHERE article_deleted=0 AND article_cid=".$id, 'COUNT');
 
     return $p1_count + $p2_count;
 
@@ -118,7 +118,7 @@ function get_root_childcount($id) {
 
 function get_article_content_count($id) {
 
-    return _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_trash=0 AND acontent_aid=".intval($id), 'COUNT');
+    return _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."articlecontent WHERE acontent_trash=0 AND acontent_aid=".intval($id), 'COUNT');
 
 }
 
@@ -137,7 +137,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 
     $sql  = "SELECT *, ";
     $sql .= "DATE_FORMAT(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date ";
-    $sql .= "FROM ".DB_PREPEND."phpwcms_article ";
+    $sql .= "FROM ".DB_PREPEND."article ";
     $sql .= "WHERE article_cid='".$struct_id."' AND article_deleted=0 ORDER BY ".$ao[2];
 
     $result = _dbQuery($sql);
@@ -302,7 +302,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= '</div></td></tr>'.LF;
         echo $a;
 
-        $sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."phpwcms_articlecontent ";
+        $sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."articlecontent ";
         $sql .= "WHERE acontent_aid=".$article[$akey]["article_id"]." ORDER BY acontent_block, acontent_sorting, acontent_id";
 
         $result = _dbQuery($sql);
@@ -335,7 +335,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
 
     $a    = '';
 
-    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent ";
+    $sql  = "SELECT * FROM ".DB_PREPEND."articlecontent ";
     $sql .= "WHERE acontent_aid=".$article[$akey]["article_id"]." AND acontent_trash=0 ";
     $sql .= "ORDER BY acontent_block, acontent_sorting, acontent_id";
 
@@ -611,12 +611,12 @@ function update_404redirect() {
             // Mark for deletion
             if(isset($_POST['delete_'.md5((string) $rid)])) {
                 $data['data']['active'] = 9;
-                $result = _dbQuery('DELETE FROM '.DB_PREPEND.'phpwcms_redirect WHERE rid='.$rid, 'DELETE');
+                $result = _dbQuery('DELETE FROM '.DB_PREPEND.'redirect WHERE rid='.$rid, 'DELETE');
             } else {
-                $result = _dbUpdate('phpwcms_redirect', $data['data'], 'rid='.$rid);
+                $result = _dbUpdate('redirect', $data['data'], 'rid='.$rid);
             }
         } else {
-            $result = _dbInsert('phpwcms_redirect', $data['data']);
+            $result = _dbInsert('redirect', $data['data']);
             if(isset($result['INSERT_ID'])) {
                 $rid = $result['INSERT_ID'];
             }

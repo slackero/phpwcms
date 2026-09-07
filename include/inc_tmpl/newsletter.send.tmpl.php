@@ -16,8 +16,8 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-$count_sent  = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqueue WHERE queue_status=1 AND queue_pid='.$newsletter['newsletter_id'], 'COUNT');
-$count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqueue WHERE queue_status=0 AND queue_pid='.$newsletter['newsletter_id'], 'COUNT');
+$count_sent  = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'newsletterqueue WHERE queue_status=1 AND queue_pid='.$newsletter['newsletter_id'], 'COUNT');
+$count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'newsletterqueue WHERE queue_status=0 AND queue_pid='.$newsletter['newsletter_id'], 'COUNT');
 
 ?>
 <div class="card" id="messagesendcard" style="display:block;">

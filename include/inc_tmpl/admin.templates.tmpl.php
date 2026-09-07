@@ -156,7 +156,7 @@ if(!isset($_GET["s"])) {
             <table class="table table-striped table-sm table-valign-middle mb-4">
                 <?php
                 // loop listing available templates
-                $sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_template WHERE template_trash=0 ORDER BY template_default DESC, template_name";
+                $sql = "SELECT * FROM " . DB_PREPEND . "template WHERE template_trash=0 ORDER BY template_default DESC, template_name";
                 $result = _dbQuery($sql);
                 $row_count = 0;
                 if (isset($result[0]['template_id'])) {
@@ -360,7 +360,7 @@ if(!isset($_GET["s"])) {
         if($template["id"] && empty($createcopy)) {
             // if ID <> 0 then get template info from database
             $query_mode = 'UPDATE';
-            $sql =  'UPDATE ' .DB_PREPEND. 'phpwcms_template SET ' .
+            $sql =  'UPDATE ' .DB_PREPEND. 'template SET ' .
                     "template_name='".aporeplace($template["name"])."', ".
                     "template_default=".$template["default"].", ".
                     "template_var='".aporeplace(serialize($template))."' ".
@@ -368,7 +368,7 @@ if(!isset($_GET["s"])) {
         } else {
             // if ID = 0 then show create new template form
             $query_mode = 'INSERT';
-            $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_template (".
+            $sql =  "INSERT INTO ".DB_PREPEND."template (".
                     "template_name, template_default, template_var) VALUES ('".
                     aporeplace($template["name"])."', ".$template["default"].", '".
                     aporeplace(serialize($template))."')";
@@ -382,7 +382,7 @@ if(!isset($_GET["s"])) {
 
         //now proof for default template definition
         if($template["default"]) {
-            _dbQuery("UPDATE ".DB_PREPEND."phpwcms_template SET template_default=0 WHERE template_id != ".$template["id"], 'UPDATE');
+            _dbQuery("UPDATE ".DB_PREPEND."template SET template_default=0 WHERE template_id != ".$template["id"], 'UPDATE');
         }
         update_cache();
         headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin&p=11&s='.$template["id"]);
@@ -390,7 +390,7 @@ if(!isset($_GET["s"])) {
 
     if($template["id"]) {
         // read the given template datas from db
-        $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_id=".$template["id"]." LIMIT 1";
+        $sql = "SELECT * FROM ".DB_PREPEND."template WHERE template_id=".$template["id"]." LIMIT 1";
         $result = _dbQuery($sql);
         if(isset($result[0]['template_id'])) {
             if(($result[0]["template_var"] = @unserialize($result[0]["template_var"], ['allowed_classes' => false]))) {
@@ -480,7 +480,7 @@ if(!isset($_GET["s"])) {
                                 // get available page layout list
                                 $jsOnChange = '';
                                 $opt = "";
-                                $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
+                                $sql = "SELECT * FROM ".DB_PREPEND."pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
                                 $result = _dbQuery($sql);
                                 if(isset($result[0]['pagelayout_id'])) {
                                     foreach($result as $row) {

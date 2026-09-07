@@ -10,26 +10,25 @@
 
 
 // Revision 538 Update Check
-function phpwcms_revision_r538() {
+function phpwcms_revision_r538()
+{
+    $status = true;
 
-	$status = true;
+    $result = _dbQuery("SHOW COLUMNS FROM `" . DB_PREPEND . "articlecat` WHERE Field='acat_public'");
+    if (isset($result[0]['Default']) && (string)$result[0]['Default'] === '0') {
+        $update = _dbQuery("ALTER TABLE `" . DB_PREPEND . "articlecat` CHANGE `acat_public` `acat_public` INT(1) NOT NULL DEFAULT '1'", 'ALTER');
+        if (!$update) {
+            $status = false;
+        }
+    }
 
-
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecat` WHERE Field='acat_public'");
-	if(isset($result[0]['Default']) && $result[0]['Default'] == 0) {
-		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_public` `acat_public` INT(1) NOT NULL DEFAULT '1'", 'ALTER');
-		if(!$update) {
-			$status = false;
-		}
-	}
-
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecat` WHERE Field='acat_alias'");
-	if(isset($result[0]['Type']) && strpos($result[0]['Type'], '255') === false) {
-		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-		if(!$update) {
-			$status = false;
-		}
-	}
+    $result = _dbQuery("SHOW COLUMNS FROM `" . DB_PREPEND . "articlecat` WHERE Field='acat_alias'");
+    if (isset($result[0]['Type']) && strpos($result[0]['Type'], '255') === false) {
+        $update = _dbQuery("ALTER TABLE `" . DB_PREPEND . "articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+        if (!$update) {
+            $status = false;
+        }
+    }
 
 	// Reset cache values
 	_setConfig('structure_array_vmode_all', '', 'frontend_render', 1);

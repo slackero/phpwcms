@@ -44,7 +44,7 @@ if(isset($_GET["open"])) {
 
 $child_count		= get_root_childcount(0);
 $child_sort			= ( $child_count + 1 ) * 10;
-$struct_template	= _dbQuery('SELECT template_default, template_name FROM '.DB_PREPEND.'phpwcms_template WHERE template_trash=0 AND template_id='.intval($indexpage['acat_template']));
+$struct_template	= _dbQuery('SELECT template_default, template_name FROM '.DB_PREPEND.'template WHERE template_trash=0 AND template_id='.intval($indexpage['acat_template']));
 
 echo "<tr class=\"hover-warning scroll-anchor\" id=\"struct_0\">";
 echo "<td width=\"450\">";

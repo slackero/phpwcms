@@ -33,7 +33,7 @@ if(isset($_GET["s"])) {
 } else {
 
     if(isset($_GET['duplicate_nl'])) {
-        @_dbDuplicateRow(   'phpwcms_newsletter', 'newsletter_id', intval($_GET['duplicate_nl']),
+        @_dbDuplicateRow(   'newsletter', 'newsletter_id', intval($_GET['duplicate_nl']),
                             array('newsletter_active' => 0, 'newsletter_changed' => 'SQL:NOW()',
                             'newsletter_lastsending' => NULL, 'newsletter_created' => 'SQL:NOW()',
                             'newsletter_subject' => '--SELF-- (copy)'));
@@ -55,7 +55,7 @@ if(isset($_GET['page'])) {
     $_SESSION['newsletter_page'] = intval($_GET['page']);
 }
 
-$_newsletter['count_total'] = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0", 'COUNT');
+$_newsletter['count_total'] = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."newsletter WHERE newsletter_trashed=0", 'COUNT');
 $_newsletter['pages_total'] = ceil($_newsletter['count_total'] / $_SESSION['list_newsletter_count']);
 if(empty($_SESSION['newsletter_page'])) {
     $_SESSION['newsletter_page'] = 1;
@@ -149,7 +149,7 @@ if($_SESSION['newsletter_page'] < 1) {
     <?php
 
       // loop listing available newsletters
-      $sql  = "SELECT *, UNIX_TIMESTAMP(newsletter_pub) AS cdate, UNIX_TIMESTAMP(newsletter_lastsending) AS lastsend FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0 ORDER BY newsletter_pub DESC, newsletter_changed DESC";
+      $sql  = "SELECT *, UNIX_TIMESTAMP(newsletter_pub) AS cdate, UNIX_TIMESTAMP(newsletter_lastsending) AS lastsend FROM ".DB_PREPEND."newsletter WHERE newsletter_trashed=0 ORDER BY newsletter_pub DESC, newsletter_changed DESC";
       $sql .= " LIMIT ".(($_SESSION['newsletter_page']-1) * $_SESSION['list_newsletter_count']).','.$_SESSION['list_newsletter_count'];
 
       $result = _dbQuery($sql);
@@ -166,10 +166,10 @@ if($_SESSION['newsletter_page'] < 1) {
           echo '<td>';
 
           // sent/queue status
-          $count_sent       = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqueue WHERE queue_status=1 AND queue_pid='.$row["newsletter_id"], 'COUNT');
-          $count_queue      = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqueue WHERE queue_status=0 AND queue_pid='.$row["newsletter_id"], 'COUNT');
+          $count_sent       = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'newsletterqueue WHERE queue_status=1 AND queue_pid='.$row["newsletter_id"], 'COUNT');
+          $count_queue      = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'newsletterqueue WHERE queue_status=0 AND queue_pid='.$row["newsletter_id"], 'COUNT');
           $count_recipient  = countNewsletterRecipients($row['newsletter_vars']['subscription']);
-          $count_opener     = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqueue WHERE queue_status=1 AND queue_opener=1 AND queue_pid='.$row["newsletter_id"], 'COUNT');
+          $count_opener     = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'newsletterqueue WHERE queue_status=1 AND queue_opener=1 AND queue_pid='.$row["newsletter_id"], 'COUNT');
 
           if(empty($row["newsletter_active"]) || !$count_queue) {
             echo '<i class="fa-regular fa-newspaper fa-fw" aria-hidden="true"></i>';

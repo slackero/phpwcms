@@ -75,7 +75,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
     if($content['alink']['alink_category_count']) {
 
         // pcat.cat_name is used to check against having keywords for OR, AND, NOT
-        $alink_sql .= ', COUNT(*) AS matched_articles, pcat.cat_name FROM '.DB_PREPEND.'phpwcms_article ar ';
+        $alink_sql .= ', COUNT(*) AS matched_articles, pcat.cat_name FROM '.DB_PREPEND.'article ar ';
 
         $content['alink']['tags_sql'] = array();
 
@@ -86,7 +86,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
         }
 
         // JOIN with tags/categories for articles
-        $alink_sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='article' AND pcat.cat_pid=ar.article_id ";
+        $alink_sql .= "LEFT JOIN ".DB_PREPEND."categories pcat ON (pcat.cat_type='article' AND pcat.cat_pid=ar.article_id ";
         $alink_sql .= 'AND pcat.cat_name IN (' . implode(',', $content['alink']['tags_sql']) . '))';
 
         if($content['alink']['alink_andor'] === 'NOR') {
@@ -104,7 +104,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
     } else {
 
-        $alink_sql .= ', 1 AS matched_articles FROM '.DB_PREPEND.'phpwcms_article ar ';
+        $alink_sql .= ', 1 AS matched_articles FROM '.DB_PREPEND.'article ar ';
 
     }
 

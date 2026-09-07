@@ -233,9 +233,12 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 $sql_data               = false;
                 $db_sql                 = false;
 
-            } elseif (isset($db_create_err) || !empty($db_no_create)) {
-                $_db_prepend = $phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '';
-                $check = _dbQuery("SHOW TABLES LIKE '" . $_db_prepend . "phpwcms_%'");
+                $_brand_prefix = !empty($phpwcms['brand_table_prefix']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $phpwcms['brand_table_prefix']) : 'phpwcms';
+                if ($_brand_prefix === '') {
+                    $_brand_prefix = 'phpwcms';
+                }
+                $_db_prepend = ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . $_brand_prefix . '_';
+                $check = _dbQuery("SHOW TABLES LIKE '" . $_db_prepend . "%'");
 
                 if ($check && count($check)) {
                     $sql_data   = false;
@@ -321,11 +324,15 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 </div>
             <?php else: ?>
                 <?php
-                $_db_prepend = $phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '';
-                $user_check = _dbQuery('SELECT * FROM ' . $_db_prepend . "phpwcms_user WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "'");
+                $_brand_prefix = !empty($phpwcms['brand_table_prefix']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $phpwcms['brand_table_prefix']) : 'phpwcms';
+                if ($_brand_prefix === '') {
+                    $_brand_prefix = 'phpwcms';
+                }
+                $_db_prepend = ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . $_brand_prefix . '_';
+                $user_check = _dbQuery('SELECT * FROM ' . $_db_prepend . "user WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "'");
 
                 if ($user_check !== false && count($user_check)) {
-                    $sql  = "UPDATE " . $_db_prepend . "phpwcms_user SET ";
+                    $sql  = "UPDATE " . $_db_prepend . "user SET ";
                     $sql .= "usr_login      = '" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', ";
                     $sql .= "usr_pass       = '" . mysqli_real_escape_string($db, $phpwcms['admin_pass']) . "', ";
                     $sql .= "usr_email      = '" . mysqli_real_escape_string($db, $phpwcms['admin_email']) . "', ";
@@ -336,7 +343,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                     $sql .= "WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "' LIMIT 1";
                     $update_user = _dbQuery($sql, 'UPDATE');
                 } elseif ($user_check !== false) {
-                    $sql  = "INSERT INTO " . $_db_prepend . "phpwcms_user (";
+                    $sql  = "INSERT INTO " . $_db_prepend . "user (";
                     $sql .= "usr_login, usr_pass, usr_email, usr_admin, usr_aktiv, usr_name, usr_var_structure, usr_var_publicfile, usr_var_privatefile, usr_lang, usr_wysiwyg, usr_fe, usr_2fa_enabled, usr_2fa_secret, usr_vars";
                     $sql .= ") VALUES (";
                     $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', '" . mysqli_real_escape_string($db, $phpwcms['admin_pass']) . "', '" . mysqli_real_escape_string($db, $phpwcms['admin_email']) . "', 1, 1, ";

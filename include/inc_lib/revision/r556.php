@@ -9,24 +9,31 @@
  **/
 
 // Revision 556 Update Check
-function phpwcms_revision_r556() {
+function phpwcms_revision_r556()
+{
+    $status = true;
 
-	$status = true;
-
-
-    // Alter phpwcms_usergroup varchar field lengths to 255
-    _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_usergroup` CHANGE `group_name` `group_name` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-    _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_usergroup` CHANGE `group_modkey` `group_modkey` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-    _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_usergroup` CHANGE `group_syskey` `group_syskey` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+    // Alter usergroup varchar field lengths to 255
+    _dbQuery('ALTER TABLE `' . DB_PREPEND . "usergroup` CHANGE `group_name` `group_name` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+    if (!_dbColumnExists('usergroup', 'group_modkey')) {
+        _dbQuery('ALTER TABLE `' . DB_PREPEND . "usergroup` ADD `group_modkey` VARCHAR(255) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
+    } else {
+        _dbQuery('ALTER TABLE `' . DB_PREPEND . "usergroup` CHANGE `group_modkey` `group_modkey` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+    }
+    if (!_dbColumnExists('usergroup', 'group_syskey')) {
+        _dbQuery('ALTER TABLE `' . DB_PREPEND . "usergroup` ADD `group_syskey` VARCHAR(255) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
+    } else {
+        _dbQuery('ALTER TABLE `' . DB_PREPEND . "usergroup` CHANGE `group_syskey` `group_syskey` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+    }
 
     // Add file categories permission to the admin section if not exists
-    $result = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . "phpwcms_usergroup WHERE group_syskey='admfilecat' AND group_trash=0");
+    $result = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . "usergroup WHERE group_syskey='admfilecat' AND group_trash=0");
 
     if($result > 0) {
         return $status;
     }
 
-    $result = _dbInsert('phpwcms_usergroup', [
+    $result = _dbInsert('usergroup', [
         'group_name' => 'SYSGROUP',
         'group_member' => '1',
         'group_value' => '',

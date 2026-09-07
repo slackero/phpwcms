@@ -129,7 +129,7 @@ if(isset($data[1])) {
 
             require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
-            $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+            $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'file WHERE ';
             $sql  .= 'f_id='.intval($hash)." AND ";
             if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
                 $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg', 'webp') AND ";
@@ -160,7 +160,7 @@ if(isset($data[1])) {
 
             require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
-            $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+            $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
             if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
                 $sql .= "f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp') AND ";

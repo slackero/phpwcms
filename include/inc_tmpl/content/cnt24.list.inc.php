@@ -38,7 +38,7 @@ if (empty($content['alias']['alias_ID'])) {
     echo '&ndash;';
 } else {
     $alias_id = intval($content['alias']['alias_ID']);
-    $cntresult = _dbGet('phpwcms_articlecontent', '*', 'acontent_id=' . $alias_id . ' AND acontent_trash=0');
+    $cntresult = _dbGet('articlecontent', '*', 'acontent_id=' . $alias_id . ' AND acontent_trash=0');
 
     if (isset($cntresult[0]['acontent_id'])) {
         echo '<span class="badge bg-info fw-normal badge-align me-1">ID: ' . $alias_id . '</span>';

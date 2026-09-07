@@ -317,6 +317,9 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['brand_logo_email'] = '" . escape_quote($val['brand_logo_email'] ?? '') . "'; // Custom email logo URL or data URI (raster format PNG/JPG/WebP/GIF)\n";
     $conf_file .= "\$phpwcms['brand_custom_css'] = '" . escape_quote($val['brand_custom_css'] ?? '') . "'; // Custom backend stylesheet URL or path\n";
     $conf_file .= "\$phpwcms['brand_support_url'] = '" . escape_quote($val['brand_support_url'] ?? '') . "'; // Custom support / documentation URL\n";
+    $conf_file .= "\$phpwcms['brand_url']         = '" . escape_quote($val['brand_url'] ?? '') . "'; // Custom website URL (defaults to brand_support_url if empty)\n";
+    $conf_file .= "\$phpwcms['brand_copyright']   = '" . escape_quote($val['brand_copyright'] ?? '') . "'; // Custom copyright text (defaults to licensee if empty)\n";
+    $conf_file .= "\$phpwcms['brand_table_prefix'] = '" . escape_quote($val['brand_table_prefix'] ?? '') . "'; // Custom database table prefix in whitelabel mode (default: phpwcms)\n";
 
     $conf_file .= "\ndefine('PHPWCMS_INCLUDE_CHECK', true);\n";
 

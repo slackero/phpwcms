@@ -244,8 +244,8 @@ initJsAutocompleter();
     <?php
         //Auslesen der kompletten Public Artikel
         $sql  = "SELECT article_id, article_title, acat_name, acat_alias, article_cid, article_aktiv, article_keyword ";
-        $sql .= "FROM ".DB_PREPEND."phpwcms_article ar ";
-        $sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ac ON ar.article_cid = ac.acat_id ";
+        $sql .= "FROM ".DB_PREPEND."article ar ";
+        $sql .= "LEFT JOIN ".DB_PREPEND."articlecat ac ON ar.article_cid = ac.acat_id ";
         $sql .= "WHERE ar.article_deleted = 0 AND ar.article_noteaser = 0 ";
         $sql .= "GROUP BY ar.article_id, ar.article_title, ac.acat_name ";
         $sql .= "ORDER BY ar.article_title;";

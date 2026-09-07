@@ -131,7 +131,7 @@ class phpwcmsNews {
 
         $this->news = array();
 
-        $sql  = 'SELECT '.$this->select.' FROM '.DB_PREPEND.'phpwcms_content WHERE ';
+        $sql  = 'SELECT '.$this->select.' FROM '.DB_PREPEND.'content WHERE ';
         $sql .= "cnt_module='news'";
 
         $sql .= $this->_where();
@@ -167,7 +167,7 @@ class phpwcmsNews {
 
     public function countAll() {
 
-        $sql  = 'SELECT COUNT(cnt_id) FROM '.DB_PREPEND.'phpwcms_content WHERE ';
+        $sql  = 'SELECT COUNT(cnt_id) FROM '.DB_PREPEND.'content WHERE ';
         $sql .= "cnt_module = 'news'" . $this->_where();
 
         $this->news_total = _dbCount($sql);
@@ -310,7 +310,7 @@ class phpwcmsNews {
 
             $this->where['cat']  = '(';
             $this->where['cat'] .=  'SELECT COUNT(pcat.cat_pid) ';
-            $this->where['cat'] .=  'FROM '.DB_PREPEND.'phpwcms_categories pcat WHERE ';
+            $this->where['cat'] .=  'FROM '.DB_PREPEND.'categories pcat WHERE ';
             $this->where['cat'] .=  "pcat.cat_type='news' AND pcat.cat_pid=cnt_id AND ";
             $this->where['cat'] .=  'pcat.cat_name=' . _dbEscape($keyword) . ' ';
             $this->where['cat'] .=  'GROUP BY pcat.cat_pid';
@@ -334,8 +334,8 @@ class phpwcmsNews {
 
     public function getNewsCategories() {
 
-        $where = '(SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_content WHERE  cnt_id=cat_pid AND cnt_status != 9 AND cnt_module='news')";
-        $result = _dbGet('phpwcms_categories', 'cat_name', "cat_type='news' AND ".$where, 'cat_name', 'cat_name');
+        $where = '(SELECT COUNT(*) FROM '.DB_PREPEND."content WHERE  cnt_id=cat_pid AND cnt_status != 9 AND cnt_module='news')";
+        $result = _dbGet('categories', 'cat_name', "cat_type='news' AND ".$where, 'cat_name', 'cat_name');
         $categories = array();
 
         if(isset($result[0]['cat_name'])) {
@@ -457,7 +457,7 @@ class phpwcmsNews {
                 $where .= ' AND f_aktiv=1 AND f_public=1';
             }
 
-            $result = _dbGet('phpwcms_file', '*', $where);
+            $result = _dbGet('file', '*', $where);
 
             // Link results and keep sorting
             if(isset($result[0])) {
@@ -488,7 +488,7 @@ class phpwcmsNews {
                 case 0:
                 case 1:
                 case 9:
-                    _dbUpdate('phpwcms_content', array('cnt_status'=>$status), 'cnt_id='.$this->newsId);
+                    _dbUpdate('content', array('cnt_status'=>$status), 'cnt_id='.$this->newsId);
                     set_status_message(
                             $status == 9 ? $this->BL['be_action_deleted'] : $this->BL['be_action_status'],
                             'success',
@@ -586,7 +586,7 @@ class phpwcmsNews {
                 // store new dataset
                 if($this->newsId == 0) {
 
-                    $result = _dbInsert('phpwcms_content', $values);
+                    $result = _dbInsert('content', $values);
                     if(isset($result['INSERT_ID'])) {
                         $this->newsId   = $result['INSERT_ID'];
                         $success        = true;
@@ -597,7 +597,7 @@ class phpwcmsNews {
                 // update existing dataset
                 } else {
 
-                    $result = _dbUpdate('phpwcms_content', $values, 'cnt_id='.$this->newsId);
+                    $result = _dbUpdate('content', $values, 'cnt_id='.$this->newsId);
                     if($result != false) {
                         $success = true;
 
@@ -638,7 +638,7 @@ class phpwcmsNews {
 
         } elseif($this->newsId > 0) {
 
-            $result = _dbGet('phpwcms_content', '*', 'cnt_status!=9 AND cnt_id='.$this->newsId, '', '', '1');
+            $result = _dbGet('content', '*', 'cnt_status!=9 AND cnt_id='.$this->newsId, '', '', '1');
             if(isset($result[0]['cnt_object'])) {
 
                 $result[0]['cnt_object'] = @unserialize($result[0]['cnt_object'], ['allowed_classes' => false]);

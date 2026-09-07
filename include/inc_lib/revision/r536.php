@@ -15,15 +15,15 @@ function phpwcms_revision_r536() {
 	$status = true;
 
 
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_article` WHERE Field='article_public'");
+	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."article` WHERE Field='article_public'");
 	if(isset($result[0]['Default']) && (string)$result[0]['Default'] === '0') {
-		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_public` `article_public` INT(1) NOT NULL DEFAULT '1'", 'ALTER');
+		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."article` CHANGE `article_public` `article_public` INT(1) NOT NULL DEFAULT '1'", 'ALTER');
 		if(!$update) {
 			$status = false;
 		}
 	}
-	if(!_dbColumnExists('phpwcms_article', 'article_opengraph')) {
-		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` ADD `article_opengraph` INT(1) UNSIGNED NOT NULL DEFAULT '1', ADD INDEX (`article_opengraph`)", 'ALTER');
+	if(!_dbColumnExists('article', 'article_opengraph')) {
+		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."article` ADD `article_opengraph` INT(1) UNSIGNED NOT NULL DEFAULT '1', ADD INDEX (`article_opengraph`)", 'ALTER');
 		if(!$insert) {
 			$status = false;
 		}

@@ -10,41 +10,32 @@
 
 
 // Revision 543 Update Check
-function phpwcms_revision_r543() {
+function phpwcms_revision_r543()
+{
+    $status = true;
 
-	$status = true;
+    if (!_dbColumnExists('file', 'f_title')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . "file` ADD `f_title` VARCHAR(1000) NOT NULL DEFAULT '' AFTER `f_sort`", 'ALTER');
+        if (!$insert) {
+            $status = false;
+        }
+    }
 
+    if (!_dbColumnExists('file', 'f_alt')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . "file` ADD `f_alt` VARCHAR(1000) NOT NULL DEFAULT '' AFTER `f_sort`", 'ALTER');
+        if (!$insert) {
+            $status = false;
+        }
+    }
 
-	if(!_dbColumnExists('phpwcms_file', 'f_title')) {
+    foreach (['f_keywords', 'f_shortinfo', 'f_copyright', 'f_tags'] as $field) {
+        $col = _dbQuery("SHOW COLUMNS FROM `" . DB_PREPEND . "file` WHERE Field='" . $field . "'");
+        if (isset($col[0]['Type']) && strtolower($col[0]['Type']) !== 'varchar(1000)') {
+            if (!_dbQuery('ALTER TABLE `' . DB_PREPEND . 'file` CHANGE `' . $field . '` `' . $field . "` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER')) {
+                $status = false;
+            }
+        }
+    }
 
-		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` ADD `f_title` VARCHAR(1000) NOT NULL DEFAULT '' AFTER `f_sort`", 'ALTER');
-
-		if(!$insert) {
-
-			$status = false;
-
-		} else {
-
-    		if(!_dbColumnExists('phpwcms_file', 'f_alt')) {
-
-        		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` ADD `f_alt` VARCHAR(1000) NOT NULL DEFAULT '' AFTER `f_sort`", 'ALTER');
-
-        		if(!$insert) {
-
-        			$status = false;
-
-        		} else {
-
-                    _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` CHANGE `f_keywords` `f_keywords` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER');
-                    _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` CHANGE `f_shortinfo` `f_shortinfo` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER');
-                    _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` CHANGE `f_copyright` `f_copyright` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER');
-                    _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` CHANGE `f_tags` `f_tags` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER');
-
-        		}
-
-        	}
-		}
-	}
-
-	return $status;
+    return $status;
 }

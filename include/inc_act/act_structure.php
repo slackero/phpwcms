@@ -135,7 +135,7 @@ if(has_admin_permission('artstruc')) { // Only for admin users
                 $cache_timeout = 0; //check if cache = Off
             }
 
-            $sql = "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (acat_name, acat_title, acat_info, acat_aktiv, acat_ssl, acat_regonly, ".
+            $sql = "INSERT INTO ".DB_PREPEND."articlecat (acat_name, acat_title, acat_info, acat_aktiv, acat_ssl, acat_regonly, ".
                 "acat_struct, acat_template, acat_sort, acat_uid, acat_alias, acat_hidden, acat_topcount, ".
                 "acat_redirect, acat_order, acat_cache, acat_nosearch, acat_nositemap, acat_permit, acat_maxlist, ".
                 "acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive, acat_class, acat_keywords, ".
@@ -179,7 +179,7 @@ if(has_admin_permission('artstruc')) { // Only for admin users
                 $cache_timeout = 0; //check if cache = Off
             }
 
-            $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET ".
+            $sql = "UPDATE ".DB_PREPEND."articlecat SET ".
                 "acat_name='".getpostvar($_POST["acat_name"], 2000)."', ".
                 "acat_title='".getpostvar($_POST["acat_title"], 2000)."', ".
                 "acat_info='".getpostvar($_POST["acat_info"], 32000)."', ".
@@ -240,7 +240,7 @@ if($action) {
             $do[2] = intval($do[2]); //paste ID
             $do[3] = intval($do[3]); //sort Number
             if($do[1]) { // && $do[2] = 0 for Root
-                $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_struct=".$do[2].", acat_sort=".$do[3]." WHERE acat_id=".$do[1];
+                $sql =  "UPDATE ".DB_PREPEND."articlecat SET acat_struct=".$do[2].", acat_sort=".$do[3]." WHERE acat_id=".$do[1];
                 _dbQuery($sql, 'UPDATE');
             }
 
@@ -252,7 +252,7 @@ if($action) {
             $do[3] = intval($do[3]); //sort ID2
             $do[4] = intval($do[4]); //sort NR2
             if($do[1] && $do[2] >= 10 && $do[3] && $do[4] >= 10) {
-                $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_articlecat SET ' .
+                $sql = 'UPDATE ' . DB_PREPEND . 'articlecat SET ' .
                        'acat_sort = CASE acat_id WHEN ' . $do[1] . ' THEN ' . $do[2] . ' WHEN ' . $do[3] . ' THEN ' . $do[4] . ' END ' .
                        'WHERE acat_id IN (' . $do[1] . ', ' . $do[3] . ')';
                 _dbQuery($sql, 'UPDATE');
@@ -289,13 +289,13 @@ if($action) {
 
                 // create SQL query to set articles deleted
                 if(count($article_del)) {
-                    $sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."') WHERE article_id IN (".implode(',', $article_del).")";
+                    $sql = "UPDATE ".DB_PREPEND."article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."') WHERE article_id IN (".implode(',', $article_del).")";
                     _dbQuery($sql, 'UPDATE');
                 }
 
                 // create SQL query to set structure levels deleted
                 if(count($struct_del)) {
-                    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_trash=9, acat_alias=CONCAT(acat_alias,'_del-','".date('YmdHis')."') WHERE acat_id IN (".implode(',', $struct_del).")";
+                    $sql = "UPDATE ".DB_PREPEND."articlecat SET acat_trash=9, acat_alias=CONCAT(acat_alias,'_del-','".date('YmdHis')."') WHERE acat_id IN (".implode(',', $struct_del).")";
                     _dbQuery($sql, 'UPDATE');
                 }
 
@@ -310,7 +310,7 @@ if($action) {
         $do[2] = intval($do[2]); //paste level ID
         if($do[1]) { // && $do[2] = 0 for Root
             $new_sort = getArticleSortValue($do[2]);
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_article SET article_cid=".$do[2].", article_sort=".$new_sort." WHERE article_id=".$do[1];
+            $sql =  "UPDATE ".DB_PREPEND."article SET article_cid=".$do[2].", article_sort=".$new_sort." WHERE article_id=".$do[1];
             _dbQuery($sql, 'UPDATE');
         }
 
@@ -322,7 +322,7 @@ if($action) {
         $do[3] = intval($do[3]); //article sort ID2
         $do[4] = intval($do[4]); //article sort NR2
         if($do[1] && $do[2] >= 10 && $do[3] && $do[4] >= 10) {
-            $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_article SET ' .
+            $sql = 'UPDATE ' . DB_PREPEND . 'article SET ' .
                    'article_sort = CASE article_id WHEN ' . $do[1] . ' THEN ' . $do[2] . ' WHEN ' . $do[3] . ' THEN ' . $do[4] . ' END, ' .
                    'article_tstamp = article_tstamp ' .
                    'WHERE article_id IN (' . $do[1] . ', ' . $do[3] . ')';
@@ -346,17 +346,17 @@ if($action) {
         $do[2] = intval($do[2]); //paste Article ID
         $do[3] = intval($do[3]); //sort Number
         if($do[1]) {
-            $sql = "SELECT acontent_aid, acontent_sorting FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$do[1];
+            $sql = "SELECT acontent_aid, acontent_sorting FROM ".DB_PREPEND."articlecontent WHERE acontent_id=".$do[1];
             $result = _dbQuery($sql);
             if(isset($result[0]['acontent_aid'])) {
 
-                $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting-10 WHERE acontent_aid=".$result[0]['acontent_aid']." AND acontent_sorting >= ".$result[0]['acontent_sorting']."+10";
+                $sql = "UPDATE ".DB_PREPEND."articlecontent SET acontent_sorting=acontent_sorting-10 WHERE acontent_aid=".$result[0]['acontent_aid']." AND acontent_sorting >= ".$result[0]['acontent_sorting']."+10";
                 _dbQuery($sql, 'UPDATE');
 
-                $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
+                $sql = "UPDATE ".DB_PREPEND."articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
                 _dbQuery($sql, 'UPDATE');
 
-                $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_aid=".$do[2].", acontent_sorting=".$do[3]."+10 WHERE acontent_id=".$do[1];
+                $sql = "UPDATE ".DB_PREPEND."articlecontent SET acontent_aid=".$do[2].", acontent_sorting=".$do[3]."+10 WHERE acontent_id=".$do[1];
                 _dbQuery($sql, 'UPDATE');
 
             }
@@ -370,10 +370,10 @@ if($action) {
         $do[3] = intval($do[3]); //sort Number
         if($do[1]) {
 
-            $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
+            $sql = "UPDATE ".DB_PREPEND."articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
             _dbQuery($sql, 'UPDATE');
 
-            $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$do[1];
+            $sql  = "SELECT * FROM ".DB_PREPEND."articlecontent WHERE acontent_id=".$do[1];
             $result = _dbQuery($sql);
             if(isset($result[0]['acontent_id'])) {
                 $key1s = '';
@@ -398,7 +398,7 @@ if($action) {
                 }
                 $key1s = trim($key1s, ' ,');
                 $value1s = trim($value1s, ' ,');
-                $sql = "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
+                $sql = "INSERT INTO ".DB_PREPEND."articlecontent (".$key1s.") VALUES (".$value1s.")";
                 _dbQuery($sql, 'INSERT');
             }
         }
@@ -418,7 +418,7 @@ function get_struct_del_id($s_id=0) {
     $s_id = intval($s_id);
 
     //retrieve article ID list that should be deleted
-    $sql = "SELECT article_id FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_cid=".$s_id;
+    $sql = "SELECT article_id FROM ".DB_PREPEND."article WHERE article_deleted=0 AND article_cid=".$s_id;
     $result = _dbQuery($sql);
     if(isset($result[0]['article_id'])) {
         foreach($result as $row) {
@@ -427,7 +427,7 @@ function get_struct_del_id($s_id=0) {
     }
 
     // retrieve structure ID list that should be deleted
-    $sql = "SELECT acat_id FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$s_id;
+    $sql = "SELECT acat_id FROM ".DB_PREPEND."articlecat WHERE acat_trash=0 AND acat_struct=".$s_id;
     $result = _dbQuery($sql);
     if(isset($result[0]['acat_id'])) {
         foreach($result as $row) {
@@ -439,7 +439,7 @@ function get_struct_del_id($s_id=0) {
 
 function copy_article_to_level($do) {
 
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_id=".$do[1];
+    $sql = "SELECT * FROM ".DB_PREPEND."article WHERE article_deleted=0 AND article_id=".$do[1];
     $result = _dbQuery($sql);
     if(isset($result[0]['article_id'])) {
 
@@ -469,14 +469,14 @@ function copy_article_to_level($do) {
             }
         }
 
-        $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_article (".$keys.") VALUES (".$values.")";
+        $sql =  "INSERT INTO ".DB_PREPEND."article (".$keys.") VALUES (".$values.")";
         $result = _dbQuery($sql, 'INSERT');
 
         if(isset($result['INSERT_ID'])) {
 
             $article_insert_id = $result['INSERT_ID'];
 
-            $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$do[1];
+            $sql = "SELECT * FROM ".DB_PREPEND."articlecontent WHERE acontent_aid=".$do[1];
             $result = _dbQuery($sql);
 
             if(isset($result[0]['acontent_aid'])) {
@@ -500,7 +500,7 @@ function copy_article_to_level($do) {
                             $value1s .= ", "._dbEscape($value1);
                         }
                     }
-                    $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
+                    $sql =  "INSERT INTO ".DB_PREPEND."articlecontent (".$key1s.") VALUES (".$value1s.")";
                     _dbQuery($sql, 'INSERT');
                 }
             }
@@ -521,7 +521,7 @@ function copy_level_to_level($do) {
     // $do[2] -- paste level
     // $do[3] -- sort Number
 
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_id=".$do[1];
+    $sql = "SELECT * FROM ".DB_PREPEND."articlecat WHERE acat_trash=0 AND acat_id=".$do[1];
     $result = _dbQuery($sql);
     $acat_insert_id = 0;
 
@@ -549,7 +549,7 @@ function copy_level_to_level($do) {
             }
         }
 
-        $sql = "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (".$keys.") VALUES (".$values.")";
+        $sql = "INSERT INTO ".DB_PREPEND."articlecat (".$keys.") VALUES (".$values.")";
         $result = _dbQuery($sql, 'INSERT');
         if(isset($result['INSERT_ID'])) {
             $acat_insert_id = $result['INSERT_ID'];
@@ -557,7 +557,7 @@ function copy_level_to_level($do) {
     }
 
     if($acat_insert_id) {
-        $sql = "SELECT article_id FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_cid=".$do[1];
+        $sql = "SELECT article_id FROM ".DB_PREPEND."article WHERE article_deleted=0 AND article_cid=".$do[1];
         $result = _dbQuery($sql);
         if(isset($result[0]['article_id'])) {
             foreach($result as $row) {
@@ -567,7 +567,7 @@ function copy_level_to_level($do) {
             }
         }
 
-        $sql = "SELECT acat_id,acat_sort FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$do[1];
+        $sql = "SELECT acat_id,acat_sort FROM ".DB_PREPEND."articlecat WHERE acat_trash=0 AND acat_struct=".$do[1];
         $result = _dbQuery($sql);
         if(isset($result[0]['acat_id'])) {
             foreach($result as $row) {

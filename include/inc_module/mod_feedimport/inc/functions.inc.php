@@ -74,7 +74,7 @@ function is_feed_available($url, $timeout = 30) {
 
 function feedimport_article_authors() {
 
-	$result = _dbGet('phpwcms_user', 'usr_id, usr_name, usr_login, usr_admin', 'usr_aktiv=1', '', 'usr_admin DESC, usr_name');
+	$result = _dbGet('user', 'usr_id, usr_name, usr_login, usr_admin', 'usr_aktiv=1', '', 'usr_admin DESC, usr_name');
 
 	if(!isset($result[0]['usr_id'])) {
 		return array(0 => $GLOBALS['BL']['be_cnt_default']);
@@ -100,8 +100,8 @@ function feedimport_filestorage_dirlist($pid=0, $prefix='+', $userID=null, $coun
 		);
 	}
 	$pid  = intval($pid);
-	$sql  = "SELECT f_id, f_name, f_uid, usr_login FROM ".DB_PREPEND."phpwcms_file f ";
-	$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid ";
+	$sql  = "SELECT f_id, f_name, f_uid, usr_login FROM ".DB_PREPEND."file f ";
+	$sql .= "LEFT JOIN ".DB_PREPEND."user u ON u.usr_id=f.f_uid ";
 	$sql .= "WHERE f.f_pid=".$pid." AND ";
 	if(empty($_SESSION["wcs_user_admin"]) && $userID) {
 		$sql .= "f.f_uid=".intval($userID)." AND ";

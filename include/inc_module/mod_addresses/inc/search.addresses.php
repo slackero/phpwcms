@@ -31,7 +31,7 @@ $_filter_zip        = isset($_POST['filter_zip']) && $_POST['filter_zip'] !== ''
 // - detail_text2 = alternative Länder
 // - detail_country = Standardland
 $result = _dbGet(
-    'phpwcms_userdetail',
+    'userdetail',
     'detail_id, detail_country, detail_text2',
     'detail_regkey='._dbEscape(PHPWCMS_ADDRESS_KEY).' AND detail_aktiv=1 AND detail_public=1'
 );
@@ -63,8 +63,8 @@ if(isset($result[0])) {
         }
     }
 
-    $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail pu ';
-    $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_country pc ON pu.detail_country=pc.country_iso ';
+    $sql  = 'SELECT * FROM '.DB_PREPEND.'userdetail pu ';
+    $sql .= 'LEFT JOIN '.DB_PREPEND.'country pc ON pu.detail_country=pc.country_iso ';
     $sql .= "WHERE pu.detail_regkey="._dbEscape(PHPWCMS_ADDRESS_KEY)." AND ";
     $sql .= "pu.detail_aktiv=1 AND pu.detail_public=1 AND pu.detail_id IN (%s) ";
     $sql .= 'ORDER BY pu.detail_int2, pu.detail_zip, pu.detail_company';
@@ -77,7 +77,7 @@ if(isset($result[0])) {
     }
     $order_by_country_suffix = $phpwcms['default_lang'] === 'de' ? '_de' : '';
     $result = _dbGet(
-        'phpwcms_country',
+        'country',
         '*',
         'country_iso IN ('.implode(',', $where_countries).')',
         '',
@@ -350,7 +350,7 @@ if(isset($result[0])) {
 
             // get contacts
             $contacts = _dbGet(
-                'phpwcms_userdetail',
+                'userdetail',
                 'detail_varchar1, detail_varchar2, detail_lastname, detail_firstname, detail_fon, detail_fax, detail_mobile, detail_email, detail_title, detail_varchar3',
                 'detail_aktiv=1 AND detail_regkey='._dbEscape(PHPWCMS_CONTACTS_KEY).' AND detail_int1='.$arow['detail_id'].' AND '.$contact_where,
                 '',

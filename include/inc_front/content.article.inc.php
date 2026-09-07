@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
 $sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
 $sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
-$sql .= "FROM ".DB_PREPEND."phpwcms_article ar LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ac ON ";
+$sql .= "FROM ".DB_PREPEND."article ar LEFT JOIN ".DB_PREPEND."articlecat ac ON ";
 $sql .= "ar.article_cid = ac.acat_id WHERE ";
 $sql .= "ar.article_id=".intval($aktion[1])." AND ";
 // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -45,7 +45,7 @@ if(isset($result[0]['article_id'])) {
         $alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
         $alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
         $alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
-        $alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
+        $alias_sql .= "FROM ".DB_PREPEND."article ";
         $alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
         if(!$row["article_headerdata"]) {
             if(VISIBLE_MODE === 0) {
@@ -366,7 +366,7 @@ if(isset($result[0]['article_id'])) {
         // use an IF because acontent_paginate_page=1 is the same as acontent_paginate_page=0
         $sql_cnt  = "SELECT DISTINCT IF(acontent_paginate_page=1, 0, acontent_paginate_page) AS acontent_paginate_page, ";
         $sql_cnt .= "acontent_paginate_title ";
-        $sql_cnt .= "FROM ".DB_PREPEND."phpwcms_articlecontent WHERE ";
+        $sql_cnt .= "FROM ".DB_PREPEND."articlecontent WHERE ";
         $sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 ";
         $sql_cnt .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
         $sql_cnt .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
@@ -502,7 +502,7 @@ if(isset($result[0]['article_id'])) {
         // Render SYSTEM
         if(strpos($row["article_image"]['tmplfull'], '[SYSTEM]') !== false) {
             // Search for all system related content parts
-            $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $content["article_id"] . ' ';
+            $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'articlecontent WHERE acontent_aid=' . $content["article_id"] . ' ';
             $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (2, 3) "; // 2 = article detail, 3 = article detail OR list
             $sql_cnt .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
             $sql_cnt .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
@@ -541,7 +541,7 @@ if(isset($result[0]['article_id'])) {
     }
 
     // render content parts
-    $sql_cnt  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$row["article_id"]." ";
+    $sql_cnt  = "SELECT * FROM ".DB_PREPEND."articlecontent WHERE acontent_aid=".$row["article_id"]." ";
     $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 ";
     $sql_cnt .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
     $sql_cnt .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";

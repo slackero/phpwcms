@@ -24,12 +24,12 @@ if (has_admin_permission('admugroup')) {
         $gi = explode(':', clean_slweg($_GET['del']));
         $gi = (int)$gi[0];
         if ($gi) {
-            _dbUpdate('phpwcms_usergroup', ['group_active' => 9], 'group_id=' . $gi);
+            _dbUpdate('usergroup', ['group_active' => 9], 'group_id=' . $gi);
         }
     }
 
     if (isset($_GET['aktiv'])) {
-        $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_usergroup SET group_active= (CASE group_active WHEN 1 THEN 0 ELSE 1 END) WHERE group_id=' . (int)$_GET['aktiv'];
+        $sql = 'UPDATE ' . DB_PREPEND . 'usergroup SET group_active= (CASE group_active WHEN 1 THEN 0 ELSE 1 END) WHERE group_id=' . (int)$_GET['aktiv'];
         _dbQuery($sql, 'UPDATE');
     }
 }

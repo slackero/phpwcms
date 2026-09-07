@@ -64,7 +64,7 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
     $content['glossary']['detail_footer']   = get_tmpl_section('GLOSSARY_DETAIL_FOOTER',    $content['glossary']['glossary_template']);
     $content['glossary']['detail_entry']    = get_tmpl_section('GLOSSARY_DETAIL_ENTRY',     $content['glossary']['glossary_template']);
 
-    $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_glossary WHERE glossary_status=1 ';
+    $sql  = 'SELECT * FROM '.DB_PREPEND.'glossary WHERE glossary_status=1 ';
     $sql .= 'AND glossary_id='.$GLOBALS['_getVar']['glossaryid'];
     $sql .= $content['glossary']['where'];
     $content['glossary']['entry'] = _dbQuery($sql);
@@ -149,7 +149,7 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
         }
     }
 
-    $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_glossary WHERE glossary_status=1'.$content['glossary']['where'].' ORDER BY glossary_title';
+    $sql  = 'SELECT * FROM '.DB_PREPEND.'glossary WHERE glossary_status=1'.$content['glossary']['where'].' ORDER BY glossary_title';
 
     $content['glossary']['entries'] = _dbQuery($sql);
 

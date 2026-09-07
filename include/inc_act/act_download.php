@@ -25,7 +25,7 @@ $pl = isset($_GET["pl"]) ? intval($_GET["pl"]) : 0;
 if($dl) {
     $err = 0;
 
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0 AND f_kid=1 AND f_id=".$dl." ";
+    $sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_trash=0 AND f_kid=1 AND f_id=".$dl." ";
 
     if($pl === 0) {
         if(!has_admin_permission('file') && !has_admin_permission('filecent')) {

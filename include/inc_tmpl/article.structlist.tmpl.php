@@ -43,7 +43,7 @@ if(isset($_GET["open"])) {
         unset($_SESSION["structure"][$open_id]);
     }
     $_SESSION["structure"][$open_id] = $open_value;
-     _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), 'UPDATE');
+     _dbQuery("UPDATE ".DB_PREPEND."user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), 'UPDATE');
 }
 
 //31-03-2005 Fernando Batista  start---------------------------------------------------------------------------
@@ -57,7 +57,7 @@ if(isset($_GET["opena"])) {
     } else {
         $_SESSION["structure"]["article"][$open_id] = $open_value;
     }
-    _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), 'UPDATE');
+    _dbQuery("UPDATE ".DB_PREPEND."user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), 'UPDATE');
 }
 //31-03-2005 Fernando Batista  end-------------------
 

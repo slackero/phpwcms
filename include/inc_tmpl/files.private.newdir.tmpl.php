@@ -47,7 +47,7 @@ if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) {
   if(str_empty($dir_newname)) $dir_error = 1;
   //Eintragen des neuen verzeichnisnamens
   if(!isset($dir_error)) {
-    $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (f_pid, f_uid, f_name, f_aktiv, f_public, ".
+    $sql =  "INSERT INTO ".DB_PREPEND."file (f_pid, f_uid, f_name, f_aktiv, f_public, ".
         "f_created, f_kid, f_longinfo, f_gallerystatus, f_sort) VALUES (".
         $dir_pid.", ".
         $_SESSION["wcs_user_id"].", '".
@@ -66,8 +66,8 @@ if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) {
 
 //Wenn ID angegeben, dann -> oder aber Root Verzeichnis
 if($dir_pid) {
-  $sql  = "SELECT f.f_id, f.f_name, f.f_uid, u.usr_login FROM ".DB_PREPEND."phpwcms_file f ";
-  $sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid WHERE f.f_id=".$dir_pid;
+  $sql  = "SELECT f.f_id, f.f_name, f.f_uid, u.usr_login FROM ".DB_PREPEND."file f ";
+  $sql .= "LEFT JOIN ".DB_PREPEND."user u ON u.usr_id=f.f_uid WHERE f.f_id=".$dir_pid;
   if(empty($_SESSION["wcs_user_admin"])) {
     $sql .= " AND f.f_uid=".$_SESSION["wcs_user_id"];
   }

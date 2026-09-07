@@ -91,7 +91,7 @@ if(isset($_SESSION['filter_ad_campaign']) && is_array($_SESSION['filter_ad_campa
 
 
 // paginating values
-$_entry['count_total'] = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_ads_campaign WHERE '.$_entry['query'], 'COUNT');
+$_entry['count_total'] = _dbQuery('SELECT * FROM '.DB_PREPEND.'ads_campaign WHERE '.$_entry['query'], 'COUNT');
 $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_user_count']);
 if($_SESSION['ads_page'] > $_entry['pages_total']) {
 	$_SESSION['ads_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
@@ -183,8 +183,8 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 
 				$sql  = 'SELECT *, UNIX_TIMESTAMP(ac.adcampaign_datestart) AS adcampaign_start, ';
 				$sql .= 'UNIX_TIMESTAMP(ac.adcampaign_dateend) AS adcampaign_end ';
-				$sql .= 'FROM '.DB_PREPEND.'phpwcms_ads_campaign ac ';
-				$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_ads_place ap ON ';
+				$sql .= 'FROM '.DB_PREPEND.'ads_campaign ac ';
+				$sql .= 'LEFT JOIN '.DB_PREPEND.'ads_place ap ON ';
 				$sql .=	'ac.adcampaign_place=ap.adplace_id  ';
 				$sql .= 'WHERE '.$_entry['query'];
 				if($_SESSION['ads_page'] > 0 && $_SESSION['list_user_count']) {

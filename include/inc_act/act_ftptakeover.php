@@ -173,7 +173,7 @@ if(!$ftp['error']) {
             if(!has_admin_permission('filecent') && !has_admin_permission('fileupload')) {
                 $where .= ' AND f_uid='. (int)$_SESSION['wcs_user_id'];
             }
-            $target_dir = _dbGet('phpwcms_file', '*', $where, '', '', 1);
+            $target_dir = _dbGet('file', '*', $where, '', '', 1);
         }
         if (isset($target_dir[0]['f_id'])) {
             $dir_new_public = (int)$target_dir[0]['f_public'];
@@ -192,7 +192,7 @@ if(!$ftp['error']) {
             'f_name'		=> $ftp['dir_new'],
             'f_created'		=> now()
         ];
-        $new_dir = _dbInsert('phpwcms_file', $data);
+        $new_dir = _dbInsert('file', $data);
         if (isset($new_dir['INSERT_ID'])) {
             $ftp['dir'] = (int)$new_dir['INSERT_ID'];
         }
@@ -338,7 +338,7 @@ if(!$ftp['error']) {
                 }
             }
 
-            $sql  = 'INSERT INTO ' .DB_PREPEND. 'phpwcms_file (';
+            $sql  = 'INSERT INTO ' .DB_PREPEND. 'file (';
             $sql .= 'f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, f_svg, f_image_width, f_image_height, ';
             $sql .= 'f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags' .$ftp_varsfield. ', f_title, f_alt) VALUES (';
             $sql .= $ftp['dir']. ', ' . (int)$_SESSION['wcs_user_id'] . ', 1, ' .$ftp['aktiv']. ', ' .$ftp['public']. ', ';
@@ -384,7 +384,7 @@ if(!$ftp['error']) {
                 // now try to find 1st file having same named and replace it if related mark is set
                 if($ftp['replace']) {
 
-                    $rsql  = 'SELECT * FROM ' .DB_PREPEND. 'phpwcms_file WHERE ';
+                    $rsql  = 'SELECT * FROM ' .DB_PREPEND. 'file WHERE ';
                     $rsql .= 'f_name=' ._dbEscape($file_name). ' AND f_kid=1 ';
                     $rsql .= 'AND f_pid=' .$ftp['dir']. ' AND f_trash=0 AND f_id != ' .$new_fileId. ' LIMIT 1';
 
@@ -399,7 +399,7 @@ if(!$ftp['error']) {
                         $oldFileNewHash = md5( $file_name . microtime() . time() );
 
                         // now update new file by old file information of same named
-                        $nsql  = 'UPDATE ' .DB_PREPEND. 'phpwcms_file SET ';
+                        $nsql  = 'UPDATE ' .DB_PREPEND. 'file SET ';
                         $nsql .= 'f_refid=' .$oldFileID. ', f_trash=5, f_size=' .$rrow['f_size'].', ';
                         $nsql .= 'f_type=' ._dbEscape($rrow['f_type']). ', f_changed=' .now().', ';
                         $nsql .= 'f_hash=' ._dbEscape($oldFileNewHash). ' WHERE f_id=' .$new_fileId;
@@ -412,7 +412,7 @@ if(!$ftp['error']) {
                             rename($usernewfile, $useruploadpath.$oldFileHash.$_file_extension);
 
                             // update file size of old file with new filesize
-                            _dbUpdate('phpwcms_file', ['f_type'=>$file_type, 'f_size'=>$file_size, 'f_changed'=>now()], 'f_id='.$oldFileID);
+                            _dbUpdate('file', ['f_type'=>$file_type, 'f_size'=>$file_size, 'f_changed'=>now()], 'f_id='.$oldFileID);
 
                             // empty temp images directory
                             if ($file_ext === 'svg') {
@@ -444,7 +444,7 @@ if(!$ftp['error']) {
             } else {
 
                 echo $file. ' (' .$file_error['upload']. ')<br />';
-                _dbQuery('DELETE FROM ' .DB_PREPEND. 'phpwcms_file WHERE f_id=' .$new_fileId. ' AND f_uid=' .$_SESSION['wcs_user_id'], 'DELETE');
+                _dbQuery('DELETE FROM ' .DB_PREPEND. 'file WHERE f_id=' .$new_fileId. ' AND f_uid=' .$_SESSION['wcs_user_id'], 'DELETE');
 
             }
 

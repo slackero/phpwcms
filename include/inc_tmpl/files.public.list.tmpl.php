@@ -24,7 +24,7 @@ if(isset($_GET["all"])) {
     $_SESSION["pklapp"] = array();
     if($_GET["all"] == "open") {
         // Expand all users with public files
-        $sql_all_users = "SELECT DISTINCT f_uid FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0";
+        $sql_all_users = "SELECT DISTINCT f_uid FROM ".DB_PREPEND."file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0";
         $result_all_users = _dbQuery($sql_all_users);
         if(isset($result_all_users[0]['f_uid'])) {
             foreach($result_all_users as $row) {
@@ -32,7 +32,7 @@ if(isset($_GET["all"])) {
             }
         }
         // Expand all public folders
-        $sql_all_folders = "SELECT f_id FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=0 AND f_trash=0";
+        $sql_all_folders = "SELECT f_id FROM ".DB_PREPEND."file WHERE f_public=1 AND f_aktiv=1 AND f_kid=0 AND f_trash=0";
         $result_all_folders = _dbQuery($sql_all_folders);
         if(isset($result_all_folders[0]['f_id'])) {
             foreach($result_all_folders as $row) {
@@ -40,7 +40,7 @@ if(isset($_GET["all"])) {
             }
         }
     }
-    _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_publicfile="._dbEscape(serialize($_SESSION["pklapp"]))." WHERE usr_id=".intval($_SESSION["wcs_user_id"]), 'UPDATE');
+    _dbQuery("UPDATE ".DB_PREPEND."user SET usr_var_publicfile="._dbEscape(serialize($_SESSION["pklapp"]))." WHERE usr_id=".intval($_SESSION["wcs_user_id"]), 'UPDATE');
 } elseif(!isset($_SESSION["pklapp"])) {
     $_SESSION["pklapp"] = array();
 }
@@ -61,7 +61,7 @@ if(isset($_GET["pklapp"])) {
         }
     }
 
-    _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_publicfile="._dbEscape(serialize($_SESSION["pklapp"]))." WHERE usr_id=".$_SESSION["wcs_user_id"], 'UPDATE');
+    _dbQuery("UPDATE ".DB_PREPEND."user SET usr_var_publicfile="._dbEscape(serialize($_SESSION["pklapp"]))." WHERE usr_id=".$_SESSION["wcs_user_id"], 'UPDATE');
 }
 
 if(isset($_GET["klapp"])) {
@@ -81,13 +81,13 @@ if(isset($_GET["klapp"])) {
         }
     }
 
-    _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_publicfile="._dbEscape(serialize($_SESSION["pklapp"]))." WHERE usr_id=".$_SESSION["wcs_user_id"], 'UPDATE');
+    _dbQuery("UPDATE ".DB_PREPEND."user SET usr_var_publicfile="._dbEscape(serialize($_SESSION["pklapp"]))." WHERE usr_id=".$_SESSION["wcs_user_id"], 'UPDATE');
 }
 
 $_SESSION["list_zaehler"] = 0; // set counter
 
 // Check if public files/folders exist
-$count_user_files = _dbQuery("SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0", 'COUNT');
+$count_user_files = _dbQuery("SELECT COUNT(f_id) FROM ".DB_PREPEND."file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0", 'COUNT');
 
 if($count_user_files) { // If public files exist, list them
     // Start table for public file listing
@@ -95,10 +95,10 @@ if($count_user_files) { // If public files exist, list them
 
 
     // Check which users have public files
-    $sql = "SELECT DISTINCT ".DB_PREPEND."phpwcms_file.f_uid, ".DB_PREPEND."phpwcms_user.usr_login, ".DB_PREPEND."phpwcms_user.usr_name ".
-           "FROM ".DB_PREPEND."phpwcms_file INNER JOIN ".DB_PREPEND."phpwcms_user ON ".DB_PREPEND."phpwcms_file.f_uid=".DB_PREPEND."phpwcms_user.usr_id ".
-           "WHERE ".DB_PREPEND."phpwcms_file.f_public=1 AND ".DB_PREPEND."phpwcms_file.f_aktiv=1 AND ".DB_PREPEND."phpwcms_file.f_trash=0 ".
-           "ORDER BY ".DB_PREPEND."phpwcms_user.usr_name, ".DB_PREPEND."phpwcms_user.usr_login";
+    $sql = "SELECT DISTINCT ".DB_PREPEND."file.f_uid, ".DB_PREPEND."user.usr_login, ".DB_PREPEND."user.usr_name ".
+           "FROM ".DB_PREPEND."file INNER JOIN ".DB_PREPEND."user ON ".DB_PREPEND."file.f_uid=".DB_PREPEND."user.usr_id ".
+           "WHERE ".DB_PREPEND."file.f_public=1 AND ".DB_PREPEND."file.f_aktiv=1 AND ".DB_PREPEND."file.f_trash=0 ".
+           "ORDER BY ".DB_PREPEND."user.usr_name, ".DB_PREPEND."user.usr_login";
     $result = _dbQuery($sql);
 
     $user_counter=0;
@@ -128,7 +128,7 @@ if($count_user_files) { // If public files exist, list them
                 list_public(0, 0, "phpwcms.php?do=files&amp;f=1", $row["f_uid"], $_SESSION["wcs_user_thumb"], $phpwcms);
 
                 // Show root files
-                $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$root_user_id.
+                $file_sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_pid=0 AND f_uid=".$root_user_id.
                             " AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_name";
                 $file_result = _dbQuery($file_sql);
                 if(isset($file_result[0]['f_id'])) {

@@ -160,7 +160,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
     }
 
     if(empty($file_error)) {
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET ".
+        $sql =  "UPDATE ".DB_PREPEND."file SET ".
                 "f_name='".aporeplace($file_name)."', ".
                 "f_alias='".aporeplace($file_alias)."', ".
                 "f_pid=".$file_pid.", ".
@@ -196,7 +196,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
 
 // If ID isset or root dir
 if($file_id) {
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id;
+    $sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_id=".$file_id;
     if(empty($_SESSION["wcs_user_admin"])) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
@@ -491,7 +491,7 @@ if($ja) {
 
     <?php
     // List of predefined keywords (File Categories & Keys)
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
+    $sql = "SELECT * FROM ".DB_PREPEND."filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
     if(isset($result[0]['fcat_id'])) {
         $k_rows = '';
@@ -510,7 +510,7 @@ if($ja) {
                 $k_rows .= '    <select name="file_keywords[' . $row["fcat_id"] . ']" id="file_keywords_' . $row["fcat_id"] . '" class="form-select form-select-sm' . ($has_error ? ' is-invalid' : '') . '" style="max-width: 350px;">' . LF;
                 $k_rows .= '      <option value="' . ($row["fcat_needed"] ? "0_".$row["fcat_needed"] : "0") . '">' . ($row["fcat_needed"] ? $BL['be_ftptakeover_needed'] : $BL['be_ftptakeover_optional']) . '</option>' . LF;
 
-                $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
+                $ksql = "SELECT * FROM ".DB_PREPEND."filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
                 $kresult = _dbQuery($ksql);
 
                 if(isset($kresult[0]['fkey_id'])) {

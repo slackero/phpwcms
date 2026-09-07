@@ -16,7 +16,7 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 	$counter = intval($counter) + 1;
 		$structure = array();
 
-	$sql  = 'SELECT acat_id, acat_name, acat_aktiv, acat_regonly, acat_opengraph FROM '.DB_PREPEND.'phpwcms_articlecat ';
+	$sql  = 'SELECT acat_id, acat_name, acat_aktiv, acat_regonly, acat_opengraph FROM '.DB_PREPEND.'articlecat ';
 	$sql .= 'WHERE acat_trash=0 AND acat_struct='.$struct_id.' ORDER BY acat_sort';
 
     $struct = _dbQuery($sql);
@@ -77,7 +77,7 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 function change_articledate($article_id=0) {
 	// update article date when content part was changed
 	if(($article_id = intval($article_id))) {
-		$sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_tstamp=NOW() WHERE article_id='".$article_id."'";
+		$sql = "UPDATE ".DB_PREPEND."article SET article_tstamp=NOW() WHERE article_id='".$article_id."'";
 		_dbQuery($sql, 'UPDATE');
 	}
 }
@@ -87,7 +87,7 @@ function struct_select_list($counter, $struct_id, $selected_id, $add_alias=false
 	$struct_id	= intval($struct_id);
 	$counter	= intval($counter) + 1;
 
-	$struct = _dbGet('phpwcms_articlecat', 'acat_id,acat_name,acat_alias,acat_aktiv,acat_regonly', 'acat_trash=0 AND acat_struct='.$struct_id);
+	$struct = _dbGet('articlecat', 'acat_id,acat_name,acat_alias,acat_aktiv,acat_regonly', 'acat_trash=0 AND acat_struct='.$struct_id);
 
 	if(isset($struct[0]['acat_id'])) {
 		foreach($struct as $key => $value) {
@@ -118,7 +118,7 @@ function struct_checkbox_list($counter=0, $struct_id=0, $selected_id=array(), $a
         $selected_id = is_null($selected_id) || is_bool($selected_id) ? array() : array(strval($selected_id));
     }
 
-	$struct = _dbGet('phpwcms_articlecat', 'acat_id,acat_name,acat_alias,acat_aktiv,acat_regonly', 'acat_trash=0 AND acat_struct='.intval($struct_id));
+	$struct = _dbGet('articlecat', 'acat_id,acat_name,acat_alias,acat_aktiv,acat_regonly', 'acat_trash=0 AND acat_struct='.intval($struct_id));
 
 	if(isset($struct[0]['acat_id'])) {
 
@@ -174,7 +174,7 @@ function struct_radio_list($counter=0, $struct_id=0, $selected_id=array(), $add_
         $selected_id = is_null($selected_id) || is_bool($selected_id) ? array() : array(strval($selected_id));
     }
 
-	$struct = _dbGet('phpwcms_articlecat', 'acat_id,acat_name,acat_alias,acat_aktiv,acat_regonly', 'acat_trash=0 AND acat_struct='.intval($struct_id));
+	$struct = _dbGet('articlecat', 'acat_id,acat_name,acat_alias,acat_aktiv,acat_regonly', 'acat_trash=0 AND acat_struct='.intval($struct_id));
 
 	if(isset($struct[0]['acat_id'])) {
 

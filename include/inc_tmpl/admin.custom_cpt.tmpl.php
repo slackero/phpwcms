@@ -34,7 +34,7 @@ if (isset($_GET['toggle']) && (int)$_GET['toggle'] > 0) {
         $cpt_to_toggle = get_custom_contentpart_by_key((int)$_GET['toggle']);
         if ($cpt_to_toggle) {
             $new_status = empty($cpt_to_toggle['cpt_active']) ? 1 : 0;
-            _dbUpdate('phpwcms_custom_cpt', ['cpt_active' => $new_status], 'cpt_id = ' . (int)$cpt_to_toggle['cpt_id']);
+            _dbUpdate('custom_cpt', ['cpt_active' => $new_status], 'cpt_id = ' . (int)$cpt_to_toggle['cpt_id']);
         }
         headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string() . '&do=admin&p=16');
     }

@@ -46,7 +46,7 @@ if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 				   "0, 1, "._dbEscape($ads_useragent).", "._dbEscape($ads_ref).", ".$ads_cat.", ".$ads_article.")";
 		}
 
-		$sql  =	'INSERT LOW_PRIORITY INTO '.DB_PREPEND.'phpwcms_ads_tracking ('.
+		$sql  =	'INSERT LOW_PRIORITY INTO '.DB_PREPEND.'ads_tracking ('.
 				'adtracking_created, adtracking_campaignid, adtracking_ip, adtracking_cookieid, '.
 				'adtracking_countclick, adtracking_countview, adtracking_useragent, adtracking_ref, '.
 				'adtracking_catid, adtracking_articleid) VALUES ';
@@ -55,7 +55,7 @@ if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 
 		@_dbQuery($sql, 'INSERT');
 
-		$sql  = 'UPDATE LOW_PRIORITY '.DB_PREPEND.'phpwcms_ads_campaign SET ';
+		$sql  = 'UPDATE LOW_PRIORITY '.DB_PREPEND.'ads_campaign SET ';
 		$sql .= 'adcampaign_curview=adcampaign_curview+1 ';
 		$sql .= 'WHERE adcampaign_id IN('.implode(',', $ads).')';
 

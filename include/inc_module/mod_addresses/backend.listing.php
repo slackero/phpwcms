@@ -97,7 +97,7 @@ if(isset($_SESSION['filter_country']) && $_SESSION['filter_country'] != '-') {
 }
 
 // paginating values
-$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE '.$_entry['query'];
+$sql = 'SELECT * FROM '.DB_PREPEND.'userdetail WHERE '.$_entry['query'];
 $_entry['count_total'] = _dbQuery($sql, 'COUNT');
 $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_user_count']);
 if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
@@ -200,7 +200,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 				<?php
 				$row_count = 0;
 
-				$sql  = 'SELECT detail_id, detail_company, detail_firstname, detail_lastname, detail_city, detail_zip, detail_country, detail_int2, detail_aktiv FROM '.DB_PREPEND.'phpwcms_userdetail WHERE '.$_entry['query'].' ';
+				$sql  = 'SELECT detail_id, detail_company, detail_firstname, detail_lastname, detail_city, detail_zip, detail_country, detail_int2, detail_aktiv FROM '.DB_PREPEND.'userdetail WHERE '.$_entry['query'].' ';
 				$sql .= 'ORDER BY detail_company, detail_city, detail_country ';
 				$sql .= 'LIMIT '.(($_SESSION['userdetail_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
 				$data = _dbQuery($sql);

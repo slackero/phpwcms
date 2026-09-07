@@ -25,14 +25,14 @@ $id = intval($id);
 
 if ($id) {
     if ($do === 1 && has_admin_permission('admlayout')) {
-        _dbUpdate('phpwcms_pagelayout', array('pagelayout_default'=>0, 'pagelayout_trash'=>9), 'pagelayout_id='.$id);
+        _dbUpdate('pagelayout', array('pagelayout_default'=>0, 'pagelayout_trash'=>9), 'pagelayout_id='.$id);
     } elseif ($do === 2 && has_admin_permission('admtempl')) {
-        $result = _dbUpdate('phpwcms_template', array('template_default'=>0, 'template_trash'=>9), 'template_id='.$id);
+        $result = _dbUpdate('template', array('template_default'=>0, 'template_trash'=>9), 'template_id='.$id);
         // Update article categories with new default template ID or to 0 if no default template is defined
         if($result) {
-            $default = _dbGet('phpwcms_template', 'template_id, template_default', 'template_trash=0 AND template_default=1', '', '', 1);
+            $default = _dbGet('template', 'template_id, template_default', 'template_trash=0 AND template_default=1', '', '', 1);
             _dbUpdate(
-                'phpwcms_articlecat',
+                'articlecat',
                 array('acat_template' => isset($default[0]['template_id']) ? $default[0]['template_id'] : 0),
                 'acat_trash=0 AND acat_template='.$id
             );

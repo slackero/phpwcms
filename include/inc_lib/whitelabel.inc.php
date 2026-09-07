@@ -68,9 +68,10 @@ function phpwcms_whitelabel_init(array &$phpwcms): bool {
     $phpwcms['whitelabel'] = [
         'is_active'       => false,
         'licensee'        => '',
-        'domain'          => '',
-        'brand_name'      => 'phpwcms',
-        'logo_light'      => '',
+        'domain'             => '',
+        'brand_name'         => 'phpwcms',
+        'brand_table_prefix' => 'phpwcms',
+        'logo_light'         => '',
         'logo_dark'       => '',
         'logo_email'      => '',
         'custom_css'      => '',
@@ -184,19 +185,31 @@ function phpwcms_whitelabel_init(array &$phpwcms): bool {
         $brand_copyright = trim($payload['licensee']);
     }
 
+    // Determine custom database table prefix
+    $brand_table_prefix = 'phpwcms';
+    if (!empty($phpwcms['brand_table_prefix'])) {
+        $brand_table_prefix = preg_replace('/[^a-zA-Z0-9_]/', '', trim((string)$phpwcms['brand_table_prefix']));
+    } elseif (!empty($payload['brand_table_prefix']) && $payload['brand_table_prefix'] !== '*') {
+        $brand_table_prefix = preg_replace('/[^a-zA-Z0-9_]/', '', trim((string)$payload['brand_table_prefix']));
+    }
+    if ($brand_table_prefix === '') {
+        $brand_table_prefix = 'phpwcms';
+    }
+
     $phpwcms['whitelabel'] = [
-        'is_active'       => true,
-        'licensee'        => $payload['licensee'] ?? '',
-        'domain'          => $payload['domain'] ?? '',
-        'brand_name'      => $brand_name,
-        'logo_light'      => $phpwcms['brand_logo_light'] ?? '',
-        'logo_dark'       => $phpwcms['brand_logo_dark'] ?? '',
-        'logo_email'      => $phpwcms['brand_logo_email'] ?? '',
-        'custom_css'      => $phpwcms['brand_custom_css'] ?? '',
-        'support_url'     => $phpwcms['brand_support_url'] ?? ($payload['support_url'] ?? ''),
-        'url'             => $brand_url,
-        'copyright'       => $brand_copyright,
-        'license_expires' => $payload['valid_until'] ?? 0
+        'is_active'          => true,
+        'licensee'           => $payload['licensee'] ?? '',
+        'domain'             => $payload['domain'] ?? '',
+        'brand_name'         => $brand_name,
+        'brand_table_prefix' => $brand_table_prefix,
+        'logo_light'         => $phpwcms['brand_logo_light'] ?? '',
+        'logo_dark'          => $phpwcms['brand_logo_dark'] ?? '',
+        'logo_email'         => $phpwcms['brand_logo_email'] ?? '',
+        'custom_css'         => $phpwcms['brand_custom_css'] ?? '',
+        'support_url'        => $phpwcms['brand_support_url'] ?? ($payload['support_url'] ?? ''),
+        'url'                => $brand_url,
+        'copyright'          => $brand_copyright,
+        'license_expires'    => $payload['valid_until'] ?? 0
     ];
 
     $phpwcms['disable_generator'] = true;
@@ -222,6 +235,24 @@ function get_brand_name(): string {
     global $phpwcms;
     if (is_whitelabel() && !empty($phpwcms['whitelabel']['brand_name'])) {
         return (string)$phpwcms['whitelabel']['brand_name'];
+    }
+
+    return 'phpwcms';
+}
+
+/**
+ * Get brand database table prefix
+ */
+function get_brand_table_prefix(): string {
+    global $phpwcms;
+    if (is_whitelabel()) {
+        if (!empty($phpwcms['whitelabel']['brand_table_prefix'])) {
+            return (string)$phpwcms['whitelabel']['brand_table_prefix'];
+        }
+        if (!empty($phpwcms['brand_table_prefix'])) {
+            $prefix = preg_replace('/[^a-zA-Z0-9_]/', '', trim((string)$phpwcms['brand_table_prefix']));
+            return $prefix !== '' ? $prefix : 'phpwcms';
+        }
     }
 
     return 'phpwcms';

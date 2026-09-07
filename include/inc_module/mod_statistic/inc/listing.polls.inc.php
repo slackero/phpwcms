@@ -15,8 +15,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 // now retrieve all downloads
-$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ac ";
-$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ";
+$sql  = "SELECT * FROM " . DB_PREPEND . "articlecontent ac ";
+$sql .= "INNER JOIN " . DB_PREPEND . "article ar ON ";
 $sql .= "ar.article_id = ac.acontent_aid WHERE ac.acontent_trash=0 AND ac.acontent_type=89";
 $result = _dbQuery($sql);
 

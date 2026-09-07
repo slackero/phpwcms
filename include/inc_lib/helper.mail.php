@@ -272,7 +272,7 @@ function get_mail_templates_from_db(?string $lang = null): array {
         $where = 'tpl_lang = ' . _dbEscape($lang);
     }
 
-    $rows = _dbGet('phpwcms_mailtemplates', '*', $where, '', 'tpl_key ASC, tpl_lang ASC');
+    $rows = _dbGet('mailtemplates', '*', $where, '', 'tpl_key ASC, tpl_lang ASC');
     if (!is_array($rows)) {
         return [];
     }
@@ -303,7 +303,7 @@ function get_system_email_template(string $key, ?string $lang = null): array {
     }
 
     // Try loading custom template from DB
-    $sql = 'SELECT * FROM `' . DB_PREPEND . 'phpwcms_mailtemplates` WHERE `tpl_key` = ' . _dbEscape($key) . ' AND `tpl_lang` = ' . _dbEscape($target_lang) . ' LIMIT 1';
+    $sql = 'SELECT * FROM `' . DB_PREPEND . 'mailtemplates` WHERE `tpl_key` = ' . _dbEscape($key) . ' AND `tpl_lang` = ' . _dbEscape($target_lang) . ' LIMIT 1';
     $res = _dbQuery($sql);
     if (!empty($res[0]['tpl_id'])) {
         return [

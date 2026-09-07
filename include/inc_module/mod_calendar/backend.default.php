@@ -54,7 +54,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	} elseif(isset($_GET['verify'])) {
 
 		// active/inactive
-		$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_calendar SET ';
+		$sql  = 'UPDATE '.DB_PREPEND.'calendar SET ';
 		$sql .= "calendar_status=".(intval($_GET['verify']) ? 1 : 0)." ";
 		$sql .= "WHERE calendar_id=".intval($_GET['editid']);
 		@_dbQuery($sql, 'UPDATE');
@@ -63,7 +63,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	} elseif(isset($_GET['delete'])) {
 
 		// delete
-		$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_calendar SET ';
+		$sql  = 'UPDATE '.DB_PREPEND.'calendar SET ';
 		$sql .= "calendar_status=9 WHERE calendar_id=".intval($_GET['delete']);
 		@_dbQuery($sql, 'UPDATE');
 		headerRedirect(decode_entities(MODULE_HREF));

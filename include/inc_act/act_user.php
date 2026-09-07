@@ -31,7 +31,7 @@ if (has_admin_permission('admuser')) {
         $user_id = (int)$ui[0];
         $user_email = empty($ui[1]) ? '' : $ui[1];
         if ($user_id && $user_id !== (int)$_SESSION['wcs_user_id'] && is_valid_email($user_email)) {
-            $result = _dbQuery('UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_aktiv=9 WHERE usr_id=' . $user_id . ' AND usr_email=' . _dbEscape($user_email), 'UPDATE');
+            $result = _dbQuery('UPDATE ' . DB_PREPEND . 'user SET usr_aktiv=9 WHERE usr_id=' . $user_id . ' AND usr_email=' . _dbEscape($user_email), 'UPDATE');
             if (!empty($result['AFFECTED_ROWS'])) {
                 $rendered_mail = render_system_email('account_deactivated', [
                     '{NAME}'       => $user_email,
@@ -60,7 +60,7 @@ if (has_admin_permission('admuser')) {
         $user_id = (int)$ui[0];
         $user_aktiv = empty($ui[1]) ? 0 : 1;
         if ($user_id && $user_id !== (int)$_SESSION['wcs_user_id']) {
-            _dbQuery($sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_aktiv=' . $user_aktiv . ' WHERE usr_aktiv != 9 AND usr_id=' . $user_id, 'UPDATE');
+            _dbQuery($sql = 'UPDATE ' . DB_PREPEND . 'user SET usr_aktiv=' . $user_aktiv . ' WHERE usr_aktiv != 9 AND usr_id=' . $user_id, 'UPDATE');
         }
     }
 }

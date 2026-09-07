@@ -176,7 +176,11 @@ if(!empty($step)) {
 
                     mysqli_free_result($result);
 
-                    if($result = mysqli_query($db, "SHOW TABLES LIKE '". ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . "phpwcms_user'")) {
+                    $_brand_prefix = !empty($phpwcms['brand_table_prefix']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $phpwcms['brand_table_prefix']) : 'phpwcms';
+                    if ($_brand_prefix === '') {
+                        $_brand_prefix = 'phpwcms';
+                    }
+                    if($result = mysqli_query($db, "SHOW TABLES LIKE '". ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . $_brand_prefix . "_user'")) {
 
                         if (!empty($result->num_rows)) {
                             $_db_prepend_error = true;
@@ -219,12 +223,16 @@ if(!empty($step)) {
 
                             // now read and display sql queries
 
-                            $_db_prepend = $phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '';
+                            $_brand_prefix = !empty($phpwcms['brand_table_prefix']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $phpwcms['brand_table_prefix']) : 'phpwcms';
+                            if ($_brand_prefix === '') {
+                                $_brand_prefix = 'phpwcms';
+                            }
+                            $_db_prepend = ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . $_brand_prefix . '_';
 
                             $sql_data = read_textfile($DOCROOT . '/setup/default_sql/phpwcms_init.sql');
                             $sql_data = $sql_data . read_textfile($DOCROOT . '/setup/default_sql/phpwcms_inserts.sql');
                             $sql_data = preg_replace("/(#|--).*.\n/", '', $sql_data );
-                            $sql_data = preg_replace('/ `phpwcms/', ' `'.$_db_prepend.'phpwcms', $sql_data );
+                            $sql_data = preg_replace('/ `phpwcms_/', ' `' . $_db_prepend, $sql_data );
                             $sql_data = preg_replace('/CREATE\s+TABLE\s+(?!IF\s+NOT\s+EXISTS)/i', 'CREATE TABLE IF NOT EXISTS ', $sql_data);
                             $sql_data = str_replace("\r", '', $sql_data);
                             $sql_data = str_replace("\n\n", "\n", $sql_data);
@@ -358,8 +366,12 @@ if(!empty($step)) {
             } else {
                 mysqli_query($db, 'SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION');
                 mysqli_query($db, "SET NAMES '" . mysqli_real_escape_string($db, $phpwcms['db_charset']) . "'");
-                $_db_prepend = $phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '';
-                $sql =  'INSERT INTO ' . $_db_prepend . 'phpwcms_user (usr_login, usr_pass, usr_email, '.
+                $_brand_prefix = !empty($phpwcms['brand_table_prefix']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $phpwcms['brand_table_prefix']) : 'phpwcms';
+                if ($_brand_prefix === '') {
+                    $_brand_prefix = 'phpwcms';
+                }
+                $_db_prepend = ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . $_brand_prefix . '_';
+                $sql =  'INSERT INTO ' . $_db_prepend . 'user (usr_login, usr_pass, usr_email, '.
                         "usr_admin, usr_aktiv, usr_name, usr_fe, usr_wysiwyg ) VALUES ('".
                         mysqli_real_escape_string($db, $phpwcms['admin_user'])."', '".
                         mysqli_real_escape_string($db, $phpwcms['admin_pass'])."', '".

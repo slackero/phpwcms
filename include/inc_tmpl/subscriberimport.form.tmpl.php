@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $_userInfo['max_file_size'] = return_bytes(@ini_get('upload_max_filesize'));
 // select channel
 $_userInfo['select_subscr'] = '';
-$_userInfo['subscriptions'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name");
+$_userInfo['subscriptions'] = _dbQuery("SELECT * FROM ".DB_PREPEND."subscription ORDER BY subscription_name");
 
 if($_userInfo['subscriptions']) {
   foreach($_userInfo['subscriptions'] as $value) {

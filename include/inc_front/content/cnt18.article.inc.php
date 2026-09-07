@@ -313,7 +313,7 @@ if($guestbook['visible']) {
 
         if(!$guestbook['flooding']) {
 
-            $guestbook['sql']  = "SELECT MAX(guestbook_created) AS dbcreate FROM ".DB_PREPEND."phpwcms_guestbook WHERE ";
+            $guestbook['sql']  = "SELECT MAX(guestbook_created) AS dbcreate FROM ".DB_PREPEND."guestbook WHERE ";
             $guestbook['sql'] .= "guestbook_cid="._dbEscape($guestbook['cid'])." AND ";
             $guestbook['sql'] .= "guestbook_trashed != '9' AND ";
             $guestbook['sql'] .= "guestbook_ip="._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP())." AND ";
@@ -383,7 +383,7 @@ if($guestbook['visible']) {
 
         if(!count($guestbook['error'])) {
 
-            $guestbook['sql']  = "INSERT INTO ".DB_PREPEND."phpwcms_guestbook SET ";
+            $guestbook['sql']  = "INSERT INTO ".DB_PREPEND."guestbook SET ";
             $guestbook['sql'] .= "guestbook_cid="._dbEscape($guestbook['cid']).", ";
             $guestbook['sql'] .= "guestbook_msg="._dbEscape($guestbook['post']['msg']).", ";
             $guestbook['sql'] .= "guestbook_name="._dbEscape($guestbook['post']['name']).", ";
@@ -465,7 +465,7 @@ if($guestbook['visible']) {
     // do this after new gb entry was created
     if(isset($GLOBALS['_getVar']['guestbookentry'])) {
 
-        $guestbook['sql']  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_guestbook ';
+        $guestbook['sql']  = 'SELECT * FROM '.DB_PREPEND.'guestbook ';
         $guestbook['sql'] .= 'WHERE guestbook_id='.intval($GLOBALS['_getVar']['guestbookentry']);
         $guestbook['sql'] .= " AND guestbook_ip="._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP());
 
@@ -565,7 +565,7 @@ if($guestbook['visible']) {
     // first check for all available related guestbook entries
     $guestbook['archivedate'] = false;
     $guestbook['archiveselect'] = false;
-    $guestbook['sql']  = "SELECT * FROM ".DB_PREPEND."phpwcms_guestbook WHERE guestbook_cid=";
+    $guestbook['sql']  = "SELECT * FROM ".DB_PREPEND."guestbook WHERE guestbook_cid=";
     $guestbook['sql'] .= $guestbook['cid']." AND guestbook_trashed=0 ";
     if(isset($_GET['gbd']) && $_GET['gbs']) {
         //$aktion[5] = 0;
@@ -648,7 +648,7 @@ if($guestbook['visible']) {
                 }
 
                 $guestbook['asql']  = "SELECT DISTINCT FROM_UNIXTIME(guestbook_created,"._dbEscape($guestbook['archiveval'][0]);
-                $guestbook['asql'] .= ") AS guestbook_date FROM ".DB_PREPEND."phpwcms_guestbook WHERE guestbook_cid=";
+                $guestbook['asql'] .= ") AS guestbook_date FROM ".DB_PREPEND."guestbook WHERE guestbook_cid=";
                 $guestbook['asql'] .= $guestbook['cid']." AND guestbook_trashed=0 ORDER BY guestbook_created DESC";
 
                 $guestbook['result'] = _dbQuery($guestbook['asql']);

@@ -19,7 +19,7 @@ $_userInfo = array();
 
 // delete all duplicate addresses
 if(isset($_GET['duplicate']) && $_GET['duplicate'] == 'remove') {
-  $data = _dbQuery('SELECT COUNT(*) AS address_count, address_email FROM '.DB_PREPEND.'phpwcms_address GROUP BY address_email');
+  $data = _dbQuery('SELECT COUNT(*) AS address_count, address_email FROM '.DB_PREPEND.'address GROUP BY address_email');
   if($data) {
 
     foreach($data as $value) {
@@ -27,13 +27,13 @@ if(isset($_GET['duplicate']) && $_GET['duplicate'] == 'remove') {
       // check for multiple entries
       if($value['address_count'] > 1) {
 
-        $sql  = 'SELECT address_id FROM '.DB_PREPEND.'phpwcms_address ';
+        $sql  = 'SELECT address_id FROM '.DB_PREPEND.'address ';
         $sql .= "WHERE address_email='".aporeplace($value['address_email'])."' ";
         $sql .= 'ORDER BY address_verified DESC, address_name DESC LIMIT 1';
         $dataID = _dbQuery($sql);
 
         if(!empty($dataID[0]['address_id'])) {
-          $sql  = 'DELETE FROM '.DB_PREPEND.'phpwcms_address ';
+          $sql  = 'DELETE FROM '.DB_PREPEND.'address ';
           $sql .= "WHERE address_email='".aporeplace($value['address_email'])."' ";
           $sql .= "AND address_id != ".intval($dataID[0]['address_id']);
           @_dbQuery($sql, 'DELETE');
@@ -47,11 +47,11 @@ if(isset($_GET['duplicate']) && $_GET['duplicate'] == 'remove') {
 
 // delete susbcriber
 if(isset($_GET["del"]) && isset($_GET["s"]) && $_GET["del"] == $_GET["s"]) {
-  _dbQuery("DELETE FROM ".DB_PREPEND."phpwcms_address WHERE address_id=".intval($_GET["del"])." LIMIT 1", 'DELETE');
+  _dbQuery("DELETE FROM ".DB_PREPEND."address WHERE address_id=".intval($_GET["del"])." LIMIT 1", 'DELETE');
 }
 // change verification
 if(isset($_GET["verify"]) && isset($_GET["s"])) {
-  $sql  = "UPDATE ".DB_PREPEND."phpwcms_address SET address_verified=";
+  $sql  = "UPDATE ".DB_PREPEND."address SET address_verified=";
   $sql .= intval($_GET["verify"]) ? 1 : 0;
   $sql .= " WHERE address_id=".intval($_GET["s"])." LIMIT 1";
   _dbQuery($sql, 'UPDATE');
@@ -78,7 +78,7 @@ if(isset($_GET["s"]) && isset($_GET["edit"])) {
     $_userInfo['subscriber_data']['address_verified']   = 0;
 
   } else {
-    $_userInfo['subscriber_data'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_address WHERE address_id=".$_userInfo['subscriber_id']." LIMIT 1");
+    $_userInfo['subscriber_data'] = _dbQuery("SELECT * FROM ".DB_PREPEND."address WHERE address_id=".$_userInfo['subscriber_id']." LIMIT 1");
     if($_userInfo['subscriber_data']) {
       $_userInfo['subscriber_data']  = $_userInfo['subscriber_data'][0];
     }
@@ -189,7 +189,7 @@ if(isset($_SESSION['filter_subscriber']) && count($_SESSION['filter_subscriber']
 }
 
 // paginating values
-$_userInfo['count_total'] = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_address".$_userInfo['where_query'], 'COUNT');
+$_userInfo['count_total'] = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."address".$_userInfo['where_query'], 'COUNT');
 $_userInfo['pages_total'] = ceil($_userInfo['count_total'] / $_SESSION['list_user_count']);
 if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
   $_SESSION['subscriber_page'] = empty($_userInfo['pages_total']) ? 1 : $_userInfo['pages_total'];
@@ -278,7 +278,7 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
 
 // set filter select by channel
 if($_userInfo['list_channel']) {
-  $_userInfo['subscriptions'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name");
+  $_userInfo['subscriptions'] = _dbQuery("SELECT * FROM ".DB_PREPEND."subscription ORDER BY subscription_name");
 
   if($_userInfo['subscriptions']) {
 
@@ -329,7 +329,7 @@ if($_userInfo['list_channel']) {
 	// loop listing available newsletters
 	$row_count = 0;
 
-	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_address".$_userInfo['where_query']." ";
+	$sql  = "SELECT * FROM ".DB_PREPEND."address".$_userInfo['where_query']." ";
 	$sql .= "LIMIT ".(($_SESSION['subscriber_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
 	$data = _dbQuery($sql);
 

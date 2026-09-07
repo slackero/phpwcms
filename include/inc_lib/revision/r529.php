@@ -16,7 +16,7 @@ function phpwcms_revision_r529() {
 
 
 	// reset article and file manager status (open/close)
-	_dbUpdate('phpwcms_user', array(
+	_dbUpdate('user', array(
 		'usr_var_structure' => '',
 		'usr_var_publicfile' => '',
 		'usr_var_privatefile' => ''

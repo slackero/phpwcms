@@ -29,7 +29,7 @@ if (!defined('PHPWCMS_ROOT')) {
     <tbody>
       <?php
       // now retrieve all users
-      $result = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_userlog ORDER BY logged_start DESC LIMIT 0,100');
+      $result = _dbQuery('SELECT * FROM '.DB_PREPEND.'userlog ORDER BY logged_start DESC LIMIT 0,100');
       $x = 0;
       if(isset($result[0]['userlog_id'])) {
         foreach($result as $data) {

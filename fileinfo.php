@@ -42,7 +42,7 @@ $frows      = '';
 if($file_id) {
 
     $file_key = get_list_of_file_keywords();
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id." AND f_kid=1 AND ";
+    $sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_id=".$file_id." AND f_kid=1 AND ";
 
     if($public) {
         //public file
@@ -170,9 +170,9 @@ if($file_id) {
 
   <?php }
   // listing article
-  $sql =  "SELECT ar.article_title, arc.acontent_files, ar.article_id FROM ".DB_PREPEND."phpwcms_articlecontent AS arc ";
-  $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article AS ar ON ";
-  $sql .= DB_PREPEND . "ar.article_id = " . DB_PREPEND . "arc.acontent_aid ";
+  $sql =  "SELECT ar.article_title, arc.acontent_files, ar.article_id FROM " . DB_PREPEND . "articlecontent AS arc ";
+  $sql .= "INNER JOIN " . DB_PREPEND . "article AS ar ON ";
+  $sql .= "ar.article_id = arc.acontent_aid ";
   $sql .= "WHERE acontent_type=7 AND acontent_trash=0 AND article_deleted = 0 AND acontent_visible = 1";
 
   $result = _dbQuery($sql);

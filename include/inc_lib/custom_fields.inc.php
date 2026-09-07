@@ -24,13 +24,13 @@ function ensure_custom_cpt_table() {
         return $checked;
     }
 
-    if (!defined('DB_PREPEND') || !function_exists('_dbTableExists') || !function_exists('_dbQuery')) {
+    if (!function_exists('_dbTableExists') || !function_exists('_dbQuery')) {
         return false;
     }
 
-    if (!_dbTableExists('phpwcms_custom_cpt')) {
+    if (!_dbTableExists('custom_cpt')) {
         $charset_collate = _dbGetCreateCharsetCollation();
-        $sql = 'CREATE TABLE IF NOT EXISTS ' . DB_PREPEND . 'phpwcms_custom_cpt (
+        $sql = 'CREATE TABLE IF NOT EXISTS ' . DB_PREPEND . 'custom_cpt (
             cpt_id int(11) unsigned NOT NULL AUTO_INCREMENT,
             cpt_created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             cpt_changed datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -111,7 +111,7 @@ function get_custom_contentparts($only_active = false) {
 
     // Fetch from database
     if (ensure_custom_cpt_table() && function_exists('_dbGet')) {
-        $rows = _dbGet('phpwcms_custom_cpt', '*', '', '', 'cpt_title ASC');
+        $rows = _dbGet('custom_cpt', '*', '', '', 'cpt_title ASC');
 
         if (is_array($rows) && count($rows)) {
             foreach ($rows as $row) {
@@ -239,7 +239,7 @@ function custom_cpt_key_exists($key, $exclude_id = 0) {
     if ($exclude_id > 0) {
         $where .= ' AND cpt_id != ' . $exclude_id;
     }
-    $rows = _dbGet('phpwcms_custom_cpt', 'cpt_id', $where);
+    $rows = _dbGet('custom_cpt', 'cpt_id', $where);
     return is_array($rows) && count($rows) > 0;
 }
 
@@ -311,10 +311,10 @@ function is_custom_cpt_reserved_field_key($key) {
  * @return int
  */
 function get_custom_cpt_usage_count($key) {
-    if (empty($key) || !function_exists('_dbCount') || !defined('DB_PREPEND')) {
+    if (empty($key) || !function_exists('_dbCount')) {
         return 0;
     }
-    return (int)_dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_type = 60 AND acontent_module = ' . _dbEscape($key) . ' AND acontent_trash = 0');
+    return (int)_dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'articlecontent WHERE acontent_type = 60 AND acontent_module = ' . _dbEscape($key) . ' AND acontent_trash = 0');
 }
 
 /**
@@ -415,10 +415,10 @@ function save_custom_contentpart($data) {
     );
 
     if ($id > 0) {
-        $old_row = function_exists('_dbGet') ? _dbGet('phpwcms_custom_cpt', 'cpt_key', 'cpt_id = ' . $id) : null;
+        $old_row = function_exists('_dbGet') ? _dbGet('custom_cpt', 'cpt_key', 'cpt_id = ' . $id) : null;
         $old_key = !empty($old_row[0]['cpt_key']) ? $old_row[0]['cpt_key'] : '';
 
-        _dbUpdate('phpwcms_custom_cpt', $db_data, 'cpt_id = ' . $id);
+        _dbUpdate('custom_cpt', $db_data, 'cpt_id = ' . $id);
 
         if (!empty($old_key) && $old_key !== $key) {
             rename_custom_cpt_templates($old_key, $key);
@@ -426,7 +426,7 @@ function save_custom_contentpart($data) {
 
         return $id;
     } else {
-        $insert = _dbInsert('phpwcms_custom_cpt', $db_data);
+        $insert = _dbInsert('custom_cpt', $db_data);
         return !empty($insert['INSERT_ID']) ? (int)$insert['INSERT_ID'] : false;
     }
 }
@@ -441,7 +441,7 @@ function delete_custom_contentpart($id) {
     ensure_custom_cpt_table();
     $id = (int)$id;
     if ($id > 0) {
-        return (bool)_dbQuery('DELETE FROM ' . DB_PREPEND . 'phpwcms_custom_cpt WHERE cpt_id = ' . $id, 'DELETE');
+        return (bool)_dbQuery('DELETE FROM ' . DB_PREPEND . 'custom_cpt WHERE cpt_id = ' . $id, 'DELETE');
     }
     return false;
 }

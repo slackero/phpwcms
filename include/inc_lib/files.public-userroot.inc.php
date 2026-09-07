@@ -16,7 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 //Listing eventuell im Verzeichnis enthaltener Dateien
-$file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".intval($root_user_id);
+$file_sql  = "SELECT * FROM ".DB_PREPEND."file WHERE f_pid=0 AND f_uid=".intval($root_user_id);
 $file_sql .= " AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_name";
 
 $file_result = _dbQuery($file_sql);

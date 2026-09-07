@@ -177,7 +177,7 @@ function check_image_extension($file, $filename, &$file_image_size) {
 
 function getParentStructArray($structID) {
 
-    $result = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_id=".intval($structID)." LIMIT 1");
+    $result = _dbQuery("SELECT * FROM ".DB_PREPEND."articlecat WHERE acat_id=".intval($structID)." LIMIT 1");
 
     if(isset($result[0]['acat_id'])) {
         return $result[0];
@@ -193,7 +193,7 @@ function getArticleSortValue($cat_id=0) {
 
     $cat_id = (int) $cat_id;
 
-    $sql = 'SELECT COUNT(article_id) AS cnt, MAX(article_sort) AS max_sort FROM ' . DB_PREPEND . 'phpwcms_article ' .
+    $sql = 'SELECT COUNT(article_id) AS cnt, MAX(article_sort) AS max_sort FROM ' . DB_PREPEND . 'article ' .
            'WHERE article_cid = ' . $cat_id . ' AND article_deleted = 0';
     $result = _dbQuery($sql);
 
@@ -222,7 +222,7 @@ function getArticleReSorted($cat_id, $ordered_by) {
 
     $sql  = 'SELECT article_id, article_cid, article_title, article_aktiv, article_uid, ' .
             "date_format(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date, article_sort, article_deleted, article_tstamp " .
-            'FROM ' . DB_PREPEND . 'phpwcms_article ' .
+            'FROM ' . DB_PREPEND . 'article ' .
             'WHERE article_cid = ' . $cat_id . ' ORDER BY ' . $ao[2];
 
     $result = _dbQuery($sql);
@@ -259,7 +259,7 @@ function getArticleReSorted($cat_id, $ordered_by) {
         }
 
         if(!empty($ids)) {
-            $update_sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_article SET ' .
+            $update_sql = 'UPDATE ' . DB_PREPEND . 'article SET ' .
                           'article_sort = CASE article_id ' . implode(' ', $cases) . ' END, ' .
                           'article_tstamp = article_tstamp ' .
                           'WHERE article_id IN (' . implode(',', $ids) . ')';
@@ -479,11 +479,11 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
 function countNewsletterRecipients($target) {
     // try to count all recipients for special newsletter
     // recipients without explicit subscription count as subscribed to every newsletter
-    $counter = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1 AND (address_subscription = "" OR address_subscription IS NULL)', 'COUNT');
+    $counter = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'address WHERE address_verified=1 AND (address_subscription = "" OR address_subscription IS NULL)', 'COUNT');
 
     $target = array_map('intval', is_array($target) ? $target : []);
     if (count($target)) {
-        $recipients = _dbQuery('SELECT address_subscription FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1 AND address_subscription IS NOT NULL AND address_subscription != ""');
+        $recipients = _dbQuery('SELECT address_subscription FROM '.DB_PREPEND.'address WHERE address_verified=1 AND address_subscription IS NOT NULL AND address_subscription != ""');
         foreach ($recipients as $value) {
             $subscription = @unserialize($value['address_subscription'], ['allowed_classes' => false]);
             if (is_array($subscription) && count($subscription)) {
@@ -857,12 +857,12 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
     }
 
     if ($mode === 'FILE') {
-        $sql = 'SELECT COUNT(f_id) FROM ' . DB_PREPEND . 'phpwcms_file WHERE ' . $where_file . 'f_alias = ' . _dbEscape($alias);
+        $sql = 'SELECT COUNT(f_id) FROM ' . DB_PREPEND . 'file WHERE ' . $where_file . 'f_alias = ' . _dbEscape($alias);
         $file_count = _dbQuery($sql, 'COUNT');
 
         if ($file_count > 0) {
             $base_alias = preg_match('/^(.*?)-(\d+)$/', $alias, $match) && $match[1] !== '' ? $match[1] : $alias;
-            $sql  = 'SELECT f_alias FROM ' . DB_PREPEND . 'phpwcms_file WHERE ';
+            $sql  = 'SELECT f_alias FROM ' . DB_PREPEND . 'file WHERE ';
             $sql .= $where_file;
             $sql .= '(f_alias = ' . _dbEscape($base_alias) . ' OR f_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
             $all_file_alias = _dbQuery($sql);
@@ -881,25 +881,25 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
     }
 
     // check alias against all structure alias
-    $sql  = 'SELECT COUNT(acat_id) FROM ' . DB_PREPEND . 'phpwcms_articlecat WHERE ' . $where_acat . 'acat_alias = ' . _dbEscape($alias);
+    $sql  = 'SELECT COUNT(acat_id) FROM ' . DB_PREPEND . 'articlecat WHERE ' . $where_acat . 'acat_alias = ' . _dbEscape($alias);
     $acat_count = _dbQuery($sql, 'COUNT');
 
     // check alias against all articles
-    $sql  = 'SELECT COUNT(article_id) FROM ' . DB_PREPEND . 'phpwcms_article WHERE ' . $where_article . 'article_alias = ' . _dbEscape($alias);
+    $sql  = 'SELECT COUNT(article_id) FROM ' . DB_PREPEND . 'article WHERE ' . $where_article . 'article_alias = ' . _dbEscape($alias);
     $article_count = _dbQuery($sql, 'COUNT');
 
     // check alias against all "sub" contents like news
-    $sql  = 'SELECT COUNT(cnt_id) FROM ' . DB_PREPEND . 'phpwcms_content WHERE ' . $where_content . 'cnt_alias = ' . _dbEscape($alias);
+    $sql  = 'SELECT COUNT(cnt_id) FROM ' . DB_PREPEND . 'content WHERE ' . $where_content . 'cnt_alias = ' . _dbEscape($alias);
     $content_count = _dbQuery($sql, 'COUNT');
 
     if ($acat_count > 0 || $article_count > 0 || $content_count > 0) {
         $base_alias = preg_match('/^(.*?)-(\d+)$/', $alias, $match) && $match[1] !== '' ? $match[1] : $alias;
 
-        $sql  = 'SELECT acat_alias AS a FROM ' . DB_PREPEND . 'phpwcms_articlecat WHERE ' . $where_acat . '(acat_alias = ' . _dbEscape($base_alias) . ' OR acat_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ') ';
+        $sql  = 'SELECT acat_alias AS a FROM ' . DB_PREPEND . 'articlecat WHERE ' . $where_acat . '(acat_alias = ' . _dbEscape($base_alias) . ' OR acat_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ') ';
         $sql .= 'UNION ALL ';
-        $sql .= 'SELECT article_alias AS a FROM ' . DB_PREPEND . 'phpwcms_article WHERE ' . $where_article . '(article_alias = ' . _dbEscape($base_alias) . ' OR article_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ') ';
+        $sql .= 'SELECT article_alias AS a FROM ' . DB_PREPEND . 'article WHERE ' . $where_article . '(article_alias = ' . _dbEscape($base_alias) . ' OR article_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ') ';
         $sql .= 'UNION ALL ';
-        $sql .= 'SELECT cnt_alias AS a FROM ' . DB_PREPEND . 'phpwcms_content WHERE ' . $where_content . '(cnt_alias = ' . _dbEscape($base_alias) . ' OR cnt_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
+        $sql .= 'SELECT cnt_alias AS a FROM ' . DB_PREPEND . 'content WHERE ' . $where_content . '(cnt_alias = ' . _dbEscape($base_alias) . ' OR cnt_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
 
         $all_existing = _dbQuery($sql);
         $all_alias = [];
@@ -1047,7 +1047,7 @@ function _dbSaveCategories($categories = [], $type = '', $pid = 0, $seperator = 
     // delete all related categories first
     if ($type && $pid) {
 
-        $sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_categories WHERE cat_pid=' . $pid . " AND cat_type=" . _dbEscape($type);
+        $sql = 'DELETE FROM ' . DB_PREPEND . 'categories WHERE cat_pid=' . $pid . " AND cat_type=" . _dbEscape($type);
         _dbQuery($sql, 'DELETE');
 
     }
@@ -1067,7 +1067,7 @@ function _dbSaveCategories($categories = [], $type = '', $pid = 0, $seperator = 
             $value = trim($value);
             if ($value != '') {
                 $data['cat_name'] = $value;
-                _dbInsert('phpwcms_categories', $data);
+                _dbInsert('categories', $data);
             }
         }
     }
@@ -1358,8 +1358,8 @@ function dir_menu($pid, $zid, $vor, $userID, $vorzeichen = ':', &$tree = null) {
     if ($tree === null) {
         $tree = [];
         $where_uid = empty($_SESSION['wcs_user_admin']) ? 'f.f_uid = ' . (int)$userID . ' AND ' : '';
-        $sql  = 'SELECT f.f_id, f.f_pid, f.f_name, f.f_uid, u.usr_login FROM ' . DB_PREPEND . 'phpwcms_file f ';
-        $sql .= 'LEFT JOIN ' . DB_PREPEND . 'phpwcms_user u ON u.usr_id = f.f_uid ';
+        $sql  = 'SELECT f.f_id, f.f_pid, f.f_name, f.f_uid, u.usr_login FROM ' . DB_PREPEND . 'file f ';
+        $sql .= 'LEFT JOIN ' . DB_PREPEND . 'user u ON u.usr_id = f.f_uid ';
         $sql .= 'WHERE ' . $where_uid . 'f.f_kid = 0 AND f.f_trash = 0 ORDER BY f.f_name';
         $rows = _dbQuery($sql);
         if (is_array($rows)) {
@@ -1408,7 +1408,7 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
     $start_id = intval($start_id);
 
     $sql  = 'SELECT acat_id, acat_struct, acat_name, acat_pagetitle, acat_alias ';
-    $sql .= 'FROM '.DB_PREPEND.'phpwcms_articlecat WHERE acat_trash=0 ';
+    $sql .= 'FROM '.DB_PREPEND.'articlecat WHERE acat_trash=0 ';
     if($parent_alias) {
         $sql .= 'AND acat_id='.$start_id;
     } else {

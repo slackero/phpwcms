@@ -88,7 +88,7 @@ if($action == 'edit') {
         if(!$plugin['data']['shopprod_ordernumber']) {
             $plugin['error']['shopprod_ordernumber'] = 'No order number';
         } else {
-            $sql  = 'SELECT COUNT(shopprod_id) FROM '.DB_PREPEND.'phpwcms_shop_products WHERE ';
+            $sql  = 'SELECT COUNT(shopprod_id) FROM '.DB_PREPEND.'shop_products WHERE ';
             if($plugin['data']['shopprod_id']) $sql .= 'shopprod_id != '.$plugin['data']['shopprod_id'].' AND ';
             $sql .= "shopprod_ordernumber LIKE '" . aporeplace($plugin['data']['shopprod_ordernumber']) . "'";
             //if($plugin['data']['shopprod_lang']) {
@@ -124,7 +124,7 @@ if($action == 'edit') {
 
             if(count($plugin['data']['shopprod_images'])) {
 
-                $img_all = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_id IN ('.implode(',', $plugin['data']['shopprod_images']).')');
+                $img_all = _dbQuery('SELECT * FROM '.DB_PREPEND.'file WHERE f_id IN ('.implode(',', $plugin['data']['shopprod_images']).')');
 
                 // take all values from db
                 $temp_img_row = array();
@@ -167,7 +167,7 @@ if($action == 'edit') {
 
             if(count($plugin['data']['shopprod_files'])) {
 
-                $img_all = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_id IN ('.implode(',', $plugin['data']['shopprod_files']).')');
+                $img_all = _dbQuery('SELECT * FROM '.DB_PREPEND.'file WHERE f_id IN ('.implode(',', $plugin['data']['shopprod_files']).')');
 
                 // take all values from db
                 $temp_img_row = array();
@@ -208,7 +208,7 @@ if($action == 'edit') {
             // Update
             if( $plugin['data']['shopprod_id'] && $plugin['data']['shopprod_duplicate'] == 0 ) {
 
-                $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_shop_products SET ';
+                $sql  = 'UPDATE '.DB_PREPEND.'shop_products SET ';
 
                 $sql .= "shopprod_changedate = '".aporeplace( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) )."', ";
                 $sql .= "shopprod_status = ".$plugin['data']['shopprod_status'].", ";
@@ -257,7 +257,7 @@ if($action == 'edit') {
             // INSERT
             } else {
 
-                $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_shop_products (';
+                $sql  = 'INSERT INTO '.DB_PREPEND.'shop_products (';
                 $sql .= 'shopprod_createdate, shopprod_changedate, shopprod_status, shopprod_ordernumber, shopprod_model, ';
                 $sql .= 'shopprod_name1, shopprod_name2, shopprod_tag, shopprod_vat, shopprod_netgross, shopprod_price, ';
                 $sql .= 'shopprod_maxrebate, shopprod_description0, shopprod_description1, shopprod_description2, ';
@@ -358,7 +358,7 @@ if($action == 'edit') {
 
     } else {
 
-        $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_shop_products WHERE ';
+        $sql  = 'SELECT * FROM '.DB_PREPEND.'shop_products WHERE ';
         $sql .= "shopprod_id = " . $plugin['data']['shopprod_id'] . ' LIMIT 1';
 
         $plugin['data'] = _dbQuery($sql);
@@ -402,8 +402,8 @@ if($action == 'edit') {
 
     $sql  = 'SELECT C1.cat_id, C1.cat_name, C1.cat_pid, C1.cat_status, ';
     $sql .= "IFNULL(CONCAT(C2.cat_name, '>', C1.cat_name), C1.cat_name) AS category ";
-    $sql .= 'FROM '.DB_PREPEND.'phpwcms_categories C1 ';
-    $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_categories C2 ';
+    $sql .= 'FROM '.DB_PREPEND.'categories C1 ';
+    $sql .= 'LEFT JOIN '.DB_PREPEND.'categories C2 ';
     $sql .= 'ON C1.cat_pid=C2.cat_id ';
     $sql .= "WHERE C1.cat_type='module_shop' AND C1.cat_status!=9 ";
     $sql .= 'ORDER BY category';
@@ -416,7 +416,7 @@ if($action == 'edit') {
     $plugin['data']['shopprod_id']		= intval($plugin['data']['shopprod_id']);
     $plugin['data']['shopprod_status']	= empty($plugin['data']['shopprod_status']) ? 1 : 0;
 
-    $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_shop_products SET ';
+    $sql  = 'UPDATE '.DB_PREPEND.'shop_products SET ';
     $sql .= "shopprod_status = ".$plugin['data']['shopprod_status']." ";
     $sql .= "WHERE shopprod_id = " . $plugin['data']['shopprod_id'];
 
@@ -428,7 +428,7 @@ if($action == 'edit') {
 
     $plugin['data']['shopprod_id']		= intval($_GET['delete']);
 
-    $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_shop_products SET ';
+    $sql  = 'UPDATE '.DB_PREPEND.'shop_products SET ';
     $sql .= "shopprod_status = 9 ";
     $sql .= "WHERE shopprod_id = " . $plugin['data']['shopprod_id'];
 

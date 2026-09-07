@@ -16,11 +16,11 @@ function phpwcms_revision_r427() {
 
 
 	// Change some missing default values for older releases
-	$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article CHANGE article_menutitle article_menutitle VARCHAR(255) NOT NULL DEFAULT  ''", 'ALTER');
+	$result = _dbQuery("ALTER TABLE ".DB_PREPEND."article CHANGE article_menutitle article_menutitle VARCHAR(255) NOT NULL DEFAULT  ''", 'ALTER');
 	if(!$result) {
 		$status = false;
 	}
-	$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article CHANGE article_description article_description VARCHAR(255) NOT NULL DEFAULT  ''", 'ALTER');
+	$result = _dbQuery("ALTER TABLE ".DB_PREPEND."article CHANGE article_description article_description VARCHAR(255) NOT NULL DEFAULT  ''", 'ALTER');
 	if(!$result) {
 		$status = false;
 	}

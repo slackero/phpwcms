@@ -15,8 +15,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 // now retrieve all downloads
-$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ac ";
-$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ";
+$sql  = "SELECT * FROM " . DB_PREPEND . "articlecontent ac ";
+$sql .= "INNER JOIN " . DB_PREPEND . "article ar ON ";
 $sql .= "ar.article_id = ac.acontent_aid ";
 $sql .= " WHERE acontent_trash=0 AND acontent_type=18";
 
@@ -40,7 +40,7 @@ $result = _dbQuery($sql);
       // now add article URL
       echo '	<tr title="'.html_specialchars('[ID:'.$data["acontent_id"].'] '.$data["acontent_title"]).'">';
       echo '		<td width="80%"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$data["acontent_aid"].'" target="_blank">' . html_specialchars($data["article_title"])." - ".html_specialchars($data["acontent_title"]) . "</a>&nbsp;</td>" . LF;
-      echo '		<td>'._dbQuery("SELECT guestbook_id FROM ".DB_PREPEND."phpwcms_guestbook  WHERE guestbook_trashed=0 AND guestbook_cid=".$data['acontent_id'], 'COUNT')."&nbsp;</td>" . LF;
+      echo '		<td>'._dbQuery("SELECT guestbook_id FROM ".DB_PREPEND."guestbook  WHERE guestbook_trashed=0 AND guestbook_cid=".$data['acontent_id'], 'COUNT')."&nbsp;</td>" . LF;
       echo '		</tr>' . LF;
       $x++;
     }

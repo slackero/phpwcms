@@ -39,10 +39,10 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
         $read_done = false;
 
         $sql  = "SELECT DISTINCT *, date_format(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date ";
-        $sql .= "FROM ".DB_PREPEND."phpwcms_article LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ON ";
-        $sql .= DB_PREPEND."phpwcms_article.article_cid=".DB_PREPEND."phpwcms_articlecat.acat_id WHERE ";
-        $sql .= DB_PREPEND."phpwcms_article.article_id='".$article["article_id"]."' ";
-        $sql .= $_SESSION["wcs_user_admin"] ? '' : 'AND '.DB_PREPEND.'phpwcms_article.article_uid='._dbEscape($_SESSION["wcs_user_id"]).' ';
+        $sql .= "FROM ".DB_PREPEND."article LEFT JOIN ".DB_PREPEND."articlecat ON ";
+        $sql .= DB_PREPEND."article.article_cid=".DB_PREPEND."articlecat.acat_id WHERE ";
+        $sql .= DB_PREPEND."article.article_id='".$article["article_id"]."' ";
+        $sql .= $_SESSION["wcs_user_admin"] ? '' : 'AND '.DB_PREPEND.'article.article_uid='._dbEscape($_SESSION["wcs_user_id"]).' ';
         $sql .= "LIMIT 1";
 
         $result = _dbQuery($sql);
@@ -322,7 +322,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
 
         if($article['image']['id']) {
             // check for image information and get alle infos from file
-            $img_sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE f_id=";
+            $img_sql  = "SELECT * FROM " . DB_PREPEND . "file WHERE f_id=";
             $img_sql .= $article['image']['id']." LIMIT 1";
 
             $img_result = _dbQuery($img_sql);
@@ -339,7 +339,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
 
         if($article['image']['list_id']) {
             // check for image information and get alle infos from file
-            $img_sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE f_id=";
+            $img_sql  = "SELECT * FROM " . DB_PREPEND . "file WHERE f_id=";
             $img_sql .= $article['image']['list_id']." LIMIT 1";
 
             $img_result = _dbQuery($img_sql);
@@ -400,7 +400,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                     'article_meta'          => json_encode($article['article_meta'])
                 );
 
-                $result = _dbInsert('phpwcms_article', $data);
+                $result = _dbInsert('article', $data);
 
                 if(isset($result['INSERT_ID'])) {
                     $article["article_id"] = $result['INSERT_ID'];
@@ -411,7 +411,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             } else {
 
                 // Update article summary data
-                $sql =  "UPDATE ".DB_PREPEND."phpwcms_article SET ".
+                $sql =  "UPDATE ".DB_PREPEND."article SET ".
                         "article_cid=".$article["article_catid"].",".
                         "article_title="._dbEscape($article["article_title"]).", ".
                         "article_alias="._dbEscape($article["article_alias"]).", ".
@@ -475,7 +475,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
     if(!isset($article["acat_overwrite"])) {
 
         if($article['article_catid']) {
-            $article["acat_overwrite"] = _dbGet('phpwcms_articlecat', 'acat_overwrite', 'acat_trash != 9 AND acat_id = '.$article['article_catid'], '', '', 1);
+            $article["acat_overwrite"] = _dbGet('articlecat', 'acat_overwrite', 'acat_trash != 9 AND acat_id = '.$article['article_catid'], '', '', 1);
             $article["acat_overwrite"] = empty($article["acat_overwrite"][0]['acat_overwrite']) ? '' : $article["acat_overwrite"][0]['acat_overwrite'];
         } elseif($article['article_catid'] === 0 && !empty($indexpage['acat_overwrite'])) {
             $article["acat_overwrite"] = $indexpage['acat_overwrite'];
@@ -511,7 +511,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             $content["id"]  = intval($_GET["acid"]);
             $content["aid"] = intval($_GET["id"]);
 
-            $sql =  "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$content["id"]." AND acontent_aid=".$content["aid"]." LIMIT 1";
+            $sql =  "SELECT * FROM ".DB_PREPEND."articlecontent WHERE acontent_id=".$content["id"]." AND acontent_aid=".$content["aid"]." LIMIT 1";
 
             $result = _dbQuery($sql);
 
@@ -658,7 +658,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                 if(!$content["id"]) { //if new content part should be created
 
                     // use SET method for INSERT too
-                    $SQL  = "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent SET acontent_created=NOW(), " . $SQL;
+                    $SQL  = "INSERT INTO ".DB_PREPEND."articlecontent SET acontent_created=NOW(), " . $SQL;
 
                     //insert data into DB and get content part ID
                     if(!$content["update_type"]) { //if content type wasn't changed
@@ -683,7 +683,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
 
                 } else { //if content part should be updated
 
-                    $SQL  = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET " . $SQL;
+                    $SQL  = "UPDATE ".DB_PREPEND."articlecontent SET " . $SQL;
                     $SQL .= " WHERE acontent_id=".$content['id'];
                     if(empty($ctype_change_aid) || $ctype_change_aid != 'DO_CHANGE') {
                         $SQL .= " AND acontent_aid=".$content['aid'];
@@ -695,7 +695,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                     if(isset($result['AFFECTED_ROWS'])) {
 
                         if($content["update_type"]) { //If content part type was changed
-                            $sql  = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET";
+                            $sql  = "UPDATE ".DB_PREPEND."articlecontent SET";
                             $sql .= " acontent_type=".$content["target_type"].",";
                             $sql .= " acontent_module="._dbEscape($content["target_module"]);
                             $sql .= " WHERE acontent_id=".$content["id"];

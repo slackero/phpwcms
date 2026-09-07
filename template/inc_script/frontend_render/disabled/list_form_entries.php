@@ -54,7 +54,7 @@ $_form_entries['ENTRY']  = '        <tr>' . LF .
 if (strpos($content['all'], $_form_entries['RT']) !== false) {
 
     $_form_entries['RESULT']  = [];
-    $_form_entries['ALL']     = _dbQuery('SELECT * FROM ' . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . (int)$_form_entries['FORM_ID']);
+    $_form_entries['ALL']     = _dbQuery('SELECT * FROM ' . DB_PREPEND . 'formresult WHERE formresult_pid=' . (int)$_form_entries['FORM_ID']);
     $_form_entries['FIELDS']  = convertStringToArray($_form_entries['FIELDS']);
     $_form_entries['SELECT']  = [];
     $_form_entries['ENTRIES'] = [];

@@ -46,12 +46,12 @@ if (!defined('PHPWCMS_ROOT')) {
 		<div class="d-flex flex-wrap align-items-center gap-2">
 			<input name="cguestbook_aliasID" type="text" class="form-control form-control-sm me-2" id="cguestbook_aliasID" style="width: 70px;" size="10" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='';" value="<?php echo isset($content['guestbook']['aliasID']) ? $content['guestbook']['aliasID'] : ''; ?>" />
 			<?php
-			$_aliasID_Query  = 'SELECT acontent_id, acontent_visible, article_title, acontent_form FROM ' . DB_PREPEND . 'phpwcms_articlecontent';
-			$_aliasID_Query .= ' LEFT JOIN ' . DB_PREPEND . 'phpwcms_article ON ';
-			$_aliasID_Query .= ' (' . DB_PREPEND . 'phpwcms_articlecontent.acontent_aid = ' . DB_PREPEND . 'phpwcms_article.article_id)';
-			$_aliasID_Query .= ' WHERE ' . DB_PREPEND . 'phpwcms_articlecontent.acontent_id != ' . $content['id'];
-			$_aliasID_Query .= ' AND ' . DB_PREPEND . 'phpwcms_articlecontent.acontent_type=18';
-			$_aliasID_Query .= ' AND ' . DB_PREPEND . 'phpwcms_articlecontent.acontent_trash=0';
+			$_aliasID_Query  = 'SELECT acontent_id, acontent_visible, article_title, acontent_form FROM ' . DB_PREPEND . 'articlecontent';
+			$_aliasID_Query .= ' LEFT JOIN ' . DB_PREPEND . 'article ON ';
+			$_aliasID_Query .= ' (' . DB_PREPEND . 'articlecontent.acontent_aid = ' . DB_PREPEND . 'article.article_id)';
+			$_aliasID_Query .= ' WHERE ' . DB_PREPEND . 'articlecontent.acontent_id != ' . $content['id'];
+			$_aliasID_Query .= ' AND ' . DB_PREPEND . 'articlecontent.acontent_type=18';
+			$_aliasID_Query .= ' AND ' . DB_PREPEND . 'articlecontent.acontent_trash=0';
 
 			$_available_aliasID = _dbQuery($_aliasID_Query);
 

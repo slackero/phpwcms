@@ -15,9 +15,9 @@ function phpwcms_revision_r532() {
 	$status = true;
 
 
-	if(!_dbTableExists('phpwcms_redirect')) {
+	if(!_dbTableExists('redirect')) {
 
-		$sql = "CREATE TABLE IF NOT EXISTS `".DB_PREPEND."phpwcms_redirect` (
+		$sql = "CREATE TABLE IF NOT EXISTS `".DB_PREPEND."redirect` (
 					`rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
 					`changed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 					`id` bigint(20) unsigned NOT NULL DEFAULT '0',

@@ -78,14 +78,14 @@ if(isset($_SESSION['list_search'])) {
 }
 
 // paginating values
-$_entry['count_total'] = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_file WHERE '.$_entry['query']);
+$_entry['count_total'] = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'file WHERE '.$_entry['query']);
 $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_user_count']);
 if($_SESSION['downloads_page'] > $_entry['pages_total']) {
     $_SESSION['downloads_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
 }
 
 // now retrieve all downloads
-$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE ".$_entry['query']." ORDER BY ".$_entry['sort']." DESC";
+$sql  = "SELECT * FROM ".DB_PREPEND."file WHERE ".$_entry['query']." ORDER BY ".$_entry['sort']." DESC";
 $sql .= ' LIMIT '.(($_SESSION['downloads_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
 $result = _dbQuery($sql);
 ?>

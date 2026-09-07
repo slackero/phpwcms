@@ -16,7 +16,7 @@ function phpwcms_revision_r552() {
 
     // Try to fix SVG again
     // Search existing SVG files and try to set width and height
-    $result = _dbGet('phpwcms_file', 'f_id,f_name,f_hash,f_ext', "f_trash=0 AND f_kid=1 AND f_ext='svg' AND f_image_width='' AND f_image_height=''");
+    $result = _dbGet('file', 'f_id,f_name,f_hash,f_ext', "f_trash=0 AND f_kid=1 AND f_ext='svg' AND f_image_width='' AND f_image_height=''");
 
     if(isset($result[0]['f_id'])) {
 
@@ -41,7 +41,7 @@ function phpwcms_revision_r552() {
                         'f_image_height' => $file_svg['height']
                     );
 
-                    if(_dbUpdate('phpwcms_file', $data, 'f_id='.$file['f_id'])) {
+                    if(_dbUpdate('file', $data, 'f_id='.$file['f_id'])) {
 
                         $GLOBALS['phpwcms']['revision_return'] .= '> SVG Image Updated: ';
 

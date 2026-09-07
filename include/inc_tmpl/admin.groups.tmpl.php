@@ -16,7 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Optimization: Load all group modkeys at once to avoid querying inside a loop
 $existing_groups = array();
-$sql = "SELECT group_modkey FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_modkey != '' AND group_trash = 0";
+$sql = "SELECT group_modkey FROM ".DB_PREPEND."usergroup WHERE group_modkey != '' AND group_trash = 0";
 $result = _dbQuery($sql);
 if ($result) {
     foreach ($result as $row) {
@@ -35,7 +35,7 @@ foreach($phpwcms['modules'] as $value) {
         'group_modkey'  => $value["name"]
     ];
 
-    $insert_result = _dbInsert('phpwcms_usergroup', $data);
+    $insert_result = _dbInsert('usergroup', $data);
     if(isset($insert_result['INSERT_ID'])) {
       echo '<div class="alert alert-success">Module '.$BL['modules'][$value['name']]['backend_menu'].' erfolgreich hinzugef&uuml;gt</div>';
     }
@@ -71,7 +71,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 
   if($group["id"]) {
 
-      $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_id=".$group["id"]." LIMIT 1";
+      $sql = "SELECT * FROM ".DB_PREPEND."usergroup WHERE group_id=".$group["id"]." LIMIT 1";
       $result = _dbQuery($sql);
       if(isset($result[0]['group_id'])) {
           $group["name"]      = ($result[0]['group_syskey']) ? $groupnames[$result[0]["group_syskey"]] : $result[0]["group_name"];
@@ -113,7 +113,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
               'group_active'  => $group["active"]
           );
 
-          $result = $group["id"] ? _dbUpdate('phpwcms_usergroup', $data, 'group_id='.$group["id"]) : _dbInsert('phpwcms_usergroup', $data);
+          $result = $group["id"] ? _dbUpdate('usergroup', $data, 'group_id='.$group["id"]) : _dbInsert('usergroup', $data);
 
           if(isset($result['AFFECTED_ROWS']) || isset($result['INSERT_ID'])) {
               headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin&p=1');
@@ -157,7 +157,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
         <div class="col">
             <?php
             // list all available frontend users and put into temp array
-            $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv != 9 ORDER BY usr_fe, usr_name, usr_login";
+            $sql = "SELECT * FROM ".DB_PREPEND."user WHERE usr_aktiv != 9 ORDER BY usr_fe, usr_name, usr_login";
             $result = _dbQuery($sql);
             $_temp_usr = array();
             if(isset($result[0]['usr_id'])) {
@@ -256,7 +256,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
         $new_group_id = 0;
     }
     //Liste aller Gruppen erzeugen
-    $result = _dbGet('phpwcms_usergroup', '*', 'group_active != 9', '', 'group_syskey, group_name');
+    $result = _dbGet('usergroup', '*', 'group_active != 9', '', 'group_syskey, group_name');
     if(isset($result[0]['group_id'])) {
 
         foreach($result as $grouplist) {

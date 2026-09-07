@@ -20,8 +20,8 @@ function phpwcms_revision_r559() {
 
     $status = true;
 
-    if (!_dbTableExists('phpwcms_update_log')) {
-        $create = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . "phpwcms_update_log` (
+    if (!_dbTableExists('update_log')) {
+        $create = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . "update_log` (
             `update_id` INT NOT NULL AUTO_INCREMENT,
             `update_from` VARCHAR(32) NOT NULL DEFAULT '',
             `update_to` VARCHAR(32) NOT NULL DEFAULT '',
@@ -39,8 +39,8 @@ function phpwcms_revision_r559() {
         }
     } else {
         foreach (['update_from' => "VARCHAR(32) NOT NULL DEFAULT ''", 'update_to' => "VARCHAR(32) NOT NULL DEFAULT ''", 'update_tag' => "VARCHAR(64) NOT NULL DEFAULT ''", 'update_status' => "ENUM('running','success','failed','rolled_back') NOT NULL DEFAULT 'running'", 'update_error' => 'TEXT NULL', 'update_backup' => "VARCHAR(255) NOT NULL DEFAULT ''", 'update_files' => 'INT NOT NULL DEFAULT 0', 'update_tstamp' => 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP', 'update_user' => 'INT NOT NULL DEFAULT 0'] as $column => $definition) {
-            if (!_dbColumnExists('phpwcms_update_log', $column)) {
-                if (!_dbQuery('ALTER TABLE `' . DB_PREPEND . 'phpwcms_update_log` ADD `' . $column . '` ' . $definition, 'ALTER')) {
+            if (!_dbColumnExists('update_log', $column)) {
+                if (!_dbQuery('ALTER TABLE `' . DB_PREPEND . 'update_log` ADD `' . $column . '` ' . $definition, 'ALTER')) {
                     $status = false;
                 }
             }
@@ -48,9 +48,9 @@ function phpwcms_revision_r559() {
     }
 
     // Ensure phpwcms_mailtemplates table exists
-    if (!_dbTableExists('phpwcms_mailtemplates')) {
+    if (!_dbTableExists('mailtemplates')) {
         $charset_collate = _dbGetCreateCharsetCollation();
-        $create_mail = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . 'phpwcms_mailtemplates` (
+        $create_mail = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . 'mailtemplates` (
             `tpl_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
             `tpl_key` varchar(64) NOT NULL DEFAULT "",
             `tpl_lang` varchar(10) NOT NULL DEFAULT "en",
@@ -71,9 +71,9 @@ function phpwcms_revision_r559() {
     }
 
     // Add admmailtpl permission to phpwcms_usergroup if not exists
-    $count = _dbCount('SELECT COUNT(*) FROM `' . DB_PREPEND . 'phpwcms_usergroup` WHERE `group_syskey`="admmailtpl" AND `group_trash`=0');
+    $count = _dbCount('SELECT COUNT(*) FROM `' . DB_PREPEND . 'usergroup` WHERE `group_syskey`="admmailtpl" AND `group_trash`=0');
     if ($count === 0) {
-        $adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'phpwcms_user` WHERE `usr_admin` = 1');
+        $adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'user` WHERE `usr_admin` = 1');
         $adminids = [];
         if (!empty($adminusers)) {
             foreach ($adminusers as $admins) {
@@ -82,7 +82,7 @@ function phpwcms_revision_r559() {
         }
         $admin_members = implode(',', $adminids) ?: '1';
 
-        $result = _dbInsert('phpwcms_usergroup', [
+        $result = _dbInsert('usergroup', [
             'group_name'   => 'SYSGROUP',
             'group_member' => $admin_members,
             'group_value'  => '',

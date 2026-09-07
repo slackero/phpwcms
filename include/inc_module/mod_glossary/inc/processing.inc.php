@@ -55,7 +55,7 @@ if(isset($_POST['glossary_title'])) {
 
     } else {
 
-        $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_glossary ";
+        $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND."glossary ";
         $sql .= "WHERE glossary_keyword LIKE '".aporeplace($glossary['data']['glossary_keyword']);
         $sql .= "' AND glossary_id <> ".$glossary['data']['glossary_id'];
 
@@ -73,7 +73,7 @@ if(isset($_POST['glossary_title'])) {
         if($glossary['data']['glossary_id']) {
 
             // UPDATE
-            $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_glossary SET ';
+            $sql  = 'UPDATE '.DB_PREPEND.'glossary SET ';
 
             $sql .= "glossary_title='".aporeplace($glossary['data']['glossary_title'])."', ";
             $sql .= "glossary_tag='".aporeplace($glossary['data']['glossary_tag'])."', ";
@@ -104,7 +104,7 @@ if(isset($_POST['glossary_title'])) {
         } else {
 
             // INSERT
-            $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_glossary (';
+            $sql  = 'INSERT INTO '.DB_PREPEND.'glossary (';
             $sql .= 'glossary_created, glossary_changed, glossary_title, glossary_tag, ';
             $sql .= 'glossary_keyword, glossary_text, glossary_highlight, glossary_object, glossary_status';
             $sql .= ') VALUES (';
@@ -146,7 +146,7 @@ if(isset($_POST['glossary_title'])) {
 // try to read entry from database
 if($glossary['id'] && !isset($glossary['error'])) {
 
-    $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_glossary WHERE glossary_id='.$glossary['id'];
+    $sql  = 'SELECT * FROM '.DB_PREPEND.'glossary WHERE glossary_id='.$glossary['id'];
     $glossary['data'] = _dbQuery($sql);
     $glossary['data'] = $glossary['data'][0];
 }

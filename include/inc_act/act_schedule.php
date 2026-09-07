@@ -28,7 +28,7 @@ if(has_admin_permission('adm') && trim($_POST["scat_name"])) {
 
     if(intval($_POST["scat_new"]) === 1 && intval($_POST["scat_id"]) === 0 ) {
 
-        $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_schedulecat (".
+        $sql =  "INSERT INTO ".DB_PREPEND."schedulecat (".
                 "scat_name, scat_info, scat_aktiv, scat_uid) ".
                 "VALUES ('".
                 getpostvar($_POST["scat_name"])."','".
@@ -43,7 +43,7 @@ if(has_admin_permission('adm') && trim($_POST["scat_name"])) {
 
     } elseif(!empty($_POST["scat_new"]) && intval($_POST["scat_id"])) {
 
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_schedulecat SET ".
+        $sql =  "UPDATE ".DB_PREPEND."schedulecat SET ".
                 "scat_name='".getpostvar($_POST["scat_name"])."', ".
                 "scat_info='".getpostvar($_POST["scat_info"])."', ".
                 "scat_aktiv=".intval($_POST["scat_aktiv"]).", ".

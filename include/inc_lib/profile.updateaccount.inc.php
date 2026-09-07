@@ -28,7 +28,7 @@ if($_SESSION["wcs_user"] != "guest") { // Check for guest account
 
     $new_username = slweg($_POST["form_loginname"]);
     if($new_username != $_SESSION["wcs_user"]) {
-        $sql = "SELECT COUNT(usr_login) FROM ".DB_PREPEND."phpwcms_user WHERE usr_login="._dbEscape($new_username);
+        $sql = "SELECT COUNT(usr_login) FROM ".DB_PREPEND."user WHERE usr_login="._dbEscape($new_username);
         if(($result = _dbQuery($sql, 'COUNT'))) {
             $err = str_replace('{VAL}', html($new_username), $BL['be_profile_account_err1'])."\n";
         }
@@ -82,7 +82,7 @@ if($_SESSION["wcs_user"] != "guest") { // Check for guest account
 
     if(empty($err)) {
 
-        $sql  = "UPDATE ".DB_PREPEND."phpwcms_user SET usr_login="._dbEscape($new_username).", ";
+        $sql  = "UPDATE ".DB_PREPEND."user SET usr_login="._dbEscape($new_username).", ";
 
         if(!empty($new_password)) {
             $bcrypt_pass = password_hash(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8'), PASSWORD_DEFAULT);
@@ -182,7 +182,7 @@ if ($_SESSION['wcs_user'] !== 'guest' && !empty($_POST['form_aktion']) && $_POST
             $hashed_backup_codes = PhpwcmsTwoFactor::hashBackupCodes($plain_backup_codes);
 
             // Fetch user vars to merge backup codes
-            $u_sql = 'SELECT usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'] . ' LIMIT 1';
+            $u_sql = 'SELECT usr_vars FROM ' . DB_PREPEND . 'user WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'] . ' LIMIT 1';
             $u_res = _dbQuery($u_sql);
             $u_vars = isset($u_res[0]['usr_vars']) ? @unserialize($u_res[0]['usr_vars'], ['allowed_classes' => false]) : [];
             if (!is_array($u_vars)) {
@@ -191,7 +191,7 @@ if ($_SESSION['wcs_user'] !== 'guest' && !empty($_POST['form_aktion']) && $_POST
             $u_vars['2fa_backup_codes'] = $hashed_backup_codes;
 
             // Save to database
-            $update_sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_2fa_enabled = 1, usr_2fa_secret = ' . _dbEscape($pending_secret) . ', usr_vars = ' . _dbEscape(serialize($u_vars)) . ' WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'];
+            $update_sql = 'UPDATE ' . DB_PREPEND . 'user SET usr_2fa_enabled = 1, usr_2fa_secret = ' . _dbEscape($pending_secret) . ', usr_vars = ' . _dbEscape(serialize($u_vars)) . ' WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'];
             _dbQuery($update_sql, 'UPDATE');
 
             unset($_SESSION['pending_2fa_secret']);
@@ -219,7 +219,7 @@ if ($_SESSION['wcs_user'] !== 'guest' && !empty($_POST['form_aktion']) && $_POST
 
     if ($pass_check !== '') {
 
-        $u_sql = 'SELECT usr_pass, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'] . ' LIMIT 1';
+        $u_sql = 'SELECT usr_pass, usr_vars FROM ' . DB_PREPEND . 'user WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'] . ' LIMIT 1';
         $u_res = _dbQuery($u_sql);
 
         if (isset($u_res[0]['usr_pass'])) {
@@ -252,7 +252,7 @@ if ($_SESSION['wcs_user'] !== 'guest' && !empty($_POST['form_aktion']) && $_POST
                     $u_vars = [];
                 }
 
-                $update_sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_2fa_enabled = 0, usr_2fa_secret = \'\', usr_vars = ' . _dbEscape(serialize($u_vars)) . ' WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'];
+                $update_sql = 'UPDATE ' . DB_PREPEND . 'user SET usr_2fa_enabled = 0, usr_2fa_secret = \'\', usr_vars = ' . _dbEscape(serialize($u_vars)) . ' WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'];
                 _dbQuery($update_sql, 'UPDATE');
 
                 set_status_message($BL['be_profile_2fa_disabled_success'] ?? 'Two-Factor Authentication has been disabled.');

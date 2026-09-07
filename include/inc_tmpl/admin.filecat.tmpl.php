@@ -33,7 +33,7 @@ if(isset($_GET['open'])) {
   <?php
     $fcat["id"] = intval($_GET["fcatid"]);
     if($fcat["id"]) {
-        $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_id=".$fcat["id"]." LIMIT 1";
+        $sql = "SELECT * FROM ".DB_PREPEND."filecat WHERE fcat_id=".$fcat["id"]." LIMIT 1";
         $result = _dbQuery($sql);
         if(isset($result[0]['fcat_id'])) {
             $fcat["name"]   = $result[0]["fcat_name"];
@@ -59,11 +59,11 @@ if(isset($_GET['open'])) {
         } else {
             if(empty($fcat["id"])) {
                 $query_mode = 'INSERT';
-                $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_filecat (fcat_name, fcat_aktiv, fcat_needed, fcat_sort) VALUES ('";
+                $sql  = "INSERT INTO ".DB_PREPEND."filecat (fcat_name, fcat_aktiv, fcat_needed, fcat_sort) VALUES ('";
                 $sql .= aporeplace($fcat["name"])."', ".$fcat["active"].", ".$fcat["needed"].", ".$fcat["sort"].")";
             } else {
                 $query_mode = 'UPDATE';
-                $sql  = "UPDATE ".DB_PREPEND."phpwcms_filecat SET fcat_name='".aporeplace($fcat["name"]);
+                $sql  = "UPDATE ".DB_PREPEND."filecat SET fcat_name='".aporeplace($fcat["name"]);
                 $sql .= "', fcat_aktiv=".$fcat["active"].", fcat_needed=".$fcat["needed"].", fcat_sort=".$fcat["sort"]." WHERE fcat_id=".$fcat["id"];
             }
             $result = _dbQuery($sql, $query_mode);
@@ -139,7 +139,7 @@ if(isset($_GET['open'])) {
     $fkey["id"] = intval($_GET["fkeyid"]);
     $fkey["cid"] = intval($_GET["cid"]);
     if($fkey["id"]) {
-        $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_id=".$fkey["id"]." LIMIT 1";
+        $sql = "SELECT * FROM ".DB_PREPEND."filekey WHERE fkey_id=".$fkey["id"]." LIMIT 1";
         $result = _dbQuery($sql);
         if(isset($result[0]['fkey_id'])) {
             $fkey["name"]   = $result[0]["fkey_name"];
@@ -168,11 +168,11 @@ if(isset($_GET['open'])) {
 
             if(empty($fkey["id"])) {
                 $query_mode = 'INSERT';
-                $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_filekey (fkey_name, fkey_aktiv, fkey_cid, fkey_sort) VALUES ('";
+                $sql  = "INSERT INTO ".DB_PREPEND."filekey (fkey_name, fkey_aktiv, fkey_cid, fkey_sort) VALUES ('";
                 $sql .= aporeplace($fkey["name"])."', ".$fkey["active"].", ".$fkey["cid"].", ".$fkey["sort"].")";
             } else {
                 $query_mode = 'UPDATE';
-                $sql  = "UPDATE ".DB_PREPEND."phpwcms_filekey SET fkey_name='".aporeplace($fkey["name"]);
+                $sql  = "UPDATE ".DB_PREPEND."filekey SET fkey_name='".aporeplace($fkey["name"]);
                 $sql .= "', fkey_aktiv=".$fkey["active"].", fkey_cid=".$fkey["cid"].", fkey_sort=".$fkey["sort"]." WHERE fkey_id=".$fkey["id"];
             }
             $result = _dbQuery($sql, $query_mode);
@@ -200,7 +200,7 @@ if(isset($_GET['open'])) {
                 <div class="col-sm-6">
                     <select name="fkey_cid" id="fkey_cid" class="form-select form-select-sm">
                     <?php
-                    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_name";
+                    $sql = "SELECT * FROM ".DB_PREPEND."filecat WHERE fcat_deleted=0 ORDER BY fcat_name";
                     $result = _dbQuery($sql);
                     if (isset($result[0]['fcat_id'])) {
                         foreach ($result as $row) {
@@ -252,7 +252,7 @@ if(isset($_GET['open'])) {
 <?php
   } //Ende Anzeige Key Name Formular
 
-  $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
+  $sql = "SELECT * FROM ".DB_PREPEND."filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
   $result = _dbQuery($sql);
   if(isset($result[0]['fcat_id'])) {
       echo '<div class="table-responsive mb-4">';
@@ -289,7 +289,7 @@ if(isset($_GET['open'])) {
 
 
           if(!empty($_SESSION["fcatlist"][$row["fcat_id"]])) { //List key names for this categroy
-              $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_cid=".$row['fcat_id']." AND fkey_deleted=0 ORDER BY fkey_sort, fkey_name";
+              $ksql = "SELECT * FROM ".DB_PREPEND."filekey WHERE fkey_cid=".$row['fcat_id']." AND fkey_deleted=0 ORDER BY fkey_sort, fkey_name";
               $kresult = _dbQuery($ksql);
               if(isset($kresult[0]['fkey_id'])) {
                   foreach($kresult as $krow) {

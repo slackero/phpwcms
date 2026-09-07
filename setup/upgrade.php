@@ -960,6 +960,33 @@ function verify_totp_code(string $secret, string $code, int $discrepancy = 1): b
     return false;
 }
 
+function get_upgrade_user_table(mysqli $mysqli, string $prepend): string
+{
+    $p = $mysqli->real_escape_string($prepend);
+    if ($p !== '' && !str_ends_with($p, '_')) {
+        $p .= '_';
+    }
+    $candidate = $p . 'user';
+    $res = $mysqli->query("SHOW TABLES LIKE '" . $candidate . "'");
+    if ($res && $res->num_rows > 0) {
+        $res->free();
+        return $candidate;
+    }
+    if ($res) {
+        $res->free();
+    }
+    $candidate2 = $p . 'phpwcms_user';
+    $res2 = $mysqli->query("SHOW TABLES LIKE '" . $candidate2 . "'");
+    if ($res2 && $res2->num_rows > 0) {
+        $res2->free();
+        return $candidate2;
+    }
+    if ($res2) {
+        $res2->free();
+    }
+    return $candidate;
+}
+
 function verify_and_consume_2fa_code(mysqli $mysqli, string $prepend, array $user, string $code): bool
 {
     $code = trim($code);
@@ -981,7 +1008,8 @@ function verify_and_consume_2fa_code(mysqli $mysqli, string $prepend, array $use
                 unset($userVars['2fa_backup_codes'][$index]);
                 $userVars['2fa_backup_codes'] = array_values($userVars['2fa_backup_codes']);
 
-                $sql = 'UPDATE `' . $mysqli->real_escape_string($prepend) . 'phpwcms_user` SET usr_vars = ? WHERE usr_id = ?';
+                $tableName = get_upgrade_user_table($mysqli, $prepend);
+                $sql = 'UPDATE `' . $tableName . '` SET usr_vars = ? WHERE usr_id = ?';
                 $stmt = $mysqli->prepare($sql);
                 if ($stmt) {
                     $newVars = serialize($userVars);
@@ -1003,7 +1031,8 @@ function verify_admin_credentials(mysqli $mysqli, string $prepend, string $usern
     // Sleep to prevent timing attacks / brute force
     usleep(250000);
 
-    $sql = 'SELECT * FROM `' . $mysqli->real_escape_string($prepend) . 'phpwcms_user` WHERE usr_login = ? AND usr_admin = 1 AND usr_aktiv = 1 LIMIT 1';
+    $tableName = get_upgrade_user_table($mysqli, $prepend);
+    $sql = 'SELECT * FROM `' . $tableName . '` WHERE usr_login = ? AND usr_admin = 1 AND usr_aktiv = 1 LIMIT 1';
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         return false;
@@ -1533,7 +1562,11 @@ if (empty($phpwcms['db_table']) || empty($phpwcms['db_user'])) {
     exit(1);
 }
 
-$dbPrepend = $phpwcms['db_prepend'] ?? '';
+$_brand_prefix = !empty($phpwcms['brand_table_prefix']) ? preg_replace('/[^a-zA-Z0-9_]/', '', (string)$phpwcms['brand_table_prefix']) : 'phpwcms';
+if ($_brand_prefix === '') {
+    $_brand_prefix = 'phpwcms';
+}
+$dbPrepend = (!empty($phpwcms['db_prepend']) ? rtrim((string)$phpwcms['db_prepend'], '_') . '_' : '') . $_brand_prefix . '_';
 $installedVersion = get_installed_phpwcms_version($docRoot);
 $installedRevision = get_installed_phpwcms_revision($docRoot);
 

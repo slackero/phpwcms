@@ -139,7 +139,7 @@ if(!empty($FEED['imagesrc'])) {
 }
 
 $sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_changeDate ";
-$sql .= "FROM ".DB_PREPEND."phpwcms_article ar LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ac ON ";
+$sql .= "FROM ".DB_PREPEND."article ar LEFT JOIN ".DB_PREPEND."articlecat ac ON ";
 $sql .= "ar.article_cid=ac.acat_id WHERE ";
 
 if(isset($FEED['structureID']) && $FEED['structureID'] != '') {
@@ -298,7 +298,7 @@ function getFeedStructureID($value) {
         if($indexpage['acat_aktiv'] && empty($indexpage['acat_regonly']) && strtolower($indexpage['acat_alias']) === $value) {
             return '0';
         }
-        $sql  = "SELECT acat_id FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_aktiv=1 AND ";
+        $sql  = "SELECT acat_id FROM ".DB_PREPEND."articlecat WHERE acat_aktiv=1 AND ";
         $sql .= "acat_trash=0 AND acat_regonly=0 AND acat_alias LIKE "._dbEscapeLike($value)." LIMIT 1";
         $result = _dbQuery($sql);
         if(isset($result[0]['acat_id'])) {

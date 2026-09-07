@@ -94,7 +94,7 @@ if(isset($_SESSION['filter_glossary']) && is_array($_SESSION['filter_glossary'])
 
 
 // paginating values
-$_entry['count_total'] = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_glossary WHERE '.$_entry['query'], 'COUNT');
+$_entry['count_total'] = _dbQuery('SELECT * FROM '.DB_PREPEND.'glossary WHERE '.$_entry['query'], 'COUNT');
 $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_user_count']);
 if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 	$_SESSION['glossary_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
@@ -191,7 +191,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 				<?php
 				$row_count = 0;
 
-				$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_glossary WHERE '.$_entry['query'].' ';
+				$sql  = 'SELECT * FROM '.DB_PREPEND.'glossary WHERE '.$_entry['query'].' ';
 				$sql .= 'LIMIT '.(($_SESSION['glossary_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
 				$data = _dbQuery($sql);
 

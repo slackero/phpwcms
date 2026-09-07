@@ -89,12 +89,12 @@ if($map_selected) {
 
     if(isset($_GET['dellocid']) && intval($_GET['dellocid'])) {
 
-        _dbQuery("UPDATE ".DB_PREPEND."phpwcms_map SET map_deleted=9 WHERE map_cid=".intval($content["id"])." AND map_id=".intval($_GET['dellocid']), 'UPDATE');
+        _dbQuery("UPDATE ".DB_PREPEND."map SET map_deleted=9 WHERE map_cid=".intval($content["id"])." AND map_id=".intval($_GET['dellocid']), 'UPDATE');
 
     }
 
     $map_current = (isset($_GET['locid'])) ? intval($_GET['locid']) : 0;
-    $map_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_map WHERE map_deleted=0 ";
+    $map_sql  = "SELECT * FROM ".DB_PREPEND."map WHERE map_deleted=0 ";
     $map_sql .= "AND map_cid=".intval($content["id"])." ORDER BY map_zip ASC, map_city ASC";
     $map_result = _dbQuery($map_sql);
 

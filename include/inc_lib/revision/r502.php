@@ -10,29 +10,52 @@
 
 
 // Revision 502 Update Check
-function phpwcms_revision_r502() {
+function phpwcms_revision_r502()
+{
+    $status = true;
 
-	$status = true;
+    // add field for default language type and target ID to article, category
+    if (!_dbColumnExists('articlecat', 'acat_lang_type')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "articlecat` ADD `acat_lang_type` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'articlecat` ADD INDEX (`acat_lang_type`)', 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+    }
+    if (!_dbColumnExists('articlecat', 'acat_lang_id')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "articlecat` ADD `acat_lang_id` INT(11) unsigned NOT NULL DEFAULT '0'", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'articlecat` ADD INDEX (`acat_lang_id`)', 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+    }
 
+    if (!_dbColumnExists('article', 'article_lang_type')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "article` ADD `article_lang_type` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'article` ADD INDEX (`article_lang_type`)', 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+    }
+    if (!_dbColumnExists('article', 'article_lang_id')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "article` ADD `article_lang_id` INT(11) unsigned NOT NULL DEFAULT '0'", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'article` ADD INDEX (`article_lang_id`)', 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+    }
 
-	// add field for default language type and target ID to article, category
-	if(!_dbColumnExists('phpwcms_articlecat', 'acat_lang_type')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_lang_type VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD INDEX (acat_lang_type)", 'ALTER');
-	}
-	if(!_dbColumnExists('phpwcms_articlecat', 'acat_lang_id')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_lang_id INT(11) unsigned NOT NULL DEFAULT '0'", 'ALTER');
-		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD INDEX (acat_lang_id)", 'ALTER');
-	}
-
-	if(!_dbColumnExists('phpwcms_article', 'article_lang_type')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD article_lang_type VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD INDEX (article_lang_type)", 'ALTER');
-	}
-	if(!_dbColumnExists('phpwcms_article', 'article_lang_id')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD article_lang_id INT(11) unsigned NOT NULL DEFAULT '0'", 'ALTER');
-		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD INDEX (article_lang_id)", 'ALTER');
-	}
-
-	return $status;
+    return $status;
 }

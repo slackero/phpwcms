@@ -18,7 +18,7 @@ define('PHPWCMS_ROOT', $base . '/docroot');
 define('PHPWCMS_TEMP', $base . '/tmp/');
 define('PHPWCMS_VERSION', '2.0.0');
 define('PHPWCMS_REVISION', '559');
-define('DB_PREPEND', '');
+define('DB_PREPEND', 'phpwcms_');
 define('LF', "\n");
 
 // --- DB layer stubs (query-aware, ASSOC-shaped like the real _dbQuery) ---
@@ -39,7 +39,7 @@ function _dbQuery($q, $type = '')
     if (str_starts_with($q, 'SHOW CREATE TABLE')) {
         return [['Table' => 'phpwcms_user', 'Create Table' => 'CREATE TABLE `phpwcms_user` (`id` int(11) NOT NULL)']];
     }
-    if (str_starts_with($q, 'SELECT * FROM') && str_contains($q, 'phpwcms_update_log')) {
+    if (str_starts_with($q, 'SELECT * FROM') && str_contains($q, 'update_log')) {
         return [[
             'update_id' => 1,
             'update_status' => $GLOBALS['logStatus'],
@@ -242,6 +242,7 @@ buildReleaseZip($zip6a, ['phpwcms.php' => 'PHPWCMS-NEW'], '9.9.9');
 $u = new phpwcms_update(1, $zip6a);
 $res = $u->run('v9.9.9');
 assert($res['success'] === true, 'S6a: first run succeeds: ' . ($res['error'] ?? ''));
+sleep(1);
 $zip6b = $base . '/rel-6b.zip';
 buildReleaseZip($zip6b, ['phpwcms.php' => 'PHPWCMS-NEW2'], '9.9.9');
 $u = new phpwcms_update(1, $zip6b);

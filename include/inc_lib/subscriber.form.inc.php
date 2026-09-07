@@ -67,7 +67,7 @@ if(empty($_POST['subscribe_all']) && !empty($_POST['subscribe_to']) && is_array(
 if($_userInfo['error']['email'] == 0) {
 
   // check if update necessary in case email still exists
-  $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_address ";
+  $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."address ";
   $sql .= "WHERE address_email='".aporeplace($_userInfo['subscriber_data']['address_email'])."'";
   if($_userInfo['subscriber_data']['address_id']) {
     $sql .= " AND address_id != ".$_userInfo['subscriber_data']['address_id'];
@@ -77,7 +77,7 @@ if($_userInfo['error']['email'] == 0) {
   if($_userInfo['subscriber_data']['address_id'] || $_userInfo['count']) {
 
     // update
-    $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_address SET ';
+    $sql  = 'UPDATE '.DB_PREPEND.'address SET ';
     $sql .= "address_email      = '".aporeplace($_userInfo['subscriber_data']['address_email'])."', ";
     $sql .= "address_name     = '".aporeplace($_userInfo['subscriber_data']['address_name'])."', ";
     $sql .= "address_verified   = ".$_userInfo['subscriber_data']['address_verified'].", ";
@@ -97,7 +97,7 @@ if($_userInfo['error']['email'] == 0) {
   } else {
 
     // insert
-    $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_address ';
+    $sql  = 'INSERT INTO '.DB_PREPEND.'address ';
     $sql .= '(address_key, address_email, address_name, address_verified, address_subscription) VALUES (';
     $sql .= "'".aporeplace( shortHash( $_userInfo['subscriber_data']['address_email'] . time() ) )."', ";
     $sql .= "'".aporeplace($_userInfo['subscriber_data']['address_email'])."', ";

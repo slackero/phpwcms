@@ -38,7 +38,7 @@ $content['reference']['showlist']   = 0;
 
 if(is_array($content['reference']["list"]) && count($content['reference']["list"])) {
 
-    $img_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE (";
+    $img_sql = "SELECT * FROM ".DB_PREPEND."file WHERE (";
     $imgx = 0;
 
     foreach($content['reference']["list"] as $key => $value) {

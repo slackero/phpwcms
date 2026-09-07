@@ -83,7 +83,7 @@ if(isset($_SESSION['seo_filter']) && is_array($_SESSION['seo_filter']) && count(
 
 
 // paginating values
-$_entry['count_total'] = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_log_seo WHERE '.$_entry['query'], 'COUNT');
+$_entry['count_total'] = _dbQuery('SELECT * FROM '.DB_PREPEND.'log_seo WHERE '.$_entry['query'], 'COUNT');
 $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_user_count']);
 if($_SESSION['seolog_page'] > $_entry['pages_total']) {
     $_SESSION['seolog_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
@@ -159,7 +159,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 		<tbody>
 		<?php
 		$row_count = 0;
-		$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_log_seo WHERE '.$_entry['query'].' ORDER BY create_date DESC ';
+		$sql  = 'SELECT * FROM '.DB_PREPEND.'log_seo WHERE '.$_entry['query'].' ORDER BY create_date DESC ';
 		$sql .= 'LIMIT '.(($_SESSION['seolog_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
 		$data = _dbQuery($sql);
 
@@ -192,7 +192,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 				</thead>
 				<tbody>
 				<?php
-				$sql  = 'SELECT Count(query) AS Anzahl, query FROM '.DB_PREPEND.'phpwcms_log_seo GROUP BY query ORDER BY Anzahl DESC LIMIT 0,20';
+				$sql  = 'SELECT Count(query) AS Anzahl, query FROM '.DB_PREPEND.'log_seo GROUP BY query ORDER BY Anzahl DESC LIMIT 0,20';
 				$data = _dbQuery($sql);
 
 				$row_count = 0;

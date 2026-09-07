@@ -333,7 +333,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 
             } else {
 
-                $data = _dbGet('phpwcms_shop_products', 'shopprod_size,shopprod_color', 'shopprod_status=1 AND shopprod_id='.$shop_prod_id);
+                $data = _dbGet('shop_products', 'shopprod_size,shopprod_color', 'shopprod_status=1 AND shopprod_id='.$shop_prod_id);
 
                 if(isset($data[0]['shopprod_size'])) {
                     $data[0]['shopprod_size']   = trim($data[0]['shopprod_size']);
@@ -513,7 +513,7 @@ if( $_shop_load_cat !== false ) {
         $shop_limited_cat = false;
     }
 
-    $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
+    $sql  = 'SELECT * FROM '.DB_PREPEND.'categories WHERE ';
     $sql .= "cat_type='module_shop' AND cat_status=1 AND cat_pid=0 ";
     if($shop_limited_cat) {
         $sql .= 'AND cat_id = ' . $shop_limited_catid . ' ';
@@ -562,7 +562,7 @@ if( $_shop_load_cat !== false ) {
                 $shop_cat_class .= ' ' . $_tmpl['config']['cat_class_item_active'];
 
                 // now try to retrieve sub categories for active category
-                $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
+                $sql  = 'SELECT * FROM '.DB_PREPEND.'categories WHERE ';
                 $sql .= "cat_type='module_shop' AND cat_status=1 AND cat_pid=" . $shop_cat_selected ;
                 $sql .= ' ORDER BY cat_sort DESC, cat_name ASC';
                 $sdata = _dbQuery($sql);
@@ -587,7 +587,7 @@ if( $_shop_load_cat !== false ) {
                         $shop_subcat[$z] .= 'class="' .  $_tmpl['config']['cat_class_subitem_link'] . '">';
                         $shop_subcat[$z] .= '@@' . html($srow['cat_name']) . '@@';
                         if ($_tmpl['config']['cat_count_products']) {
-                            $count_cat_products_sql  = "SELECT COUNT(*) FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
+                            $count_cat_products_sql  = "SELECT COUNT(*) FROM ".DB_PREPEND.'shop_products WHERE ';
                             $count_cat_products_sql .= "shopprod_status=1 AND (";
                             $count_cat_products_sql .= "shopprod_category = '" . $srow['cat_id'] . "' OR ";
                             $count_cat_products_sql .= "shopprod_category LIKE '%," . $srow['cat_id'] . ",%' OR ";
@@ -625,7 +625,7 @@ if( $_shop_load_cat !== false ) {
             $shop_cat[$x] .= 'class="' . $_tmpl['config']['cat_class_item_link'] . '">';
             $shop_cat[$x] .= '@@' . html($row['cat_name']) . '@@';
             if ($_tmpl['config']['cat_count_products']) {
-                $count_cat_products_sql  = "SELECT COUNT(*) FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
+                $count_cat_products_sql  = "SELECT COUNT(*) FROM ".DB_PREPEND.'shop_products WHERE ';
                 $count_cat_products_sql .= "shopprod_status=1 AND (";
                 $count_cat_products_sql .= "shopprod_category = '" . $row['cat_id'] . "' OR ";
                 $count_cat_products_sql .= "shopprod_category LIKE '%," . $row['cat_id'] . ",%' OR ";
@@ -728,7 +728,7 @@ if( $_shop_load_list !== false ) {
 
     $shop_pagetitle = '';
 
-    $sql  = "SELECT * FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
+    $sql  = "SELECT * FROM ".DB_PREPEND.'shop_products WHERE ';
     $sql .= "shopprod_status=1";
 
     if($selected_product_cat && !$shop_detail_id) {
@@ -1083,7 +1083,7 @@ if( $_shop_load_list !== false ) {
 
                 // Update product view count
                 // ToDo: Maybe use cookie or session to avoid tracking in case showed once
-                $sql = 'UPDATE LOW_PRIORITY '.DB_PREPEND.'phpwcms_shop_products SET shopprod_track_view=shopprod_track_view+1 WHERE shopprod_id='.$shop_detail_id;
+                $sql = 'UPDATE LOW_PRIORITY '.DB_PREPEND.'shop_products SET shopprod_track_view=shopprod_track_view+1 WHERE shopprod_id='.$shop_detail_id;
                 _dbQuery($sql, 'UPDATE');
 
             } else {
@@ -1355,7 +1355,7 @@ if( $_shop_load_order !== false ) {
             $order_num = generic_string(8, 2);
         } else {
             // count all current orders
-            $order_num = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_shop_orders') + 1;
+            $order_num = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'shop_orders') + 1;
             if(strpos($_tmpl['config']['order_number_style'], '%') !== FALSE) {
                 $order_num = sprintf($_tmpl['config']['order_number_style'], $order_num);
             }
@@ -1479,7 +1479,7 @@ if( $_shop_load_order !== false ) {
         );
 
         // receive order db ID
-        $order_data = _dbInsert('phpwcms_shop_orders', $order_data);
+        $order_data = _dbInsert('shop_orders', $order_data);
 
         // send mail to customer
         $email_from = _getConfig( 'shop_pref_email_from', '_shopPref' );
@@ -1535,7 +1535,7 @@ if( $_shop_load_order !== false ) {
 
             if (empty($shop_pref_autosubtract_off)) {
                     foreach($_SESSION[CART_KEY]['amount'] as $update_product_id => $subtract_amount) {
-                        $subtract_query = 'UPDATE `' . DB_PREPEND . 'phpwcms_shop_products` SET ';
+                        $subtract_query = 'UPDATE `' . DB_PREPEND . 'shop_products` SET ';
                         $subtract_query .= '`shopprod_inventory`=`shopprod_inventory`-' . intval($subtract_amount) . ' ';
                         $subtract_query .= 'WHERE `shopprod_id`=' . _dbEscape($update_product_id);
                                 _dbQuery($subtract_query, 'UPDATE');

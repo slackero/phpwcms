@@ -37,7 +37,7 @@ if (is_string($sort_data) && $sort_data !== '') {
 
     if (!empty($ids)) {
         $where_perm = empty($_SESSION['wcs_user_admin']) ? ' AND acontent_uid = ' . (int) $_SESSION['wcs_user_id'] : '';
-        $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_articlecontent SET ' .
+        $sql = 'UPDATE ' . DB_PREPEND . 'articlecontent SET ' .
                'acontent_sorting = CASE acontent_id ' . implode(' ', $cases) . ' END, ' .
                'acontent_tstamp = acontent_tstamp ' .
                'WHERE acontent_id IN (' . implode(',', $ids) . ')' . $where_perm;

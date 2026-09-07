@@ -35,7 +35,7 @@ $content['tmp_images'] = array();
 $imgx = 0;
 
 if(is_array($content["poll_list"]) && sizeof($content["poll_list"])) {
-    $img_sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE (";
+    $img_sql = "SELECT * FROM " . DB_PREPEND . "file WHERE (";
     $img_sort = array();
 
     foreach($content["poll_list"] as $key => $value) {

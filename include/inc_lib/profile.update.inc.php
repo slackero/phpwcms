@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 //Updates the profile datas
-$sql =	"UPDATE ".DB_PREPEND."phpwcms_userdetail SET ".
+$sql =	"UPDATE ".DB_PREPEND."userdetail SET ".
 		"detail_title='".getpostvar($_POST["form_title"])."',".
 		"detail_firstname='".getpostvar($_POST["form_firstname"])."',".
 		"detail_lastname='".getpostvar($_POST["form_lastname"])."',".

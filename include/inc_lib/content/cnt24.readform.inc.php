@@ -33,7 +33,7 @@ if(empty($content['alias']['alias_ID'])) {
 } else {
 
     // check if alias ID has valid counter part
-    $cresult = _dbGet('phpwcms_articlecontent', 'acontent_id', 'acontent_id='.$content['alias']['alias_ID'].' AND acontent_trash=0');
+    $cresult = _dbGet('articlecontent', 'acontent_id', 'acontent_id='.$content['alias']['alias_ID'].' AND acontent_trash=0');
     if(empty($cresult[0]['acontent_id'])) {
         $content['alias']['alias_ID'] = '';
     }

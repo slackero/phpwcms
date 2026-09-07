@@ -42,7 +42,7 @@ function backend_list_keywords() {
 	$list .= '				</thead>' . LF;
 	$list .= '				<tbody>' . LF;
 
-	$sql		 = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword WHERE keyword_trash=0 ORDER BY keyword_name";
+	$sql		 = "SELECT * FROM ".DB_PREPEND."keyword WHERE keyword_trash=0 ORDER BY keyword_name";
 	$keywords	 = _dbQuery($sql);
 
 	if (!empty($keywords[0]['keyword_id'])) {
@@ -92,7 +92,7 @@ function backend_edit_keywords() {
 			$msg_type = 'danger';
 		} elseif (!empty($_POST['send_update']) && $keyword_id > 0) {
 
-			$sql 	 = "UPDATE ".DB_PREPEND."phpwcms_keyword SET ";
+			$sql 	 = "UPDATE ".DB_PREPEND."keyword SET ";
 			$sql	.= "keyword_name=" . _dbEscape($input['keyword_name']) ." ";
 			$sql	.= "WHERE keyword_id=".$keyword_id." ";
 			$sql	.= "AND keyword_name!=" . _dbEscape($input['keyword_name']) ." LIMIT 1";
@@ -103,12 +103,12 @@ function backend_edit_keywords() {
 		} else {
 
 			// Check uniqueness
-			$sql  	 = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword WHERE keyword_trash=0 AND keyword_name=" . _dbEscape($input['keyword_name']);
+			$sql  	 = "SELECT * FROM ".DB_PREPEND."keyword WHERE keyword_trash=0 AND keyword_name=" . _dbEscape($input['keyword_name']);
 			$check	 = _dbQuery($sql);
 
 			if (empty($check[0])) {
 
-				$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_keyword SET ";
+				$sql  = "INSERT INTO ".DB_PREPEND."keyword SET ";
 				$sql .= "keyword_name=" . _dbEscape($input['keyword_name']);
 
 				$result = _dbQuery($sql, 'INSERT');
@@ -127,7 +127,7 @@ function backend_edit_keywords() {
 	$keyword_name = '';
 
 	if ($keyword_id > 0) {
-		$sql		 = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword WHERE keyword_trash=0 AND keyword_id=" . $keyword_id." LIMIT 1";
+		$sql		 = "SELECT * FROM ".DB_PREPEND."keyword WHERE keyword_trash=0 AND keyword_id=" . $keyword_id." LIMIT 1";
 		$keyword	 = _dbQuery($sql);
 		if (isset($keyword[0]['keyword_name'])) {
 			$keyword_name = $keyword[0]['keyword_name'];
@@ -178,14 +178,14 @@ function backend_delete_keywords() {
 	if (!empty($_POST['keyword_selected_id'])) {
 
 		$delete_id = intval($_POST['keyword_selected_id']);
-		$sql = "UPDATE ".DB_PREPEND."phpwcms_keyword SET keyword_trash=1 WHERE keyword_id=".$delete_id." LIMIT 1";
+		$sql = "UPDATE ".DB_PREPEND."keyword SET keyword_trash=1 WHERE keyword_id=".$delete_id." LIMIT 1";
 		_dbQuery($sql, 'UPDATE');
 
 	} elseif (!empty($_POST['check']) && is_array($_POST['check'])) {
 
 		$delete_ids = array_map('intval', array_keys($_POST['check']));
 		if (!empty($delete_ids)) {
-			$sql = "UPDATE ".DB_PREPEND."phpwcms_keyword SET keyword_trash=1 WHERE keyword_id IN (" . implode(',', $delete_ids) . ")";
+			$sql = "UPDATE ".DB_PREPEND."keyword SET keyword_trash=1 WHERE keyword_id IN (" . implode(',', $delete_ids) . ")";
 			_dbQuery($sql, 'UPDATE');
 		}
 

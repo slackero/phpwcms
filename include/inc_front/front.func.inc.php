@@ -458,7 +458,7 @@ function get_struct_data($root_name='', $root_info='') {
         "acat_breadcrumb"   => empty($indexpage['acat_breadcrumb']) ? 0 : intval($indexpage['acat_breadcrumb']),
         "acat_onepage"      => empty($indexpage['acat_onepage']) ? 0 : 1,
     );
-    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
+    $sql  = "SELECT * FROM ".DB_PREPEND."articlecat WHERE ";
     // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
     if(VISIBLE_MODE != 2) {
         // for 0 AND 1
@@ -534,7 +534,7 @@ function get_actcat_articles_data($act_cat_id) {
     $sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
     $sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
     $sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
-    $sql .= "FROM ".DB_PREPEND."phpwcms_article ";
+    $sql .= "FROM ".DB_PREPEND."article ";
     $sql .= "WHERE article_cid=".$act_cat_id;
     // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
     switch(VISIBLE_MODE) {
@@ -599,7 +599,7 @@ function get_actcat_articles_data($act_cat_id) {
                 $alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
                 $alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
                 $alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
-                $alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
+                $alias_sql .= "FROM ".DB_PREPEND."article ";
                 $alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
                 if(!$row["article_headerdata"]) {
                     switch(VISIBLE_MODE) {
@@ -1317,7 +1317,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                 // Render SYSTEM
                 if(str_contains($tmpl, '[SYSTEM]')) {
                     // Search for all system related content parts
-                    $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $article["article_id"] . ' ';
+                    $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'articlecontent WHERE acontent_aid=' . $article["article_id"] . ' ';
                     $sql_cnt .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
                     $sql_cnt .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
                     $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (1, 3) "; // 1 = article list, 3 = article detail OR list
@@ -1731,20 +1731,18 @@ function get_article_href($target) {
 
     // 2c. Query database if not yet found in memory
     if ($article === null) {
-        $db_prepend = defined('DB_PREPEND') ? DB_PREPEND : (empty($GLOBALS['phpwcms']['db_prepend']) ? '' : $GLOBALS['phpwcms']['db_prepend'] . '_');
-
         $sql  = 'SELECT ar.article_id, ar.article_alias, ar.article_cid, ar.article_title ';
-        $sql .= 'FROM ' . $db_prepend . 'phpwcms_article ar ';
-        $sql .= 'LEFT JOIN ' . $db_prepend . 'phpwcms_articlecat ac ON ar.article_cid = ac.acat_id ';
+        $sql .= 'FROM ' . DB_PREPEND . 'article ar ';
+        $sql .= 'LEFT JOIN ' . DB_PREPEND . 'articlecat ac ON ar.article_cid = ac.acat_id ';
         if ($is_id) {
-            $sql .= 'WHERE ar.article_id = ' . intval($target) . ' ';
+            $sql .= 'WHERE ar.article_id = ' . (int)$target . ' ';
         } else {
             $sql .= 'WHERE ar.article_alias = ' . _dbEscape($target) . ' ';
         }
 
         // Status check
         if (defined('VISIBLE_MODE') && VISIBLE_MODE === 1 && !empty($_SESSION['wcs_user_id'])) {
-            $sql .= 'AND (ar.article_aktiv = 1 OR ar.article_uid = ' . intval($_SESSION['wcs_user_id']) . ') ';
+            $sql .= 'AND (ar.article_aktiv = 1 OR ar.article_uid = ' . (int)$_SESSION['wcs_user_id'] . ') ';
         } elseif (!defined('VISIBLE_MODE') || VISIBLE_MODE === 0) {
             $sql .= 'AND ar.article_aktiv = 1 ';
         }
@@ -1787,8 +1785,7 @@ function get_article_href($target) {
             }
         }
         // Fallback DB check for category alias
-        $db_prepend = defined('DB_PREPEND') ? DB_PREPEND : (empty($GLOBALS['phpwcms']['db_prepend']) ? '' : $GLOBALS['phpwcms']['db_prepend'] . '_');
-        $cat_sql = 'SELECT acat_id, acat_alias FROM ' . $db_prepend . 'phpwcms_articlecat '
+        $cat_sql = 'SELECT acat_id, acat_alias FROM ' . DB_PREPEND . 'articlecat '
                  . 'WHERE acat_alias = ' . _dbEscape($target) . ' AND acat_trash = 0 LIMIT 1';
         $cat_res = _dbQuery($cat_sql);
         if (is_array($cat_res) && isset($cat_res[0]['acat_alias'])) {
@@ -2085,7 +2082,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
         }
         $limit = ($max_cnt_links) ? " LIMIT ".$max_cnt_links : "";
         $sql  = "SELECT article_id, article_title, article_cid, article_subtitle, article_summary, article_alias, article_redirect, article_morelink ";
-        $sql .= "FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND ";
+        $sql .= "FROM ".DB_PREPEND."article WHERE article_deleted=0 AND ";
         $sql .= "article_id<>".intval($current_article_id)." AND ";
         // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
         switch(VISIBLE_MODE) {
@@ -2215,7 +2212,7 @@ function get_new_articles($template_default, $max_cnt_links=0, $cat='', $dbcon=n
                         $sorting = 'article_tstamp';
     }
 
-    $sql .= "FROM ".DB_PREPEND."phpwcms_article WHERE ".$cat;
+    $sql .= "FROM ".DB_PREPEND."article WHERE ".$cat;
     // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
     switch(VISIBLE_MODE) {
         case 0: $sql .= "article_aktiv=1 AND ";
@@ -2324,7 +2321,7 @@ function get_keyword_link($keywords) {
 
     if($where) {
 
-        $sql  = "SELECT article_id, article_cid, article_title, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
+        $sql  = "SELECT article_id, article_cid, article_title, article_alias FROM ".DB_PREPEND."article WHERE ";
         // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
         switch(VISIBLE_MODE) {
             case 0: $sql .= "article_aktiv=1 AND ";
@@ -2400,7 +2397,7 @@ function clean_replacement_tags($text = '', $allowed_tags='<a><b><i><strong>') {
 
 function get_search_action($matches) {
     // return the search form action
-    $sql  = "SELECT article_cid, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
+    $sql  = "SELECT article_cid, article_alias FROM ".DB_PREPEND."article WHERE ";
     $sql .= "article_aktiv=1 AND article_deleted=0 ";
     if(!PREVIEW_MODE) {
         $sql .= "AND (article_begin IS NULL OR article_begin < NOW()) ";
@@ -2688,7 +2685,7 @@ function build_sitemap_articlelist($cat, $counter=0, $sitemap=array()) {
 
     $ao = get_order_sort($GLOBALS['content']['struct'][ $cat ]['acat_order']);
 
-    $sql  = "SELECT article_id, article_title, article_alias FROM ".DB_PREPEND."phpwcms_article ";
+    $sql  = "SELECT article_id, article_title, article_alias FROM ".DB_PREPEND."article ";
     $sql .= "WHERE article_cid=".intval($cat)." AND article_nositemap=1 AND ";
     // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
     switch(VISIBLE_MODE) {
@@ -3046,7 +3043,7 @@ function get_fe_userinfo($forum_userID) {
 
     if($forum_userID != 0 && (!isset($GLOBALS['FE_USER']) || !isset($GLOBALS['FE_USER'][$forum_userID]))) {
         //connect to user db and get information
-        $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_id=".$forum_userID." LIMIT 1";
+        $sql = "SELECT * FROM ".DB_PREPEND."user WHERE usr_id=".$forum_userID." LIMIT 1";
         $result = _dbQuery($sql);
 
         if(isset($result[0]['usr_id'])) {
@@ -3741,7 +3738,7 @@ function getFileDetails($file) {
         return null;
     }
 
-    $result = _dbGet('phpwcms_file', '*', $where, '', '', 1);
+    $result = _dbGet('file', '*', $where, '', '', 1);
     if(isset($result[0]['f_id'])) {
 
         $result = $result[0];
@@ -3810,7 +3807,7 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
     }
     // check against database
     if(!empty($validate_db['userdetail'])) {
-        $sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE ';
+        $sql = 'SELECT * FROM '.DB_PREPEND.'userdetail WHERE ';
         if(!empty($validate_db['email_login']) && is_valid_email($user)) {
             $sql .= '(';
             $sql .= 'detail_login=' . _dbEscape($user);
@@ -3826,8 +3823,8 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
     }
     // hm, seems no user found - OK test against cms users
     if(!empty($validate_db['backenduser']) && !isset($result[0])) {
-        $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_user ';
-        $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_userdetail ON ';
+        $sql  = 'SELECT * FROM '.DB_PREPEND.'user ';
+        $sql .= 'LEFT JOIN '.DB_PREPEND.'userdetail ON ';
         $sql .= 'usr_id = detail_pid WHERE ';
         if(!empty($validate_db['email_login']) && is_valid_email($user)) {
             $sql .= '(';
@@ -4062,7 +4059,7 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
                             break;
 
         case 'CP':          if(!$_SESSION["wcs_user_admin"] && $id_1) {
-                                $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_article WHERE article_id='._dbEscape($id_1);
+                                $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'article WHERE article_id='._dbEscape($id_1);
                                 $sql .= ' AND article_uid='._dbEscape($_SESSION["wcs_user_id"]);
                                 if(!_dbCount($sql)) {
                                     return '';
@@ -4079,7 +4076,7 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
         //end enym
 
         case 'module':      if(!$_SESSION["wcs_user_admin"] && $id_2) {
-                                $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_article WHERE article_id='._dbEscape($id_2);
+                                $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'article WHERE article_id='._dbEscape($id_2);
                                 $sql .= ' AND article_uid='._dbEscape($_SESSION["wcs_user_id"]);
                                 if(!_dbCount($sql)) {
                                     return '';
@@ -4503,7 +4500,7 @@ function get_structurelevel_single_article_alias($article_cid=0) {
     global $content;
 
     if(empty($content['struct'][ $article_cid ]['acat_articlecount'])) {
-        $sql  = 'SELECT COUNT(article_id) FROM '.DB_PREPEND.'phpwcms_article ';
+        $sql  = 'SELECT COUNT(article_id) FROM '.DB_PREPEND.'article ';
         $sql .= 'WHERE article_cid='.$article_cid.' AND article_aktiv=1 AND article_deleted=0';
         if(!PREVIEW_MODE) {
             $sql .= " AND (article_begin IS NULL OR article_begin < NOW())";

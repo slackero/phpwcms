@@ -24,7 +24,7 @@ if (!empty($_GET['o'])) {
     require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
     require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
-    $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_newsletterqueue ';
+    $sql = 'UPDATE ' . DB_PREPEND . 'newsletterqueue ';
     $sql .= 'SET queue_opener=1 ';
     $sql .= "WHERE queue_id=" . intval($_GET['o']);
     _dbQuery($sql, 'UPDATE');
@@ -51,7 +51,7 @@ if (!empty($_GET['s']) || !empty($_GET['u'])) {
 
     }
 
-    $data = _dbQuery('SELECT * FROM ' . DB_PREPEND . "phpwcms_address WHERE address_key='" . aporeplace($hash) . "' LIMIT 1");
+    $data = _dbQuery('SELECT * FROM ' . DB_PREPEND . "address WHERE address_key='" . aporeplace($hash) . "' LIMIT 1");
 
     if (isset($data[0])) {
 
@@ -62,7 +62,7 @@ if (!empty($_GET['s']) || !empty($_GET['u'])) {
         switch ($type) {
 
             case 'subscribe':
-                $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_address ';
+                $sql = 'UPDATE ' . DB_PREPEND . 'address ';
                 $sql .= 'SET address_verified=1, address_tstamp=NOW() ';
                 $sql .= "WHERE address_key='" . aporeplace($hash) . "'";
 
@@ -83,7 +83,7 @@ if (!empty($_GET['s']) || !empty($_GET['u'])) {
                 break;
 
             case 'unsubscribe':
-                $sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_address ';
+                $sql = 'DELETE FROM ' . DB_PREPEND . 'address ';
                 $sql .= "WHERE address_key='" . aporeplace($hash) . "'";
                 $result = _dbQuery($sql, 'DELETE');
 

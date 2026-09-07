@@ -30,12 +30,14 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if($table && $field && $fieldid && $id) {
 
+    $table = _dbNormalizeTable($table);
+
     //check if both fields are existing
-    $result1 = _dbQuery("SHOW COLUMNS FROM " . DB_PREPEND . "phpwcms_" . $table . " LIKE '" . $field . "'");
-    $result2 = _dbQuery("SHOW COLUMNS FROM " . DB_PREPEND . "phpwcms_" . $table . " LIKE '" . $fieldid . "'");
+    $result1 = _dbQuery("SHOW COLUMNS FROM " . DB_PREPEND . $table . " LIKE '" . $field . "'");
+    $result2 = _dbQuery("SHOW COLUMNS FROM " . DB_PREPEND . $table . " LIKE '" . $fieldid . "'");
 
     if (!empty($result1) && !empty($result2)) {
-        $sql = "UPDATE `" . DB_PREPEND . "phpwcms_" . $table . "` SET `" . $field . "`= (CASE `" . $field . "` WHEN 1 THEN 0 ELSE 1 END) WHERE `" . $fieldid . "`=" . $id;
+        $sql = "UPDATE `" . DB_PREPEND . $table . "` SET `" . $field . "`= (CASE `" . $field . "` WHEN 1 THEN 0 ELSE 1 END) WHERE `" . $fieldid . "`=" . $id;
         _dbQuery($sql, 'UPDATE');
     }
 

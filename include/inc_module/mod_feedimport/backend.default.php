@@ -59,7 +59,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 			'cnt_changed'	=> now(),
 			'cnt_status'	=> empty($_GET['active']) ? 0 : 1
 		);
-		_dbUpdate('phpwcms_content', $data, 'cnt_id='.intval($_GET['editid']).' AND cnt_module='._dbEscape(MODULE_KEY));
+		_dbUpdate('content', $data, 'cnt_id='.intval($_GET['editid']).' AND cnt_module='._dbEscape(MODULE_KEY));
 		headerRedirect(MODULE_HREF_DECODE);
 
 	} elseif(!empty($_GET['delete'])) {
@@ -69,7 +69,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 			'cnt_changed'	=> now(),
 			'cnt_status'	=> 9
 		);
-		_dbUpdate('phpwcms_content', $data, 'cnt_id='.intval($_GET['delete']).' AND cnt_module='._dbEscape(MODULE_KEY));
+		_dbUpdate('content', $data, 'cnt_id='.intval($_GET['delete']).' AND cnt_module='._dbEscape(MODULE_KEY));
 		headerRedirect(MODULE_HREF_DECODE);
 
 	} else {

@@ -25,7 +25,7 @@ if(!isset($_GET["s"])) {
 <table class="table table-striped table-sm table-valign-middle mb-4">
 <?php
     // loop listing available pagelayouts
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
+    $sql = "SELECT * FROM ".DB_PREPEND."pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
     $result = _dbQuery($sql);
     $row_count = 0;
     if(isset($result[0]['pagelayout_id'])) {
@@ -178,7 +178,7 @@ if(!isset($_GET["s"])) {
         if($pagelayout["id"]) {
             // if ID <> 0 then update pagelayout
             $query_mode = 'UPDATE';
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_pagelayout SET ".
+            $sql =  "UPDATE ".DB_PREPEND."pagelayout SET ".
                     "pagelayout_name='".aporeplace($pagelayout["layout_name"])."', ".
                     "pagelayout_default=".$pagelayout["layout_default"].", ".
                     "pagelayout_var='".aporeplace(serialize($pagelayout))."' ".
@@ -186,7 +186,7 @@ if(!isset($_GET["s"])) {
         } else {
             // if ID = 0 then create new pagelayout
             $query_mode = 'INSERT';
-            $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_pagelayout (".
+            $sql =  "INSERT INTO ".DB_PREPEND."pagelayout (".
                     "pagelayout_name, pagelayout_default, pagelayout_var) VALUES ('".
                     aporeplace($pagelayout["layout_name"])."', ".$pagelayout["layout_default"].", '".
                     aporeplace(serialize($pagelayout))."')";
@@ -200,7 +200,7 @@ if(!isset($_GET["s"])) {
 
         //now proof for default pagelayout and set
         if($pagelayout["layout_default"]) {
-            _dbQuery("UPDATE ".DB_PREPEND."phpwcms_pagelayout SET pagelayout_default=0 WHERE pagelayout_id != ".$pagelayout["id"], 'UPDATE');
+            _dbQuery("UPDATE ".DB_PREPEND."pagelayout SET pagelayout_default=0 WHERE pagelayout_id != ".$pagelayout["id"], 'UPDATE');
         }
 
         update_cache();
@@ -214,7 +214,7 @@ if(!isset($_GET["s"])) {
     if($pagelayout["id"]) {
 
         // read the given pagelayout from db
-        $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_id=".$pagelayout["id"]." LIMIT 1";
+        $sql = "SELECT * FROM ".DB_PREPEND."pagelayout WHERE pagelayout_id=".$pagelayout["id"]." LIMIT 1";
         $result = _dbQuery($sql);
         if(isset($result[0]['pagelayout_id'])) {
             $pagelayout = unserialize($result[0]["pagelayout_var"], ['allowed_classes' => false]);

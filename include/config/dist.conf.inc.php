@@ -199,5 +199,6 @@ $phpwcms['brand_custom_css']     = ''; // Custom backend stylesheet URL or path
 $phpwcms['brand_support_url']    = ''; // Custom support / documentation URL
 $phpwcms['brand_url']            = ''; // Custom website URL (defaults to brand_support_url if empty)
 $phpwcms['brand_copyright']      = ''; // Custom copyright text (defaults to licensee if empty)
+$phpwcms['brand_table_prefix']   = ''; // Custom database table prefix in whitelabel mode (default: phpwcms)
 
 define('PHPWCMS_INCLUDE_CHECK', true);

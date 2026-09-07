@@ -126,7 +126,7 @@ $grouparray = [
 ];
 
 // Ensure all admin users have permissions in SYSGROUPs
-$adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'phpwcms_user` WHERE `usr_admin` = 1 AND `usr_aktiv` != 9');
+$adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'user` WHERE `usr_admin` = 1 AND `usr_aktiv` != 9');
 $adminids = [];
 if (!empty($adminusers)) {
     foreach ($adminusers as $admins) {
@@ -165,7 +165,7 @@ $sys_groups = [
 ];
 
 // fetch all usergroups once instead of one query per syskey
-$all_groups = _dbQuery('SELECT * FROM `' . DB_PREPEND . 'phpwcms_usergroup` ORDER BY `group_id`');
+$all_groups = _dbQuery('SELECT * FROM `' . DB_PREPEND . 'usergroup` ORDER BY `group_id`');
 if (empty($all_groups) || !is_array($all_groups)) {
     $all_groups = [];
 }
@@ -191,7 +191,7 @@ foreach ($sys_groups as $syskey => $groupname) {
             'group_syskey' => $syskey,
             'group_modkey' => ''
         ];
-        _dbInsert(DB_PREPEND . 'phpwcms_usergroup', $data);
+        _dbInsert('usergroup', $data);
         // keep the in-memory group list in sync for this request
         $all_groups[] = $data;
         $groups_by_syskey[$syskey] = $data;
@@ -206,7 +206,7 @@ foreach ($sys_groups as $syskey => $groupname) {
             }
         }
         if ($updated) {
-            _dbUpdate('phpwcms_usergroup', ['group_member' => implode(',', $members)], 'group_id = ' . (int)$existing['group_id']);
+            _dbUpdate('usergroup', ['group_member' => implode(',', $members)], 'group_id = ' . (int)$existing['group_id']);
             foreach ($all_groups as $group_key => $group_row) {
                 if ($group_row['group_syskey'] === $syskey) {
                     $all_groups[$group_key]['group_member'] = implode(',', $members);

@@ -46,7 +46,7 @@ if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) {
 
     //Eintragen der aktualisierten Verzeichnisinfos
     if(empty($dir_error)) {
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET ".
+        $sql =  "UPDATE ".DB_PREPEND."file SET ".
                 'f_pid='.$dir_pid.', '.
                 "f_name='".aporeplace($dir_newname)."', ".
                 "f_aktiv=".$dir_aktiv.", ".
@@ -76,7 +76,7 @@ if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) {
 //Wenn ID angegeben, dann -> oder aber Root Verzeichnis
 if($dir_id) {
 
-    $sql = "SELECT f_id, f_name, f_aktiv, f_public, f_longinfo, f_gallerystatus, f_sort, f_pid FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$dir_id;
+    $sql = "SELECT f_id, f_name, f_aktiv, f_public, f_longinfo, f_gallerystatus, f_sort, f_pid FROM ".DB_PREPEND."file WHERE f_id=".$dir_id;
     if(empty($_SESSION["wcs_user_admin"])) {
         $sql .= " AND f_uid=".$_SESSION["wcs_user_id"];
     }

@@ -71,7 +71,7 @@ if ($phpwcms['sitemap_set_default']) {
     // now retrieve all articles
     $sql = "SELECT article_id, article_cid, DATE_FORMAT(article_tstamp, '%Y-%m-%d') AS article_tstamp, ";
     $sql .= 'article_title, article_redirect, article_aliasid, article_alias ';
-    $sql .= 'FROM ' . DB_PREPEND . 'phpwcms_article WHERE ';
+    $sql .= 'FROM ' . DB_PREPEND . 'article WHERE ';
     $sql .= "article_aktiv=1 AND article_deleted=0 AND article_nosearch!='1' AND ";
     $sql .= 'article_nositemap=1 AND (article_begin IS NULL OR article_begin < NOW()) AND ';
     $sql .= '(article_end IS NULL OR article_end > NOW()) ';
@@ -108,8 +108,8 @@ if ($phpwcms['sitemap_set_default']) {
     // Generate Sitemap entries for active news
     // Find host articles containing active News content part (type 33)
     $sql_host = 'SELECT ac.acontent_aid, a.article_alias, a.article_cid ';
-    $sql_host .= 'FROM ' . DB_PREPEND . 'phpwcms_articlecontent ac ';
-    $sql_host .= 'INNER JOIN ' . DB_PREPEND . 'phpwcms_article a ON ac.acontent_aid = a.article_id ';
+    $sql_host .= 'FROM ' . DB_PREPEND . 'articlecontent ac ';
+    $sql_host .= 'INNER JOIN ' . DB_PREPEND . 'article a ON ac.acontent_aid = a.article_id ';
     $sql_host .= 'WHERE ac.acontent_type = 33 AND ac.acontent_visible = 1 AND ac.acontent_trash = 0 ';
     $sql_host .= 'AND a.article_aktiv = 1 AND a.article_deleted = 0 ';
     $sql_host .= 'ORDER BY ac.acontent_sorting ASC';
@@ -138,7 +138,7 @@ if ($phpwcms['sitemap_set_default']) {
         $sql_news .= "DATE_FORMAT(IF(cnt_livedate IS NULL OR cnt_livedate = '0000-00-00 00:00:00', FROM_UNIXTIME(cnt_created), cnt_livedate), '%Y-%m-%d') AS news_date, ";
         $sql_news .= "DATE_FORMAT(IF(cnt_changed > 0, FROM_UNIXTIME(cnt_changed), FROM_UNIXTIME(cnt_created)), '%Y-%m-%d') AS news_tstamp, ";
         $sql_news .= 'IF(UNIX_TIMESTAMP(cnt_livedate) > 0, UNIX_TIMESTAMP(cnt_livedate), cnt_created) AS cnt_ts_livedate ';
-        $sql_news .= 'FROM ' . DB_PREPEND . 'phpwcms_content WHERE ';
+        $sql_news .= 'FROM ' . DB_PREPEND . 'content WHERE ';
         $sql_news .= "cnt_module='news' AND cnt_status=1 AND ";
         $sql_news .= "(cnt_livedate IS NULL OR cnt_livedate = '0000-00-00 00:00:00' OR cnt_livedate < NOW()) AND ";
         $sql_news .= "(cnt_killdate IS NULL OR cnt_killdate = '0000-00-00 00:00:00' OR cnt_killdate > NOW() OR cnt_archive_status = 1) ";

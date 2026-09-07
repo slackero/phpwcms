@@ -10,18 +10,18 @@
 
 
 // Revision 533 Update Check
-function phpwcms_revision_r533() {
+function phpwcms_revision_r533()
+{
+    $status = true;
 
-	$status = true;
+    if (_dbTableExists('shop_products')) {
+        if (!_dbColumnExists('shop_products', 'shopprod_overwrite_meta')) {
+            $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "shop_products` ADD `shopprod_overwrite_meta` INT(1) NOT NULL DEFAULT '1'", 'ALTER');
+            if (!$result) {
+                $status = false;
+            }
+        }
+    }
 
-
-	if(_dbTableExists('phpwcms_shop_products')) {
-
-		if(!_dbColumnExists('phpwcms_shop_products', 'shopprod_overwrite_meta')) {
-			$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_shop_products ADD shopprod_overwrite_meta INT(1) NOT NULL DEFAULT '1'", 'ALTER');
-		}
-
-	}
-
-	return $status;
+    return $status;
 }

@@ -9,25 +9,18 @@
  **/
 
 
-// Revision 548 Update Check
-function phpwcms_revision_r550() {
-
+// Revision 550 Update Check
+function phpwcms_revision_r550()
+{
     $status = true;
 
-
-    if(_dbTableExists('phpwcms_shop_products')) {
-
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_shop_products` WHERE Field='shopprod_inventory'");
-
-    if(!isset($result[0]['Field'])) {
-
-        $alter = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_shop_products` ADD `shopprod_inventory` INT(11) NOT NULL DEFAULT '0'", 'ALTER');
-
-        if(!$alter) {
-            $status = false;
+    if (_dbTableExists('shop_products')) {
+        if (!_dbColumnExists('shop_products', 'shopprod_inventory')) {
+            $alter = _dbQuery('ALTER TABLE `' . DB_PREPEND . "shop_products` ADD `shopprod_inventory` INT(11) NOT NULL DEFAULT '0'", 'ALTER');
+            if (!$alter) {
+                $status = false;
+            }
         }
-    }
-
     }
 
     return $status;

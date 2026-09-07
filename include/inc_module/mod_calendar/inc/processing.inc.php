@@ -79,7 +79,7 @@ if(isset($_POST['calendar_title'])) {
         if($plugin['data']['calendar_id']) {
 
             // UPDATE
-            $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_calendar SET ';
+            $sql  = 'UPDATE '.DB_PREPEND.'calendar SET ';
 
             $sql .= "calendar_created='".aporeplace($plugin['data']['calendar_created'])."', ";
             $sql .= "calendar_changed='".aporeplace($plugin['data']['calendar_changed'])."', ";
@@ -120,7 +120,7 @@ if(isset($_POST['calendar_title'])) {
         } else {
 
             // INSERT
-            $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_calendar (';
+            $sql  = 'INSERT INTO '.DB_PREPEND.'calendar (';
 
             $sql .= 'calendar_created, calendar_changed, calendar_status, ';
             $sql .= 'calendar_start, calendar_end, calendar_allday, calendar_range, ';
@@ -183,7 +183,7 @@ if($plugin['id'] && !isset($plugin['error'])) {
     $sql .= "DATE_FORMAT(calendar_end,   '%H:%i') AS calendar_end_time, ";
     $sql .= "DATE_FORMAT(calendar_range_start, '%d".$BLM['date_delimiter']."%m".$BLM['date_delimiter']."%Y') AS calendar_rangestart, ";
     $sql .= "DATE_FORMAT(calendar_range_end, '%d".$BLM['date_delimiter']."%m".$BLM['date_delimiter']."%Y') AS calendar_rangeend ";
-    $sql .= 'FROM '.DB_PREPEND.'phpwcms_calendar WHERE calendar_id='.$plugin['id'];
+    $sql .= 'FROM '.DB_PREPEND.'calendar WHERE calendar_id='.$plugin['id'];
     $plugin['data'] = _dbQuery($sql);
     $plugin['data'] = $plugin['data'][0];
 

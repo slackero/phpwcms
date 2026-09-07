@@ -43,8 +43,8 @@ if ($action == 'form') {
     echo $frontend_css;
 } elseif ($action == 'list') {
     echo '<h2>Sites containing this template:</h2><p class="tmpl_menu">';
-    $sql =  "SELECT DISTINCT ar.article_title, ar.article_id, ac.acontent_id FROM ".DB_PREPEND."phpwcms_articlecontent ac ";
-    $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ";
+    $sql =  "SELECT DISTINCT ar.article_title, ar.article_id, ac.acontent_id FROM ".DB_PREPEND."articlecontent ac ";
+    $sql .= "INNER JOIN " . DB_PREPEND . "article ar ON ";
     $sql .= "ar.article_id = ac.acontent_aid ";
     $sql .= "WHERE ac.acontent_type="._dbEscape($ctnid)." AND acontent_trash=0 AND article_deleted = 0 AND ";
     if ($ctnid == '8') {

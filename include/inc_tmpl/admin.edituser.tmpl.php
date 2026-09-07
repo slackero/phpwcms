@@ -19,7 +19,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
     if(empty($_POST["form_aktion"]) || $_POST["form_aktion"] != "edit_account") {
         $new_user_id = intval($_GET["u"]);
-        $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_id=".$new_user_id." AND usr_aktiv<>9";
+        $sql = "SELECT * FROM ".DB_PREPEND."user WHERE usr_id=".$new_user_id." AND usr_aktiv<>9";
         $result = _dbQuery($sql);
         if(isset($result[0]['usr_id'])) {
             $new_login = $result[0]["usr_login"];
@@ -63,7 +63,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
         if(empty($new_login)) {
             $user_err = $BL['be_admin_usr_err2']."\n";
         } else {
-            $sql = "SELECT usr_id, usr_vars, COUNT(*) AS anzahl FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".aporeplace($new_login)."' GROUP BY usr_id";
+            $sql = "SELECT usr_id, usr_vars, COUNT(*) AS anzahl FROM ".DB_PREPEND."user WHERE usr_login='".aporeplace($new_login)."' GROUP BY usr_id";
             $result = _dbQuery($sql);
             if(isset($result[0]['anzahl'])) {
 
@@ -87,7 +87,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
         }
         if(empty($user_err)) { //Insert new User
 
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_user SET usr_login='".aporeplace($new_login)."', ";
+            $sql =  "UPDATE ".DB_PREPEND."user SET usr_login='".aporeplace($new_login)."', ";
             if($new_password) {
                 $bcrypt_pass = password_hash(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8'), PASSWORD_DEFAULT);
                 $sql .= "usr_pass='".aporeplace($bcrypt_pass)."', ";
@@ -270,7 +270,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
           <?php
           $has_allowed_cp = isset($set_allowed_cp) ? count($set_allowed_cp) : 0;
           foreach($wcs_content_type as $key => $value):
-              $used_count = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent WHERE acontent_trash=0 AND acontent_type='._dbEscape($key));
+              $used_count = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'articlecontent WHERE acontent_trash=0 AND acontent_type='._dbEscape($key));
           ?>
           <div class="form-check m-0">
             <input class="form-check-input" type="checkbox" id="allowed_cp_<?php echo $key ?>" name="allowed_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_allowed_cp || isset($set_allowed_cp[$key])): ?> checked="checked"<?php endif; ?> />
@@ -286,7 +286,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
       <div id="admin_groups" class="tab-pane fade" role="tabpanel" aria-labelledby="admin_groups-tab">
         <div class="row g-2">
           <?php
-          $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_trash=0 AND group_active = 1 ORDER BY group_name";
+          $sql = "SELECT * FROM ".DB_PREPEND."usergroup WHERE group_trash=0 AND group_active = 1 ORDER BY group_name";
           $result = _dbQuery($sql);
           if(isset($result[0]['group_id'])) {
             foreach ($result AS $row) {
@@ -314,7 +314,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
       <div id="log" class="tab-pane fade" role="tabpanel" aria-labelledby="log-tab">
         <div class="row g-2">
           <?php
-          $sql = 'SELECT * FROM '.DB_PREPEND."phpwcms_userlog WHERE logged_user like "._dbEscape($new_login)." ORDER BY logged_start DESC LIMIT 30";
+          $sql = 'SELECT * FROM '.DB_PREPEND."userlog WHERE logged_user like "._dbEscape($new_login)." ORDER BY logged_start DESC LIMIT 30";
           $result = _dbQuery($sql);
           if(isset($result[0]['logged_start'])) {
             foreach ($result AS $row) {

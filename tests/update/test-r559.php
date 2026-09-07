@@ -3,8 +3,8 @@
 define('PHPWCMS_INCLUDE_CHECK', true);
 require_once __DIR__ . '/../../include/inc_lib/revision/r559.php';
 
-function _dbTableExists($t) { return $t === 'phpwcms_update_log'; }
-function _dbColumnExists($t, $c) { return $t === 'phpwcms_update_log'; }
+function _dbTableExists($t) { return in_array($t, ['update_log', 'phpwcms_update_log'], true); }
+function _dbColumnExists($t, $c) { return in_array($t, ['update_log', 'phpwcms_update_log'], true); }
 function _dbQuery($q, $type = '') { echo 'QUERY: ' . $q . PHP_EOL; return in_array($type, ['CREATE', 'ALTER'], true) ? true : []; }
 function _dbCount($q) { return 0; }
 function _dbInsert($t, $d) { return ['INSERT_ID' => 1]; }

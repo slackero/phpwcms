@@ -18,7 +18,7 @@ function phpwcms_revision_r514() {
 	// Delete
 
 	// empty temp images table
-	_dbQuery('DROP TABLE IF EXISTS '.DB_PREPEND.'phpwcms_imgcache', 'DROP');
+	_dbQuery('DROP TABLE IF EXISTS '.DB_PREPEND.'imgcache', 'DROP');
 
 	// empty temp images directory
 	$thumbnails = returnFileListAsArray(PHPWCMS_THUMB, 'jpg,jpeg,gif,png');
@@ -32,20 +32,20 @@ function phpwcms_revision_r514() {
 	}
 
 	// Set file hash
-	$result = _dbQuery("SHOW FIELDS FROM ".DB_PREPEND."phpwcms_file WHERE Field='f_hash'");
+	$result = _dbQuery("SHOW FIELDS FROM ".DB_PREPEND."file WHERE Field='f_hash'");
 
 	if($status && !empty($result[0])) {
 
 		// Remove unused fields but only when file storage upgrade from earlier update is done
-		$count = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_file LIKE 'f_thumb_%'" , 'COUNT_SHOW');
+		$count = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."file LIKE 'f_thumb_%'" , 'COUNT_SHOW');
 
 		if($count === 2) {
 
-			$count = _dbCount("SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_thumb_list != '' OR f_thumb_preview != ''");
+			$count = _dbCount("SELECT * FROM ".DB_PREPEND."file WHERE f_thumb_list != '' OR f_thumb_preview != ''");
 
 			if($count === 0) {
-				_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_file DROP f_thumb_list", 'ALTER');
-				_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_file DROP f_thumb_preview", 'ALTER');
+				_dbQuery("ALTER TABLE ".DB_PREPEND."file DROP f_thumb_list", 'ALTER');
+				_dbQuery("ALTER TABLE ".DB_PREPEND."file DROP f_thumb_preview", 'ALTER');
 
 				$status = true;
 
@@ -60,12 +60,12 @@ function phpwcms_revision_r514() {
 
 		if($status && $result['type'] == 'varchar(50)') {
 
-			$status = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_file CHANGE f_hash f_hash VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+			$status = _dbQuery("ALTER TABLE ".DB_PREPEND."file CHANGE f_hash f_hash VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 
 			// ensure all went well
 			if($status) {
 
-				$result = _dbQuery("SHOW FIELDS FROM ".DB_PREPEND."phpwcms_file WHERE Field='f_hash'");
+				$result = _dbQuery("SHOW FIELDS FROM ".DB_PREPEND."file WHERE Field='f_hash'");
 				$status = false;
 
 				if(!empty($result[0])) {
@@ -83,7 +83,7 @@ function phpwcms_revision_r514() {
 		if($status) {
 
 			// Cleanup first — Check all files trashed or deleted and not yet physical accessible anymore
-			$files = _dbGet('phpwcms_file', '*', 'f_trash IN (8,9) AND f_kid=1');
+			$files = _dbGet('file', '*', 'f_trash IN (8,9) AND f_kid=1');
 
 			if(isset($files[0]['f_id'])) {
 
@@ -110,7 +110,7 @@ function phpwcms_revision_r514() {
 				write_textfile(PHPWCMS_STORAGE.'phpwcms-filestorage.log', date('Y-m-d H:i:s').': File IDs to be deleted ('.$file_id.')', 'a');
 
 				if($file_id) {
-					$result = _dbQuery('DELETE FROM '.DB_PREPEND.'phpwcms_file WHERE f_trash IN (8,9) AND f_kid=1 AND f_id IN ('.$file_id.')', 'DELETE');
+					$result = _dbQuery('DELETE FROM '.DB_PREPEND.'file WHERE f_trash IN (8,9) AND f_kid=1 AND f_id IN ('.$file_id.')', 'DELETE');
 					if(!empty($result['AFFECTED_ROWS'])) {
 						write_textfile(PHPWCMS_STORAGE.'phpwcms-filestorage.log', ' // DONE: ' . $result['AFFECTED_ROWS'] . ' deleted', 'a');
 					} else {

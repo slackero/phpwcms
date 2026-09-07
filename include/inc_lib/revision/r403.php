@@ -16,40 +16,40 @@ function phpwcms_revision_r403() {
 
 
 	// check if article content tab field exists
-	if(!_dbColumnExists('phpwcms_articlecontent', 'acontent_tab')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecontent ADD acontent_tab VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+	if(!_dbColumnExists('articlecontent', 'acontent_tab')) {
+		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."articlecontent ADD acontent_tab VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		if(!$result) {
 			$status = false;
 		}
 	}
 
 	// check if new structure level class field exists
-	if(!_dbColumnExists('phpwcms_articlecat', 'acat_class')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_class VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+	if(!_dbColumnExists('articlecat', 'acat_class')) {
+		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."articlecat ADD acat_class VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		if(!$result) {
 			$status = false;
 		}
 	}
 
 	// check if new structure level keywords field exists
-	if(!_dbColumnExists('phpwcms_articlecat', 'acat_keywords')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_keywords VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+	if(!_dbColumnExists('articlecat', 'acat_keywords')) {
+		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."articlecat ADD acat_keywords VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		if(!$result) {
 			$status = false;
 		}
 	}
 
 	// upgrade sysvalue fields
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_sysvalue LIKE 'sysvalue_vartype'");
+	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."sysvalue LIKE 'sysvalue_vartype'");
 	if(isset($result[0]['Type']) && $result[0]['Type'] == 'varchar(100)') {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue CHANGE sysvalue_vartype sysvalue_vartype VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."sysvalue CHANGE sysvalue_vartype sysvalue_vartype VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		if(!$result) {
 			$status = false;
 		}
 	}
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_sysvalue LIKE 'sysvalue_value'");
+	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."sysvalue LIKE 'sysvalue_value'");
 	if(isset($result[0]['Type']) && $result[0]['Type'] == 'text') {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue CHANGE sysvalue_value sysvalue_value MEDIUMTEXT NOT NULL", 'ALTER');
+		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."sysvalue CHANGE sysvalue_value sysvalue_value MEDIUMTEXT NOT NULL", 'ALTER');
 		if(!$result) {
 			$status = false;
 		}

@@ -36,7 +36,7 @@ $newsletter["newsletter_active"]                = 0;
 if(!empty($_GET["del"]) && intval($_GET["del"]) == $newsletter["newsletter_id"]) {
 
     //delete newsletter now
-    $sql  = "UPDATE ".DB_PREPEND."phpwcms_newsletter SET newsletter_trashed=9 ";
+    $sql  = "UPDATE ".DB_PREPEND."newsletter SET newsletter_trashed=9 ";
     $sql .= "WHERE newsletter_id=".intval($_GET["del"])." LIMIT 1";
     _dbQuery($sql, 'UPDATE');
     headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=messages&p=3');
@@ -89,11 +89,11 @@ if(isset($_POST["newsletter_id"])) {
 
     if($newsletter["newsletter_id"]) {
         $query_mode = 'UPDATE';
-        $sql  = "UPDATE ".DB_PREPEND."phpwcms_newsletter SET ".$sql;
+        $sql  = "UPDATE ".DB_PREPEND."newsletter SET ".$sql;
         $sql .= "WHERE newsletter_id=".$newsletter["newsletter_id"]." LIMIT 1";
     } else {
         $query_mode = 'INSERT';
-        $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_newsletter SET newsletter_created=NOW(), ".$sql;
+        $sql  = "INSERT INTO ".DB_PREPEND."newsletter SET newsletter_created=NOW(), ".$sql;
     }
 
     if(!isset($newsletter['error'])) {
@@ -109,7 +109,7 @@ if(isset($_POST["newsletter_id"])) {
 
             @set_time_limit(0);
 
-            if($recipients = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1')) {
+            if($recipients = _dbQuery('SELECT * FROM '.DB_PREPEND.'address WHERE address_verified=1')) {
 
                 $queue = array();
 
@@ -163,7 +163,7 @@ if(isset($_POST["newsletter_id"])) {
                 */
                 // first reset all unsent queue entries
 
-                $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_newsletterqueue SET ';
+                $sql  = 'UPDATE '.DB_PREPEND.'newsletterqueue SET ';
                 $sql .= 'queue_changed=NOW(), queue_status=3 ';
                 $sql .= 'WHERE queue_pid='.$newsletter["newsletter_id"].' AND queue_status=0';
                 _dbQuery($sql, 'UPDATE');
@@ -173,7 +173,7 @@ if(isset($_POST["newsletter_id"])) {
 
                 foreach($queue as $value) {
 
-                    $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_newsletterqueue ';
+                    $sql  = 'INSERT INTO '.DB_PREPEND.'newsletterqueue ';
                     $sql .= '(queue_created, queue_changed, queue_status, queue_pid, queue_rid) VALUES ';
                     $sql .= implode(', ', $value);
 
@@ -186,14 +186,14 @@ if(isset($_POST["newsletter_id"])) {
         } else {
 
             // if unmarked -> first remove all unset recipients from queue for same newsletter
-            $sql  = 'DELETE FROM '.DB_PREPEND.'phpwcms_newsletterqueue ';
+            $sql  = 'DELETE FROM '.DB_PREPEND.'newsletterqueue ';
             $sql .= 'WHERE queue_pid='.$newsletter["newsletter_id"].' AND queue_status=0';
             _dbQuery($sql, 'DELETE');
 
         }
 
         // update active status
-        $sql  = "UPDATE ".DB_PREPEND.'phpwcms_newsletter SET ';
+        $sql  = "UPDATE ".DB_PREPEND.'newsletter SET ';
         $sql .= 'newsletter_active='.$newsletter['newsletter_active'].' ';
         $sql .= "WHERE newsletter_id=".$newsletter["newsletter_id"];
         @_dbQuery($sql, 'UPDATE');
@@ -209,7 +209,7 @@ if(isset($_POST["newsletter_id"])) {
 if($newsletter["newsletter_id"] && !isset($_POST["newsletter_id"])) {
 // read the given subscription datas from db
     $sql  = "SELECT *, UNIX_TIMESTAMP(newsletter_changed) AS newsletter_date FROM ";
-    $sql .= DB_PREPEND."phpwcms_newsletter WHERE newsletter_id=".$newsletter["newsletter_id"]." LIMIT 1";
+    $sql .= DB_PREPEND."newsletter WHERE newsletter_id=".$newsletter["newsletter_id"]." LIMIT 1";
     $result = _dbQuery($sql);
     if(isset($result[0]['newsletter_id'])) {
         $newsletter = $result[0];

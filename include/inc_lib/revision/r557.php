@@ -22,22 +22,22 @@ function phpwcms_revision_r557() {
     $status = true;
 
     // 1. Self-healing check and update for phpwcms_usergroup columns
-    if (!_dbColumnExists('phpwcms_usergroup', 'group_modkey')) {
-        _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_usergroup` ADD `group_modkey` VARCHAR(255) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
+    if (!_dbColumnExists('usergroup', 'group_modkey')) {
+        _dbQuery("ALTER TABLE `" . DB_PREPEND . "usergroup` ADD `group_modkey` VARCHAR(255) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
     } else {
-        _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_usergroup` CHANGE `group_modkey` `group_modkey` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+        _dbQuery("ALTER TABLE `" . DB_PREPEND . "usergroup` CHANGE `group_modkey` `group_modkey` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
     }
 
-    if (!_dbColumnExists('phpwcms_usergroup', 'group_syskey')) {
-        _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_usergroup` ADD `group_syskey` VARCHAR(255) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
+    if (!_dbColumnExists('usergroup', 'group_syskey')) {
+        _dbQuery("ALTER TABLE `" . DB_PREPEND . "usergroup` ADD `group_syskey` VARCHAR(255) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
     } else {
-        _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_usergroup` CHANGE `group_syskey` `group_syskey` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+        _dbQuery("ALTER TABLE `" . DB_PREPEND . "usergroup` CHANGE `group_syskey` `group_syskey` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
     }
 
-    _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_usergroup` CHANGE `group_name` `group_name` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+    _dbQuery("ALTER TABLE `" . DB_PREPEND . "usergroup` CHANGE `group_name` `group_name` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 
     // 2. Seed missing system & module groups
-    $adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'phpwcms_user` WHERE `usr_admin` = 1');
+    $adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'user` WHERE `usr_admin` = 1');
     $adminids = [];
     if (!empty($adminusers)) {
         foreach ($adminusers as $admins) {
@@ -76,9 +76,9 @@ function phpwcms_revision_r557() {
     ];
 
     foreach ($sysgroups as $syskey => $group_name) {
-        $count = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_usergroup WHERE group_syskey=' . _dbEscape($syskey) . ' AND group_trash=0');
+        $count = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'usergroup WHERE group_syskey=' . _dbEscape($syskey) . ' AND group_trash=0');
         if ($count === 0) {
-            _dbInsert('phpwcms_usergroup', [
+            _dbInsert('usergroup', [
                 'group_name'   => $group_name,
                 'group_member' => $admin_members,
                 'group_value'  => '',
@@ -88,7 +88,7 @@ function phpwcms_revision_r557() {
                 'group_syskey' => $syskey,
             ]);
         } else {
-            _dbUpdate('phpwcms_usergroup', ['group_name' => $group_name], 'group_syskey=' . _dbEscape($syskey) . " AND group_name IN ('Einstellungen', 'Einstellungen - Vorlagen', 'Einstellungen - Dateikategorien', 'ADMIN - Alias', 'File management - delete file')");
+            _dbUpdate('usergroup', ['group_name' => $group_name], 'group_syskey=' . _dbEscape($syskey) . " AND group_name IN ('Einstellungen', 'Einstellungen - Vorlagen', 'Einstellungen - Dateikategorien', 'ADMIN - Alias', 'File management - delete file')");
         }
     }
 
@@ -106,9 +106,9 @@ function phpwcms_revision_r557() {
     ];
 
     foreach ($modgroups as $modkey => $group_name) {
-        $count = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_usergroup WHERE group_modkey=' . _dbEscape($modkey) . ' AND group_trash=0');
+        $count = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'usergroup WHERE group_modkey=' . _dbEscape($modkey) . ' AND group_trash=0');
         if ($count === 0) {
-            _dbInsert('phpwcms_usergroup', [
+            _dbInsert('usergroup', [
                 'group_name'   => $group_name,
                 'group_member' => $admin_members,
                 'group_value'  => '',
@@ -118,13 +118,13 @@ function phpwcms_revision_r557() {
                 'group_syskey' => '',
             ]);
         } else {
-            _dbUpdate('phpwcms_usergroup', ['group_name' => $group_name], 'group_modkey=' . _dbEscape($modkey));
+            _dbUpdate('usergroup', ['group_name' => $group_name], 'group_modkey=' . _dbEscape($modkey));
         }
     }
 
     // 3. Ensure country_name_native column exists
-    if (!_dbColumnExists('phpwcms_country', 'country_name_native')) {
-        _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_country` ADD `country_name_native` VARCHAR(255) NOT NULL DEFAULT '' AFTER `country_name_de`", 'ALTER');
+    if (!_dbColumnExists('country', 'country_name_native')) {
+        _dbQuery("ALTER TABLE `" . DB_PREPEND . "country` ADD `country_name_native` VARCHAR(255) NOT NULL DEFAULT '' AFTER `country_name_de`", 'ALTER');
     }
 
     // 4. Modernize and update all ISO 3166-1 country records
@@ -390,7 +390,7 @@ function phpwcms_revision_r557() {
     };
 
     foreach ($countries as $c) {
-        $count = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_country WHERE country_iso=' . _dbEscape($c[0]));
+        $count = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . 'country WHERE country_iso=' . _dbEscape($c[0]));
         $data = [
             'country_iso3'           => $c[1],
             'country_isonum'         => $c[2],
@@ -402,17 +402,17 @@ function phpwcms_revision_r557() {
             'country_continent_de'   => $conv($c[8]),
         ];
         if ($count > 0) {
-            _dbUpdate('phpwcms_country', $data, 'country_iso=' . _dbEscape($c[0]));
+            _dbUpdate('country', $data, 'country_iso=' . _dbEscape($c[0]));
         } else {
             $data['country_iso'] = $c[0];
             $data['country_region'] = '';
             $data['country_region_de'] = '';
-            _dbInsert('phpwcms_country', $data);
+            _dbInsert('country', $data);
         }
     }
 
     // Clean up obsolete / dissolved country codes
-    _dbQuery('DELETE FROM ' . DB_PREPEND . "phpwcms_country WHERE country_iso IN ('AN', 'YU')", 'DELETE');
+    _dbQuery('DELETE FROM ' . DB_PREPEND . "country WHERE country_iso IN ('AN', 'YU')", 'DELETE');
 
     return $status;
 }

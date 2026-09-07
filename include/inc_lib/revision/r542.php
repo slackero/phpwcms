@@ -15,8 +15,8 @@ function phpwcms_revision_r542() {
 	$status = true;
 
 
-	if(!_dbColumnExists('phpwcms_articlecat', 'acat_onepage')) {
-		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` ADD `acat_onepage` INT(1) unsigned NOT NULL DEFAULT '0'", 'ALTER');
+	if(!_dbColumnExists('articlecat', 'acat_onepage')) {
+		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."articlecat` ADD `acat_onepage` INT(1) unsigned NOT NULL DEFAULT '0'", 'ALTER');
 		if(!$insert) {
 			$status = false;
 		}

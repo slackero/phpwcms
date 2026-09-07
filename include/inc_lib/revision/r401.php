@@ -9,12 +9,12 @@
  **/
 
 // Revision 401 Update Check
-function phpwcms_revision_r401() {
+function phpwcms_revision_r401()
+{
+    // check if article description field exists
+    if (!_dbColumnExists('article', 'article_description')) {
+        return (bool)_dbQuery('ALTER TABLE `' . DB_PREPEND . "article` ADD `article_description` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+    }
 
-	// check if article description field exists
-	if(!_dbColumnExists('phpwcms_article', 'article_description')) {
-		return _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD article_description VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-	}
-
-	return true;
+    return true;
 }

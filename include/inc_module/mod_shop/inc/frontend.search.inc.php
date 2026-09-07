@@ -60,7 +60,7 @@ class ModuleShopSearch {
         $sql .= "	shopprod_name1,' ',";
         $sql .= "	shopprod_name2,' '";
         $sql .= ') AS shopprod_search ';
-        $sql .= 'FROM '.DB_PREPEND.'phpwcms_shop_products WHERE shopprod_status=1';
+        $sql .= 'FROM '.DB_PREPEND.'shop_products WHERE shopprod_status=1';
         if($shop_lang_support && !empty($GLOBALS['phpwcms']['default_lang'])) {
             $sql .= " AND (shopprod_lang='' OR shopprod_lang="._dbEscape($GLOBALS['phpwcms']['default_lang']).')';
         }

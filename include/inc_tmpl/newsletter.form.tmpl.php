@@ -233,7 +233,7 @@ function insertNewsletterPlaceholder(tag) {
 
 <?php
     //retrieve available subscription lists/channels
-    $sql = "SELECT subscription_id,subscription_name FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name";
+    $sql = "SELECT subscription_id,subscription_name FROM ".DB_PREPEND."subscription ORDER BY subscription_name";
     $result = _dbQuery($sql);
     if(isset($result[0]['subscription_id'])) {
         foreach($result as $row):

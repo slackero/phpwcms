@@ -669,7 +669,7 @@ class phpwcmsCalendar {
                     $this->where_tag    = '(' . implode(' '.$default['tagmode'] . ' ', $tag_where) . ')';
                     $where[]            = $this->where_tag;
 
-                    $this->join_on  = 'LEFT JOIN '.DB_PREPEND.'phpwcms_categories ON cat_pid=calendar_id';
+                    $this->join_on  = 'LEFT JOIN '.DB_PREPEND.'categories ON cat_pid=calendar_id';
                     $this->group_by = 'calendar_id';
                 }
 
@@ -741,7 +741,7 @@ class phpwcmsCalendar {
         $sql  = 'SELECT '. $this->select .', ';
         $sql .= "UNIX_TIMESTAMP(calendar_start) AS calendar_start_date, ";
         $sql .= "UNIX_TIMESTAMP(calendar_end) AS calendar_end_date ";
-        $sql .= ' FROM '.DB_PREPEND.'phpwcms_calendar pc ';
+        $sql .= ' FROM '.DB_PREPEND.'calendar pc ';
         $sql .= $this->join_on;
         $sql .= ' WHERE ';
         $sql .= 'calendar_status = 1 ';

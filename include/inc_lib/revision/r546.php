@@ -10,45 +10,29 @@
 
 
 // Revision 546 Update Check
-function phpwcms_revision_r546() {
-
+function phpwcms_revision_r546()
+{
     $status = true;
 
-
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_file` WHERE Field='f_image_height'");
-
-    if(!isset($result[0]['Field'])) {
-
-        $insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` ADD `f_image_height` VARCHAR(20) NOT NULL DEFAULT '' AFTER `f_ext`", 'ALTER');
-
-        if(!$insert) {
+    if (!_dbColumnExists('file', 'f_image_height')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . "file` ADD `f_image_height` VARCHAR(20) NOT NULL DEFAULT '' AFTER `f_ext`", 'ALTER');
+        if (!$insert) {
             $status = false;
         }
-
     }
 
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_file` WHERE Field='f_image_width'");
-
-    if(!isset($result[0]['Field'])) {
-
-        $insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` ADD `f_image_width` VARCHAR(20) NOT NULL DEFAULT '' AFTER `f_ext`", 'ALTER');
-
-        if(!$insert) {
+    if (!_dbColumnExists('file', 'f_image_width')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . "file` ADD `f_image_width` VARCHAR(20) NOT NULL DEFAULT '' AFTER `f_ext`", 'ALTER');
+        if (!$insert) {
             $status = false;
         }
-
     }
 
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_file` WHERE Field='f_is_variation'");
-
-    if(!isset($result[0]['Field'])) {
-
-        $insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` ADD `f_is_variation` INT(11) NOT NULL DEFAULT '0' AFTER `f_kid`, ADD INDEX (`f_is_variation`)", 'ALTER');
-
-        if(!$insert) {
+    if (!_dbColumnExists('file', 'f_is_variation')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . "file` ADD `f_is_variation` INT(11) NOT NULL DEFAULT '0' AFTER `f_kid`, ADD INDEX (`f_is_variation`)", 'ALTER');
+        if (!$insert) {
             $status = false;
         }
-
     }
 
     return $status;

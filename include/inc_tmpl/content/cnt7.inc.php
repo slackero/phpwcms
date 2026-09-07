@@ -96,7 +96,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
                 $fx++;
             }
             if($fx) {
-                $file_sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND (".$fxa.")";
+                $file_sql = "SELECT f_id, f_name FROM ".DB_PREPEND."file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND (".$fxa.")";
                 $file_result = _dbQuery($file_sql);
                 if(isset($file_result[0]['f_id'])) {
                     foreach($file_result as $file_row) {

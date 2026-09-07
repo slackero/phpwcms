@@ -56,8 +56,8 @@ if (strpos($content['all'], '{GALLERY}') !== false) {
         $subgallery_id = (int)$_getVar['subgallery'];
 
         $sql  = 'SELECT pf.*, pj.f_id AS f_root_id, pj.f_name AS f_root_name ';
-        $sql .= 'FROM ' . DB_PREPEND . 'phpwcms_file pf ';
-        $sql .= 'LEFT JOIN ' . DB_PREPEND . 'phpwcms_file pj ';
+        $sql .= 'FROM ' . DB_PREPEND . 'file pf ';
+        $sql .= 'LEFT JOIN ' . DB_PREPEND . 'file pj ';
         $sql .= 'ON pf.f_pid=pj.f_id ';
         $sql .= 'WHERE pf.f_id=' . $subgallery_id;
 

@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $_entry['query']      = '';
 
 $sql  = "SELECT ar.article_id, ar.article_title ";
-$sql .= "FROM ".DB_PREPEND."phpwcms_article ar LEFT JOIN ".DB_PREPEND."phpwcms_articlecontent ac ON ";
+$sql .= "FROM ".DB_PREPEND."article ar LEFT JOIN ".DB_PREPEND."articlecontent ac ON ";
 $sql .= "ar.article_id = ac.acontent_aid WHERE ";
 $sql .= "ar.article_public=1 AND  ar.article_aktiv=1 AND ";
 $sql .= "ar.article_deleted=0 AND ";
@@ -36,7 +36,7 @@ $sql .= "ac.acontent_type = ";
 				<a class="nav-link<?php if($controller == 'overview') echo ' active'; ?>" href="<?php echo statistic_url() ?>"><?php echo $BLM['tab_overview'] ?></a>
 			</li>
 			<?php
-			$counter = _dbQuery("SELECT f_id FROM ".DB_PREPEND."phpwcms_file WHERE f_trash = 0 AND f_dlstart > 0", "COUNT");
+			$counter = _dbQuery("SELECT f_id FROM ".DB_PREPEND."file WHERE f_trash = 0 AND f_dlstart > 0", "COUNT");
 			if ($counter > 0 ) {
 			?>
 				<li class="nav-item">
@@ -44,7 +44,7 @@ $sql .= "ac.acontent_type = ";
 				</li>
 			<?php
 			}
-			$counter = _dbQuery("SELECT address_id FROM ".DB_PREPEND."phpwcms_address", "COUNT");
+			$counter = _dbQuery("SELECT address_id FROM ".DB_PREPEND."address", "COUNT");
 			if ($counter > 0 ) {
 			?>
 				<li class="nav-item">

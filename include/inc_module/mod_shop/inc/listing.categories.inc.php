@@ -93,7 +93,7 @@ if (isset($_SESSION['filter_shop_category']) && is_array($_SESSION['filter_shop_
 }
 
 // paginating values
-$_entry['count_total'] = _dbQuery('SELECT COUNT(cat_id) FROM ' . DB_PREPEND . 'phpwcms_categories WHERE ' . $_entry['query'], 'COUNT');
+$_entry['count_total'] = _dbQuery('SELECT COUNT(cat_id) FROM ' . DB_PREPEND . 'categories WHERE ' . $_entry['query'], 'COUNT');
 $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_count']);
 if ($_SESSION['detail_page'] > $_entry['pages_total']) {
     $_SESSION['detail_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
@@ -151,8 +151,8 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
 
         $sql = 'SELECT C1.*, ';
         $sql .= "IFNULL(CONCAT(C2.cat_name, ' / ', C1.cat_name), C1.cat_name) AS category FROM ";
-        $sql .= DB_PREPEND . 'phpwcms_categories C1 ';
-        $sql .= 'LEFT JOIN ' . DB_PREPEND . 'phpwcms_categories C2 ';
+        $sql .= DB_PREPEND . 'categories C1 ';
+        $sql .= 'LEFT JOIN ' . DB_PREPEND . 'categories C2 ';
         $sql .= 'ON C1.cat_pid=C2.cat_id ';
         $sql .= 'WHERE ' . str_replace('cat_', 'C1.cat_', $_entry['query']) . ' ';
         $sql .= 'ORDER BY C1.cat_sort DESC, C2.cat_sort DESC, category ASC ';

@@ -20,7 +20,7 @@ if($action == 'delete') {
 
     $plugin['data']['order_id']		= intval($_GET['delete']);
 
-    $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_shop_orders SET ';
+    $sql  = 'UPDATE '.DB_PREPEND.'shop_orders SET ';
     $sql .= "order_status = 'CLOSED' ";
     $sql .= "WHERE order_id = " . $plugin['data']['order_id'];
 
@@ -51,7 +51,7 @@ if($action == 'delete') {
         if($plugin['order_status'] == '') {
             $plugin['order_status'] = 'NEW-ORDER';
         }
-        $sql  = 'UPDATE '.DB_PREPEND."phpwcms_shop_orders SET order_status='".aporeplace($plugin['order_status'])."' ";
+        $sql  = 'UPDATE '.DB_PREPEND."shop_orders SET order_status='".aporeplace($plugin['order_status'])."' ";
         $sql .= "WHERE order_id=" . intval($_POST['order_status']);
 
         if( _dbQuery($sql, 'UPDATE') ) {
@@ -59,7 +59,7 @@ if($action == 'delete') {
         }
     }
 
-    $sql  = 'SELECT *, UNIX_TIMESTAMP(order_date) AS order_date_unix FROM '.DB_PREPEND.'phpwcms_shop_orders ';
+    $sql  = 'SELECT *, UNIX_TIMESTAMP(order_date) AS order_date_unix FROM '.DB_PREPEND.'shop_orders ';
     $sql .= "WHERE order_id = " . intval($_GET['show']);
 
     $plugin['data'] = _dbQuery($sql);

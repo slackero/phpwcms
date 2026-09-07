@@ -23,8 +23,8 @@ function renderAds($match) {
 		return '';
 	}
 
-	$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_campaign ac ';
-	$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_ads_place ap ON ';
+	$sql  = 'SELECT * FROM '.DB_PREPEND.'ads_campaign ac ';
+	$sql .= 'LEFT JOIN '.DB_PREPEND.'ads_place ap ON ';
 	$sql .= 'ap.adplace_id=ac.adcampaign_place ';
 	$sql .= 'WHERE ac.adcampaign_place='.$adID.' AND ';
 	$sql .= 'ac.adcampaign_status=1 AND ap.adplace_status=1 AND ';
@@ -53,7 +53,7 @@ function renderAds($match) {
 				if($ad['adcampaign_maxviewuser']) {
 
 					//check how often selected ad was viewed by user
-					$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_ads_tracking WHERE ';
+					$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'ads_tracking WHERE ';
 					$sql .= 'adtracking_campaignid='.$ad['adcampaign_id'].' AND ';
 					$sql .= "adtracking_cookieid="._dbEscape($ads_userid);
 					$ads_viewed = _dbQuery($sql, 'COUNT');

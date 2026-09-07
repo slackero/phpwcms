@@ -67,7 +67,7 @@ if (is_array($_FILES)) {
 
             if(!empty($row[0]) && is_valid_email($row[0])) {
 
-              $sql = "INSERT INTO " . DB_PREPEND . "phpwcms_address (";
+              $sql = "INSERT INTO " . DB_PREPEND . "address (";
               $sql .= "address_email, address_name, address_key, address_subscription, address_verified, address_tstamp) VALUES (";
               $sql .= "'" . aporeplace($row[0]) . "', ";
               $sql .= "'" . aporeplace($row[1]) . "', ";

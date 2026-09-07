@@ -121,7 +121,7 @@ if(isset($_POST['detail_firstname'])) {
         if($plugin['data']['detail_id']) {
 
             // UPDATE
-            $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_userdetail SET ';
+            $sql  = 'UPDATE '.DB_PREPEND.'userdetail SET ';
 
             $sql_fields = array();
 
@@ -157,7 +157,7 @@ if(isset($_POST['detail_firstname'])) {
             $sql_fields['detail_regkey'] = 'detail_regkey';
             $plugin['data']['detail_regkey'] = MODULE_KEY;
 
-            $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_userdetail (';
+            $sql  = 'INSERT INTO '.DB_PREPEND.'userdetail (';
             foreach($sql_fields as $key => $value) {
                 $sql_fields[$key] = $key;
             }
@@ -187,7 +187,7 @@ if(isset($_POST['detail_firstname'])) {
 // try to read entry from database
 if($plugin['id'] && !isset($plugin['error'])) {
 
-    $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE detail_id='.$plugin['id'].' AND detail_pid=0';
+    $sql  = 'SELECT * FROM '.DB_PREPEND.'userdetail WHERE detail_id='.$plugin['id'].' AND detail_pid=0';
     $plugin['data'] = _dbQuery($sql);
     $plugin['data'] = isset($plugin['data'][0]) ? $plugin['data'][0] : false;
 

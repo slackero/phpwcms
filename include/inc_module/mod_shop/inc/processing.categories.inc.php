@@ -38,7 +38,7 @@ if($action == 'edit') {
         if(!$plugin['data']['cat_name']) {
             $plugin['error']['cat_name'] = 'No name';
         } else {
-            $sql  = 'SELECT COUNT(cat_id) FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
+            $sql  = 'SELECT COUNT(cat_id) FROM '.DB_PREPEND.'categories WHERE ';
             $sql .= "cat_type='module_shop' AND cat_status != 9 AND cat_name LIKE '". aporeplace($plugin['data']['cat_name']) ."'";
             $sql .= $plugin['data']['cat_id'] ? ' AND cat_id != ' . $plugin['data']['cat_id'] : '';
             if( _dbQuery($sql, 'COUNT') ) {
@@ -51,7 +51,7 @@ if($action == 'edit') {
             // Update
             if( $plugin['data']['cat_id'] ) {
 
-                $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_categories SET ';
+                $sql  = 'UPDATE '.DB_PREPEND.'categories SET ';
                 $sql .= "cat_changedate = '".aporeplace( date('Y-m-d H:i:s', $plugin['data']['cat_changedate']) )."', ";
                 $sql .= "cat_pid = ".$plugin['data']['cat_pid'].", ";
                 $sql .= "cat_status = ".$plugin['data']['cat_status'].", ";
@@ -65,7 +65,7 @@ if($action == 'edit') {
             // INSERT
             } else {
 
-                $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_categories (';
+                $sql  = 'INSERT INTO '.DB_PREPEND.'categories (';
                 $sql .= 'cat_type, cat_pid, cat_createdate, cat_changedate, cat_status, cat_name, cat_info, cat_sort';
                 $sql .= ') VALUES (';
                 $sql .= "'module_shop', ";
@@ -108,7 +108,7 @@ if($action == 'edit') {
 
     } else {
 
-        $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
+        $sql  = 'SELECT * FROM '.DB_PREPEND.'categories WHERE ';
         $sql .= "cat_type='module_shop' AND cat_id = " . $plugin['data']['cat_id'] . ' LIMIT 1';
 
         $plugin['data'] = _dbQuery($sql);
@@ -131,7 +131,7 @@ if($action == 'edit') {
     $plugin['data']['cat_id']		= intval($plugin['data']['cat_id']);
     $plugin['data']['cat_status']	= empty($plugin['data']['cat_status']) ? 1 : 0;
 
-    $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_categories SET ';
+    $sql  = 'UPDATE '.DB_PREPEND.'categories SET ';
     $sql .= "cat_status = ".$plugin['data']['cat_status']." ";
     $sql .= "WHERE cat_type='module_shop' AND cat_id = " . $plugin['data']['cat_id'];
 
@@ -143,7 +143,7 @@ if($action == 'edit') {
 
     $plugin['data']['cat_id']		= intval($_GET['delete']);
 
-    $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_categories SET ';
+    $sql  = 'UPDATE '.DB_PREPEND.'categories SET ';
     $sql .= "cat_status = 9 ";
     $sql .= "WHERE cat_type='module_shop' AND ";
     $sql .= "(cat_id = " . $plugin['data']['cat_id'] . " OR cat_pid = " . $plugin['data']['cat_id'] . ")";

@@ -16,16 +16,16 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 // now retrieve all downloads
 if (isset($_GET['delete'])) {
-    $sql = "DELETE FROM ".DB_PREPEND."phpwcms_log WHERE log_id=".intval($_GET['delete']);
+    $sql = "DELETE FROM ".DB_PREPEND."log WHERE log_id=".intval($_GET['delete']);
     @_dbQuery($sql, 'DELETE');
 }
 
 if (isset($_GET['blacklist'])) {
-    $sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_log WHERE log_msg LIKE ' . _dbEscapeLike($_GET['blacklist'], true, '%', '');
+    $sql = 'DELETE FROM ' . DB_PREPEND . 'log WHERE log_msg LIKE ' . _dbEscapeLike($_GET['blacklist'], true, '%', '');
     @_dbQuery($sql, 'DELETE');
-    $sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_address WHERE address_email = ' . _dbEscape($_GET['blacklist']) . ' AND address_verified=0';
+    $sql = 'DELETE FROM ' . DB_PREPEND . 'address WHERE address_email = ' . _dbEscape($_GET['blacklist']) . ' AND address_verified=0';
     @_dbQuery($sql, 'DELETE');
-    $sql = 'INSERT INTO ' . DB_PREPEND . "phpwcms_blacklist (blacklist_email, blacklist_tstamp) VALUES (" . _dbEscape($_GET['blacklist']) . ", '" . date('Y-m-d H:i:s') . "')";
+    $sql = 'INSERT INTO ' . DB_PREPEND . "blacklist (blacklist_email, blacklist_tstamp) VALUES (" . _dbEscape($_GET['blacklist']) . ", '" . date('Y-m-d H:i:s') . "')";
     @_dbQuery($sql, 'INSERT');
 }
 $_controller_link =  statistic_url('controller=subscriptions');
@@ -44,7 +44,7 @@ $_controller_link =  statistic_url('controller=subscriptions');
         </thead>
         <tbody>
         <?php
-        $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_subscription ";
+        $sql  = "SELECT * FROM " . DB_PREPEND . "subscription ";
         $result = _dbQuery($sql);
 
         $x = 0;
@@ -81,14 +81,14 @@ $_controller_link =  statistic_url('controller=subscriptions');
           <tr>
             <td><?php echo $BLM['subscriptionactiv'] ?></td>
             <td class="text-end"><?php
-              $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_address WHERE address_verified=1";
+              $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."address WHERE address_verified=1";
               echo _dbQuery($sql, 'COUNT');
             ?></td>
           </tr>
           <tr>
             <td><?php echo $BLM['subscriptioninactiv'] ?></td>
             <td class="text-end"><?php
-              $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_address WHERE address_verified=0";
+              $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."address WHERE address_verified=0";
               echo _dbQuery($sql, 'COUNT');
             ?></td>
           </tr>
@@ -122,7 +122,7 @@ $_controller_link =  statistic_url('controller=subscriptions');
         </thead>
         <tbody>
         <?php
-        $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_log lo LEFT JOIN " . DB_PREPEND . "phpwcms_address ad ON lo.log_user_id =ad.address_id WHERE log_type = '1' OR log_type = '2'  OR log_type = '3' OR log_type = '4' ORDER BY lo.log_created  DESC LIMIT 0,200";
+        $sql  = "SELECT * FROM " . DB_PREPEND . "log lo LEFT JOIN " . DB_PREPEND . "address ad ON lo.log_user_id =ad.address_id WHERE log_type = '1' OR log_type = '2'  OR log_type = '3' OR log_type = '4' ORDER BY lo.log_created  DESC LIMIT 0,200";
         $result2 = _dbQuery($sql);
 
         $x = 0;

@@ -28,7 +28,7 @@ if(!function_exists('get_mediaplayer_stream')) {
         }
 
         // internal
-        $sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fileid;
+        $sql = 'SELECT * FROM '.DB_PREPEND.'file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fileid;
         if( !FEUSER_LOGIN_STATUS ) {
             $sql .= ' AND f_granted=0';
         }
@@ -137,7 +137,7 @@ if(isset($fmp_data['fmp_template'])) {
     } elseif($fmp_data['fmp_internal_id']) {
 
         // internal
-        $sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fmp_data['fmp_internal_id'];
+        $sql = 'SELECT * FROM '.DB_PREPEND.'file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fmp_data['fmp_internal_id'];
         if(!FEUSER_LOGIN_STATUS) {
             $sql .= ' AND f_granted=0';
         }
@@ -174,7 +174,7 @@ if(isset($fmp_data['fmp_template'])) {
     // retrieve preview image
     if($fmp_data['fmp_img_id']) {
 
-        $sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fmp_data['fmp_img_id'];
+        $sql = 'SELECT * FROM '.DB_PREPEND.'file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fmp_data['fmp_img_id'];
         if( !FEUSER_LOGIN_STATUS ) {
             $sql .= ' AND f_granted=0';
         }

@@ -29,7 +29,7 @@ if (!defined('PHPWCMS_ROOT')) {
 				<tbody>
 				<?php
 				$row_count = 0;
-				$data = _dbGet('phpwcms_content', '*', 'cnt_status!=9 AND cnt_module='._dbEscape(MODULE_KEY));
+				$data = _dbGet('content', '*', 'cnt_status!=9 AND cnt_module='._dbEscape(MODULE_KEY));
 
 				if ($data) {
 					foreach($data as $row) {

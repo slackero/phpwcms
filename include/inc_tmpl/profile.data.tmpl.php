@@ -18,12 +18,12 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //Auslesen der eventuell f�r den User bereits vorhandenen Detaildaten
 //1. Pr�fen, ob �berhaupt ein Profil angelegt ist
-$sql = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_userdetail WHERE detail_pid='.intval($_SESSION["wcs_user_id"]);
+$sql = 'SELECT COUNT(*) FROM '.DB_PREPEND.'userdetail WHERE detail_pid='.intval($_SESSION["wcs_user_id"]);
 
 if(_dbQuery($sql, 'COUNT')) {
 
 	//Es sind bereits Daten hinterlegt - diese jetzt auslesen
-	$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE detail_pid='.intval($_SESSION['wcs_user_id']).' LIMIT 1';
+	$sql = 'SELECT * FROM '.DB_PREPEND.'userdetail WHERE detail_pid='.intval($_SESSION['wcs_user_id']).' LIMIT 1';
 	$detail = _dbQuery($sql);
 	if(is_array($detail[0])) {
 		$detail = $detail[0];

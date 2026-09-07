@@ -25,28 +25,28 @@ if(isset($_GET["do"])) {
     if(count($values)) {
         switch(intval($values[0])) {
             case 9: //delete article content part
-                    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_trash=9".
+                    $sql = "UPDATE ".DB_PREPEND."articlecontent SET acontent_trash=9".
                            " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
                            " AND acontent_aid=".intval($values[1]).
                            " AND acontent_id=".intval($values[2]);
                     _dbQuery($sql, 'UPDATE');
                     break;
             case 1: //delete article
-                    $sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."')".
+                    $sql = "UPDATE ".DB_PREPEND."article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."')".
                            " WHERE (article_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
                            " AND article_id=".intval($values[1]);
                     _dbQuery($sql, 'UPDATE');
                     $ref .= '&p=&s=&id=';
                     break;
             case 2: //make content visible/invisible
-                    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_visible=".intval($values[3]).
+                    $sql = "UPDATE ".DB_PREPEND."articlecontent SET acontent_visible=".intval($values[3]).
                            " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
                            " AND acontent_aid=".intval($values[1]).
                            " AND acontent_id=".intval($values[2]);
                     _dbQuery($sql, 'UPDATE');
                     break;
             case 3: //make article visible/invisible
-                    $sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_aktiv=".intval($values[3]).
+                    $sql = "UPDATE ".DB_PREPEND."article SET article_aktiv=".intval($values[3]).
                            " WHERE article_id=".intval($values[1]);
                     _dbQuery($sql, 'UPDATE');
                     break;
@@ -69,7 +69,7 @@ if(isset($_GET['sort'])) {
                 $sort2 = $sort1 + 10;
             }
             $where_perm = empty($_SESSION['wcs_user_admin']) ? ' AND acontent_uid = ' . (int) $_SESSION['wcs_user_id'] : '';
-            $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_articlecontent SET ' .
+            $sql = 'UPDATE ' . DB_PREPEND . 'articlecontent SET ' .
                    'acontent_sorting = CASE acontent_id WHEN ' . $id1 . ' THEN ' . $sort1 . ' WHEN ' . $id2 . ' THEN ' . $sort2 . ' END, ' .
                    'acontent_tstamp = acontent_tstamp ' .
                    'WHERE acontent_id IN (' . $id1 . ', ' . $id2 . ')' . $where_perm;

@@ -74,7 +74,7 @@ if(!empty($_POST['ctype_change_aid'])) {
 
     if($ctype_change_aid && $ctype_change_aid != $content["aid"]) {
 
-        $ctype_change_aid   = _dbQuery('SELECT article_id FROM '.DB_PREPEND.'phpwcms_article WHERE article_id='.$ctype_change_aid.' AND article_deleted=0');
+        $ctype_change_aid   = _dbQuery('SELECT article_id FROM '.DB_PREPEND.'article WHERE article_id='.$ctype_change_aid.' AND article_deleted=0');
         if(!empty($ctype_change_aid[0]['article_id'])) {
             $content["aid"] = $ctype_change_aid[0]['article_id'];
             $ctype_change_aid = 'DO_CHANGE';

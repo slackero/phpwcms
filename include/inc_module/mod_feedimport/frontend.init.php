@@ -35,7 +35,7 @@ if(!empty($_getVar['feedimport'])) {
 
 	unset($_getVar['feedimport']);
 
-	$feedimport_result = _dbGet('phpwcms_content', 'cnt_id,cnt_name,cnt_text,cnt_object', $feedimport_where);
+	$feedimport_result = _dbGet('content', 'cnt_id,cnt_name,cnt_text,cnt_object', $feedimport_where);
 
 	if(isset($feedimport_result[0]['cnt_id'])) {
 
@@ -93,7 +93,7 @@ if(!empty($_getVar['feedimport'])) {
 			include_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 			// set import sort counter
-			$article_sort_counter = _dbGet('phpwcms_article', 'article_sort', 'article_cid='._dbEscape($feedimport_result['cnt_object']['structure_level_id']), '', 'article_sort DESC', 1);
+			$article_sort_counter = _dbGet('article', 'article_sort', 'article_cid='._dbEscape($feedimport_result['cnt_object']['structure_level_id']), '', 'article_sort DESC', 1);
 			if(isset($article_sort_counter[0])) {
 				$article_sort_counter = $article_sort_counter[0]['article_sort'] + 10;
 			} else {
@@ -105,8 +105,8 @@ if(!empty($_getVar['feedimport'])) {
                 $article_unique_hash    = md5( $feedimport_result['cnt_text'] . $rssvalue->get_title() . $rssvalue->get_date('U') );
 
 				// check against crossreference table
-				$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_crossreference c ';
-				$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_article a ';
+				$sql  = 'SELECT * FROM '.DB_PREPEND.'crossreference c ';
+				$sql .= 'LEFT JOIN '.DB_PREPEND.'article a ';
 				$sql .= 'ON c.cref_rid=a.article_id ';
 				$sql .= "WHERE c.cref_type='feed_to_article_import' AND c.cref_str="._dbEscape('feedimport_'.$article_unique_hash).' AND ';
 				$sql .= 'a.article_deleted=0 LIMIT 1';
@@ -241,7 +241,7 @@ if(!empty($_getVar['feedimport'])) {
                                         $data['f_tags']         = makeCharsetConversion($data['f_tags'], 'utf-8', PHPWCMS_CHARSET);
 									}
 
-									$insert = _dbInsert('phpwcms_file', $data);
+									$insert = _dbInsert('file', $data);
 
 									if(isset($insert['INSERT_ID'])) {
                                         $feedimport_result['image']['name']             = $article_thumbnail_name;
@@ -312,7 +312,7 @@ if(!empty($_getVar['feedimport'])) {
 
 				$data['article_image'] = serialize($feedimport_result['image']);
 
-				$result = _dbInsert('phpwcms_article', $data);
+				$result = _dbInsert('article', $data);
 
 				if(isset($result['INSERT_ID'])) {
 
@@ -364,7 +364,7 @@ if(!empty($_getVar['feedimport'])) {
 						}
 
 						// Inset CP Data
-						$insert = _dbInsert('phpwcms_articlecontent', $cpdata);
+						$insert = _dbInsert('articlecontent', $cpdata);
 
 						if(!isset($insert['INSERT_ID'])) {
 							dumpVar(_dbError());
@@ -380,7 +380,7 @@ if(!empty($_getVar['feedimport'])) {
                         'cref_str'  => 'feedimport_'.$article_unique_hash
 					);
 
-					_dbInsert('phpwcms_crossreference', $data);
+					_dbInsert('crossreference', $data);
 
 					$article_sort_counter = $article_sort_counter + 10;
 				}

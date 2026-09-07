@@ -38,7 +38,7 @@ if(PHPWCMS_CHARSET !== 'utf-8') {
 }
 
 if($file_id && !$file_alias) {
-    $sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_id='.$file_id.' AND f_trash=0 AND f_kid=1 LIMIT 1;';
+    $sql = 'SELECT * FROM '.DB_PREPEND.'file WHERE f_id='.$file_id.' AND f_trash=0 AND f_kid=1 LIMIT 1;';
     $result = _dbQuery($sql);
     if(isset($result[0]['f_name'])) {
         $file_oldname = html_specialchars($result[0]["f_name"]);
@@ -103,7 +103,7 @@ if($file_id && !$file_alias) {
 if($file_id && $file_alias) {
   $file_alias = proof_file_alias($file_id, $file_alias);
 
-  $sql_alias =  "UPDATE ".DB_PREPEND."phpwcms_file SET f_alias = "._dbEscape($file_alias)." WHERE f_id = ".$file_id;
+  $sql_alias =  "UPDATE ".DB_PREPEND."file SET f_alias = "._dbEscape($file_alias)." WHERE f_id = ".$file_id;
   _dbQuery($sql_alias, 'UPDATE');
 
   echo '<div class="col">'.html_specialchars($file_alias);

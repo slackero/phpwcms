@@ -71,7 +71,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 		} elseif(isset($_GET['verify'])) {
 
 			// active/inactive
-			$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_ads_campaign SET ';
+			$sql  = 'UPDATE '.DB_PREPEND.'ads_campaign SET ';
 			$sql .= "adcampaign_status=".(intval($_GET['verify']) ? 1 : 0)." ";
 			$sql .= "WHERE adcampaign_id=".intval($_GET['editid']);
 			@_dbQuery($sql, 'UPDATE');
@@ -82,7 +82,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 			$adcampaign_id = intval($_GET['delete']);
 
 			// delete
-			$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_ads_campaign SET ';
+			$sql  = 'UPDATE '.DB_PREPEND.'ads_campaign SET ';
 			$sql .= "adcampaign_status=9 WHERE adcampaign_id=".$adcampaign_id;
 			@_dbQuery($sql, 'UPDATE');
 
@@ -93,7 +93,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 
 		} elseif(isset($_GET['duplicate'])) {
 
-			@_dbDuplicateRow('phpwcms_ads_campaign', 'adcampaign_id', intval($_GET['duplicate']),
+			@_dbDuplicateRow('ads_campaign', 'adcampaign_id', intval($_GET['duplicate']),
 					array(
 				'adcampaign_title'		=> '--SELF-- ('.generic_string(3).')',
 				'adcampaign_created'	=> 'SQL:NOW()',
@@ -119,7 +119,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 		} elseif(isset($_GET['verify'])) {
 
 			// active/inactive
-			$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_ads_place SET ';
+			$sql  = 'UPDATE '.DB_PREPEND.'ads_place SET ';
 			$sql .= "adplace_status=".(intval($_GET['verify']) ? 1 : 0)." ";
 			$sql .= "WHERE adplace_id=".intval($_GET['editid']);
 			@_dbQuery($sql, 'UPDATE');
@@ -128,7 +128,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 		} elseif(isset($_GET['delete'])) {
 
 			// delete
-			$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_ads_place SET ';
+			$sql  = 'UPDATE '.DB_PREPEND.'ads_place SET ';
 			$sql .= "adplace_status=9 WHERE adplace_id=".intval($_GET['delete']);
 			@_dbQuery($sql, 'UPDATE');
 			headerRedirect(decode_entities(MODULE_HREF).'&listadplace=1');

@@ -10,17 +10,16 @@
 
 
 // Revision 551 Update Check
-function phpwcms_revision_r551() {
+function phpwcms_revision_r551()
+{
+    $status = true;
 
-	$status = true;
+    if (!_dbColumnExists('article', 'article_meta')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'article` ADD `article_meta` MEDIUMTEXT NOT NULL', 'ALTER');
+        if (!$insert) {
+            $status = false;
+        }
+    }
 
-
-	if(!_dbColumnExists('phpwcms_article', 'article_meta')) {
-		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` ADD `article_meta` MEDIUMTEXT NOT NULL DEFAULT ''", 'ALTER');
-		if(!$insert) {
-			$status = false;
-		}
-	}
-
-	return $status;
+    return $status;
 }

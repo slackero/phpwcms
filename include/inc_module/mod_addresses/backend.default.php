@@ -42,7 +42,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	} elseif(isset($_GET['verify'])) {
 
 		// active/inactive
-		$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_userdetail SET ';
+		$sql  = 'UPDATE '.DB_PREPEND.'userdetail SET ';
 		$sql .= "detail_aktiv=".(intval($_GET['verify']) ? 1 : 0)." ";
 		$sql .= "WHERE detail_regkey="._dbEscape(MODULE_KEY)." AND detail_id=".intval($_GET['editid']);
 		@_dbQuery($sql, 'UPDATE');
@@ -51,7 +51,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	} elseif(isset($_GET['delete'])) {
 
 		// delete
-		$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_userdetail SET detail_aktiv=9 ';
+		$sql  = 'UPDATE '.DB_PREPEND.'userdetail SET detail_aktiv=9 ';
 		$sql .= "WHERE detail_regkey="._dbEscape(MODULE_KEY)." AND detail_id=".intval($_GET['delete']);
 		@_dbQuery($sql, 'UPDATE');
 		headerRedirect(MODULE_HREF_DECODE);

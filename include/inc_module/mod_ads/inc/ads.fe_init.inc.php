@@ -25,7 +25,7 @@ if(isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 
 	$ads_id = intval($_GET['adclickval']);
 
-	$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_campaign ';
+	$sql  = 'SELECT * FROM '.DB_PREPEND.'ads_campaign ';
 	$sql .= 'WHERE adcampaign_id='.$ads_id.' AND adcampaign_status=1 LIMIT 1';
 	$ad_data = _dbQuery($sql);
 
@@ -43,7 +43,7 @@ if(isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 			setcookie('phpwcmsAdsUserId', $ads_userid, time()+63072000, '/', getCookieDomain(), PHPWCMS_SSL, true);
 		}
 
-		$sql  =	'INSERT LOW_PRIORITY INTO '.DB_PREPEND.'phpwcms_ads_tracking (';
+		$sql  =	'INSERT LOW_PRIORITY INTO '.DB_PREPEND.'ads_tracking (';
 		$sql .= 'adtracking_created, adtracking_campaignid, adtracking_ip, adtracking_cookieid, ';
 		$sql .= 'adtracking_countclick, adtracking_countview, adtracking_useragent, adtracking_ref, ';
 		$sql .= 'adtracking_catid, adtracking_articleid) VALUES (';
@@ -52,7 +52,7 @@ if(isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 
 		@_dbQuery($sql, 'INSERT');
 
-		$sql  = 'UPDATE LOW_PRIORITY '.DB_PREPEND.'phpwcms_ads_campaign SET ';
+		$sql  = 'UPDATE LOW_PRIORITY '.DB_PREPEND.'ads_campaign SET ';
 		$sql .= 'adcampaign_curclick=adcampaign_curclick+1 WHERE adcampaign_id='.$ads_id;
 
 		@_dbQuery($sql, 'UPDATE');

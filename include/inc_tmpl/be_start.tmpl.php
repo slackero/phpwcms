@@ -39,8 +39,8 @@ if(isset($_POST['homeMaxCntParts'])) {
 $_usql = $_SESSION["wcs_user_admin"] ? '' : 'AND article_uid='. (int)$_SESSION["wcs_user_id"] .' ';
 
 // first list last edited articles
-$_asql_1  = "SELECT *, DATE_FORMAT(acontent_tstamp, '".$BL['be_sqlshortdatetime']."') AS acontent_changed FROM ".DB_PREPEND."phpwcms_articlecontent t1 ";
-$_asql_1 .= "LEFT JOIN ".DB_PREPEND."phpwcms_article t2 ON ";
+$_asql_1  = "SELECT *, DATE_FORMAT(acontent_tstamp, '".$BL['be_sqlshortdatetime']."') AS acontent_changed FROM ".DB_PREPEND."articlecontent t1 ";
+$_asql_1 .= "LEFT JOIN ".DB_PREPEND."article t2 ON ";
 $_asql_1 .= "t1.acontent_aid = t2.article_id ";
 $_asql_1 .= 'WHERE t1.acontent_trash=0 AND t2.article_deleted=0 ';
 $_asql_1 .= $_usql;
@@ -64,7 +64,7 @@ $_last10_articlecontent = _dbQuery($_asql_1);
 
 $_asql_1  = "SELECT article_id, article_cid, article_title, article_subtitle, article_aktiv, article_uid, article_lang, ";
 $_asql_1 .= "date_format(article_tstamp, '" . $BL['be_sqlshortdatetime'] . "') AS article_date ";
-$_asql_1 .= 'FROM ' . DB_PREPEND . 'phpwcms_article WHERE article_deleted=0 ';
+$_asql_1 .= 'FROM ' . DB_PREPEND . 'article WHERE article_deleted=0 ';
 $_asql_1 .= $_usql;
 if (!empty($_SESSION['phpwcms_backend_search'])) {
     $_asql_1 .= ' AND CONCAT(article_title,article_subtitle,article_summary) LIKE ' . _dbEscapeLike($_SESSION['phpwcms_backend_search']) . ' ';

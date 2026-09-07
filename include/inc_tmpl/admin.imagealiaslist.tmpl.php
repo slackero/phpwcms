@@ -18,14 +18,14 @@ if (!defined('PHPWCMS_ROOT')) {
 echo '<h1 class="text-center text-sm-start">'.$BL['be_imagealias'].'</h1>';
 
 // check if file alias field exists
-$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_file LIKE 'f_alias'", 'COUNT_SHOW');
+$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."file LIKE 'f_alias'", 'COUNT_SHOW');
 
 if(empty($result)) {
-    _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_file ADD f_alias VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+    _dbQuery("ALTER TABLE ".DB_PREPEND."file ADD f_alias VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
     echo $BL['f_alias'];
 }
 
-$sql =  "SELECT f_name, f_id FROM ".DB_PREPEND."phpwcms_file WHERE f_alias = '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png' OR f_ext like 'svg') ";
+$sql =  "SELECT f_name, f_id FROM ".DB_PREPEND."file WHERE f_alias = '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png' OR f_ext like 'svg') ";
 
 $emptyalias = _dbCount($sql);
 $countstr = ($emptyalias > 0) ? $emptyalias.$BL['count'] : $BL['nocount'];
@@ -50,7 +50,7 @@ if(isset($_POST['keyword'])) {
             }
             $filename[0] = proof_file_alias($files['f_id'], $filename[0], $files['f_name']);
 
-            $sql_alias =  "UPDATE ".DB_PREPEND."phpwcms_file SET f_alias = "._dbEscape($filename[0])." WHERE f_id = ".intval($files['f_id']);
+            $sql_alias =  "UPDATE ".DB_PREPEND."file SET f_alias = "._dbEscape($filename[0])." WHERE f_id = ".intval($files['f_id']);
             _dbQuery($sql_alias, 'UPDATE');
 
             echo '<tr><td>';
@@ -87,18 +87,18 @@ if(isset($_POST['keyword'])) {
 
 <?php
 
-$sql =  "SELECT f_alias, f_id, f_name, f_hash FROM ".DB_PREPEND."phpwcms_file WHERE f_alias <> '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png')";
+$sql =  "SELECT f_alias, f_id, f_name, f_hash FROM ".DB_PREPEND."file WHERE f_alias <> '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png')";
 
 $result = _dbQuery($sql);
 if(isset($result[0]['f_id'])) {
   foreach($result as $files) {
     echo '<div id="alias-'.$files['f_id'].'" class="row align-items-center"><div class="col">';
     echo html($files['f_alias']);
-    $sql_count  = "SELECT COUNT(acontent_form) FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_form LIKE '%".$files['f_hash']."%'";
+    $sql_count  = "SELECT COUNT(acontent_form) FROM ".DB_PREPEND."articlecontent WHERE acontent_form LIKE '%".$files['f_hash']."%'";
     $f_count1 = _dbCount($sql_count);
-    $sql_count  = "SELECT COUNT(acontent_form) FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_image LIKE '%".$files['f_hash']."%'";
+    $sql_count  = "SELECT COUNT(acontent_form) FROM ".DB_PREPEND."articlecontent WHERE acontent_image LIKE '%".$files['f_hash']."%'";
     $f_count2 = _dbCount($sql_count);
-    $sql_count  = "SELECT COUNT(cnt_object) FROM ".DB_PREPEND."phpwcms_content WHERE cnt_object LIKE '%".$files['f_hash']."%'";
+    $sql_count  = "SELECT COUNT(cnt_object) FROM ".DB_PREPEND."content WHERE cnt_object LIKE '%".$files['f_hash']."%'";
     $f_count3 = _dbCount($sql_count);
     echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$files['f_id']."', '".$files['f_id']."');".'"><i class="fa-solid fa-pencil-alt" aria-hidden="true"></i></a></div>';
     echo "</div><hr class=\"my-1\">";

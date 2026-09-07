@@ -47,7 +47,7 @@ $news['sql_query'] .= $news['cnt_ts_sortdate'] . ' AS cnt_ts_sortdate ';
 $news['sql_count'] = 'SELECT COUNT(pc.cnt_id) ';
 $news['sql_joined_count'] = 'SELECT pc.cnt_id ';
 
-$sql = 'FROM '.DB_PREPEND.'phpwcms_content pc ';
+$sql = 'FROM '.DB_PREPEND.'content pc ';
 
 $news['sql_group_by'] = '';
 $news['sql_where'][] = 'pc.cnt_status=1';
@@ -112,7 +112,7 @@ if($news['list_mode']) {
 
             $news['sql_where_cat']  = '(';
             $news['sql_where_cat'] .=   'SELECT COUNT(pcat.cat_pid) ';
-            $news['sql_where_cat'] .=   'FROM '.DB_PREPEND.'phpwcms_categories pcat WHERE ';
+            $news['sql_where_cat'] .=   'FROM '.DB_PREPEND.'categories pcat WHERE ';
             $news['sql_where_cat'] .=   "pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id AND (";
             $news['sql_where_cat'] .=   implode(' OR ', $news['news_category_sql']);
             $news['sql_where_cat'] .=   ') GROUP BY pcat.cat_pid';
@@ -130,7 +130,7 @@ if($news['list_mode']) {
 
             // no category is allowed
             $news['sql_where_cat']  = 'SELECT pcat.cat_pid ';
-            $news['sql_where_cat'] .= 'FROM '.DB_PREPEND.'phpwcms_categories pcat WHERE ';
+            $news['sql_where_cat'] .= 'FROM '.DB_PREPEND.'categories pcat WHERE ';
             $news['sql_where_cat'] .= "pcat.cat_type='news' AND (";
             $news['sql_where_cat'] .= implode(' OR ', $news['news_category_sql']);
             $news['sql_where_cat'] .= ') GROUP BY pcat.cat_pid';
@@ -655,7 +655,7 @@ if($news['template']) {
                         $value['cnt_object']['cnt_files']['where'] .= 'f_ext IN(' . $news['config']['gallery_allowed_ext'] . ')';
 
                         $value['cnt_object']['cnt_files']['images'] = _dbGet(
-                            'phpwcms_file',
+                            'file',
                             'f_id,f_hash,f_name,f_ext,f_longinfo,f_copyright,f_vars,f_svg,f_image_width,f_image_height',
                             $value['cnt_object']['cnt_files']['where']
                         );

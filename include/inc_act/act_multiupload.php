@@ -169,7 +169,7 @@ if ($file_field && isset($_FILES[$file_field])) {
                 }
             }
 
-            $insert = _dbInsert('phpwcms_file', $data);
+            $insert = _dbInsert('file', $data);
 
             if (!empty($insert['INSERT_ID'])) {
                 $destFile = $file_dir . $fileHash . ($fileExt !== '' ? '.' . $fileExt : '');
@@ -180,7 +180,7 @@ if ($file_field && isset($_FILES[$file_field])) {
                     }
                     $ret[] = $fileName;
                 } else {
-                    _dbQuery('DELETE FROM ' . DB_PREPEND . 'phpwcms_file WHERE f_id=' . _dbEscape($insert['INSERT_ID']));
+                    _dbQuery('DELETE FROM ' . DB_PREPEND . 'file WHERE f_id=' . _dbEscape($insert['INSERT_ID']));
                     http_response_code(500);
                     header('Content-Type: text/plain; charset=utf-8');
                     die($BL['be_error_while_save']);

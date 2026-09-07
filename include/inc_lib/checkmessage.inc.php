@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 //Check is actual user has new messages waiting
-$sql = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE msg_uid=".intval($_SESSION["wcs_user_id"])." AND msg_read=0";
+$sql = "SELECT COUNT(*) FROM ".DB_PREPEND."message WHERE msg_uid=".intval($_SESSION["wcs_user_id"])." AND msg_read=0";
 if(($check = _dbQuery($sql, 'COUNT'))) {
 
     $wcsnav["navspace1"]  = '<a href="phpwcms.php?do=messages" title="'.$check.' new messages waiting!">'.

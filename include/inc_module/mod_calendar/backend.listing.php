@@ -186,7 +186,7 @@ $sql .= "DATE_FORMAT(calendar_end,   '%d".$BLM['date_delimiter']."%m".$BLM['date
 $sql .= "DATE_FORMAT(calendar_start, '%H:%i') AS calendar_start_time, ";
 $sql .= "DATE_FORMAT(calendar_end,   '%H:%i') AS calendar_end_time, ";
 $sql .= "DATE_FORMAT(calendar_start,   '%e') AS calendar_day ";
-$sql .= ' FROM '.DB_PREPEND.'phpwcms_calendar WHERE ';
+$sql .= ' FROM '.DB_PREPEND.'calendar WHERE ';
 $sql .= 'calendar_status != 9 AND ';
 $sql .= 'calendar_range = 0 AND ';
 $sql .= "calendar_start >= '".aporeplace($plugin['current_year'].'-'.$plugin['current_month'].'-1 00:00:00')."' AND ";
@@ -212,7 +212,7 @@ $sql .= "DATE_FORMAT(calendar_range_end,   '%d".$BLM['date_delimiter']."%m".$BLM
 $sql .= "DATE_FORMAT(calendar_start, '%H:%i') AS calendar_start_time, ";
 $sql .= "DATE_FORMAT(calendar_end,   '%H:%i') AS calendar_end_time, ";
 $sql .= "DATE_FORMAT(calendar_start,   '%e') AS calendar_day ";
-$sql .= ' FROM '.DB_PREPEND.'phpwcms_calendar WHERE ';
+$sql .= ' FROM '.DB_PREPEND.'calendar WHERE ';
 $sql .= 'calendar_status != 9 AND ';
 $sql .= 'calendar_range > 0 AND ';
 $sql .= "calendar_range_start < '".aporeplace($plugin['end_year'].'-'.$plugin['end_month'].'-01 00:00:00')."' AND ";

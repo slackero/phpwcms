@@ -18,10 +18,10 @@ function phpwcms_revision_r534() {
 	// change type of some content related fields from TEXT to MEDIUMTEXT
 
 	// Retrieve Types of article content table
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecontent` WHERE Field IN ('acontent_text', 'acontent_html', 'acontent_media')");
+	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."articlecontent` WHERE Field IN ('acontent_text', 'acontent_html', 'acontent_media')");
 	if(isset($result[0]['Type'])) {
 		foreach($result as $column) {
-			$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecontent` CHANGE `".$column['Field'].'` `'.$column['Field']."` MEDIUMTEXT NOT NULL", 'ALTER');
+			$update = _dbQuery("ALTER TABLE `".DB_PREPEND."articlecontent` CHANGE `".$column['Field'].'` `'.$column['Field']."` MEDIUMTEXT NOT NULL", 'ALTER');
 			if(!$update) {
 				$status = false;
 			}
@@ -29,9 +29,9 @@ function phpwcms_revision_r534() {
 	}
 
 	// Retrieve Types of article table
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_article` WHERE Field='article_summary'");
+	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."article` WHERE Field='article_summary'");
 	if(isset($result[0]['Type'])) {
-		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_summary` `article_summary` MEDIUMTEXT NOT NULL", 'ALTER');
+		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."article` CHANGE `article_summary` `article_summary` MEDIUMTEXT NOT NULL", 'ALTER');
 		if(!$update) {
 			$status = false;
 		}

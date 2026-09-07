@@ -39,7 +39,7 @@ if((!RESPONSIVE_MODE && $content["image_width"] > $temp_img_maxwidth) || ($conte
 }
 
 // check for image information and get alle infos from file
-$img_sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE f_id=" . $content["image_id"] . " LIMIT 1";
+$img_sql = "SELECT * FROM " . DB_PREPEND . "file WHERE f_id=" . $content["image_id"] . " LIMIT 1";
 $img_result = _dbQuery($img_sql);
 
 if(isset($img_result[0]['f_id'])) {

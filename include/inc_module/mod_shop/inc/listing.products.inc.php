@@ -98,7 +98,7 @@ if(isset($_SESSION['filter_shop_products']) && is_array($_SESSION['filter_shop_p
 
 
 // paginating values
-$_entry['count_total'] = _dbCount('SELECT COUNT(shopprod_id) FROM '.DB_PREPEND.'phpwcms_shop_products WHERE '.$_entry['query']);
+$_entry['count_total'] = _dbCount('SELECT COUNT(shopprod_id) FROM '.DB_PREPEND.'shop_products WHERE '.$_entry['query']);
 $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_product_count']);
 if($_SESSION['detail_page'] > $_entry['pages_total']) {
   $_SESSION['detail_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
@@ -164,7 +164,7 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 // loop listing available products
 $row_count = 0;
 
-$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_shop_products WHERE '.$_entry['query'].' ';
+$sql  = 'SELECT * FROM '.DB_PREPEND.'shop_products WHERE '.$_entry['query'].' ';
 $sql .= 'LIMIT '.(($_SESSION['detail_page']-1) * $_SESSION['list_product_count']).','.$_SESSION['list_product_count'];
 
 $data = _dbQuery($sql);

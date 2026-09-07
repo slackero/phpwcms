@@ -196,7 +196,7 @@ class phpwcmsImageGallery {
 		}
 
 		// check if folder(s) is(are) live
-		$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+		$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'file WHERE ';
 		$sql .= 'f_id IN (' . $folders . ') AND f_kid=0 AND f_trash=0 AND f_aktiv=1 AND f_public=1';
 		if(_dbCount($sql) > 0) {
 
@@ -214,7 +214,7 @@ class phpwcmsImageGallery {
 				case 'SORT-CREATE-DESC':	$order_by = ' ORDER BY f_sort DESC, f_created DESC';	break;
 				default:					$order_by = ' ORDER BY f_created DESC';
 			}
-			$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+			$sql  = 'SELECT * FROM '.DB_PREPEND.'file WHERE ';
 			$sql .= 'f_pid IN (' . $folders . ') AND f_kid=1 AND ';
 			$sql .= 'f_trash=0 AND f_aktiv=1 AND f_public=1 AND ';
 			$sql .= "f_ext IN ('jpg', 'jpeg', 'gif', 'png', 'webp')";
@@ -252,7 +252,7 @@ class phpwcmsImageGallery {
 		}
 		*/
 
-		$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+		$sql  = 'SELECT * FROM '.DB_PREPEND.'file WHERE ';
 		$sql .= 'f_pid='.$folder_id.' AND f_kid=0 AND f_trash=0 AND f_aktiv=1 AND f_public=1';
 		$sql .= $this->gallery_sort;
 
@@ -334,7 +334,7 @@ class phpwcmsImageGallery {
 
 		$folder_id			= intval($folder_id);
 
-		$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+		$sql  = 'SELECT * FROM '.DB_PREPEND.'file WHERE ';
 		$sql .= 'f_id='.$folder_id.' AND f_kid=0 AND f_trash=0 AND f_aktiv=1 AND f_public=1';
 		$sql .= $this->gallery_sort;
 
@@ -726,7 +726,7 @@ class phpwcmsImageGallery {
 
 	function getGalleryTree() {
 
-		$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file ';
+		$sql  = 'SELECT * FROM '.DB_PREPEND.'file ';
 		$sql .= 'WHERE f_kid=0 AND f_aktiv=1 AND f_public=1';
 		if($this->gallery_only) {
 			$sql .= ' AND f_gallerystatus=2';
@@ -743,7 +743,7 @@ class phpwcmsImageGallery {
 
 	function getGallerySub($parent=0) {
 
-		$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file ';
+		$sql  = 'SELECT * FROM '.DB_PREPEND.'file ';
 		$sql .= 'WHERE f_kid=0 AND f_aktiv=1 AND f_public=1';
 		if($this->gallery_only) {
 			$sql .= ' AND f_gallerystatus IN(3,2)';

@@ -119,7 +119,7 @@ class search_News {
 		$sql        = 'SELECT pc.*, ';
 		$sql       .= $cnt_ts_livedate . ' AS cnt_ts_livedate, ';
 		$sql       .= $cnt_ts_killdate . ' AS cnt_ts_killdate ';
-		$sql       .= 'FROM '.DB_PREPEND.'phpwcms_content pc ';
+		$sql       .= 'FROM '.DB_PREPEND.'content pc ';
 
 		$sql_where  = 'WHERE ';
 		$sql_where .= 'pc.cnt_status=1 AND ';
@@ -156,7 +156,7 @@ class search_News {
 
 			}
 
-			$sql       .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
+			$sql       .= "LEFT JOIN ".DB_PREPEND."categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
 			$sql_where .= 'AND (' . implode($news_andor, $cat_sql) . ') ';
 			$sql_group  = 'GROUP BY pc.cnt_id ';
 		}
@@ -278,7 +278,7 @@ class search_News {
 
 				if($this->image_render && !empty($value['cnt_object']['cnt_image']['id'])) {
 					$value['cnt_object']['cnt_image'] = _dbGet(
-						'phpwcms_file',
+						'file',
 						'f_id AS `id`, f_hash AS `hash`, f_ext AS `ext`, f_name AS `name`',
 						'f_id='._dbEscape($value['cnt_object']['cnt_image']['id']).' AND f_trash=0 AND f_aktiv=1 AND f_public=1'
 					);

@@ -31,7 +31,7 @@ if (empty($_GET['apikey']) || $action !== 'exportformresult') {
         // fetch the form by id and compare the stored key in PHP —
         // never match user input via SQL LIKE (wildcard injection bypass)
         $form = _dbGet(
-            'phpwcms_articlecontent',
+            'articlecontent',
             'acontent_id, acontent_form',
             'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0'
         );
@@ -60,7 +60,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 // export form results
 if ($action === 'exportformresult' && $fid) {
-    $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date  FROM " . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $fid);
+    $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date  FROM " . DB_PREPEND . 'formresult WHERE formresult_pid=' . $fid);
 
     if (!$data) {
         die('No data returned or another error processing the export.');
@@ -140,7 +140,7 @@ if ($action === 'exportformresult' && $fid) {
 }
 
 if ($action === 'exportformresultdetail' && $fid) {
-    $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%S') AS formresult_date FROM " . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $fid);
+    $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%S') AS formresult_date FROM " . DB_PREPEND . 'formresult WHERE formresult_pid=' . $fid);
 
     if (!$data) {
         die('No data returned or another error processing the export.');
@@ -254,7 +254,7 @@ if ($action === 'exportsubscriber' && (has_admin_permission('nl') || has_admin_p
     }
 
     // get all subscribers from db
-    $data = _dbQuery("SELECT *, DATE_FORMAT(address_tstamp, '%Y-%m-%d %H:%i:%s') AS addate FROM " . DB_PREPEND . 'phpwcms_address' . $_userInfo['where_query'] . ' ORDER BY address_tstamp');
+    $data = _dbQuery("SELECT *, DATE_FORMAT(address_tstamp, '%Y-%m-%d %H:%i:%s') AS addate FROM " . DB_PREPEND . 'address' . $_userInfo['where_query'] . ' ORDER BY address_tstamp');
     if ($data) {
         // send header data
         $filename = date('Y-m-d_H-i-s') . '_newsletterRecipients.html';
@@ -282,7 +282,7 @@ if ($action === 'exportsubscriber' && (has_admin_permission('nl') || has_admin_p
         echo '<th>all</th>';
 
         // now check subscriptions
-        $_userInfo['subscriptions'] = _dbQuery('SELECT * FROM ' . DB_PREPEND . 'phpwcms_subscription ORDER BY subscription_name');
+        $_userInfo['subscriptions'] = _dbQuery('SELECT * FROM ' . DB_PREPEND . 'subscription ORDER BY subscription_name');
 
         $_userInfo['channel'] = [];
 

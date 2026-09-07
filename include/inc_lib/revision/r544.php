@@ -10,59 +10,70 @@
 
 
 // Revision 544 Update Check
-function phpwcms_revision_r544() {
-
+function phpwcms_revision_r544()
+{
     $status = true;
 
+    $result = _dbQuery("SHOW COLUMNS FROM `" . DB_PREPEND . "calendar` WHERE Field='calendar_refid'");
 
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_calendar` WHERE Field='calendar_refid'");
-
-    if(isset($result[0]['Type']) && substr(strtolower($result[0]['Type']), 0, 3) === 'int') {
-
-        if($result = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_calendar` CHANGE `calendar_refid` `calendar_refid` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER')) {
-
-            _dbUpdate('phpwcms_calendar', array('calendar_refid' => ''), "calendar_refid='0'");
-
+    if (isset($result[0]['Type']) && substr(strtolower($result[0]['Type']), 0, 3) === 'int') {
+        if ($result = _dbQuery("ALTER TABLE `" . DB_PREPEND . "calendar` CHANGE `calendar_refid` `calendar_refid` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER')) {
+            _dbUpdate('calendar', ['calendar_refid' => ''], "calendar_refid='0'");
         }
-
     }
 
     //modifications
 
     // Add column newsletter_pub for Newsletter modification
-    if(!_dbColumnExists('phpwcms_newsletter', 'newsletter_pub')) {
-        $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_newsletter ADD newsletter_pub datetime DEFAULT NULL", 'ALTER');
+    if (!_dbColumnExists('newsletter', 'newsletter_pub')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'newsletter` ADD `newsletter_pub` datetime DEFAULT NULL', 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
     }
     // Add column newsletter_lang for Newsletter modification
-    if(!_dbColumnExists('phpwcms_newsletter', 'newsletter_lang')) {
-        $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_newsletter ADD newsletter_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+    if (!_dbColumnExists('newsletter', 'newsletter_lang')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "newsletter` ADD `newsletter_lang` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
     }
-    // Add column queue_opener for opene newsletter counter
-    if(!_dbColumnExists('phpwcms_newsletterqueue', 'queue_opener')) {
-        $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_newsletterqueue ADD queue_opener INT(11) NOT NULL DEFAULT '0'", 'ALTER');
+    // Add column queue_opener for opened newsletter counter
+    if (!_dbColumnExists('newsletterqueue', 'queue_opener')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "newsletterqueue` ADD `queue_opener` INT(11) NOT NULL DEFAULT '0'", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
     }
 
     // Add column f_alias for filealias modification
-    if(!_dbColumnExists('phpwcms_file', 'f_alias')) {
-        $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_file ADD f_alias VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+    if (!_dbColumnExists('file', 'f_alias')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "file` ADD `f_alias` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
     }
 
     // Add column group_modkey for usergroup modules
-    if(!_dbColumnExists('phpwcms_usergroup', 'group_modkey')) {
-       $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_usergroup ADD group_modkey VARCHAR(20) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
+    if (!_dbColumnExists('usergroup', 'group_modkey')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "usergroup` ADD `group_modkey` VARCHAR(20) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
     }
 
     // Add column group_sys for adding Sysrecords to user groups
-    if(!_dbColumnExists('phpwcms_usergroup', 'group_syskey')) {
-        if(_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_usergroup ADD group_syskey VARCHAR(10) NOT NULL AFTER `group_active`", 'ALTER')) {
-            //now we add new sys groups to phpwcms_usergroup
+    if (!_dbColumnExists('usergroup', 'group_syskey')) {
+        if (_dbQuery('ALTER TABLE `' . DB_PREPEND . "usergroup` ADD `group_syskey` VARCHAR(10) NOT NULL AFTER `group_active`", 'ALTER')) {
+            //now we add new sys groups to usergroup
             //first we get all admin users and prepare insert value
-            $adminusers = _dbQuery('SELECT `usr_id` FROM `'.DB_PREPEND.'phpwcms_user` WHERE `usr_admin` = 1');
-            if(count($adminusers)) {
+            $adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'user` WHERE `usr_admin` = 1');
+            $adminids = [];
+            if (!empty($adminusers)) {
                 foreach ($adminusers as $admins) {
                     $adminids[] = $admins['usr_id'];
                 }
-                $group_member = implode(',',$adminids);
+                $group_member = implode(',', $adminids);
             } else {
                 $group_member = '';
             }
@@ -105,9 +116,9 @@ function phpwcms_revision_r544() {
 
             foreach ($newgroupnames as $groupname) {
                 //if sys group is not existing we add this new group
-                if (!_dbQuery('SELECT `group_syskey` FROM `'.DB_PREPEND.'phpwcms_usergroup` WHERE `group_syskey` = '._dbEscape($groupname))) {
+                if (!_dbQuery('SELECT `group_syskey` FROM `'.DB_PREPEND.'usergroup` WHERE `group_syskey` = '._dbEscape($groupname))) {
                     $data['group_syskey'] = $groupname;
-                    if (!_dbInsert('phpwcms_usergroup', $data)) {
+                    if (!_dbInsert('usergroup', $data)) {
                         $status = false;
                     }
                 }

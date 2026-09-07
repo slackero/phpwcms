@@ -29,7 +29,7 @@ $cinfo_files = '';
 if (!empty($row['acontent_files'])) {
     $file_ids = array_filter(array_map('intval', explode(':', $row['acontent_files'])));
     if (count($file_ids)) {
-        $file_sql = 'SELECT f_id, f_name, f_ext FROM ' . DB_PREPEND . 'phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND f_id IN (' . implode(',', $file_ids) . ')';
+        $file_sql = 'SELECT f_id, f_name, f_ext FROM ' . DB_PREPEND . 'file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND f_id IN (' . implode(',', $file_ids) . ')';
         $file_result = _dbQuery($file_sql);
         if (is_array($file_result) && count($file_result)) {
             $file_map = [];

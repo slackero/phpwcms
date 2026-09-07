@@ -47,7 +47,7 @@ if (!defined('PHPWCMS_ROOT')) {
 				<div class="col-sm-10">
 					<select name="adplace_format" id="adplace_format" class="form-select form-select-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
 						<?php
-						$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_formats WHERE adformat_status=1';
+						$sql = 'SELECT * FROM '.DB_PREPEND.'ads_formats WHERE adformat_status=1';
 						$plugin['ad_formats']		= _dbQuery($sql);
 						$plugin['ad_formats_js']	= array();
 						foreach($plugin['ad_formats'] as $_entry['value']) {

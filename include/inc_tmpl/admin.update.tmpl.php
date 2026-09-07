@@ -59,8 +59,8 @@ if (isset($_GET['check']) || !isset($_SESSION['phpwcms_update_check']) || !is_ar
 }
 
 $history = [];
-if (_dbTableExists('phpwcms_update_log')) {
-    $history = _dbQuery('SELECT * FROM `' . DB_PREPEND . 'phpwcms_update_log` ORDER BY update_id DESC');
+if (_dbTableExists('update_log')) {
+    $history = _dbQuery('SELECT * FROM `' . DB_PREPEND . 'update_log` ORDER BY update_id DESC');
     if (!is_array($history)) {
         $history = [];
     }

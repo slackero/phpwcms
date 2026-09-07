@@ -25,7 +25,7 @@ $acat_permit = array();
 
 if($acat_id) {
 
-    $row_acat = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_id=".$acat_id." LIMIT 1");
+    $row_acat = _dbQuery("SELECT * FROM ".DB_PREPEND."articlecat WHERE acat_id=".$acat_id." LIMIT 1");
 
     if(isset($row_acat[0]['acat_id'])) {
 

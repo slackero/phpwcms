@@ -16,7 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // list trashed files
-$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_uid=".$_SESSION["wcs_user_id"]." AND f_kid=1 AND f_trash=1 ORDER BY f_name";
+$file_sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_uid=".$_SESSION["wcs_user_id"]." AND f_kid=1 AND f_trash=1 ORDER BY f_name";
 $file_result = _dbQuery($file_sql);
 
 if(isset($file_result[0]['f_id'])) {

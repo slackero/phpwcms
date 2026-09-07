@@ -81,7 +81,7 @@ if(isset($_SESSION['filter_seo']) && is_array($_SESSION['filter_seo']) && count(
 }
 
 
-$sql  = 'SELECT COUNT(DISTINCT hash) FROM '.DB_PREPEND.'phpwcms_log_seo ';
+$sql  = 'SELECT COUNT(DISTINCT hash) FROM '.DB_PREPEND.'log_seo ';
 if($_entry['query'] && $_entry['query'] != '1=1') {
 	$sql .= 'WHERE '.$_entry['query'].' ';
 }
@@ -165,7 +165,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 				<?php
 				$row_count = 0;
 
-				$sql  = 'SELECT domain, referrer, query, hash, COUNT(*) AS occurance FROM '.DB_PREPEND.'phpwcms_log_seo ';
+				$sql  = 'SELECT domain, referrer, query, hash, COUNT(*) AS occurance FROM '.DB_PREPEND.'log_seo ';
 				if($_entry['query'] && $_entry['query'] != '1=1') {
 					$sql .= 'WHERE '.$_entry['query'].' ';
 				}

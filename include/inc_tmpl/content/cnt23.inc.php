@@ -1399,7 +1399,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             // check form entries
             $result_download_link = 'include/inc_act/act_export.php?' . CSRF_GET_TOKEN . '&amp;action=exportformresult&amp;fid=' . $content['id'];
             if($content["id"]):
-                $entries = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_formresult WHERE formresult_pid='.$content['id'], 'COUNT');
+                $entries = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'formresult WHERE formresult_pid='.$content['id'], 'COUNT');
                 if($entries > 0):
                     ?>
                     <button class="btn btn-success text-nowrap" onclick="window.open('<?php echo $result_download_link; ?>', '_new');" class="p-3">

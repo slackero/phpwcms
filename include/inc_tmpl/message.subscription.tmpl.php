@@ -24,7 +24,7 @@ if(isset($_GET["s"]) && isset($_GET['edit'])) {
 
 // delete subscription
 if(isset($_GET["del"]) && isset($_GET["s"]) && $_GET["del"] == $_GET["s"]) {
-  _dbQuery("DELETE FROM ".DB_PREPEND."phpwcms_subscription WHERE subscription_id=".intval($_GET["del"])." LIMIT 1", 'DELETE');
+  _dbQuery("DELETE FROM ".DB_PREPEND."subscription WHERE subscription_id=".intval($_GET["del"])." LIMIT 1", 'DELETE');
 }
 
 if(!isset($_GET["edit"])) {
@@ -46,7 +46,7 @@ if(!isset($_GET["edit"])) {
     <table class="table table-sm table-valign-middle mb-0">
     <?php
     // loop listing available subscriptions
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name";
+    $sql = "SELECT * FROM ".DB_PREPEND."subscription ORDER BY subscription_name";
     $result = _dbQuery($sql);
     if(isset($result[0]['subscription_id'])) {
         $row_count = 0;

@@ -81,7 +81,7 @@ if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strp
     $phpwcms['seo_referrer_data'] = seReferrer( $_SERVER['HTTP_REFERER'] );
     if( is_array( $phpwcms['seo_referrer_data'] ) ) {
         $phpwcms['seo_referrer_data']['hash'] = md5(strtolower($phpwcms['seo_referrer_data']['domain'].$phpwcms['seo_referrer_data']['query']));
-        _dbInsert('phpwcms_log_seo', $phpwcms['seo_referrer_data'], 'LOW_PRIORITY');
+        _dbInsert('log_seo', $phpwcms['seo_referrer_data'], 'LOW_PRIORITY');
     }
 }
 

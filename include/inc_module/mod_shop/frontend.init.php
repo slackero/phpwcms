@@ -53,7 +53,7 @@ function get_cart_data() {
         $in[$key] = $key;
     }
 
-    $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_shop_products WHERE shopprod_status=1 AND ';
+    $sql  = 'SELECT * FROM '.DB_PREPEND.'shop_products WHERE shopprod_status=1 AND ';
     $sql .= 'shopprod_id IN (' . implode(',', $in) . ')';
 
     $data = _dbQuery($sql);
@@ -130,7 +130,7 @@ function get_shop_category_name($id=0, $subid=0) {
     }
     $cat_name = '';
 
-    $sql  = 'SELECT cat_name FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
+    $sql  = 'SELECT cat_name FROM '.DB_PREPEND.'categories WHERE ';
     $sql .= "cat_type='module_shop' AND cat_status=1 AND cat_id=" . $id . ' LIMIT 1';
     $data = _dbQuery($sql);
 
@@ -140,7 +140,7 @@ function get_shop_category_name($id=0, $subid=0) {
 
     if($subid) {
 
-        $sql  = 'SELECT cat_name FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
+        $sql  = 'SELECT cat_name FROM '.DB_PREPEND.'categories WHERE ';
         $sql .= "cat_type='module_shop' AND cat_status=1 AND cat_id=" . $subid . ' LIMIT 1';
         $data = _dbQuery($sql);
 
@@ -172,7 +172,7 @@ function get_category_products($selected_product_cat, $shop_detail_id, $shop_cat
 
     $shop_cat_prods = '';
 
-    $sql  = "SELECT * FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
+    $sql  = "SELECT * FROM ".DB_PREPEND.'shop_products WHERE ';
     $sql .= "shopprod_status=1";
     $sql .= ' AND (';
     $sql .= "shopprod_category = '" . $selected_product_cat . "' OR ";

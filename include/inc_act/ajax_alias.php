@@ -41,7 +41,7 @@ if (PHPWCMS_CHARSET === 'utf-8') {
 }
 
 if($action === 'form' && $article_id) {
-    $content['current_article'] = _dbGet('phpwcms_article', '*', 'article_id='._dbEscape($article_id), '', '', 1);
+    $content['current_article'] = _dbGet('article', '*', 'article_id='._dbEscape($article_id), '', '', 1);
 
     echo '<div class="p-2">'.LF;
     $kw_str = '<span class="text-muted">–</span>';
@@ -70,8 +70,8 @@ if($action === 'form' && $article_id) {
 }
 
 if($action === 'form' && $acat_id) {
-    $content['current_articlecat'] = _dbGet('phpwcms_articlecat', '*', 'acat_id='._dbEscape($acat_id), '', '', 1);
-    $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($content['current_articlecat'][0]['acat_template']), '', '', 1);
+    $content['current_articlecat'] = _dbGet('articlecat', '*', 'acat_id='._dbEscape($acat_id), '', '', 1);
+    $content['current_template'] = _dbGet('template', '*', 'template_trash=0 AND template_id='._dbEscape($content['current_articlecat'][0]['acat_template']), '', '', 1);
     $acat_template = $content['current_template'][0]['template_name'];
 
     echo '<div class="p-2">'.LF;
@@ -99,7 +99,7 @@ if($action === 'form' && $acat_id) {
 if($action === 'update') {
     $article_alias = proof_alias($article_id, $alias, 'ARTICLE');
 
-    $sql_alias = "UPDATE ".DB_PREPEND."phpwcms_article SET ";
+    $sql_alias = "UPDATE ".DB_PREPEND."article SET ";
     $sql_alias .= " article_alias = '".aporeplace($article_alias)."', ";
     $sql_alias .= " article_description = '".aporeplace($article_description)."' ";
     $sql_alias .= " WHERE article_id = ".$article_id;
@@ -116,7 +116,7 @@ if($action === 'update') {
 if($action === 'updatecat') {
     $acat_alias = proof_alias($acat_id, $acatalias, 'CATEGORY');
 
-    $sql_alias = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET ";
+    $sql_alias = "UPDATE ".DB_PREPEND."articlecat SET ";
     $sql_alias .= " acat_alias = '".aporeplace($acat_alias)."', ";
     $sql_alias .= " acat_pagetitle = '".aporeplace($acat_pagetitle)."' ";
     $sql_alias .= " WHERE acat_id = ".$acat_id;
@@ -125,7 +125,7 @@ if($action === 'updatecat') {
     echo '<div class="btn btn-sm '.(empty($acat_alias) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
     echo '<div class="btn btn-sm '.(empty($acat_pagetitle) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_redirect'].'">T</div>';
 
-    $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($acattemplate), '', '', 1);
+    $content['current_template'] = _dbGet('template', '*', 'template_trash=0 AND template_id='._dbEscape($acattemplate), '', '', 1);
     echo $content['current_template'][0]['template_name'] . ' | ';
 
     echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$acat_id.'">'.(empty($acat_alias) ? 'no alias' : html_specialchars($acat_alias) ).'</a>';
@@ -134,7 +134,7 @@ if($action === 'updatecat') {
 }
 
 if($action === 'close' && $article_id) {
-    $content['current_article'] = _dbGet('phpwcms_article', 'article_alias, article_description', 'article_id='._dbEscape($article_id), '', '', 1);
+    $content['current_article'] = _dbGet('article', 'article_alias, article_description', 'article_id='._dbEscape($article_id), '', '', 1);
 
     echo '<div class="btn btn-sm '.(empty($content['current_article'][0]["article_alias"]) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
     echo '<div class="btn btn-sm '.(empty($content['current_article'][0]["article_description"]) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_article_description'].'">D</div>';
@@ -144,12 +144,12 @@ if($action === 'close' && $article_id) {
 }
 
 if($action === 'close' && $acat_id) {
-    $content['current_acat'] = _dbGet('phpwcms_articlecat', 'acat_alias, acat_pagetitle', 'acat_id='._dbEscape($acat_id), '', '', 1);
+    $content['current_acat'] = _dbGet('articlecat', 'acat_alias, acat_pagetitle', 'acat_id='._dbEscape($acat_id), '', '', 1);
 
     echo '<div class="btn btn-sm '.(empty($content['current_acat'][0]["acat_alias"]) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
     echo '<div class="btn btn-sm '.(empty($content['current_acat'][0]["acat_pagetitle"]) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_pagetitle'].'">T</div>';
 
-    $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($acattemplate), '', '', 1);
+    $content['current_template'] = _dbGet('template', '*', 'template_trash=0 AND template_id='._dbEscape($acattemplate), '', '', 1);
     echo $content['current_template'][0]['template_name'] . ' | ';
 
     echo empty($content['current_acat'][0]["acat_alias"]) ? 'no alias' : $content['current_acat'][0]["acat_alias"];

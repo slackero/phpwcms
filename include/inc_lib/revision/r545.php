@@ -10,57 +10,36 @@
 
 
 // Revision 545 Update Check
-function phpwcms_revision_r545() {
-
+function phpwcms_revision_r545()
+{
     $status = true;
 
-
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecontent` WHERE Field='acontent_attr_class'");
-
-    if(!isset($result[0]['Field'])) {
-
-        $insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecontent` ADD `acontent_attr_class` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-
-        if(!$insert) {
+    if (!_dbColumnExists('articlecontent', 'acontent_attr_class')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . "articlecontent` ADD `acontent_attr_class` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+        if (!$insert) {
             $status = false;
         }
-
     }
 
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecontent` WHERE Field='acontent_attr_id'");
-
-    if(!isset($result[0]['Field'])) {
-
-        $insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecontent` ADD `acontent_attr_id` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-
-        if(!$insert) {
+    if (!_dbColumnExists('articlecontent', 'acontent_attr_id')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . "articlecontent` ADD `acontent_attr_id` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+        if (!$insert) {
             $status = false;
         }
-
     }
 
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecontent` WHERE Field='acontent_setting'");
-
-    if(!isset($result[0]['Field'])) {
-
-        $insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecontent` ADD `acontent_setting` MEDIUMTEXT", 'ALTER');
-
-        if(!$insert) {
+    if (!_dbColumnExists('articlecontent', 'acontent_setting')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . 'articlecontent` ADD `acontent_setting` MEDIUMTEXT', 'ALTER');
+        if (!$insert) {
             $status = false;
         }
-
     }
 
-    $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecontent` WHERE Field='acontent_type_setting'");
-
-    if(!isset($result[0]['Field'])) {
-
-        $insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecontent` ADD `acontent_type_setting` VARCHAR(20) NOT NULL DEFAULT ''", 'ALTER');
-
-        if(!$insert) {
+    if (!_dbColumnExists('articlecontent', 'acontent_type_setting')) {
+        $insert = _dbQuery('ALTER TABLE `' . DB_PREPEND . "articlecontent` ADD `acontent_type_setting` VARCHAR(20) NOT NULL DEFAULT ''", 'ALTER');
+        if (!$insert) {
             $status = false;
         }
-
     }
 
     return $status;

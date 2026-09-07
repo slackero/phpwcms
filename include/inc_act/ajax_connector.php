@@ -57,7 +57,7 @@ switch($action) {
 	case 'category':
 		$where  = "cat_status=1 AND cat_type NOT IN('module_shop') AND ";
 		$where .= 'cat_name LIKE ' . _dbEscapeLike(preg_replace('/[^\w\-\/]/u', '', $value));
-		$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
+		$result = _dbGet('categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 
 		if(isset($result[0])) {
 			foreach($result as $row) {
@@ -71,7 +71,7 @@ switch($action) {
 		$where  = "cat_status=1 AND cat_type='news' AND ";
 		$where .= "SUBSTRING(cat_name, 1, 5) != '*CSS-' AND ";
 		$where .= 'cat_name LIKE ' . _dbEscapeLike(preg_replace('/[^\w\-\/]/u', '', $value));
-		$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
+		$result = _dbGet('categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 
 		if(isset($result[0])) {
 			foreach($result as $row) {
@@ -110,7 +110,7 @@ switch($action) {
   case 'atitle':
     $where  = "article_deleted=0 AND ";
     $where .= 'article_title LIKE ' . _dbEscapeLike($value);
-    $result = _dbGet('phpwcms_article', 'article_title', $where, 'article_title', 'article_title', 20);
+    $result = _dbGet('article', 'article_title', $where, 'article_title', 'article_title', 20);
 
     if(isset($result[0])) {
       foreach($result as $key => $row) {
@@ -126,14 +126,14 @@ switch($action) {
 		$_SESSION['wcs_user_theme'] = $theme;
 		set_theme_cookie($theme);
 		if (!empty($_SESSION['wcs_user_id'])) {
-			$user_data = _dbGet('phpwcms_user', 'usr_vars', 'usr_id=' . intval($_SESSION['wcs_user_id']) . ' LIMIT 1');
+			$user_data = _dbGet('user', 'usr_vars', 'usr_id=' . intval($_SESSION['wcs_user_id']) . ' LIMIT 1');
 			if (!empty($user_data[0])) {
 				$uv = @unserialize($user_data[0]['usr_vars'], array('allowed_classes' => false));
 				if (!is_array($uv)) {
 					$uv = array();
 				}
 				$uv['theme'] = $theme;
-				_dbUpdate('phpwcms_user', array('usr_vars' => serialize($uv)), 'WHERE usr_id=' . intval($_SESSION['wcs_user_id']));
+				_dbUpdate('user', array('usr_vars' => serialize($uv)), 'WHERE usr_id=' . intval($_SESSION['wcs_user_id']));
 			}
 		}
 		$data = array('status' => 'ok', 'theme' => $theme);

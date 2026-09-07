@@ -61,7 +61,7 @@ if(isset($_POST['adplace_title'])) {
         if($plugin['data']['adplace_id']) {
 
             // UPDATE
-            $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_ads_place SET ';
+            $sql  = 'UPDATE '.DB_PREPEND.'ads_place SET ';
 
             $sql .= "adplace_changed='".    aporeplace($plugin['data']['adplace_changed'])  ."', ";
             $sql .= "adplace_status=".      $plugin['data']['adplace_status']               .", ";
@@ -92,7 +92,7 @@ if(isset($_POST['adplace_title'])) {
         } else {
 
             // INSERT
-            $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_ads_place (';
+            $sql  = 'INSERT INTO '.DB_PREPEND.'ads_place (';
             $sql .= 'adplace_created, adplace_changed, adplace_status, adplace_title, ';
             $sql .= 'adplace_format, adplace_width, adplace_height, adplace_prefix, adplace_suffix';
             $sql .= ') VALUES (';
@@ -130,7 +130,7 @@ if(isset($_POST['adplace_title'])) {
 // try to read entry from database
 if($plugin['id'] && !isset($plugin['error'])) {
 
-    $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_place WHERE adplace_id='.$plugin['id'];
+    $sql  = 'SELECT * FROM '.DB_PREPEND.'ads_place WHERE adplace_id='.$plugin['id'];
     $plugin['data'] = _dbQuery($sql);
     $plugin['data'] = $plugin['data'][0];
 

@@ -13,7 +13,7 @@ function struct_list($struct_id, $counter=0) {
 
 	$counter++;
 
-	$result = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_struct=".intval($struct_id)." ORDER BY acat_sort");
+	$result = _dbQuery("SELECT * FROM ".DB_PREPEND."articlecat WHERE acat_struct=".intval($struct_id)." ORDER BY acat_sort");
 
 	if(isset($result[0]['acat_id'])) {
 

@@ -30,7 +30,7 @@ function phpwcms_update_db_dump(string $gzPath): bool
     $write('-- phpwcms DB backup ' . date('Y-m-d H:i:s') . LF);
     foreach ($tables as $row) {
         $table = (string)reset($row);
-        if (!str_starts_with($table, DB_PREPEND . 'phpwcms_')) {
+        if (!str_starts_with($table, DB_PREPEND)) {
             continue;
         }
         $create = _dbQuery('SHOW CREATE TABLE `' . $table . '`');

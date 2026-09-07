@@ -58,7 +58,7 @@ if (!defined('PHPWCMS_ROOT')) {
             //if($plugin['data']['cat_pid'] == 0) {
                 echo '<option value="0" selected="selected">&nbsp;</option>' . LF;
             //}
-            $sql  = 'SELECT * FROM '.DB_PREPEND."phpwcms_categories WHERE ";
+            $sql  = 'SELECT * FROM '.DB_PREPEND."categories WHERE ";
             $sql .= "cat_type='module_shop' AND cat_pid=0 AND cat_status != 9 AND ";
             $sql .= "cat_id != " . $plugin['data']['cat_id'];
             $plugin['data']['subcat'] = _dbQuery($sql);

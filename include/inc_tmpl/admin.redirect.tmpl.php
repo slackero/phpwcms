@@ -22,7 +22,7 @@ if(isset($_POST['rid']) && !isset($_POST['donotsubmit'])) {
 
 } elseif(isset($_GET['rid']) && intval($_GET['rid']) && isset($_GET['active'])) {
 
-  _dbUpdate('phpwcms_redirect', array('active'=>empty($_GET['active']) ? 1 : 0), 'rid='.intval($_GET['rid']));
+  _dbUpdate('redirect', array('active'=>empty($_GET['active']) ? 1 : 0), 'rid='.intval($_GET['rid']));
 
 } else {
 
@@ -108,7 +108,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
   }
 
   // paginating values
-  $_entry['count_total'] = _dbCount('SELECT COUNT(rid) FROM '.DB_PREPEND.'phpwcms_redirect WHERE '.$_entry['query']);
+  $_entry['count_total'] = _dbCount('SELECT COUNT(rid) FROM '.DB_PREPEND.'redirect WHERE '.$_entry['query']);
   $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['redirect_list_count']);
   if($_SESSION['redirect_detail_page'] > $_entry['pages_total']) {
     $_SESSION['redirect_detail_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
@@ -117,7 +117,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
   $_entry['limit'] = $_entry['pages_total'] > 1 ? (($_SESSION['redirect_detail_page']-1) * $_SESSION['redirect_list_count']).','.$_SESSION['redirect_list_count'] : '';
 
   // now retrieve all articles
-  $result = _dbGet('phpwcms_redirect', '*, UNIX_TIMESTAMP(changed) AS timestamp', $_entry['query'], '', 'changed DESC, views DESC', $_entry['limit']);
+  $result = _dbGet('redirect', '*, UNIX_TIMESTAMP(changed) AS timestamp', $_entry['query'], '', 'changed DESC, views DESC', $_entry['limit']);
 
 ?>
 <div class="row align-items-center">
@@ -278,7 +278,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 
   // now retrieve selected item
   if($rid) {
-    $data = _dbGet('phpwcms_redirect', '*, UNIX_TIMESTAMP(changed) AS timestamp', 'rid='.$rid, '', 'changed DESC, views DESC');
+    $data = _dbGet('redirect', '*, UNIX_TIMESTAMP(changed) AS timestamp', 'rid='.$rid, '', 'changed DESC, views DESC');
   }
 
   if(isset($data[0])) {

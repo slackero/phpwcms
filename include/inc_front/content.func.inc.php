@@ -80,7 +80,7 @@ if(isset($_GET['id'])) {
 
         // OK in case not we should check if given article ID is correct
         if($aktion[1]) {
-            $sql  = 'SELECT article_id, article_cid FROM '.DB_PREPEND.'phpwcms_article WHERE ';
+            $sql  = 'SELECT article_id, article_cid FROM '.DB_PREPEND.'article WHERE ';
             $sql .= 'article_deleted=0 AND article_aktiv=1 AND article_id='.$aktion[1].' LIMIT 1';
             $aktion[1] = 0; //reset
             $result = _dbQuery($sql);
@@ -112,7 +112,7 @@ if(isset($_GET['id'])) {
     $_GET['aid']            = intval($_GET['aid'][0]);
     if($_GET['aid']) {
 
-        $sql  = 'SELECT article_cid, article_alias FROM '.DB_PREPEND.'phpwcms_article WHERE ';
+        $sql  = 'SELECT article_cid, article_alias FROM '.DB_PREPEND.'article WHERE ';
         $sql .= 'article_deleted=0 AND article_id='.$_GET['aid'].' ';
         if(VISIBLE_MODE === 0) {
             $sql .= 'AND article_aktiv=1 ';
@@ -156,10 +156,10 @@ if(isset($_GET['id'])) {
 
         if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 
-            $sql  = '(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM ' . DB_PREPEND . 'phpwcms_articlecat ';
+            $sql  = '(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM ' . DB_PREPEND . 'articlecat ';
             $sql .= 'WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=' . _dbEscape($alias) . ')';
             $sql .= ' UNION ';
-            $sql .= '(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM ' . DB_PREPEND . 'phpwcms_article ';
+            $sql .= '(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM ' . DB_PREPEND . 'article ';
             $sql .= 'WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=' . _dbEscape($alias) . ') ';
             $sql .= 'LIMIT 1';
 
@@ -230,10 +230,10 @@ if($content['404error']['status'] === true) {
 
                 $alias = substr($content['404error']['redirect_url'], 0, strlen($content['404error']['redirect_url']) - $content['404error']['rewrite_ext_length']);
 
-                $sql  = '(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM ' . DB_PREPEND . 'phpwcms_articlecat ';
+                $sql  = '(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM ' . DB_PREPEND . 'articlecat ';
                 $sql .= 'WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=' . _dbEscape($alias) . ')';
                 $sql .= ' UNION ';
-                $sql .= '(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM ' . DB_PREPEND . 'phpwcms_article ';
+                $sql .= '(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM ' . DB_PREPEND . 'article ';
                 $sql .= 'WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=' . _dbEscape($alias) . ') ';
                 $sql .= 'LIMIT 1';
 
@@ -277,13 +277,13 @@ if($content['404error']['status'] === true) {
     if($content['404error']['status']) {
 
         // does the combination still exists in the database
-        $content['404error']['result'] = _dbGet('phpwcms_redirect', '*', $content['404error']['where']);
+        $content['404error']['result'] = _dbGet('redirect', '*', $content['404error']['where']);
 
         if(isset($content['404error']['result'][0])) {
 
             $content['404error']['result'] = $content['404error']['result'][0];
 
-            _dbUpdate('phpwcms_redirect', ['views' => intval($content['404error']['result']['views']) + 1], 'rid='.$content['404error']['result']['rid']);
+            _dbUpdate('redirect', ['views' => intval($content['404error']['result']['views']) + 1], 'rid='.$content['404error']['result']['rid']);
 
             // Test for redirect
             if($content['404error']['result']['active'] == 1) {
@@ -333,7 +333,7 @@ if($content['404error']['status'] === true) {
         } elseif(!empty($phpwcms['log_404error'])) {
 
             // Store failed page access
-            _dbInsert('phpwcms_redirect', [
+            _dbInsert('redirect', [
                 'id'    => $content['404error']['id'],
                 'aid'   => $content['404error']['aid'],
                 'alias' => $content['404error']['alias'],
@@ -446,7 +446,7 @@ _checkFrontendUserAutoLogin();
 if(!empty($content['struct'][ $content['cat_id'] ]['acat_template'])) {
     //if there is a template defined for this structure level
     //then choose the template information based on this ID
-    $sql  = 'SELECT template_var FROM ' .DB_PREPEND. 'phpwcms_template WHERE template_trash=0 AND ';
+    $sql  = 'SELECT template_var FROM ' .DB_PREPEND. 'template WHERE template_trash=0 AND ';
     $sql .= 'template_id=' .$content['struct'][ $content['cat_id'] ]['acat_template']. ' LIMIT 1';
     $result = _dbQuery($sql);
     if(isset($result[0]['template_var'])) {
@@ -456,7 +456,7 @@ if(!empty($content['struct'][ $content['cat_id'] ]['acat_template'])) {
 if(!isset($block)) {
     // if template ID is not defined or there is a problem with level's template ID then
     // choose the default template or if no default template defined choose the next one
-    $sql  = 'SELECT template_var FROM ' .DB_PREPEND. 'phpwcms_template ';
+    $sql  = 'SELECT template_var FROM ' .DB_PREPEND. 'template ';
     $sql .= 'WHERE template_trash=0 ORDER BY template_default DESC LIMIT 1';
     $result = _dbQuery($sql);
     if(isset($result[0]['template_var'])) {
@@ -509,7 +509,7 @@ require PHPWCMS_ROOT.'/include/inc_front/js.inc.php';
 // retrieve pagelayout info
 // check how the content should be rendered based on pagelayout render value
 $block['layout'] = intval($block['layout']);
-$sql  = 'SELECT pagelayout_var FROM ' .DB_PREPEND. 'phpwcms_pagelayout WHERE pagelayout_trash=0 ';
+$sql  = 'SELECT pagelayout_var FROM ' .DB_PREPEND. 'pagelayout WHERE pagelayout_trash=0 ';
 $sql .= $block['layout'] ? 'AND pagelayout_id=' .$block['layout'] : 'ORDER BY pagelayout_default DESC';
 $sql .= ' LIMIT 1';
 $result = _dbQuery($sql);
@@ -2098,12 +2098,12 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
         }
 
         if(count($all_id)) {
-            $sql_id   = "SELECT 'id' AS alias_type, acat_id AS id, 0 AS aid, acat_alias AS alias FROM ".DB_PREPEND.'phpwcms_articlecat ';
+            $sql_id   = "SELECT 'id' AS alias_type, acat_id AS id, 0 AS aid, acat_alias AS alias FROM ".DB_PREPEND.'articlecat ';
             $sql_id  .= 'WHERE acat_id IN (' . implode(',', $all_id) . ") AND acat_alias != ''";
         }
 
         if(count($all_aid)) {
-            $sql_aid  = "SELECT 'aid' AS alias_type, article_cid AS id, article_id AS aid, article_alias AS alias FROM ".DB_PREPEND.'phpwcms_article ';
+            $sql_aid  = "SELECT 'aid' AS alias_type, article_cid AS id, article_id AS aid, article_alias AS alias FROM ".DB_PREPEND.'article ';
             $sql_aid .= 'WHERE article_id IN (' . implode(',', $all_aid) . ") AND article_alias != ''";
         }
 

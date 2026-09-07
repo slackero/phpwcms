@@ -277,7 +277,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
         $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
-        $sql  = 'SELECT f_hash, f_ext, f_image_width, f_image_height, f_name FROM ' . DB_PREPEND . 'phpwcms_file WHERE ';
+        $sql  = 'SELECT f_hash, f_ext, f_image_width, f_image_height, f_name FROM ' . DB_PREPEND . 'file WHERE ';
         $sql .= 'f_kid=1 AND f_hash=' . _dbEscape($hash)." AND ";
         $sql .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
         if(substr($GLOBALS['phpwcms']['image_library'], 0, 2) === 'gd') {

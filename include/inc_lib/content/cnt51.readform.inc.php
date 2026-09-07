@@ -60,11 +60,11 @@ if(isset($_POST['cmap_location_x']) && $content['id']) {
         if(!$content["location"]['id']) {
             // INSERT
             $query_mode = 'INSERT';
-            $content["location"]['sql']  = "INSERT INTO ".DB_PREPEND."phpwcms_map SET ".$content["location"]['sql'];
+            $content["location"]['sql']  = "INSERT INTO ".DB_PREPEND."map SET ".$content["location"]['sql'];
         } else {
             // UPDATE
             $query_mode = 'UPDATE';
-            $content["location"]['sql']  = "UPDATE ".DB_PREPEND."phpwcms_map SET ".$content["location"]['sql']." ";
+            $content["location"]['sql']  = "UPDATE ".DB_PREPEND."map SET ".$content["location"]['sql']." ";
             $content["location"]['sql'] .= "WHERE map_cid=".$content['id']." AND map_id=".$content["location"]['id']." LIMIT 1";
         }
 

@@ -431,8 +431,8 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
             if($mode == 'CP') {
                 // content part listing
-                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ac ";
-                $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ";
+                $sql  = "SELECT * FROM " . DB_PREPEND . "articlecontent ac ";
+                $sql .= "INNER JOIN " . DB_PREPEND . "article ar ON ";
                 $sql .= "ar.article_id=ac.acontent_aid ";
                 $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 ";
                 $sql .= "AND ac.acontent_block NOT IN ('CPSET', 'SYSTEM') ";
@@ -449,8 +449,8 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
             } elseif($mode == 'CPS') {
 
-                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ac ";
-                $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ";
+                $sql  = "SELECT * FROM " . DB_PREPEND . "articlecontent ac ";
+                $sql .= "INNER JOIN " . DB_PREPEND . "article ar ON ";
                 $sql .= "ar.article_id=ac.acontent_aid ";
                 $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 ";
                 $sql .= "AND (ac.acontent_livedate IS NULL OR ac.acontent_livedate < NOW()) ";
@@ -471,7 +471,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
             } else {
 
                 // content parts based on article ID
-                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
+                $sql  = "SELECT * FROM " . DB_PREPEND . "articlecontent ";
                 $sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
                 $sql .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
                 $sql .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
@@ -661,7 +661,7 @@ function getContentPartAlias($crow) {
     $alias_visible = false;
     if(!empty($alias['alias_ID'])) {
         $alias['alias_ID'] = intval($alias['alias_ID']);
-        $sql_alias  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=";
+        $sql_alias  = "SELECT * FROM ".DB_PREPEND."articlecontent WHERE acontent_id=";
         $sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 ";
         $sql_alias .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
         $sql_alias .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
@@ -727,7 +727,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
     $sql  = 'SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ';
     $sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
     $sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
-    $sql .= 'FROM '.DB_PREPEND.'phpwcms_article ';
+    $sql .= 'FROM '.DB_PREPEND.'article ';
 
     $sql_where = array('article_deleted=0');
 
@@ -833,7 +833,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
             $alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
             $alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
             $alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
-            $alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
+            $alias_sql .= "FROM ".DB_PREPEND."article ";
             $alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
             if(!$row["article_headerdata"]) {
                 switch(VISIBLE_MODE) {

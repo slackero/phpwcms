@@ -36,7 +36,7 @@ if($poll_id == $crow['acontent_id'] && isset($_POST["poll"]) && !in_array($remot
     $poll_form["ip"][] = $remoteIP;
     $poll_choice_count = $poll_form["count"][$poll_choosen];
 
-    $sql  = "UPDATE ".DB_PREPEND."phpwcms_articlecontent ";
+    $sql  = "UPDATE ".DB_PREPEND."articlecontent ";
     $sql .= "SET acontent_form="._dbEscape(serialize($poll_form))." ";
     $sql .= "WHERE acontent_id = ".$poll_id." LIMIT 1";
 

@@ -22,8 +22,8 @@
 function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
     $cutID = intval($cutID);
     $pid = intval($pid);
-    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file f ";
-    $sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid ";
+    $sql  = "SELECT * FROM ".DB_PREPEND."file f ";
+    $sql .= "LEFT JOIN ".DB_PREPEND."user u ON u.usr_id=f.f_uid ";
     $sql .= "WHERE f.f_pid=".intval($pid)." AND ";
     if(empty($_SESSION["wcs_user_admin"])) {
         $sql .= "f.f_uid=".intval($userID)." AND ";
@@ -48,7 +48,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
         $klapp_status = empty($_SESSION["klapp"][$row["f_id"]]) ? 1 : 0;
 
         // Check if dependent files/folders exist
-        $count_sql  = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ";
+        $count_sql  = "SELECT COUNT(f_id) FROM ".DB_PREPEND."file WHERE ";
         $count_sql .= "f_pid=".$row["f_id"]." AND ";
         if(empty($_SESSION["wcs_user_admin"])) {
             $count_sql .= "f_uid=".intval($userID)." AND ";
@@ -132,7 +132,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
             list_private($row["f_id"], $counter+1, $zieldatei, $userID, $cutID, $phpwcms);
 
             //Listing eventuell im Verzeichnis enthaltener Dateien
-            $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"];
+            $file_sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_pid=".$row["f_id"];
             if(empty($_SESSION["wcs_user_admin"])) {
                 $file_sql .= " AND f_uid=".$userID;
             }

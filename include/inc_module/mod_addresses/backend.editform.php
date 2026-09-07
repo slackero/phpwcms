@@ -235,7 +235,7 @@ foreach($plugin['fields'] as $key => $value) {
 			echo '      <div class="col mb-2 mb-sm-0">';
 			echo '        <select name="'.$key.'[]" size="'.max(5, 3 + $plugin['count_file_items']).'" multiple class="form-select form-select-sm" id="cfile_list">';
 			if($plugin['count_file_items']) {
-				$file_sql = "SELECT f_id, f_name FROM ".DB_PREPEND.'phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND f_id IN (' . implode(',', $plugin['data'][$key]['files']) . ')';
+				$file_sql = "SELECT f_id, f_name FROM ".DB_PREPEND.'file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND f_id IN (' . implode(',', $plugin['data'][$key]['files']) . ')';
 				$file_result = _dbQuery($file_sql);
 				if(isset($file_result[0]['f_id'])) {
 					foreach($plugin['data'][$key]['files'] as $file_id) {

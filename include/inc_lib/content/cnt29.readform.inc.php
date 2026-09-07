@@ -50,7 +50,7 @@ if(is_array($content["image_list"]) && count($content["image_list"])) {
 
 	if(count($content["image_list"])) {
 
-		$img_all = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_id IN ('.implode(',', $content["image_list"]).')');
+		$img_all = _dbQuery('SELECT * FROM '.DB_PREPEND.'file WHERE f_id IN ('.implode(',', $content["image_list"]).')');
 
 		// take all values from db
 		$temp_img_row = array();

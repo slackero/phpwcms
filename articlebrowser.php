@@ -238,8 +238,8 @@ function articlebrowser_struct_list($id, $counter = 0, $js = '', $js_aktion = 0)
     global $idtype;
 
     $counter++;
-    $sql = 'SELECT t1.*, t2.template_default, t2.template_name, t2.template_trash FROM ' . DB_PREPEND . 'phpwcms_articlecat t1 ';
-    $sql .= 'LEFT JOIN ' . DB_PREPEND . 'phpwcms_template t2 ON t1.acat_template=t2.template_id ';
+    $sql = 'SELECT t1.*, t2.template_default, t2.template_name, t2.template_trash FROM ' . DB_PREPEND . 'articlecat t1 ';
+    $sql .= 'LEFT JOIN ' . DB_PREPEND . 'template t2 ON t1.acat_template=t2.template_id ';
     $sql .= 'WHERE acat_trash=0 AND acat_struct=' . intval($id) . ' ORDER BY acat_sort';
     $result = _dbQuery($sql);
 
@@ -322,8 +322,8 @@ function get_root_childcount($id) {
     // get amount of active child levels
     $id = intval($id);
 
-    $p1_count = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=' . $id, 'COUNT');
-    $p2_count = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_article WHERE article_deleted=0 AND article_cid=' . $id, 'COUNT');
+    $p1_count = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'articlecat WHERE acat_trash=0 AND acat_struct=' . $id, 'COUNT');
+    $p2_count = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'article WHERE article_deleted=0 AND article_cid=' . $id, 'COUNT');
 
     return $p1_count + $p2_count;
 }
@@ -346,7 +346,7 @@ function articlebrowser_struct_articlelist($struct_id, $counter, $article_order,
 
     $sql = 'SELECT *, ';
     $sql .= "DATE_FORMAT(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date "; //, article_deleted
-    $sql .= 'FROM ' . DB_PREPEND . 'phpwcms_article ';
+    $sql .= 'FROM ' . DB_PREPEND . 'article ';
     $sql .= "WHERE article_cid='" . $struct_id . "' AND article_deleted=0 ORDER BY " . $ao[2];
     $result = _dbQuery($sql);
     if (isset($result[0]['article_date'])) {
@@ -430,7 +430,7 @@ function articlebrowser_struct_articlecontentlist($article, $akey, $counter) {
 
     $a = '';
 
-    $sql = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent ';
+    $sql = 'SELECT * FROM ' . DB_PREPEND . 'articlecontent ';
     $sql .= 'WHERE acontent_aid=' . $article[$akey]['article_id'] . ' AND acontent_trash=0 ';
     $sql .= 'ORDER BY acontent_block, acontent_sorting, acontent_id';
 

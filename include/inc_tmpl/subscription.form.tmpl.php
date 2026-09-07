@@ -29,13 +29,13 @@ if(isset($_POST["subscription_id"])) {
 
     if($subscription["id"]) {
         $query_mode = 'UPDATE';
-        $sql =  "UPDATE ".DB_PREPEND."phpwcms_subscription SET ".
+        $sql =  "UPDATE ".DB_PREPEND."subscription SET ".
                 "subscription_name='".aporeplace($subscription["name"])."', ".
                 "subscription_info='".aporeplace($subscription["info"])."' ".
                 "WHERE subscription_id=".$subscription["id"];
     } else {
         $query_mode = 'INSERT';
-        $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_subscription (".
+        $sql =  "INSERT INTO ".DB_PREPEND."subscription (".
                 "subscription_name, subscription_info) VALUES ('".
                 aporeplace($subscription["name"])."', '".
                 aporeplace($subscription["info"])."')";
@@ -54,7 +54,7 @@ if(isset($_POST["subscription_id"])) {
 
 if($subscription["id"]) {
 // read the given subscription datas from db
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_subscription WHERE subscription_id=".$subscription["id"]." LIMIT 1";
+    $sql = "SELECT * FROM ".DB_PREPEND."subscription WHERE subscription_id=".$subscription["id"]." LIMIT 1";
     $result = _dbQuery($sql);
     if(isset($result[0]['subscription_id'])) {
         $subscription["id"] = $result[0]["subscription_id"];

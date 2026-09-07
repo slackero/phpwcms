@@ -123,8 +123,8 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
         $sql  = "SELECT article_id, article_cid, article_title, article_username, article_subtitle, ";
         $sql .= "article_summary, article_keyword, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
         $sql .= "article_image, article_alias, article_aliasid, article_headerdata ";
-        $sql .= "FROM ".DB_PREPEND."phpwcms_article ar ";
-        $sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ac ON ";
+        $sql .= "FROM ".DB_PREPEND."article ar ";
+        $sql .= "LEFT JOIN ".DB_PREPEND."articlecat ac ON ";
         $sql .= "(ar.article_cid = ac.acat_id OR ar.article_cid = 0)";
         $sql .= " WHERE ";
 
@@ -164,7 +164,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                 if($srow["article_aliasid"]) {
                     $alias_sql  = 'SELECT article_id, article_title, article_subtitle, article_summary, article_keyword, ';
                     $alias_sql .= 'UNIX_TIMESTAMP(article_tstamp) AS article_date, article_image ';
-                    $alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
+                    $alias_sql .= "FROM ".DB_PREPEND."article ";
                     $alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($srow["article_aliasid"]);
                     if(!$srow["article_headerdata"]) {
                         switch(VISIBLE_MODE) {
@@ -203,7 +203,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
                 // read article content for search
                 $csql  = "SELECT acontent_title, acontent_subtitle, acontent_text, acontent_html, acontent_files, acontent_type, acontent_form, acontent_image FROM ";
-                $csql .= DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$s_id." ";
+                $csql .= DB_PREPEND."articlecontent WHERE acontent_aid=".$s_id." ";
                 $csql .= "AND acontent_visible=1 AND acontent_trash=0 ";
                 $csql .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
                 $csql .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";

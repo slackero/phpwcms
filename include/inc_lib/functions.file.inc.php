@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 function _getFileInfo($value, $limit='1', $mode='hash') {
 
-    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND ";
+    $sql  = "SELECT * FROM ".DB_PREPEND."file WHERE f_aktiv=1 AND ";
     $sql .= "f_trash=0 AND f_public=1 AND ";
 
     if( !FEUSER_LOGIN_STATUS ) {

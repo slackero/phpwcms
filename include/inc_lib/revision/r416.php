@@ -10,16 +10,17 @@
 
 
 // Revision 416 Update Check
-function phpwcms_revision_r416() {
+function phpwcms_revision_r416()
+{
+    $status = true;
 
-	$status = true;
+    // Add column for default content part
+    if (!_dbColumnExists('articlecat', 'acat_cpdefault')) {
+        $result = _dbQuery('ALTER TABLE `' . DB_PREPEND . "articlecat` ADD `acat_cpdefault` INT(10) UNSIGNED NOT NULL DEFAULT '0'", 'ALTER');
+        if (!$result) {
+            $status = false;
+        }
+    }
 
-	// Add column for default content part
-	if(!_dbColumnExists('phpwcms_articlecat', 'acat_cpdefault')) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_cpdefault INT(10) UNSIGNED NOT NULL DEFAULT '0'", 'ALTER');
-	}
-
-
-	return $status;
-
+    return $status;
 }

@@ -15,14 +15,14 @@ function phpwcms_revision_r540() {
 	$status = true;
 
 
-	if(!_dbColumnExists('phpwcms_article', 'article_canonical')) {
-		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` ADD `article_canonical` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
+	if(!_dbColumnExists('article', 'article_canonical')) {
+		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."article` ADD `article_canonical` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
 		if(!$insert) {
 			$status = false;
 		}
 	}
-	if(!_dbColumnExists('phpwcms_articlecat', 'acat_canonical')) {
-		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` ADD `acat_canonical` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
+	if(!_dbColumnExists('articlecat', 'acat_canonical')) {
+		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."articlecat` ADD `acat_canonical` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
 		if(!$insert) {
 			$status = false;
 		}

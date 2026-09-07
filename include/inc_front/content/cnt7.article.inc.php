@@ -63,7 +63,7 @@ if (is_array($crow["acontent_files"]) && count($crow["acontent_files"])) {
 // if $content['files_sql'] is empty makes no sense to continue
 if ($content['files_sql']) {
     if (empty($content['file_static_result'][0])) {
-        $content['files_sql'] = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND " . $content['files_sql'];
+        $content['files_sql'] = "SELECT * FROM " . DB_PREPEND . "file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND " . $content['files_sql'];
         if (!FEUSER_LOGIN_STATUS) {
             $content['files_sql'] .= ' AND f_granted=0';
         }

@@ -147,14 +147,14 @@ function getCountry($lang = '', $get = 'COUNTRY_ARRAY') {
         return $phpwcms['country'][$country_lang_var];
     }
     $country_name = 'country_name_' . _dbEscape($lang, false);
-    $sql = 'SHOW COLUMNS FROM ' . DB_PREPEND . "phpwcms_country WHERE Field='" . $country_name . "'";
+    $sql = 'SHOW COLUMNS FROM ' . DB_PREPEND . "country WHERE Field='" . $country_name . "'";
     $result = _dbQuery($sql);
     if (!isset($result[0])) {
         $country_name = 'country_name';
     }
     if ($get == 'COUNTRY_NAME') {
         $phpwcms['country'][$country_lang_var] = strtoupper($lang);
-        $sql = 'SELECT ' . $country_name . ' AS country FROM ' . DB_PREPEND . "phpwcms_country WHERE ";
+        $sql = 'SELECT ' . $country_name . ' AS country FROM ' . DB_PREPEND . "country WHERE ";
         $sql .= "country_iso=" . _dbEscape($phpwcms['country'][$country_lang_var]) . " LIMIT 1";
         $result = _dbQuery($sql);
         if (isset($result[0]['country'])) {
@@ -163,7 +163,7 @@ function getCountry($lang = '', $get = 'COUNTRY_ARRAY') {
     } else {
         $country_lang_var = 'COUNTRY_ARRAY_' . $lang;
         $phpwcms['country'][$country_lang_var] = array();
-        $sql = 'SELECT country_iso, ' . $country_name . ' AS country FROM ' . DB_PREPEND . 'phpwcms_country ORDER BY ' . $country_name;
+        $sql = 'SELECT country_iso, ' . $country_name . ' AS country FROM ' . DB_PREPEND . 'country ORDER BY ' . $country_name;
         $result = _dbQuery($sql);
         if (isset($result[0])) {
             foreach ($result as $row) {
@@ -180,7 +180,7 @@ function list_profession($c) {
     if (empty($c)) {
         $c = $GLOBALS['BL']['be_n/a'];
     }
-    $sql = "SELECT prof_name FROM " . DB_PREPEND . "phpwcms_profession ORDER BY prof_name";
+    $sql = "SELECT prof_name FROM " . DB_PREPEND . "profession ORDER BY prof_name";
     if ($result = _dbQuery($sql)) {
         foreach ($result as $a) {
             echo '<option value="' . html($a["prof_name"]) . '"';
@@ -329,7 +329,7 @@ function generic_string($length, $i = 0) {
 }
 
 function genlogname() {
-    $usercount = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . "phpwcms_user WHERE usr_login LIKE 'user%'", 'COUNT');
+    $usercount = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . "user WHERE usr_login LIKE 'user%'", 'COUNT');
     $usercount = $usercount ? $usercount + 1 : 1;
 
     return 'user' . $usercount;
@@ -468,7 +468,7 @@ function switch_on_off($wert) {
 function online_users($spacer = '<br />', $wrap = '<span class="useronline">|<span>') {
     $wrap = explode('|', $wrap);
     $users = array();
-    if ($result = _dbQuery("SELECT logged_user FROM " . DB_PREPEND . "phpwcms_userlog WHERE logged_in=1")) {
+    if ($result = _dbQuery("SELECT logged_user FROM " . DB_PREPEND . "userlog WHERE logged_in=1")) {
         foreach ($result as $user) {
             $users[] = html($user['logged_user']);
         }
@@ -481,7 +481,7 @@ function online_users($spacer = '<br />', $wrap = '<span class="useronline">|<sp
 }
 
 function get_filecat_childcount($fcatid = 0) {
-    return _dbQuery('SELECT COUNT(fkey_id) FROM ' . DB_PREPEND . 'phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=' . intval($fcatid), 'COUNT');
+    return _dbQuery('SELECT COUNT(fkey_id) FROM ' . DB_PREPEND . 'filekey WHERE fkey_deleted=0 AND fkey_cid=' . intval($fcatid), 'COUNT');
 }
 
 /**
@@ -569,7 +569,7 @@ function get_list_of_file_keywords() {
     //reads possible keywords defined by admin and returns
     //array with values if exists else it returns false
     $file_key = array();
-    if ($result = _dbQuery("SELECT fkey_id, fkey_name FROM " . DB_PREPEND . "phpwcms_filekey")) {
+    if ($result = _dbQuery("SELECT fkey_id, fkey_name FROM " . DB_PREPEND . "filekey")) {
         foreach ($result as $row) {
             $file_key[intval($row["fkey_id"])] = html($row["fkey_name"]);
         }
@@ -1068,7 +1068,7 @@ function getFormTrackingValue() {
     $hash = md5($ip . $salt . date('G'));
     $entry_id = time();
     if (!empty($GLOBALS['phpwcms']['form_tracking']) && !PHPWCMS_GDPR_MODE) {
-        $sql = 'INSERT INTO ' . DB_PREPEND . 'phpwcms_formtracking SET formtracking_hash=' . _dbEscape($hash) . ', formtracking_ip=' . _dbEscape($ip);
+        $sql = 'INSERT INTO ' . DB_PREPEND . 'formtracking SET formtracking_hash=' . _dbEscape($hash) . ', formtracking_ip=' . _dbEscape($ip);
         $result = _dbQuery($sql, 'INSERT');
         if (isset($result['INSERT_ID'])) {
             $entry_id = $result['INSERT_ID'];
@@ -1299,7 +1299,7 @@ function getFileInformation($fileID) {
     } else {
         return false;
     }
-    $sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND (" . $f . ")";
+    $sql = "SELECT * FROM " . DB_PREPEND . "file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND (" . $f . ")";
 
     return _dbQuery($sql);
 }
@@ -2314,7 +2314,7 @@ function sanitize_multiple_emails($string) {
 }
 
 function checkLogin($mode = 'REDIRECT') {
-    $sql = "UPDATE " . DB_PREPEND . "phpwcms_userlog SET logged_in=0, logged_change=" . _dbEscape(time()) . " ";
+    $sql = "UPDATE " . DB_PREPEND . "userlog SET logged_in=0, logged_change=" . _dbEscape(time()) . " ";
     $sql .= "WHERE logged_in=1 AND (" . time() . "-logged_change) > " . intval($GLOBALS['phpwcms']["max_time"]);
     _dbQuery($sql, 'UPDATE');
     checkLoginCount();
@@ -2328,7 +2328,7 @@ function checkLogin($mode = 'REDIRECT') {
         }
         if ($mode === 'REDIRECT') {
             // check again if user was logged in and this is a valid redirect request
-            $sql = 'SELECT COUNT(*)  FROM ' . DB_PREPEND . 'phpwcms_userlog WHERE ';
+            $sql = 'SELECT COUNT(*)  FROM ' . DB_PREPEND . 'userlog WHERE ';
             $sql .= "logged_ip=" . _dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()) . " AND ";
             $sql .= '( ' . time() . ' - logged_change ) < 3600';
             $ref_url = _dbCount($sql) > 0 ? get_login_file() . $ref_url : '';
@@ -2342,7 +2342,7 @@ function checkLogin($mode = 'REDIRECT') {
 }
 
 function logout_user($reason = '', $type = '') {
-    $sql = "UPDATE " . DB_PREPEND . "phpwcms_userlog SET logged_change=" . _dbEscape(time()) . ", logged_in=0 ";
+    $sql = "UPDATE " . DB_PREPEND . "userlog SET logged_change=" . _dbEscape(time()) . ", logged_in=0 ";
     $sql .= "WHERE logged_user=" . _dbEscape($_SESSION["wcs_user"]) . " AND logged_in=1";
     _dbQuery($sql, 'UPDATE');
     $_SESSION = array();

@@ -618,7 +618,7 @@ function is_user_in_group($user_id, $group_syskey)
     }
 
     if (!isset($group_cache[$group_syskey])) {
-        $sql = 'SELECT group_member FROM ' . DB_PREPEND . 'phpwcms_usergroup WHERE group_syskey = ' . _dbEscape($group_syskey) . ' AND group_active = 1 AND group_trash = 0 LIMIT 1';
+        $sql = 'SELECT group_member FROM ' . DB_PREPEND . 'usergroup WHERE group_syskey = ' . _dbEscape($group_syskey) . ' AND group_active = 1 AND group_trash = 0 LIMIT 1';
         $result = _dbQuery($sql);
         if (isset($result[0]['group_member']) && trim($result[0]['group_member']) !== '') {
             $members = explode(',', $result[0]['group_member']);

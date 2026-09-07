@@ -185,7 +185,7 @@ class phpwcms_update
             return array_merge($result, ['error' => 'Update already running (lock held).']);
         }
         try {
-            $row = _dbQuery('SELECT * FROM ' . DB_PREPEND . 'phpwcms_update_log WHERE update_id = ' . (int)$updateId);
+            $row = _dbQuery('SELECT * FROM ' . DB_PREPEND . 'update_log WHERE update_id = ' . (int)$updateId);
             if (!$row || !isset($row[0])) {
                 return array_merge($result, ['error' => 'Update run not found.']);
             }
@@ -216,7 +216,7 @@ class phpwcms_update
             $currentStatus = (string)($row['update_status'] ?? '');
             if ($currentStatus !== 'rolled_back') {
                 $res = _dbQuery(
-                    'UPDATE ' . DB_PREPEND . 'phpwcms_update_log SET update_status = \'rolled_back\' WHERE update_id = ' . (int)$updateId,
+                    'UPDATE ' . DB_PREPEND . 'update_log SET update_status = \'rolled_back\' WHERE update_id = ' . (int)$updateId,
                     'UPDATE'
                 );
                 if (empty($res['AFFECTED_ROWS'])) {
@@ -321,10 +321,10 @@ class phpwcms_update
      */
     private function ensureUpdateLogTable(): void
     {
-        if (_dbTableExists('phpwcms_update_log')) {
+        if (_dbTableExists('update_log')) {
             return;
         }
-        $create = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . "phpwcms_update_log` (
+        $create = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . "update_log` (
             `update_id` INT NOT NULL AUTO_INCREMENT,
             `update_from` VARCHAR(32) NOT NULL DEFAULT '',
             `update_to` VARCHAR(32) NOT NULL DEFAULT '',
@@ -344,7 +344,7 @@ class phpwcms_update
 
     private function insertLogRow(array $release): void
     {
-        $table = DB_PREPEND . 'phpwcms_update_log';
+        $table = DB_PREPEND . 'update_log';
         $sql = 'INSERT INTO ' . $table . ' (update_from, update_to, update_tag, update_status, update_backup, update_files, update_user) VALUES ('
             . _dbEscape(PHPWCMS_VERSION) . ', '
             . _dbEscape($release['version']) . ', '
@@ -362,7 +362,7 @@ class phpwcms_update
 
     private function finishLogRow(string $status, int $files, string $error = ''): void
     {
-        $table = DB_PREPEND . 'phpwcms_update_log';
+        $table = DB_PREPEND . 'update_log';
         $sql = 'UPDATE ' . $table . ' SET update_status = ' . _dbEscape($status) . ', update_files = ' . (int)$files
             . ', update_error = ' . ($error === '' ? 'NULL' : _dbEscape($error))
             . ' WHERE update_id = ' . (int)$this->updateId;

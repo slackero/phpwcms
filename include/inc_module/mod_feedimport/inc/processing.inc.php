@@ -158,13 +158,13 @@ if (isset($_POST['cnt_name'])) {
         if ($plugin['data']['id']) {
 
             // UPDATE
-            $result = _dbUpdate('phpwcms_content', $data, 'cnt_id=' . $plugin['data']['id'] . ' AND cnt_module=' . _dbEscape(MODULE_KEY));
+            $result = _dbUpdate('content', $data, 'cnt_id=' . $plugin['data']['id'] . ' AND cnt_module=' . _dbEscape(MODULE_KEY));
 
         } else {
 
             // INSERT
             $data['cnt_created'] = now();
-            $result = _dbInsert('phpwcms_content', $data);
+            $result = _dbInsert('content', $data);
 
         }
 
@@ -190,7 +190,7 @@ if (isset($_POST['cnt_name'])) {
 // try to read entry from database
 if ($plugin['id'] && !isset($plugin['error'])) {
 
-    $plugin['data'] = _dbGet('phpwcms_content', '*', 'cnt_status!=9 AND cnt_module=' . _dbEscape(MODULE_KEY) . ' AND cnt_id=' . $plugin['id']);
+    $plugin['data'] = _dbGet('content', '*', 'cnt_status!=9 AND cnt_module=' . _dbEscape(MODULE_KEY) . ' AND cnt_id=' . $plugin['id']);
     if (isset($plugin['data'][0])) {
         $plugin['data'] = $plugin['data'][0];
         $plugin['data']['cnt_object'] = @unserialize($plugin['data']['cnt_object'], ['allowed_classes' => false]);

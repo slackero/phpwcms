@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 //Create new profile data if not existing
-$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_userdetail (".
+$sql =  "INSERT INTO ".DB_PREPEND."userdetail (".
         "detail_pid, detail_title, detail_firstname, detail_lastname, ".
         "detail_company, detail_street, detail_add, detail_city, ".
         "detail_zip, detail_region, detail_country, detail_fon, detail_fax, ".

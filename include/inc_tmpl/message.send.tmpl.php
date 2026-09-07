@@ -28,15 +28,15 @@ if(isset($_GET["msg"]) && intval($_GET["msg"]) && empty($_POST['msg_send_aktion'
     if($msg) {
 
         if($msg_read == "I") { //Wenn die Nachricht noch den Status Unread hat, setzen auf read
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_message SET msg_tstamp=msg_tstamp, msg_read=1 WHERE ".
+            $sql =  "UPDATE ".DB_PREPEND."message SET msg_tstamp=msg_tstamp, msg_read=1 WHERE ".
                     "msg_uid=".$_SESSION["wcs_user_id"]." AND msg_id=".$msg;
             _dbQuery($sql, 'UPDATE');
         }
 
         $sql =  "SELECT *, DATE_FORMAT(phpwcms_message.msg_tstamp, '%b %e, %Y (%H:%i)') AS send_date ".
-                "FROM ".DB_PREPEND."phpwcms_message INNER JOIN ".DB_PREPEND."phpwcms_user ON ".
-                DB_PREPEND."phpwcms_message.msg_from=".DB_PREPEND."phpwcms_user.usr_id WHERE ".DB_PREPEND."phpwcms_message.msg_uid=".$_SESSION["wcs_user_id"].
-                " AND ".DB_PREPEND."phpwcms_message.msg_id=".$msg." LIMIT 1";
+                "FROM ".DB_PREPEND."message INNER JOIN ".DB_PREPEND."user ON ".
+                DB_PREPEND."message.msg_from=".DB_PREPEND."user.usr_id WHERE ".DB_PREPEND."message.msg_uid=".$_SESSION["wcs_user_id"].
+                " AND ".DB_PREPEND."message.msg_id=".$msg." LIMIT 1";
         $result = _dbQuery($sql);
 
         if(isset($result[0]['msg_subject'])) {
@@ -50,7 +50,7 @@ if(isset($_GET["msg"]) && intval($_GET["msg"]) && empty($_POST['msg_send_aktion'
 }
 
 //Get signature of the user
-$result = _dbQuery("SELECT detail_signature FROM ".DB_PREPEND."phpwcms_userdetail WHERE detail_pid=".$_SESSION["wcs_user_id"]." LIMIT 1");
+$result = _dbQuery("SELECT detail_signature FROM ".DB_PREPEND."userdetail WHERE detail_pid=".$_SESSION["wcs_user_id"]." LIMIT 1");
 if(isset($result[0]['detail_signature']) && trim($result[0]['detail_signature'])) {
     $msg_message = "\n\n\t\n".$result[0]['detail_signature'].$msg_message;
 }
@@ -75,7 +75,7 @@ if(isset($_POST['msg_send_aktion']) && intval($_POST['msg_send_aktion'])) {
         //send message routine
         $msg_receivers = explode(":", $msg_to);
         foreach($msg_receivers as $value) {
-            $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_message (".
+            $sql =  "INSERT INTO ".DB_PREPEND."message (".
                     "msg_pid, msg_uid, msg_subject, msg_text, msg_to, msg_from) VALUES (".
                     $msg_pid.",".
                     intval($value).",'".
@@ -130,7 +130,7 @@ if ($msg_send_ok) {
             }
         }
 
-        $sql = "SELECT usr_id, usr_login, usr_name FROM " . DB_PREPEND . "phpwcms_user WHERE " . $where . " ORDER BY usr_name ASC";
+        $sql = "SELECT usr_id, usr_login, usr_name FROM " . DB_PREPEND . "user WHERE " . $where . " ORDER BY usr_name ASC";
         $result = _dbQuery($sql);
 
         if (isset($result[0]['usr_id'])) {
@@ -162,7 +162,7 @@ if ($msg_send_ok) {
                 <select name="msg_send_list" size="10" multiple="multiple" id="msg_send_list" class="form-select" onDblClick="opt.transferLeft()">
 <?php
     //Create the list of possible recipients
-    $sql = "SELECT usr_id, usr_login, usr_name FROM " . DB_PREPEND . "phpwcms_user " . $where1 . " ORDER BY usr_name ASC";
+    $sql = "SELECT usr_id, usr_login, usr_name FROM " . DB_PREPEND . "user " . $where1 . " ORDER BY usr_name ASC";
     $result = _dbQuery($sql);
 
     if (isset($result[0]['usr_id'])) {

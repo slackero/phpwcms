@@ -16,7 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // List available files
-$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 ";
+$file_sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_pid=0 ";
 if(empty($_SESSION["wcs_user_admin"])) {
     $file_sql .= "AND f_uid=".$_SESSION["wcs_user_id"].' ';
 }
