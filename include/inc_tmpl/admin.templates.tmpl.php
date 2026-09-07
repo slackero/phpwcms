@@ -754,7 +754,7 @@ if(!isset($_GET["s"])) {
                                         }
                                         ?>
                                     </select>
-                                    
+
                                         <div class="input-group-text">
                                             <input class="me-1" type="checkbox" name="template_jslibload" id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> />
                                             <label for="template_jslibload" class="form-check-label mb-0"><?php echo $BL['js_lib_alwaysload'] ?></label>
@@ -791,12 +791,12 @@ if(!isset($_GET["s"])) {
                         <!-- Tracking -->
                         <div class="form-group mb-4">
                             <label class="col-form-label fw-bold">Tracking</label>
-<?php if (!empty($template['ie8ignore'])): ?>
+                            <?php if (!empty($template['ie8ignore'])): ?>
                             <div class="form-check">
                                 <input class="form-check-input" name="template_ie8ignore" id="template_ie8ignore" type="checkbox" value="1" checked disabled readonly>
                                 <label class="form-check-label text-muted" for="template_ie8ignore"><?php echo $BL['be_ie8ignore'] ?></label>
                             </div>
-<?php endif; ?>
+                            <?php endif; ?>
                             <div class="form-check">
                                 <label class="form-check-label" for="template_ga">
                                     <input class="form-check-input" name="template_ga" id="template_ga" type="checkbox" value="1"<?php is_checked($template['tracking_ga']['enable'], 1); ?>>
@@ -1651,9 +1651,7 @@ if(!isset($_GET["s"])) {
                 </div>
             </div>
         </div>
-    </div>
-
-        <div class="form-group align-items-center mt-4 mb-0">
+        <div class="d-flex align-items-center mt-4 mb-0">
             <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
             <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
             <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ms-3"><i class="fa-solid fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
