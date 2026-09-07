@@ -299,7 +299,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                 echo ' <a href="'.$url.'" class="badge bg-danger mt-2"> ';
               }
               if ($row["group_syskey"] != '') {
-                echo $groupnames[$row["group_syskey"]];
+                echo ($groupnames[$row["group_syskey"]] ?? $row["group_syskey"]);
               } else {
                 echo $row["group_name"];
               }

@@ -68,13 +68,14 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
   $group["value"]     = '';
   $group["trash"]     = 0;
   $group["active"]    = 1;
+  $group["syskey"]    = '';
 
   if($group["id"]) {
 
       $sql = "SELECT * FROM ".DB_PREPEND."usergroup WHERE group_id=".$group["id"]." LIMIT 1";
       $result = _dbQuery($sql);
       if(isset($result[0]['group_id'])) {
-          $group["name"]      = ($result[0]['group_syskey']) ? $groupnames[$result[0]["group_syskey"]] : $result[0]["group_name"];
+          $group["name"]      = ($result[0]['group_syskey']) ? ($groupnames[$result[0]["group_syskey"]] ?? $result[0]["group_syskey"]) : $result[0]["group_name"];
           $group["member"]    = empty($result[0]["group_member"]) ? array() : explode(',', $result[0]["group_member"]);
           $group["value"]     = $result[0]["group_value"];
           $group["trash"]     = $result[0]["group_trash"];
@@ -266,7 +267,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
                 $bg_class = "bg-row-highlight-gold";
             }
             $goto = "phpwcms.php?do=admin&amp;p=1&amp;s=2&amp;u=".$grouplist["group_id"];
-            $grouplist["group_name"] = ($grouplist['group_syskey']) ? $groupnames[$grouplist["group_syskey"]] : $grouplist["group_name"];
+            $grouplist["group_name"] = ($grouplist['group_syskey']) ? ($groupnames[$grouplist["group_syskey"]] ?? $grouplist["group_syskey"]) : $grouplist["group_name"];
 ?>
         <tr class="hover-highlight <?php echo $bg_class ?>">
           <td width="25" align="center"><i class="fa-solid fa-users <?php echo $grouplist["group_active"] == 1 ? 'text-blue' : 'text-muted'; ?>" aria-hidden="true"></i></td>

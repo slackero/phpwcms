@@ -462,7 +462,7 @@ if ($acat_id === 'index' || $acat_id === 0) {
         $_temp_group = array();
         if(isset($result[0]['group_name'])) {
             foreach($result as $row) {
-                $_temp_group[$row['group_id']]['name'] = html(($row['group_syskey']) ? $groupnames[$row["group_syskey"]] : $row["group_name"]);
+                $_temp_group[$row['group_id']]['name'] = html(($row['group_syskey']) ? ($groupnames[$row["group_syskey"]] ?? $row["group_syskey"]) : $row["group_name"]);
                 $_temp_group[$row['group_id']]['active'] = $row['group_active'];
             }
         }
