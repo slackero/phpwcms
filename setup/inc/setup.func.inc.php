@@ -551,6 +551,63 @@ function check_htaccess($val) {
     return $val['rewrite_url'];
 }
 
+/**
+ * Validate a whitelabel license key in the setup context.
+ * Returns an associative array with license payload fields on success, or false on failure.
+ *
+ * @param string $key The license key (base64url.signature format)
+ * @return array|false
+ */
+function setup_validate_whitelabel_key(string $key): array|false {
+    $key = trim($key);
+    if ($key === '') {
+        return false;
+    }
+
+    if (!function_exists('sodium_crypto_sign_verify_detached') || !function_exists('sodium_hex2bin')) {
+        return false;
+    }
+
+    $parts = explode('.', $key);
+    if (count($parts) !== 2) {
+        return false;
+    }
+
+    // Base64 URL decode
+    $b64_decode = function(string $data): string {
+        $remainder = strlen($data) % 4;
+        if ($remainder) {
+            $data .= str_repeat('=', 4 - $remainder);
+        }
+        return (string)base64_decode(strtr($data, '-_', '+/'));
+    };
+
+    $payload_json = $b64_decode($parts[0]);
+    $signature    = $b64_decode($parts[1]);
+
+    $sig_bytes = defined('SODIUM_CRYPTO_SIGN_BYTES') ? SODIUM_CRYPTO_SIGN_BYTES : 64;
+    if (!$payload_json || strlen($signature) !== $sig_bytes) {
+        return false;
+    }
+
+    $pubkey = sodium_hex2bin('f1a161b32dc0b778911c0eba897a320b0ad4b776695aa3f9e773e18753d3d76a');
+    if (!sodium_crypto_sign_verify_detached($signature, $payload_json, $pubkey)) {
+        return false;
+    }
+
+    $payload = json_decode($payload_json, true);
+    if (!is_array($payload)) {
+        return false;
+    }
+
+    // Check expiration if set
+    if (!empty($payload['valid_until']) && (int)$payload['valid_until'] > 0 && time() > (int)$payload['valid_until']) {
+        return false;
+    }
+
+    return $payload;
+}
+
 function get_setup_steps() {
     return array(
         'license' => array('title' => '1. License', 'url' => 'index.php'),

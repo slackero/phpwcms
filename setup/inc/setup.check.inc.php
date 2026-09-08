@@ -14,6 +14,28 @@ if (!defined('PHPWCMS_SETUP')) {
 
 if(!empty($step)) {
 
+    if ($step == 0 && $do) {
+
+        // Save whitelabel license key and brand_table_prefix before the Database step
+        $phpwcms['whitelabel_key'] = trim($_POST['whitelabel_key'] ?? '');
+        // Always reset brand_table_prefix first — only set it when license is valid and user supplied a value
+        $phpwcms['brand_table_prefix'] = '';
+        if ($phpwcms['whitelabel_key'] !== '') {
+            $_wl_payload = setup_validate_whitelabel_key($phpwcms['whitelabel_key']);
+            if ($_wl_payload !== false && isset($_POST['brand_table_prefix'])) {
+                $_brand_prefix_raw = preg_replace('/[^a-zA-Z0-9_]/', '', trim((string)$_POST['brand_table_prefix']));
+                // Store exactly what the user typed (sanitized); empty string is valid — runtime defaults to 'phpwcms'
+                $phpwcms['brand_table_prefix'] = $_brand_prefix_raw;
+            }
+        }
+
+        write_conf_file($phpwcms);
+        // Redirect back to step=0 so the user sees validation feedback before proceeding
+        session_write_close();
+        header('Location: setup.php?step=0');
+        exit();
+    }
+
     if ($step == 1 && $do) {
 
         if(!empty($_POST['user_account'])) {

@@ -62,7 +62,23 @@ $setup_recommend = true;
                 <h6 class="mb-0 fw-bold">MySQL Client Driver</h6>
                 <small class="text-muted"><?php echo html_specialchars($mysql_version) ?></small>
             </div>
-            <span class="badge text-bg-success rounded-pill">OK</span>
+            <?php if ($mysql_version !== 'Unavailable'): ?>
+                <span class="badge text-bg-success rounded-pill">OK</span>
+            <?php else: ?>
+                <span class="badge text-bg-danger rounded-pill">Not Installed</span>
+            <?php endif; ?>
+        </div>
+
+        <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+            <div>
+                <h6 class="mb-0 fw-bold">Sodium Library</h6>
+                <small class="text-muted">for encryption, decryption, signatures, hashing</small>
+            </div>
+            <?php if (function_exists('sodium_crypto_sign_verify_detached')): ?>
+                <span class="badge text-bg-success rounded-pill">Installed</span>
+            <?php else: ?>
+                <span class="badge text-bg-info rounded-pill">Not Installed</span>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -305,10 +321,115 @@ if (!is_writable($DOCROOT . '/setup/setup.conf.inc.php')) {
         echo '<strong><i class="fa fa-warning"></i> Warning:</strong> Some recommended system requirements are not met. Review warnings before continuing.';
         echo '</div>';
     }
-    ?>
-    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
-        <a href="index.php" class="btn btn-secondary">&larr; Back to Licence</a>
-        <a href="setup.php?step=1" class="btn btn-primary">Start Setup &rarr;</a>
-    </div>
-    <?php
+
+    // Validate any submitted / already-configured whitelabel key
+    $_wl_key_submitted = trim($_POST['whitelabel_key'] ?? $phpwcms['whitelabel_key'] ?? '');
+    $_wl_payload        = false;
+    $_wl_key_error      = false;
+
+    if ($_wl_key_submitted !== '') {
+        $_wl_payload = setup_validate_whitelabel_key($_wl_key_submitted);
+        if ($_wl_payload === false) {
+            $_wl_key_error = true;
+        }
+    }
+
+    // Determine brand_table_prefix display value — only when license is valid.
+    // Preserve the saved value only if it's a real custom value (not '' and not the default 'phpwcms').
+    // Fall back to the payload suggestion if it's also a custom value; otherwise leave blank
+    // so the placeholder ('phpwcms') signals the implicit default without pre-filling it.
+    if ($_wl_payload !== false) {
+        $_saved_prefix = $phpwcms['brand_table_prefix'] ?? '';
+        if ($_saved_prefix !== '' && $_saved_prefix !== 'phpwcms') {
+            // Real custom value saved — restore it for the user
+            $_wl_brand_prefix_val = $_saved_prefix;
+        } elseif (!empty($_wl_payload['brand_table_prefix']) && $_wl_payload['brand_table_prefix'] !== 'phpwcms') {
+            // License payload carries a custom suggestion — pre-fill with it
+            $_wl_brand_prefix_val = $_wl_payload['brand_table_prefix'];
+        } else {
+            $_wl_brand_prefix_val = '';
+        }
+    }
+?>
+
+    <form action="setup.php?step=0" method="post">
+        <div class="card mb-4 border">
+            <div class="card-header bg-light fw-bold">
+                Whitelabel License <span class="fw-normal text-muted small">(optional)</span>
+            </div>
+            <div class="card-body">
+
+                <?php if (!function_exists('sodium_crypto_sign_verify_detached')): ?>
+                    <div class="alert alert-warning mb-0">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        The PHP <code>sodium</code> extension is not available on this server.
+                        Whitelabel license validation requires libsodium (PHP 7.2+, usually bundled).
+                        Please enable the extension to use this feature.
+                    </div>
+                <?php else: ?>
+
+                    <div class="form-group row<?php echo $_wl_key_error ? ' has-error' : '' ?>">
+                        <label for="whitelabel_key" class="col-sm-3 col-form-label fw-bold">License Key</label>
+                        <div class="col-sm-9">
+                            <textarea name="whitelabel_key" id="whitelabel_key" class="form-control font-monospace<?php echo $_wl_key_error ? ' is-invalid' : ($_wl_payload !== false ? ' is-valid' : '') ?>" rows="3" placeholder="Paste your signed whitelabel license key here &hellip;"><?php echo html_specialchars($_wl_key_submitted) ?></textarea>
+                            <?php if ($_wl_key_error): ?>
+                                <div class="invalid-feedback">
+                                    The license key is invalid, expired, or the signature could not be verified.
+                                </div>
+                            <?php elseif ($_wl_payload !== false): ?>
+                                <div class="valid-feedback d-block text-success small mt-1">
+                                    <i class="fa fa-check-circle"></i>
+                                    License valid
+                                    <?php
+                                    $wl_info = [];
+                                    if (!empty($_wl_payload['licensee'])) {
+                                        $wl_info[] = 'Licensee: <strong>' . html_specialchars($_wl_payload['licensee']) . '</strong>';
+                                    }
+                                    if (!empty($_wl_payload['domain'])) {
+                                        $wl_info[] = 'Domain: <strong>' . html_specialchars($_wl_payload['domain']) . '</strong>';
+                                    }
+                                    if (!empty($_wl_payload['valid_until']) && (int)$_wl_payload['valid_until'] > 0) {
+                                        $wl_info[] = 'Expires: <strong>' . date('Y-m-d', (int)$_wl_payload['valid_until']) . '</strong>';
+                                    }
+                                    if ($wl_info) {
+                                        echo ' &mdash; ' . implode(' &bull; ', $wl_info);
+                                    }
+                                    ?>
+                                </div>
+                            <?php else: ?>
+                                <div class="form-text text-muted small mt-1">
+                                    Leave empty for a standard open-source installation.
+                                    The key must be set <strong>before</strong> the Database setup!
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <?php if ($_wl_payload !== false): ?>
+                    <div class="form-group row mb-0 mt-3">
+                        <label for="brand_table_prefix" class="col-sm-3 col-form-label fw-bold">Brand Table Prefix</label>
+                        <div class="col-sm-6">
+                            <input name="brand_table_prefix" type="text" class="form-control" id="brand_table_prefix" value="<?php echo html_specialchars($_wl_brand_prefix_val) ?>" placeholder="phpwcms" maxlength="64" pattern="[a-zA-Z0-9_]*" />
+                        </div>
+                        <div class="col-sm-3 form-text text-muted small align-self-center">
+                            Replaces <code>phpwcms</code> in all DB table names.
+                            <?php if (!empty($_wl_payload['brand_table_prefix'])): ?>
+                                License suggests: <code><?php echo html_specialchars($_wl_payload['brand_table_prefix']) ?></code>
+                            <?php endif; ?>
+                            Only <code>a-z A-Z 0-9 _</code> allowed.
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                <?php endif; ?>
+
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+            <a href="index.php" class="btn btn-secondary">&larr; Back to Licence</a>
+            <button type="submit" name="do" value="1" class="btn btn-primary">Save &amp; Start Setup &rarr;</button>
+        </div>
+    </form>
+<?php
 }
