@@ -30,9 +30,11 @@ function struct_list($id, $copy_article_content, $cut_article_content, $copy_id,
     if(isset($struct[0]['acat_id'])) {
         $count_row = count($struct);
 
+        echo '<ul class="struct-children" data-pid="' . (int) $id . '">' . LF;
         foreach($struct as $key => $value) {
             struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $forbid_cut, $forbid_copy, $listmode, $cut_article, $count_row);
         }
+        echo '</ul>' . LF;
     }
 }
 
@@ -49,49 +51,48 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $forbid_copy    = $struct[$key]["acat_struct"] == $copy_id || $forbid_copy ? 1 : 0;
 
     $an = html($struct[$key]["acat_name"]);
-    $a  = "<tr class=\"hover-success bg-row-grey-medium scroll-anchor\" id=\"struct_" . $struct[$key]["acat_id"] . "\">\n";
-    $a .= '<td class="w-80">'.LF;
-    $a .= '<table class="table-borderless"'.">\n<tr>\n";
-    $a .= '<td class="text-end here text-nowrap">'.LF;
-    $a .= ($child_count) ? "<a href=\"phpwcms.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."#struct_".$struct[$key]["acat_id"]."\">" : "";
+    $a  = '<li class="struct-node scroll-anchor" id="struct_' . $struct[$key]["acat_id"] . '" data-id="' . $struct[$key]["acat_id"] . '" data-pid="' . $struct[$key]["acat_struct"] . '" data-sort="' . $struct[$key]["acat_sort"] . '" data-type="struct" style="--depth:' . (int) $counter . '">' . LF;
+    $a .= '<div class="struct-row hover-success bg-row-grey-medium">' . LF;
+    $a .= '<div class="struct-row-label text-nowrap">' . LF;
+    $a .= ($child_count) ? '<a href="phpwcms.php?' . $page_val . '&amp;open=' . rawurlencode($struct[$key]["acat_id"] . ':' . ((!empty($_SESSION["structure"][$struct[$key]["acat_id"]])) ? 0 : 1)) . '#struct_' . $struct[$key]["acat_id"] . '">' : '';
 
-    $a .= '<i class="fa-solid fa-caret-'.(($child_count) ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? "right" : "down") : "right").' fa-fw alist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
+    $a .= '<i class="fa-solid fa-caret-' . (($child_count) ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? 'right' : 'down') : 'right') . ' fa-fw" aria-hidden="true"></i>' . (($child_count) ? '</a>' : '');
 
     $info  = '<table class="text-start">';
-    $info .= '<tr><td>ID:</td><td><b>'.$struct[$key]["acat_id"].'</b></td></tr>';
-    $info .= '<tr><td>'.$BL['be_alias'].':</td><td>'.$struct[$key]["acat_alias"].'</td></tr>';
-    $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$struct[$key]["acat_sort"].'</td></tr>';
-    $info .= '<tr><td>'.$BL['be_admin_struct_template'].':</td><td>';
+    $info .= '<tr><td>ID:</td><td><b>' . $struct[$key]["acat_id"] . '</b></td></tr>';
+    $info .= '<tr><td>' . $BL['be_alias'] . ':</td><td>' . $struct[$key]["acat_alias"] . '</td></tr>';
+    $info .= '<tr><td>' . $BL['be_cnt_sortvalue'] . ':</td><td>' . $struct[$key]["acat_sort"] . '</td></tr>';
+    $info .= '<tr><td>' . $BL['be_admin_struct_template'] . ':</td><td>';
     if(empty($struct[$key]['template_trash'])) {
         $info .= $struct[$key]["template_name"];
         if($struct[$key]["template_default"]) {
-            $info .= ' ('.$BL['be_admin_tmpl_default'].')';
+            $info .= ' (' . $BL['be_admin_tmpl_default'] . ')';
         }
     } else {
         $info .= $BL['be_admin_tmpl_default'];
     }
     $info .= '</td></tr>';
-    $info .= '<tr><td>'.$BL['be_onepage_id'].':</td><td>'.($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']).'</td></tr>';
+    $info .= '<tr><td>' . $BL['be_onepage_id'] . ':</td><td>' . ($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']) . '</td></tr>';
     $info .= '</table>';
 
     $a .= '<i class="fa-solid fa-folder';
     if($struct[$key]["acat_regonly"]) {
         $a .= '-lock';
     }
-    $a .= ' fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="'.html($info).'"></i>';
+    $a .= ' fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="' . html($info) . '"></i>';
 
-    $a .= '</td>'.LF;
-    $a .= '<td class="dir" width="95%"><strong><a href="';
-    $a .= rel_url(array('phpwcms-preview'=>1), array(), empty($struct[$key]["acat_alias"]) ? 'id='.$struct[$key]["acat_id"] : $struct[$key]["acat_alias"]);
-    $a .= '" target="_blank" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$an.'">';
-    $a .= $an . '</a></strong></td></tr></table></td><td class="text-nowrap text-end">'.LF;
+    $a .= '<strong><a href="';
+    $a .= rel_url(array('phpwcms-preview' => 1), array(), empty($struct[$key]["acat_alias"]) ? 'id=' . $struct[$key]["acat_id"] : $struct[$key]["acat_alias"]);
+    $a .= '" target="_blank" data-bs-toggle="tooltip" title="' . $BL['be_func_struct_preview'] . ': ' . $an . '">';
+    $a .= $an . '</a></strong></div>' . LF;
+    $a .= '<div class="struct-row-actions text-nowrap text-end">' . LF;
     if (!empty($struct[$key]['acat_lang'])) {
         $a .= '<span class="me-3 flag-icon flag-icon-' . $struct[$key]['acat_lang'] . '" data-bs-toggle="tooltip" title="' . $struct[$key]['acat_lang'] . '"></span>';
     }
 
     $a .= listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
 
-    $a .= "</td></tr>\n";
+    $a .= '</div>' . LF . '</div>' . LF;
     echo $a;
 
     if(isset($_SESSION["structure"][$struct[$key]["acat_id"]]) && $_SESSION["structure"][$struct[$key]["acat_id"]]) {
@@ -102,6 +103,8 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
         struct_list($struct[$key]["acat_id"], $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode, $forbid_cut, $forbid_copy, $counter);
 
     }
+
+    echo '</li>' . LF;
 }
 
 function get_root_childcount($id) {
@@ -174,6 +177,9 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
      * to set correct sorting UP and DOWN based on article
      * listing -> so the correct sort value is used
      */
+    if($max_article_count) {
+        echo '<ul class="article-children" data-cid="' . (int) $struct_id . '">' . LF;
+    }
     foreach($article as $akey => $avalue) {
 
         // set up correct article sorting
@@ -208,24 +214,21 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $at = html($article[$akey]["article_title"]);
 
         if($cut_article == $article[$akey]["article_id"] ) {
-            $a = "<tr class=\"bg-row-success-light scroll-anchor\" id=\"article_" . $article[$akey]["article_id"] . "\">\n";
+            $a = '<li class="article-row bg-row-success-light scroll-anchor" id="article_' . $article[$akey]["article_id"] . '" data-id="' . $article[$akey]["article_id"] . '" data-cid="' . $article[$akey]["article_cid"] . '" data-sort="' . $article[$akey]["article_sort"] . '" data-type="article" style="--depth:' . (int) $counter . '">' . LF;
         } elseif($copy_article == $article[$akey]["article_id"]){
-            $a = "<tr class=\"bg-row-success-light scroll-anchor\" id=\"article_" . $article[$akey]["article_id"] . "\">\n";
+            $a = '<li class="article-row bg-row-success-light scroll-anchor" id="article_' . $article[$akey]["article_id"] . '" data-id="' . $article[$akey]["article_id"] . '" data-cid="' . $article[$akey]["article_cid"] . '" data-sort="' . $article[$akey]["article_sort"] . '" data-type="article" style="--depth:' . (int) $counter . '">' . LF;
         } else {
-            $a = "<tr class=\"hover-success bg-row-alt-grey scroll-anchor\" id=\"article_" . $article[$akey]["article_id"] . "\">\n";
+            $a = '<li class="article-row hover-success bg-row-alt-grey scroll-anchor" id="article_' . $article[$akey]["article_id"] . '" data-id="' . $article[$akey]["article_id"] . '" data-cid="' . $article[$akey]["article_cid"] . '" data-sort="' . $article[$akey]["article_sort"] . '" data-type="article" style="--depth:' . (int) $counter . '">' . LF;
         }
 
-        $a .= '<td class="w-80">'.LF;
-        $a .= '<table class="table-borderless">'.LF.'<tr>'.LF;
+        $a .= '<div class="article-row-inner">' . LF;
+        $a .= '<div class="struct-row-label text-nowrap">' . LF;
 
         $acontent_count = get_article_content_count($article[$akey]["article_id"]);
-        $a .= '<td class="text-nowrap">';
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-            $a .= ($acontent_count) ? "<a href=\"phpwcms.php?do=articles&amp;opena=".rawurlencode($article[$akey]["article_id"].":".((!empty($_SESSION["structure"]["article"][$article[$akey]["article_id"]]))?0:1))."#article_".$article[$akey]["article_id"]."\">" : "";
-            $a .= "<i class=\"fa-solid fa-caret-".(($acontent_count) ? ((!empty($_SESSION["structure"]["article"][ $article[$akey]["article_id"] ])) ? "down" : "right") : "right");
-            $a .= ' fa-fw alist-'.($counter).'" aria-hidden="true"></i>'.(($acontent_count) ? "</a>" : "");
-        }else{
-            $a .= '<div class="alist-'.($counter).'" ></div>';
+            $a .= ($acontent_count) ? '<a href="phpwcms.php?do=articles&amp;opena=' . rawurlencode($article[$akey]["article_id"] . ':' . ((!empty($_SESSION["structure"]["article"][$article[$akey]["article_id"]])) ? 0 : 1)) . '#article_' . $article[$akey]["article_id"] . '">' : '';
+            $a .= '<i class="fa-solid fa-caret-' . (($acontent_count) ? ((!empty($_SESSION["structure"]["article"][ $article[$akey]["article_id"] ])) ? 'down' : 'right') : 'right');
+            $a .= ' fa-fw" aria-hidden="true"></i>' . (($acontent_count) ? '</a>' : '');
         }
 
         $info = '<table class="text-start">';
@@ -249,11 +252,12 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         }
         $info .= '</table>';
 
-        $a .= '<i class="fa-solid fa-file fa-fw" aria-hidden="true" data-bs-html="true" data-bs-toggle="tooltip" title="'.html($info).'" ></i></td>'.LF;
-        $a .= '<td class="dir" width="95%"><a href="';
-        $a .= rel_url(array('phpwcms-preview'=>1), array(), empty($article[$akey]["article_alias"]) ? 'aid='.$article[$akey]["article_id"] : $article[$akey]["article_alias"]);
-        $a .= '" target="_blank" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$at.'">';
-        $a .= $at.'</a></td></tr></table></td><td class="text-nowrap text-end">';
+        $a .= '<i class="fa-solid fa-file fa-fw" aria-hidden="true" data-bs-html="true" data-bs-toggle="tooltip" title="' . html($info) . '"></i>' . LF;
+        $a .= '<a href="';
+        $a .= rel_url(array('phpwcms-preview' => 1), array(), empty($article[$akey]["article_alias"]) ? 'aid=' . $article[$akey]["article_id"] : $article[$akey]["article_alias"]);
+        $a .= '" target="_blank" data-bs-toggle="tooltip" title="' . $BL['be_func_struct_preview'] . ': ' . $at . '">';
+        $a .= $at . '</a></div>' . LF;
+        $a .= '<div class="struct-row-actions text-nowrap text-end">';
         if (!empty($article[$akey]["article_lang"])) {
             $a .= '<span class="me-3 flag-icon flag-icon-' . $article[$akey]["article_lang"] . '" data-bs-toggle="tooltip" title="' . $article[$akey]["article_lang"] . '"></span>';
         }
@@ -267,7 +271,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             $a .= "\"><i class=\"fa-solid fa-arrow-down\" aria-hidden=\"true\"></i></a>";
         }
 
-        $a .= '<div class="btn-group btn-group-sm" role="group" aria-label="group'.$article[$akey]["article_id"].'">';
+        $a .= '<div class="btn-group btn-group-sm btn-group-outer" role="group" aria-label="group'.$article[$akey]["article_id"].'">';
         //edit article
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
           $a .= '<a class="btn btn-sm btn-blue" role="button" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$article[$akey]["article_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
@@ -298,8 +302,8 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
           $a .= '<i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].'</a>';
         }
         $a .= '</div></div>';
-        $a .= '<button id="abtnarticle'.$article[$akey]["article_id"].'" class="btn fa btn-sm visible '.($article[$akey]["article_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$article[$akey]["article_id"].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"><i class="fa-solid '.($article[$akey]["article_aktiv"]==0 ? "fa-eye-slash" : "fa-eye").' fa-fw" aria-hidden="true"></i></button>';
-        $a .= '</div></td></tr>'.LF;
+        $a .= '<button id="abtnarticle' . $article[$akey]["article_id"] . '" class="btn fa btn-sm visible ' . ($article[$akey]["article_aktiv"] == 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $article[$akey]["article_id"] . '" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" data-bs-toggle="tooltip" title="' . $BL['be_fprivfunc_cactivefile'] . '"><i class="fa-solid ' . ($article[$akey]["article_aktiv"] == 0 ? 'fa-eye-slash' : 'fa-eye') . ' fa-fw" aria-hidden="true"></i></button>';
+        $a .= '</div>' . LF . '</div>' . LF . '</div>' . LF;
         echo $a;
 
         $sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."articlecontent ";
@@ -328,6 +332,12 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             }
         }
 
+        echo '</li>' . LF;
+
+    }
+
+    if($max_article_count) {
+        echo '</ul>' . LF;
     }
 }
 
@@ -363,11 +373,11 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $info .= '</table>';
 
             if($cut_article_content == $article_content["acontent_id"] ) {
-                $a .= "<tr class=\"bg-row-pink\">\n";
+                $a .= '<li class="cp-row bg-row-pink" id="acontent_' . $article_content["acontent_id"] . '" data-id="' . $article_content["acontent_id"] . '" data-sort="' . $article_content["acontent_sorting"] . '" data-type="articlecontent" style="--depth:' . ((int) $counter + 1) . '">' . LF;
             } elseif($copy_article_content == $article_content["acontent_id"]) {
-                $a .= "<tr class=\"bg-row-pink\">\n";
+                $a .= '<li class="cp-row bg-row-pink" id="acontent_' . $article_content["acontent_id"] . '" data-id="' . $article_content["acontent_id"] . '" data-sort="' . $article_content["acontent_sorting"] . '" data-type="articlecontent" style="--depth:' . ((int) $counter + 1) . '">' . LF;
             } else {
-                $a .= "<tr class=\"hover-amber border-bottom-light bg-row-white\">\n";
+                $a .= '<li class="cp-row hover-amber border-bottom-light bg-row-white" id="acontent_' . $article_content["acontent_id"] . '" data-id="' . $article_content["acontent_id"] . '" data-sort="' . $article_content["acontent_sorting"] . '" data-type="articlecontent" style="--depth:' . ((int) $counter + 1) . '">' . LF;
             }
 
             $cntpart_type = $GLOBALS['wcs_content_type'][$article_content['acontent_type']];
@@ -407,14 +417,14 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
                     break;
             }
 
-            $a .= '<td class="w-80"><i class="fa-solid fa-list-alt fa-fw me-1 aclist-'.($counter).'" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="'.html($info).'"></i>';
+            $a .= '<div class="struct-row-label text-nowrap"><i class="fa-solid fa-list-alt fa-fw me-1" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="' . html($info) . '"></i>';
             $a .= '<span class="badge ' . $block_class . ' fw-normal badge-align me-1">{' . html($block) . '}</span>';
             $a .= '<span class="badge bg-secondary fw-normal badge-align me-1">' . html($cntpart_type) . '</span>';
             if (!empty($article_content['acontent_title'])) {
                 $a .= html($article_content['acontent_title']);
             }
-            $a .= '</td>';
-            $a .= '<td class="text-nowrap text-end">';
+            $a .= '</div>';
+            $a .= '<div class="struct-row-actions text-nowrap text-end">';
             $at = ' ' . $cntpart_type . (!empty($article_content['acontent_title']) ? ': ' . $article_content['acontent_title'] : '') . ' {' . $block . '} ';
 
             if($cut_article_content) {
@@ -440,7 +450,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
                 }
             }
 
-            $a .= '<div class="btn-group btn-group-sm" role="group" aria-label="group'.$article_content["acontent_id"].'">';
+            $a .= '<div class="btn-group btn-group-sm btn-group-outer" role="group" aria-label="group'.$article_content["acontent_id"].'">';
             //edit content part
             if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
               $a .= '<a class="btn btn-sm btn-blue" role="button" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article[$akey]["article_id"].'&amp;acid='.$article_content["acontent_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
@@ -461,11 +471,13 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= '</div></div>';
             $a .= '<button id="abtnarticlecontent'.$article_content["acontent_id"].'" class="btn fa btn-sm visible '.($article_content["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article_content["acontent_id"].'" data-type="articlecontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"><i class="fa-solid '.($article_content["acontent_visible"]==0 ? "fa-eye-slash" : "fa-eye").' fa-fw" aria-hidden="true"></i></button>';
 
-            $a .= "</div></td></tr>".LF;
+            $a .= '</div></li>' . LF;
         }
 
         if($a) {
+            echo '<ul class="cp-list" data-aid="' . (int) $article[$akey]["article_id"] . '">' . LF;
             echo $a;
+            echo '</ul>' . LF;
         }
     }
 }
@@ -517,7 +529,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 $sort_up        = (($count_row>1 && $key)?1:0);
                 $sort_down      = (($count_row>1 && $key+1<$count_row)?1:0);
 
-                $a .= '<div class="btn-group btn-group-sm" role="group" aria-label="group'.$struct[$key]["acat_id"].'">';
+                $a .= '<div class="btn-group btn-group-sm btn-group-outer" role="group" aria-label="group'.$struct[$key]["acat_id"].'">';
 
                 $a .= '<a class="btn btn-sm btn-blue" role="button" title="'.$GLOBALS['BL']['be_func_struct_sedit'].' ['.$an.']" data-bs-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=6&amp;struct=';
                 if($struct[$key]["acat_id"]) {

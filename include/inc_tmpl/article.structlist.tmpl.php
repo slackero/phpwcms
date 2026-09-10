@@ -23,8 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <h1 class="text-center text-sm-start"><?php echo $BL['be_subnav_article_center'] ?></h1>
 <div class="card">
 <div class="card-header"><h2><i class="fa-solid fa-list"></i> <?php echo $BL['be_article_title'] ?></h2></div>
-<div class="table-responsive" style="overflow-x: inherit">
-<table class="table table-sm table-valign-middle mb-0">
+<div class="struct-tree">
 <?php
 
 $listmode = 0;
@@ -65,25 +64,22 @@ $child_count = get_root_childcount(0);
 //$an = $BL['be_admin_struct_index'];
 $an = $indexpage['acat_name'];
 
-$a  = "<tr class=\"hover-success bg-row-grey-medium scroll-anchor\" id=\"struct_0\">\n";
-$a .= '<td class="w-80">';
-$a .= "<table class=\"table-borderless\">\n<tr>\n";
-$a .= '<td class="text-nowrap">';
-$a .= ($child_count) ? '<a href="phpwcms.php?do=articles&amp;open=0:'.(empty($_SESSION["structure"][0]) ? 1 : 0).'#struct_0">' : '';
+$a  = '<div class="struct-row hover-success bg-row-grey-medium scroll-anchor" id="struct_0" data-id="0" data-pid="-1" data-sort="0" data-type="struct">' . LF;
+$a .= '<div class="struct-row-label text-nowrap">';
+$a .= ($child_count) ? '<a href="phpwcms.php?do=articles&amp;open=0:' . (empty($_SESSION["structure"][0]) ? 1 : 0) . '#struct_0">' : '';
 
-$a .= '<i class="fa-solid fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
-$a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
+$a .= '<i class="fa-solid fa-caret-' . ($child_count ? (empty($_SESSION["structure"][0]) ? 'right' : 'down') : 'right');
+$a .= ' fa-fw" aria-hidden="true"></i>' . (($child_count) ? '</a>' : '');
 
 $info  = '<table class="text-start"><tr><td>ID:</td><td><b>0</b></td></tr>';
-$info .= '<tr><td>ALIAS:</td><td>'.$indexpage["acat_alias"].'</td></tr></table>';
+$info .= '<tr><td>ALIAS:</td><td>' . $indexpage["acat_alias"] . '</td></tr></table>';
 
-$a .= '<i class="fa-solid fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="'.html($info).'"></i>';
+$a .= '<i class="fa-solid fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="' . html($info) . '"></i>';
+$a .= '<strong class="ms-1">' . $an . '</strong></div>' . LF;
 
-$a .= "</td>\n";
-$a .= '<td width="97%"><strong class="ms-1">'.$an."</strong></td>\n</tr>\n</table></td>\n";
+$a .= '<div class="struct-row-actions text-nowrap text-end">';
 
 echo $a;
-echo '<td class="text-nowrap text-end">';
 
 $struct[0]["acat_id"]       = 0;
 $struct[0]["acat_aktiv"]    = 1;
@@ -91,13 +87,12 @@ $struct[0]["acat_struct"]   = 0;
 
 echo listmode_edits($listmode, $struct, 0, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, 0, 0, 0, 0);
 
-echo "</td>\n</tr>\n";
+echo '</div>' . LF . '</div>' . LF;
 
 if(is_array($_SESSION["structure"]) && !empty($_SESSION["structure"][0])) {
-    struct_articlelist(0, 0, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $indexpage['acat_order']);
+    struct_articlelist(0, 1, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $indexpage['acat_order']);
     struct_list(0, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
 ?>
-</table>
 </div>
 </div>

@@ -1421,22 +1421,30 @@ li.sortme {
 }
 
 /* Custom table row hover effects replacing inline JavaScript */
-tr.hover-success:hover td {
+/* tableless list rows: hover class either on the row element or its parent li */
+li.hover-success:hover > .article-row-inner,
+.hover-success:hover,
+div.hover-success:hover {
     background-color: #D2EED9 !important;
 }
-tr.hover-warning:hover td {
+li.hover-warning:hover > .article-row-inner,
+.hover-warning:hover {
     background-color: #CCFF00 !important;
 }
-tr.hover-highlight:hover td {
+li.hover-highlight:hover > .article-row-inner,
+.hover-highlight:hover {
     background-color: #DBFF48 !important;
 }
-tr.hover-light:hover td {
+li.hover-light:hover > .article-row-inner,
+.hover-light:hover {
     background-color: #f5f5f5 !important;
 }
-tr.hover-amber:hover td {
+li.hover-amber:hover > .article-row-inner,
+.hover-amber:hover {
     background-color: #FFF4CB !important;
 }
-tr.hover-gold:hover td {
+li.hover-gold:hover > .article-row-inner,
+.hover-gold:hover {
     background-color: #FFCC00 !important;
 }
 
@@ -1474,7 +1482,11 @@ tr.bg-row-white > td,
 tr.bg-row-alt-light > td,
 tr.hover-success > td,
 tr.hover-warning > td,
-tr.hover-amber > td {
+tr.hover-amber > td,
+li.cp-row,
+li.article-row,
+li.struct-node > .struct-row,
+.struct-tree > .struct-row {
     border-bottom: 1px solid #dfdfdf;
 }
 
@@ -1502,6 +1514,48 @@ tr.hover-amber > td {
 
 .w-80 {
     width: 80%;
+}
+
+/* Tableless article/structure tree list */
+.struct-tree ul,
+.struct-tree li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.struct-tree > .article-children,
+.struct-tree > .struct-children {
+    padding-left: 0;
+}
+.struct-tree .struct-row,
+.struct-tree .article-row-inner,
+.struct-tree .cp-row {
+    display: flex;
+    align-items: center;
+    min-height: 2rem;
+    padding-left: calc(var(--depth, 0) * 1.5rem);
+}
+.struct-row-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-grow: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+.struct-row-actions {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+}
+.cp-row {
+    padding-block: 0.15rem;
+}
+.btn-group-outer {
+    margin: 2px 4px 2px 0;
+}
+.btn-group-outer .btn-sm {
+    font-size: .875rem;
 }
 
 .autosize, .field-sizing-content {
@@ -2437,7 +2491,11 @@ body.filebrowser table img,
 [data-bs-theme="dark"] tr.bg-row-alt-light > td,
 [data-bs-theme="dark"] tr.hover-success > td,
 [data-bs-theme="dark"] tr.hover-warning > td,
-[data-bs-theme="dark"] tr.hover-amber > td {
+[data-bs-theme="dark"] tr.hover-amber > td,
+[data-bs-theme="dark"] li.cp-row,
+[data-bs-theme="dark"] li.article-row,
+[data-bs-theme="dark"] li.struct-node > .struct-row,
+[data-bs-theme="dark"] .struct-tree > .struct-row {
     border-bottom: 1px solid var(--pw-border) !important;
 }
 
@@ -2450,22 +2508,34 @@ body.filebrowser table img,
     background-color: #1f242c !important;
 }
 
-[data-bs-theme="dark"] tr.hover-success:hover td {
+[data-bs-theme="dark"] tr.hover-success:hover td,
+[data-bs-theme="dark"] li.hover-success:hover > .article-row-inner,
+[data-bs-theme="dark"] .hover-success:hover {
     background-color: #1e3a2c !important;
 }
-[data-bs-theme="dark"] tr.hover-warning:hover td {
+[data-bs-theme="dark"] tr.hover-warning:hover td,
+[data-bs-theme="dark"] li.hover-warning:hover > .article-row-inner,
+[data-bs-theme="dark"] .hover-warning:hover {
     background-color: #383b19 !important;
 }
-[data-bs-theme="dark"] tr.hover-highlight:hover td {
+[data-bs-theme="dark"] tr.hover-highlight:hover td,
+[data-bs-theme="dark"] li.hover-highlight:hover > .article-row-inner,
+[data-bs-theme="dark"] .hover-highlight:hover {
     background-color: #323d1e !important;
 }
-[data-bs-theme="dark"] tr.hover-light:hover td {
+[data-bs-theme="dark"] tr.hover-light:hover td,
+[data-bs-theme="dark"] li.hover-light:hover > .article-row-inner,
+[data-bs-theme="dark"] .hover-light:hover {
     background-color: #282e37 !important;
 }
-[data-bs-theme="dark"] tr.hover-amber:hover td {
+[data-bs-theme="dark"] tr.hover-amber:hover td,
+[data-bs-theme="dark"] li.hover-amber:hover > .article-row-inner,
+[data-bs-theme="dark"] .hover-amber:hover {
     background-color: #3b3018 !important;
 }
-[data-bs-theme="dark"] tr.hover-gold:hover td {
+[data-bs-theme="dark"] tr.hover-gold:hover td,
+[data-bs-theme="dark"] li.hover-gold:hover > .article-row-inner,
+[data-bs-theme="dark"] .hover-gold:hover {
     background-color: #403414 !important;
 }
 
