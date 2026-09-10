@@ -13,6 +13,7 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^7.3.1",
     "ace-builds": "^1.44.0",
+    "bootstrap-icons": "^1.13.1",
     "bootstrap": "^5.3.3",
     "cookieconsent2": "^1.0.10-2",
     "dayjs": "^1.11.23",

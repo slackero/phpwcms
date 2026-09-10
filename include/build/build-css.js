@@ -39,6 +39,7 @@ console.log(`[✓] backend.min.css built with lightningcss (minified: ${!noMinif
 // 2. Copy conditional CSS assets from node_modules
 const copyMap = [
     { src: '../../node_modules/bootstrap/dist/css/bootstrap.min.css', dest: '../template/lib/bootstrap5/bootstrap.min.css' },
+    { src: '../../node_modules/bootstrap-icons/font/bootstrap-icons.min.css', dest: '../template/lib/bootstrap-icons/bootstrap-icons.min.css' },
     { src: '../../node_modules/dropzone/dist/min/dropzone.min.css', dest: 'inc_css/dropzone.min.css' },
     { src: '../../node_modules/flatpickr/dist/flatpickr.min.css', dest: 'inc_css/flatpickr.min.css' },
     { src: '../../node_modules/flatpickr/dist/themes/material_blue.css', dest: 'inc_css/flatpickr-material.min.css', minify: true },
@@ -100,6 +101,19 @@ if (fs.existsSync(fontSrcDir)) {
         fs.copyFileSync(path.join(fontSrcDir, font), path.join(fontDestDir, font));
     }
     console.log(`[✓] Synced ${fonts.length} FontAwesome webfonts to include/webfonts/`);
+}
+
+// 3b. Sync Bootstrap Icons webfonts next to its CSS
+const biFontSrcDir = path.join(__dirname, '../../node_modules/bootstrap-icons/font/fonts');
+const biFontDestDir = path.join(includeDir, '../template/lib/bootstrap-icons/fonts');
+
+if (fs.existsSync(biFontSrcDir)) {
+    fs.mkdirSync(biFontDestDir, { recursive: true });
+    const biFonts = fs.readdirSync(biFontSrcDir);
+    for (const font of biFonts) {
+        fs.copyFileSync(path.join(biFontSrcDir, font), path.join(biFontDestDir, font));
+    }
+    console.log(`[✓] Synced ${biFonts.length} Bootstrap Icons webfonts to template/lib/bootstrap-icons/fonts/`);
 }
 
 // 4. Minify cookieconsent2 CSS themes
