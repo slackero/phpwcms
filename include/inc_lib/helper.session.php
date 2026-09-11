@@ -600,13 +600,21 @@ function handle_csrf_error($reason)
 }
 
 /**
- * Check if a user belongs to a specific user group (by syskey).
+ * Check if a user holds a backend permission.
+ *
+ * Despite the legacy naming, phpwcms_usergroup is a permission grant
+ * table, not a user-group roster: each row is ONE permission
+ * ($group_syskey for a backend section/admin action, or $group_modkey
+ * for a module), and group_member is the CSV of user ids granted it.
+ * This function is the membership read side of that model.
+ * Superadmins bypass group checks via has_admin_permission().
+ *
  * Uses local static caching to avoid redundant database lookups.
  *
  * @access public
  * @param int $user_id The unique user ID.
- * @param string $group_syskey The system key identifying the user group.
- * @return bool True if the user is a member of the group, false otherwise.
+ * @param string $group_syskey The permission key to check.
+ * @return bool True if the user is granted the permission, false otherwise.
  */
 function is_user_in_group($user_id, $group_syskey)
 {
@@ -621,8 +629,7 @@ function is_user_in_group($user_id, $group_syskey)
         $sql = 'SELECT group_member FROM ' . DB_PREPEND . 'usergroup WHERE group_syskey = ' . _dbEscape($group_syskey) . ' AND group_active = 1 AND group_trash = 0 LIMIT 1';
         $result = _dbQuery($sql);
         if (isset($result[0]['group_member']) && trim($result[0]['group_member']) !== '') {
-            $members = explode(',', $result[0]['group_member']);
-            $group_cache[$group_syskey] = array_map('intval', array_map('trim', $members));
+            $group_cache[$group_syskey] = sanitize_int_array($result[0]['group_member']);
         } else {
             $group_cache[$group_syskey] = [];
         }

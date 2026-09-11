@@ -1860,6 +1860,24 @@ function _mkdir($target) {
     return false;
 }
 
+/**
+ * Normalize user/group member ids to a unique array of integers.
+ * Accepts an array (e.g. $_POST values) or a comma-separated string
+ * (e.g. a group_member column value). Non-numeric values are dropped.
+ *
+ * @access public
+ * @param array|string $ids Raw id values or CSV string.
+ * @return array Unique integer ids.
+ */
+function sanitize_int_array($ids)
+{
+    if (!is_array($ids)) {
+        $ids = convertStringToArray($ids);
+    }
+    $ids = array_map('intval', array_filter($ids, 'is_numeric'));
+    return array_values(array_unique($ids));
+}
+
 function sanitize_filename($filename) {
     if (class_exists('Normalizer')) {
         $filename = Normalizer::normalize($filename, Normalizer::FORM_C);

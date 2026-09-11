@@ -886,6 +886,17 @@ CREATE TABLE `phpwcms_userdetail` (
   KEY `detail_regkey` (`detail_regkey`)
 );
 
+-- phpwcms_usergroup: despite its name, this is a permission grant table,
+-- not a user-group roster. Each row defines ONE backend permission:
+--   - `group_syskey` = permission key for a backend section/admin action
+--     (e.g. 'artcent', 'file', 'adm', 'admuser') or 'SYSGROUP' for
+--     module-agnostic rows
+--   - `group_modkey` = module name for module-specific permissions
+--   - `group_member` = comma-separated user ids granted the permission
+-- Consumed by is_user_in_group()/has_admin_permission() and the
+-- $grouparray/$modulearray gates in phpwcms.php. Rows with a syskey that
+-- matches no known key are unused by the backend. Superadmins
+-- (usr_admin=1) bypass these checks entirely.
 CREATE TABLE `phpwcms_usergroup` (
   `group_id` int(11) NOT NULL AUTO_INCREMENT,
   `group_name` varchar(255) NOT NULL DEFAULT '',

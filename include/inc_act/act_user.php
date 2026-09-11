@@ -33,6 +33,7 @@ if (has_admin_permission('admuser')) {
         if ($user_id && $user_id !== (int)$_SESSION['wcs_user_id'] && is_valid_email($user_email)) {
             $result = _dbQuery('UPDATE ' . DB_PREPEND . 'user SET usr_aktiv=9 WHERE usr_id=' . $user_id . ' AND usr_email=' . _dbEscape($user_email), 'UPDATE');
             if (!empty($result['AFFECTED_ROWS'])) {
+                remove_user_from_groups($user_id);
                 $rendered_mail = render_system_email('account_deactivated', [
                     '{NAME}'       => $user_email,
                     '{LOGIN}'      => $user_email,

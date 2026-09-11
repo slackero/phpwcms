@@ -176,44 +176,30 @@ foreach ($all_groups as $group_row) {
     }
 }
 
+// Provision missing system permission groups (one-time). Superadmins
+// bypass group checks in has_admin_permission(), so existing groups are
+// never re-seeded with admin ids here.
 foreach ($sys_groups as $syskey => $groupname) {
-    if (!isset($groups_by_syskey[$syskey])) {
-        if ($admin_member_str === '') {
-            // no admin users yet - create the group once admins exist
-            continue;
-        }
-        $data = [
-            'group_name'   => $groupname,
-            'group_member' => $admin_member_str,
-            'group_value'  => '',
-            'group_active' => 1,
-            'group_trash'  => 0,
-            'group_syskey' => $syskey,
-            'group_modkey' => ''
-        ];
-        _dbInsert('usergroup', $data);
-        // keep the in-memory group list in sync for this request
-        $all_groups[] = $data;
-        $groups_by_syskey[$syskey] = $data;
-    } else {
-        $existing = $groups_by_syskey[$syskey];
-        $members = convertStringToArray($existing['group_member']);
-        $updated = false;
-        foreach ($adminids as $adminid) {
-            if (!in_array($adminid, $members)) {
-                $members[] = $adminid;
-                $updated = true;
-            }
-        }
-        if ($updated) {
-            _dbUpdate('usergroup', ['group_member' => implode(',', $members)], 'group_id = ' . (int)$existing['group_id']);
-            foreach ($all_groups as $group_key => $group_row) {
-                if ($group_row['group_syskey'] === $syskey) {
-                    $all_groups[$group_key]['group_member'] = implode(',', $members);
-                }
-            }
-        }
+    if (isset($groups_by_syskey[$syskey])) {
+        continue;
     }
+    if ($admin_member_str === '') {
+        // no admin users yet - create the group once admins exist
+        continue;
+    }
+    $data = [
+        'group_name'   => $groupname,
+        'group_member' => $admin_member_str,
+        'group_value'  => '',
+        'group_active' => 1,
+        'group_trash'  => 0,
+        'group_syskey' => $syskey,
+        'group_modkey' => ''
+    ];
+    _dbInsert('usergroup', $data);
+    // keep the in-memory group list in sync for this request
+    $all_groups[] = $data;
+    $groups_by_syskey[$syskey] = $data;
 }
 
 foreach ($all_groups as $grouplist) {
@@ -256,7 +242,7 @@ switch ($do) {
         break;
 
     case 'admin': //Admin
-        if(!empty($_SESSION['wcs_user_admin'])) {
+        if(has_admin_permission('adm')) {
             include PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php';
         }
         break;

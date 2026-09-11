@@ -97,5 +97,30 @@ function phpwcms_revision_r559() {
         }
     }
 
+    // Remove orphaned (deleted) user ids from all group member lists.
+    // A deleted user has usr_aktiv=9 but its id may still linger in group_member.
+    $active_users = [];
+    $users = _dbQuery('SELECT usr_id FROM `' . DB_PREPEND . 'user`');
+    if (!empty($users) && is_array($users)) {
+        foreach ($users as $user) {
+            $active_users[] = (int)$user['usr_id'];
+        }
+    }
+
+    $groups = _dbQuery('SELECT group_id, group_member FROM `' . DB_PREPEND . 'usergroup`');
+    if (!empty($groups) && is_array($groups)) {
+        foreach ($groups as $group) {
+            $members = sanitize_int_array($group['group_member']);
+            $orphans = array_diff($members, $active_users);
+            if (empty($orphans)) {
+                continue;
+            }
+            $members = array_values(array_diff($members, $orphans));
+            if (!_dbUpdate('usergroup', ['group_member' => implode(',', $members)], 'group_id = ' . (int)$group['group_id'])) {
+                $status = false;
+            }
+        }
+    }
+
     return $status;
 }

@@ -28,8 +28,8 @@ foreach($phpwcms['modules'] as $value) {
   if(!isset($existing_groups[$value["name"]])) {
     $data = [
         'group_name'    => $BL['modules'][$value['name']]['backend_menu'],
-        'group_member'  => '1', // Fix: Use '1' string instead of array ['1'] to avoid array serialization in DB
-        'group_value'   => 'Modul '.$BL['modules'][$value['name']]['backend_menu'],
+        'group_member'  => $admin_member_str, // all superadmins as initial members; superadmins bypass group checks anyway
+        'group_value'   => $BL['be_nav_modules'].': '.$BL['modules'][$value['name']]['backend_menu'],
         'group_trash'   => 0,
         'group_active'  => 1,
         'group_modkey'  => $value["name"]
@@ -37,7 +37,7 @@ foreach($phpwcms['modules'] as $value) {
 
     $insert_result = _dbInsert('usergroup', $data);
     if(isset($insert_result['INSERT_ID'])) {
-      echo '<div class="alert alert-success">Module '.$BL['modules'][$value['name']]['backend_menu'].' erfolgreich hinzugef&uuml;gt</div>';
+      echo '<div class="alert alert-success">'.html($BL['modules'][$value['name']]['backend_menu']).' '.$BL['be_admin_group_added'].'</div>';
     }
   }
 }
@@ -94,11 +94,11 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 
       $group["id"]        = intval($_POST["group_id"]);
       $group["name"]      = clean_slweg($_POST["group_name"], 250);
-      $group["member"]    = isset($_POST["acat_access"]) && is_array($_POST["acat_access"]) ? implode(',', $_POST["acat_access"]) : '';
+      $group["member"]    = isset($_POST["acat_access"]) && is_array($_POST["acat_access"]) ? implode(',', sanitize_int_array($_POST["acat_access"])) : '';
       $group["value"]     = clean_slweg($_POST["group_value"]);
       $group["trash"]     = empty($_POST["group_trash"]) ? 0 : intval($_POST["group_trash"]);
       $group["active"]    = empty($_POST["group_active"]) ? 0 : 1;
-      $group["active"]    = (strlen ($_POST["group_syskey"])> 1) ? 1 : $group["active"];
+      $group["active"]    = isset($_POST["group_syskey"]) && (strlen ($_POST["group_syskey"])> 1) ? 1 : $group["active"];
 
       if(empty($group["name"])) {
 
@@ -128,7 +128,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
   }
 ?>
 
-<form action="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" method="post" name="editsitestructure" id="editsitestructure" onsubmit="selectAllOptions(this.acat_access);selectAllOptions(this.acat_cp);var x = wordcount(this.acat_name.value);if(x&lt;1) {alert('Fill in a category title! \n\n('+x+' words total)');this.acat_name.focus();return false;}">
+<form action="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" method="post" name="editsitestructure" id="editsitestructure" onsubmit="selectAllOptions(this.acat_access);selectAllOptions(this.acat_cp);var x = wordcount(this.acat_name.value);if(x&lt;1) {alert('<?php echo html($BL['be_admin_group_err']) ?> \n\n('+x+' words total)');this.acat_name.focus();return false;}">
 
 	<?php if(!empty($group["error"])) { ?>
 	<div class="alert alert-danger"><?php echo $BL['be_admin_usr_err'] ?>: <?php echo $BL['be_fpriv_name'] ?></div>

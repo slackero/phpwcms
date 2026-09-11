@@ -1144,6 +1144,34 @@ function initJQuery() {
     $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js')) + $GLOBALS['BE']['HEADER'];
 }
 
+/**
+ * Remove a user id from every group's member list.
+ * Used when a user account is deleted (usr_aktiv=9) to keep
+ * group_member free of orphaned ids.
+ *
+ * @access public
+ * @param int $user_id The user id to strip from all groups.
+ * @return void
+ */
+function remove_user_from_groups($user_id) {
+    $user_id = (int)$user_id;
+    if (!$user_id) {
+        return;
+    }
+    $groups = _dbQuery('SELECT group_id, group_member FROM ' . DB_PREPEND . 'usergroup');
+    if (empty($groups) || !is_array($groups)) {
+        return;
+    }
+    foreach ($groups as $group) {
+        $members = sanitize_int_array($group['group_member']);
+        if (!in_array($user_id, $members, true)) {
+            continue;
+        }
+        $members = array_values(array_diff($members, [$user_id]));
+        _dbUpdate('usergroup', ['group_member' => implode(',', $members)], 'group_id = ' . (int)$group['group_id']);
+    }
+}
+
 // make phpwcms compatibility and upgrade check (auto-discovers and executes pending revisions)
 function phpwcms_get_available_revisions() {
     $files = glob(PHPWCMS_ROOT . '/include/inc_lib/revision/r*.php');
