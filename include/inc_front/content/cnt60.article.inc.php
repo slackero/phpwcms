@@ -70,6 +70,7 @@ if (!empty($template_content) && is_array($elements) && count($elements)) {
     }
 
     $entries_rendered = array();
+    $tmpl_data = array();
     $idx = 1;
     $total_count = count($elements);
 
@@ -97,12 +98,26 @@ if (!empty($template_content) && is_array($elements) && count($elements)) {
             $entry_html
         );
 
+        // [ITEM_FIRST] = first element of the whole set
+        $entry_html = render_cnt_template($entry_html, 'ITEM_FIRST', ($idx === 1 ? 1 : ''));
+        // [ITEM_LAST] = last element of the whole set
+        $entry_html = render_cnt_template($entry_html, 'ITEM_LAST', ($idx === $total_count ? 1 : ''));
+        // [ITEM_FIRST_ELSE] = all but the first element
+        $entry_html = render_cnt_template($entry_html, 'ITEM_FIRST_ELSE', ($idx === 1 ? '' : 1));
+        // [ITEM_LAST_ELSE] = all but the last element
+        $entry_html = render_cnt_template($entry_html, 'ITEM_LAST_ELSE', ($idx === $total_count ? '' : 1));
+
+        // Get the entry data, collect it for [DATA] in header/footer
+        $tmpl_data[] = get_tmpl_section('ENTRY_DATA', $entry_html);
+        $entry_html = replace_tmpl_section('ENTRY_DATA', $entry_html, '');
+
         $entries_rendered[] = $entry_html;
         $idx++;
     }
 
     $joined_entries = implode($tmpl_spacer ?: LF, $entries_rendered);
     $output = $tmpl_header . $joined_entries . $tmpl_footer;
+    $output = render_cnt_template($output, 'DATA', implode('', $tmpl_data));
 
     // Standard Content Part Replacement Tags
     $output = render_cnt_template($output, 'ATTR_CLASS', html($crow['acontent_attr_class'] ?? ''));

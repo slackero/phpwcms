@@ -18,7 +18,7 @@ FELOGIN_LEVEL_ID			= 0
 ; If user is logged in, a new level will be inserted which
 ; holds the logout link - and this is the link text
 ; set FELOGIN_LOGOUT_LINK = 0 to avoid that
-; {FELOGOUT_LINK_PREFIX}	replacement tag for FELOGIN_LOGOUT_LINK_PREFIX
+; {FELOGOUT_PREFIX}			replacement tag for FELOGIN_LOGOUT_LINK_PREFIX
 ; {FELOGOUT_SUFFIX}			replacement tag for FELOGIN_LOGOUT_LINK_SUFFIX
 ; {FELOGIN_USER}			replacement tag for the username (logged in)
 FELOGIN_LOGOUT_LINK			= "@@Logout@@ {FELOGOUT_PREFIX}{FELOGIN_USER}{FELOGOUT_SUFFIX}"

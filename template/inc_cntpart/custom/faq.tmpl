@@ -1,10 +1,11 @@
-<!--CUSTOM_SETTINGS_START//-->
-; this is formatted like WIN.INI
-; please: do not use comments for value lines
-; settings will overwrite CP settings
-text_render = plain
-<!--CUSTOM_SETTINGS_END//-->
+<!--
+    Custom Content Part template (rendered by include/inc_front/content/cnt60.article.inc.php)
 
+    Field tags used below require the assigned CPT type to define these fields:
+    sort (str/int, accordion item identifier), string1 (str, question),
+    wysiwyg1 (wysiwyg, answer). Wrappers for undefined fields are NOT rendered -
+    make sure the CPT schema matches, otherwise the tags leak into frontend output.
+-->
 <!--CUSTOM_HEADER_START//-->
 [ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 
@@ -31,7 +32,6 @@ text_render = plain
 <!--CUSTOM_ENTRY_END//-->
 
 <!--CUSTOM_ENTRY_SPACER_START//--><!--CUSTOM_ENTRY_SPACER_END//-->
-<!--CUSTOM_ROW_SPACER_START//--><!--CUSTOM_ROW_SPACER_END//-->
 
 <!--CUSTOM_FOOTER_START//-->
 </div>

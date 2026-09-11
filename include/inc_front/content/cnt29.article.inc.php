@@ -321,6 +321,7 @@ if($image['template']) {
 
             $img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
             $img_a = str_replace('{IMGID}', $key, $img_a);
+            $img_a = str_replace('{ROW_COUNT}', $key, $img_a);
             $img_a = str_replace('{IMAGE_ID}', $image['images'][$key][0], $img_a);
             $img_a = str_replace('{IMAGE_HASH}', $image['images'][$key][2], $img_a);
             $img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key][1]), $img_a);
@@ -349,6 +350,9 @@ if($image['template']) {
             $img_a = render_cnt_template($img_a, 'ZOOM', ($img_zoom_name ? '<!-- Zoomed -->' : '') );
             $img_a = render_cnt_template($img_a, 'COPYRIGHT', $caption[4] );
             $img_a = render_cnt_template($img_a, 'FIRST', ($col > 1 ? '' : $col) );
+            // [IMAGE_FIRST]/[IMAGE_LAST] = first/last image of the whole set, independent of column count
+            $img_a = render_cnt_template($img_a, 'IMAGE_FIRST', ($total === 1 ? $total : '') );
+            $img_a = render_cnt_template($img_a, 'IMAGE_LAST', ($image['count'] == $total ? $total : '') );
             $img_a = render_cnt_template($img_a, 'ROW', ($x+1) );
 
             if($image['nocaption']) {

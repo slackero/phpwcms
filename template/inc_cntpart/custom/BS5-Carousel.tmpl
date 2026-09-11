@@ -1,14 +1,13 @@
-<!--CUSTOM_SETTINGS_START//-->
-; Bootstrap 5 Carousel
-width          = 1200
-height         = 500
-col            = 1
-crop           = 1
-lightbox       = 0
-thumb_class    = d-block w-100
-text_render    = html
-<!--CUSTOM_SETTINGS_END//-->
+<!--
+    Custom Content Part template (rendered by include/inc_front/content/cnt60.article.inc.php)
 
+    Field tags used below require the assigned CPT type to define these fields
+    (unprefixed form of the CUSTCTP_ field tags):
+    url (url), url_target (str), image (image, file ID or path),
+    caption (str), infotext (textarea). Wrappers for undefined fields are NOT
+    rendered - make sure the CPT schema matches, otherwise the tags leak into
+    frontend output.
+-->
 <!--CUSTOM_HEADER_START//-->
 [ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 
@@ -26,9 +25,9 @@ text_render    = html
 <!--CUSTOM_HEADER_END//-->
 
 <!--CUSTOM_ENTRY_START//-->
-        <div class="carousel-item[FIRST] active[/FIRST]" id="slide-{IMGID}">
+        <div class="carousel-item[ITEM_FIRST] active[/ITEM_FIRST]" id="slide-{ITEM_INDEX}">
             [URL]<a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET]>[/URL]
-                {IMAGE}
+                [IMAGE]<img src="{IMAGE}" class="d-block w-100" alt=""{LAZY_LOADING}>[/IMAGE]
             [URL]</a>[/URL]
             [CAPTION]
             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
@@ -37,10 +36,13 @@ text_render    = html
             </div>
             [/CAPTION]
         </div>
+
+        <!--ENTRY_DATA_START//-->
+        <button type="button" data-bs-target="#carouselCustom{ID}" data-bs-slide-to="{ITEM_INDEX}"[ITEM_FIRST] class="active" aria-current="true"[/ITEM_FIRST] aria-label="Slide {ITEM_NUM}"></button>
+        <!--ENTRY_DATA_END//-->
 <!--CUSTOM_ENTRY_END//-->
 
 <!--CUSTOM_ENTRY_SPACER_START//--><!--CUSTOM_ENTRY_SPACER_END//-->
-<!--CUSTOM_ROW_SPACER_START//--><!--CUSTOM_ROW_SPACER_END//-->
 
 <!--CUSTOM_FOOTER_START//-->
     </div>
@@ -55,8 +57,12 @@ text_render    = html
     </button>
 </div>
 [ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
-<!--CUSTOM_FOOTER_END//-->
 
-<!--CUSTOM_DATA_START//-->
-        <button type="button" data-bs-target="#carouselCustom{ID}" data-bs-slide-to="{ROW_COUNT}"[FIRST] class="active" aria-current="true"[/FIRST] aria-label="Slide {ROW}"></button>
-<!--CUSTOM_DATA_END//-->
+<!--
+    Requires Bootstrap 5 CSS and JavaScript in your main template so it is loaded once.
+    CSS: https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/css/bootstrap.min.css
+    JS:  https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js
+-->
+<!-- CSS: template/lib/bootstrap5/bootstrap.min.css -->
+<!-- JS: template/lib/bootstrap5/bootstrap.bundle.min.js -->
+<!--CUSTOM_FOOTER_END//-->

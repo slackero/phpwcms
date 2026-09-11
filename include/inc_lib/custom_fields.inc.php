@@ -617,6 +617,39 @@ function custom_field_render_input($field_key, $field_def, $value = null, $name_
 }
 
 /**
+ * Resolve a custom image/file field value to a frontend URL
+ *
+ * Backend accepts "Image ID / Path" (filebrowser inserts the file ID).
+ * Numeric values are resolved against the file table, anything else
+ * (relative path or full URL) is passed through as-is.
+ *
+ * @param mixed $value
+ * @return string URL or empty string when the file ID cannot be resolved
+ */
+function custom_field_file_url($value) {
+    $value = is_array($value) ? (string)($value['file_id'] ?? $value['image_id'] ?? '') : trim((string)$value);
+    if ($value === '' || !ctype_digit($value)) {
+        return $value;
+    }
+
+    static $resolved = array();
+    $f_id = (int)$value;
+    if (isset($resolved[$f_id])) {
+        return $resolved[$f_id];
+    }
+
+    $sql  = 'SELECT f_hash, f_ext FROM ' . DB_PREPEND . 'file WHERE f_id=' . $f_id . ' AND f_trash=0 AND f_aktiv=1';
+    $file = _dbQuery($sql, 'ROW');
+    if ($file && !empty($file[0]) && !empty($file[1])) {
+        $resolved[$f_id] = PHPWCMS_URL . PHPWCMS_FILES . $file[0] . '.' . $file[1];
+    } else {
+        $resolved[$f_id] = '';
+    }
+
+    return $resolved[$f_id];
+}
+
+/**
  * Replace template tags for a single field in frontend rendering
  *
  * @param string $template
@@ -637,6 +670,8 @@ function custom_field_replace_tags($template, $field_key, $field_def, $value, $p
     $rendered_value = '';
     if ($type === 'bool') {
         $rendered_value = !empty($value) ? ' ' : '';
+    } elseif ($type === 'image' || $type === 'file') {
+        $rendered_value = html(custom_field_file_url($value));
     } elseif ($type === 'option' || $type === 'select') {
         $rendered_value = (string)$value;
         if (!empty($field_def['values']) && is_array($field_def['values'])) {

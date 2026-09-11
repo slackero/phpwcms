@@ -1,8 +1,12 @@
-<!--CUSTOM_SETTINGS_START//-->
-; Bootstrap 5 Custom Accordion
-text_render    = html
-<!--CUSTOM_SETTINGS_END//-->
+<!--
+    Custom Content Part template (rendered by include/inc_front/content/cnt60.article.inc.php)
 
+    Field tags used below require the assigned CPT type to define these fields
+    (unprefixed form of the CUSTCTP_ field tags):
+    caption (str), image (image, file ID or path), infotext (textarea),
+    url (url), url_target (str). Wrappers for undefined fields are NOT rendered -
+    make sure the CPT schema matches, otherwise the tags leak into frontend output.
+-->
 <!--CUSTOM_HEADER_START//-->
 [ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 
@@ -14,23 +18,19 @@ text_render    = html
 <!--CUSTOM_HEADER_END//-->
 
 <!--CUSTOM_ENTRY_START//-->
-    <div class="accordion-item" id="accordion-item-{IMGID}">
-        <h2 class="accordion-header" id="heading-{ID}-{IMGID}">
-            <button class="accordion-button[FIRST] [/FIRST][FIRST_ELSE]collapsed[/FIRST_ELSE]" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{ID}-{IMGID}" aria-expanded="[FIRST]true[/FIRST][FIRST_ELSE]false[/FIRST_ELSE]" aria-controls="collapse-{ID}-{IMGID}">
-                [CAPTION]{CAPTION}[/CAPTION][CAPTION_ELSE]Item #{ROW}[/CAPTION_ELSE]
+    <div class="accordion-item" id="accordion-item-{ITEM_INDEX}">
+        <h2 class="accordion-header" id="heading-{ID}-{ITEM_INDEX}">
+            <button class="accordion-button[ITEM_FIRST] [/ITEM_FIRST][ITEM_FIRST_ELSE]collapsed[/ITEM_FIRST_ELSE]" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{ID}-{ITEM_INDEX}" aria-expanded="[ITEM_FIRST]true[/ITEM_FIRST][ITEM_FIRST_ELSE]false[/ITEM_FIRST_ELSE]" aria-controls="collapse-{ID}-{ITEM_INDEX}">
+                [CAPTION]{CAPTION}[/CAPTION][CAPTION_ELSE]Item #{ITEM_NUM}[/CAPTION_ELSE]
             </button>
         </h2>
-        <div id="collapse-{ID}-{IMGID}" class="accordion-collapse collapse[FIRST] show[/FIRST]" aria-labelledby="heading-{ID}-{IMGID}" data-bs-parent="#customAccordion{ID}">
+        <div id="collapse-{ID}-{ITEM_INDEX}" class="accordion-collapse collapse[ITEM_FIRST] show[/ITEM_FIRST]" aria-labelledby="heading-{ID}-{ITEM_INDEX}" data-bs-parent="#customAccordion{ID}">
             <div class="accordion-body">
-                [IMAGE]
-                <div class="mb-3">
-                    {IMAGE}
-                </div>
-                [/IMAGE]
+                [IMAGE]<img src="{IMAGE}" class="img-fluid mb-3" alt=""{LAZY_LOADING}>[/IMAGE]
                 [INFOTEXT]{INFOTEXT}[/INFOTEXT]
                 [URL]
                 <div class="mt-3">
-                    <a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET] class="btn btn-sm btn-outline-primary">More &raquo;</a>
+                    <a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET] class="btn btn-sm btn-outline-primary">@@More@@ &raquo;</a>
                 </div>
                 [/URL]
             </div>
@@ -39,7 +39,6 @@ text_render    = html
 <!--CUSTOM_ENTRY_END//-->
 
 <!--CUSTOM_ENTRY_SPACER_START//--><!--CUSTOM_ENTRY_SPACER_END//-->
-<!--CUSTOM_ROW_SPACER_START//--><!--CUSTOM_ROW_SPACER_END//-->
 
 <!--CUSTOM_FOOTER_START//-->
 </div>

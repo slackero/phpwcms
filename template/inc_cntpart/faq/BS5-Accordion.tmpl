@@ -1,28 +1,27 @@
-<!--FAQ_HEADER_START//-->
-[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--
+    FAQ content part template (rendered by include/inc_front/content/cnt27.article.inc.php)
+    Flat template: each FAQ content part renders ONE question/answer pair.
+    Supported: [ATTR_CLASS]/[ATTR_ID], [TITLE], [SUBTITLE],
+    [FAQ_QUESTION]{FAQ_QUESTION}[/FAQ_QUESTION], [FAQ_ANSWER]{FAQ_ANSWER}[/FAQ_ANSWER],
+    [FAQ_IMAGE]{FAQ_IMAGE}[/FAQ_IMAGE], [FAQ_CAPTION]{FAQ_CAPTION}[/FAQ_CAPTION], {FAQ_ID}
+-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}">[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 
 [TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
 [SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
 
-<div class="accordion accordion-flush mb-4" id="faqAccordion{ID}">
-<!--FAQ_HEADER_END//-->
-
-<!--FAQ_ENTRY_START//-->
-    <div class="accordion-item" id="faq-item-{FAQID}">
-        <h2 class="accordion-header" id="faq-heading-{ID}-{FAQID}">
-            <button class="accordion-button[FIRST] [/FIRST][FIRST_ELSE]collapsed[/FIRST_ELSE]" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse-{ID}-{FAQID}" aria-expanded="[FIRST]true[/FIRST][FIRST_ELSE]false[/FIRST_ELSE]" aria-controls="faq-collapse-{ID}-{FAQID}">
-                {QUESTION}
+<div class="accordion accordion-flush mb-4" id="faqAccordion{FAQ_ID}">
+    <div class="accordion-item" id="faq-item-{FAQ_ID}">
+        <h2 class="accordion-header" id="faq-heading-{FAQ_ID}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse-{FAQ_ID}" aria-expanded="false" aria-controls="faq-collapse-{FAQ_ID}">
+                [FAQ_QUESTION]{FAQ_QUESTION}[/FAQ_QUESTION]
             </button>
         </h2>
-        <div id="faq-collapse-{ID}-{FAQID}" class="accordion-collapse collapse[FIRST] show[/FIRST]" aria-labelledby="faq-heading-{ID}-{FAQID}" data-bs-parent="#faqAccordion{ID}">
+        <div id="faq-collapse-{FAQ_ID}" class="accordion-collapse collapse" aria-labelledby="faq-heading-{FAQ_ID}" data-bs-parent="#faqAccordion{FAQ_ID}">
             <div class="accordion-body">
-                {ANSWER}
+                [FAQ_ANSWER]{FAQ_ANSWER}[/FAQ_ANSWER]
             </div>
         </div>
     </div>
-<!--FAQ_ENTRY_END//-->
-
-<!--FAQ_FOOTER_START//-->
 </div>
 [ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
-<!--FAQ_FOOTER_END//-->

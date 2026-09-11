@@ -120,6 +120,8 @@ if ($_files_force_rendering || $_files_count) {
         $strftime_locale = null;
     }
     $_files_entries = array();
+    $_files_total   = is_array($content['files']) ? count($content['files']) : 0;
+    $_files_pos     = 0;
     $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === false ? false : true; // check if necessary to check for image type and sizes
     if ($_files_count) {
         if (!empty($_files_settings['lightbox_init'])) {
@@ -237,7 +239,14 @@ if ($_files_force_rendering || $_files_count) {
                         $_files_entries[$fkey] = str_replace('{FILE_TARGET}', $_file_info[3], $_files_entries[$fkey]);
                         $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_EXT', $content['files_result'][$_files_x]['f_ext']);
                         $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_URL', $_file_info[6]);
-                        $_files_entries[$fkey] = str_replace('{FILE_DOWNLOADS}', $content['files_result'][$_files_x]['f_dlfinal'], $_files_entries[$fkey]);
+                        // [FIRST]/[LAST] = first/last file of the whole set
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FIRST', $_files_pos === 0 ? 1 : '');
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'LAST', $_files_pos === $_files_total - 1 ? 1 : '');
+                        $_files_pos++;
+                        $_files_dlfinal = $content['files_result'][$_files_x]['f_dlfinal'];
+                        $_files_entries[$fkey] = str_replace('{FILE_DOWNLOADS}', $_files_dlfinal, $_files_entries[$fkey]);
+                        // [FILE_DOWNLOADS] wrapper only when there are downloads
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_DOWNLOADS', (int)$_files_dlfinal > 0 ? $_files_dlfinal : '');
                         $_files_entries[$fkey] = str_replace('{FILE_SIZE}', return_bytes_shorten($content['files_result'][$_files_x]['f_size'], $_files_settings['file_size_round'], $_files_settings['file_size_space']), $_files_entries[$fkey]);
                         $content['files_result'][$_files_x]['f_created'] = intval($content['files_result'][$_files_x]['f_created']);
                         if ($content['files_result'][$_files_x]['f_created'] <= 0) {

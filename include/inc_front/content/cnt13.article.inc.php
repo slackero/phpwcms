@@ -541,6 +541,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                     $s_result_list[$s_key] = str_replace('{IMAGE_ID}', $s_list[$s_key]['image']['id'], $s_result_list[$s_key]);
                     $s_result_list[$s_key] = str_replace('{IMAGE_NAME}', html($s_list[$s_key]['image']['name']), $s_result_list[$s_key]);
                     $s_result_list[$s_key] = str_replace('{IMAGE_EXT}', $s_list[$s_key]['image']['ext'], $s_result_list[$s_key]);
+                    // {PHPWCMS_RESIZE_IMAGE} is replaced globally in index.php
                     $s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'IMAGE', ' ');
                 } else {
                     $s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'IMAGE', '');

@@ -6,6 +6,7 @@ if(defined('FELOGIN_IS_LOGGED')) {
     $FELOGIN_LOGIN = file_get_contents(PHPWCMS_TEMPLATE.'inc_script/felogin/' . $FELOGIN_LOGIN);
 
     $FELOGIN_LOGIN = str_replace('{FELOGIN_ACTION}', 'index.php?id=' . $LEVEL_ID[FELOGIN_CHILD_LEVEL], $FELOGIN_LOGIN);
+    $FELOGIN_LOGIN = str_replace('{FELOGIN_LOGOUT_URL}', 'index.php?id=' . $LEVEL_ID[FELOGIN_CHILD_LEVEL] . '&amp;logout=' . FELOGIN_LOGOUT_GET_VALUE, $FELOGIN_LOGIN);
 
 
     $FELOGIN_USER_NAME   = empty($_SESSION['FELOGIN_USER_NAME']) ? '' : html_specialchars($_SESSION['FELOGIN_USER_NAME']);
