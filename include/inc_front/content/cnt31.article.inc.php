@@ -352,8 +352,10 @@ if($image['template']) {
 
             $img_a = render_cnt_template($img_a, 'ZOOM', ($img_zoom_name ? '<!-- Zoomed -->' : '') );
             $img_a = render_cnt_template($img_a, 'COPYRIGHT', $caption[4] );
-            // [FIRST] = first image of the whole set, independent of column count
-            $img_a = render_cnt_template($img_a, 'FIRST', ($total === 1 ? $total : '') );
+            $img_a = render_cnt_template($img_a, 'FIRST', ($col > 1 ? '' : $col) );
+            // [IMAGE_FIRST]/[IMAGE_LAST] = first/last image of the whole set, independent of column count
+            $img_a = render_cnt_template($img_a, 'IMAGE_FIRST', ($total === 1 ? $total : '') );
+            $img_a = render_cnt_template($img_a, 'IMAGE_LAST', ($image['count'] == $total ? $total : '') );
             $img_a = render_cnt_template($img_a, 'ROW', ($x+1) );
 
             // new freetext value

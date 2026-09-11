@@ -2744,7 +2744,7 @@ function convert_rel2abs($text, $base) {
  * @param string $filename
  * @param bool $countonly
  * @param bool $htmlencode
- * @param null $inline
+ * @param bool|null $inline
  *
  * @return string
  */

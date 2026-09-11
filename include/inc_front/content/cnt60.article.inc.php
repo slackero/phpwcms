@@ -99,13 +99,10 @@ if (!empty($template_content) && is_array($elements) && count($elements)) {
         );
 
         // [ITEM_FIRST] = first element of the whole set
+        // render_cnt_template() handles [ITEM_FIRST_ELSE]/[ITEM_LAST_ELSE] automatically
         $entry_html = render_cnt_template($entry_html, 'ITEM_FIRST', ($idx === 1 ? 1 : ''));
         // [ITEM_LAST] = last element of the whole set
         $entry_html = render_cnt_template($entry_html, 'ITEM_LAST', ($idx === $total_count ? 1 : ''));
-        // [ITEM_FIRST_ELSE] = all but the first element
-        $entry_html = render_cnt_template($entry_html, 'ITEM_FIRST_ELSE', ($idx === 1 ? '' : 1));
-        // [ITEM_LAST_ELSE] = all but the last element
-        $entry_html = render_cnt_template($entry_html, 'ITEM_LAST_ELSE', ($idx === $total_count ? '' : 1));
 
         // Get the entry data, collect it for [DATA] in header/footer
         $tmpl_data[] = get_tmpl_section('ENTRY_DATA', $entry_html);

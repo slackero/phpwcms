@@ -623,30 +623,51 @@ function custom_field_render_input($field_key, $field_def, $value = null, $name_
  * Numeric values are resolved against the file table, anything else
  * (relative path or full URL) is passed through as-is.
  *
+ * Files get a download.php based URL (rel_download) because direct
+ * /filearchive/ access is denied by .htaccess. Images are rendered
+ * as cached thumbnails when possible.
+ *
  * @param mixed $value
+ * @param string $type 'file' or 'image'
  * @return string URL or empty string when the file ID cannot be resolved
  */
-function custom_field_file_url($value) {
+function custom_field_file_url($value, $type = 'file') {
     $value = is_array($value) ? (string)($value['file_id'] ?? $value['image_id'] ?? '') : trim((string)$value);
     if ($value === '' || !ctype_digit($value)) {
         return $value;
     }
 
     static $resolved = array();
-    $f_id = (int)$value;
-    if (isset($resolved[$f_id])) {
-        return $resolved[$f_id];
+    $key = $type . '_' . (int)$value;
+    if (isset($resolved[$key])) {
+        return $resolved[$key];
     }
 
-    $sql  = 'SELECT f_hash, f_ext FROM ' . DB_PREPEND . 'file WHERE f_id=' . $f_id . ' AND f_trash=0 AND f_aktiv=1';
+    $sql  = 'SELECT f_hash, f_ext, f_name FROM ' . DB_PREPEND . 'file WHERE f_id=' . (int)$value . ' AND f_trash=0 AND f_aktiv=1';
     $file = _dbQuery($sql, 'ROW');
     if ($file && !empty($file[0]) && !empty($file[1])) {
-        $resolved[$f_id] = PHPWCMS_URL . PHPWCMS_FILES . $file[0] . '.' . $file[1];
+        $filename = empty($file[2]) ? ($file[0] . '.' . $file[1]) : $file[2];
+        if ($type === 'image') {
+            $image = get_cached_image(array(
+                'target_ext' => $file[1],
+                'image_name' => $file[0] . '.' . $file[1],
+                'max_width'  => $GLOBALS['phpwcms']['img_list_width'],
+                'max_height' => $GLOBALS['phpwcms']['img_list_height'],
+                'thumb_name' => md5($file[0] . $GLOBALS['phpwcms']['img_list_width'] . $GLOBALS['phpwcms']['img_list_height'] . $GLOBALS['phpwcms']['sharpen_level'] . $GLOBALS['phpwcms']['colorspace']),
+            ));
+            if ($image !== false) {
+                $resolved[$key] = PHPWCMS_URL . PHPWCMS_IMAGES . $image[0];
+            } else {
+                $resolved[$key] = rel_download($file[0], $filename, false, false, true);
+            }
+        } else {
+            $resolved[$key] = rel_download($file[0], $filename, false, false);
+        }
     } else {
-        $resolved[$f_id] = '';
+        $resolved[$key] = '';
     }
 
-    return $resolved[$f_id];
+    return $resolved[$key];
 }
 
 /**
@@ -671,7 +692,7 @@ function custom_field_replace_tags($template, $field_key, $field_def, $value, $p
     if ($type === 'bool') {
         $rendered_value = !empty($value) ? ' ' : '';
     } elseif ($type === 'image' || $type === 'file') {
-        $rendered_value = html(custom_field_file_url($value));
+        $rendered_value = html(custom_field_file_url($value, $type));
     } elseif ($type === 'option' || $type === 'select') {
         $rendered_value = (string)$value;
         if (!empty($field_def['values']) && is_array($field_def['values'])) {

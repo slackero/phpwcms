@@ -120,7 +120,6 @@ if ($_files_force_rendering || $_files_count) {
         $strftime_locale = null;
     }
     $_files_entries = array();
-    $_files_total   = is_array($content['files']) ? count($content['files']) : 0;
     $_files_pos     = 0;
     $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === false ? false : true; // check if necessary to check for image type and sizes
     if ($_files_count) {
@@ -239,9 +238,8 @@ if ($_files_force_rendering || $_files_count) {
                         $_files_entries[$fkey] = str_replace('{FILE_TARGET}', $_file_info[3], $_files_entries[$fkey]);
                         $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_EXT', $content['files_result'][$_files_x]['f_ext']);
                         $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_URL', $_file_info[6]);
-                        // [FIRST]/[LAST] = first/last file of the whole set
+                        // [FIRST] = first file of the whole set, [LAST] is set on all entries after the loop
                         $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FIRST', $_files_pos === 0 ? 1 : '');
-                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'LAST', $_files_pos === $_files_total - 1 ? 1 : '');
                         $_files_pos++;
                         $_files_dlfinal = $content['files_result'][$_files_x]['f_dlfinal'];
                         $_files_entries[$fkey] = str_replace('{FILE_DOWNLOADS}', $_files_dlfinal, $_files_entries[$fkey]);
@@ -363,6 +361,13 @@ if ($_files_force_rendering || $_files_count) {
                     }
                 }
             }
+        }
+    }
+    // [LAST] = last rendered file of the whole set; set after the loop so missing files on disk do not break it
+    if ($_files_entries) {
+        $_files_last_key = array_key_last($_files_entries);
+        foreach ($_files_entries as $_f_k => $_f_v) {
+            $_files_entries[$_f_k] = render_cnt_template($_f_v, 'LAST', $_f_k === $_files_last_key ? 1 : '');
         }
     }
     $crow["acontent_template"] = replace_tmpl_section('FILE_ENTRY', $crow["acontent_template"], implode(LF, $_files_entries));
