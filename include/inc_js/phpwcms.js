@@ -40,9 +40,9 @@ function swapImage(...args) {
     }
 }
 
-function bsConfirm(confirmType, message, callback, customConfirmText, customCancelText) {
+function bsConfirm(confirmType, message, callback, customConfirmText, customCancelText, cancelCallback) {
     if (window.parent && window.parent !== window && typeof window.parent.bsConfirm === 'function') {
-        window.parent.bsConfirm(confirmType, message, callback, customConfirmText, customCancelText);
+        window.parent.bsConfirm(confirmType, message, callback, customConfirmText, customCancelText, cancelCallback);
         return;
     }
 
@@ -132,7 +132,10 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
         ? bootstrap.Modal.getOrCreateInstance($modal[0])
         : null;
 
+    let confirmed = false;
+
     $modal.find('.confirm-btn').off('click').on('click', function() {
+        confirmed = true;
         if (bsModalInstance) {
             bsModalInstance.hide();
         } else {
@@ -143,6 +146,13 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
         }
     });
 
+    $modal.off('hidden.bs.modal').on('hidden.bs.modal', function() {
+        if (!confirmed && typeof cancelCallback === 'function') {
+            cancelCallback();
+        }
+        confirmed = false;
+    });
+
     if (bsModalInstance) {
         bsModalInstance.show();
     } else {
@@ -150,12 +160,12 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
     }
 }
 
-function bsConfirmWarning(message, callback, customConfirmText, customCancelText) {
-    bsConfirm('warning', message, callback, customConfirmText, customCancelText);
+function bsConfirmWarning(message, callback, customConfirmText, customCancelText, cancelCallback) {
+    bsConfirm('warning', message, callback, customConfirmText, customCancelText, cancelCallback);
 }
 
-function bsConfirmDanger(message, callback, customConfirmText, customCancelText) {
-    bsConfirm('danger', message, callback, customConfirmText, customCancelText);
+function bsConfirmDanger(message, callback, customConfirmText, customCancelText, cancelCallback) {
+    bsConfirm('danger', message, callback, customConfirmText, customCancelText, cancelCallback);
 }
 
 function bsConfirmInfo(message, callback, customConfirmText, customCancelText) {

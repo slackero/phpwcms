@@ -261,7 +261,7 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
                       <td class="text-end pe-3"><?php echo (int)($row['update_files'] ?? 0); ?></td>
                       <td class="text-end pe-3">
                         <?php if ($canRollback): ?>
-                          <form method="post" action="phpwcms.php?do=admin&amp;p=18" class="d-inline" onsubmit="return confirm('<?php echo js_singlequote($BL['be_update_rollback'] ?? 'Restore previous version'); ?>?');">
+                          <form method="post" action="phpwcms.php?do=admin&amp;p=18" class="d-inline" onsubmit="return bsConfirmRollback(this);">
                             <input type="hidden" name="csrftoken" value="<?php echo html(get_token_get_value()); ?>">
                             <input type="hidden" name="update_rollback" value="<?php echo (int)$row['update_id']; ?>">
                             <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-rotate-left"></i> <?php echo html($BL['be_update_rollback'] ?? 'Restore previous version'); ?></button>
@@ -279,3 +279,11 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
     </div>
   </div>
 </div>
+<script>
+function bsConfirmRollback(form) {
+    bsConfirmDanger('<?php echo js_singlequote($BL['be_update_rollback'] ?? 'Restore previous version'); ?>', function() {
+        form.submit();
+    });
+    return false;
+}
+</script>

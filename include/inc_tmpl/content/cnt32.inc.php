@@ -631,7 +631,7 @@ function addNewTab(pos) {
 <?php endif; ?>
 
   function deleteTab(id) {
-    if(confirm('<?php echo $BL['be_tab_delete_js'] ?>')) {
+    bsConfirmDanger('<?php echo js_singlequote($BL['be_tab_delete_js']) ?>', function() {
       <?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
       $("#" + id).find('textarea').each(function() {
         var tid = $(this).attr('id');
@@ -641,14 +641,13 @@ function addNewTab(pos) {
       });
       <?php endif; ?>
       $("#" + id).remove();
-    }
+    });
     return false;
   }
   function toggleTabsTemplate(e) {
-    if(confirm('<?php echo correct_charset($BL['be_tab_template_toggle_warning'], true); ?>')) {
+    bsConfirmWarning('<?php echo js_singlequote(correct_charset($BL['be_tab_template_toggle_warning'], true)) ?>', function() {
       e.form.submit();
-      return true;
-    }
+    });
     return false;
   }
   function setTabActive(link, id) {

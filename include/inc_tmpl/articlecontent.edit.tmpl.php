@@ -21,7 +21,7 @@ initJsCalendar();
 $sql  = 'SELECT DISTINCT * FROM '.DB_PREPEND.'article ar LEFT JOIN '.DB_PREPEND.'articlecat ac ON ';
 $sql .= "ar.article_cid=ac.acat_id WHERE ar.article_id='".$content["aid"]."' LIMIT 1";
 $content['article'] = _dbQuery($sql);
-$content['article'] = isset($content['article'][0]) ? $content['article'][0] : array('article_title' => '', 'acat_name' => '', 'acat_template'=>0);
+$content['article'] = $content['article'][0] ?? ['article_title' => '', 'acat_name' => '', 'acat_template' => 0];
 $content['cp_setting_mode'] = false;
 
 if(empty($content['article']['acat_id'])) { // Root structure
@@ -39,9 +39,9 @@ if(empty($content['article']['acat_id'])) { // Root structure
     function cancelContentEdit() {
         var returnUrl = 'phpwcms.php?' + CSRF_GET_TOKEN + '&do=articles&p=2&s=1&id=<?php echo $content["aid"] ?><?php echo !empty($content["id"]) ? "#" . $content["id"] : "" ?>';
         if ($('#articlecontent').serialize() !== initialContentFormData) {
-            bsConfirmWarning('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
+            bsConfirmWarning('<?php echo js_singlequote($BL['be_dialog_warn_nosave']); ?>', function() {
                 location.href = returnUrl;
-            }, '<?php echo js_singlequote($BL["be_yes"]); ?>', '<?php echo js_singlequote($BL["be_no"]); ?>');
+            }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>');
         } else {
             location.href = returnUrl;
         }
@@ -95,24 +95,24 @@ if(empty($content['article']['acat_id'])) { // Root structure
         case 16:
         case 50:
         case 89:
-            echo 'onsubmit="selectAllOptions(this.cimage_list);return checkCp();"';
+            echo 'onsubmit="selectAllOptions(this.cimage_list);return checkCp(this);"';
             break;
 
         //case 25:
         case 7:
-            echo 'onsubmit="selectAllOptions(this.cfile_list);return checkCp();"';
+            echo 'onsubmit="selectAllOptions(this.cfile_list);return checkCp(this);"';
             break;
 
         case 8:
-            echo 'onsubmit="selectAllOptions(this.calink);return checkCp();"';
+            echo 'onsubmit="selectAllOptions(this.calink);return checkCp(this);"';
             break;
 
         case 53:
-            echo 'onsubmit="selectAllOptions(this.cforum_selection);return checkCp();"';
+            echo 'onsubmit="selectAllOptions(this.cforum_selection);return checkCp(this);"';
             break;
 
         default:
-            echo 'onsubmit="var ct=document.getElementById(\'target_ctype\'); if(ct.disabled){ct.disabled=false;} return checkCp();"';
+            echo 'onsubmit="var ct=document.getElementById("target_ctype"); if(ct.disabled){ct.disabled=false;} return checkCp(this);"';
 
     }
 
@@ -227,14 +227,14 @@ if(empty($content['article']['acat_id'])) { // Root structure
 $BE['BODY_CLOSE'][] = '
 <script type="text/javascript">
 $(function() {
-	var $select = $("#target_ctype");
-	var prevIndex = $select.attr("data-prev-index");
+	const $select = $("#target_ctype");
+	const prevIndex = $select.attr("data-prev-index");
 	$select.on("change", function(e) {
-		var $this = $(this);
+		const $this = $(this);
 		bsConfirmWarning("' . js_singlequote($BL['be_func_switch_contentpart']) . '", function() {
 			$this.closest("form").submit();
 		}, "' . js_singlequote($BL['be_yes']) . '", "' . js_singlequote($BL['be_no']) . '");
-		
+
 		$("#bootstrapConfirmModal").one("hidden.bs.modal", function() {
 			setTimeout(function() {
 				$select.prop("selectedIndex", prevIndex);
@@ -426,12 +426,14 @@ if ($content['cp_setting_mode']):
 
                 }
 
-                if(block != "CONTENT") {
-                    if(paginate.value != "0" && loadblock == false) {
-                        if(!confirm("<?php echo $BL['be_cnt_subsection_warning'] ?>")) {
+                if(block !== "CONTENT") {
+                    if(paginate.value !== "0" && loadblock === false) {
+                        bsConfirmWarning('<?php echo js_singlequote($BL['be_cnt_subsection_warning']) ?>', function() {
+                            paginate.disabled = true;
+                        }, null, null, function() {
                             obj.selectedIndex = 0;
-                            return false;
-                        }
+                        });
+                        return false;
                     }
                     paginate.disabled = true;
                 } else {
@@ -439,14 +441,16 @@ if ($content['cp_setting_mode']):
                 }
             }
 
-            function checkCp() {
-
-                var ctab = document.getElementById('ctab');
-                var ctab_title = document.getElementById('ctab_title');
-                var ctab_number = document.getElementById('ctab_number');
+            function checkCp(form) {
+                const ctab = document.getElementById('ctab');
+                const ctab_title = document.getElementById('ctab_title');
+                const ctab_number = document.getElementById('ctab_number');
 
                 if(ctab.selectedIndex > 0 && ctab_title.value === '' && ctab_number.value === '') {
-                    return confirm('<?php echo PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : mb_convert_encoding($BL['confirm_cp_tab_warning'], PHPWCMS_CHARSET); ?>');
+                    bsConfirmWarning('<?php echo js_singlequote(PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : mb_convert_encoding($BL['confirm_cp_tab_warning'], PHPWCMS_CHARSET)) ?>', function() {
+                        form.submit();
+                    });
+                    return false;
                 }
 
                 return true;

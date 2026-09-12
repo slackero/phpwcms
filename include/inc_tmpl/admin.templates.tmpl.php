@@ -410,10 +410,9 @@ if(!isset($_GET["s"])) {
     ?>
     <script type="text/javascript">
         function doPageLayoutChange() {
-        if(confirm('<?php echo correct_charset($BL['be_admin_template_jswarning'], true); ?>')) {
+            bsConfirmWarning('<?php echo js_singlequote(correct_charset($BL['be_admin_template_jswarning'], true)) ?>', function() {
                 document.blocks.submit();
-                return true;
-            }
+            });
             return false;
         }
     </script>

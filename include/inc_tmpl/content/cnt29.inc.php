@@ -508,10 +508,9 @@ if(count($custom_cnt_fields_hidden)) {
 }
 if(count($cnt_fieldgroups)): ?><script>
     function toggleTabsTemplate(e) {
-        if(confirm('<?php echo correct_charset($BL['be_tab_template_toggle_warning'], true); ?>')) {
+        bsConfirmWarning('<?php echo js_singlequote(correct_charset($BL['be_tab_template_toggle_warning'], true)) ?>', function() {
             e.form.submit();
-            return true;
-        }
+        });
         return false;
     }
 
@@ -551,15 +550,17 @@ if(count($cnt_onchange_templates)): ?>
 
         $('#template').on('change', function() {
             var new_template = this.value;
-            if(confirm('<?php echo correct_charset($BL['be_imagediv_template_toggle_warning'], true); ?>')) {
+            bsConfirmWarning('<?php echo js_singlequote(correct_charset($BL['be_imagediv_template_toggle_warning'], true)) ?>', function() {
                 if(new_template !== selected_template && $.inArray(new_template, custom_field_templates) !== -1) {
                     $('#submit-button').trigger('click');
                 }
-            } else if(selected_template === 'default') {
-                $('#template').val('');
-            } else {
-                $('#template').val(selected_template);
-            }
+            }, null, null, function() {
+                if(selected_template === 'default') {
+                    $('#template').val('');
+                } else {
+                    $('#template').val(selected_template);
+                }
+            });
         });
     });
 </script>

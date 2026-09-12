@@ -980,10 +980,10 @@ function setImgActive(button, id) {
 }
 
 function deleteImgElement(id) {
-    if(confirm('<?php echo $BL['be_image_delete_js'] ?>')) {
+    bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']) ?>', function() {
         $("#" + id).remove();
         updateImageSort();
-    }
+    }, '<?php echo js_singlequote($BL['be_yes']) ?>', '<?php echo js_singlequote($BL['be_no']) ?>');
     return false;
 }
 
