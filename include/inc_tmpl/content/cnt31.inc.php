@@ -136,13 +136,13 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 	</div>
 	<div class="col-sm-auto">
     <div class="input-group input-group-sm">
-			
+
 				<span class="input-group-text"><?php echo $BL['be_cnt_imagespace'] ?></span>
-			
+
 				<input class="form-control form-control-sm text-end" name="cimage_space" id="cimage_space" value="1" type="text" style="width: 50px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['image_special']['space']; ?>" />
-			
+
 				<span class="input-group-text">px</span>
-			
+
 		</div>
   </div>
 </div>
@@ -152,24 +152,24 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
   <label for="cimage_width" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_flashplayer_thumbnail'] ?></label>
   <div class="col-sm-auto">
     <div class="input-group input-group-sm">
-			
+
 				<span class="input-group-text"><?php echo $BL['be_admin_page_width'] ?></span>
-			
+
 			<input name="cimage_width" type="text" class="form-control form-control-sm text-end" id="cimage_width" style="width: 50px;" size="4" maxlength="4" onkeyup="setCimageCenterInactive();" value="<?php echo $content['image_special']['width']; ?>" />
-			
+
 				<span class="input-group-text">px</span>
-			
+
 		</div>
   </div>
   <div class="col-sm-auto">
     <div class="input-group input-group-sm">
-			
+
 				<span class="input-group-text"><?php echo $BL['be_admin_page_height'] ?></span>
-			
+
 			<input name="cimage_height" type="text" class="form-control form-control-sm text-end" id="cimage_height" style="width: 50px;" size="4" maxlength="4" onkeyup="setCimageCenterInactive();" value="<?php echo $content['image_special']['height']; ?>" />
-			
+
 				<span class="input-group-text">px</span>
-			
+
 		</div>
   </div>
   <div class="col-sm-auto">
@@ -184,24 +184,24 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
   <label for="cimage_width_zoom" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_cnt_reference_zoom'] ?></label>
   <div class="col-sm-auto">
     <div class="input-group input-group-sm">
-			
+
 				<span class="input-group-text"><?php echo $BL['be_admin_page_width'] ?></span>
-			
+
 			<input name="cimage_width_zoom" type="text" class="form-control form-control-sm text-end" id="cimage_width_zoom" style="width: 50px;" size="4" maxlength="4" value="<?php echo $content['image_special']['width_zoom']; ?>" />
-			
+
 				<span class="input-group-text">px</span>
-			
+
 		</div>
   </div>
   <div class="col-sm-auto">
     <div class="input-group input-group-sm">
-			
+
 				<span class="input-group-text"><?php echo $BL['be_admin_page_height'] ?></span>
-			
+
 			<input name="cimage_height_zoom" type="text" class="form-control form-control-sm text-end" id="cimage_height_zoom" style="width: 50px;" size="4" maxlength="4" value="<?php echo $content['image_special']['height_zoom']; ?>" />
-			
+
 				<span class="input-group-text">px</span>
-			
+
 		</div>
   </div>
   <div class="col-sm-auto">
@@ -337,7 +337,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
         </div>
     </div>
 
-    <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" data-bs-parent="#images">
+    <div id="collapse_<?php echo $key ?>" class="collapse<?php echo (0 !== $key) ? '' : ' show'; ?>" data-bs-parent="#images">
       <div class="card-body ">
         <div class="row mb-3">
           <div class="col-sm-6">
@@ -517,14 +517,14 @@ if($value['custom_field_items']):
 
             <div class="input-group input-group-sm mb-3">
 
-              
+
                 <button class="modalButton btn btn-blue folder-open"
                         type="button"
                         data-bs-toggle="modal"
                         data-bs-target="#browserModal"
                         data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"
                 ><i class="fa-solid fa-folder-open" aria-hidden="true"></i></button>
-              
+
 
               <input
                   name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][id]"
@@ -549,7 +549,7 @@ if($value['custom_field_items']):
                   size="40"
                   onfocus="this.blur()"
               />
-                
+
                     <a class="btn btn-danger trash"
                         href="#"
                         type="button"
@@ -559,7 +559,7 @@ if($value['custom_field_items']):
                             echo $custom_field.'_'.$key; ?>_id').value='';document.getElementById('customfield_<?php
                             echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
                         ><i class="fa-regular fa-trash-alt" aria-hidden="true"></i></a>
-                
+
             </div>
 
             <textarea
@@ -779,7 +779,7 @@ function addNewImage(where) {
     new_entry += '<div class="col-sm-auto pe-0"><em data-bs-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary"><i class="fa-solid fa-grip-vertical"></i></em></div>';
     new_entry += '<div class="col"><h2><strong>#'+(entry_number+1)+'</strong></h2></div>';
     new_entry += '<div class="col-sm-auto text-end">';
-    new_entry += '<a class="btn btn-sm btn-danger me-1" role="button" href="#" onclick="return setImgActive(this, \'imgactive'+entry_number+'\')">'
+    new_entry += '<a class="btn btn-sm btn-warning me-1" role="button" href="#" onclick="return setImgActive(this, \'imgactive'+entry_number+'\')">'
     new_entry += '<i class="fa-solid fa-eye-slash" id="imgactive'+entry_number+'-icon"></i>';
     new_entry += '<input type="hidden" name="cimage_active['+entry_number+']" id="imgactive'+entry_number+'" value="0">'
     new_entry += '</a>';
@@ -827,7 +827,7 @@ function addNewImage(where) {
     new_entry += '</div>';
     new_entry += '<div class="form-group mb-0">';
     new_entry += '<label><?php echo $BL['be_profile_label_website'] ?></label>';
-    new_entry += '<input type="text" name="cimage_url['+entry_number+']" id="cimage_url_<?php echo $key ?>" class="form-control form-control-sm"  value="" />';
+    new_entry += '<input type="text" name="cimage_url['+entry_number+']" id="cimage_url_'+entry_number+'" class="form-control form-control-sm"  value="" />';
     new_entry += '</div>';
     new_entry += '</div>';
     new_entry += '</div>';
@@ -886,8 +886,8 @@ function addNewImage(where) {
     new_entry += '</select>';
 
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
-		new_entry += '<div class="col-sm-auto pt-1">';
-		new_entry += '<div class="form-check">';
+	new_entry += '<div class="col-sm-auto pt-1">';
+	new_entry += '<div class="form-check">';
     new_entry += '<input class="form-check-input" type="checkbox" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="1"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default'])): ?> checked="checked"<?php endif; ?>/> ';
     new_entry += '<label class="form-check-label"><?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>';
     new_entry += '</div>';
@@ -903,14 +903,14 @@ function addNewImage(where) {
     new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][id]"';
     new_entry += '              type="hidden"';
     new_entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_id"';
-    new_entry += '              value="<?php if(isset($value['custom_fields'][$custom_field]['id'])) { echo $value['custom_fields'][$custom_field]['id']; } ?>"';
+    new_entry += '              value=""';
     new_entry += '          />';
     new_entry += '          <input';
     new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][name]"';
     new_entry += '              type="text"';
     new_entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_name"';
     new_entry += '              class="form-control"';
-    new_entry += '              value="<?php if(isset($value['custom_fields'][$custom_field]['name'])) { echo html($value['custom_fields'][$custom_field]['name']); } ?>"';
+    new_entry += '              value=""';
     new_entry += '              size="40"';
     new_entry += '              onfocus="this.blur()"';
     new_entry += '          />';
@@ -935,6 +935,15 @@ function addNewImage(where) {
     new_entry += '      <?php echo $BL['be_caption_file_imagesize']; ?> |';
     new_entry += '      <?php echo $BL['be_copyright']; ?>';
     new_entry += '  </div>';
+
+<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'image'): ?>
+    new_entry += '<input name="cimage_id_thumb<?php echo $custom_field; ?>[' + entry_number + ']" id="cimage_id_thumb_<?php echo $custom_field; ?>_' + entry_number + '" type="hidden" value="" />';
+    new_entry += '<input name="cimage_sort[' + entry_number + ']" id="cimage_sort_' + entry_number + '" type="hidden" value="" />';
+    new_entry += '<div class="input-group input-group-sm">';
+    new_entry += '<input name="cimage_name_thumb<?php echo $custom_field; ?>[' + entry_number + ']" type="text" id="cimage_name_thumb_<?php echo $custom_field; ?>_' + entry_number + '" class="form-control" value="" onfocus="this.blur();" />';
+    new_entry += '<button type="button" class="modalButton btn btn-blue folder-open" data-bs-toggle="modal" data-bs-target="#browserModal" data-src="filebrowser.php?opt=8&amp;target=nolist&amp;entry_id=thumb_<?php echo $custom_field; ?>_' + entry_number + '" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i></button>';
+    new_entry += '<button type="button" class="btn btn-danger trash" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData(\'thumb_<?php echo $custom_field; ?>_' + entry_number + '\', this);"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i></button>';
+    new_entry += '</div>';
 
 <?php   endif; ?>
 
