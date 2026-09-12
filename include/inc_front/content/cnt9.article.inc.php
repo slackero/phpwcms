@@ -28,7 +28,7 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/mu
 
 } else {
 
-    $crow["acontent_template"] = '[MULTIMEDIA]<div class="multimedia">{MULTIMEDIA}</div>[/MULTIMEDIA]';
+    $crow['acontent_template'] = '[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE][MULTIMEDIA]<div class="multimedia">{MULTIMEDIA}</div>[/MULTIMEDIA][ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]';
 
 }
 

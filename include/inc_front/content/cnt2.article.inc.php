@@ -27,7 +27,7 @@ if(is_array($image) && ($image_count = count($image))) {
 
     } else {
 
-        $crow["acontent_template"]  = '[IMAGETABLE]{IMAGETABLE}[/IMAGETABLE]';
+        $crow['acontent_template']  = '[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE][IMAGETABLE]{IMAGETABLE}[/IMAGETABLE][ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]';
 
     }
 

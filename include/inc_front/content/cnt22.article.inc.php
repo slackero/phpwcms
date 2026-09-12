@@ -36,7 +36,7 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 		$rssfeed['template'] = '<!--ITEM_START//--><li><a href="{LINK}" target="_blank">{TITLE}</a></li><!--ITEM_END//-->
 <!--DIVIDER_START//--><hr /><!--DIVIDER_END//-->
 <!--FEEDINFO_START//--><p>{IMAGE}</p><!--FEEDINFO_END//-->
-<!--RSSFEED_START//-->[TITLE]<h3>{TITLE}</h3>[/TITLE][SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]<div class="rss-feed">{FEEDINFO}<ul>{ITEMS}</ul></div><!--RSSFEED_END//-->';
+<!--RSSFEED_START//-->[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE][TITLE]<h3>{TITLE}</h3>[/TITLE][SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]<div class="rss-feed">{FEEDINFO}<ul>{ITEMS}</ul></div>[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]<!--RSSFEED_END//-->';
 
 	}
 

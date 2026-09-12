@@ -29,14 +29,16 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/li
 
 } else {
 
-	$crow["acontent_template"]	= '<!--LINKLIST_START//-->
+	$crow['acontent_template']	= '<!--LINKLIST_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 [TITLE]<h4>{TITLE}</h4>
 [/TITLE][SUBTITLE]<h5>{SUBTITLE}</h5>
 [/SUBTITLE][LINKLIST]
 <ul class="linklist">
 {LINKLIST}
 </ul>
-[/LINKLIST]<!--LINKLIST_END//-->
+[/LINKLIST]
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]<!--LINKLIST_END//-->
 <!--LINKLIST_ENTRY_START//-->[LINK]	<li><a href="{LINK}"{TARGET}>{LINKNAME}</a></li>[/LINK]<!--LINKLIST_ENTRY_END//-->
 <!--LINKLIST_SPACE_START//-->
 <!--LINKLIST_SPACE_END//-->';

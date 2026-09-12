@@ -1,10 +1,12 @@
 [HTML]
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 	[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
 	[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
 	<div class="ratio ratio-16x9 video-container position-relative overflow-hidden rounded bg-black" data-videoid="{HTML}">
 		<img class="video-thumb w-100 h-100 object-fit-cover" src="https://i.ytimg.com/vi/{HTML}/hqdefault.jpg" alt="YouTube Video Thumbnail"{LAZY_LOADING}>
 		<span class="video-play bi bi-play-circle position-absolute top-50 start-50 translate-middle text-white display-4"></span>
 	</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
 <!-- CSS: 
 .video-container { cursor: pointer; }
 .video-container:hover .video-play { color: var(--bs-primary, #0d6efd) !important; transform: translate(-50%, -50%) scale(1.1); transition: transform 0.2s ease, color 0.2s ease; }

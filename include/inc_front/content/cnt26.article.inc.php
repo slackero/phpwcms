@@ -24,7 +24,7 @@ $crow["acontent_form"] = unserialize($crow["acontent_form"], ['allowed_classes' 
 if(file_exists(PHPWCMS_TEMPLATE.'inc_cntpart/recipe/'.$crow["acontent_form"]['template'])) {
 	$crow["acontent_form"]['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/recipe/'.$crow["acontent_form"]['template']) );
 } else {
-	$crow["acontent_form"]['template'] = '<div class="recipe">[TITLE]
+	$crow["acontent_form"]['template'] = '[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]<div class="recipe">[TITLE]
 	<h3>{TITLE}</h3>[/TITLE][SUBTITLE]
 	<h4>{SUBTITLE}</h4>[/SUBTITLE][INGREDIENTS]
 	<p>{INGREDIENTS}</p>[/INGREDIENTS][CALORIES]
@@ -32,7 +32,7 @@ if(file_exists(PHPWCMS_TEMPLATE.'inc_cntpart/recipe/'.$crow["acontent_form"]['te
 	<p>{PREPARATION}</p>[/PREPARATION][TIME]
 	<div class="time">{TIME} Minuten[TIMEADD], {TIMEADD}[/TIMEADD]</div>[/TIME]
 	[SEVERITY]<div class="severity">{SEVERITY}</div>[/SEVERITY][CAT]
-	<div class="cat">{CAT}</div>[/CAT]</div>';
+	<div class="cat">{CAT}</div>[/CAT]</div>[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]';
 }
 
 $crow["acontent_form"]['kcal']			= ceil($crow["acontent_form"]['calorificvalue'] / 4.1868);

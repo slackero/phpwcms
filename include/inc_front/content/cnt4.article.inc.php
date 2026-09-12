@@ -29,8 +29,10 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/bu
 
 } else {
 
-	$crow["acontent_template"]  = '[TITLE]<h4>{TITLE}</h4>'.LF.'[/TITLE][SUBTITLE]<h5>{SUBTITLE}</h5>'.LF.'[/SUBTITLE]';
-	$crow["acontent_template"] .= '[BULLETLIST]<ul class="bulletlist">{BULLETLIST}<!--BULLETLIST_ITEM_START//--><li>{BULLETLIST_ITEM}</li><!--BULLETLIST_ITEM_END//--></ul>[/BULLETLIST]';
+	$crow['acontent_template']  = '[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]';
+	$crow['acontent_template'] .= '[TITLE]<h4>{TITLE}</h4>'.LF.'[/TITLE][SUBTITLE]<h5>{SUBTITLE}</h5>'.LF.'[/SUBTITLE]';
+	$crow['acontent_template'] .= '[BULLETLIST]<ul class="bulletlist">{BULLETLIST}<!--BULLETLIST_ITEM_START//--><li>{BULLETLIST_ITEM}</li><!--BULLETLIST_ITEM_END//--></ul>[/BULLETLIST]';
+	$crow['acontent_template'] .= '[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]';
 
 }
 

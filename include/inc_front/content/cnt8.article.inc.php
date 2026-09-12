@@ -54,11 +54,11 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
     } else {
 
-        $content['alink']['alink_template']  = '<!--TEASER_HEAD_START//--><ul{LINK_ARTICLE_CLASS}><!--TEASER_HEAD_END//-->';
+        $content['alink']['alink_template']  = '<!--TEASER_HEAD_START//-->[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]<ul{LINK_ARTICLE_CLASS}><!--TEASER_HEAD_END//-->';
         $content['alink']['alink_template'] .= '<!--TEASER_ENTRY_START//--><li><a href="{ARTICLELINK}">{TITLE}</a></li><!--TEASER_ENTRY_END//-->';
         $content['alink']['alink_template'] .= '<!--TEASER_ENTRY_SPACER_START//--><!--TEASER_ENTRY_SPACER_END//-->';
         $content['alink']['alink_template'] .= '<!--TEASER_ROW_SPACER_START//--><!--TEASER_ROW_SPACER_END//-->';
-        $content['alink']['alink_template'] .= '<!--TEASER_FOOTER_START//--></ul><!--TEASER_FOOTER_END//-->';
+        $content['alink']['alink_template'] .= '<!--TEASER_FOOTER_START//--></ul>[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]<!--TEASER_FOOTER_END//-->';
         $content['alink']['alink_template'] .= '<!--TEASER_COLUMN_OVERWRITE_START//--><!--TEASER_COLUMN_OVERWRITE_END//-->';
 
     }

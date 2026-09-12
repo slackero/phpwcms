@@ -85,10 +85,11 @@ if (empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE . 'inc_default
 } elseif (is_file(PHPWCMS_TEMPLATE . 'inc_cntpart/filelist/' . $crow["acontent_template"])) {
     $crow["acontent_template"] = render_device(@file_get_contents(PHPWCMS_TEMPLATE . 'inc_cntpart/filelist/' . $crow["acontent_template"]));
 } else {
-    $crow["acontent_template"] = '[HAS_FILES][TITLE]<h4>{TITLE}</h4>[/TITLE][SUBTITLE]<h5>{SUBTITLE}</h5>[/SUBTITLE][TEXT]{TEXT}[/TEXT]';
-    $crow["acontent_template"] .= '<ul class="fileDownload"><!--FILE_ENTRY_START//-->';
-    $crow["acontent_template"] .= '<li><a href="{FILE_LINK}"{FILE_TARGET}>{FILE_NAME}</a></li>';
-    $crow["acontent_template"] .= '<!--FILE_ENTRY_END//--></ul>[/HAS_FILES]';
+    $crow['acontent_template']  = '[HAS_FILES][ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]';
+    $crow['acontent_template'] .= '[TITLE]<h4>{TITLE}</h4>[/TITLE][SUBTITLE]<h5>{SUBTITLE}</h5>[/SUBTITLE][TEXT]{TEXT}[/TEXT]';
+    $crow['acontent_template'] .= '<ul class="fileDownload"><!--FILE_ENTRY_START//-->';
+    $crow['acontent_template'] .= '<li><a href="{FILE_LINK}"{FILE_TARGET}>{FILE_NAME}</a></li>';
+    $crow['acontent_template'] .= '<!--FILE_ENTRY_END//--></ul>[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE][/HAS_FILES]';
 }
 $_files_count = is_array($content['files_result']) ? count($content['files_result']) : 0;
 $_files_force_rendering = strpos($crow["acontent_template"], '[HAS_FILES') !== 0;

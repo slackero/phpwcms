@@ -25,7 +25,7 @@ if(!empty($crow["acontent_form"]['faq_template']) && file_exists(PHPWCMS_TEMPLAT
 	$crow["acontent_form"]['faq_template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/faq/'.$crow["acontent_form"]['faq_template']) );
 
 } else {
-	$crow["acontent_form"]['faq_template'] = '<div class="faq">
+	$crow["acontent_form"]['faq_template'] = '[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]<div class="faq">
 	<!-- hidden title/subtitle [TITLE]
 	<h3 id="faq_id{FAQ_ID}">{TITLE}</h3>[/TITLE][SUBTITLE]
 	<h4>{SUBTITLE}</h4>[/SUBTITLE]
@@ -36,7 +36,7 @@ if(!empty($crow["acontent_form"]['faq_template']) && file_exists(PHPWCMS_TEMPLAT
 	<div class="faq-caption">{FAQ_CAPTION}</div>[/FAQ_CAPTION]
 	</div>[/FAQ_IMAGE]
 	[FAQ_ANSWER]<p>{FAQ_ANSWER}</p>[/FAQ_ANSWER]
-</div>';
+</div>[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]';
 }
 
 // 0   :1       :2   :3        :4    :5     :6      :7       :8

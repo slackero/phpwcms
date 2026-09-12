@@ -30,7 +30,7 @@ if(empty($content['reference']["tmpl"]) && is_file(PHPWCMS_TEMPLATE.'inc_default
 
 } else {
 
-	$content['reference']["tmpl"] = '	<table width="100%">
+	$content['reference']["tmpl"] = '[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]	<table width="100%">
 	  <tr>
 	    <td width="1%" valign="top"><table width="100%">
 	      <tr><td>[REF]{REF}[/REF]</td></tr>
@@ -42,7 +42,7 @@ if(empty($content['reference']["tmpl"]) && is_file(PHPWCMS_TEMPLATE.'inc_default
 	[SUB]<h4>{SUB}</h4>[/SUB]
 	[TEXT]<p>{TEXT}</p>[/TEXT]</td>
 	  </tr>
-	</table>';
+	</table>[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]';
 
 }
 
