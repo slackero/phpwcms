@@ -94,9 +94,9 @@ function renderHeadJS($js) {
 
     if(!$remote && (str_contains($js, ';') || str_contains($js, '//') || str_contains($js, '/*'))) {
 
-        if(strtolower(substr($js, 0, 5)) === 'ready') {
+        if(preg_match('/^(?:ready|domready|onload)(?:[\s:]\s*|$)/i', $js, $matches)) {
             $jsready = true;
-            $js = trim(substr($js, 5));
+            $js = trim(substr($js, strlen($matches[0])));
         } else {
             $jsready = false;
         }
@@ -105,15 +105,11 @@ function renderHeadJS($js) {
 
         // add the same section only once
         if(!$jsready && empty($GLOBALS['block']['custom_htmlhead'][$key])) {
-
             $GLOBALS['block']['custom_htmlhead'][$key]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '  ';
             $GLOBALS['block']['custom_htmlhead'][$key] .= $js;
             $GLOBALS['block']['custom_htmlhead'][$key] .= LF . SCRIPT_CDATA_END . LF . '  </script>';
-
         } elseif($jsready && empty($GLOBALS['block']['custom_htmlhead']['jquery_ready']['ready_'.$key])) {
-
             $GLOBALS['block']['custom_htmlhead']['jquery_ready']['ready_'.$key] = $js;
-
         }
 
     } elseif($js === 'initJSLib') {

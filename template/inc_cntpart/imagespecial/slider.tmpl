@@ -2,8 +2,8 @@
 [TITLE]<h3>{TITLE}</h3>[/TITLE]
 [SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
 
-<div style="margin:10px 0 10px 0;">
-	<a href="#" id="move_left">&laquo; left</a> | <a href="#" id="move_right">right &raquo;</a>
+<div style="margin: 10px 0;">
+	<a href="#" id="slider_prev_{ID}">&laquo; @@left@@</a> | <a href="#" id="slider_next_{ID}">@@right@@ &raquo;</a>
 </div>
 
 <div id="slider_container_{ID}" class="slider">
@@ -19,57 +19,73 @@
 </div>
 <!-- CSS:
 	div.slider {
-		width: 320px;
-		height: 80px;
-		overflow: hidden;
-		border: 1px solid #000000;
+		max-width: 100%;
+		overflow-x: auto;
+		scroll-behavior: smooth;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	div.slider::-webkit-scrollbar {
+		display: none;
 	}
 	div.slider div.inner {
-		width: 10000px;
+		display: inline-flex;
+		gap: 5px;
+		align-items: center;
 	}
-	div.slider div.inner a {
+	div.slider div.inner a,
+	div.slider div.inner > img {
 		display: block;
-		float: left;
 		padding: 2px;
-		border: 1px solid #CCCCCC;
-		margin: 0 0 0 5px;
+		border: 1px solid #cccccc;
+		margin: 0;
+		transition: border-color 0.2s ease;
 	}
 	div.slider div.inner a:hover {
-		border: 3px solid #CC3300;
+		border-color: #cc3300;
 	}
-	div.slider div.inner a img {
-		width: 95px;
+	div.slider div.inner img {
+		display: block;
+		max-height: 80px;
+		width: auto;
+		height: auto;
 	}
 -->
-<!-- JS: 
-	$(function() {
-		var $container = $('#slider_container_{ID}');
-		var scroll_x = 0;
-		var step = 106;
-		var slider_parent = $container.outerWidth();
-		var slider_width = 0;
+<!-- JS:
+	document.addEventListener('DOMContentLoaded', function() {
+		var container = document.getElementById('slider_container_{ID}');
+		if (!container) return;
 
-		$('div.slider a').each(function() {
-			slider_width += $(this).outerWidth(true);
-		});
+		var prev = document.getElementById('slider_prev_{ID}');
+		var next = document.getElementById('slider_next_{ID}');
 
-		$('#move_right').on('click', function(e) {
-			e.preventDefault();
-			if (slider_width - slider_parent <= scroll_x) {
-				scroll_x = scroll_x - step;
-			}
-			scroll_x = scroll_x + step;
-			$container.animate({ scrollLeft: scroll_x }, 400);
-		});
+		function getStep() {
+			var item = container.querySelector('.inner > *');
+			return item ? (item.getBoundingClientRect().width + 5) : 106;
+		}
 
-		$('#move_left').on('click', function(e) {
-			e.preventDefault();
-			scroll_x = scroll_x - step;
-			if (scroll_x < 0) {
-				scroll_x = 0;
-			}
-			$container.animate({ scrollLeft: scroll_x }, 400);
-		});
+		if (next) {
+			next.addEventListener('click', function(e) {
+				e.preventDefault();
+				var maxScroll = container.scrollWidth - container.clientWidth;
+				if (container.scrollLeft >= maxScroll - 2) {
+					container.scrollTo({ left: 0, behavior: 'smooth' });
+				} else {
+					container.scrollBy({ left: getStep(), behavior: 'smooth' });
+				}
+			});
+		}
+
+		if (prev) {
+			prev.addEventListener('click', function(e) {
+				e.preventDefault();
+				if (container.scrollLeft <= 2) {
+					container.scrollTo({ left: container.scrollWidth - container.clientWidth, behavior: 'smooth' });
+				} else {
+					container.scrollBy({ left: -getStep(), behavior: 'smooth' });
+				}
+			});
+		}
 	});
 -->
 <!--IMAGES_FOOTER_END//-->

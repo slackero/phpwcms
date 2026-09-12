@@ -8,7 +8,6 @@
  *
  **/
 
-
 /**
  * Initialize Slimbox CSS and JavaScript for jQuery
  */
@@ -32,9 +31,9 @@ function initGlightbox() {
             if (str_starts_with($overlayColor, '#')) {
                 $hex = ltrim($overlayColor, '#');
                 if (strlen($hex) === 3) {
-                    $r = hexdec(str_repeat(substr($hex, 0, 1), 2));
-                    $g = hexdec(str_repeat(substr($hex, 1, 1), 2));
-                    $b = hexdec(str_repeat(substr($hex, 2, 1), 2));
+                    $r = hexdec(str_repeat($hex[0], 2));
+                    $g = hexdec(str_repeat($hex[1], 2));
+                    $b = hexdec(str_repeat($hex[2], 2));
                 } else {
                     $r = hexdec(substr($hex, 0, 2));
                     $g = hexdec(substr($hex, 2, 2));
@@ -45,7 +44,11 @@ function initGlightbox() {
             $GLOBALS['block']['custom_htmlhead']['glightbox.overlay.css'] = '  <style>.goverlay{background: ' . $cssColor . ' !important;}</style>';
         }
         $jsonOptions = json_encode($options, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $GLOBALS['block']['custom_htmlhead']['glightbox.init'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '  document.addEventListener("DOMContentLoaded", function() { if (typeof GLightbox === "function") { GLightbox(' . $jsonOptions . '); } });' . LF . SCRIPT_CDATA_END . LF . '  </script>';
+        $GLOBALS['block']['custom_htmlhead']['glightbox.init'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' .
+            LF . SCRIPT_CDATA_START . LF .
+            '  document.addEventListener("DOMContentLoaded", function(){' .
+            'if (typeof GLightbox === "function"){GLightbox(' . $jsonOptions . ');}});' .
+            LF . SCRIPT_CDATA_END . LF . '  </script>';
     }
 }
 
@@ -60,7 +63,6 @@ function initSlimbox() {
  * Initialize Frontend Edit DomReady JavaScript
  */
 function init_frontend_edit_js() {
-
     $GLOBALS['block']['custom_htmlhead']['frontend_edit.js'] = '  <script' . SCRIPT_ATTRIBUTE_TYPE . '>' . LF .
         '  document.addEventListener("DOMContentLoaded", function() {' . LF .
         '    var feToggle = document.getElementById("fe-link");' . LF .
@@ -75,21 +77,21 @@ function init_frontend_edit_js() {
         '    }' . LF .
         '  });' . LF .
         '  </script>';
-
 }
 
 /**
  * Create JavaScript Domready Section
  */
 function jsOnDomReady($js='', $return=false, $prefix='  ') {
-
     if($js) {
-
-        initJSLib();
-
-        $_js  = $prefix . '<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
-        $_js .= '    jQuery(function() {' . LF . $js . LF . '    });';
-        $_js .= LF.SCRIPT_CDATA_END.LF.$prefix.'</script>';
+        $_js = $prefix . '<script' . SCRIPT_ATTRIBUTE_TYPE . '>' . LF . SCRIPT_CDATA_START . LF . '    ';
+        if(preg_match('/(?:\$|jQuery)\s*[(.]|\bjQuery\b/', $js)) {
+            initJSLib();
+            $_js .= 'jQuery(function($) {' . LF . $js . LF . '    });';
+        } else {
+            $_js .= 'document.addEventListener(\'DOMContentLoaded\', function() {' . LF . $js . LF . '    });';
+        }
+        $_js .= LF . SCRIPT_CDATA_END . LF . $prefix . '</script>';
 
         if($return) {
             return $_js;
@@ -105,13 +107,10 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
  * Create JavaScript UnLoad Section
  */
 function jsOnUnLoad($js='', $return=false, $prefix='  ') {
-
     if($js) {
-
         initJSLib();
-
         $_js  = $prefix . '<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
-        $_js .= '    jQuery(window).on(\'unload\', function() {' . LF . $js . LF . '    });';
+        $_js .= '    jQuery(window).on("unload", function(){' . LF . $js . LF . '    });';
         $_js .= LF.SCRIPT_CDATA_END.LF.$prefix.'</script>';
 
         if($return) {

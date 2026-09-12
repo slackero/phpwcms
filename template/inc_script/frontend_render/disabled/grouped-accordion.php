@@ -1,53 +1,49 @@
 <?php
 // Load Accordion for grouped sections
-if(strpos($content['all'], $template_default['classes']['cpgroup-container'])) {
+if(!empty($template_default['classes']['cpgroup-container']) && strpos($content['all'], $template_default['classes']['cpgroup-container'])) {
 
-	// This is just a possible example of how to handle over class options
-	// which then could be used for other custom scripts
-	/*
-	renderHeadJS('
-	var accOptions = {
-		container: "'.$template_default['classes']['cpgroup-container'].'",
-		group: "'.$template_default['classes']['cpgroup'].'",
-		title: "'.$template_default['classes']['cpgroup-title'].'",
-		content: "'.$template_default['classes']['cpgroup-content'].'"
-	};
-	');
-	*/
+	$cpgroup_container = $template_default['classes']['cpgroup-container'];
+	$cpgroup           = $template_default['classes']['cpgroup'];
+	$cpgroup_title     = $template_default['classes']['cpgroup-title'];
+	$cpgroup_content   = $template_default['classes']['cpgroup-content'];
 
-	// Hide all Accordion Content elements
+	// Hide all Accordion Content elements and show when expanded
 	// Better define this in your default CSS
-	renderHeadCSS('.'.$template_default['classes']['cpgroup-content'].' {
-		display: none;
-	}');
+	renderHeadCSS('
+	    .' . $cpgroup_title . '{cursor: pointer;}
+	    .' . $cpgroup_content . '{display: none;}
+	    .' . $cpgroup . '.expanded > .' . $cpgroup_content . '{display: block;}
+	');
 
-	// Load the slightly enhanced Accordion class
-	renderHeadJS('zebra_accordion.min');
+	// Vanilla JS Accordion for grouped sections
 	renderHeadJS('
-	$(function() {
-		
-		var accGroups = $(".' . $template_default['classes']['cpgroup'] . '");
-		if(accGroups.length > 0) {
-			var accAccordion = new $.Zebra_Accordion(accGroups, {
-				// The Accordion switch selector
-				switch: ".'.$template_default['classes']['cpgroup-title'].'",
-				// The Accordian content selector
-				content: ".'.$template_default['classes']['cpgroup-content'].'",
-				// Every block can be opened (or closed)
-				collapsible: true,
-				// Do not open the first accordion on enter the page
-				show: false,
-				
-				// The expanded class
-				expanded_class: "expanded"
-				
-				// put in additional Options here
-				// visit http://stefangabos.ro/jquery/zebra-accordion/ to get to know more
-			});
-		}
-		
-	});'
+        document.addEventListener("click", function(e) {
+            var title = e.target.closest(".' . $cpgroup_title . '");
+            if(!title) {
+                return;
+            }
+            var group = title.closest(".' . $cpgroup . '");
+            if(!group) {
+                return;
+            }
+            var container = group.closest(".' . $cpgroup_container . '");
+            var isExpanded = group.classList.contains("expanded");
 
-	);
+            if(container) {
+                container.querySelectorAll(".' . $cpgroup . '.expanded").forEach(function(el) {
+                    if(el !== group) {
+                        el.classList.remove("expanded");
+                        var t = el.querySelector(".' . $cpgroup_title . '");
+                        if(t) {
+                            t.classList.remove("expanded");
+                        }
+                    }
+                });
+            }
 
+            group.classList.toggle("expanded", !isExpanded);
+            title.classList.toggle("expanded", !isExpanded);
+            e.preventDefault();
+        });
+	');
 }

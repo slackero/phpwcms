@@ -1983,19 +1983,20 @@ if(!empty($GLOBALS['phpwcms']['detect_pixelratio']) && $phpwcms['USER_AGENT']['p
 // you will be able to use $GLOBALS['block']['custom_htmlhead']['myheadname']
 // always check if you want to use same head code only once
 if(count($block['custom_htmlhead'])) {
-
     if(!empty($block['custom_htmlhead']['jquery_ready'])) {
-
-        $block['custom_htmlhead']['jquery_ready'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . '  $(function(){' . LF . implode(LF, $block['custom_htmlhead']['jquery_ready']) . LF . '   });' . LF . '  </script>';
-
+        $ready_code = implode(LF, $block['custom_htmlhead']['jquery_ready']);
+        $block['custom_htmlhead']['jquery_ready'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . '  ';
+        if(preg_match('/(?:\$|jQuery)\s*[(.]|\bjQuery\b/', $ready_code)) {
+            initJSLib();
+            $block['custom_htmlhead']['jquery_ready'] .= 'jQuery(function($) {' . LF . $ready_code . LF . '  });' . LF . '  </script>';
+        } else {
+            $block['custom_htmlhead']['jquery_ready'] .= 'document.addEventListener(\'DOMContentLoaded\', function() {' . LF . $ready_code . LF . '  });' . LF . '  </script>';
+        }
     } else {
-
         unset($block['custom_htmlhead']['jquery_ready']);
-
     }
 
     if(!empty($phpwcms['js_in_body'])) {
-
         $block['bodyjs_temp'] = '';
 
         // Ensure jQuery is put as first item
@@ -2005,29 +2006,21 @@ if(count($block['custom_htmlhead'])) {
         }
 
         foreach($block['custom_htmlhead'] as $key => $value) {
-
             $value = trim($value);
-
-            if(substr($key, 0, 5) !== 'head_' && substr($value, 0, 7) === '<script') {
+            if(!str_starts_with($key, 'head_') && str_starts_with($value, '<script')) {
                 $block['bodyjs_temp'] .= '  ' . $value . LF;
             } else {
                 $block['htmlhead'] .= '  ' . $value . LF;
             }
-
         }
 
         array_unshift($block['bodyjs'], $block['bodyjs_temp']);
-
         unset($block['bodyjs_temp']);
-
     } else {
-
         $block['htmlhead'] .= implode(LF, $block['custom_htmlhead']).LF;
-
     }
 
     unset($block['custom_htmlhead']);
-
 }
 
 // remove all useless replacement tags
