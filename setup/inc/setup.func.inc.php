@@ -37,7 +37,11 @@ function read_textfile($filename) {
 }
 
 function write_textfile($filename, $text) {
-    return file_put_contents($filename, $text, LOCK_EX) !== false;
+    $result = file_put_contents($filename, $text, LOCK_EX) !== false;
+    if ($result && function_exists('opcache_invalidate')) {
+        @opcache_invalidate($filename, true);
+    }
+    return $result;
 }
 
 function set_chmod($path, $rights, $status, $file_folder = 0) {
@@ -612,11 +616,12 @@ function get_setup_steps() {
     return array(
         'license' => array('title' => '1. License', 'url' => 'index.php'),
         0         => array('title' => '2. System Check', 'url' => 'setup.php?step=0'),
-        1         => array('title' => '3. Database', 'url' => 'setup.php?step=1'),
-        2         => array('title' => '4. Site & Email', 'url' => 'setup.php?step=2'),
-        3         => array('title' => '5. Paths', 'url' => 'setup.php?step=3'),
-        4         => array('title' => '6. Media', 'url' => 'setup.php?step=4'),
-        5         => array('title' => '7. Finalize', 'url' => 'setup.php?step=5'),
+        1         => array('title' => '3. Edition', 'url' => 'setup.php?step=1'),
+        2         => array('title' => '4. Database', 'url' => 'setup.php?step=2'),
+        3         => array('title' => '5. Site & Email', 'url' => 'setup.php?step=3'),
+        4         => array('title' => '6. Paths', 'url' => 'setup.php?step=4'),
+        5         => array('title' => '7. Media', 'url' => 'setup.php?step=5'),
+        6         => array('title' => '8. Finalize', 'url' => 'setup.php?step=6'),
     );
 }
 

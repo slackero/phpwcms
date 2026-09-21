@@ -16,6 +16,22 @@ $phpwcms = array();
 require_once __DIR__ . '/inc/setup.func.inc.php';
 require_once $DOCROOT . '/setup/setup.conf.inc.php';
 
+if (!empty($_SESSION['whitelabel_key']) && empty($phpwcms['whitelabel_key'])) {
+    $phpwcms['whitelabel_key'] = $_SESSION['whitelabel_key'];
+}
+if (!empty($_SESSION['brand_table_prefix']) && empty($phpwcms['brand_table_prefix'])) {
+    $phpwcms['brand_table_prefix'] = $_SESSION['brand_table_prefix'];
+}
+if (!empty($_SESSION['brand_name']) && empty($phpwcms['brand_name'])) {
+    $phpwcms['brand_name'] = $_SESSION['brand_name'];
+}
+if (!empty($_SESSION['brand_url']) && empty($phpwcms['brand_url'])) {
+    $phpwcms['brand_url'] = $_SESSION['brand_url'];
+}
+if (!empty($_SESSION['brand_copyright']) && empty($phpwcms['brand_copyright'])) {
+    $phpwcms['brand_copyright'] = $_SESSION['brand_copyright'];
+}
+
 if (is_file($DOCROOT . '/include/config/conf.inc.php')) {
     header('Location: index.php');
     exit();
@@ -67,6 +83,7 @@ if ($do) {
                     case 3:  include $DOCROOT . '/setup/inc/step3.inc.php'; break;
                     case 4:  include $DOCROOT . '/setup/inc/step4.inc.php'; break;
                     case 5:  include $DOCROOT . '/setup/inc/step5.inc.php'; break;
+                    case 6:  include $DOCROOT . '/setup/inc/step6.inc.php'; break;
                     default: include $DOCROOT . '/setup/inc/step0.inc.php';
                 }
 

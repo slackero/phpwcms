@@ -12,40 +12,57 @@ if (!defined('PHPWCMS_SETUP')) {
     die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 
-if(!empty($step)) {
-
-    if ($step == 0 && $do) {
-
-        // Save whitelabel license key and brand_table_prefix before the Database step
-        $phpwcms['whitelabel_key'] = trim($_POST['whitelabel_key'] ?? '');
-        // Always reset brand_table_prefix first — only set it when license is valid and user supplied a value
-        $phpwcms['brand_table_prefix'] = '';
-        if ($phpwcms['whitelabel_key'] !== '') {
-            $_wl_payload = setup_validate_whitelabel_key($phpwcms['whitelabel_key']);
-            if ($_wl_payload !== false && isset($_POST['brand_table_prefix'])) {
-                $_brand_prefix_raw = preg_replace('/[^a-zA-Z0-9_]/', '', trim((string)$_POST['brand_table_prefix']));
-                // Store exactly what the user typed (sanitized); empty string is valid — runtime defaults to 'phpwcms'
-                $phpwcms['brand_table_prefix'] = $_brand_prefix_raw;
-            }
-        }
-
-        write_conf_file($phpwcms);
-        // Redirect back to step=0 so the user sees validation feedback before proceeding
-        session_write_close();
-        header('Location: setup.php?step=0');
-        exit();
-    }
+if (isset($step)) {
 
     if ($step == 1 && $do) {
 
+        $submitted_key = trim($_POST['whitelabel_key'] ?? '');
+        $wl_payload    = false;
+        $wl_error      = false;
+
+        if ($submitted_key !== '') {
+            $wl_payload = setup_validate_whitelabel_key($submitted_key);
+            if ($wl_payload === false) {
+                $wl_error = true;
+            }
+        }
+
+        if ($wl_error) {
+            // Invalid license key entered — stay on step 1 and report error
+            $err = 1;
+        } else {
+            // Valid key or empty key (whitelabel license is optional)
+            $phpwcms['whitelabel_key'] = $submitted_key;
+            if ($submitted_key !== '') {
+                $_SESSION['whitelabel_key'] = $submitted_key;
+            } else {
+                unset($_SESSION['whitelabel_key']);
+                $phpwcms['brand_table_prefix'] = '';
+                unset($_SESSION['brand_table_prefix']);
+            }
+
+            if ($wl_payload !== false && !empty($wl_payload['brand_table_prefix']) && $wl_payload['brand_table_prefix'] !== 'phpwcms') {
+                $phpwcms['brand_table_prefix'] = preg_replace('/[^a-zA-Z0-9_]/', '', trim((string)$wl_payload['brand_table_prefix']));
+                $_SESSION['brand_table_prefix'] = $phpwcms['brand_table_prefix'];
+            }
+
+            write_conf_file($phpwcms);
+            session_write_close();
+            header('Location: setup.php?step=2');
+            exit();
+        }
+    }
+
+    if ($step == 2 && $do) {
+
         if(!empty($_POST['user_account'])) {
 
-            // fine continue with step 2
+            // fine continue with step 3
             session_write_close();
             if (!empty($_SERVER['HTTP_HOST']) && !empty($_SERVER['REQUEST_URI'])) {
-                header('Location: http' . (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/setup.php?step=2');
+                header('Location: http' . (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/setup.php?step=3');
             } else {
-                header('Location: setup.php?step=2');
+                header('Location: setup.php?step=3');
             }
             exit();
         }
@@ -78,7 +95,11 @@ if(!empty($step)) {
         $phpwcms['db_user'] = slweg($_POST['db_user']);
         $phpwcms['db_pass'] = slweg($_POST['db_pass']);
         $phpwcms['db_table'] = slweg($_POST['db_table']);
-        $phpwcms['db_prepend'] = slweg($_POST['db_prepend']);
+        $phpwcms['db_prepend'] = rtrim(slweg($_POST['db_prepend']), '_');
+        if (isset($_POST['brand_table_prefix'])) {
+            $phpwcms['brand_table_prefix'] = preg_replace('/[^a-zA-Z0-9_]/', '', trim((string)$_POST['brand_table_prefix']));
+            $_SESSION['brand_table_prefix'] = $phpwcms['brand_table_prefix'];
+        }
         $phpwcms['db_pers'] = empty($_POST['db_pers']) ? 0 : 1;
 
         $phpwcms['charset'] = 'utf-8'; // Fixed
@@ -336,7 +357,7 @@ if(!empty($step)) {
         }
     }
 
-    if($step == 2 && $do) {
+    if($step == 3 && $do) {
 
         $phpwcms['site'] = clean_slweg($_POST['site'] ?? '');
 
@@ -368,6 +389,18 @@ if(!empty($step)) {
         $phpwcms['SMTP_USER'] = slweg($_POST['smtp_user']);
         $phpwcms['SMTP_PASS'] = slweg($_POST['smtp_pass']);
         $phpwcms['SMTP_SECURE'] = clean_slweg($_POST['smtp_secure']);
+        if (isset($_POST['brand_name'])) {
+            $phpwcms['brand_name'] = clean_slweg($_POST['brand_name']);
+            $_SESSION['brand_name'] = $phpwcms['brand_name'];
+        }
+        if (isset($_POST['brand_url'])) {
+            $phpwcms['brand_url'] = clean_slweg($_POST['brand_url']);
+            $_SESSION['brand_url'] = $phpwcms['brand_url'];
+        }
+        if (isset($_POST['brand_copyright'])) {
+            $phpwcms['brand_copyright'] = clean_slweg($_POST['brand_copyright']);
+            $_SESSION['brand_copyright'] = $phpwcms['brand_copyright'];
+        }
 
         write_conf_file($phpwcms);
 
@@ -405,12 +438,12 @@ if(!empty($step)) {
         }
 
         if(!$err) {
-            header('Location: setup.php?step=3');
+            header('Location: setup.php?step=4');
             exit();
         }
     }
 
-    if($step == 3 && $do) {
+    if($step == 4 && $do) {
 
         $phpwcms['DOC_ROOT']       = clean_slweg($_POST['doc_root']);
         $phpwcms['root']           = clean_slweg($_POST['root']);
@@ -425,11 +458,11 @@ if(!empty($step)) {
         $phpwcms['ftp_path']       = ($phpwcms['ftp_path']) ?: 'phpwcms_ftp';
 
         write_conf_file($phpwcms);
-        header('Location: setup.php?step=4');
+        header('Location: setup.php?step=5');
         exit();
     }
 
-    if($step == 4 && $do) {
+    if($step == 5 && $do) {
         $phpwcms['file_maxsize']     = (int)$_POST['file_maxsize'];
         $phpwcms['content_width']    = (int)$_POST['content_width'];
         $phpwcms['img_list_width']   = (int)$_POST['img_list_width'];
@@ -462,7 +495,7 @@ if(!empty($step)) {
         }
 
         write_conf_file($phpwcms);
-        header('Location: setup.php?step=5');
+        header('Location: setup.php?step=6');
         exit();
     }
 

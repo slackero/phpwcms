@@ -59,7 +59,7 @@ require_once __DIR__ . '/inc/setup.func.inc.php';
                 <p class="lead">This is the setup wizard to install or configure <strong>phpwcms</strong>.</p>
                 <p><strong>phpwcms</strong> is open source software released under the <a href="../include/GPL.html" target="_blank"><strong>GNU General Public License (GPL)</strong></a>. Before you continue setting up phpwcms, please read the license carefully.</p>
 
-                <div class="card bg-white border p-3 my-4 overflow-auto" style="max-height: 350px; font-size: 0.9rem; line-height: 1.5;">
+                <div id="license-container" class="card bg-white border p-3 my-4 overflow-auto" tabindex="0" role="region" aria-label="License Agreement" style="max-height: 350px; font-size: 0.9rem; line-height: 1.5;">
                     <h5 class="text-center fw-bold">The GNU General Public License (GPL)<br><small class="text-muted">Version 2, June 1991</small></h5>
                     <p class="text-center text-muted small">Copyright (C) 1989, 1991 Free Software Foundation, Inc.<br>59 Temple Place, Suite 330, Boston, MA 02111-1307 USA</p>
                     <p class="text-center text-muted small">Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.</p>
@@ -74,9 +74,19 @@ require_once __DIR__ . '/inc/setup.func.inc.php';
                     <p class="small text-uppercase">BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND.</p>
                 </div>
 
+                <div class="form-check my-3">
+                    <input class="form-check-input" type="checkbox" id="license-agree" disabled="disabled" autocomplete="off">
+                    <label class="form-check-label" for="license-agree">
+                        I have read and accept the GNU General Public License
+                    </label>
+                    <div class="form-text text-muted" id="license-hint">
+                        Please scroll to the end of the license above to activate the checkbox.
+                    </div>
+                </div>
+
                 <div class="d-flex justify-content-between align-items-center mt-4">
                     <a href="../index.php" class="btn btn-secondary">Cancel</a>
-                    <a href="setup.php?step=0" class="btn btn-primary">I Agree &amp; Continue &rarr;</a>
+                    <a href="setup.php?step=0" id="btn-continue" class="btn btn-primary disabled" aria-disabled="true" tabindex="-1">I Agree &amp; Continue &rarr;</a>
                 </div>
             <?php endif; ?>
         </div>
@@ -115,5 +125,58 @@ require_once __DIR__ . '/inc/setup.func.inc.php';
 </div>
 
 <script src="../include/inc_js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var licenseContainer = document.getElementById('license-container');
+    var licenseAgree = document.getElementById('license-agree');
+    var licenseHint = document.getElementById('license-hint');
+    var btnContinue = document.getElementById('btn-continue');
+
+    if (!licenseContainer || !licenseAgree || !btnContinue) {
+        return;
+    }
+
+    var hasScrolledToEnd = false;
+
+    function unlockCheckbox() {
+        if (!hasScrolledToEnd) {
+            hasScrolledToEnd = true;
+            licenseAgree.disabled = false;
+            if (licenseHint) {
+                licenseHint.style.display = 'none';
+            }
+        }
+    }
+
+    function checkScroll() {
+        if (licenseContainer.scrollHeight - Math.ceil(licenseContainer.scrollTop) <= licenseContainer.clientHeight + 10) {
+            unlockCheckbox();
+        }
+    }
+
+    checkScroll();
+
+    licenseContainer.addEventListener('scroll', checkScroll, { passive: true });
+    window.addEventListener('resize', checkScroll, { passive: true });
+
+    licenseAgree.addEventListener('change', function() {
+        if (this.checked) {
+            btnContinue.classList.remove('disabled');
+            btnContinue.removeAttribute('aria-disabled');
+            btnContinue.removeAttribute('tabindex');
+        } else {
+            btnContinue.classList.add('disabled');
+            btnContinue.setAttribute('aria-disabled', 'true');
+            btnContinue.setAttribute('tabindex', '-1');
+        }
+    });
+
+    btnContinue.addEventListener('click', function(e) {
+        if (!licenseAgree.checked || btnContinue.classList.contains('disabled')) {
+            e.preventDefault();
+        }
+    });
+});
+</script>
 </body>
 </html>
