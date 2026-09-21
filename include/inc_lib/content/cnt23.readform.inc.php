@@ -480,7 +480,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 
                             case 'exclude':
                                 if(empty($upload[1])) {
-                                    $upload_value['exclude'] = 'php,asp,php3,php4,php5,aspx,cfm,js,exe,com,bat,app,sh,jar,java';
+                                    $upload_value['exclude'] = 'php,php3,php4,php5,php7,php8,phtml,pht,phar,phps,inc,asp,aspx,cfm,cgi,pl,py,sh,bash,exe,com,bat,cmd,msi,bin,dll,vbs,wsf,scr,app,jar,java,js,htaccess,htpasswd,ini,env,conf,bak,sql';
                                 } else {
                                     $upload_value['exclude'] = str_replace(';', ',', strtolower($upload[1]));
                                     $upload_value['exclude'] = convertStringToArray($upload_value['exclude'], ',');
@@ -501,7 +501,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                 }
                 $content['form']["fields"][$field_counter]['value'] = '';
                 if(empty($upload_value['accept']) && empty($upload_value['exclude'])) {
-                    $upload_value['exclude'] = 'php,asp,php3,php4,php5,aspx,cfm,js,exe,com,bat,app,sh,jar,java';
+                    $upload_value['exclude'] = 'php,php3,php4,php5,php7,php8,phtml,pht,phar,phps,inc,asp,aspx,cfm,cgi,pl,py,sh,bash,exe,com,bat,cmd,msi,bin,dll,vbs,wsf,scr,app,jar,java,js,htaccess,htpasswd,ini,env,conf,bak,sql';
                 }
                 if(isset($upload_value)) {
                     foreach($upload_value as $upload_key => $upload) {

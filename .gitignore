@@ -10,6 +10,7 @@ composer.lock
 /content/tmp/*.*
 !/content/tmp/index.html
 /content/form/*.*
+!/content/form/.htaccess
 !/content/form/index.html
 /content/cache/*.*
 !/content/cache/.htaccess

@@ -1196,7 +1196,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $cnt_form['upload_value']['attachment'] = 0;
                 }
                 if(empty($cnt_form['upload_value']['exclude'])) {
-                    $cnt_form['upload_value']['exclude'] = 'php,asp,php3,php4,php5,aspx,cfm,js,exe,com,bat,app,sh,jar,java';
+                    $cnt_form['upload_value']['exclude'] = 'php,php3,php4,php5,php7,php8,phtml,pht,phar,phps,inc,asp,aspx,cfm,cgi,pl,py,sh,bash,exe,com,bat,cmd,msi,bin,dll,vbs,wsf,scr,app,jar,java,js,htaccess,htpasswd,ini,env,conf,bak,sql';
                 }
                 if(!isset($cnt_form['upload_value']['text_no_upload'])) {
                     $cnt_form['upload_value']['text_no_upload'] = '-';
@@ -1230,8 +1230,43 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         $POST_ERR[$key] = str_replace('{FILENAME}', '"n.a."', $POST_ERR[$key]);
                         $POST_ERR[$key] = str_replace('{FILEEXT}', '"n.a."', $POST_ERR[$key]);
                     } elseif(!empty($_FILES[$POST_name]['name'])) {
+                        $upload_ext = which_ext($_FILES[$POST_name]['name']);
+                        $disallowed_ext = array(
+                            'php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'pht', 'phar', 'phps', 'inc',
+                            'asp', 'aspx', 'cfm', 'cgi', 'pl', 'py', 'sh', 'bash',
+                            'exe', 'com', 'bat', 'cmd', 'msi', 'bin', 'dll', 'vbs', 'wsf', 'scr',
+                            'app', 'jar', 'java', 'js',
+                            'htaccess', 'htpasswd', 'ini', 'env', 'conf', 'bak', 'sql'
+                        );
+                        $is_disallowed = in_array($upload_ext, $disallowed_ext);
+
+                        if(!$is_disallowed && !empty($_FILES[$POST_name]['tmp_name']) && is_uploaded_file($_FILES[$POST_name]['tmp_name'])) {
+                            if(extension_loaded('fileinfo') && ($finfo = finfo_open(FILEINFO_MIME_TYPE))) {
+                                $upload_mime = finfo_file($finfo, $_FILES[$POST_name]['tmp_name']);
+                                finfo_close($finfo);
+                                $disallowed_mimes = array(
+                                    'text/x-php', 'application/x-httpd-php', 'application/x-httpd-php-source',
+                                    'application/x-php', 'text/x-perl', 'text/x-python', 'text/x-shellscript',
+                                    'application/x-executable', 'application/x-msdownload', 'application/x-sh',
+                                    'application/x-csh', 'application/x-bat', 'application/x-msdos-program'
+                                );
+                                if(in_array($upload_mime, $disallowed_mimes)) {
+                                    $is_disallowed = true;
+                                }
+                            }
+
+                            if(!$is_disallowed) {
+                                $file_sample = file_get_contents($_FILES[$POST_name]['tmp_name'], false, null, 0, 8192);
+                                if(preg_match('/<\?(?:php|=)/i', $file_sample) || preg_match('/<script\s+[^>]*(?:language|type)\s*=\s*[\'"]?php/i', $file_sample)) {
+                                    $is_disallowed = true;
+                                }
+                            }
+                        }
+
                         $cnt_form['upload_value']['filename'] = time().'_'.sanitize_filename($_FILES[$POST_name]['name']);
                         if(
+                                $is_disallowed
+                                ||
                                 (!empty($cnt_form['upload_value']['maxlength']) && $_FILES[$POST_name]['size'] > intval($cnt_form['upload_value']['maxlength']))
                                 ||
                                 (!empty($cnt_form['upload_value']['exclude']) && preg_match($cnt_form['upload_value']['regexp'], strtolower($_FILES[$POST_name]['name'])))

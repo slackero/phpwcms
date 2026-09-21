@@ -1,4 +1,26 @@
-<Files *.php>
-Order allow,deny
-Deny from all
-</Files>
+# Deny access to all PHP variants, CGI, scripts, executables, and sensitive files
+<FilesMatch "(?i)\.(php[0-9]?|phtml|pht|phar|phps|inc|cgi|pl|py|sh|bash|exe|com|bat|cmd|msi|bin|dll|vbs|wsf|scr|htaccess|htpasswd|ini|env|conf|bak|sql)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Disable PHP execution engines
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+
+# Prevent MIME type sniffing / execution in browsers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
