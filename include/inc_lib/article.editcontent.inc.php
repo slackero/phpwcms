@@ -669,6 +669,11 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                             $content["id"] = $result['INSERT_ID']; //successful created
                             change_articledate($content["aid"]); //update article date too
                             update_cache(); // set cache timeout = 0
+                            // Immediately flag any referenced files as "used" (file center
+                            // traffic light), rather than relying only on the lazy check that
+                            // requires viewing the Dateizentrale while the file is in use.
+                            require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
+                            phpwcms_mark_content_files_used($content["id"]);
                             if(!empty($_POST['SubmitClose'])) {
                                 headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=articles&p=2&s=1&id='.$content["aid"].'#'.$content["id"]);
                             }
@@ -706,6 +711,11 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                         }
                         change_articledate($content["aid"]); //update article date too
                         update_cache(); // set cache timeout = 0
+                        // Immediately flag any referenced files as "used" (file center
+                        // traffic light), rather than relying only on the lazy check that
+                        // requires viewing the Dateizentrale while the file is in use.
+                        require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
+                        phpwcms_mark_content_files_used($content["id"]);
                         if(empty($_POST['SubmitClose'])) {
                             // cnt teaser has some special filter options
                             if(isset($_POST['teaser_filter_category']) && is_intval($_POST['teaser_filter_category'])) {

@@ -446,6 +446,7 @@ CREATE TABLE `phpwcms_file` (
   `f_sort` int(11) NOT NULL DEFAULT '0',
   `f_title` varchar(1000) NOT NULL DEFAULT '',
   `f_alt` varchar(1000) NOT NULL DEFAULT '',
+  `f_used` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`f_id`),
   KEY `f_granted` (`f_granted`),
   KEY `f_sort` (`f_sort`),

@@ -15,6 +15,15 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
+
+// "Search unused files" tool below: finds every file that once was used in
+// article content (per f_used) but no longer is (black traffic-light
+// status), so they can be reviewed and bulk-trashed in one place instead of
+// having to spot the black dot while browsing folder by folder.
+$unused_files_search = isset($_GET['unused']);
+$unused_files = $unused_files_search ? phpwcms_get_unused_files() : array();
+
 $file_action = array(
     'file_dir' => empty($_POST['file_dir']) ? 0 : intval($_POST['file_dir']),
     'mark' => empty($_POST['ftp_mark']) || !is_array($_POST['ftp_mark']) ? array() : $_POST['ftp_mark'],
@@ -262,9 +271,9 @@ function showAction() {
           </div>
         </div>
 
-    <?php } ?>
       </div>
     </div>
+    <?php } ?>
     </form>
   </div>
 </div>
@@ -273,6 +282,126 @@ function showAction() {
 
 $('#toggle').change(function () {
   $(this).closest('form').find('input:checkbox').prop('checked', this.checked);
+});
+</script>
+<?php } ?>
+
+
+<div class="card mb-3">
+  <div class="card-header"><h2><?php echo $BL['file_actions_unused_title'] ?></h2></div>
+  <div class="card-body">
+    <?php if (!$unused_files_search) { ?>
+
+      <p><?php echo $BL['file_actions_unused_intro'] ?></p>
+      <a href="phpwcms.php?do=files&amp;p=4&amp;unused=1" class="btn btn-sm btn-blue">
+        <i class="fa-solid fa-magnifying-glass me-1" aria-hidden="true"></i> <?php echo html($BL['file_actions_unused_search']) ?>
+      </a>
+
+    <?php } else { ?>
+
+      <div id="unused-files-bulkbar" class="alert alert-secondary py-2 px-3 mb-2 d-flex align-items-center justify-content-between" hidden>
+        <span id="unused-files-bulkbar-count"></span>
+        <button type="button" id="unused-files-bulk-trash" class="btn btn-sm btn-warning">
+          <i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i> <?php echo html($BL['be_fprivfunc_movetrash']) ?>
+        </button>
+      </div>
+
+      <?php if (empty($unused_files)) { ?>
+
+        <div class="alert alert-info mb-0"><?php echo $BL['file_actions_unused_none'] ?></div>
+
+      <?php } else { ?>
+
+        <div class="table-responsive">
+        <table class="table table-sm table-valign-middle" id="unused-files-list">
+          <tr bgcolor="#e3e3e3">
+              <th width="35"><input type="checkbox" id="unused-files-toggle-all" title="<?php echo html($BL['be_ftptakeover_all']) ?>"></th>
+              <th><?php echo $BL['be_ftptakeover_available'] ?></th>
+              <th><?php echo $BL['be_ftptakeover_directory'] ?></th>
+          </tr>
+        <?php foreach ($unused_files as $file_row) {
+            $filename = PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($file_row["f_name"]) ? makeCharsetConversion($file_row["f_name"], 'utf-8', PHPWCMS_CHARSET) : $file_row["f_name"];
+            $filename = html($filename);
+        ?>
+          <tr>
+            <td class="text-center"><input type="checkbox" class="unused-file-checkbox" value="<?php echo intval($file_row["f_id"]) ?>" id="unused_mark_<?php echo intval($file_row["f_id"]) ?>"></td>
+            <td><?php echo phpwcms_render_file_traffic_light($file_row, $file_row['f_traffic_light']); ?><?php echo $filename ?></td>
+            <td class="text-muted"><?php echo $file_row["f_dirname"] !== null && $file_row["f_dirname"] !== '' ? html($file_row["f_dirname"]) : html($BL['ROOT_DIR']) ?></td>
+          </tr>
+        <?php } ?>
+        </table>
+        </div>
+
+      <?php } ?>
+
+      <a href="phpwcms.php?do=files&amp;p=4" class="btn btn-sm btn-outline-secondary mt-2"><?php echo html($BL['file_actions_unused_back']) ?></a>
+
+    <?php } ?>
+  </div>
+</div>
+
+<?php if ($unused_files_search && !empty($unused_files)) { ?>
+<script type="text/javascript">
+$(function() {
+
+    var bulkbar      = $('#unused-files-bulkbar');
+    var bulkbarCount = $('#unused-files-bulkbar-count');
+
+    function updateBulkBar() {
+        var n = $('.unused-file-checkbox:checked').length;
+        if (n > 0) {
+            bulkbarCount.text((<?php echo json_encode($BL['be_fusage_bulk_selected']); ?>).replace('{VAL}', n));
+            bulkbar.prop('hidden', false);
+        } else {
+            bulkbar.prop('hidden', true);
+        }
+    }
+
+    $(document).on('change', '.unused-file-checkbox', updateBulkBar);
+
+    $('#unused-files-toggle-all').on('change', function() {
+        $('.unused-file-checkbox').prop('checked', this.checked);
+        updateBulkBar();
+    });
+
+    // Files listed here are black (not currently in use) by definition, so
+    // act_file.php's in-use guard should never actually block any of them -
+    // it's kept in the response handling below purely as a safety net in
+    // case a file's usage changed in the moment between the search running
+    // and this click.
+    $('#unused-files-bulk-trash').on('click', function() {
+        var ids = $('.unused-file-checkbox:checked').map(function() { return this.value; }).get();
+        if (!ids.length) { return; }
+        var confirmMsg = (<?php echo json_encode($BL['be_fusage_bulk_trash_confirm']); ?>).replace('{VAL}', ids.length);
+
+        bsConfirm('danger', confirmMsg, function() {
+
+            var csrfToken = (typeof CSRF_GET_TOKEN !== 'undefined' && CSRF_GET_TOKEN) ? CSRF_GET_TOKEN : '';
+
+            $.ajax({
+                url: 'include/inc_act/act_file.php' + (csrfToken ? '?' + csrfToken : ''),
+                method: 'GET',
+                data: { trash: ids.join(':') + '|1' },
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                xhrFields: { withCredentials: true },
+                dataType: 'json'
+            }).done(function(response) {
+                if (response && response.blocked > 0) {
+                    var skippedMsg = (<?php echo json_encode($BL['be_fusage_bulk_skipped']); ?>).replace('{VAL}', response.blocked);
+                    bsAlert(skippedMsg, function() { document.location.reload(); });
+                    return;
+                }
+                if (response && response.success === false) {
+                    bsAlert(<?php echo json_encode($BL['be_error_while_save'] ?? 'Storing data failed.'); ?>);
+                    return;
+                }
+                document.location.reload();
+            }).fail(function() {
+                document.location.reload();
+            });
+        });
+    });
+
 });
 </script>
 <?php } ?>
