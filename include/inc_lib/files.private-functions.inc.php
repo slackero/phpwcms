@@ -8,6 +8,8 @@
  *
  **/
 
+require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
+
 //Funktionen zum Listen der privaten Dateien
 /**
  * @param $pid
@@ -63,7 +65,8 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
         }
 
         // Build row
-        echo '<tr bgcolor="#F4F5F4">'.LF; // Open table row
+        // data-folder-drop makes this row a drag & drop target for moving files here
+        echo '<tr bgcolor="#F4F5F4" data-folder-drop="'.$row["f_id"].'">'.LF; // Open table row
         echo '<td>'.$count; // Open cell
 
 
@@ -152,14 +155,32 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                     $file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
 
+                    // Traffic light usage status (red/yellow/green/black) - computed once
+                    // per file and reused both for the status dot and for disabling the
+                    // trash button on files that are currently in use (red).
+                    $file_usage = phpwcms_get_file_traffic_light($file_row);
+
                     if(!$file_durchlauf) { // Open embedded table for file list
-                        echo '<tr bgcolor="#FFFFFF"><td colspan="2" class="p-0"><table class="table-sm table-borderless w-100">'."\n";
+                        // data-folder-drop lets a dragged file be dropped anywhere in this
+                        // folder's existing file list, not only on the folder row itself
+                        echo '<tr bgcolor="#FFFFFF"><td colspan="2" class="p-0"><table class="table-sm table-borderless w-100" data-folder-drop="'.$row["f_id"].'">'."\n";
                         echo "<!-- start file list: private-functions //-->\n";
                     } else {
 
                     }
 
-                    echo '<tr'.$row_class.">\n";
+                    // data-file-drag/data-file-pid + the grip handle enable drag & drop moving in the file center
+                    echo '<tr'.$row_class.' data-file-drag="'.$file_row["f_id"].'" data-file-pid="'.$row["f_id"].'">'."\n";
+                    // Checkbox for multi-select (drag the whole selection, or bulk-trash it),
+                    // sharing the same cell as the drag handle so the column count is unchanged.
+                    // The checkbox stays pinned to the top of the cell while the handle is
+                    // absolutely positioned dead-center in the row (see .file-select-cell
+                    // below) - kept apart so the handle's hover tooltip doesn't land on
+                    // top of the checkbox.
+                    echo '<td width="40" class="text-center px-0 file-select-cell">';
+                    echo '<input type="checkbox" class="file-select-checkbox form-check-input mt-1" data-file-select="'.$file_row["f_id"].'" aria-label="'.html($GLOBALS['BL']['be_fprivfunc_selectfile']).': '.$filename.'">';
+                    echo '<span class="handle text-muted" data-bs-toggle="tooltip" title="'.html($GLOBALS['BL']['modal_move']).': '.$filename.'"><i class="fa-solid fa-grip-vertical" aria-hidden="true"></i></span>';
+                    echo '</td>';
                     echo "<td width=30>";
                     echo '<i class="fa-solid fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
@@ -168,6 +189,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo '"></i>'.LF;
                     echo '</td>'.LF;
                     echo '<td>'.LF;
+                    echo phpwcms_render_file_traffic_light($file_row, $file_usage);
                     echo $file_row['edit'] . $filename."</a></td>\n";
                     //echo "<tr><td></td>\n<td colspan=\"2\">";
 
@@ -197,7 +219,10 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                         echo '<i class="ms-1 fa-solid fa-fw fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
                     }
                     // Delete / move to trash button
-                    if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
+                    if ($file_usage['inuse']) {
+                        // Red usage status: file is referenced in content, so it cannot be trashed
+                        echo '<div class="dropdown-item disabled text-muted"><i class="fa-regular fa-fw fa-trash-alt text-muted ms-1" aria-hidden="true" data-bs-toggle="tooltip" title="'.html($GLOBALS['BL']['be_fusage_nodelete']).'"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+                    } elseif ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
                         //if user is owner then delete button is active
                         $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
                         echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash=' . $file_row["f_id"] . '%7C' . '1' .
@@ -234,7 +259,8 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                             if($thumb_image != false) {
                                 echo '<tr'.$row_class.">\n";
-                                echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
+                                // two empty cells now (handle + icon column) before the colspan
+                                echo '<td></td><td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                                 echo $file_row['edit'];
                                 echo '<img src="' . $thumb_image['src'] .'" border="0" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;" '.$thumb_image[3].'></a></td>'."\n";
                                 echo "\n</tr>\n";
@@ -242,7 +268,8 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                         } else {
                             echo '<tr'.$row_class.">\n";
-                            echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
+                            // two empty cells now (handle + icon column) before the colspan
+                            echo '<td></td><td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                             echo $file_row['edit'];
                             echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;"></a></td>';
                             echo "\n</tr>\n";

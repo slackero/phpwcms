@@ -15,6 +15,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
+
 // List available files
 $file_sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_pid=0 ";
 if(empty($_SESSION["wcs_user_admin"])) {
@@ -38,10 +40,27 @@ if(isset($file_result[0]['f_id'])) {
 
         $file_row['edit'] = '<a href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
 
+        // Traffic light usage status (red/yellow/green/black) - computed once per
+        // file and reused both for the status dot and for disabling the trash
+        // button on files that are currently in use (red).
+        $file_usage = phpwcms_get_file_traffic_light($file_row);
+
         if(!$file_durchlauf) {
-            echo '<tr><td colspan="2" class="p-0"><table class="table-borderless w-100">'."\n";
+            // data-folder-drop lets a dragged file be dropped anywhere in the root file list too
+            echo '<tr><td colspan="2" class="p-0"><table class="table-borderless w-100" data-folder-drop="0">'."\n";
         }
-        echo '<tr'.$row_class.">\n";
+        // data-file-drag/data-file-pid + the grip handle enable drag & drop moving in the file center
+        echo '<tr'.$row_class.' data-file-drag="'.$file_row["f_id"].'" data-file-pid="0">'."\n";
+        // Checkbox for multi-select (drag the whole selection, or bulk-trash it),
+        // sharing the same cell as the drag handle so the column count is unchanged.
+        // The checkbox stays pinned to the top of the cell while the handle is
+        // absolutely positioned dead-center in the row (see .file-select-cell
+        // below) - kept apart so the handle's hover tooltip doesn't land on
+        // top of the checkbox.
+        echo '<td width="40" class="text-center px-0 file-select-cell">';
+        echo '<input type="checkbox" class="file-select-checkbox form-check-input mt-1" data-file-select="'.$file_row["f_id"].'" aria-label="'.html($BL['be_fprivfunc_selectfile']).': '.$filename.'">';
+        echo '<span class="handle text-muted" data-bs-toggle="tooltip" title="'.html($BL['modal_move']).': '.$filename.'"><i class="fa-solid fa-grip-vertical" aria-hidden="true"></i></span>';
+        echo '</td>';
         echo "<td width=30>";
         echo "<span class=\"admin-slist \" data-bs-toggle=\"tooltip\" data-bs-html=\"true\" ";
 
@@ -53,6 +72,7 @@ if(isset($file_result[0]['f_id'])) {
         echo '">';
         echo "<i class=\"fa-solid fa-".extimg($file_row["f_ext"])."\"";
         echo "></i></span></td>\n<td>";
+        echo phpwcms_render_file_traffic_light($file_row, $file_usage);
         echo $file_row['edit'] . $filename."</a></td>\n";
 
         // Build button bar for file
@@ -79,7 +99,10 @@ if(isset($file_result[0]['f_id'])) {
             echo '<i class="fa-fw ms-1 fa-solid fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
         }
         // Delete / move to trash button
-        if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
+        if ($file_usage['inuse']) {
+            // Red usage status: file is referenced in content, so it cannot be trashed
+            echo '<div class="dropdown-item disabled text-muted"><i class="fa-fw ms-1 fa-regular fa-trash-alt text-muted" aria-hidden="true" data-bs-toggle="tooltip" title="'.html($GLOBALS['BL']['be_fusage_nodelete']).'"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+        } elseif ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
             //if user is owner then delete button is active
             $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
             echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash=' . $file_row["f_id"] . '%7C' . '1' .
@@ -115,7 +138,8 @@ if(isset($file_result[0]['f_id'])) {
 
                 if($thumb_image != false) {
                     echo '<tr'.$row_class.">\n";
-                    echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
+                    // two empty cells now (handle + icon column) before the colspan
+                    echo '<td></td><td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                     echo $file_row['edit'];
                     echo '<img src="' . $thumb_image['src'] .'" border="0" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;" '.$thumb_image[3].'></a></td>'."\n";
                     echo "\n</tr>\n";
@@ -123,7 +147,8 @@ if(isset($file_result[0]['f_id'])) {
 
             } else {
                 echo '<tr'.$row_class.">\n";
-                echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
+                // two empty cells now (handle + icon column) before the colspan
+                echo '<td></td><td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                 echo $file_row['edit'];
                 echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;"></a></td>';
                 echo "\n</tr>\n";

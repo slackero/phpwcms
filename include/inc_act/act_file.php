@@ -18,6 +18,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
 
 // Change file status
 if(isset($_GET["aktiv"])) {
@@ -59,28 +60,84 @@ if(isset($_GET["aktiv"])) {
 
 } elseif(isset($_GET["trash"])) {
 
-    list($id, $wert) = explode("|", $_GET["trash"]);
-    $id     = intval($id);
-    $wert   = intval($wert);
+    list($ids, $wert) = explode("|", $_GET["trash"]);
+    $wert = intval($wert);
+
     if($wert == 1 || $wert == 9 || $wert == 0) {
-        $sql  = "UPDATE ".DB_PREPEND."file SET f_pid=0, f_trash=".$wert.", f_changed='".time()."' WHERE f_kid=1 AND ";
-        $sql .= $id ? "f_id=".$id : "f_trash=1";
-        if(!has_admin_permission('filedelete')) {
-            $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
+
+        // Supports both a single id ("123") and a colon-separated list of
+        // ids ("123:456:789") for bulk-selecting several files at once in
+        // the file center.
+        $requested_ids = array();
+        foreach(explode(":", $ids) as $fid) {
+            $fid = intval($fid);
+            if($fid > 0) {
+                $requested_ids[] = $fid;
+            }
         }
-        _dbQuery($sql, 'UPDATE');
+
+        // No id at all is the original bulk "act on every currently
+        // trashed file" call (empty trash / restore all), unaffected by
+        // the in-use guard below.
+        $empty_trash_all = empty($requested_ids);
+
+        // Files currently referenced in content (red usage status) cannot be
+        // moved to the trash. This guard only applies to putting still-active
+        // files into the trash (wert=1) - not to restoring (0) or purging
+        // already-trashed files (9), and not to the bulk "empty trash" call.
+        $blocked_ids = array();
+        $allowed_ids = $requested_ids;
+
+        if($wert == 1 && $requested_ids) {
+            $allowed_ids = array();
+            foreach($requested_ids as $fid) {
+                if(phpwcms_file_in_use($fid)) {
+                    $blocked_ids[] = $fid;
+                } else {
+                    $allowed_ids[] = $fid;
+                }
+            }
+        }
+
+        if($empty_trash_all || $allowed_ids) {
+            $sql  = "UPDATE ".DB_PREPEND."file SET f_pid=0, f_trash=".$wert.", f_changed='".time()."' WHERE f_kid=1 AND ";
+            $sql .= $empty_trash_all ? "f_trash=1" : "f_id IN (".implode(",", $allowed_ids).")";
+            if(!has_admin_permission('filedelete')) {
+                $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
+            }
+            _dbQuery($sql, 'UPDATE');
+        }
+
+        $ajax_success       = empty($blocked_ids);
+        $ajax_blocked_count = count($blocked_ids);
+
     }
 
 } elseif(isset($_GET["paste"])) {
 
-    list($file_id, $dir_id) = explode("|", $_GET["paste"]);
-    $file_id    = intval($file_id);
-    $dir_id     = intval($dir_id);
-    $sql  = "UPDATE ".DB_PREPEND."file SET f_pid=".$dir_id.", f_changed='".time()."' WHERE f_id=".$file_id." AND f_kid=1";
-    if(!has_admin_permission('fileaction')) {
-        $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
+    list($file_ids, $dir_id) = explode("|", $_GET["paste"]);
+    $dir_id = intval($dir_id);
+
+    // Supports both a single id ("123") and a colon-separated list of ids
+    // ("123:456:789") for bulk-moving a multi-selection at once.
+    $file_id_list = array();
+    foreach(explode(":", $file_ids) as $fid) {
+        $fid = intval($fid);
+        if($fid > 0) {
+            $file_id_list[] = $fid;
+        }
     }
-    _dbQuery($sql, 'UPDATE');
+
+    $ajax_success = false;
+
+    if($file_id_list) {
+        $sql  = "UPDATE ".DB_PREPEND."file SET f_pid=".$dir_id.", f_changed='".time()."' WHERE f_kid=1 AND f_id IN (".implode(",", $file_id_list).")";
+        if(!has_admin_permission('fileaction')) {
+            $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
+        }
+        $paste_result = _dbQuery($sql, 'UPDATE');
+        $ajax_success = !empty($paste_result['AFFECTED_ROWS']);
+    }
 
 }
 
@@ -153,6 +210,17 @@ if(has_admin_permission('adm') || has_admin_permission('filedelete')) { // If us
         }
 
     }
+}
+
+// AJAX callers (e.g. drag & drop moving in the file center) get a small JSON
+// response instead of the usual full page redirect used by regular links.
+if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+    header('Content-Type: application/json; charset='.PHPWCMS_CHARSET);
+    echo json_encode(array(
+        'success' => isset($ajax_success) ? $ajax_success : true,
+        'blocked' => isset($ajax_blocked_count) ? $ajax_blocked_count : 0,
+    ));
+    exit;
 }
 
 $ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
