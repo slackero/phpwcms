@@ -18,11 +18,17 @@ if (!defined('PHPWCMS_ROOT')) {
 /**
  * File usage / "traffic light" status for the private Dateizentrale.
  *
- * Scope (deliberately limited, as discussed): only article content
- * sections/pages (phpwcms_articlecontent) are checked - the shop, ads,
- * glossary and newsletter/mail-template modules, as well as file paths
- * hardcoded directly inside page templates, are NOT covered. See
- * CHANGELOG.md for details.
+ * Scope: article content sections/pages (phpwcms_articlecontent) plus the
+ * native Kalender/Termine, Glossar and Shop/Produkte modules are checked
+ * (each module only if its table actually exists in this installation -
+ * see phpwcms_get_module_file_usage() below). Deliberately still NOT
+ * covered: the Bannerwerbung module (it never references Dateizentrale
+ * files - campaign media is uploaded directly into its own ads directory,
+ * not selected from the Filecenter), the newsletter/mail-template module,
+ * file paths hardcoded directly inside page templates, and any third-party
+ * modules/extensions outside the phpwcms core (their data structure is
+ * unknown and can't automatically become known). See CHANGELOG.md for
+ * details.
  */
 
 /**
@@ -183,6 +189,7 @@ function phpwcms_get_content_file_usage()
             }
 
             $rows[] = array(
+                'type'          => 'article',
                 'acontent_id'   => intval($row['acontent_id']),
                 'article_id'    => intval($row['article_id']),
                 'article_title' => $row['article_title'],
@@ -192,20 +199,178 @@ function phpwcms_get_content_file_usage()
         }
     }
 
+    $rows = array_merge($rows, phpwcms_get_module_file_usage());
+
     return $rows;
 }
 
 /**
- * Every content part (non-deleted, non-trashed) that currently references
- * this file, matched by file ID (acontent_files / acontent_image lists)
- * and, as a fallback for richtext/HTML/media/form content, by searching for
- * the file's unique hash. Used both to decide the red usage status and to
- * link to where the file is actually used.
+ * Collects file usage from the native Kalender/Termine, Glossar and
+ * Shop/Produkte modules - each one only if its table actually exists in
+ * this installation (the modules are optional). Produces the same row
+ * shape as phpwcms_get_content_file_usage() above (file_ids + a combined
+ * text blob, plus a 'type' discriminator so phpwcms_get_file_usage_locations()
+ * and phpwcms_render_file_traffic_light() can build the right kind of
+ * edit link), so both sources can simply be merged.
+ *
+ * - Kalender: calendar_object (serialized) -> image.id is a real f_id,
+ *   plus calendar_text/calendar_teaser as free text.
+ * - Glossar: glossary_text as free text only (the glossary module
+ *   currently has no image/file picker of its own).
+ * - Shop/Produkte: shopprod_var (serialized) -> images[]/files[] each
+ *   contain real f_id values, plus the four description fields as free
+ *   text.
+ *
+ * Status 9 means "deleted" in all three modules (the backend soft-deletes
+ * via UPDATE ... SET xxx_status=9 rather than an actual DELETE, so the row
+ * stays in the table), so those rows are excluded here - from the
+ * backend's point of view they no longer exist. Every other status (e.g.
+ * inactive/draft) is deliberately left unfiltered, since a draft-status
+ * entry can still keep its file in use.
+ *
+ * Cached per request (static), same reasoning as
+ * phpwcms_get_content_file_usage().
+ *
+ * @return array<int, array{type: string, entry_id: int, title: string, file_ids: array<int,int>, text: string}>
+ */
+function phpwcms_get_module_file_usage()
+{
+    static $rows = null;
+
+    if ($rows !== null) {
+        return $rows;
+    }
+
+    $rows = array();
+
+    // --- Kalender/Termine ---
+    if (_dbTableExists('calendar')) {
+        $cal_rows = _dbQuery(
+            "SELECT calendar_id, calendar_title, calendar_object, calendar_text, calendar_teaser FROM " .
+            _dbTableName('calendar') . " WHERE calendar_status != 9"
+        );
+        if (is_array($cal_rows)) {
+            foreach ($cal_rows as $row) {
+
+                $file_ids = array();
+                if (!empty($row['calendar_object'])) {
+                    $object = @unserialize($row['calendar_object'], array('allowed_classes' => false));
+                    if (is_array($object) && !empty($object['image']['id'])) {
+                        $ref = intval($object['image']['id']);
+                        if ($ref > 0) {
+                            $file_ids[] = $ref;
+                        }
+                    }
+                }
+
+                $text = '';
+                foreach (array('calendar_text', 'calendar_teaser') as $field) {
+                    if (!empty($row[$field])) {
+                        $text .= "\n" . $row[$field];
+                    }
+                }
+
+                $rows[] = array(
+                    'type'     => 'calendar',
+                    'entry_id' => intval($row['calendar_id']),
+                    'title'    => isset($row['calendar_title']) ? $row['calendar_title'] : '',
+                    'file_ids' => $file_ids,
+                    'text'     => $text,
+                );
+            }
+        }
+    }
+
+    // --- Glossar ---
+    if (_dbTableExists('glossary')) {
+        $gl_rows = _dbQuery(
+            "SELECT glossary_id, glossary_title, glossary_text FROM " .
+            _dbTableName('glossary') . " WHERE glossary_status != 9"
+        );
+        if (is_array($gl_rows)) {
+            foreach ($gl_rows as $row) {
+                $rows[] = array(
+                    'type'     => 'glossary',
+                    'entry_id' => intval($row['glossary_id']),
+                    'title'    => isset($row['glossary_title']) ? $row['glossary_title'] : '',
+                    'file_ids' => array(),
+                    'text'     => !empty($row['glossary_text']) ? "\n" . $row['glossary_text'] : '',
+                );
+            }
+        }
+    }
+
+    // --- Shop / Produkte ---
+    if (_dbTableExists('shop_products')) {
+        $shop_fields = 'shopprod_id, shopprod_ordernumber, shopprod_name1, shopprod_var, ' .
+            'shopprod_description0, shopprod_description1, shopprod_description2, shopprod_description3';
+        $shop_rows = _dbQuery(
+            "SELECT " . $shop_fields . " FROM " . _dbTableName('shop_products') . " WHERE shopprod_status != 9"
+        );
+        if (is_array($shop_rows)) {
+            foreach ($shop_rows as $row) {
+
+                $file_ids = array();
+                if (!empty($row['shopprod_var'])) {
+                    $var = @unserialize($row['shopprod_var'], array('allowed_classes' => false));
+                    if (is_array($var)) {
+                        foreach (array('images', 'files') as $group) {
+                            if (!empty($var[$group]) && is_array($var[$group])) {
+                                foreach ($var[$group] as $item) {
+                                    if (is_array($item) && !empty($item['f_id'])) {
+                                        $ref = intval($item['f_id']);
+                                        if ($ref > 0) {
+                                            $file_ids[] = $ref;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $text = '';
+                $desc_fields = array(
+                    'shopprod_description0', 'shopprod_description1',
+                    'shopprod_description2', 'shopprod_description3',
+                );
+                foreach ($desc_fields as $field) {
+                    if (!empty($row[$field])) {
+                        $text .= "\n" . $row[$field];
+                    }
+                }
+
+                $title = trim(
+                    (isset($row['shopprod_ordernumber']) ? $row['shopprod_ordernumber'] : '') .
+                    (!empty($row['shopprod_ordernumber']) && !empty($row['shopprod_name1']) ? ' / ' : '') .
+                    (isset($row['shopprod_name1']) ? $row['shopprod_name1'] : '')
+                );
+
+                $rows[] = array(
+                    'type'     => 'shop',
+                    'entry_id' => intval($row['shopprod_id']),
+                    'title'    => $title,
+                    'file_ids' => $file_ids,
+                    'text'     => $text,
+                );
+            }
+        }
+    }
+
+    return $rows;
+}
+
+/**
+ * Every content part or module entry (non-deleted, non-trashed) that
+ * currently references this file, matched by file ID and, as a fallback
+ * for free-text fields, by searching for the file's unique hash. Used both
+ * to decide the red usage status and to link to where the file is
+ * actually used.
  *
  * @param int         $file_id
  * @param string|null $file_hash  Pass the already-known f_hash to avoid an
  *                                 extra lookup query; looked up otherwise.
- * @return array<int, array{acontent_id: int, article_id: int, article_title: string}>
+ * @return array<int, array{type: string, acontent_id?: int, article_id?: int, article_title?: string, entry_id?: int, title?: string}>
  */
 function phpwcms_get_file_usage_locations($file_id, $file_hash = null)
 {
@@ -229,11 +394,22 @@ function phpwcms_get_file_usage_locations($file_id, $file_hash = null)
             $matched = true;
         }
 
-        if ($matched) {
+        if (!$matched) {
+            continue;
+        }
+
+        if ($row['type'] === 'article') {
             $locations[] = array(
+                'type'          => 'article',
                 'acontent_id'   => $row['acontent_id'],
                 'article_id'    => $row['article_id'],
                 'article_title' => $row['article_title'],
+            );
+        } else {
+            $locations[] = array(
+                'type'     => $row['type'],
+                'entry_id' => $row['entry_id'],
+                'title'    => $row['title'],
             );
         }
     }
@@ -421,10 +597,33 @@ function phpwcms_render_file_traffic_light($file_row, $tl = null)
 
     if (!empty($tl['locations'])) {
         $links = array();
+        $module_edit_url = array(
+            'calendar' => 'phpwcms.php?do=modules&module=calendar&edit=',
+            'glossary' => 'phpwcms.php?do=modules&module=glossary&edit=',
+            'shop'     => 'phpwcms.php?do=modules&module=shop&controller=prod&edit=',
+        );
+        $module_fallback_label = array(
+            'calendar' => 'Kalender-Eintrag',
+            'glossary' => 'Glossar-Eintrag',
+            'shop'     => 'Shop-Produkt',
+        );
+        $module_tag = array(
+            'calendar' => 'Kalender',
+            'glossary' => 'Glossar',
+            'shop'     => 'Shop',
+        );
         foreach ($tl['locations'] as $loc) {
-            $url = 'phpwcms.php?do=articles&p=2&s=1&aktion=2&id=' . $loc['article_id'] . '&acid=' . $loc['acontent_id'];
-            $links[] = '<a href="' . html($url) . '" target="_blank">' . html($loc['article_title']) .
-                ' <span class="text-muted">[ID: ' . intval($loc['acontent_id']) . ']</span></a>';
+            if ($loc['type'] === 'article') {
+                $url = 'phpwcms.php?do=articles&p=2&s=1&aktion=2&id=' . $loc['article_id'] . '&acid=' . $loc['acontent_id'];
+                $links[] = '<a href="' . html($url) . '" target="_blank">' . html($loc['article_title']) .
+                    ' <span class="text-muted">[ID: ' . intval($loc['acontent_id']) . ']</span></a>';
+            } elseif (isset($module_edit_url[$loc['type']])) {
+                $type  = $loc['type'];
+                $url   = $module_edit_url[$type] . intval($loc['entry_id']);
+                $label = ($loc['title'] !== '') ? $loc['title'] : ($module_fallback_label[$type] . ' #' . intval($loc['entry_id']));
+                $links[] = '<a href="' . html($url) . '" target="_blank">' . html($label) .
+                    ' <span class="text-muted">[' . $module_tag[$type] . ']</span></a>';
+            }
         }
         $popover_content = implode('<br>', $links);
 
@@ -466,8 +665,9 @@ function phpwcms_render_file_usage_legend()
 
 /**
  * Every non-trashed file that is currently "black" (was referenced by
- * article content at some point, per f_used, but isn't anymore) - used by
- * the "search unused files" tool in Dateiaktionen
+ * covered content - article content or a covered module - at some point,
+ * per f_used, but isn't anymore) - used by the "search unused files" tool
+ * in Dateiaktionen
  * (include/inc_tmpl/files.actions.tmpl.php) so files that have quietly
  * fallen out of use can be found and bulk-trashed in one place instead of
  * having to notice the black dot while browsing folder by folder.
