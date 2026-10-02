@@ -992,6 +992,9 @@ function _initSession() {
     }
     @session_set_cookie_params($GLOBALS['phpwcms']['session_cookie_params']);
 
+    // reject attacker-chosen session IDs
+    @ini_set('session.use_strict_mode', '1');
+
     if (!session_id()) {
         session_start();
     }
