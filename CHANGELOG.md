@@ -25,8 +25,23 @@ All notable changes to this project will be documented in this file.
   - Removed local NonverBlaster Flash player (`template/lib/nonverblaster/*`)
 
 ### Security Fixes
+- **PHP Code Injection in Index Page Config Writer (Critical, CWE-94):** `act_structure.php` wrote the fields `acat_permit`, `acat_cntpart` and `acat_timeout` unescaped into `include/config/conf.indexpage.inc.php`, a PHP file required on every frontend request. A crafted value produced persistent remote code execution triggered by anonymous visitors. All three values are now escaped with the existing `sanitize_quote_backslash()` helper, and `acat_cp[]` is validated as integer content part IDs.
+- **Path Traversal / Local File Inclusion in Content Template Fields (High, CWE-22/CWE-73/CWE-98):** Template and file name fields of content parts accepted `../` sequences and absolute paths, and `include_ext_php()` skipped its `realpath()` containment check whenever the caller passed a truthy flag — which `cnt21.article.inc.php` did. Containment for local files is now unconditional, new helpers `sanitize_template_name()` and `path_is_within()` were added, and they are applied to all template/file name fields of the content part forms as well as the `cnt51` GET sinks.
+- **Stored XSS in Backend Guestbook via Spoofable Client-IP Header (High, CWE-79/CWE-113):** `getRemoteIP()` trusted `HTTP_CLIENT_IP` and `HTTP_X_FORWARDED_FOR` without validation, so an unauthenticated guestbook submission could store arbitrary markup that executed in the backend moderation view. IP values are now validated with `filter_var(FILTER_VALIDATE_IP)` (a public `REMOTE_ADDR` is authoritative, forwarded headers only count behind a private or reserved peer), and the guestbook IP output is escaped and URL-encoded.
+- **SQL Injection in Structure Category INSERT (Medium, CWE-89):** `acat_permit` and `acat_cache` were interpolated into the `phpwcms_articlecat` INSERT without escaping while neighbouring values used `_dbEscape()`. Both values are escaped now, and `acat_access[]` is validated as integer user group IDs.
+- **Missing CSRF Token Regeneration on Multi-Form Pages (High, regression in 1.12.0):** All forms of a backend page shared the session key `csrf_form_token`, and each form regenerated it, so only the last form of a page could be submitted — creating or editing backend users was impossible. The token is now generated once and reused for all forms of a page. Refs #381.
+- **Session Fixation (Medium, CWE-384):** `login.php` did not regenerate the session ID on successful authentication and `session.use_strict_mode` was left at PHP's default. The session ID is regenerated at the auth boundary and strict mode is enabled.
+- **Unauthenticated Password Reminder for Inactive Accounts (Medium, CWE-620):** The public password reminder form matched accounts without checking their active state. Both the user detail and backend user lookups now require the account to be active.
+- **Object Injection Candidates (Low, CWE-502):** Three `unserialize()` calls omitted `['allowed_classes' => false]`, unlike the rest of the codebase. Fixed in `cnt14`, `cnt50` and the shop frontend search.
 - **Email Regex ReDoS (High):** Optimized the email validation pattern in `include/inc_js/phpwcms.js` to prevent potential Regular Expression Denial of Service (ReDoS) backtracking attacks. Added support for plus-addressing (e.g., `user+tag@domain.com`).
 - **DOM XSS in Ads Module (High):** Cast input dimension fields (`width` and `height`) to integers using `parseInt()` in `include/inc_module/mod_ads/template/ads.js` before writing them to the document context via `document.write()`, preventing potential DOM XSS.
+
+### Dependency Updates
+- **league/commonmark 2.8.3 → 2.10.3:** Fixes CVE-2026-71488 (quadratic-time DoS when parsing crafted Markdown) and CVE-2026-71478 (AttributesExtension unsafe-link filter bypass).
+- **enshrined/svg-sanitize 0.22.0 → 1.0.0:** Major upgrade of the SVG upload sanitizer; the API used by `class.svg-reader.php` is unchanged.
+- **js-cookie 2.2.1 → 3.0.8:** Frontend library update, same file name and `Cookies` global.
+- **symfony/polyfill-* → v1.43.0** (PHP 7.3 and 8.1 polyfills stay at their final releases), **phpspreadsheet 5.10.0**, **phpstan 2.2.16**, **tinymce 8.9.2**, **htmlpurifier 4.19.1** and other minor updates within existing constraints.
+
 
 ---
 
