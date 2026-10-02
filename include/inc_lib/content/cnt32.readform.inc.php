@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // Content Type Tabs
-$content["tabs_template"]	= clean_slweg($_POST['template']);
+$content["tabs_template"]	= sanitize_template_name(clean_slweg($_POST['template']));
 $content["tabs"]			= array();
 $content['search']			= '';
 $content['html']			= array();

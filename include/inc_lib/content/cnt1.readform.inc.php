@@ -67,4 +67,4 @@ if(isset($img_result[0]['f_id'])) {
 
 }
 
-$content["template"] = clean_slweg($_POST['template']);
+$content["template"] = sanitize_template_name(clean_slweg($_POST['template']));

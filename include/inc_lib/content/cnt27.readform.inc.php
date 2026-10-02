@@ -24,7 +24,7 @@ $content["image_info"]      = '';
 $content["faq_answer"]      = slweg($_POST["faq_answer"]);
 $content["faq_question"]    = slweg($_POST["faq_question"]);
 
-$content["faq"]['faq_template'] = clean_slweg($_POST["faq_template"]);
+$content["faq"]['faq_template'] = sanitize_template_name(clean_slweg($_POST["faq_template"]));
 
 $content["image_id"]        = intval($_POST["cimage_id"]);
 $content["image_pos"]       = 0;

@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Images Special
 $content["image_html"]      = slweg($_POST['image_html']);
-$content["image_template"]  = clean_slweg($_POST['template']);
+$content["image_template"]  = sanitize_template_name(clean_slweg($_POST['template']));
 $content['image_special']   = array(
     'pos'           => empty($_POST['cimage_pos']) ? 0 : intval($_POST['cimage_pos']),
     'width'         => empty($_POST['cimage_width']) ? '' : intval($_POST['cimage_width']),

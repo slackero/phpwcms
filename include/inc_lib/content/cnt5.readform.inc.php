@@ -46,4 +46,4 @@ if(is_array($clinklist) && count($clinklist)) {
 	unset($clinklist);
 	$content["text"] = implode(LF, $clink);
 }
-$content["template"] = clean_slweg($_POST['template']);
+$content["template"] = sanitize_template_name(clean_slweg($_POST['template']));
