@@ -36,7 +36,8 @@ class ToIdn extends AbstractIdnaConvert implements IdnaConvertInterface
             return $host;
         }
 
-        if (str_contains($host, '/')
+        if (
+            str_contains($host, '/')
             || str_contains($host, ':')
             || str_contains($host, '?')
             || str_contains($host, '@')

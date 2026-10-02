@@ -8,7 +8,8 @@ trait ByteLengthTrait
 {
     protected function getByteLength(string $string): int
     {
-        if ((extension_loaded('mbstring')
+        if (
+            (extension_loaded('mbstring')
              && (ini_get('mbstring.func_overload') & 0x02) === 0x02)
         ) {
             return mb_strlen($string, '8bit');

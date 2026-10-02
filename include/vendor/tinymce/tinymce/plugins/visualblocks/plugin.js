@@ -1,5 +1,5 @@
 /**
- * TinyMCE version 8.8.0 (2026-07-15)
+ * TinyMCE version 8.9.2 (2026-09-23)
  */
 
 (function () {
@@ -86,13 +86,17 @@
         });
     };
 
+    const PLUGIN_CODE = 'visualblocks';
     var Plugin = () => {
-        global.add('visualblocks', (editor, pluginUrl) => {
+        global.add(PLUGIN_CODE, (editor, pluginUrl) => {
             register$1(editor);
             const enabledState = Cell(false);
             register$2(editor, pluginUrl, enabledState);
             register(editor, enabledState);
             setup(editor, pluginUrl, enabledState);
+            return {
+                getMetadata: () => ({ name: 'Visual Blocks', type: 'opensource', slug: PLUGIN_CODE })
+            };
         });
     };
 

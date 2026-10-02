@@ -1,5 +1,5 @@
 /**
- * TinyMCE version 8.8.0 (2026-07-15)
+ * TinyMCE version 8.9.2 (2026-09-23)
  */
 
 (function () {
@@ -1353,13 +1353,17 @@
         });
     };
 
+    const PLUGIN_CODE = 'accordion';
     var Plugin = () => {
-        global$4.add('accordion', (editor) => {
+        global$4.add(PLUGIN_CODE, (editor) => {
             register(editor);
             register$1(editor);
             setup$1(editor);
             setup$2(editor);
             setup(editor);
+            return {
+                getMetadata: () => ({ name: 'Accordion', type: 'opensource', slug: PLUGIN_CODE })
+            };
         });
     };
 

@@ -4,3 +4,5 @@
 .phpunit.cache/
 /composer.lock
 /vendor
+/tests/smoke/consumer/composer.lock
+/tests/smoke/consumer/vendor/

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruleset name="IDNA Convert">
+    <description>Code style rules for the IDNA Convert library.</description>
+
+    <file>src</file>
+    <file>tests</file>
+
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="8"/>
+    <arg value="sp"/>
+
+    <exclude-pattern>tests/smoke/consumer/vendor/*</exclude-pattern>
+
+    <rule ref="PSR12">
+        <!-- Legacy transcoder method names encode source and target formats. -->
+        <exclude name="PSR1.Methods.CamelCapsMethodName"/>
+        <exclude name="Generic.Files.LineLength"/>
+    </rule>
+
+    <rule ref="Generic.Files.LineLength">
+        <!-- Generated Unicode tables are more useful in their compact source form. -->
+        <exclude-pattern>src/NamePrep/*Data*.php</exclude-pattern>
+    </rule>
+</ruleset>
