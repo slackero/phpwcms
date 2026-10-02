@@ -58,3 +58,6 @@ include/config.codekit3
 /stacklit.html
 /.mcp.json
 /.phpstan/cache/
+node_modules/
+/doc/
+/bin/*
