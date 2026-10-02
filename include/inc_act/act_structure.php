@@ -33,7 +33,12 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
 
     if(isset($_POST["acat_access"]) && is_array($_POST["acat_access"]) && count($_POST["acat_access"])) {
 
-        $acat_permit = implode(',', $_POST["acat_access"]);
+        // only real user group IDs are accepted, the <select> is UI-only
+        $acat_access = array_filter($_POST["acat_access"], function($value) {
+            return filter_var($value, FILTER_VALIDATE_INT) !== false;
+        });
+        $acat_access = array_map('intval', $acat_access);
+        $acat_permit = implode(',', array_unique($acat_access));
 
         // enym, limited access requires some default settings
         $_POST["acat_regonly"] = 1;
@@ -158,10 +163,10 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
                 $acat_hidden.", ".
                 intval($_POST["acat_topcount"]).",'".
                 getpostvar($_POST["acat_redirect"])."', ".
-                set_correct_ordersort().",'".
-                $cache_timeout."', '".(isset($_POST['acat_nosearch']) ? 1 : '')."',".
+                set_correct_ordersort().", ".
+                _dbEscape($cache_timeout).", "._dbEscape(isset($_POST['acat_nosearch']) ? 1 : '').", ".
                 (isset($_POST["acat_nositemap"]) ? 1 : 0).",".
-                "'".$acat_permit."', ".intval($_POST["acat_maxlist"]).", "._dbEscape($acat_cntpart).",'".
+                _dbEscape($acat_permit).", ".intval($_POST["acat_maxlist"]).", "._dbEscape($acat_cntpart).",'".
                 getpostvar($_POST["acat_pagetitle"])."', ".(isset($_POST["acat_paginate"]) ? 1 : 0).", '".getpostvar($_POST["acat_overwrite"])."',".
                 (empty($_POST["acat_archive"]) ? 0 : 1).", "._dbEscape($acat_class).", "._dbEscape($acat_keywords).", ".intval($_POST["acat_cpdefault"]).",".
                 _dbEscape($acat_lang).','._dbEscape($acat_lang_type).','._dbEscape($acat_lang_id).','.(empty($_POST["acat_disable301"]) ? '0' : '1').','.
