@@ -40,7 +40,7 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'AT
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 
-$crow['custom_fields'] = empty($crow["acontent_form"]) ? null : @unserialize($crow["acontent_form"]);
+$crow['custom_fields'] = empty($crow["acontent_form"]) ? null : @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(is_array($crow['custom_fields']) && !empty($crow["custom_fields"]['cnt_fields'])) {
 
