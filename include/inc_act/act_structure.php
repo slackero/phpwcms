@@ -55,9 +55,12 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
     $acat_cntpart = '';
     if(isset($_POST['acat_cp']) && is_array($_POST['acat_cp'])) {
 
-        $acat_cntpart = $_POST['acat_cp'];
-        $acat_cntpart = array_unique($acat_cntpart);
-        $acat_cntpart = implode(',', $acat_cntpart);
+        // only real content part IDs are accepted, the <select> is UI-only
+        $acat_cp = array_filter($_POST['acat_cp'], function($value) {
+            return filter_var($value, FILTER_VALIDATE_INT) !== false;
+        });
+        $acat_cp = array_map('intval', $acat_cp);
+        $acat_cntpart = implode(',', array_unique($acat_cp));
 
     }
 
@@ -96,12 +99,12 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
         $sql .= "\$indexpage['acat_redirect'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_redirect"]))."';\n";
         $cache_timeout = clean_slweg($_POST["acat_timeout"]);
         if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) $cache_timeout = 0; //check if cache = Off
-        $sql .= "\$indexpage['acat_timeout'] = '". $cache_timeout."';\n";
+        $sql .= "\$indexpage['acat_timeout'] = '". sanitize_quote_backslash($cache_timeout)."';\n";
         $sql .= "\$indexpage['acat_nosearch'] = '". ((isset($_POST['acat_nosearch']) && intval($_POST['acat_nosearch'])) ? '1' : '')."';\n";
         $sql .= "\$indexpage['acat_nositemap'] = ". (isset($_POST["acat_nositemap"]) ? 1 : 0).";\n";
         $sql .= "\$indexpage['acat_order'] = ". set_correct_ordersort() .";\n";
-        $sql .= "\$indexpage['acat_permit'] = '". $acat_permit."';\n";
-        $sql .= "\$indexpage['acat_cntpart'] = '". $acat_cntpart."';\n";
+        $sql .= "\$indexpage['acat_permit'] = '". sanitize_quote_backslash($acat_permit)."';\n";
+        $sql .= "\$indexpage['acat_cntpart'] = '". sanitize_quote_backslash($acat_cntpart)."';\n";
         $sql .= "\$indexpage['acat_pagetitle'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_pagetitle"]))."';\n";
         $sql .= "\$indexpage['acat_paginate'] = ". (isset($_POST["acat_paginate"]) ? 1 : 0).";\n";
         $sql .= "\$indexpage['acat_overwrite'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_overwrite"]))."';\n";
