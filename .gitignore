@@ -61,3 +61,5 @@ include/config.codekit3
 node_modules/
 /doc/
 /bin/*
+/.superpowers/
+

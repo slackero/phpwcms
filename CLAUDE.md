@@ -7,15 +7,16 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-phpwcms-dev | php | 104 modules | 167,605 lines
+phpwcms-dev | php | 99 modules | 157,992 lines
+test: make test
 
 modules:
+  .phpstan                        .phpstan
   img                             img
   include/config                  configuration management
   include/inc_act                 inc act
   include/inc_ext                 inc ext
   include/inc_ext/ConvertCharset  convertcharset
-  include/inc_ext/GoogleMapsAPI   googlemapsapi
   include/inc_ext/ckeditor        ckeditor
   include/inc_ext/ckeditor/adapt  adapters
   include/inc_ext/ckeditor/lang   lang
@@ -102,19 +103,15 @@ modules:
   template/lib/cookieconsent2     cookieconsent2
   template/lib/cookieconsent3     cookieconsent3
   template/lib/cookieconsent3/co  core
-  template/lib/html5shiv          html5shiv
-  template/lib/ie7-js             ie7-js
   template/lib/jquery             jquery
   template/lib/jquery/plugin      plugin
   template/lib/js-cookie          js-cookie
   template/lib/mootools           mootools
   template/lib/mootools/more      more
   template/lib/mootools/more-1.4  more-1.4
-  template/lib/respond            respond
   template/lib/slimbox            slimbox
-  template/lib/swfobject          swfobject
-  template/lib/syntaxhighlighter  syntaxhighlighter
 
-hot: .gitignore (1 commits/90d), composer.json (1 commits/90d), include/vendor/composer/autoload_classmap.php (1 commits/90d)
+hot: include/inc_lib/revision/revision.php (6 commits/90d), .phpstan/phpstan-baseline.neon (3 commits/90d), include/inc_lib/default.inc.php (3 commits/90d)
+do-not-touch: .github/
 ```
 # end stacklit map
