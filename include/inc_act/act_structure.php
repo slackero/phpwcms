@@ -162,10 +162,10 @@ if(has_admin_permission('artstruc')) { // Only for admin users
                 $acat_hidden.", ".
                 intval($_POST["acat_topcount"]).",'".
                 getpostvar($_POST["acat_redirect"])."', ".
-                set_correct_ordersort().",'".
-                $cache_timeout."', '".(isset($_POST['acat_nosearch']) ? 1 : '')."',".
+                set_correct_ordersort().", ".
+                _dbEscape($cache_timeout).", "._dbEscape(isset($_POST['acat_nosearch']) ? 1 : '').", ".
                 (isset($_POST["acat_nositemap"]) ? 1 : 0).",".
-                "'".$acat_permit."', ".intval($_POST["acat_maxlist"]).", "._dbEscape($acat_cntpart).",'".
+                _dbEscape($acat_permit).", ".intval($_POST["acat_maxlist"]).", "._dbEscape($acat_cntpart).",'".
                 getpostvar($_POST["acat_pagetitle"])."', ".(isset($_POST["acat_paginate"]) ? 1 : 0).", '".getpostvar($_POST["acat_overwrite"])."',".
                 (empty($_POST["acat_archive"]) ? 0 : 1).", "._dbEscape($acat_class).", "._dbEscape($acat_keywords).", ".intval($_POST["acat_cpdefault"]).",".
                 _dbEscape($acat_lang).','._dbEscape($acat_lang_type).','._dbEscape($acat_lang_id).','.(empty($_POST["acat_disable301"]) ? '0' : '1').','.
