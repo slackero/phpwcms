@@ -45,3 +45,9 @@ include/config.codekit3
 /.claude
 /.mcp.json
 /stacklit.html
+/.superpowers/
+
+# Local build and scratch directories
+node_modules/
+/doc/
+/bin/*
