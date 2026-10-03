@@ -1,11 +1,13 @@
 {
   "name": "jakeasmith/http_build_url",
-  "description": "Provides functionality for http_build_url() to environments without pecl_http.",
+  "description": "Deprecated: use PHP 8.5's built-in Uri\\Rfc3986\\Uri instead. Provides http_build_url() for environments without pecl_http.",
   "license": "MIT",
+  "abandoned": true,
   "authors": [
     {
       "name": "Jake A. Smith",
-      "email": "theman@jakeasmith.com"
+      "email": "theman@jakeasmith.com",
+      "homepage": "https://jakeasmith.com"
     }
   ],
   "support": {

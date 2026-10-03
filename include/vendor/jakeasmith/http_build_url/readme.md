@@ -1,20 +1,42 @@
 # http_build_url() for PHP
 
-[![Build Status](https://travis-ci.org/jakeasmith/http_build_url.png)](https://travis-ci.org/jakeasmith/http_build_url)
-[![Code Climate](https://codeclimate.com/github/jakeasmith/http_build_url/badges/gpa.svg)](https://codeclimate.com/github/jakeasmith/http_build_url)
-[![Latest Stable Version](https://poser.pugx.org/jakeasmith/http_build_url/v/stable.png)](https://packagist.org/packages/jakeasmith/http_build_url)
-[![Total Downloads](https://poser.pugx.org/jakeasmith/http_build_url/downloads.png)](https://packagist.org/packages/jakeasmith/http_build_url)
+**This package is deprecated and no longer maintained. Please move off it.**
 
-This simple library provides functionality for [`http_build_url()`](http://us2.php.net/manual/en/function.http-build-url.php) to environments without pecl_http. It aims to mimic the functionality of the pecl function in every way and ships with a full suite of tests that have been run against both the original function and the one in this package.
+I wrote this in 2014 to provide `http_build_url()` without the pecl_http
+extension. PHP 8.5 now ships a built-in URI API that does the same job, so
+there's no reason to keep depending on this. Known bugs in this package, like joining a path
+onto a URL with a trailing slash stripping every "a" from it
+([#25](https://github.com/jakeasmith/http_build_url/issues/25)), won't be
+fixed.
 
-## Installation
+## Replacing it on PHP 8.5+
 
-The easiest way to install this library is to use [Composer](https://getcomposer.org/) from the command line.
+```php
+use Uri\Rfc3986\Uri;
 
-``` 
-$ composer require jakeasmith/http_build_url ^1
+// Replace parts of a URL
+echo Uri::parse('https://example.com/search?q=php#top')
+    ->withPath('/docs')
+    ->withQuery('page=2')
+    ->withFragment(null)
+    ->toString();
+// https://example.com/docs?page=2
+
+// Join a relative path and merge query strings
+// (was HTTP_URL_JOIN_PATH | HTTP_URL_JOIN_QUERY)
+$base = Uri::parse('https://example.com/v1/users?page=2');
+parse_str($base->getQuery() ?? '', $query);
+echo $base->resolve('me')
+    ->withQuery(http_build_query($query + ['fields' => 'name']))
+    ->toString();
+// https://example.com/v1/me?page=2&fields=name
 ```
+
+On older PHP, combine `parse_url()` and `http_build_query()`, or use a URI
+library such as [league/uri](https://github.com/thephpleague/uri).
+
+Released versions stay on Packagist, so existing installs keep working.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT. See LICENSE.
