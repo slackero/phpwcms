@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Reference
 
-$content['reference'] = unserialize($crow["acontent_form"]);
+$content['reference'] = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(empty($content['reference']["tmpl"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/reference.tmpl')) {
 
