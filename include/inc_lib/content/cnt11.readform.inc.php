@@ -19,4 +19,4 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Code
 $content["code"]		= slweg($_POST["ccode"], 0, false); // do not trim
-$content["template"]	= clean_slweg($_POST['template']);
+$content["template"]	= sanitize_template_name(clean_slweg($_POST['template']));

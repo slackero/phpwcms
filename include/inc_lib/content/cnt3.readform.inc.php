@@ -20,4 +20,4 @@ if (!defined('PHPWCMS_ROOT')) {
 $content["link"]		= clean_slweg($_POST["clink"]);
 $content["target"]		= slweg($_POST["ctarget"]);
 $content["redirect"]	= $content["link"] . " " . $content["target"];
-$content["template"]	= clean_slweg($_POST['template']);
+$content["template"]	= sanitize_template_name(clean_slweg($_POST['template']));

@@ -46,7 +46,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 </head>
 <body><?php
 
-$map_img = clean_slweg($_GET['map']);
+$map_img = sanitize_template_name(isset($_GET['map']) ? $_GET['map'] : '');
 
 if($map_img && ($map_data = getimagesize(PHPWCMS_TEMPLATE.'inc_cntpart/map/map_img/'.$map_img))) {
 

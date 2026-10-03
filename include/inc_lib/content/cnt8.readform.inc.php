@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Link Articles
 
-$content['alink']['alink_template']		= clean_slweg($_POST["calink_template"]);
+$content['alink']['alink_template']		= sanitize_template_name(clean_slweg($_POST["calink_template"]));
 $content['alink']['alink_allowedtags']	= slweg($_POST["calink_allowedtags"]);
 $content['alink']['alink_id']			= (isset($_POST["calink"]) && is_array($_POST["calink"])) ? $_POST["calink"] : array();
 $content['alink']['alink_level']		= (isset($_POST["calink_level"]) && is_array($_POST["calink_level"])) ? $_POST["calink_level"] : array();
