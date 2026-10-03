@@ -17,8 +17,8 @@ Quick start
 Stable releases can be used by cloning the repository, `git clone git://github.com/slackero/phpwcms.git` or
 [download the archive](https://github.com/slackero/phpwcms/releases).
 
-To start with the latest development version use `git clone -b v1.10-dev git://github.com/slackero/phpwcms.git` or
-[download the archive](https://github.com/slackero/phpwcms/archive/refs/heads/v1.10-dev.zip).
+To start with the latest development version use `git clone -b v1.9-dev git://github.com/slackero/phpwcms.git` or
+[download the archive](https://github.com/slackero/phpwcms/archive/refs/heads/v1.9-dev.zip).
 If you have downloaded the archive instead of `git clone`, unarchive and copy the files to your web document
 root or sub folder. Link your browser to the related URL and follow the install instructions.
 
@@ -26,7 +26,7 @@ root or sub folder. Link your browser to the related URL and follow the install 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.48-dev requires a web server with PHP 7.4 or newer.
+**phpwcms** version 1.9.50-dev requires a web server with PHP 7.4 or newer.
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
 If you already use PHP v8.x you should use the latest version of
 [**phpwcms v1.11**](https://github.com/slackero/phpwcms/releases/tag/v1.11.0).
