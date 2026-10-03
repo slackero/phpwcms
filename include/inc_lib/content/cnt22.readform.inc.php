@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // RSS feed
 $content["rssfeed"]['rssurl'] 		= clean_slweg($_POST["crss_url"]);
-$content["rssfeed"]["template"]		= clean_slweg($_POST["crss_template"]);
+$content["rssfeed"]["template"]		= sanitize_template_name(clean_slweg($_POST["crss_template"]));
 $content["rssfeed"]["item"]			= (intval($_POST["crss_item"])) ? intval($_POST["crss_item"]) : '';
 $content['rssfeed']["cut1st"]		= isset($_POST["crss_cut1st"]) ? 1 : 0;
 $content['rssfeed']["cacheoff"]		= isset($_POST["crss_cacheoff"]) ? 1 : 0;

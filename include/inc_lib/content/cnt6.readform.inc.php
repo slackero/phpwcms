@@ -18,4 +18,4 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Plain HTML
 $content["html"]		= slweg($_POST["chtml"]);
-$content["template"]	= clean_slweg($_POST['template']);
+$content["template"]	= sanitize_template_name(clean_slweg($_POST['template']));

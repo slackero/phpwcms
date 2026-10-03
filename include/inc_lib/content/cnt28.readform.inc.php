@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 //
 // Content Part Frontend Login
 //
-$content['felogin_template']							= clean_slweg($_POST['template']);
+$content['felogin_template']							= sanitize_template_name(clean_slweg($_POST['template']));
 $content['felogin']['felogin_cookie_expire']			= intval($_POST['cookie_expire']);
 $content['felogin']['felogin_date_format']				= clean_slweg($_POST['date_format']);
 $content['felogin']['felogin_locale']					= clean_slweg($_POST['locale']);

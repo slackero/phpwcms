@@ -34,7 +34,7 @@ if($content["guestbook"]["listing"] == 0) {
 }
 $content["guestbook"]["sorting"] 			= intval($_POST["cguestbook_sorting"]) ? 1 : 0;
 $content["guestbook"]["image_upload"] 		= intval($_POST["cguestbook_imgupload"]) ? 1 : 0;
-$content["guestbook"]["template"]			= clean_slweg($_POST["cguestbook_template"]);
+$content["guestbook"]["template"]			= sanitize_template_name(clean_slweg($_POST["cguestbook_template"]));
 $content["guestbook"]["banned"]				= trim(clean_slweg($_POST["cguestbook_banned"]));
 $content["guestbook"]["banned"]				= preg_replace('/\s{1,}/is', ' ', $content["guestbook"]["banned"]);
 $content["guestbook"]["aliasID"] 			= intval($_POST["cguestbook_aliasID"]);

@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Map
 $content["map"] = array();
-$content["map"]["template"] = clean_slweg($_POST["cmap_template"]);
+$content["map"]["template"] = sanitize_template_name(clean_slweg($_POST["cmap_template"]));
 $content["map"]["text"]     = clean_slweg($_POST["cmap_text"]);
 $content["map"]['image']    = isset($_POST["cmap_image"]) ? clean_slweg($_POST["cmap_image"]) : '';
 

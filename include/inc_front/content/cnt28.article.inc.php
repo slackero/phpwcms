@@ -136,11 +136,11 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 
             if($_loginData['validate_db']['userdetail']) {
                 $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."phpwcms_userdetail WHERE ";
-                $sql .= "detail_login="._dbEscape($_loginData['remind_data']).' ';
+                $sql .= "detail_aktiv=1 AND (detail_login="._dbEscape($_loginData['remind_data']);
                 if($_loginData['remind_login_known'] && is_valid_email($_loginData['remind_data'])) {
-                    $sql .= 'OR LOWER(detail_email)='._dbEscape(strtolower($_loginData['remind_data'])).' ';
+                    $sql .= ' OR LOWER(detail_email)='._dbEscape(strtolower($_loginData['remind_data']));
                 }
-                $sql .= "LIMIT 1";
+                $sql .= ") LIMIT 1";
                 $result = _dbQuery($sql);
 
                 if(isset($result[0])) {
@@ -153,11 +153,11 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
             // hm, seems no user found - OK test against cms users
             if($_loginData['validate_db']['backenduser'] && !isset($result[0])) {
                 $sql  = 'SELECT usr_id, usr_login AS LOGIN, usr_email AS EMAIL FROM '.DB_PREPEND.'phpwcms_user WHERE ';
-                $sql .= "usr_login="._dbEscape($_loginData['remind_data']).' ';
+                $sql .= "usr_aktiv=1 AND (usr_login="._dbEscape($_loginData['remind_data']);
                 if($_loginData['remind_login_known'] && is_valid_email($_loginData['remind_data'])) {
-                    $sql .= 'OR LOWER(usr_email)='._dbEscape(strtolower($_loginData['remind_data'])).' ';
+                    $sql .= ' OR LOWER(usr_email)='._dbEscape(strtolower($_loginData['remind_data']));
                 }
-                $sql .= "LIMIT 1";
+                $sql .= ") LIMIT 1";
                 $result = _dbQuery($sql);
 
                 if(isset($result[0])) {

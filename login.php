@@ -218,6 +218,9 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
     if($login_passed) {
 
+        // auth boundary: drop any pre-auth session ID to prevent fixation
+        session_regenerate_id(true);
+
         // Store login information in DB
         if(!($check = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user="._dbEscape($wcs_user)." AND logged_in=1", 'COUNT'))) {
             // User not yet logged in, create new
