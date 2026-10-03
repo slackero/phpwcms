@@ -9,22 +9,22 @@ use Algo26\IdnaConvert\TranscodeUnicode\TranscodeUnicode;
 
 abstract class AbstractPunycode
 {
-    const PUNYCODE_PREFIX = 'xn--';
-    const MAX_UCS = 0x10FFFF;
-    const BASE = 36;
-    const T_MIN = 1;
-    const T_MAX = 26;
-    const SKEW = 38;
-    const DAMP = 700;
-    const INITIAL_BIAS = 72;
-    const INITIAL_N = 0x80;
+    use ByteLengthTrait;
+
+    public const PUNYCODE_PREFIX = 'xn--';
+    public const MAX_UCS = 0x10FFFF;
+    public const BASE = 36;
+    public const T_MIN = 1;
+    public const T_MAX = 26;
+    public const SKEW = 38;
+    public const DAMP = 700;
+    public const INITIAL_BIAS = 72;
+    public const INITIAL_N = 0x80;
 
     protected static ?array $prefixAsArray = null;
     protected static int $prefixLength;
 
     protected TranscodeUnicode $unicodeTransCoder;
-
-    use ByteLengthTrait;
 
     public function __construct()
     {

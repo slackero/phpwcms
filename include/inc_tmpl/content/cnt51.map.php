@@ -13,8 +13,9 @@ $phpwcms = array();
 $base_dir = dirname(__DIR__, 3);
 require_once $base_dir . '/include/config/conf.inc.php';
 require_once $base_dir . '/include/inc_lib/default.inc.php';
+require_once $base_dir . '/include/inc_lib/general.inc.php';
 
-$img_file = ( isset( $_GET['i'] ) ) ? rawurldecode( $_GET['i'] ) : '';
+$img_file = ( isset( $_GET['i'] ) ) ? sanitize_template_name( rawurldecode( $_GET['i'] ) ) : '';
 $img_quality = ( isset( $_GET['q'] ) && intval( $_GET['q'] ) <= 100 && intval( $_GET['q'] ) ) ? intval( $_GET['q'] ) : 85;
 $img_info = getimagesize( PHPWCMS_TEMPLATE . 'inc_cntpart/map/map_img/' . $img_file );
 $img_val = ( isset( $_GET['v'] ) ) ? explode( ',', $_GET['v'] ) : array( 1, 7, 7, 'FFFFFF', 'FF4000' );

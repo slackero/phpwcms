@@ -19,7 +19,7 @@ class NamePrep implements NamePrepInterface
     private const N_COUNT = 588;   // V_COUNT * T_COUNT
     private const S_COUNT = 11172; // L_COUNT * T_COUNT * V_COUNT
 
-    private NamePrepDataInterface $namePrepData;
+    private NamePrepData2008 $namePrepData;
     private CaseFolding $caseFolding;
 
     /**
@@ -69,7 +69,8 @@ class NamePrep implements NamePrepInterface
             if (in_array($codePoint, $this->namePrepData->mapToNothing)) {
                 continue;
             }
-            if (in_array($codePoint, $this->namePrepData->prohibit)
+            if (
+                in_array($codePoint, $this->namePrepData->prohibit)
                 || in_array($codePoint, $this->namePrepData->generalProhibited)
             ) {
                 throw new InvalidCharacterException(sprintf('Prohibited input U+%08X', $codePoint), 101);
@@ -103,7 +104,8 @@ class NamePrep implements NamePrepInterface
         $outputLength = count($codePoints);
         for ($outerIndex = 0; $outerIndex < $outputLength; ++$outerIndex) {
             $combiningClass = $this->getCombiningClass($codePoints[$outerIndex]);
-            if ($combiningClass !== 0
+            if (
+                $combiningClass !== 0
                 && ($previousClass === 0 || $previousClass > $combiningClass)
             ) {
                 // Try to match
@@ -186,7 +188,8 @@ class NamePrep implements NamePrepInterface
             $tIndex = $charCode - self::T_BASE;
 
             // Determine if two current characters are LV and T
-            if (0 <= $sIndex
+            if (
+                0 <= $sIndex
                 && $sIndex < self::S_COUNT
                 && ($sIndex % self::T_COUNT == 0)
                 && 0 <= $tIndex
@@ -200,7 +203,8 @@ class NamePrep implements NamePrepInterface
             }
 
             // Determine if two current characters form L and V
-            if (0 <= $lIndex
+            if (
+                0 <= $lIndex
                 && $lIndex < self::L_COUNT
                 && 0 <= $vIndex
                 && $vIndex < self::V_COUNT

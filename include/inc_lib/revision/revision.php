@@ -9,6 +9,6 @@
  *
  **/
 
-const PHPWCMS_VERSION = '1.12.3';
-const PHPWCMS_RELEASE_DATE = '2026/07/19';
-const PHPWCMS_REVISION = '554';
+const PHPWCMS_VERSION = '1.12.4-dev';
+const PHPWCMS_RELEASE_DATE = '2026/10/02';
+const PHPWCMS_REVISION = '555';

@@ -172,7 +172,7 @@ tinymce.addI18n("cs", {
     "Horizontal align": "Vodorovn\xe9 zarovn\xe1n\xed",
     "Horizontal line": "Vodorovn\xe1 \u010d\xe1ra",
     "Horizontal space": "Vodorovn\xe9 odsazen\xed",
-    "ID": "",
+    "ID": "ID",
     "ID should start with a letter, followed only by letters, numbers, dashes, dots, colons or underscores.": "ID by m\u011blo za\u010d\xednat p\xedsmenem a n\xe1sledn\u011b obsahovat pouze p\xedsmena, \u010d\xedslice, \u010d\xe1rky, te\u010dky, st\u0159edn\xedky nebo podtr\u017e\xedtka.",
     "Image is decorative": "(dekorativn\xed obr\xe1zek bez alternativn\xedho textu)",
     "Image list": "Seznam obr\xe1zk\u016f",

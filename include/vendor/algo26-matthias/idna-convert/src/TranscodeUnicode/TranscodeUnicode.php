@@ -9,6 +9,8 @@ use InvalidArgumentException;
 
 class TranscodeUnicode implements TranscodeUnicodeInterface
 {
+    use ByteLengthTrait;
+
     public const FORMAT_UCS4 = 'ucs4';
     public const FORMAT_UCS4_ARRAY = 'ucs4array';
     public const FORMAT_UTF8 = 'utf8';
@@ -25,8 +27,6 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
 
     private bool $safeMode;
     private int $safeCodepoint = 0xFFFC;
-
-    use ByteLengthTrait;
 
     public function convert(
         $data,
@@ -135,17 +135,16 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
                     continue;
                 }
 
-                if ('add' === $mode) {
-                    $output[$outputLength] = (int)$v;
-                    ++$outputLength;
+                $output[$outputLength] = (int) $v;
+                ++$outputLength;
 
-                    continue;
-                }
+                continue;
             }
             if ('add' == $mode) {
                 if (!$this->safeMode && $test === 'range') {
                     $test = 'none';
-                    if (($v < 0xA0 && $startByte === 0xE0)
+                    if (
+                        ($v < 0xA0 && $startByte === 0xE0)
                         || ($v < 0x90 && $startByte === 0xF0)
                         || ($v > 0x8F && $startByte === 0xF4)
                     ) {
@@ -247,7 +246,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
             }
             if ('b' === $mode) {
                 // Sequence got terminated
-                if (!preg_match('![A-Za-z0-9/'.preg_quote($sc, '!').']!', $c)) {
+                if (!preg_match('![A-Za-z0-9/' . preg_quote($sc, '!') . ']!', $c)) {
                     if ('-' == $c) {
                         if ($b64 === '') {
                             $output[$outputLength] = ord($sc);
@@ -311,23 +310,23 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
             $isDirect = ! (false !== $v) || 0x20 <= $v && $v <= 0x7e && $v !== ord($sc);
             if ($mode === 'b') {
                 if ($isDirect) {
-                    if ($b64 === chr(0).$sc) {
-                        $output .= $sc.'-';
+                    if ($b64 === chr(0) . $sc) {
+                        $output .= $sc . '-';
                         $b64 = '';
                     } elseif ($b64) {
-                        $output .= $sc.str_replace('=', '', base64_encode($b64)).'-';
+                        $output .= $sc . str_replace('=', '', base64_encode($b64)) . '-';
                         $b64 = '';
                     }
                     $mode = 'd';
                 } elseif (false !== $v) {
-                    $b64 .= chr(($v >> 8) & 255).chr($v & 255);
+                    $b64 .= chr(($v >> 8) & 255) . chr($v & 255);
                 }
             }
             if ($mode === 'd' && false !== $v) {
                 if ($isDirect) {
                     $output .= chr($v);
                 } else {
-                    $b64 = chr(($v >> 8) & 255).chr($v & 255);
+                    $b64 = chr(($v >> 8) & 255) . chr($v & 255);
                     $mode = 'b';
                 }
             }

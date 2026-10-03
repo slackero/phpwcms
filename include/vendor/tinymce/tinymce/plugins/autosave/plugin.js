@@ -1,5 +1,5 @@
 /**
- * TinyMCE version 8.8.0 (2026-07-15)
+ * TinyMCE version 8.9.2 (2026-09-23)
  */
 
 (function () {
@@ -225,8 +225,9 @@
      * @class tinymce.autosave.Plugin
      * @private
      */
+    const PLUGIN_CODE = 'autosave';
     var Plugin = () => {
-        global$4.add('autosave', (editor) => {
+        global$4.add(PLUGIN_CODE, (editor) => {
             register$1(editor);
             setup(editor);
             register(editor);
@@ -235,7 +236,10 @@
                     restoreDraft(editor);
                 }
             });
-            return get(editor);
+            return {
+                ...get(editor),
+                getMetadata: () => ({ name: 'Autosave', type: 'opensource', slug: PLUGIN_CODE })
+            };
         });
     };
 

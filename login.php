@@ -196,6 +196,9 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'login' && $json_ch
 
         if($login_passed) {
 
+            // auth boundary: drop any pre-auth session ID to prevent fixation
+            session_regenerate_id(true);
+
             $_SESSION['wcs_user']           = $wcs_user;
             $_SESSION['wcs_user_name']      = empty($result[0]['usr_name']) ? $wcs_user : $result[0]['usr_name'];
             $_SESSION['wcs_user_id']        = $result[0]['usr_id'];

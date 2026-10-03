@@ -353,7 +353,10 @@ function get_tokenized_form($match, $token_prefix='csrf_') {
 	if(!str_contains($match[1], 'data-csrf="off"')) {
 
 		$token_name = 'csrf_form_token';
-		$token_value = generate_session_token($token_name);
+		$token_value = get_session_var($token_name);
+		if(empty($token_value)) {
+			$token_value = generate_session_token($token_name);
+		}
 
 		$form .= '<input type="hidden" name="'.$token_prefix.'token_name" value="'.$token_name.'" />';
 		$form .= '<input type="hidden" name="'.$token_prefix.'token_value" value="'.$token_value.'" />';

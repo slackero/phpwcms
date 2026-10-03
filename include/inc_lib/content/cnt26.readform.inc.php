@@ -27,7 +27,7 @@ $content['recipe'] = array(
     'time_add' => slweg($_POST['recipe_time_add']),
     'category' => clean_slweg($_POST['recipe_category']),
     'severity' => intval($_POST['recipe_severity']),
-    'template' => clean_slweg($_POST['recipe_template'])
+    'template' => sanitize_template_name(clean_slweg($_POST['recipe_template']))
 );
 
 if($content['recipe']['severity'] < 1) {

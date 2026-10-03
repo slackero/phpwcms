@@ -110,6 +110,17 @@ You can find the complete step-by-step setup guide for Google and XOAUTH2 in the
 * **Website**: [phpwcms.org](https://www.phpwcms.org)
 * **Wiki**: [HowTo Wiki](https://wiki.phpwcms.org/)
 * **Support**: [phpwcms support forum](https://forum.phpwcms.org)
+* **Changelog**: [CHANGELOG.md](CHANGELOG.md) — notable changes, security fixes and dependency updates
+* **Security**: [SECURITY.md](SECURITY.md) — supported versions and how to report a vulnerability
+
+---
+
+## Version 🔢
+
+Current development release: **1.12.4-dev** (revision 555, released 2026-10-02).
+
+The version, release date and revision are defined in `include/inc_lib/revision/revision.php`. Database and setup
+upgrades are shipped as numbered revision files in `include/inc_lib/revision/` and applied automatically on upgrade.
 
 ---
 

@@ -33,7 +33,7 @@ $content['reference']["basis"]      = intval($_POST["creference_basis"]);
 $content['reference']["caption"]    = clean_slweg($_POST["creference_caption"]);
 $content['reference']["zoom"]       = isset($_POST["creference_zoom"]) ? intval($_POST["creference_zoom"]) : 0;
 $content['reference']["text"]       = html_specialchars(slweg($_POST["creference_text"]));
-$content['reference']["tmpl"]       = clean_slweg($_POST["creference_tmpl"]);
+$content['reference']["tmpl"]       = sanitize_template_name(clean_slweg($_POST["creference_tmpl"]));
 
 $content['reference']['showlist']   = 0;
 

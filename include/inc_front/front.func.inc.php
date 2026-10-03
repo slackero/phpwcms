@@ -1584,24 +1584,24 @@ function include_ext_php($inc_file, $t=0) {
         $inc_file = $inc_file[1];
     }
 
-    //check if this is a local file
-    if(!$t && preg_match('~^(?:ht)tps?://~i', $inc_file, $match) && is_file($inc_file)) {
+    $is_remote = (bool) preg_match('~^(?:ht)tps?://~i', $inc_file, $match);
 
-        $this_path = rtrim(str_replace("\\", '/', dirname(realpath($inc_file))), '/');
-        $root_path = rtrim(str_replace("\\", '/', realpath(PHPWCMS_ROOT)), '/');
+    if(!$is_remote) {
+        // local file: containment within PHPWCMS_ROOT is mandatory and
+        // must not be bypassable by the caller-supplied $t flag
+        $this_path = dirname((string) realpath($inc_file));
+        $root_path = (string) realpath(PHPWCMS_ROOT);
 
-        if(str_starts_with($this_path, $root_path)) {
-            $t = 1;
+        if(!path_is_within($this_path, $root_path)) {
+            return '';
         }
 
-    } elseif(!$t && !empty($GLOBALS['phpwcms']['allow_remote_URL'])) {
-        //if remote URL is allowed in conf.inc.php
-        $t = 1;
+    } elseif(!$t && empty($GLOBALS['phpwcms']['allow_remote_URL'])) {
+        // remote URL is not allowed in conf.inc.php
+        return '';
     }
 
-    if(!$t) {
-        return '';
-    } elseif(!empty($match[0]) && str_starts_with(strtolower($match[0]), 'http')) {
+    if(!empty($match[0]) && str_starts_with(strtolower($match[0]), 'http')) {
         if(ini_get('allow_url_fopen')) {
             $result = file_get_contents($inc_file);
             if($result !== false) {
@@ -4560,7 +4560,11 @@ function parse_markdown(string $text) {
         return '';
     }
     init_markdown();
-    return $GLOBALS['phpwcms']['commonmark_class']->convert($text);
+    $html = (string) $GLOBALS['phpwcms']['commonmark_class']->convert($text);
+    if (PHPWCMS_CHARSET !== 'utf-8') {
+        $html = mb_encode_numericentity($html, [0x80, 0x10ffff, 0, 0x1fffff], 'UTF-8');
+    }
+    return $html;
 }
 
 /**
@@ -4573,5 +4577,9 @@ function parse_textile(string $text) {
         return '';
     }
     init_textile();
-    return $GLOBALS['phpwcms']['textile_class']->parse($text);
+    $html = $GLOBALS['phpwcms']['textile_class']->parse($text);
+    if (PHPWCMS_CHARSET !== 'utf-8') {
+        $html = mb_encode_numericentity($html, [0x80, 0x10ffff, 0, 0x1fffff], 'UTF-8');
+    }
+    return $html;
 }

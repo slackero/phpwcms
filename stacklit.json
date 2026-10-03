@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-04-23T19:31:07Z",
+  "generated_at": "2026-10-02T20:10:48Z",
   "stacklit_version": "dev",
-  "merkle_hash": "997ebe15e017d924c9266e86a774dd0d20e16b9174525f30cd48a9b643f24b07",
+  "merkle_hash": "3c976dd9eaa1f43380ab03f11102d2188e7efe59e2e6df0d975d609037f51d4e",
   "project": {
     "name": "phpwcms-dev",
     "root": ".",
@@ -13,12 +13,12 @@
     "primary_language": "php",
     "languages": {
       "javascript": {
-        "files": 599,
-        "lines": 20568
+        "files": 564,
+        "lines": 17981
       },
       "php": {
-        "files": 711,
-        "lines": 145621
+        "files": 709,
+        "lines": 138595
       },
       "sql": {
         "files": 2,
@@ -28,15 +28,25 @@
   },
   "structure": {
     "entrypoints": null,
-    "total_files": 1312,
-    "total_lines": 167605
+    "total_files": 1275,
+    "total_lines": 157992
   },
   "modules": {
+    ".phpstan": {
+      "purpose": ".phpstan",
+      "language": "php",
+      "files": 1,
+      "lines": 85,
+      "file_list": [
+        "phpstan-bootstrap.php"
+      ],
+      "activity": "low"
+    },
     "img": {
       "purpose": "Img",
       "language": "php",
       "files": 5,
-      "lines": 678,
+      "lines": 680,
       "file_list": [
         "blank.php",
         "captcha.php",
@@ -65,7 +75,7 @@
       "purpose": "Inc Act",
       "language": "php",
       "files": 22,
-      "lines": 3515,
+      "lines": 3528,
       "file_list": [
         "act_addchat.php",
         "act_articlecontent.php",
@@ -121,33 +131,6 @@
       ],
       "type_defs": {
         "ConvertCharset": "ConvertCharset"
-      },
-      "activity": "low"
-    },
-    "include/inc_ext/GoogleMapsAPI": {
-      "purpose": "GoogleMapsAPI",
-      "language": "php",
-      "files": 4,
-      "lines": 7712,
-      "file_list": [
-        "JSMin.php",
-        "phpwcmsGoogleMap.php",
-        "phpwcmsGoogleMapAPI.class.php",
-        "phpwcmsGoogleMapAPIv3.class.php"
-      ],
-      "exports": [
-        "GoogleMapAPI",
-        "JSMin",
-        "JSMin_UnterminatedCommentException",
-        "JSMin_UnterminatedRegExpException",
-        "JSMin_UnterminatedStringException"
-      ],
-      "type_defs": {
-        "GoogleMapAPI": "GoogleMapAPI",
-        "JSMin": "function minify ($js); function __construct ($input); function min ()",
-        "JSMin_UnterminatedCommentException": "JSMin_UnterminatedCommentException",
-        "JSMin_UnterminatedRegExpException": "JSMin_UnterminatedRegExpException",
-        "JSMin_UnterminatedStringException": "JSMin_UnterminatedStringException"
       },
       "activity": "low"
     },
@@ -236,7 +219,7 @@
       "purpose": "Inc Front",
       "language": "php",
       "files": 10,
-      "lines": 10180,
+      "lines": 10205,
       "file_list": [
         "calendar.func.inc.php",
         "cnt.lang.inc.php",
@@ -255,7 +238,7 @@
       "purpose": "Content",
       "language": "php",
       "files": 36,
-      "lines": 11695,
+      "lines": 11730,
       "file_list": [
         "cnt0.article.inc.php",
         "cnt1.article.inc.php",
@@ -331,7 +314,7 @@
       "purpose": "Inc Js",
       "language": "javascript",
       "files": 16,
-      "lines": 4008,
+      "lines": 3997,
       "file_list": [
         "autosize.min.js",
         "contentpart.js",
@@ -505,7 +488,7 @@
       "purpose": "De",
       "language": "php",
       "files": 2,
-      "lines": 1637,
+      "lines": 1649,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
@@ -516,7 +499,7 @@
       "purpose": "En",
       "language": "php",
       "files": 2,
-      "lines": 1650,
+      "lines": 1662,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
@@ -527,7 +510,7 @@
       "purpose": "Es",
       "language": "php",
       "files": 2,
-      "lines": 702,
+      "lines": 711,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
@@ -560,7 +543,7 @@
       "purpose": "Fr",
       "language": "php",
       "files": 2,
-      "lines": 1137,
+      "lines": 1147,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
@@ -593,7 +576,7 @@
       "purpose": "It",
       "language": "php",
       "files": 2,
-      "lines": 704,
+      "lines": 714,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
@@ -615,7 +598,7 @@
       "purpose": "Nl",
       "language": "php",
       "files": 2,
-      "lines": 1153,
+      "lines": 1163,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
@@ -637,7 +620,7 @@
       "purpose": "Pl",
       "language": "php",
       "files": 2,
-      "lines": 1554,
+      "lines": 1558,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
@@ -786,7 +769,7 @@
       "purpose": "Inc Lib",
       "language": "php",
       "files": 43,
-      "lines": 16841,
+      "lines": 17008,
       "file_list": [
         "admin.functions.inc.php",
         "admin.structure.inc.php",
@@ -819,7 +802,7 @@
         "phpwcmsImageGallery": "phpwcmsImageGallery",
         "phpwcmsNews": "function formAction (); function getNews (); function countAll (); function getPagination (); function setQueryDefaults (); function filter (); function getNewsCategories (); function getNewsLanguages (); function listBackend (); function getFiles ($mode='backend'); function edit (); function getPostData ()"
       },
-      "activity": "low"
+      "activity": "medium"
     },
     "include/inc_lib/classes": {
       "purpose": "Classes",
@@ -865,7 +848,7 @@
       "purpose": "Content",
       "language": "php",
       "files": 108,
-      "lines": 4972,
+      "lines": 4978,
       "file_list": [
         "cnt0.readform.inc.php",
         "cnt0.sql.inc.php",
@@ -893,8 +876,8 @@
     "include/inc_lib/revision": {
       "purpose": "Revision",
       "language": "php",
-      "files": 39,
-      "lines": 2460,
+      "files": 40,
+      "lines": 2515,
       "file_list": [
         "r401.php",
         "r402.php",
@@ -917,7 +900,7 @@
         "r535.php",
         "r536.php"
       ],
-      "activity": "low"
+      "activity": "medium"
     },
     "include/inc_module/mod_ads": {
       "purpose": "Mod Ads",
@@ -985,7 +968,7 @@
       "purpose": "Mod Calendar",
       "language": "php",
       "files": 6,
-      "lines": 1058,
+      "lines": 1078,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1031,7 +1014,7 @@
       "purpose": "Mod Feedimport",
       "language": "php",
       "files": 5,
-      "lines": 1043,
+      "lines": 963,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1162,7 +1145,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 19,
-      "lines": 4047,
+      "lines": 4066,
       "file_list": [
         "cart.items.inc.php",
         "cart.parse.inc.php",
@@ -1210,7 +1193,7 @@
       "purpose": "Inc Tmpl",
       "language": "php",
       "files": 49,
-      "lines": 14617,
+      "lines": 14683,
       "file_list": [
         "about.tmpl.php",
         "admin.aliaslist.tmpl.php",
@@ -1239,7 +1222,7 @@
       "purpose": "Content",
       "language": "php",
       "files": 73,
-      "lines": 10989,
+      "lines": 11053,
       "file_list": [
         "cnt0.inc.php",
         "cnt0.list.inc.php",
@@ -1268,7 +1251,7 @@
       "purpose": "Root package",
       "language": "php",
       "files": 13,
-      "lines": 3201,
+      "lines": 3341,
       "file_list": [
         "dbdown.php",
         "download.php",
@@ -1290,7 +1273,7 @@
       "purpose": "Setup",
       "language": "php",
       "files": 4,
-      "lines": 656,
+      "lines": 658,
       "file_list": [
         "get_conf_file.php",
         "index.php",
@@ -1473,29 +1456,6 @@
       ],
       "activity": "low"
     },
-    "template/lib/html5shiv": {
-      "purpose": "Html5shiv",
-      "language": "javascript",
-      "files": 4,
-      "lines": 858,
-      "file_list": [
-        "html5shiv-printshiv.js",
-        "html5shiv-printshiv.min.js",
-        "html5shiv.js",
-        "html5shiv.min.js"
-      ],
-      "activity": "low"
-    },
-    "template/lib/ie7-js": {
-      "purpose": "Ie7-js",
-      "language": "javascript",
-      "files": 1,
-      "lines": 6,
-      "file_list": [
-        "IE9.js"
-      ],
-      "activity": "low"
-    },
     "template/lib/jquery": {
       "purpose": "Jquery",
       "language": "javascript",
@@ -1542,7 +1502,7 @@
       "purpose": "Js-cookie",
       "language": "javascript",
       "files": 1,
-      "lines": 3,
+      "lines": 2,
       "file_list": [
         "js.cookie.min.js"
       ],
@@ -1619,16 +1579,6 @@
       ],
       "activity": "low"
     },
-    "template/lib/respond": {
-      "purpose": "Respond",
-      "language": "javascript",
-      "files": 1,
-      "lines": 6,
-      "file_list": [
-        "respond.min.js"
-      ],
-      "activity": "low"
-    },
     "template/lib/slimbox": {
       "purpose": "Slimbox",
       "language": "javascript",
@@ -1638,69 +1588,30 @@
         "slimbox.jquery.js"
       ],
       "activity": "low"
-    },
-    "template/lib/swfobject": {
-      "purpose": "Swfobject",
-      "language": "javascript",
-      "files": 1,
-      "lines": 4,
-      "file_list": [
-        "swfobject.js"
-      ],
-      "activity": "low"
-    },
-    "template/lib/syntaxhighlighter": {
-      "purpose": "Syntaxhighlighter",
-      "language": "javascript",
-      "files": 28,
-      "lines": 1701,
-      "file_list": [
-        "shAutoloader.js",
-        "shBrushAS3.js",
-        "shBrushAppleScript.js",
-        "shBrushBash.js",
-        "shBrushCSharp.js",
-        "shBrushColdFusion.js",
-        "shBrushCpp.js",
-        "shBrushCss.js",
-        "shBrushDelphi.js",
-        "shBrushDiff.js",
-        "shBrushErlang.js",
-        "shBrushGroovy.js",
-        "shBrushJScript.js",
-        "shBrushJava.js",
-        "shBrushJavaFX.js",
-        "shBrushPerl.js",
-        "shBrushPhp.js",
-        "shBrushPlain.js",
-        "shBrushPowerShell.js",
-        "shBrushPython.js"
-      ],
-      "activity": "low"
     }
   },
   "dependencies": {
     "edges": null,
     "entrypoints": null,
     "most_depended": [
+      ".phpstan",
       "img",
       "include/config",
       "include/inc_act",
       "include/inc_ext",
       "include/inc_ext/ConvertCharset",
-      "include/inc_ext/GoogleMapsAPI",
       "include/inc_ext/ckeditor",
       "include/inc_ext/ckeditor/adapters",
       "include/inc_ext/ckeditor/lang",
       "include/inc_ext/ckeditor/plugins"
     ],
     "isolated": [
+      ".phpstan",
       "img",
       "include/config",
       "include/inc_act",
       "include/inc_ext",
       "include/inc_ext/ConvertCharset",
-      "include/inc_ext/GoogleMapsAPI",
       "include/inc_ext/ckeditor",
       "include/inc_ext/ckeditor/adapters",
       "include/inc_ext/ckeditor/lang",
@@ -1787,128 +1698,128 @@
       "template/lib/cookieconsent2",
       "template/lib/cookieconsent3",
       "template/lib/cookieconsent3/core",
-      "template/lib/html5shiv",
-      "template/lib/ie7-js",
       "template/lib/jquery",
       "template/lib/jquery/plugin",
       "template/lib/js-cookie",
       "template/lib/mootools",
       "template/lib/mootools/more",
       "template/lib/mootools/more-1.4",
-      "template/lib/respond",
-      "template/lib/slimbox",
-      "template/lib/swfobject",
-      "template/lib/syntaxhighlighter"
+      "template/lib/slimbox"
     ]
   },
   "git": {
     "hot_files": [
       {
-        "path": ".gitignore",
-        "commits_90d": 1
+        "path": "include/inc_lib/revision/revision.php",
+        "commits_90d": 6
       },
       {
-        "path": "composer.json",
-        "commits_90d": 1
+        "path": ".phpstan/phpstan-baseline.neon",
+        "commits_90d": 3
       },
       {
-        "path": "include/vendor/composer/autoload_classmap.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/vendor/composer/autoload_static.php",
-        "commits_90d": 1
+        "path": "include/inc_lib/default.inc.php",
+        "commits_90d": 3
       },
       {
         "path": "include/vendor/composer/installed.json",
-        "commits_90d": 1
+        "commits_90d": 3
       },
       {
         "path": "include/vendor/composer/installed.php",
-        "commits_90d": 1
+        "commits_90d": 3
       },
       {
-        "path": "include/vendor/guzzlehttp/psr7/CHANGELOG.md",
-        "commits_90d": 1
+        "path": "login.php",
+        "commits_90d": 3
       },
       {
-        "path": "include/vendor/guzzlehttp/psr7/composer.json",
-        "commits_90d": 1
+        "path": ".gitignore",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/guzzlehttp/psr7/src/LimitStream.php",
-        "commits_90d": 1
+        "path": "composer.json",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/guzzlehttp/psr7/src/MessageTrait.php",
-        "commits_90d": 1
+        "path": "include/inc_act/act_structure.php",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/guzzlehttp/psr7/src/MimeType.php",
-        "commits_90d": 1
+        "path": "include/inc_front/front.func.inc.php",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/guzzlehttp/psr7/src/MultipartStream.php",
-        "commits_90d": 1
+        "path": "include/vendor/composer/autoload_static.php",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/guzzlehttp/psr7/src/Request.php",
-        "commits_90d": 1
+        "path": "include/vendor/guzzlehttp/guzzle/CHANGELOG.md",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/guzzlehttp/psr7/src/Uri.php",
-        "commits_90d": 1
+        "path": "include/vendor/guzzlehttp/guzzle/README.md",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/league/commonmark/CHANGELOG.md",
-        "commits_90d": 1
+        "path": "include/vendor/guzzlehttp/guzzle/composer.json",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/league/commonmark/composer.json",
-        "commits_90d": 1
+        "path": "include/vendor/guzzlehttp/guzzle/src/Client.php",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/league/commonmark/src/Extension/DisallowedRawHtml/DisallowedRawHtmlRenderer.php",
-        "commits_90d": 1
+        "path": "include/vendor/guzzlehttp/guzzle/src/Cookie/SetCookie.php",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/league/commonmark/src/Extension/Embed/DomainFilteringAdapter.php",
-        "commits_90d": 1
+        "path": "include/vendor/guzzlehttp/guzzle/src/Handler/CurlHandler.php",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/league/commonmark/src/Util/UrlEncoder.php",
-        "commits_90d": 1
+        "path": "include/vendor/guzzlehttp/guzzle/src/Handler/CurlMultiHandler.php",
+        "commits_90d": 2
       },
       {
-        "path": "include/vendor/league/oauth2-google/CHANGELOG.md",
-        "commits_90d": 1
+        "path": "include/vendor/guzzlehttp/guzzle/src/Handler/StreamHandler.php",
+        "commits_90d": 2
+      },
+      {
+        "path": "include/vendor/guzzlehttp/promises/CHANGELOG.md",
+        "commits_90d": 2
       }
     ],
     "recent": [
-      ".gitignore",
-      "composer.json",
-      "include/vendor/composer/autoload_classmap.php",
-      "include/vendor/composer/autoload_static.php",
-      "include/vendor/composer/installed.json",
-      "include/vendor/composer/installed.php",
-      "include/vendor/guzzlehttp/psr7/CHANGELOG.md",
-      "include/vendor/guzzlehttp/psr7/composer.json",
-      "include/vendor/guzzlehttp/psr7/src/LimitStream.php",
-      "include/vendor/guzzlehttp/psr7/src/MessageTrait.php"
+      "CHANGELOG.md",
+      "README.md",
+      "include/inc_lib/revision/revision.php",
+      "include/inc_front/content/cnt14.article.inc.php",
+      "include/inc_front/content/cnt50.article.inc.php",
+      "include/inc_module/mod_shop/inc/frontend.search.inc.php",
+      "include/inc_front/content/cnt28.article.inc.php",
+      "include/inc_lib/default.inc.php",
+      "login.php",
+      "include/inc_act/act_structure.php"
     ],
     "stable": [
-      ".gitignore",
-      "composer.json",
-      "include/vendor/composer/autoload_classmap.php",
-      "include/vendor/composer/autoload_static.php",
-      "include/vendor/composer/installed.json",
-      "include/vendor/composer/installed.php",
-      "include/vendor/guzzlehttp/psr7/CHANGELOG.md",
-      "include/vendor/guzzlehttp/psr7/composer.json",
-      "include/vendor/guzzlehttp/psr7/src/LimitStream.php",
-      "include/vendor/guzzlehttp/psr7/src/MessageTrait.php"
+      "CHANGELOG.md",
+      "README.md",
+      "content/form/.htaccess",
+      "include/inc_act/act_guestbook.php",
+      "include/inc_front/content/cnt14.article.inc.php",
+      "include/inc_front/content/cnt22.article.inc.php",
+      "include/inc_front/content/cnt23.article.inc.php",
+      "include/inc_front/content/cnt28.article.inc.php",
+      "include/inc_front/content/cnt50.article.inc.php",
+      "include/inc_lib/backend.functions.inc.php"
     ]
   },
-  "hints": {},
+  "hints": {
+    "test_command": "make test",
+    "do_not_touch": [
+      ".github/"
+    ]
+  },
   "architecture": {}
 }

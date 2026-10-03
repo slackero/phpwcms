@@ -817,26 +817,8 @@ parameters:
 			path: ../include/inc_front/content.func.inc.php
 
 		-
-			message: '#^Offset 1 on array\{list\<string\>, list\<''aid''\|''id''\>, list\<non\-empty\-string\>, list\<''"''\|''&''\|''\|''\>\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: ../include/inc_front/content.func.inc.php
-
-		-
-			message: '#^Offset 2 on array\{list\<string\>, list\<''aid''\|''id''\>, list\<non\-empty\-string\>, list\<''"''\|''&''\|''\|''\>\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: ../include/inc_front/content.func.inc.php
-
-		-
 			message: '#^Result of && is always false\.$#'
 			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: ../include/inc_front/content.func.inc.php
-
-		-
-			message: '#^Result of && is always true\.$#'
-			identifier: booleanAnd.alwaysTrue
 			count: 1
 			path: ../include/inc_front/content.func.inc.php
 
@@ -1231,12 +1213,6 @@ parameters:
 			path: ../include/inc_front/content/cnt22.article.inc.php
 
 		-
-			message: '#^Parameter \#1 \$tags of method SimplePie\\SimplePie\:\:strip_htmltags\(\) expects array\<string\>\|string\|false, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../include/inc_front/content/cnt22.article.inc.php
-
-		-
 			message: '#^Variable \$CNT_TMP might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -1353,13 +1329,7 @@ parameters:
 		-
 			message: '#^Variable \$mathspam_number_2 might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
-			path: ../include/inc_front/content/cnt23.article.inc.php
-
-		-
-			message: '#^Variable \$mathspam_result might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
+			count: 2
 			path: ../include/inc_front/content/cnt23.article.inc.php
 
 		-
@@ -1869,12 +1839,6 @@ parameters:
 		-
 			message: '#^Loose comparison using \!\= between 0 and 2 will always evaluate to true\.$#'
 			identifier: notEqual.alwaysTrue
-			count: 1
-			path: ../include/inc_front/front.func.inc.php
-
-		-
-			message: '#^Offset 1 on array\{list\<string\>, list\<non\-empty\-string\>\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
 			count: 1
 			path: ../include/inc_front/front.func.inc.php
 
@@ -3097,12 +3061,6 @@ parameters:
 			path: ../include/inc_lib/default.inc.php
 
 		-
-			message: '#^Comparison operation "\>\=" between int\<2, 5\> and 6 is always false\.$#'
-			identifier: greaterOrEqual.alwaysFalse
-			count: 1
-			path: ../include/inc_lib/default.inc.php
-
-		-
 			message: '#^Left side of && is always false\.$#'
 			identifier: booleanAnd.leftAlwaysFalse
 			count: 1
@@ -3123,7 +3081,7 @@ parameters:
 		-
 			message: '#^Result of && is always false\.$#'
 			identifier: booleanAnd.alwaysFalse
-			count: 2
+			count: 1
 			path: ../include/inc_lib/default.inc.php
 
 		-
@@ -3139,7 +3097,7 @@ parameters:
 			path: ../include/inc_lib/default.inc.php
 
 		-
-			message: '#^Strict comparison using \=\=\= between int\<2, 5\> and 1 will always evaluate to false\.$#'
+			message: '#^Strict comparison using \=\=\= between int\<2, 6\> and 1 will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
 			path: ../include/inc_lib/default.inc.php
@@ -3248,12 +3206,6 @@ parameters:
 
 		-
 			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: ../include/inc_lib/general.inc.php
-
-		-
-			message: '#^Call to function is_array\(\) with list\<string\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: ../include/inc_lib/general.inc.php
@@ -7017,18 +6969,6 @@ parameters:
 		-
 			message: '#^Offset ''setup_dir_exists'' does not exist on array\{\}\.$#'
 			identifier: offsetAccess.notFound
-			count: 1
-			path: ../login.php
-
-		-
-			message: '#^Offset ''wcs_user_lang'' on non\-empty\-array in empty\(\) always exists and is not falsy\.$#'
-			identifier: empty.offset
-			count: 1
-			path: ../login.php
-
-		-
-			message: '#^Offset ''wcs_user_lang'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
 			count: 1
 			path: ../login.php
 

@@ -37,7 +37,7 @@ $content["image_random"] 	= empty($_POST["cimage_random"]) ? 0 : 1;
 $content["image_limit"] 	= intval($_POST["cimage_limit"]);
 $content["image_cctext"] 	= explode(LF, $content["image_caption"]);
 
-$content["image_template"]	= clean_slweg($_POST['template']);
+$content["image_template"]	= sanitize_template_name(clean_slweg($_POST['template']));
 
 $content["text"]			= slweg($_POST["ctext"]);
 

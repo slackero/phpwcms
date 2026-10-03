@@ -72,10 +72,7 @@ class FromUtf8 implements EncodingHelperInterface
     private function convertWithLibraries(string $string): ?string
     {
         if (function_exists('mb_convert_encoding')) {
-            $converted = @mb_convert_encoding($string, $this->encoding, 'UTF-8');
-            if (false !== $converted) {
-                return $converted;
-            }
+            return @mb_convert_encoding($string, $this->encoding, 'UTF-8');
         }
 
         if (function_exists('iconv')) {
