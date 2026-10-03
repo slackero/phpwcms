@@ -2246,6 +2246,6 @@
             "install-path": "../symfony/polyfill-php83"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

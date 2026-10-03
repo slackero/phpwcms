@@ -1,9 +1,9 @@
 # Changelog
 
-All notable changes to the phpwcms v1.9-dev branch are documented in this file.
-This branch is the legacy line for PHP 7.4 and older installations; new features land on v1.10-dev.
+All notable changes to the phpwcms legacy line (PHP 7.4 and older installations) are documented in this file.
+New features land on the v1.10-dev branch instead.
 
-## [Unreleased]
+## [1.9.50] - 2026-10-03
 
 ### Security Fixes
 - **PHP Code Injection in Index Page Config Writer (Critical, CWE-94):** `act_structure.php` wrote the fields `acat_permit`, `acat_cntpart` and `acat_timeout` unescaped into `include/config/conf.indexpage.inc.php`, a PHP file required on every frontend request. A crafted value produced persistent remote code execution triggered by anonymous visitors. All three values are now escaped with the existing `sanitize_quote_backslash()` helper, and `acat_cp[]` / `acat_access[]` are validated as integer IDs.
