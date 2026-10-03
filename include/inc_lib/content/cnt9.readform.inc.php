@@ -58,4 +58,4 @@ $content['media']["image_id"]			= $content["image_id"];
 $content['media']["image_caption"]		= $content["image_caption"];
 
 
-$content["template"] = clean_slweg($_POST['template']);
+$content["template"] = sanitize_template_name(clean_slweg($_POST['template']));

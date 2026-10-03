@@ -33,7 +33,7 @@ $content["image_caption"]   = clean_slweg($_POST["cimage_caption"]);
 $content["image_zoom"]      = empty($_POST["cimage_zoom"]) ? 0 : 1;
 $content["image_cctext"]    = explode("\n", $content["image_caption"]);
 
-$content["template"]        = clean_slweg($_POST['template']);
+$content["template"]        = sanitize_template_name(clean_slweg($_POST['template']));
 
 $content['tmp_images']      = array();
 $imgx = 0;

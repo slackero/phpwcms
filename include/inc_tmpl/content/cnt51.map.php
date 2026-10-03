@@ -11,8 +11,9 @@
 $phpwcms = [];
 require_once '../../config/conf.inc.php';
 require_once '../../../include/inc_lib/default.inc.php';
+require_once '../../../include/inc_lib/general.inc.php';
 
-$img_file = isset($_GET['i']) ? rawurldecode($_GET['i']) : '';
+$img_file = isset($_GET['i']) ? sanitize_template_name(rawurldecode($_GET['i'])) : '';
 $img_quality = isset($_GET['q']) && (int)$_GET['q'] <= 100 && (int)$_GET['q'] ? (int)$_GET['q'] : 85;
 $img_info = getimagesize(PHPWCMS_TEMPLATE . 'inc_cntpart/map/map_img/' . $img_file);
 

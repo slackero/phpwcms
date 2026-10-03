@@ -31,4 +31,4 @@ if(count($cbullet)) {
     $content["text"] = '';
 }
 
-$content["template"] = clean_slweg($_POST['template']);
+$content["template"] = sanitize_template_name(clean_slweg($_POST['template']));

@@ -1959,6 +1959,48 @@ function sanitize_quote_backslash($text) {
     return str_replace(array('\\', "'"), array("\\\\", "\\'"), $text);
 }
 
+/**
+ * Sanitize a file name used as path component inside a fixed directory.
+ * Prevents path traversal (separators, absolute paths, null bytes) in
+ * template- and file name fields stored by content part forms.
+ * Unicode letters and numbers are kept, so existing installations
+ * using e.g. umlauts in template file names keep working.
+ *
+ * @param string $name
+ *
+ * @return string
+ */
+function sanitize_template_name($name) {
+    $name = (string) $name;
+    if ($name === '' || $name === '.' || $name === '..' || str_contains($name, "\0")) {
+        return '';
+    }
+    if (basename($name) !== $name) {
+        return '';
+    }
+    return preg_match('/^[\p{L}\p{N}._ -]+$/u', $name) ? $name : '';
+}
+
+/**
+ * Check that a resolved path is the given root directory or inside it.
+ * Compares on path separator boundaries, so a sibling directory sharing
+ * the same prefix (e.g. /var/www/site-evil for root /var/www/site) is
+ * not treated as contained.
+ *
+ * @param string $path
+ * @param string $root
+ *
+ * @return bool
+ */
+function path_is_within($path, $root) {
+    $path = rtrim(str_replace('\\', '/', (string) $path), '/');
+    $root = rtrim(str_replace('\\', '/', (string) $root), '/');
+    if ($path === '' || $root === '') {
+        return false;
+    }
+    return $path === $root || str_starts_with($path, $root . '/');
+}
+
 function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename = 0, $maxsize = 0) {
     // imgtype can be all exif_imagetype supported by your PHP install
     // see http://www.php.net/exif_imagetype

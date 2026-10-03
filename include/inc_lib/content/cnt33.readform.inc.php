@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // News
-$content["template"]	= clean_slweg($_POST['template']);
+$content["template"]	= sanitize_template_name(clean_slweg($_POST['template']));
 
 $content['news']						= array();
 $content['news']['news_lang']			= empty($_POST['news_lang']) || !is_array($_POST['news_lang']) ? array() : $_POST['news_lang'];

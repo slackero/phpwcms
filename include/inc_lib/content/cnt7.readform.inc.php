@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Content Type File List
 //
 $content["file_list"]				= isset($_POST["cfile_list"]) && is_array($_POST["cfile_list"]) ? $_POST["cfile_list"] : array();
-$content["file_template"]			= clean_slweg($_POST['cfile_template']);
+$content["file_template"]			= sanitize_template_name(clean_slweg($_POST['cfile_template']));
 $content['file']['direct_download']	= empty($_POST['cfile_direct']) ? 0 : 1;
 $content["html"]					= slweg($_POST["chtml"]);
 

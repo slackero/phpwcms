@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Flash Media Player
 $fmp_data = array(
 
-    'fmp_template'              => clean_slweg($_POST['fmp_template']),
+    'fmp_template'              => sanitize_template_name(clean_slweg($_POST['fmp_template'])),
     'fmp_width'                 => intval($_POST['fmp_width']),
     'fmp_height'                => intval($_POST['fmp_height']),
     'fmp_sort'                  => empty($_POST['fmp_sort']) ? 0 : intval($_POST['fmp_sort']),
@@ -65,7 +65,7 @@ $fmp_data = array(
     'fmp_set_autostart'         => empty($_POST['fmp_set_autostart']) ? 0 : 1,
     'fmp_set_autohidecontrol'   => empty($_POST['fmp_set_autohidecontrol']) ? 0 : 1,
     'fmp_set_showdownload'      => empty($_POST['fmp_set_showdownload']) ? 0 : 1,
-    'fmp_set_skin_html5'        => clean_slweg($_POST['fmp_set_skin_html5']),
+    'fmp_set_skin_html5'        => sanitize_template_name(clean_slweg($_POST['fmp_set_skin_html5'])),
     'fmp_set_volume'            => empty($_POST['fmp_set_volume']) ? 0 : intval($_POST['fmp_set_volume']),
     'fmp_set_preload'           => empty($_POST['fmp_set_preload']) ? 'none' : clean_slweg($_POST['fmp_set_preload']), // auto, none, metadata
 
