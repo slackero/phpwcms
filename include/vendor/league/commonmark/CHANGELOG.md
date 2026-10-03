@@ -6,6 +6,31 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased][unreleased]
 
+## [2.10.3] - 2026-09-21
+
+### Fixed
+- Fixed footnote links and backlinks pointing at the wrong anchor when `footnote/footnote_id_prefix` or `footnote/ref_id_prefix` contains an uppercase character; the configured prefix is now emitted verbatim in the `href` as it already was in the matching `id` (#524)
+- Fixed inline raw HTML tags being escaped when the tag name or an attribute name contains an uppercase letter, such as `<svg viewBox="...">` or `<Warning>` (#1096)
+
+## [2.10.2] - 2026-09-21
+
+This is a **security release** to address a denial of service vulnerability in the `Table` extension and a raw HTML filtering bypass in the `DisallowedRawHtml` extension.
+
+### Changed
+- Improved performance of parsing table delimiter rows and splitting table rows into cells by scanning bytes directly instead of stepping a `Cursor` (roughly 4x faster for delimiter rows and 6x for cell splitting, and more on multibyte rows)
+
+### Fixed
+- Fixed `DisallowedRawHtmlRenderer` not blocking raw HTML that ends with a disallowed tag name, such as a line containing only `<script` (GHSA-97jj-33gv-5xf9)
+- Fixed quadratic-time parsing of long paragraphs when the `Table` extension is enabled (GHSA-3q6v-r5mr-hxv8)
+- Fixed table detection to match the GFM spec and reference implementation:
+  - Header rows no longer require a `|` character
+  - Header rows must now have the same number of cells as the delimiter row (previously, fewer cells were accepted)
+
+## [2.10.1] - 2026-09-07
+
+### Fixed
+- Accept `unordered_list_markers` config in InlinesOnlyExtension (#1015, #1151)
+
 ## [2.10.0] - 2026-08-11
 
 This is a **security release** to address a denial of service vulnerability in the `AttributesExtension`.
@@ -834,7 +859,10 @@ No changes were introduced since the previous release.
     - Alternative 1: Use `CommonMarkConverter` or `GithubFlavoredMarkdownConverter` if you don't need to customize the environment
     - Alternative 2: Instantiate a new `Environment` and add the necessary extensions yourself
 
-[unreleased]: https://github.com/thephpleague/commonmark/compare/2.10.0...HEAD
+[unreleased]: https://github.com/thephpleague/commonmark/compare/2.10.3...HEAD
+[2.10.3]: https://github.com/thephpleague/commonmark/compare/2.10.2...2.10.3
+[2.10.2]: https://github.com/thephpleague/commonmark/compare/2.10.1...2.10.2
+[2.10.1]: https://github.com/thephpleague/commonmark/compare/2.10.0...2.10.1
 [2.10.0]: https://github.com/thephpleague/commonmark/compare/2.9.2...2.10.0
 [2.9.2]: https://github.com/thephpleague/commonmark/compare/2.9.1...2.9.2
 [2.9.1]: https://github.com/thephpleague/commonmark/compare/2.9.0...2.9.1

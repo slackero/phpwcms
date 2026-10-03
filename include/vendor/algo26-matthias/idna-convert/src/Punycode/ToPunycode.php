@@ -146,7 +146,8 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
             return;
         }
 
-        if ($decoded[0] === '-'
+        if (
+            $decoded[0] === '-'
             || $decoded[array_key_last($decoded)] === '-'
         ) {
             throw new Std3AsciiRulesViolationException('No trailing / leading hyphens allowed', 103);
