@@ -1033,17 +1033,45 @@ function getRemoteIP() {
     if (defined('REMOTE_IP')) {
         return REMOTE_IP;
     }
-    $IP = 'unknown';
-    if (!empty($_SERVER['HTTP_CLIENT_IP']) && strcasecmp($_SERVER['HTTP_CLIENT_IP'], 'unknown')) {
-        $IP = $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'], 'unknown')) {
-        $IP = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } elseif (!empty($_SERVER['REMOTE_ADDR']) && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
-        $IP = $_SERVER['REMOTE_ADDR'];
-    }
-    define('REMOTE_IP', $IP);
+    $remote_addr = $_SERVER['REMOTE_ADDR'] ?? '';
 
-    return $IP;
+    // A direct connection from a public address is authoritative and cannot
+    // be influenced by client headers. Forwarded headers are only taken into
+    // account when the immediate peer is a private or reserved address, which
+    // is the case behind a reverse proxy or load balancer.
+    if (filter_var($remote_addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+        define('REMOTE_IP', $remote_addr);
+
+        return $remote_addr;
+    }
+
+    $candidates = array();
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $candidates = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+    }
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $candidates[] = $_SERVER['HTTP_CLIENT_IP'];
+    }
+
+    // every accepted value must be a real IP address, so a forged header can
+    // never inject arbitrary strings used for logging, DB storage or output
+    foreach ($candidates as $candidate) {
+        if (filter_var($candidate, FILTER_VALIDATE_IP)) {
+            define('REMOTE_IP', $candidate);
+
+            return $candidate;
+        }
+    }
+
+    if (filter_var($remote_addr, FILTER_VALIDATE_IP)) {
+        define('REMOTE_IP', $remote_addr);
+
+        return $remote_addr;
+    }
+
+    define('REMOTE_IP', '0.0.0.0');
+
+    return '0.0.0.0';
 }
 
 // source: https://gist.github.com/svrnm/3a124d2af18a6726f66e
