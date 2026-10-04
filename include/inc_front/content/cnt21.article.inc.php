@@ -38,7 +38,7 @@ if(!empty($content['page_file']['source'])) {
 	$CNT_TMP .= empty($content['page_file']['pfile']) ? '' : include_url($content['page_file']['pfile']);
 } elseif(!empty($content['page_file']['pfile'])) {
     if (!empty($phpwcms['enable_inline_php'])) {
-        $content['page_file']['pfile'] = include_ext_php($content['page_file']['pfile'], 1);
+        $content['page_file']['pfile'] = include_ext_php($content['page_file']['pfile']);
     } elseif (is_file(PHPWCMS_ROOT .'/' . $content['page_file']['pfile'])) {
         $content['page_file']['pfile'] = file_get_contents(PHPWCMS_ROOT .'/' . $content['page_file']['pfile']);
     } else {

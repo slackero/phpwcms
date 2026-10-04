@@ -1797,9 +1797,15 @@ function get_article_href($target) {
     return $article_cache[$cache_key] = false;
 }
 
-function include_ext_php($inc_file, $t=0) {
+function include_ext_php($inc_file, bool $trust_remote = false) {
     // includes an external PHP script file and returns
     // the result as string from buffered include content
+    //
+    // $inc_file stays untyped: this function is also used as a
+    // preg_replace_callback for the {PHP:...} tag, where PHP passes the
+    // $matches array as the first argument.
+    // $trust_remote is the only thing a caller can relax, and it affects the
+    // remote URL case only — containment for local files is unconditional.
     if(is_array($inc_file) && !empty($inc_file[1])) {
         $inc_file = $inc_file[1];
     }
@@ -1808,7 +1814,7 @@ function include_ext_php($inc_file, $t=0) {
 
     if(!$is_remote) {
         // local file: containment within PHPWCMS_ROOT is mandatory and
-        // must not be bypassable by the caller-supplied $t flag
+        // cannot be relaxed by any argument
         $this_path = dirname((string) realpath($inc_file));
         $root_path = (string) realpath(PHPWCMS_ROOT);
 
@@ -1816,7 +1822,7 @@ function include_ext_php($inc_file, $t=0) {
             return '';
         }
 
-    } elseif(!$t && empty($GLOBALS['phpwcms']['allow_remote_URL'])) {
+    } elseif(!$trust_remote && empty($GLOBALS['phpwcms']['allow_remote_URL'])) {
         // remote URL is not allowed in conf.inc.php
         return '';
     }
