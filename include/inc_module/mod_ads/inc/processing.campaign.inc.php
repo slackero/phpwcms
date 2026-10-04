@@ -45,7 +45,7 @@ if (isset($_POST['adcampaign_title'])) {
             'css' => isset($_POST['adcampaign_css']) ? clean_slweg($_POST['adcampaign_css']) : '',
             'bgcolor' => clean_slweg($_POST['adcampaign_bgcolor']),
             'bordercolor' => clean_slweg($_POST['adcampaign_bordercolor']),
-            'flashversion' => clean_slweg($_POST['adcampaign_flashversion']),
+            'flashversion' => isset($_POST['adcampaign_flashversion']) ? clean_slweg($_POST['adcampaign_flashversion']) : '',
         ),
         'adcampaign_status' => empty($_POST['adcampaign_status']) ? 0 : 1,
         'adcampaign_date_start' => clean_slweg($_POST['adcampaign_date_start']),

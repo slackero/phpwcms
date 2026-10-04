@@ -24,6 +24,6 @@ if (!defined('PHPWCMS_ROOT')) {
 if(isset($_GET['adclickval'])) {
 
 	// OK ADS CLICK set
-	include_once dirname($value.'/inc/ads.fe_init.inc.php');
+	include_once dirname($value) . '/inc/ads.fe_init.inc.php';
 
 }
