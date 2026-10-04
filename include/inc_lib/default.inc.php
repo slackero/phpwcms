@@ -1029,37 +1029,171 @@ function _initSession() {
     return session_id();
 }
 
+/**
+ * Check a single IP against a CIDR range, or against a bare IP.
+ * IPv4 and IPv6 are both supported; both sides must be the same family.
+ * Anything unparseable returns false, so a malformed range never widens
+ * the match.
+ *
+ * @param string $ip
+ * @param string $cidr
+ *
+ * @return bool
+ */
+function ip_in_cidr($ip, $cidr) {
+    $ip_bin = @inet_pton((string) $ip);
+    if ($ip_bin === false) {
+        return false;
+    }
+
+    $cidr = trim((string) $cidr);
+    if ($cidr === '') {
+        return false;
+    }
+
+    $bits = null;
+    $slash = strrpos($cidr, '/');
+    if ($slash !== false) {
+        $bits = substr($cidr, $slash + 1);
+        $cidr = substr($cidr, 0, $slash);
+    }
+
+    $net_bin = @inet_pton($cidr);
+    if ($net_bin === false || strlen($net_bin) !== strlen($ip_bin)) {
+        return false;
+    }
+
+    if ($bits === null) {
+        return $net_bin === $ip_bin;
+    }
+    if (!ctype_digit($bits)) {
+        return false;
+    }
+
+    $bits = (int) $bits;
+    if ($bits > strlen($net_bin) * 8) {
+        return false;
+    }
+
+    $bytes = intdiv($bits, 8);
+    $rest  = $bits % 8;
+
+    if ($bytes && substr($ip_bin, 0, $bytes) !== substr($net_bin, 0, $bytes)) {
+        return false;
+    }
+    if ($rest) {
+        $mask = (0xFF << (8 - $rest)) & 0xFF;
+        if ((ord($ip_bin[$bytes]) & $mask) !== (ord($net_bin[$bytes]) & $mask)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Check an IP against a list of CIDR ranges. Invalid entries are skipped,
+ * so one malformed range cannot invalidate the rest of the list.
+ *
+ * @param string $ip
+ * @param array  $cidr_list
+ *
+ * @return bool
+ */
+function ip_in_cidr_list($ip, $cidr_list) {
+    if (!is_array($cidr_list)) {
+        return false;
+    }
+
+    foreach ($cidr_list as $cidr) {
+        if (ip_in_cidr($ip, $cidr)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function getRemoteIP() {
     if (defined('REMOTE_IP')) {
         return REMOTE_IP;
     }
-    $remote_addr = $_SERVER['REMOTE_ADDR'] ?? '';
 
-    // A direct connection from a public address is authoritative and cannot
-    // be influenced by client headers. Forwarded headers are only taken into
-    // account when the immediate peer is a private or reserved address, which
-    // is the case behind a reverse proxy or load balancer.
-    if (filter_var($remote_addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+    $remote_addr = $_SERVER['REMOTE_ADDR'] ?? '';
+    $trusted     = $GLOBALS['phpwcms']['trusted_proxies'] ?? array();
+
+    if (is_array($trusted) && $trusted && ip_in_cidr_list($remote_addr, $trusted)) {
+
+        // The immediate peer is one of the configured proxies, so its
+        // forwarded headers are believed. Some CDNs publish a dedicated,
+        // unambiguous client header (Cloudflare's CF-Connecting-IP, Fastly's
+        // Fastly-Client-IP); when configured it takes precedence over the
+        // X-Forwarded-For chain.
+        $priority = trim((string) ($GLOBALS['phpwcms']['trusted_proxy_priority_header'] ?? ''));
+        if ($priority !== '') {
+            // config takes the normal header spelling ("CF-Connecting-IP");
+            // $_SERVER stores it as HTTP_CF_CONNECTING_IP
+            $priority_key = strtoupper(str_replace('-', '_', $priority));
+            if (!str_starts_with($priority_key, 'HTTP_') && !in_array($priority_key, array('CONTENT_TYPE', 'CONTENT_LENGTH'), true)) {
+                $priority_key = 'HTTP_' . $priority_key;
+            }
+
+            $candidate = trim((string) ($_SERVER[$priority_key] ?? ''));
+            if ($candidate !== '' && filter_var($candidate, FILTER_VALIDATE_IP) && !ip_in_cidr_list($candidate, $trusted)) {
+                define('REMOTE_IP', $candidate);
+
+                return $candidate;
+            }
+        }
+
+        // Otherwise the client is the right-most X-Forwarded-For entry that is
+        // not itself a trusted proxy. Walking from the right is what makes
+        // client-supplied entries further to the left irrelevant.
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $forwarded = array_map('trim', explode(',', (string) $_SERVER['HTTP_X_FORWARDED_FOR']));
+            foreach (array_reverse($forwarded) as $candidate) {
+                if (!filter_var($candidate, FILTER_VALIDATE_IP) || ip_in_cidr_list($candidate, $trusted)) {
+                    continue;
+                }
+                define('REMOTE_IP', $candidate);
+
+                return $candidate;
+            }
+        }
+
+    } elseif (filter_var($remote_addr, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+
+        // Without a configured allowlist a direct connection from a public
+        // address is authoritative, because it cannot be influenced by
+        // client headers. Forwarded headers from a public peer are never
+        // believed — an attacker can send them too.
         define('REMOTE_IP', $remote_addr);
 
         return $remote_addr;
     }
 
-    $candidates = array();
-    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $candidates = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
-    }
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        $candidates[] = $_SERVER['HTTP_CLIENT_IP'];
-    }
+    // No allowlist configured and the peer is private or reserved: assume a
+    // reverse proxy or load balancer on the local network. With an allowlist
+    // in place this heuristic is deliberately disabled, so only listed peers
+    // are believed.
+    if (empty($trusted)) {
+        $candidates = array();
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $candidates = array_map('trim', explode(',', (string) $_SERVER['HTTP_X_FORWARDED_FOR']));
+        }
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $candidates[] = $_SERVER['HTTP_CLIENT_IP'];
+        }
 
-    // every accepted value must be a real IP address, so a forged header can
-    // never inject arbitrary strings used for logging, DB storage or output
-    foreach ($candidates as $candidate) {
-        if (filter_var($candidate, FILTER_VALIDATE_IP)) {
-            define('REMOTE_IP', $candidate);
+        // every accepted value must be a real IP address, so a forged header
+        // can never inject arbitrary strings used for logging, DB storage or
+        // output
+        foreach ($candidates as $candidate) {
+            if (filter_var($candidate, FILTER_VALIDATE_IP)) {
+                define('REMOTE_IP', $candidate);
 
-            return $candidate;
+                return $candidate;
+            }
         }
     }
 
