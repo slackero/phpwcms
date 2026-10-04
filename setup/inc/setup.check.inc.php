@@ -73,10 +73,13 @@ if (isset($step)) {
             $phpwcms['admin_name'] = empty($_POST['admin_name']) ? $phpwcms['admin_name'] : slweg($_POST['admin_name']);
             $phpwcms['admin_user'] = empty($_POST['admin_user']) ? $phpwcms['admin_user'] : slweg($_POST['admin_user']);
 
-            if (($_POST['admin_pass'] ?? '') !== ($_POST['admin_passrepeat'] ?? '') || empty($phpwcms['admin_pass'])) {
+            $admin_pass        = (string) ($_POST['admin_pass'] ?? '');
+            $admin_pass_repeat = (string) ($_POST['admin_passrepeat'] ?? '');
+
+            if ($admin_pass === '' || $admin_pass !== $admin_pass_repeat) {
                 $admin_err_pass = 1;
-            } elseif (!empty($_POST['admin_pass'])) {
-                $phpwcms['admin_pass'] = password_hash(slweg($_POST['admin_pass']), PASSWORD_DEFAULT);
+            } else {
+                $phpwcms['admin_pass'] = password_hash(slweg($admin_pass), PASSWORD_DEFAULT);
             }
 
             $phpwcms['admin_email'] = clean_slweg($_POST['admin_email'] ?? '');

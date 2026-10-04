@@ -33,7 +33,7 @@ $phpwcms['site_ssl_port']        = 443; // The port on which your SSL service se
 
 $phpwcms['admin_name']           = 'Webmaster';
 $phpwcms['admin_user']           = 'admin';
-$phpwcms['admin_pass']           = '$2y$10$ZqMmglioxdphO.MLEUI8yeQaocFljNiJUWSNqFDlcY0BgHvT/vHbG'; //password_hash
+$phpwcms['admin_pass']           = ''; //password_hash, must be set (the setup wizard requires a password)
 $phpwcms['admin_email']          = 'noreply@example.com';
 
 // paths
