@@ -1124,6 +1124,12 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
               <option value="checkboxcopy"><?php echo $BL['be_cnt_field']['checkboxcopy'] ?></option>
               <option value="radio"><?php echo $BL['be_cnt_field']['radio'] ?></option>
               <option value="upload"><?php echo $BL['be_cnt_field']['upload'] ?></option>
+              <option value="recaptcha"<?php echo empty($field_type_count['recaptcha']) ? '' : ' disabled="disabled"' ?>><?php echo $BL['be_cnt_field']['recaptcha'] ?></option>
+              <option value="recaptchainv"<?php echo empty($field_type_count['recaptchainv']) ? '' : ' disabled="disabled"' ?>><?php echo $BL['be_cnt_field']['recaptchainv'] ?></option>
+              <option value="captcha"<?php echo empty($field_type_count['captcha']) ? '' : ' disabled="disabled"' ?>><?php echo $BL['be_cnt_field']['captcha'] ?></option>
+              <option value="captchaimg"<?php echo empty($field_type_count['captchaimg']) ? '' : ' disabled="disabled"' ?>><?php echo $BL['be_cnt_field']['captchaimg'] ?></option>
+              <option value="mathspam"<?php echo empty($field_type_count['mathspam']) ? '' : ' disabled="disabled"' ?>><?php echo $BL['be_cnt_field']['mathspam'] ?></option>
+              <option value="submit"<?php echo empty($field_type_count['submit']) ? '' : ' disabled="disabled"' ?>><?php echo $BL['be_cnt_field']['submit'] ?></option>
               <option value="reset"><?php echo $BL['be_cnt_field']['reset'] ?></option>
               <option value="break"><?php echo $BL['be_cnt_field']['break'] ?></option>
               <option value="breaktext"><?php echo $BL['be_cnt_field']['breaktext'] ?></option>
