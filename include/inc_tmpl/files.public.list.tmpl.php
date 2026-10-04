@@ -101,8 +101,6 @@ if($count_user_files) { // If public files exist, list them
            "ORDER BY ".DB_PREPEND."user.usr_name, ".DB_PREPEND."user.usr_login";
     $result = _dbQuery($sql);
 
-    $user_counter=0;
-    $counter=0;
     if(isset($result[0]['f_uid'])) {
         foreach($result as $row) {
             // Check status
@@ -110,12 +108,9 @@ if($count_user_files) { // If public files exist, list them
             $root_user_id = intval($row["f_uid"]);
             $user_naming = html($row["usr_name"]." (".$row["usr_login"].")");
             $count = "<a href=\"phpwcms.php?do=files&amp;f=1&amp;pklapp=u".$row["f_uid"].
-                     "|".$pklapp_status."\">".on_off($pklapp_status, "\n".$BL['be_fpublic_user'].": ".$user_naming, 0, $counter)."</a>";
+                     "|".$pklapp_status."\">".on_off($pklapp_status, "\n".$BL['be_fpublic_user'].": ".$user_naming, 0, 0)."</a>";
 
             // User info row
-            if($user_counter) {
-
-            }
             echo "<tr bgcolor=\"#D8E4E9\">\n"; // Open table row
             echo "<td width=\"488\" class=\"msglist\">"; // Open cell
             echo $count."<i class=\"fa-solid fa-user\"></i>";
@@ -192,8 +187,6 @@ if($count_user_files) { // If public files exist, list them
 
                 //Ende Anzeige root files public
             }
-            $user_counter++;
-            $counter++;
         }
     }
     echo "</table>\n"; //Ende Tabelle

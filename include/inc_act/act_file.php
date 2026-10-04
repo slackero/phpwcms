@@ -18,6 +18,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
 
 // Change file status
 if(isset($_GET["aktiv"])) {
@@ -59,16 +60,26 @@ if(isset($_GET["aktiv"])) {
 
 } elseif(isset($_GET["trash"])) {
 
-    list($id, $wert) = explode("|", $_GET["trash"]);
+    list($id, $wert) = array_pad(explode("|", $_GET["trash"], 2), 2, 0);
     $id     = intval($id);
     $wert   = intval($wert);
+
     if($wert == 1 || $wert == 9 || $wert == 0) {
-        $sql  = "UPDATE ".DB_PREPEND."file SET f_pid=0, f_trash=".$wert.", f_changed='".time()."' WHERE f_kid=1 AND ";
-        $sql .= $id ? "f_id=".$id : "f_trash=1";
-        if(!has_admin_permission('filedelete')) {
-            $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
+
+        // A file that is currently referenced in content (red usage status) must
+        // not be moved to the trash. The action is disabled in the UI already;
+        // this is the server-side safeguard for the value that puts files there.
+        $blocked = ($wert == 1 && $id && phpwcms_file_in_use($id));
+
+        if(!$blocked) {
+            $sql  = "UPDATE ".DB_PREPEND."file SET f_pid=0, f_trash=".$wert.", f_changed='".time()."' WHERE f_kid=1 AND ";
+            $sql .= $id ? "f_id=".$id : "f_trash=1";
+            if(!has_admin_permission('filedelete')) {
+                $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
+            }
+            _dbQuery($sql, 'UPDATE');
         }
-        _dbQuery($sql, 'UPDATE');
+
     }
 
 } elseif(isset($_GET["paste"])) {

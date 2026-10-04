@@ -15,6 +15,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
+
 // List available files
 $file_sql = "SELECT * FROM ".DB_PREPEND."file WHERE f_pid=0 ";
 if(empty($_SESSION["wcs_user_admin"])) {
@@ -24,7 +26,10 @@ $file_sql .= "AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
 
 $file_result = _dbQuery($file_sql);
 
+// List the files in the root folder (only rendered when there are any)
 if(isset($file_result[0]['f_id'])) {
+
+    echo '<tr><td colspan="2" class="p-0"><table class="table-borderless w-100">'."\n";
 
     $file_durchlauf = 0;
     $bg_toggle = false;
@@ -38,9 +43,11 @@ if(isset($file_result[0]['f_id'])) {
 
         $file_row['edit'] = '<a href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
 
-        if(!$file_durchlauf) {
-            echo '<tr><td colspan="2" class="p-0"><table class="table-borderless w-100">'."\n";
-        }
+        // Traffic light usage status (red/yellow/green/black) - computed once per
+        // file and reused both for the status dot and for disabling the trash
+        // button on files that are currently in use (red).
+        $file_usage = phpwcms_get_file_traffic_light($file_row);
+
         echo '<tr'.$row_class.">\n";
         echo "<td width=30>";
         echo "<span class=\"admin-slist \" data-bs-toggle=\"tooltip\" data-bs-html=\"true\" ";
@@ -53,7 +60,9 @@ if(isset($file_result[0]['f_id'])) {
         echo '">';
         echo "<i class=\"fa-solid fa-".extimg($file_row["f_ext"])."\"";
         echo "></i></span></td>\n<td>";
-        echo $file_row['edit'] . $filename."</a></td>\n";
+        echo $file_row['edit'] . $filename."</a>";
+        echo phpwcms_render_file_usage_indicator($file_usage);
+        echo "</td>\n";
 
         // Build button bar for file
         echo '<td class="text-end text-nowrap px-0">'.LF;
@@ -65,7 +74,9 @@ if(isset($file_result[0]['f_id'])) {
         echo '<div class="btn-group btn-group-sm" role="group">';
         echo '<a class="btn btn-sm btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
         echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$file_row["f_id"].'">';
-        echo '<h6 class="dropdown-header">'.$filename.'</h6>';
+        echo '<h6 class="dropdown-header mb-1 pb-0">'.$filename.'</h6>';
+        echo '<div class="dropdown-item-text text-muted mt-0 pt-0"><i class="fa-solid fa-circle fa-fw ms-1 me-1 '.$file_usage['text_class'].'" aria-hidden="true"></i><small>'.$file_usage['label'].'</small></div>';
+        echo '<div class="dropdown-divider"></div>';
 
         // Download file button
         echo '<a class="dropdown-item" href="include/inc_act/act_download.php?dl='.$file_row["f_id"].
@@ -79,14 +90,17 @@ if(isset($file_result[0]['f_id'])) {
             echo '<i class="fa-fw ms-1 fa-solid fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
         }
         // Delete / move to trash button
-        if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
+        if ($file_usage['inuse']) {
+            // Red usage status: file is referenced in content, so it cannot be trashed
+            echo '<div class="dropdown-item disabled text-muted"><i class="fa-fw ms-1 fa-regular fa-trash-alt" aria-hidden="true" data-bs-toggle="tooltip" title="'.html($GLOBALS['BL']['be_fusage_nodelete']).'"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].'</div>';
+        } elseif ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
             //if user is owner then delete button is active
             $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
             echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash=' . $file_row["f_id"] . '%7C' . '1' .
                  '" data-bs-toggle="tooltip" title="' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '" data-confirm-danger="' . html_specialchars($confirm_msg) . '">' .
                  '<i class="fa-fw ms-1 fa-regular fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . '</a>';
         } else {
-            echo '<div class="dropdown-item disabled text-muted"><i class="fa-fw ms-1 fa-regular fa-trash-alt text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+            echo '<div class="dropdown-item disabled text-muted"><i class="fa-fw ms-1 fa-regular fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].'</div>';
         }
         echo '</div></div>'; // Close dropdown-menu & inner btn-group
 
@@ -115,6 +129,7 @@ if(isset($file_result[0]['f_id'])) {
 
                 if($thumb_image != false) {
                     echo '<tr'.$row_class.">\n";
+                    // one empty cell (icon column) before the colspan
                     echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                     echo $file_row['edit'];
                     echo '<img src="' . $thumb_image['src'] .'" border="0" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;" '.$thumb_image[3].'></a></td>'."\n";
@@ -123,6 +138,7 @@ if(isset($file_result[0]['f_id'])) {
 
             } else {
                 echo '<tr'.$row_class.">\n";
+                // one empty cell (icon column) before the colspan
                 echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                 echo $file_row['edit'];
                 echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;"></a></td>';
@@ -132,7 +148,5 @@ if(isset($file_result[0]['f_id'])) {
         }
         $file_durchlauf++;
     }
-    if($file_durchlauf) { // close file list tables
-        echo "</table>\n";
-    }
-} // end listing files
+    echo "</table></td></tr>\n";
+}

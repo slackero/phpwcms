@@ -8,6 +8,8 @@
  *
  **/
 
+require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
+
 //Funktionen zum Listen der privaten Dateien
 /**
  * @param $pid
@@ -63,7 +65,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
         }
 
         // Build row
-        echo '<tr bgcolor="#F4F5F4">'.LF; // Open table row
+        echo '<tr bgcolor="#F4F5F4" class="filecenter-folder-row">'.LF; // Open table row
         echo '<td>'.$count; // Open cell
 
 
@@ -142,6 +144,10 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
             if(isset($file_result[0]['f_id'])) {
 
+                // Embedded file list table for this folder
+                echo '<tr bgcolor="#FFFFFF"><td colspan="2" class="p-0"><table class="table-sm table-borderless w-100">'."\n";
+                echo "<!-- start file list: private-functions //-->\n";
+
                 $file_durchlauf = 0;
                 $bg_toggle = false;
 
@@ -152,12 +158,10 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                     $file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
 
-                    if(!$file_durchlauf) { // Open embedded table for file list
-                        echo '<tr bgcolor="#FFFFFF"><td colspan="2" class="p-0"><table class="table-sm table-borderless w-100">'."\n";
-                        echo "<!-- start file list: private-functions //-->\n";
-                    } else {
-
-                    }
+                    // Traffic light usage status (red/yellow/green/black) - computed once
+                    // per file and reused both for the status dot and for disabling the
+                    // trash button on files that are currently in use (red).
+                    $file_usage = phpwcms_get_file_traffic_light($file_row);
 
                     echo '<tr'.$row_class.">\n";
                     echo "<td width=30>";
@@ -168,7 +172,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo '"></i>'.LF;
                     echo '</td>'.LF;
                     echo '<td>'.LF;
-                    echo $file_row['edit'] . $filename."</a></td>\n";
+                    echo $file_row['edit'] . $filename."</a>";
+                    echo phpwcms_render_file_usage_indicator($file_usage);
+                    echo "</td>\n";
                     //echo "<tr><td></td>\n<td colspan=\"2\">";
 
 
@@ -183,7 +189,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo '<div class="btn-group btn-group-sm" role="group">';
                     echo '<a class="btn btn-sm btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
                     echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$file_row["f_id"].'">';
-                    echo '<h6 class="dropdown-header">'.$filename.'</h6>';
+                    echo '<h6 class="dropdown-header mb-1 pb-0">'.$filename.'</h6>';
+                    echo '<div class="dropdown-item-text text-muted mt-0 pt-0"><i class="fa-solid fa-circle fa-fw ms-1 me-1 '.$file_usage['text_class'].'" aria-hidden="true"></i><small>'.$file_usage['label'].'</small></div>';
+        echo '<div class="dropdown-divider"></div>';
 
                     // Download file button
                     echo '<a class="dropdown-item" href="include/inc_act/act_download.php?dl='.$file_row["f_id"].
@@ -197,14 +205,17 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                         echo '<i class="ms-1 fa-solid fa-fw fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
                     }
                     // Delete / move to trash button
-                    if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
+                    if ($file_usage['inuse']) {
+                        // Red usage status: file is referenced in content, so it cannot be trashed
+                        echo '<div class="dropdown-item disabled text-muted"><i class="fa-regular fa-fw fa-trash-alt ms-1" aria-hidden="true" data-bs-toggle="tooltip" title="'.html($GLOBALS['BL']['be_fusage_nodelete']).'"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].'</div>';
+                    } elseif ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
                         //if user is owner then delete button is active
                         $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
                         echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash=' . $file_row["f_id"] . '%7C' . '1' .
                              '" data-bs-toggle="tooltip" title="' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '" data-confirm-danger="' . html_specialchars($confirm_msg) . '">' .
                              '<i class="ms-1 fa-regular fa-fw fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . '</a>';
                     } else {
-                        echo '<div class="dropdown-item disabled text-muted"><i class="fa-regular fa-fw fa-trash-alt text-muted ms-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+                        echo '<div class="dropdown-item disabled text-muted"><i class="fa-regular fa-fw fa-trash-alt ms-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].'</div>';
                     }
                     echo '</div></div>'; // Close dropdown-menu & inner btn-group
 
@@ -234,6 +245,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                             if($thumb_image != false) {
                                 echo '<tr'.$row_class.">\n";
+                                // one empty cell (icon column) before the colspan
                                 echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                                 echo $file_row['edit'];
                                 echo '<img src="' . $thumb_image['src'] .'" border="0" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;" '.$thumb_image[3].'></a></td>'."\n";
@@ -242,6 +254,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                         } else {
                             echo '<tr'.$row_class.">\n";
+                            // one empty cell (icon column) before the colspan
                             echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                             echo $file_row['edit'];
                             echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;"></a></td>';
@@ -251,10 +264,8 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     }
                     $file_durchlauf++;
                 }
-                if($file_durchlauf) { // Close file list table
-                    echo "</table>\n<!-- end file list: private-functions //-->\n";
-                }
-            } // End file list
+                echo "</table></td></tr>\n<!-- end file list: private-functions //-->\n";
+            }
         }
 
         // Increment counter

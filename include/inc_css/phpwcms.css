@@ -1603,6 +1603,13 @@ li.struct-node > .struct-row,
   padding-right: 0.3rem !important;
 }
 
+/* folder rows live in the outer (.table-sm) table, whose last cell would
+   otherwise be inset less than the file rows' - keep both at 0.3rem so the
+   action button groups line up */
+.filecenter-folder-row > td:last-child {
+  padding-right: 0.3rem !important;
+}
+
 /* filebrowser.php (modal file picker) */
 .filebrowser .file-icon-col {
   width: 1%;

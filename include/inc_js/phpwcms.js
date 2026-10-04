@@ -830,6 +830,26 @@ $(function () {
         });
     }
 
+    // Bootstrap does not auto-initialize popovers (only tooltips), so do it
+    // here the same way. Delegated as well, so popovers in markup injected
+    // later (AJAX/partial reload) still work.
+    function initPopovers(root) {
+        if (typeof bootstrap === 'undefined' || !bootstrap.Popover) {
+            return;
+        }
+        (root || document).querySelectorAll('[data-bs-toggle="popover"]').forEach(function (el) {
+            bootstrap.Popover.getOrCreateInstance(el, {
+                html: true,
+                container: 'body'
+            });
+        });
+    }
+
+    initPopovers();
+    $doc.on('mouseenter focusin', '[data-bs-toggle="popover"]', function () {
+        initPopovers(this.parentNode);
+    });
+
     $doc.on('click', '.modalButton', function (e) {
         const $this = $(this);
         let src = $this.attr('data-src') || '';

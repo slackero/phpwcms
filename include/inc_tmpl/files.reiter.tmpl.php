@@ -42,7 +42,7 @@ if($_SESSION["wcs_user_thumb"]) {
   <div class="card-header"><h2><?php echo $BL['be_subnav_file_center'] ?></h2></div>
   <div class="card-body">
 
-<div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center tabs-flex-container mb-3 pb-2 pb-lg-0">
+<div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center tabs-flex-container mb-1 pb-2 pb-lg-0">
   <ul class="nav nav-tabs order-2 order-lg-1 mb-2 mb-lg-0 w-100 w-lg-auto align-self-lg-end">
     <li class="nav-item">
       <a class="nav-link<?php echo ($files_folder == 0 ? ' active' : '');?>" href="phpwcms.php?do=files&amp;f=0"><?php echo $BL['be_ftab_private'] ?></a>

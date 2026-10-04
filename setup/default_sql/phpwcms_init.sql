@@ -446,10 +446,13 @@ CREATE TABLE `phpwcms_file` (
   `f_sort` int(11) NOT NULL DEFAULT '0',
   `f_title` varchar(1000) NOT NULL DEFAULT '',
   `f_alt` varchar(1000) NOT NULL DEFAULT '',
+  `f_used` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1 = referenced in content at some point',
+  `f_pre_install` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1 = existed before file usage tracking was deployed',
   PRIMARY KEY (`f_id`),
   KEY `f_granted` (`f_granted`),
   KEY `f_sort` (`f_sort`),
   KEY `f_pid` (`f_pid`),
+  KEY `f_used` (`f_used`),
   KEY `f_is_variation` (`f_is_variation`),
   FULLTEXT KEY `f_name` (`f_name`),
   FULLTEXT KEY `f_shortinfo` (`f_shortinfo`)

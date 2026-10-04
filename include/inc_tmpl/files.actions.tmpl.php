@@ -15,6 +15,15 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
+
+// "Search unused files" tool below: finds every file that once was used in
+// article content (per f_used) but no longer is (black traffic-light
+// status), so they can be reviewed and bulk-trashed in one place instead of
+// having to spot the black dot while browsing folder by folder.
+$unused_files_search = isset($_GET['unused']);
+$unused_files = $unused_files_search ? phpwcms_get_unused_files() : array();
+
 $file_action = array(
     'file_dir' => empty($_POST['file_dir']) ? 0 : intval($_POST['file_dir']),
     'mark' => empty($_POST['ftp_mark']) || !is_array($_POST['ftp_mark']) ? array() : $_POST['ftp_mark'],
@@ -262,9 +271,9 @@ function showAction() {
           </div>
         </div>
 
-    <?php } ?>
       </div>
     </div>
+    <?php } ?>
     </form>
   </div>
 </div>
@@ -276,3 +285,71 @@ $('#toggle').change(function () {
 });
 </script>
 <?php } ?>
+
+
+<div class="card mb-3">
+  <div class="card-header"><h2><?php echo $BL['file_actions_unused_title'] ?></h2></div>
+  <div class="card-body">
+    <?php if (!$unused_files_search) { ?>
+
+      <p><?php echo $BL['file_actions_unused_intro'] ?></p>
+      <a href="phpwcms.php?do=files&amp;p=4&amp;unused=1" class="btn btn-sm btn-blue">
+        <i class="fa-solid fa-magnifying-glass me-1" aria-hidden="true"></i> <?php echo html($BL['file_actions_unused_search']) ?>
+      </a>
+
+    <?php } else { ?>
+
+      <?php if (empty($unused_files)) { ?>
+
+        <div class="alert alert-info mb-0"><?php echo $BL['file_actions_unused_none'] ?></div>
+
+      <?php } else { ?>
+
+        <div class="table-responsive">
+        <table class="table table-sm table-valign-middle" id="unused-files-list">
+          <thead>
+          <tr>
+              <th><?php echo $BL['be_ftptakeover_available'] ?></th>
+              <th><?php echo $BL['file_actions_unused_col_dir'] ?></th>
+              <th class="text-end"><?php echo $BL['be_func_struct_more_action'] ?></th>
+          </tr>
+          </thead>
+        <?php foreach ($unused_files as $file_row) {
+            $file_id  = intval($file_row["f_id"]);
+            $filename = PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($file_row["f_name"]) ? makeCharsetConversion($file_row["f_name"], 'utf-8', PHPWCMS_CHARSET) : $file_row["f_name"];
+            $filename = html($filename);
+        ?>
+          <tr data-file-id="<?php echo $file_id ?>">
+            <td><?php echo phpwcms_render_file_usage_indicator($file_row['f_traffic_light']); ?><?php echo $filename ?></td>
+            <td class="text-muted"><?php echo $file_row["f_dirname"] !== null && $file_row["f_dirname"] !== '' ? html($file_row["f_dirname"]) : html($BL['ROOT_DIR']) ?></td>
+            <td class="text-end text-nowrap px-0">
+              <div class="btn-group btn-group-sm">
+                <a class="btn btn-sm btn-blue dropdown-toggle" role="button" href="#" id="dropdownUnused<?php echo $file_id ?>" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $BL['be_func_struct_more_action'] ?></a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUnused<?php echo $file_id ?>">
+                  <h6 class="dropdown-header mb-1 pb-0"><?php echo $filename ?></h6>
+                  <div class="dropdown-item-text text-muted mt-0 pt-0"><i class="fa-solid fa-circle fa-fw ms-1 me-1 text-body" aria-hidden="true"></i><small><?php echo html($file_row['f_traffic_light']['label']) ?></small></div>
+                  <div class="dropdown-divider"></div>
+                  <?php if (!empty($file_row['f_traffic_light']['inuse'])) { ?>
+                  <div class="dropdown-item disabled text-muted"><i class="ms-1 fa-regular fa-trash-alt fa-fw" aria-hidden="true" data-bs-toggle="tooltip" title="<?php echo html($BL['be_fusage_nodelete']) ?>"></i> <?php echo $BL['be_fprivfunc_movetrash'] ?></div>
+                  <?php } else {
+                      $confirm_msg = $BL['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $BL['be_fprivfunc_jsmovetrash2'];
+                  ?>
+                  <a class="dropdown-item" href="include/inc_act/act_file.php?trash=<?php echo $file_id ?>%7C1" data-bs-toggle="tooltip" title="<?php echo html($BL['be_fprivfunc_movetrash']) ?>: <?php echo $filename ?>" data-confirm-danger="<?php echo html_specialchars($confirm_msg) ?>"><i class="ms-1 fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i> <?php echo $BL['be_fprivfunc_movetrash'] ?></a>
+                  <?php } ?>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <?php } ?>
+        </table>
+        </div>
+
+      <?php } ?>
+
+      <a href="phpwcms.php?do=files&amp;p=4" class="btn btn-sm btn-outline-secondary mt-2"><?php echo html($BL['file_actions_unused_back']) ?></a>
+
+    <?php } ?>
+  </div>
+</div>
+
+

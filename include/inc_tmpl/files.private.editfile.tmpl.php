@@ -15,6 +15,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+require_once PHPWCMS_ROOT.'/include/inc_lib/files.private-usage.inc.php';
+
 // Be more modern here - we start switch to jQuery and overwrite non-used MooTools with jQuery call
 initJsAutocompleter();
 
@@ -206,6 +208,9 @@ if($file_id) {
     if(isset($result[0]['f_id'])) {
         $row = $result[0];
 
+        // usage status for this file (traffic light), shown in the file detail view
+        $file_usage = phpwcms_get_file_traffic_light($row);
+
         $file_oldname   = html($row["f_name"]);
         $file_created   = intval($row["f_created"]);
         $file_size      = intval($row["f_size"]);
@@ -308,7 +313,12 @@ if($ja) {
         }
 
         echo '<br />';
-        echo $BL['be_fprivedit_created'], ': <strong>', date($BL['be_fprivedit_dateformat'], $file_created), '</strong>'
+        echo $BL['be_fprivedit_created'], ': <strong>', date($BL['be_fprivedit_dateformat'], $file_created), '</strong>';
+
+        // usage status (dot with tooltip, or the info icon for files in use)
+        if (isset($file_usage)) {
+            echo '<br />', phpwcms_render_file_usage_indicator($file_usage), ' ', html($file_usage['label']);
+        }
       ?>
     </div>
   </div>
