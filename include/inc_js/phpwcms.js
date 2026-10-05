@@ -850,6 +850,26 @@ $(function () {
         initPopovers(this.parentNode);
     });
 
+    // A popover trigger can sit inside an element that carries a tooltip (e.g.
+    // the file usage status dot). The two would show at once while the pointer
+    // stays on the wrapper, so suppress the tooltip for as long as its popover
+    // is open and re-arm it afterwards.
+    $doc.on('show.bs.popover', '[data-bs-toggle="popover"]', function () {
+        const $tooltipTrigger = $(this).closest('[data-bs-toggle="tooltip"]');
+        const tooltip = $tooltipTrigger.length && bootstrap.Tooltip.getInstance($tooltipTrigger[0]);
+        if (tooltip) {
+            tooltip.hide();
+            tooltip.disable();
+        }
+    });
+    $doc.on('hidden.bs.popover', '[data-bs-toggle="popover"]', function () {
+        const $tooltipTrigger = $(this).closest('[data-bs-toggle="tooltip"]');
+        const tooltip = $tooltipTrigger.length && bootstrap.Tooltip.getInstance($tooltipTrigger[0]);
+        if (tooltip) {
+            tooltip.enable();
+        }
+    });
+
     $doc.on('click', '.modalButton', function (e) {
         const $this = $(this);
         let src = $this.attr('data-src') || '';
