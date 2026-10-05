@@ -193,63 +193,123 @@ if($news['list_mode']) {
     // pagination - no LIMIT, no ORDER BY
     if($news['news_paginate'] == 1) {
 
-        // count all news based on current query
-        if($news['news_joined_sql']) {
-
-            $news['count_all'] = count( _dbQuery($news['sql_joined_count'] . $sql . $news['sql_limit']) );
-
-        } else {
-
-            $news['count_all'] = _dbCount($news['sql_count'] . $sql);
-
-            // handle skipped items
-            if($news['news_skip']) {
-                $news['count_all'] = $news['count_all'] - $news['news_skip'];
-                if($news['count_all'] < 0) {
-                    $news['count_all'] = 0;
-                }
-            }
-
-            // check if less news should be used than news in db
-            if($news['news_limit'] && $news['news_limit'] < $news['count_all']) {
-                $news['count_all'] = $news['news_limit'];
-            }
-        }
-
         // test and set page
         if(empty($_getVar['newspage'])) {
             $news['current_page'] = 1;
         } else {
             $news['current_page'] = intval($_getVar['newspage']);
-            if($news['current_page'] == 0) {
+            if($news['current_page'] < 1) {
                 $news['current_page'] = 1;
             }
         }
-        $news['total_pages'] = ceil( $news['count_all'] / $news['news_paginate_count'] );
 
-        if($news['current_page'] > $news['total_pages']) {
-            $news['current_page'] = $news['total_pages'];
-        }
+        // pagination basis: 0 = item count, 1 = day, 2 = week, 3 = month, 4 = year
+        $news['paginate_basis'] = intval($news['news_paginate_basis'] ?? 0);
 
-        if($news['current_page'] > 1 && $news['total_pages'] > 1) {
-            if($news['current_page'] == 2) {
-                $news['page_prev'] = rel_url( array(), array('newspage') );
-            } else {
-                $news['page_prev'] = rel_url( array( 'newspage' => $news['current_page']-1 ) );
+        if($news['paginate_basis'] > 0 && $news['paginate_basis'] < 5) {
+
+            // one page per date period; periods are ordered like the news list
+            $paginate_format = array(
+                1 => '%Y-%m-%d',    // day
+                2 => '%x-%v',       // ISO week
+                3 => '%Y-%m',       // month
+                4 => '%Y'           // year
+            );
+            $paginate_format = $paginate_format[$news['paginate_basis']];
+            $paginate_dir = in_array(intval($news['news_sort']), array(2, 4, 6, 8, 10), true) ? 'ASC' : 'DESC';
+
+            // bucket by publication date; cnt_ts_livedate always resolves to a
+            // valid timestamp while cnt_sort may carry legacy out-of-range values
+            $paginate_period  = 'DATE_FORMAT(FROM_UNIXTIME(' . $news['cnt_ts_livedate'] . "), '" . $paginate_format . "')";
+
+            $paginate_sql  = 'SELECT ' . $paginate_period . ' AS paginate_period ';
+            $paginate_sql .= 'FROM ' . DB_PREPEND . 'content pc ';
+            $paginate_sql .= 'WHERE ' . implode(' ', $news['sql_where']) . ' ';
+            $paginate_sql .= 'GROUP BY paginate_period ORDER BY paginate_period ' . $paginate_dir;
+
+            $news['paginate_periods'] = _dbQuery($paginate_sql);
+            $news['total_pages'] = is_array($news['paginate_periods']) ? count($news['paginate_periods']) : 0;
+
+            if($news['total_pages'] && $news['current_page'] > $news['total_pages']) {
+                $news['current_page'] = $news['total_pages'];
             }
 
-            // set pagination page info for detail link too
-            $news['listing_page'] = array( 'newspage' => $news['current_page'] );
-        }
+            if($news['total_pages']) {
 
-        if($news['total_pages'] > 1 && $news['current_page'] < $news['total_pages']) {
-            $news['page_next'] = rel_url( array( 'newspage' => $news['current_page']+1 ) );
-        }
+                $news['paginate_period'] = $news['paginate_periods'][$news['current_page']-1]['paginate_period'];
 
-        // set LIMIT
-        $news['sql_limit']  = ' LIMIT ';
-        $news['sql_limit'] .= (($news['current_page'] - 1) *  $news['news_paginate_count']) + $news['news_skip'];
-        $news['sql_limit'] .= ', ' . $news['news_paginate_count'];
+                // restrict the list to the selected period
+                $news['sql_where'][] = 'AND ' . $paginate_period . ' = ' . _dbEscape($news['paginate_period']);
+                $sql = 'FROM ' . DB_PREPEND . 'content pc WHERE ' . implode(' ', $news['sql_where']) . ' ' . $news['sql_group_by'];
+
+                if($news['current_page'] > 1) {
+                    if($news['current_page'] == 2) {
+                        $news['page_prev'] = rel_url( array(), array('newspage') );
+                    } else {
+                        $news['page_prev'] = rel_url( array( 'newspage' => $news['current_page']-1 ) );
+                    }
+
+                    // set pagination page info for detail link too
+                    $news['listing_page'] = array( 'newspage' => $news['current_page'] );
+                }
+
+                if($news['current_page'] < $news['total_pages']) {
+                    $news['page_next'] = rel_url( array( 'newspage' => $news['current_page']+1 ) );
+                }
+            }
+
+        } else {
+
+            // count all news based on current query
+            if($news['news_joined_sql']) {
+
+                $news['count_all'] = count( _dbQuery($news['sql_joined_count'] . $sql . $news['sql_limit']) );
+
+            } else {
+
+                $news['count_all'] = _dbCount($news['sql_count'] . $sql);
+
+                // handle skipped items
+                if($news['news_skip']) {
+                    $news['count_all'] = $news['count_all'] - $news['news_skip'];
+                    if($news['count_all'] < 0) {
+                        $news['count_all'] = 0;
+                    }
+                }
+
+                // check if less news should be used than news in db
+                if($news['news_limit'] && $news['news_limit'] < $news['count_all']) {
+                    $news['count_all'] = $news['news_limit'];
+                }
+            }
+
+            $news['total_pages'] = ceil( $news['count_all'] / $news['news_paginate_count'] );
+
+            if($news['current_page'] > $news['total_pages']) {
+                $news['current_page'] = $news['total_pages'];
+            }
+
+            if($news['current_page'] > 1 && $news['total_pages'] > 1) {
+                if($news['current_page'] == 2) {
+                    $news['page_prev'] = rel_url( array(), array('newspage') );
+                } else {
+                    $news['page_prev'] = rel_url( array( 'newspage' => $news['current_page']-1 ) );
+                }
+
+                // set pagination page info for detail link too
+                $news['listing_page'] = array( 'newspage' => $news['current_page'] );
+            }
+
+            if($news['total_pages'] > 1 && $news['current_page'] < $news['total_pages']) {
+                $news['page_next'] = rel_url( array( 'newspage' => $news['current_page']+1 ) );
+            }
+
+            // set LIMIT
+            $news['sql_limit']  = ' LIMIT ';
+            $news['sql_limit'] .= (($news['current_page'] - 1) *  $news['news_paginate_count']) + $news['news_skip'];
+            $news['sql_limit'] .= ', ' . $news['news_paginate_count'];
+
+        }
 
     }
 
@@ -870,6 +930,7 @@ if($news['template']) {
             $news['tmpl_news'] = render_cnt_template($news['tmpl_news'], 'PAGE_NEXT', $news['page_next']);
             $news['tmpl_news'] = str_replace('{PAGE_CURRENT}', $news['current_page'], $news['tmpl_news']);
             $news['tmpl_news'] = str_replace('{PAGE_TOTAL}', $news['total_pages'], $news['tmpl_news']);
+            $news['tmpl_news'] = render_cnt_template($news['tmpl_news'], 'PAGE_PERIOD', html($news['paginate_period'] ?? ''));
         } else {
             $news['tmpl_news'] = render_cnt_template($news['tmpl_news'], 'PAGINATE', '');
         }

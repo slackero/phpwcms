@@ -1496,6 +1496,12 @@ $BL['be_func_switch_contentpart']  = 'Вы действительно хотит
 ';
 $BL['phpwcms_code_snippets_dir_exists'] = '<strong>ВНИМАНИЕ!</strong> Папка «CODE-SNIPPETS» все еще существует! Удалите папку <strong>phpwcms_code_snippets</strong>.';
 $BL['be_pagination']               = 'Пагинация';
+$BL['be_pagination_basis']         = 'Основа пагинации';
+$BL['be_pagination_basis_count']   = 'Количество';
+$BL['be_pagination_basis_day']     = 'День';
+$BL['be_pagination_basis_week']    = 'Неделя';
+$BL['be_pagination_basis_month']   = 'Месяц';
+$BL['be_pagination_basis_year']    = 'Год';
 $BL['be_cnt_additional']           = 'Дополнительно';
 $BL['be_cnt_question']             = 'Вопрос';
 $BL['be_cnt_css_style']            = 'Стиль CSS';

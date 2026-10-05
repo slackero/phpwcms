@@ -1496,6 +1496,12 @@ Definições importantes podem ser substituídas!
 ';
 $BL['phpwcms_code_snippets_dir_exists'] = '<strong>ATENÇÃO!</strong> O diretório «CODE-SNIPPETS» ainda existe! Elimine o diretório <strong>phpwcms_code_snippets</strong>.';
 $BL['be_pagination']               = 'Paginação';
+$BL['be_pagination_basis']         = 'Base de pagina&ccedil;&atilde;o';
+$BL['be_pagination_basis_count']   = 'Quantidade';
+$BL['be_pagination_basis_day']     = 'Dia';
+$BL['be_pagination_basis_week']    = 'Semana';
+$BL['be_pagination_basis_month']   = 'M&ecirc;s';
+$BL['be_pagination_basis_year']    = 'Ano';
 $BL['be_cnt_additional']           = 'Adicional';
 $BL['be_cnt_question']             = 'Pergunta';
 $BL['be_cnt_css_style']            = 'Estilo CSS';

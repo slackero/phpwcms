@@ -168,13 +168,21 @@ initJsAutocompleter();
       <label for="news_paginate" class="form-check-label"><?php echo $BL['be_pagination'] ?></label>
     </div>
   </div>
-  <input type="hidden" name="news_paginate_basis" id="news_paginate_basis" value="<?php echo $content['news']['news_paginate_basis'] ?? 0; ?>" />
   <div class="col-sm-auto">
+    <select name="news_paginate_basis" id="news_paginate_basis" class="form-select form-select-sm" aria-label="<?php echo html_specialchars($BL['be_pagination_basis']) ?>">
+      <option value="0"<?php is_selected(0, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_pagination_basis_count'] ?></option>
+      <option value="1"<?php is_selected(1, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_pagination_basis_day'] ?></option>
+      <option value="2"<?php is_selected(2, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_pagination_basis_week'] ?></option>
+      <option value="3"<?php is_selected(3, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_pagination_basis_month'] ?></option>
+      <option value="4"<?php is_selected(4, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_pagination_basis_year'] ?></option>
+    </select>
+  </div>
+  <div class="col-sm-auto" id="news_paginate_count_group">
 		<div class="input-group input-group-sm">
 			<input type="text" name="news_paginate_count" id="news_paginate_count" size="5" maxlength="5"  class="form-control form-control-sm" value="<?php echo html($content['news']['news_paginate_count']) ?>"  />
-			
+
 				<span class="input-group-text"><?php echo $BL['be_cnt_rssfeed_item'] ?></span>
-			
+
 		</div>
   </div>
 </div>
@@ -209,7 +217,7 @@ initJsAutocompleter();
 <script type="text/javascript">
 
 	function setPaginateBasis() {
-		$('#news_paginate_count').css('visibility', $('#news_paginate_basis').prop('selectedIndex') ? 'hidden' : 'visible');
+		$('#news_paginate_count_group').toggle($('#news_paginate_basis').prop('selectedIndex') === 0);
 	}
 
   $(function(){
@@ -217,6 +225,7 @@ initJsAutocompleter();
 
 
 		setPaginateBasis();
+		$('#news_paginate_basis').on('change', setPaginateBasis);
 
 		var allowedLang = $('input.allowedLang'),
             langAll = $('#langAll');

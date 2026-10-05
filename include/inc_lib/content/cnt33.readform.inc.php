@@ -46,7 +46,7 @@ if( empty($content['news']['news_paginate_count']) ) {
 	$content['news']['news_paginate_count'] = $content['news']['news_paginate'] ? 10 : '';
 }
 if( $content['news']['news_paginate_basis'] > 4 ) {
-	$content['news']['news_paginate_basis'] = 3;
+	$content['news']['news_paginate_basis'] = 0;
 }
 if( empty($content['news']['news_limit']) ) {
 	$content['news']['news_limit'] = '';

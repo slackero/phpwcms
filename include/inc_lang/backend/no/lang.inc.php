@@ -1556,6 +1556,12 @@ Viktige innstillinger kan overskrives!
 ';
 $BL['phpwcms_code_snippets_dir_exists'] = '<strong>OBS!</strong> Mappen «CODE-SNIPPETS» finnes fortsatt! Slett mappen <strong>phpwcms_code_snippets</strong>.';
 $BL['be_pagination']               = 'Sideinndeling';
+$BL['be_pagination_basis']         = 'Sideinndelingsgrunnlag';
+$BL['be_pagination_basis_count']   = 'Antall';
+$BL['be_pagination_basis_day']     = 'Dag';
+$BL['be_pagination_basis_week']    = 'Uke';
+$BL['be_pagination_basis_month']   = 'Måned';
+$BL['be_pagination_basis_year']    = 'År';
 $BL['be_cnt_additional']           = 'Tillegg';
 $BL['be_cnt_question']             = 'Spørsmål';
 $BL['be_total']                    = 'Totalt';
