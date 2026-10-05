@@ -4063,6 +4063,12 @@ parameters:
 			path: ../include/inc_module/mod_shop/inc/cnt.article.php
 
 		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_shop/inc/cnt.form.php
+
+		-
 			message: '#^Variable \$article might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1

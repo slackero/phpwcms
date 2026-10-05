@@ -26,6 +26,13 @@ if (!is_array($content['shop'])) {
 
 $content['shop']['shop_action']		= $content['shop']['shop_action'] ?? 'categories';
 $content['shop']['shop_category']	= intval($content['shop']['shop_category'] ?? 0);
+$content['shop']['shop_template']	= $content['shop']['shop_template'] ?? '';
+
+// per content part template override; the first shop content part on the page wins
+// because the shop engine loads a single template for all of its output
+if (empty($GLOBALS['phpwcms']['shop_cp_template']) && $content['shop']['shop_template'] !== '') {
+	$GLOBALS['phpwcms']['shop_cp_template'] = basename($content['shop']['shop_template']);
+}
 
 // The shop frontend engine runs at the final render stage and replaces these
 // tags in $content['all'], so the content part only has to emit the matching one.

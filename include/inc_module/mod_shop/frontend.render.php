@@ -61,11 +61,20 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
         'lang' => $phpwcms['default_lang']
     );
 
+    // content part template override wins over the global shop template
+    if(!empty($phpwcms['shop_cp_template']) && is_file($phpwcms['modules']['shop']['path'].'template/'.$phpwcms['shop_cp_template'])) {
+
+        $_tmpl['source'] = @file_get_contents($phpwcms['modules']['shop']['path'].'template/'.$phpwcms['shop_cp_template']);
+
     // Check against language specific shop template
-    if(is_file($phpwcms['modules']['shop']['path'].'template/'.$phpwcms['default_lang'].'.html')) {
+    } elseif(is_file($phpwcms['modules']['shop']['path'].'template/'.$phpwcms['default_lang'].'.html')) {
+
         $_tmpl['source'] = @file_get_contents($phpwcms['modules']['shop']['path'].'template/'.$phpwcms['default_lang'].'.html');
+
     } else {
+
         $_tmpl['source'] = @file_get_contents($phpwcms['modules']['shop']['path'].'template/default.html');
+
     }
 
     if($_tmpl['source']) {

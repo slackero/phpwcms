@@ -24,10 +24,32 @@ if (empty($content['shop']) || !is_array($content['shop'])) {
 
 $content['shop']['shop_action']		= $content['shop']['shop_action'] ?? 'categories';
 $content['shop']['shop_category']	= intval($content['shop']['shop_category'] ?? 0);
+$content['shop']['shop_template']	= $content['shop']['shop_template'] ?? '';
 
 $content['shop']['module_lang'] = $BL['modules'][$content['module']];
 
 ?>
+
+<div class="form-group align-items-center row g-2">
+	<label for="shop_template" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_template']; ?></label>
+	<div class="col-sm-4">
+		<select name="shop_template" id="shop_template" class="form-select form-select-sm">
+			<?php
+			echo '<option value="">' . $BL['be_admin_tmpl_default'] . '</option>' . LF;
+
+			$tmpllist = get_tmpl_files($phpwcms['modules'][$content['module']]['path'] . 'template', 'html');
+			if (is_array($tmpllist) && count($tmpllist)) {
+				foreach ($tmpllist as $val) {
+					$selected_val = ($val == $content['shop']['shop_template']) ? ' selected="selected"' : '';
+					$val = html($val);
+					echo '<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+				}
+			}
+			?>
+		</select>
+	</div>
+</div>
+
 
 <div class="form-group align-items-center row g-2">
 	<label for="shop_action" class="col-sm-2 col-form-label text-end"><?php echo $content['shop']['module_lang']['cp_action']; ?></label>
