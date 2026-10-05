@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Glossary module handle content part POST values
 
 $content['glossary'] = array();
-$content['glossary']['glossary_template']	= clean_slweg($_POST['glossary_template']);
+$content['glossary']['glossary_template']	= sanitize_template_name(clean_slweg($_POST['glossary_template'] ?? ''));
 $content['glossary']['glossary_filter']		= clean_slweg($_POST['glossary_filter']);
 $content['glossary']['glossary_maxwords']	= intval($_POST['glossary_maxwords']);
 if(empty($content['glossary']['glossary_maxwords'])) {
