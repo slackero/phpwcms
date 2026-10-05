@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Redaguoti užsakymą';
 $BLM['shopprod_on_request'] = 'Užsakymas tik pagal užklausą';
 $BLM['shopprod_on_request_button'] = 'Užklausos URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Veiksmas';
+$BLM['cp_action_categories'] = 'Kategorijų sąrašas';
+$BLM['cp_action_category'] = 'Viena kategorija';
+$BLM['cp_action_productlist'] = 'Produktų sąrašas';
+$BLM['cp_action_order'] = 'Krepšelis / užsakymas';
+$BLM['cp_action_smallcart'] = 'Mažas krepšelis';
+$BLM['cp_category_id'] = 'Kategorijos ID';
+$BLM['cp_category_id_hint'] = 'Naudojama su &bdquo;Viena kategorija&ldquo;';

@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'অর্ডার সম্পাদনা করুন';
 $BLM['shopprod_on_request'] = 'শুধুমাত্র অনুরোধের ভিত্তিতে অর্ডার';
 $BLM['shopprod_on_request_button'] = 'অনুরোধের URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'কাজ';
+$BLM['cp_action_categories'] = 'বিভাগের তালিকা';
+$BLM['cp_action_category'] = 'একক বিভাগ';
+$BLM['cp_action_productlist'] = 'পণ্যের তালিকা';
+$BLM['cp_action_order'] = 'কার্ট / অর্ডার';
+$BLM['cp_action_smallcart'] = 'ছোট কার্ট';
+$BLM['cp_category_id'] = 'বিভাগ আইডি';
+$BLM['cp_category_id_hint'] = '&ldquo;একক বিভাগ&rdquo;-এর জন্য ব্যবহৃত';

@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Bestellung bearbeiten';
 $BLM['shopprod_on_request'] = 'Nur auf Anfrage';
 $BLM['shopprod_on_request_button'] = 'Anfrage-URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Aktion';
+$BLM['cp_action_categories'] = 'Kategorieliste';
+$BLM['cp_action_category'] = 'Einzelne Kategorie';
+$BLM['cp_action_productlist'] = 'Produktliste';
+$BLM['cp_action_order'] = 'Warenkorb / Bestellung';
+$BLM['cp_action_smallcart'] = 'Kleiner Warenkorb';
+$BLM['cp_category_id'] = 'Kategorie-ID';
+$BLM['cp_category_id_hint'] = 'Wird f&uuml;r &bdquo;Einzelne Kategorie&ldquo; verwendet';

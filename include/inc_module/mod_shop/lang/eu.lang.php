@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Editatu eskaera';
 $BLM['shopprod_on_request'] = 'Eskaera eskatuta soilik';
 $BLM['shopprod_on_request_button'] = 'Eskaera URLa';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Ekintza';
+$BLM['cp_action_categories'] = 'Kategorien zerrenda';
+$BLM['cp_action_category'] = 'Kategoria bakarra';
+$BLM['cp_action_productlist'] = 'Produktuen zerrenda';
+$BLM['cp_action_order'] = 'Saskia / eskaera';
+$BLM['cp_action_smallcart'] = 'Saski txikia';
+$BLM['cp_category_id'] = 'Kategoria ID';
+$BLM['cp_category_id_hint'] = 'Kategoria bakarrerako erabiltzen da';

@@ -4051,6 +4051,42 @@ parameters:
 			path: ../include/inc_module/mod_shop/inc/tabs.inc.php
 
 		-
+			message: '#^Variable \$CNT_TMP might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_shop/inc/cnt.article.php
+
+		-
+			message: '#^Variable \$crow might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_module/mod_shop/inc/cnt.article.php
+
+		-
+			message: '#^Variable \$article might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_shop/inc/cnt.list.php
+
+		-
+			message: '#^Variable \$row might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: ../include/inc_module/mod_shop/inc/cnt.list.php
+
+		-
+			message: '#^Variable \$row might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_shop/inc/cnt.read.php
+
+		-
+			message: '#^Variable \$SQL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_shop/inc/cnt.sql.php
+
+		-
 			message: '#^Variable \$module might not be defined\.$#'
 			identifier: variable.undefined
 			count: 5

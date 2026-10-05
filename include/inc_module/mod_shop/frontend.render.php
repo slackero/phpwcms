@@ -755,7 +755,7 @@ if( $_shop_load_list !== false ) {
 
     $_tmpl['config']['cat_list_sort_by'] = trim($_tmpl['config']['cat_list_sort_by']);
     if($_tmpl['config']['cat_list_sort_by'] !== '') {
-        $sql .= ' ORDER BY '.aporeplace($_tmpl['config']['cat_list_sort_by']);
+        $sql .= ' ORDER BY '._dbEscape($_tmpl['config']['cat_list_sort_by'], false);
     }
 
     $data = _dbQuery($sql);

@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Bestelling bewerken';
 $BLM['shopprod_on_request'] = 'Bestelling alleen op aanvraag';
 $BLM['shopprod_on_request_button'] = 'Aanvraag-URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Actie';
+$BLM['cp_action_categories'] = 'Categorielijst';
+$BLM['cp_action_category'] = 'Enkele categorie';
+$BLM['cp_action_productlist'] = 'Productlijst';
+$BLM['cp_action_order'] = 'Winkelwagen / bestelling';
+$BLM['cp_action_smallcart'] = 'Kleine winkelwagen';
+$BLM['cp_category_id'] = 'Categorie-ID';
+$BLM['cp_category_id_hint'] = 'Gebruikt voor &ldquo;Enkele categorie&rdquo;';

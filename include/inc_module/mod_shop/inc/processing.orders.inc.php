@@ -51,7 +51,7 @@ if($action == 'delete') {
         if($plugin['order_status'] == '') {
             $plugin['order_status'] = 'NEW-ORDER';
         }
-        $sql  = 'UPDATE '.DB_PREPEND."shop_orders SET order_status='".aporeplace($plugin['order_status'])."' ";
+        $sql  = 'UPDATE '.DB_PREPEND."shop_orders SET order_status='"._dbEscape($plugin['order_status'], false)."' ";
         $sql .= "WHERE order_id=" . intval($_POST['order_status']);
 
         if( _dbQuery($sql, 'UPDATE') ) {

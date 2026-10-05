@@ -39,7 +39,7 @@ if($action == 'edit') {
             $plugin['error']['cat_name'] = 'No name';
         } else {
             $sql  = 'SELECT COUNT(cat_id) FROM '.DB_PREPEND.'categories WHERE ';
-            $sql .= "cat_type='module_shop' AND cat_status != 9 AND cat_name LIKE '". aporeplace($plugin['data']['cat_name']) ."'";
+            $sql .= "cat_type='module_shop' AND cat_status != 9 AND cat_name LIKE '". _dbEscape($plugin['data']['cat_name'], false) ."'";
             $sql .= $plugin['data']['cat_id'] ? ' AND cat_id != ' . $plugin['data']['cat_id'] : '';
             if( _dbQuery($sql, 'COUNT') ) {
                 $plugin['error']['cat_name'] = 'Duplicate category name';
@@ -52,11 +52,11 @@ if($action == 'edit') {
             if( $plugin['data']['cat_id'] ) {
 
                 $sql  = 'UPDATE '.DB_PREPEND.'categories SET ';
-                $sql .= "cat_changedate = '".aporeplace( date('Y-m-d H:i:s', $plugin['data']['cat_changedate']) )."', ";
+                $sql .= "cat_changedate = '"._dbEscape( date('Y-m-d H:i:s', $plugin['data']['cat_changedate']) , false)."', ";
                 $sql .= "cat_pid = ".$plugin['data']['cat_pid'].", ";
                 $sql .= "cat_status = ".$plugin['data']['cat_status'].", ";
-                $sql .= "cat_name = '".aporeplace($plugin['data']['cat_name'])."', ";
-                $sql .= "cat_info = '".aporeplace($plugin['data']['cat_info'])."', ";
+                $sql .= "cat_name = '"._dbEscape($plugin['data']['cat_name'], false)."', ";
+                $sql .= "cat_info = '"._dbEscape($plugin['data']['cat_info'], false)."', ";
                 $sql .= "cat_sort = ".$plugin['data']['cat_sort']." ";
                 $sql .= "WHERE cat_type='module_shop' AND cat_id = " . $plugin['data']['cat_id'];
 
@@ -70,11 +70,11 @@ if($action == 'edit') {
                 $sql .= ') VALUES (';
                 $sql .= "'module_shop', ";
                 $sql .= $plugin['data']['cat_pid'].', ';
-                $sql .= "'".aporeplace( date('Y-m-d H:i:s', $plugin['data']['cat_changedate']) )."', ";
-                $sql .= "'".aporeplace( date('Y-m-d H:i:s', $plugin['data']['cat_changedate']) )."', ";
+                $sql .= "'"._dbEscape( date('Y-m-d H:i:s', $plugin['data']['cat_changedate']) , false)."', ";
+                $sql .= "'"._dbEscape( date('Y-m-d H:i:s', $plugin['data']['cat_changedate']) , false)."', ";
                 $sql .= $plugin['data']['cat_status'].", ";
-                $sql .= "'".aporeplace($plugin['data']['cat_name'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['cat_info'])."',";
+                $sql .= "'"._dbEscape($plugin['data']['cat_name'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['cat_info'], false)."',";
                 $sql .= $plugin['data']['cat_sort'];
                 $sql .= ')';
 

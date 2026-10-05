@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Edit pesanan';
 $BLM['shopprod_on_request'] = 'Pemesanan hanya berdasarkan permintaan';
 $BLM['shopprod_on_request_button'] = 'URL permintaan';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Tindakan';
+$BLM['cp_action_categories'] = 'Daftar kategori';
+$BLM['cp_action_category'] = 'Kategori tunggal';
+$BLM['cp_action_productlist'] = 'Daftar produk';
+$BLM['cp_action_order'] = 'Keranjang / pesanan';
+$BLM['cp_action_smallcart'] = 'Keranjang kecil';
+$BLM['cp_category_id'] = 'ID kategori';
+$BLM['cp_category_id_hint'] = 'Digunakan untuk &ldquo;Kategori tunggal&rdquo;';

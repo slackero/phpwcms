@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Rediģēt pasūtījumu';
 $BLM['shopprod_on_request'] = 'Pasūtījums tikai pēc pieprasījuma';
 $BLM['shopprod_on_request_button'] = 'Pieprasījuma URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Darbība';
+$BLM['cp_action_categories'] = 'Kategoriju saraksts';
+$BLM['cp_action_category'] = 'Viena kategorija';
+$BLM['cp_action_productlist'] = 'Produktu saraksts';
+$BLM['cp_action_order'] = 'Grozs / pasūtījums';
+$BLM['cp_action_smallcart'] = 'Mazais grozs';
+$BLM['cp_category_id'] = 'Kategorijas ID';
+$BLM['cp_category_id_hint'] = 'Izmanto ar &bdquo;Viena kategorija&ldquo;';

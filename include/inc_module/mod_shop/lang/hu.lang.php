@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Rendelés szerkesztése';
 $BLM['shopprod_on_request'] = 'Csak ajánlatkérésre';
 $BLM['shopprod_on_request_button'] = 'Kérelem URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Művelet';
+$BLM['cp_action_categories'] = 'Kategórialista';
+$BLM['cp_action_category'] = 'Egyetlen kategória';
+$BLM['cp_action_productlist'] = 'Terméklista';
+$BLM['cp_action_order'] = 'Kosár / rendelés';
+$BLM['cp_action_smallcart'] = 'Kis kosár';
+$BLM['cp_category_id'] = 'Kategória azonosító';
+$BLM['cp_category_id_hint'] = 'A &bdquo;Egyetlen kategória&ldquo; művelethez';

@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Edita comanda';
 $BLM['shopprod_on_request'] = 'Comanda només sota petició';
 $BLM['shopprod_on_request_button'] = 'URL de petició';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Acció';
+$BLM['cp_action_categories'] = 'Llista de categories';
+$BLM['cp_action_category'] = 'Categoria única';
+$BLM['cp_action_productlist'] = 'Llista de productes';
+$BLM['cp_action_order'] = 'Cistella / comanda';
+$BLM['cp_action_smallcart'] = 'Cistella petita';
+$BLM['cp_category_id'] = 'ID de categoria';
+$BLM['cp_category_id_hint'] = 'Usat per a &laquo;Categoria única&raquo;';

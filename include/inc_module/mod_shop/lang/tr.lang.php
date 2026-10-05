@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Siparişi düzenle';
 $BLM['shopprod_on_request'] = 'Yalnızca talep üzerine sipariş';
 $BLM['shopprod_on_request_button'] = 'Talep URL’si';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Eylem';
+$BLM['cp_action_categories'] = 'Kategori listesi';
+$BLM['cp_action_category'] = 'Tek kategori';
+$BLM['cp_action_productlist'] = 'Ürün listesi';
+$BLM['cp_action_order'] = 'Sepet / sipariş';
+$BLM['cp_action_smallcart'] = 'Küçük sepet';
+$BLM['cp_category_id'] = 'Kategori kimliği';
+$BLM['cp_category_id_hint'] = '&ldquo;Tek kategori&rdquo; için kullanılır';

@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Muuda tellimust';
 $BLM['shopprod_on_request'] = 'Tellimus ainult päringu alusel';
 $BLM['shopprod_on_request_button'] = 'Päringu URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Tegevus';
+$BLM['cp_action_categories'] = 'Kategooriate loend';
+$BLM['cp_action_category'] = 'Üksik kategooria';
+$BLM['cp_action_productlist'] = 'Toodete loend';
+$BLM['cp_action_order'] = 'Ostukorv / tellimus';
+$BLM['cp_action_smallcart'] = 'Väike ostukorv';
+$BLM['cp_category_id'] = 'Kategooria ID';
+$BLM['cp_category_id_hint'] = 'Kasutatakse jaoks &bdquo;Üksik kategooria&ldquo;';

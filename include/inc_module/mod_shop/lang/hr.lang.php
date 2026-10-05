@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Uredi narudžbu';
 $BLM['shopprod_on_request'] = 'Narudžba samo na upit';
 $BLM['shopprod_on_request_button'] = 'URL za upit';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Akcija';
+$BLM['cp_action_categories'] = 'Popis kategorija';
+$BLM['cp_action_category'] = 'Pojedinačna kategorija';
+$BLM['cp_action_productlist'] = 'Popis proizvoda';
+$BLM['cp_action_order'] = 'Košarica / narudžba';
+$BLM['cp_action_smallcart'] = 'Mala košarica';
+$BLM['cp_category_id'] = 'ID kategorije';
+$BLM['cp_category_id_hint'] = 'Koristi se za &bdquo;Pojedinačna kategorija&ldquo;';

@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Muokkaa tilausta';
 $BLM['shopprod_on_request'] = 'Tilaus vain kysyttäessä';
 $BLM['shopprod_on_request_button'] = 'Tiedustelu-URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Toiminto';
+$BLM['cp_action_categories'] = 'Luettelo luokista';
+$BLM['cp_action_category'] = 'Yksittäinen luokka';
+$BLM['cp_action_productlist'] = 'Tuoteluettelo';
+$BLM['cp_action_order'] = 'Ostoskori / tilaus';
+$BLM['cp_action_smallcart'] = 'Pieni ostoskori';
+$BLM['cp_category_id'] = 'Luokan tunnus';
+$BLM['cp_category_id_hint'] = 'Käytetään toiminnossa &rdquo;Yksittäinen luokka&rdquo;';

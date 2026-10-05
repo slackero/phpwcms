@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Upravit objednávku';
 $BLM['shopprod_on_request'] = 'Objednávka pouze na dotaz';
 $BLM['shopprod_on_request_button'] = 'URL poptávky';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Akce';
+$BLM['cp_action_categories'] = 'Seznam kategorií';
+$BLM['cp_action_category'] = 'Jedna kategorie';
+$BLM['cp_action_productlist'] = 'Seznam produktů';
+$BLM['cp_action_order'] = 'Košík / objednávka';
+$BLM['cp_action_smallcart'] = 'Malý košík';
+$BLM['cp_category_id'] = 'ID kategorie';
+$BLM['cp_category_id_hint'] = 'Použije se pro &bdquo;Jedna kategorie&ldquo;';

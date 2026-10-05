@@ -128,3 +128,12 @@ $BLM['order_edit'] = '编辑订单';
 $BLM['shopprod_on_request'] = '仅限询价下单';
 $BLM['shopprod_on_request_button'] = '询价 URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = '操作';
+$BLM['cp_action_categories'] = '分类列表';
+$BLM['cp_action_category'] = '单个分类';
+$BLM['cp_action_productlist'] = '产品列表';
+$BLM['cp_action_order'] = '购物车 / 订单';
+$BLM['cp_action_smallcart'] = '迷你购物车';
+$BLM['cp_category_id'] = '分类ID';
+$BLM['cp_category_id_hint'] = '用于&ldquo;单个分类&rdquo;';

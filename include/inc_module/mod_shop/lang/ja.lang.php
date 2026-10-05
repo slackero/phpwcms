@@ -128,3 +128,12 @@ $BLM['order_edit'] = '注文を編集';
 $BLM['shopprod_on_request'] = '問い合わせによる注文のみ';
 $BLM['shopprod_on_request_button'] = '問い合わせURL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = '操作';
+$BLM['cp_action_categories'] = 'カテゴリ一覧';
+$BLM['cp_action_category'] = '単一カテゴリ';
+$BLM['cp_action_productlist'] = '商品一覧';
+$BLM['cp_action_order'] = 'カート / 注文';
+$BLM['cp_action_smallcart'] = 'ミニカート';
+$BLM['cp_category_id'] = 'カテゴリID';
+$BLM['cp_category_id_hint'] = '「単一カテゴリ」で使用';

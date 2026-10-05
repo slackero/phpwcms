@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Επεξεργασία παραγγελίας';
 $BLM['shopprod_on_request'] = 'Παραγγελία μόνο κατόπιν αιτήματος';
 $BLM['shopprod_on_request_button'] = 'URL αιτήματος';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Ενέργεια';
+$BLM['cp_action_categories'] = 'Λίστα κατηγοριών';
+$BLM['cp_action_category'] = 'Μεμονωμένη κατηγορία';
+$BLM['cp_action_productlist'] = 'Λίστα προϊόντων';
+$BLM['cp_action_order'] = 'Καλάθι / παραγγελία';
+$BLM['cp_action_smallcart'] = 'Μικρό καλάθι';
+$BLM['cp_category_id'] = 'ID κατηγορίας';
+$BLM['cp_category_id_hint'] = 'Χρησιμοποιείται για &laquo;Μεμονωμένη κατηγορία&raquo;';

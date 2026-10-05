@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'تحرير الطلب';
 $BLM['shopprod_on_request'] = 'الطلب عند الاستفسار فقط';
 $BLM['shopprod_on_request_button'] = 'رابط طلب الاستفسار';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'الإجراء';
+$BLM['cp_action_categories'] = 'قائمة الفئات';
+$BLM['cp_action_category'] = 'فئة واحدة';
+$BLM['cp_action_productlist'] = 'قائمة المنتجات';
+$BLM['cp_action_order'] = 'السلة / الطلب';
+$BLM['cp_action_smallcart'] = 'سلة صغيرة';
+$BLM['cp_category_id'] = 'معرّف الفئة';
+$BLM['cp_category_id_hint'] = 'يُستخدم مع &laquo;فئة واحدة&raquo;';

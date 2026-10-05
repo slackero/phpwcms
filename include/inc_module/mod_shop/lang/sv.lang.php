@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Redigera beställning';
 $BLM['shopprod_on_request'] = 'Beställning endast på förfrågan';
 $BLM['shopprod_on_request_button'] = 'Förfrågan-URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Åtgärd';
+$BLM['cp_action_categories'] = 'Kategorilista';
+$BLM['cp_action_category'] = 'Enskild kategori';
+$BLM['cp_action_productlist'] = 'Produktlista';
+$BLM['cp_action_order'] = 'Varukorg / order';
+$BLM['cp_action_smallcart'] = 'Liten varukorg';
+$BLM['cp_category_id'] = 'Kategori-ID';
+$BLM['cp_category_id_hint'] = 'Används för &rdquo;Enskild kategori&rdquo;';

@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Chỉnh sửa đơn hàng';
 $BLM['shopprod_on_request'] = 'Đơn hàng chỉ theo yêu cầu';
 $BLM['shopprod_on_request_button'] = 'URL yêu cầu';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Hành động';
+$BLM['cp_action_categories'] = 'Danh sách danh mục';
+$BLM['cp_action_category'] = 'Danh mục đơn';
+$BLM['cp_action_productlist'] = 'Danh sách sản phẩm';
+$BLM['cp_action_order'] = 'Giỏ hàng / đơn hàng';
+$BLM['cp_action_smallcart'] = 'Giỏ hàng nhỏ';
+$BLM['cp_category_id'] = 'ID danh mục';
+$BLM['cp_category_id_hint'] = 'Dùng cho &ldquo;Danh mục đơn&rdquo;';

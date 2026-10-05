@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'ஆர்டரைத் திருத்து';
 $BLM['shopprod_on_request'] = 'கோரிக்கையின் பேரில் மட்டுமே ஆர்டர்';
 $BLM['shopprod_on_request_button'] = 'கோரிக்கை URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'செயல்';
+$BLM['cp_action_categories'] = 'வகை பட்டியல்';
+$BLM['cp_action_category'] = 'ஒற்றை வகை';
+$BLM['cp_action_productlist'] = 'தயாரிப்பு பட்டியல்';
+$BLM['cp_action_order'] = 'வண்டி / ஆர்டர்';
+$BLM['cp_action_smallcart'] = 'சிறிய வண்டி';
+$BLM['cp_category_id'] = 'வகை ஐடி';
+$BLM['cp_category_id_hint'] = '&ldquo;ஒற்றை வகை&rdquo;க்கு பயன்படுத்தப்படுகிறது';

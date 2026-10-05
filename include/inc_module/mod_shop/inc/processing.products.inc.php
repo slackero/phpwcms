@@ -90,9 +90,9 @@ if($action == 'edit') {
         } else {
             $sql  = 'SELECT COUNT(shopprod_id) FROM '.DB_PREPEND.'shop_products WHERE ';
             if($plugin['data']['shopprod_id']) $sql .= 'shopprod_id != '.$plugin['data']['shopprod_id'].' AND ';
-            $sql .= "shopprod_ordernumber LIKE '" . aporeplace($plugin['data']['shopprod_ordernumber']) . "'";
+            $sql .= "shopprod_ordernumber LIKE '" . _dbEscape($plugin['data']['shopprod_ordernumber'], false) . "'";
             //if($plugin['data']['shopprod_lang']) {
-                $sql .= " AND shopprod_lang='" . aporeplace($plugin['data']['shopprod_lang']) . "'";
+                $sql .= " AND shopprod_lang='" . _dbEscape($plugin['data']['shopprod_lang'], false) . "'";
             //}
             if(_dbCount($sql)) $plugin['error']['shopprod_ordernumber'] = 'Unique order number necessary';
         }
@@ -210,41 +210,41 @@ if($action == 'edit') {
 
                 $sql  = 'UPDATE '.DB_PREPEND.'shop_products SET ';
 
-                $sql .= "shopprod_changedate = '".aporeplace( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) )."', ";
+                $sql .= "shopprod_changedate = '"._dbEscape( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) , false)."', ";
                 $sql .= "shopprod_status = ".$plugin['data']['shopprod_status'].", ";
 
-                $sql .= "shopprod_ordernumber = '".aporeplace($plugin['data']['shopprod_ordernumber'])."', ";
-                $sql .= "shopprod_model = '".aporeplace($plugin['data']['shopprod_model'])."', ";
+                $sql .= "shopprod_ordernumber = '"._dbEscape($plugin['data']['shopprod_ordernumber'], false)."', ";
+                $sql .= "shopprod_model = '"._dbEscape($plugin['data']['shopprod_model'], false)."', ";
 
-                $sql .= "shopprod_tag = '".aporeplace($plugin['data']['shopprod_tag'])."', ";
+                $sql .= "shopprod_tag = '"._dbEscape($plugin['data']['shopprod_tag'], false)."', ";
 
-                $sql .= "shopprod_vat = '".aporeplace($plugin['data']['shopprod_vat'])."', ";
-                $sql .= "shopprod_netgross = '".aporeplace($plugin['data']['shopprod_netgross'])."', ";
-                $sql .= "shopprod_price = '".aporeplace($plugin['data']['shopprod_price'])."', ";
+                $sql .= "shopprod_vat = '"._dbEscape($plugin['data']['shopprod_vat'], false)."', ";
+                $sql .= "shopprod_netgross = '"._dbEscape($plugin['data']['shopprod_netgross'], false)."', ";
+                $sql .= "shopprod_price = '"._dbEscape($plugin['data']['shopprod_price'], false)."', ";
 
-                $sql .= "shopprod_name1 = '".aporeplace($plugin['data']['shopprod_name1'])."', ";
-                $sql .= "shopprod_name2 = '".aporeplace($plugin['data']['shopprod_name2'])."', ";
+                $sql .= "shopprod_name1 = '"._dbEscape($plugin['data']['shopprod_name1'], false)."', ";
+                $sql .= "shopprod_name2 = '"._dbEscape($plugin['data']['shopprod_name2'], false)."', ";
 
-                $sql .= "shopprod_description0 = '".aporeplace($plugin['data']['shopprod_description0'])."', ";
-                $sql .= "shopprod_description1 = '".aporeplace($plugin['data']['shopprod_description1'])."', ";
-                $sql .= "shopprod_description2 = '".aporeplace($plugin['data']['shopprod_description2'])."', ";
-                $sql .= "shopprod_description3 = '".aporeplace($plugin['data']['shopprod_description3'])."', ";
+                $sql .= "shopprod_description0 = '"._dbEscape($plugin['data']['shopprod_description0'], false)."', ";
+                $sql .= "shopprod_description1 = '"._dbEscape($plugin['data']['shopprod_description1'], false)."', ";
+                $sql .= "shopprod_description2 = '"._dbEscape($plugin['data']['shopprod_description2'], false)."', ";
+                $sql .= "shopprod_description3 = '"._dbEscape($plugin['data']['shopprod_description3'], false)."', ";
 
-                $sql .= "shopprod_var = '".aporeplace(	serialize( array(
+                $sql .= "shopprod_var = '"._dbEscape(	serialize( array(
                     'images' => $plugin['data']['shopprod_images'],
                     'url' => $plugin['data']['shopprod_url'],
                     'files' => $plugin['data']['shopprod_files'],
                     'request' => $plugin['data']['shopprod_on_request'],
                     'request_url' => $plugin['data']['shopprod_on_request_url']
-                ) ) ) . "', ";
+                ) ) , false) . "', ";
 
-                $sql .= "shopprod_category = '".aporeplace( implode(',', $plugin['data']['shopprod_category']) )."', ";
+                $sql .= "shopprod_category = '"._dbEscape( implode(',', $plugin['data']['shopprod_category']) , false)."', ";
 
-                $sql .= "shopprod_weight = '".aporeplace($plugin['data']['shopprod_weight'])."', ";
-                $sql .= "shopprod_size = '".aporeplace($plugin['data']['shopprod_size'])."', ";
-                $sql .= "shopprod_color = '".aporeplace($plugin['data']['shopprod_color'])."', ";
-                $sql .= "shopprod_listall = '".aporeplace($plugin['data']['shopprod_listall'])."', ";
-                $sql .= "shopprod_lang = '".aporeplace($plugin['data']['shopprod_lang'])."', ";
+                $sql .= "shopprod_weight = '"._dbEscape($plugin['data']['shopprod_weight'], false)."', ";
+                $sql .= "shopprod_size = '"._dbEscape($plugin['data']['shopprod_size'], false)."', ";
+                $sql .= "shopprod_color = '"._dbEscape($plugin['data']['shopprod_color'], false)."', ";
+                $sql .= "shopprod_listall = '"._dbEscape($plugin['data']['shopprod_listall'], false)."', ";
+                $sql .= "shopprod_lang = '"._dbEscape($plugin['data']['shopprod_lang'], false)."', ";
                 $sql .= "shopprod_overwrite_meta = ".$plugin['data']['shopprod_overwrite_meta'].", ";
                 $sql .= "shopprod_opengraph = ".$plugin['data']['shopprod_opengraph'].", ";
                 $sql .= "shopprod_unit = "._dbEscape($plugin['data']['shopprod_unit']).", ";
@@ -264,38 +264,38 @@ if($action == 'edit') {
                 $sql .= 'shopprod_description3, shopprod_var, shopprod_category, shopprod_weight, shopprod_size, shopprod_color, ';
                 $sql .= 'shopprod_listall, shopprod_lang, shopprod_overwrite_meta, shopprod_opengraph, shopprod_unit,';
                 $sql .= 'shopprod_inventory) VALUES (';
-                $sql .= "'".aporeplace( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) )."', ";
-                $sql .= "'".aporeplace( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) )."', ";
+                $sql .= "'"._dbEscape( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) , false)."', ";
+                $sql .= "'"._dbEscape( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) , false)."', ";
                 $sql .= $plugin['data']['shopprod_status'].", ";
 
-                $sql .= "'".aporeplace($plugin['data']['shopprod_ordernumber'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_model'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_name1'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_name2'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_tag'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_vat'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_netgross'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_price'])."', ";
-                $sql .= "'".aporeplace('0')."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_description0'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_description1'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_description2'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_description3'])."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_ordernumber'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_model'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_name1'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_name2'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_tag'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_vat'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_netgross'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_price'], false)."', ";
+                $sql .= "'"._dbEscape('0', false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_description0'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_description1'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_description2'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_description3'], false)."', ";
 
-                $sql .= "'".aporeplace(	serialize( array(
+                $sql .= "'"._dbEscape(	serialize( array(
                     'images' => $plugin['data']['shopprod_images'],
                     'url' => $plugin['data']['shopprod_url'],
                     'files' => $plugin['data']['shopprod_files'],
                     'request' => $plugin['data']['shopprod_on_request'],
                     'request_url' => $plugin['data']['shopprod_on_request_url']
-                ) ) )."', ";
+                ) ) , false)."', ";
 
-                $sql .= "'".aporeplace( implode(',', $plugin['data']['shopprod_category']) ) ."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_weight'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_size'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_color'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_listall'])."', ";
-                $sql .= "'".aporeplace($plugin['data']['shopprod_lang'])."', ";
+                $sql .= "'"._dbEscape( implode(',', $plugin['data']['shopprod_category']) , false) ."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_weight'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_size'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_color'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_listall'], false)."', ";
+                $sql .= "'"._dbEscape($plugin['data']['shopprod_lang'], false)."', ";
                 $sql .= $plugin['data']['shopprod_overwrite_meta'].', ';
                 $sql .= $plugin['data']['shopprod_opengraph'].', ';
                 $sql .= _dbEscape($plugin['data']['shopprod_unit']).', ';

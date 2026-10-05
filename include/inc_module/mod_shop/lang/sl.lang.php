@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Uredi naročilo';
 $BLM['shopprod_on_request'] = 'Naročilo samo na povpraševanje';
 $BLM['shopprod_on_request_button'] = 'URL za povpraševanje';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Dejanje';
+$BLM['cp_action_categories'] = 'Seznam kategorij';
+$BLM['cp_action_category'] = 'Posamezna kategorija';
+$BLM['cp_action_productlist'] = 'Seznam izdelkov';
+$BLM['cp_action_order'] = 'Košarica / naročilo';
+$BLM['cp_action_smallcart'] = 'Mala košarica';
+$BLM['cp_category_id'] = 'ID kategorije';
+$BLM['cp_category_id_hint'] = 'Uporablja se za &bdquo;Posamezna kategorija&ldquo;';

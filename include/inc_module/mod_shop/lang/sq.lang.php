@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Ndrysho porosinë';
 $BLM['shopprod_on_request'] = 'Porosi vetëm me kërkesë';
 $BLM['shopprod_on_request_button'] = 'URL e kërkesës';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Veprimi';
+$BLM['cp_action_categories'] = 'Lista e kategorive';
+$BLM['cp_action_category'] = 'Kategori e vetme';
+$BLM['cp_action_productlist'] = 'Lista e produkteve';
+$BLM['cp_action_order'] = 'Shporta / porosia';
+$BLM['cp_action_smallcart'] = 'Shportë e vogël';
+$BLM['cp_category_id'] = 'ID e kategorisë';
+$BLM['cp_category_id_hint'] = 'Përdoret për &bdquo;Kategori e vetme&ldquo;';

@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'آرڈر میں ترمیم کریں';
 $BLM['shopprod_on_request'] = 'صرف درخواست پر آرڈر';
 $BLM['shopprod_on_request_button'] = 'درخواست URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'عمل';
+$BLM['cp_action_categories'] = 'زمرہ فہرست';
+$BLM['cp_action_category'] = 'واحد زمرہ';
+$BLM['cp_action_productlist'] = 'مصنوعات کی فہرست';
+$BLM['cp_action_order'] = 'کارٹ / آرڈر';
+$BLM['cp_action_smallcart'] = 'چھوٹی کارٹ';
+$BLM['cp_category_id'] = 'زمرہ آئی ڈی';
+$BLM['cp_category_id_hint'] = '&laquo;واحد زمرہ&raquo; کے لیے';

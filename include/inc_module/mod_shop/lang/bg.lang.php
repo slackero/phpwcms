@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Редактиране на поръчка';
 $BLM['shopprod_on_request'] = 'Поръчка само при запитване';
 $BLM['shopprod_on_request_button'] = 'URL за запитване';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Действие';
+$BLM['cp_action_categories'] = 'Списък с категории';
+$BLM['cp_action_category'] = 'Единична категория';
+$BLM['cp_action_productlist'] = 'Списък с продукти';
+$BLM['cp_action_order'] = 'Кошница / поръчка';
+$BLM['cp_action_smallcart'] = 'Малка кошница';
+$BLM['cp_category_id'] = 'ID на категория';
+$BLM['cp_category_id_hint'] = 'Използва се при &laquo;Единична категория&raquo;';

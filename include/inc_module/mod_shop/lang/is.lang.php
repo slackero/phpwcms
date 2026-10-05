@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Breyta pöntun';
 $BLM['shopprod_on_request'] = 'Pöntun aðeins samkvæmt fyrirspurn';
 $BLM['shopprod_on_request_button'] = 'Slóð fyrirspurnar';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Aðgerð';
+$BLM['cp_action_categories'] = 'Flokkalisti';
+$BLM['cp_action_category'] = 'Einn flokkur';
+$BLM['cp_action_productlist'] = 'Vörulisti';
+$BLM['cp_action_order'] = 'Karfa / pöntun';
+$BLM['cp_action_smallcart'] = 'Lítil karfa';
+$BLM['cp_category_id'] = 'Flokks-ID';
+$BLM['cp_category_id_hint'] = 'Notað fyrir &rdquo;Einn flokkur&rdquo;';

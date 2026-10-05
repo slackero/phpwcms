@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'ਆਰਡਰ ਸੋਧੋ';
 $BLM['shopprod_on_request'] = 'ਸਿਰਫ਼ ਬੇਨਤੀ ਤੇ ਆਰਡਰ';
 $BLM['shopprod_on_request_button'] = 'ਬੇਨਤੀ URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'ਕਾਰਵਾਈ';
+$BLM['cp_action_categories'] = 'ਸ਼੍ਰੇਣੀ ਸੂਚੀ';
+$BLM['cp_action_category'] = 'ਇੱਕ ਸ਼੍ਰੇਣੀ';
+$BLM['cp_action_productlist'] = 'ਉਤਪਾਦ ਸੂਚੀ';
+$BLM['cp_action_order'] = 'ਕਾਰਟ / ਆਰਡਰ';
+$BLM['cp_action_smallcart'] = 'ਛੋਟਾ ਕਾਰਟ';
+$BLM['cp_category_id'] = 'ਸ਼੍ਰੇਣੀ ਆਈਡੀ';
+$BLM['cp_category_id_hint'] = '&ldquo;ਇੱਕ ਸ਼੍ਰੇਣੀ&rdquo; ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ';

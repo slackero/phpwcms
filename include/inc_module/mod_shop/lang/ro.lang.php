@@ -128,3 +128,12 @@ $BLM['order_edit'] = 'Editează comanda';
 $BLM['shopprod_on_request'] = 'Comandă doar la cerere';
 $BLM['shopprod_on_request_button'] = 'URL cerere';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';
+
+$BLM['cp_action'] = 'Acțiune';
+$BLM['cp_action_categories'] = 'Listă de categorii';
+$BLM['cp_action_category'] = 'Categorie unică';
+$BLM['cp_action_productlist'] = 'Listă de produse';
+$BLM['cp_action_order'] = 'Coș / comandă';
+$BLM['cp_action_smallcart'] = 'Coș mic';
+$BLM['cp_category_id'] = 'ID categorie';
+$BLM['cp_category_id_hint'] = 'Folosit pentru &bdquo;Categorie unică&ldquo;';
