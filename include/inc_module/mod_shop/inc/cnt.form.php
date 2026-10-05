@@ -64,10 +64,35 @@ $content['shop']['module_lang'] = $BL['modules'][$content['module']];
 	</div>
 </div>
 
+<?php
+// shop categories for the selector
+$content['shop']['categories'] = _dbQuery('SELECT cat_id, cat_pid, cat_name FROM ' . DB_PREPEND . "categories WHERE cat_type='module_shop' AND cat_status=1 ORDER BY cat_sort, cat_name");
+
+$content['shop']['category_tree'] = array();
+if (is_array($content['shop']['categories'])) {
+	foreach ($content['shop']['categories'] as $content['shop']['category']) {
+		$content['shop']['category_tree'][$content['shop']['category']['cat_pid']][] = $content['shop']['category'];
+	}
+}
+
+$content['shop']['category_options'] = function ($parent, $depth) use (&$content) {
+	if (empty($content['shop']['category_tree'][$parent])) {
+		return;
+	}
+	foreach ($content['shop']['category_tree'][$parent] as $cat) {
+		$selected = ($cat['cat_id'] == $content['shop']['shop_category']) ? ' selected="selected"' : '';
+		echo '<option value="' . $cat['cat_id'] . '"' . $selected . '>' . str_repeat('&nbsp;&nbsp;', $depth) . html($cat['cat_name']) . '</option>';
+		$content['shop']['category_options']($cat['cat_id'], $depth + 1);
+	}
+};
+?>
 <div class="form-group align-items-center row g-2" id="shop_category_group">
 	<label for="shop_category" class="col-sm-2 col-form-label text-end"><?php echo $content['shop']['module_lang']['cp_category_id']; ?></label>
-	<div class="col-sm-auto">
-		<input type="text" name="shop_category" id="shop_category" class="form-control form-control-sm" size="6" maxlength="10" value="<?php echo $content['shop']['shop_category'] ?: ''; ?>" />
+	<div class="col-sm-4">
+		<select name="shop_category" id="shop_category" class="form-select form-select-sm">
+			<option value="0"><?php echo $BL['be_admin_tmpl_default']; ?></option>
+			<?php $content['shop']['category_options'](0, 0); ?>
+		</select>
 	</div>
 	<div class="col">
 		<small class="form-text text-muted"><?php echo $content['shop']['module_lang']['cp_category_id_hint']; ?></small>
