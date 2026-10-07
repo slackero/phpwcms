@@ -656,7 +656,8 @@ function custom_field_file_url($value, $type = 'file') {
                 'thumb_name' => md5($file[0] . $GLOBALS['phpwcms']['img_list_width'] . $GLOBALS['phpwcms']['img_list_height'] . $GLOBALS['phpwcms']['sharpen_level'] . $GLOBALS['phpwcms']['colorspace']),
             ));
             if ($image !== false) {
-                $resolved[$key] = PHPWCMS_URL . PHPWCMS_IMAGES . $image[0];
+                $resolved[$key] = PHPWCMS_CDN_IMAGE_URL ? '' : PHPWCMS_URL;
+                $resolved[$key] .= $image['src'];
             } else {
                 $resolved[$key] = rel_download($file[0], $filename, false, false, true);
             }

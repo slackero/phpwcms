@@ -163,7 +163,14 @@ $phpwcms['parse_url'] = parse_url(PHPWCMS_URL);
 define('PHPWCMS_DOMAIN', $phpwcms['parse_url']['host']);
 define('PHPWCMS_BASEURL', $phpwcms['parse_url']['scheme'] . '://' . $phpwcms['parse_url']['host'] . (empty($phpwcms['parse_url']['port']) || $phpwcms['parse_url']['port'] === 443 || $phpwcms['parse_url']['port'] === 80 ? '' : ':' . $phpwcms['parse_url']['port']));
 define('PHPWCMS_HOST', $phpwcms['parse_url']['host'] . $phpwcms['host_root']);
-define('PHPWCMS_IMAGES', $phpwcms['content_path'] . $phpwcms['cimage_path']);
+if (empty($phpwcms['cdn_image_url'])) {
+    define('PHPWCMS_CDN_IMAGE_URL', '');
+    define('PHPWCMS_IMAGES', $phpwcms['content_path'] . $phpwcms['cimage_path']);
+} else {
+    $phpwcms['cdn_image_url'] = rtrim($phpwcms['cdn_image_url'], '/') . '/';
+    define('PHPWCMS_CDN_IMAGE_URL', $phpwcms['cdn_image_url']);
+    define('PHPWCMS_IMAGES', $phpwcms['cdn_image_url'] . $phpwcms['content_path'] . $phpwcms['cimage_path']);
+}
 define('PHPWCMS_TEMP', PHPWCMS_ROOT . '/' . $phpwcms['content_path'] . 'tmp/');
 define('PHPWCMS_CONTENT', PHPWCMS_ROOT . '/' . $phpwcms['content_path']);
 define('PHPWCMS_THUMB', PHPWCMS_CONTENT . $phpwcms['cimage_path']);

@@ -43,6 +43,7 @@ $phpwcms['file_path']            = 'filearchive';
 $phpwcms['templates']            = 'template';
 $phpwcms['content_path']         = 'content';
 $phpwcms['cimage_path']          = 'images';
+$phpwcms['cdn_image_url']        = ''; // CDN base URL for content images, e.g. 'https://cdn.example.com' or '//cdn.example.com'
 $phpwcms['ftp_path']             = 'upload';
 $phpwcms['ads_path']             = 'marketing'; // it's the former 'ads' dir in '/content'
 

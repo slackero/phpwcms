@@ -156,6 +156,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['templates'] = '" . escape_quote($val['templates'] ?? 'template') . "'; //default: 'template'\n";
     $conf_file .= "\$phpwcms['content_path'] = '" . escape_quote($val['content_path'] ?? 'content') . "'; //default: 'content'\n";
     $conf_file .= "\$phpwcms['cimage_path'] = 'images';  //default: 'images'\n";
+    $conf_file .= "\$phpwcms['cdn_image_url'] = '" . escape_quote($val['cdn_image_url'] ?? '') . "'; //default: ''\n";
     $conf_file .= "\$phpwcms['ftp_path'] = '" . escape_quote($val['ftp_path'] ?? 'upload') . "'; //default: 'upload'\n";
     $conf_file .= "\$phpwcms['ads_path'] = 'marketing'; // it's the former 'ads' dir in '/content'\n";
 

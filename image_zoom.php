@@ -18,13 +18,22 @@ $attr = '';
 
 if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), true))) {
     $src = strip_tags($data['src']);
-    $src_schema = parse_url($src);
-    if (!empty($src_schema['scheme'])) {
-        $src = "img/leer.gif";
+    $is_valid_cdn = false;
+    if (PHPWCMS_CDN_IMAGE_URL && str_starts_with($src, PHPWCMS_CDN_IMAGE_URL)) {
+        $cdn_rel = substr($src, strlen(PHPWCMS_CDN_IMAGE_URL));
+        if (strspn($cdn_rel, '/\\.') === 0 && strpos($cdn_rel, '..') === false) {
+            $is_valid_cdn = true;
+        }
     }
-    // keep the image source a relative path contained under the install dir
-    if (strspn($src, '/\\.') !== 0 || strpos($src, '..') !== false) {
-        $src = "img/leer.gif";
+    if (!$is_valid_cdn) {
+        $src_schema = parse_url($src);
+        if (!empty($src_schema['scheme'])) {
+            $src = "img/leer.gif";
+        }
+        // keep the image source a relative path contained under the install dir
+        if (strspn($src, '/\\.') !== 0 || strpos($src, '..') !== false) {
+            $src = "img/leer.gif";
+        }
     }
     $name = is_scalar($data['name']) ? strip_tags((string)$data['name']) : '';
 }
