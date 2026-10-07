@@ -84,6 +84,17 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
         }
 
         $_tmpl['config'] = parse_ini_str(get_tmpl_section('CONFIG', $_tmpl['source']), false);
+
+        // content part action-specific options override the template CONFIG section
+        if(!empty($phpwcms['shop_cp_options']) && is_array($phpwcms['shop_cp_options'])) {
+            $_tmpl['config'] = array_merge($_tmpl['config'], $phpwcms['shop_cp_options']);
+        }
+
+        // content part custom INI settings override the template CONFIG section and UI options
+        if(!empty($phpwcms['shop_cp_config'])) {
+            $_tmpl['config'] = array_merge($_tmpl['config'], parse_ini_str($phpwcms['shop_cp_config'], false));
+        }
+
         $_tmpl['config']['cat_list_products'] = empty($_tmpl['config']['cat_list_products']) ? false : phpwcms_boolval($_tmpl['config']['cat_list_products']);
         $_tmpl['config']['cat_count_products'] = empty($_tmpl['config']['cat_count_products']) ? false : phpwcms_boolval($_tmpl['config']['cat_count_products']);
         $_tmpl['config']['image_list_lightbox'] = empty($_tmpl['config']['image_list_lightbox']) ? false : phpwcms_boolval($_tmpl['config']['image_list_lightbox']);
