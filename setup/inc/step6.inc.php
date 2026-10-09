@@ -13,7 +13,7 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 $_SERVER['DOCUMENT_ROOT'] = $phpwcms['DOC_ROOT'];
-$phpwcms['root'] = !empty($phpwcms['root']) ? '/' . $phpwcms['root'] : '';
+$phpwcms['root'] = !empty($phpwcms['root']) ? '/' . trim($phpwcms['root'], '/') : '';
 
 ?>
 <h2 class="h4 text-primary fw-normal mb-3">8. Finalization &amp; Permissions Check</h2>

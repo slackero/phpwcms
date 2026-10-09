@@ -12,6 +12,10 @@ if (!defined('PHPWCMS_SETUP')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 
+if (!empty($_GET['edit_admin'])) {
+    unset($_SESSION['admin_save']);
+}
+
 ?>
 <h2 class="h4 text-primary fw-normal mb-3">4. Database Server Connection</h2>
 
@@ -24,7 +28,10 @@ if (!defined('PHPWCMS_SETUP')) {
             <label class="form-check-label fw-bold text-dark" for="create_database">Create database "<?php echo html_specialchars($phpwcms['db_table']) ?>" now (UTF-8 / utf8mb4)</label>
         </div>
     </div>
-    <?php $_SESSION['admin_set'] = false; ?>
+    <?php
+    $_SESSION['admin_set'] = false;
+    unset($_SESSION['db_tables_created'], $_SESSION['db_no_create']);
+    ?>
 <?php elseif (isset($_POST['dbsavesubmit']) && $err): ?>
     <div class="alert alert-danger mb-4">
         <div><i class="fa fa-exclamation-triangle"></i> Please check your database connection settings below.</div>
@@ -32,7 +39,10 @@ if (!defined('PHPWCMS_SETUP')) {
             <div class="mt-2 small font-monospace fw-bold bg-white p-2 border rounded text-danger"><?php echo html_specialchars($db_error_message) ?></div>
         <?php endif; ?>
     </div>
-    <?php $_SESSION['admin_set'] = false; ?>
+    <?php
+    $_SESSION['admin_set'] = false;
+    unset($_SESSION['db_tables_created'], $_SESSION['db_no_create']);
+    ?>
 <?php endif; ?>
 
 <?php if (!empty($db_created_notice)): ?>
@@ -247,7 +257,9 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
         <div class="card-header bg-light fw-bold">Database Schema Initialization</div>
         <div class="card-body">
             <?php
-            if (empty($db_no_create) && !empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
+            $is_schema_ready = !empty($db_fine) || !empty($_SESSION['db_tables_created']);
+
+            if (empty($is_schema_ready) && empty($db_no_create) && !empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
                 echo '<div class="alert alert-warning mb-3">phpwcms tables already exist in chosen database. Consider changing the table prefix.</div>';
                 $_SESSION['admin_set'] = false;
             }
@@ -266,20 +278,26 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 $check = _dbQuery("SHOW TABLES LIKE '" . $_db_prepend . "%'");
 
                 if ($check && count($check)) {
-                    $sql_data   = false;
-                    $db_sql     = false;
-                    $db_fine    = true;
-                    $_SESSION['admin_set'] = true;
-                    echo '<div class="alert alert-success mb-0"><i class="fa fa-check-circle"></i> Initial phpwcms database tables created successfully.<input type="hidden" name="db_sql_hidden" value="1" /></div>';
+                    $sql_data                      = false;
+                    $db_sql                        = false;
+                    $db_fine                       = true;
+                    $is_schema_ready               = true;
+                    $_SESSION['admin_set']         = true;
+                    $_SESSION['db_tables_created'] = true;
+                    echo '<div class="alert alert-success mb-0"><i class="fa fa-check-circle"></i> Initial phpwcms database tables created successfully.</div>';
                 } else {
                     $_SESSION['admin_set']  = false;
                     $sql_data               = false;
                     $db_sql                 = false;
                     echo '<div class="alert alert-danger mb-0">No phpwcms database tables found. Please check setup!<input type="hidden" name="db_sql_hidden" value="1" /></div>';
                 }
-            }
-
-            if (empty($db_fine)) {
+            } elseif ($is_schema_ready) {
+                if (!empty($_SESSION['db_no_create']) || !empty($db_no_create)) {
+                    echo '<div class="alert alert-info mb-0"><i class="fa fa-info-circle"></i> Using existing phpwcms database tables.</div>';
+                } else {
+                    echo '<div class="alert alert-success mb-0"><i class="fa fa-check-circle"></i> Initial phpwcms database tables created successfully.</div>';
+                }
+            } else {
                 $is_checked_sql = !empty($db_sql) || (!isset($_POST['db_sql_hidden']) && empty($_db_prepend_error));
                 ?>
                 <div class="form-check">
@@ -354,32 +372,38 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                     $_brand_prefix = 'phpwcms';
                 }
                 $_db_prepend = ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . $_brand_prefix . '_';
-                $user_check = _dbQuery('SELECT * FROM ' . $_db_prepend . "user WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "'");
+                $create_user = false;
+                $update_user = false;
+                try {
+                    $user_check = _dbQuery('SELECT * FROM ' . $_db_prepend . "user WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "'");
 
-                if ($user_check !== false && count($user_check)) {
-                    $sql  = "UPDATE " . $_db_prepend . "user SET ";
-                    $sql .= "usr_login      = '" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', ";
-                    $sql .= "usr_pass       = '" . mysqli_real_escape_string($db, $phpwcms['admin_pass']) . "', ";
-                    $sql .= "usr_email      = '" . mysqli_real_escape_string($db, $phpwcms['admin_email']) . "', ";
-                    $sql .= "usr_admin      = 1, usr_aktiv = 1, ";
-                    $sql .= "usr_name       = '" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', ";
-                    $sql .= "usr_lang       = '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', ";
-                    $sql .= "usr_wysiwyg    = 2, usr_fe = 2 ";
-                    $sql .= "WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "' LIMIT 1";
-                    $update_user = _dbQuery($sql, 'UPDATE');
-                } elseif ($user_check !== false) {
-                    $sql  = "INSERT INTO " . $_db_prepend . "user (";
-                    $sql .= "usr_login, usr_pass, usr_email, usr_admin, usr_aktiv, usr_name, usr_var_structure, usr_var_publicfile, usr_var_privatefile, usr_lang, usr_wysiwyg, usr_fe, usr_2fa_enabled, usr_2fa_secret, usr_vars";
-                    $sql .= ") VALUES (";
-                    $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', '" . mysqli_real_escape_string($db, $phpwcms['admin_pass']) . "', '" . mysqli_real_escape_string($db, $phpwcms['admin_email']) . "', 1, 1, ";
-                    $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', '', '', '', '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', 2, 2, 0, '', '')";
-                    $create_user = _dbQuery($sql, 'INSERT');
-                } else {
+                    if ($user_check !== false && count($user_check)) {
+                        $sql  = "UPDATE " . $_db_prepend . "user SET ";
+                        $sql .= "usr_login      = '" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', ";
+                        $sql .= "usr_pass       = '" . mysqli_real_escape_string($db, $phpwcms['admin_pass']) . "', ";
+                        $sql .= "usr_email      = '" . mysqli_real_escape_string($db, $phpwcms['admin_email']) . "', ";
+                        $sql .= "usr_admin      = 1, usr_aktiv = 1, ";
+                        $sql .= "usr_name       = '" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', ";
+                        $sql .= "usr_lang       = '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', ";
+                        $sql .= "usr_wysiwyg    = 2, usr_fe = 2 ";
+                        $sql .= "WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "' LIMIT 1";
+                        $update_user = _dbQuery($sql, 'UPDATE');
+                    } elseif ($user_check !== false) {
+                        $sql  = "INSERT INTO " . $_db_prepend . "user (";
+                        $sql .= "usr_login, usr_pass, usr_email, usr_admin, usr_aktiv, usr_name, usr_var_structure, usr_var_publicfile, usr_var_privatefile, usr_lang, usr_wysiwyg, usr_fe, usr_2fa_enabled, usr_2fa_secret, usr_vars";
+                        $sql .= ") VALUES (";
+                        $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', '" . mysqli_real_escape_string($db, $phpwcms['admin_pass']) . "', '" . mysqli_real_escape_string($db, $phpwcms['admin_email']) . "', 1, 1, ";
+                        $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', '', '', '', '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', 2, 2, 0, '', '')";
+                        $create_user = _dbQuery($sql, 'INSERT');
+                    } else {
+                        $user_check = false;
+                    }
+                } catch (Throwable $e) {
                     $user_check = false;
                 }
 
                 if (!empty($create_user) || !empty($update_user)) {
-                    echo '<div class="alert alert-success mb-0"><i class="fa fa-check-circle"></i> Account for administrator <strong>' . html_specialchars($phpwcms['admin_user']) . '</strong> saved.<input type="hidden" name="user_account" value="1" /></div>';
+                    echo '<div class="alert alert-success mb-0 d-flex justify-content-between align-items-center"><span><i class="fa fa-check-circle"></i> Account for administrator <strong>' . html_specialchars($phpwcms['admin_user']) . '</strong> saved.</span><a href="setup.php?step=2&amp;edit_admin=1" class="btn btn-sm btn-outline-secondary">Edit Account</a><input type="hidden" name="user_account" value="1" /></div>';
                 } elseif ($user_check === false) {
                     echo '<div class="alert alert-danger mb-0"><i class="fa fa-exclamation-triangle"></i> Database error: Administrator account could not be saved.</div>';
                     $_SESSION['admin_save'] = false;
@@ -392,7 +416,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
 
     <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
         <a href="setup.php?step=1" class="btn btn-secondary">&larr; Previous Step</a>
-        <button name="dbsavesubmit" type="submit" class="btn btn-primary">Save &amp; Continue &rarr;</button>
+        <button name="dbsavesubmit" type="submit" class="btn btn-primary"><?php echo !empty($_SESSION['admin_save']) ? 'Continue to Step 3 &rarr;' : 'Save &amp; Continue &rarr;'; ?></button>
     </div>
     <input name="do" type="hidden" value="1" />
 </form>

@@ -145,7 +145,7 @@ function write_conf_file($val) {
     }
 
     $real_doc = str_replace('\\', '/', dirname(__DIR__, 2));
-    $root_val = $val['root'] ?? '';
+    $root_val = trim($val['root'] ?? '', '/');
     if ($root_val !== '') {
         $real_doc_parts = explode($root_val, $real_doc);
         $real_doc = rtrim($real_doc_parts[0], '/');

@@ -59,11 +59,7 @@ if (isset($step)) {
 
             // fine continue with step 3
             session_write_close();
-            if (!empty($_SERVER['HTTP_HOST']) && !empty($_SERVER['REQUEST_URI'])) {
-                header('Location: http' . (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/setup.php?step=3');
-            } else {
-                header('Location: setup.php?step=3');
-            }
+            header('Location: setup.php?step=3');
             exit();
         }
 
@@ -226,10 +222,21 @@ if (isset($step)) {
                     if ($_brand_prefix === '') {
                         $_brand_prefix = 'phpwcms';
                     }
+
+                    $db_current_target = ($phpwcms['db_host'] ?? '') . ':' . ($phpwcms['db_port'] ?? 3306) . '/' . ($phpwcms['db_table'] ?? '') . '/' . ($phpwcms['db_prepend'] ?? '') . '/' . $_brand_prefix;
+                    if (!empty($_SESSION['db_target']) && $_SESSION['db_target'] !== $db_current_target) {
+                        unset($_SESSION['db_tables_created'], $_SESSION['db_no_create'], $_SESSION['admin_set'], $_SESSION['admin_save']);
+                    }
+                    $_SESSION['db_target'] = $db_current_target;
+
                     if($result = mysqli_query($db, "SHOW TABLES LIKE '". ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . $_brand_prefix . "_user'")) {
 
                         if (!empty($result->num_rows)) {
-                            $_db_prepend_error = true;
+                            if (empty($_SESSION['db_tables_created']) && empty($_SESSION['admin_set'])) {
+                                $_db_prepend_error = true;
+                            } else {
+                                $db_fine = true;
+                            }
                         }
                         mysqli_free_result($result);
 
@@ -239,6 +246,8 @@ if (isset($step)) {
 
                     $err = 1;
                     $_SESSION['admin_save'] = 0;
+                    $_SESSION['admin_set']  = false;
+                    unset($_SESSION['db_tables_created'], $_SESSION['db_no_create']);
 
                 }
 
@@ -246,6 +255,8 @@ if (isset($step)) {
 
                 $err = 1;
                 $_SESSION['admin_save'] = 0;
+                $_SESSION['admin_set']  = false;
+                unset($_SESSION['db_tables_created'], $_SESSION['db_no_create']);
 
             }
 
@@ -258,12 +269,15 @@ if (isset($step)) {
 
                     $db_init = true;
 
-                    if(isset($_POST['db_sql_hidden'])) {
+                    if(isset($_POST['db_sql_hidden']) && empty($_SESSION['db_tables_created'])) {
 
                         if(empty($db_sql)) {
 
-                            $_SESSION['admin_set']  = true;
-                            $db_no_create           = true;
+                            $_SESSION['admin_set']         = true;
+                            $_SESSION['db_no_create']      = true;
+                            $_SESSION['db_tables_created'] = true;
+                            $db_no_create                  = true;
+                            $db_fine                       = true;
 
                         } else {
 
@@ -349,10 +363,17 @@ if (isset($step)) {
                                 }
 
                                 if (empty($db_create_err)) {
-                                    $_SESSION['admin_set'] = true;
+                                    $_SESSION['admin_set']         = true;
+                                    $_SESSION['db_tables_created'] = true;
+                                    $db_fine                       = true;
                                 }
 
                             }
+                        }
+                    } elseif (!empty($_SESSION['db_tables_created']) || !empty($_SESSION['admin_set'])) {
+                        $db_fine = true;
+                        if (!empty($_SESSION['db_no_create'])) {
+                            $db_no_create = true;
                         }
                     }
                 }
@@ -407,39 +428,6 @@ if (isset($step)) {
 
         write_conf_file($phpwcms);
 
-        if(!empty($_POST['admin_create'])) {
-            try {
-                $db = mysqli_connect(
-                    $phpwcms['db_host'],
-                    $phpwcms['db_user'],
-                    $phpwcms['db_pass'],
-                    $phpwcms['db_table'],
-                    $phpwcms['db_port']
-                );
-            } catch (Throwable $e) {
-                $db = false;
-            }
-            if (!$db || mysqli_connect_error()) {
-                $err = 1;
-            } else {
-                mysqli_query($db, 'SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION');
-                mysqli_query($db, "SET NAMES '" . mysqli_real_escape_string($db, $phpwcms['db_charset']) . "'");
-                $_brand_prefix = !empty($phpwcms['brand_table_prefix']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $phpwcms['brand_table_prefix']) : 'phpwcms';
-                if ($_brand_prefix === '') {
-                    $_brand_prefix = 'phpwcms';
-                }
-                $_db_prepend = ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . $_brand_prefix . '_';
-                $sql =  'INSERT INTO ' . $_db_prepend . 'user (usr_login, usr_pass, usr_email, '.
-                        "usr_admin, usr_aktiv, usr_name, usr_fe, usr_wysiwyg ) VALUES ('".
-                        mysqli_real_escape_string($db, $phpwcms['admin_user'])."', '".
-                        mysqli_real_escape_string($db, $phpwcms['admin_pass'])."', '".
-                        mysqli_real_escape_string($db, $phpwcms['admin_email'])."', 1, 1, '".
-                        mysqli_real_escape_string($db, $phpwcms['SMTP_FROM_NAME'])."', 2, 2)";
-
-                mysqli_query($db, $sql) or $err = 1;
-            }
-        }
-
         if(!$err) {
             header('Location: setup.php?step=4');
             exit();
@@ -448,17 +436,20 @@ if (isset($step)) {
 
     if($step == 4 && $do) {
 
-        $phpwcms['DOC_ROOT']       = clean_slweg($_POST['doc_root']);
-        $phpwcms['root']           = clean_slweg($_POST['root']);
-        $phpwcms['file_path']      = clean_slweg($_POST['file_path']);
-        $phpwcms['templates']      = clean_slweg($_POST['templates']);
-        $phpwcms['ftp_path']       = clean_slweg($_POST['ftp_path']);
+        $phpwcms['DOC_ROOT']       = rtrim(clean_slweg($_POST['doc_root']), '/');
+        $phpwcms['root']           = trim(clean_slweg($_POST['root']), '/');
+        $phpwcms['file_path']      = trim(clean_slweg($_POST['file_path']), '/');
+        $phpwcms['templates']      = trim(clean_slweg($_POST['templates']), '/');
+        $phpwcms['ftp_path']       = trim(clean_slweg($_POST['ftp_path']), '/');
+        if (isset($_POST['cdn_image_url'])) {
+            $phpwcms['cdn_image_url'] = rtrim(clean_slweg($_POST['cdn_image_url']), '/');
+        }
 
-        $phpwcms['file_path']      = ($phpwcms['file_path']) ?: 'phpwcms_filestorage';
-        $phpwcms['templates']      = ($phpwcms['templates']) ?: 'phpwcms_template';
+        $phpwcms['file_path']      = ($phpwcms['file_path']) ?: 'filearchive';
+        $phpwcms['templates']      = ($phpwcms['templates']) ?: 'template';
         $phpwcms['content_path']   = ($phpwcms['content_path']) ?: 'content';
         $phpwcms['cimage_path']    = ($phpwcms['cimage_path']) ?: 'images';
-        $phpwcms['ftp_path']       = ($phpwcms['ftp_path']) ?: 'phpwcms_ftp';
+        $phpwcms['ftp_path']       = ($phpwcms['ftp_path']) ?: 'upload';
 
         write_conf_file($phpwcms);
         header('Location: setup.php?step=5');

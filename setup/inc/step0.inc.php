@@ -13,6 +13,7 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 $_SESSION['admin_set'] = false;
+unset($_SESSION['db_tables_created'], $_SESSION['db_no_create'], $_SESSION['admin_save'], $_SESSION['db_target']);
 $setup_recommend = true;
 
 ?>
@@ -309,12 +310,14 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
 
 <?php
 if (!is_writable($DOCROOT . '/setup/setup.conf.inc.php')) {
-    if (!@chmod($DOCROOT . '/setup/setup.conf.inc.php', 0666)) {
-        echo '<div class="alert alert-danger mb-4">';
-        echo '<h5 class="alert-heading"><i class="fa fa-exclamation-circle"></i> File Not Writable</h5>';
-        echo '<p class="mb-0">The setup configuration file <code>setup/setup.conf.inc.php</code> is not writable. Please set permissions to <code>chmod 666</code> via FTP before continuing.</p>';
-        echo '</div>';
-    }
+    @chmod($DOCROOT . '/setup/setup.conf.inc.php', 0666);
+}
+
+if (!is_writable($DOCROOT . '/setup/setup.conf.inc.php')) {
+    echo '<div class="alert alert-danger mb-4">';
+    echo '<h5 class="alert-heading"><i class="fa fa-exclamation-circle"></i> File Not Writable</h5>';
+    echo '<p class="mb-0">The setup configuration file <code>setup/setup.conf.inc.php</code> is not writable. Please set permissions to <code>chmod 666</code> via FTP before continuing.</p>';
+    echo '</div>';
 } else {
     if (!$setup_recommend) {
         echo '<div class="alert alert-warning mb-4">';

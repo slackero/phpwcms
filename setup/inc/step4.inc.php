@@ -53,12 +53,20 @@ if (!defined('PHPWCMS_SETUP')) {
                 <div class="col-sm-3 form-text text-muted small align-self-center">Default: <code>template</code></div>
             </div>
 
-            <div class="form-group row mb-0">
+            <div class="form-group row">
                 <label for="ftp_path" class="col-sm-3 col-form-label fw-bold">FTP Upload Directory</label>
                 <div class="col-sm-6">
                     <input name="ftp_path" type="text" class="form-control" id="ftp_path" value="<?php echo html_specialchars($phpwcms['ftp_path']) ?>" placeholder="upload" maxlength="100" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Default: <code>upload</code></div>
+            </div>
+
+            <div class="form-group row mb-0">
+                <label for="cdn_image_url" class="col-sm-3 col-form-label fw-bold">CDN Image URL</label>
+                <div class="col-sm-6">
+                    <input name="cdn_image_url" type="url" class="form-control" id="cdn_image_url" value="<?php echo html_specialchars($phpwcms['cdn_image_url'] ?? '') ?>" placeholder="https://cdn.example.com" maxlength="255" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Optional CDN domain for rendered images</div>
             </div>
 
         </div>
