@@ -1,0 +1,131 @@
+# phpwcms 2.x Documentation
+
+> Reference documentation for phpwcms, the open source PHP 8.2+/MySQL content management system: structure levels, articles, content parts, templates, replacement tags, backend administration and modules.
+
+
+## Introduction
+
+- [phpwcms 2.x documentation](docs/index.md): Full reference documentation for phpwcms, the web based content management system.
+
+## General
+
+- [Core concepts](docs/general/concepts.md): Structure levels, articles, content parts, templates and how phpwcms assembles a page.
+- [URL handling](docs/general/url-handling.md): URL forms, aliases, rewriting, 301 forcing, canonical links and the redirect admin.
+
+## Requirements
+
+- [System requirements](docs/requirements/index.md): Server, PHP, database and extension requirements for running phpwcms 2.x.
+
+## Installation & Updates
+
+- [Fresh installation](docs/installation/fresh-install.md): Download, directory permissions, setup wizard run and hardening after installation.
+- [Setup wizard](docs/installation/setup-wizard.md): The browser based installation wizard flow, checks, written configuration and re-run behavior.
+- [Docker installation](docs/installation/docker.md): The bundled docker-compose development stack with PHP, MariaDB, phpMyAdmin and Mailpit.
+- [Updating](docs/installation/updating.md): In-app system update, standalone upgrade script, manual archive upgrade and 1.x migration.
+- [Configuration file](docs/installation/config-file.md): Every include/config/conf.inc.php key with type, default and effect.
+
+## Administration
+
+- [Admin panel](docs/administration/admin-panel.md): Backend administration entry points, system update panel, backups, phpinfo and maintenance actions.
+- [Users and usergroups](docs/administration/users-usergroups.md): Backend users, frontend users, usergroups and how admin permissions are granted.
+- [File storage](docs/administration/file-storage.md): Filestorage settings, upload limits and validation, FTP takeover and filearchive layout.
+- [SEO settings](docs/administration/seo-settings.md): URL rewriting, meta tags, canonical links, sitemap generation and crawler policy configuration.
+- [Cache and performance](docs/administration/cache-performance.md): HTTP cache headers, image cache, generated file caches, lazy loading and debug switches.
+- [Image processing](docs/administration/image-processing.md): Graphics engine selection, source formats, sharpening, colorspace, quality and the dynamic image endpoint.
+- [Whitelabel branding](docs/administration/whitelabel.md): Signed license keys and configuration keys to rebrand the backend as an own product.
+
+## Backend
+
+- [Backend overview](docs/backend/01-overview.md): Layout, navigation, dashboard, editor settings and theme switching of the phpwcms backend.
+- [Structure tree](docs/backend/02-structure-tree.md): Manage structure levels, their fields, ordering and per-level defaults.
+- [Articles](docs/backend/03-articles.md): Article metadata, the content part stack, ordering and related actions in the backend.
+- [Files — file center](docs/backend/04-files-filecenter.md): Upload, organize, describe and download files from the backend file center.
+- [Messaging](docs/backend/05-messaging.md): The Communication section — newsletter subscriptions, newsletter queue and subscribers.
+- [Profile](docs/backend/06-profile.md): Personal account settings — login data, language, theme, editor and content part selection.
+
+## Frontend
+
+- [Page rendering](docs/frontend/page-rendering.md): The request to page pipeline in index.php and content.func.inc.php, and the full replacement tag cascade in order.
+- [Frontend scripts](docs/frontend/frontend-scripts.md): The frontend_init and frontend_render script hook layers, module render scripts and registration patterns.
+- [Deprecated tags](docs/frontend/deprecated-tags.md): Replacement tags that render only when enable_deprecated is active in config.inc.php.
+- [RSS feeds](docs/frontend/rss-feeds.md): Site feed output with feeds.php, feed configuration in feeds.ini.php and the RSS feed content part.
+
+## Frontend — Replacement Tags
+
+- [Replacement tags](docs/frontend/replacement-tags/index.md): How replacement tags work and in which order the frontend pipeline resolves them.
+- [NAV_LIST_UL](docs/frontend/replacement-tags/01-nav-list-ul.md): ul/li cascading navigation from the structure level tree, with folding, Bootstrap and article-menu variants.
+- [Site and server tags](docs/frontend/replacement-tags/02-site.md): Tags that resolve to site URLs, template paths and request values.
+- [SHOW_CONTENT](docs/frontend/replacement-tags/03-show-content.md): Embed article summaries or rendered content parts from any other article into the current page.
+- [Article tags](docs/frontend/replacement-tags/04-article.md): Article level replacement tags and the article summary template fields.
+- [Content part pagination](docs/frontend/replacement-tags/05-cp-paginate.md): Split an article into pages with the content part paginate tags.
+- [Meta and head tags](docs/frontend/replacement-tags/06-meta.md): Page title, meta description and keywords, canonical links and Open Graph rendering.
+- [Date and time](docs/frontend/replacement-tags/07-date-time.md): Fixed and parametric date and time replacement tags.
+- [Login functions](docs/frontend/replacement-tags/08-login-functions.md): Template sections and tags for frontend login state and access control.
+- [RSS](docs/frontend/replacement-tags/09-rss.md): RSS icon tag and feed links for the frontend.
+- [Functions and misc tags](docs/frontend/replacement-tags/10-functions-misc.md): Article lists, related and keyword links, external URL include, breadcrumb, browse and search tags.
+
+## Templates
+
+- [Template system](docs/templates/template-system.md): Layout templates, page layouts, content part templates and how the chosen template resolves per request.
+- [Layout tags](docs/templates/layout-tags.md): Every replacement tag and block section a page layout template and its block texts understand.
+- [Template editor](docs/templates/template-editor.md): The admin forms for page layouts (p=8) and layout templates (p=11) with all fields and how they persist.
+- [Default templates](docs/templates/default-templates.md): Every shipped template in template/inc_default/ and the content part or feature that loads it.
+- [Assets and libs](docs/templates/assets-and-libs.md): The template/lib inventory, include/inc_js, the JS:CSS head comment convention and build managed assets.
+
+## Content Parts
+
+- [Content parts](docs/content-parts/index.md): Every content part type, how the stack orders and renders them, and where the code lives.
+- [Plain text](docs/content-parts/00-plaintext.md): Enter unformatted text rendered with plain, Markdown or Textile formatting rules.
+- [Text w/image](docs/content-parts/01-text-with-image.md): Insert text with one image, choosing position, size, caption and zoom behavior.
+- [HTML](docs/content-parts/02-html.md): Output a raw HTML block edited in a source code editor.
+- [WYSIWYG HTML](docs/content-parts/03-wysiwyg-html.md): Edit formatted rich text with the configured WYSIWYG editor and optional custom fields.
+- [Code](docs/content-parts/04-code.md): Publish source code snippets escaped for display inside a preformatted template.
+- [List](docs/content-parts/05-list.md): Turn one entry per line into a simple template-driven unlinked bullet list.
+- [ul-list](docs/content-parts/06-list-ul.md): Build nested ul, ol or dl lists from tilde indent markers in plain text.
+- [Link &amp; email](docs/content-parts/07-link-email.md): Output one direct link or mailto address as a single anchor.
+- [Link list](docs/content-parts/08-linklist.md): Render one entry per line as a template-driven list of links with targets and titles.
+- [Images](docs/content-parts/09-images.md): Place a gallery of multiple images as table or div layout with captions, zoom and lightbox.
+- [Images &lt;div&gt;](docs/content-parts/10-images-div.md): Render an image gallery from structured header, entry and footer template sections.
+- [Images special](docs/content-parts/11-images-special.md): Gallery with separate thumbnail and zoom image, info text and per-image tabs.
+- [Multimedia](docs/content-parts/12-multimedia.md): Embed video, audio or Flash media from the file center or an external URL.
+- [HTML5/Flash media player](docs/content-parts/13-flashplayer.md): Play video or audio through Video.js with format sources and a Flash fallback.
+- [Rollover images](docs/content-parts/14-rollover-images.md): Swap one large image on hovering a row of small reference thumbnails.
+- [Map](docs/content-parts/15-map.md): Place location points on a static uploaded map graphic with clickable areas and info entries.
+- [File list](docs/content-parts/16-filelist.md): Publish selected files from the file center as a formatted download list.
+- [Teaser/link article](docs/content-parts/17-teaser-link-article.md): List selected or auto-collected articles as teasers with summary, image and sorting options.
+- [Article menu](docs/content-parts/18-article-menu.md): List the articles of one structure level as a simple ul, div, dl, span or table menu.
+- [News](docs/content-parts/19-news.md): List and show news records as paginated teasers or detail pages.
+- [Search](docs/content-parts/20-search.md): Render a frontend search form and ranked results over articles, news records and module data.
+- [Sitemap](docs/content-parts/21-sitemap.md): Render the structure levels and their sitemap-flagged articles as nested unsorted lists.
+- [RSS feed](docs/content-parts/22-rss-feed.md): Import an external RSS or Atom feed and display its items through a template.
+- [Ext. content](docs/content-parts/23-ext-content.md): Pull the contents of a local page file or a remote URL into the article.
+- [E-card](docs/content-parts/24-ecard.md): Sends an image and personal message as an HTML e-card to a recipient chosen by the visitor.
+- [Form](docs/content-parts/25-form.md): Builds a form from configurable fields, validates it, mails the result and can store it in the database.
+- [Email form generator](docs/content-parts/26-email-form-old.md): Legacy content part that renders a form from pipe separated field codes and posts it to the standalone formmailer endpoint.
+- [Newsletter](docs/content-parts/27-newsletter-cp.md): Subscription form that registers visitors for newsletter lists with a double opt-in verification mail.
+- [Guestbook/comment](docs/content-parts/28-guestbook.md): Signs, stores, lists and paginates guestbook or comment entries with captcha, ban lists and image upload.
+- [Contentpart alias](docs/content-parts/29-contentpart-alias.md): Renders another content part of the same installation in place, with optional own display settings.
+- [PHP variables](docs/content-parts/30-php-variables.md): Feeds custom variables from an INI block into the global CUSTOM array for use by scripts and replacement tags.
+- [Poll](docs/content-parts/31-poll.md): Runs a one-choice vote per client IP and shows results as percentage bars.
+- [Recipe](docs/content-parts/32-recipe.md): Structured recipe with ingredients, preparation time, calories and difficulty on a selectable template.
+- [FAQ](docs/content-parts/33-faq.md): One question with a rich-text answer and optional image, rendered through an accordion-friendly template.
+- [Frontend login](docs/content-parts/34-frontend-login.md): Login, logout, password reminder, registration and profile editing for frontend users on a template-driven form.
+- [Tabs](docs/content-parts/35-tabs.md): Renders tab or accordion blocks from multiple titled sub-tabs, plus the content-part tab grouping feature.
+- [Custom CP](docs/content-parts/36-custom-cp.md): Renders one or more data records through fields defined in the Admin custom content parts manager.
+
+## Modules
+
+- [Modules](docs/modules/index.md): Module architecture, activation and the module reference overview.
+- [Shop](docs/modules/01-shop.md): Shop and products module with activation, backend area map, preferences and the shop content part.
+- [Shop catalog](docs/modules/02-shop-catalog.md): Product and category management of the shop module with product fields, image handling and shop database tables.
+- [Shop ordering](docs/modules/03-shop-ordering.md): Cart, checkout, shipping, payment, order mails, order backend and order API of the shop module.
+- [Shop options](docs/modules/04-shop-options.md): Product options engine of the shop module with option types, price modifiers and content part options.
+- [Calendar](docs/modules/05-calendar.md): Manages dated entries in the backend and renders calendars on the frontend with the CALENDAR replacement tag.
+- [Newsletter](docs/modules/06-newsletter.md): Core newsletter administration with subscriber lists, double opt-in, queue based sending and the subscription content part.
+- [Ads](docs/modules/07-ads.md): Manages banner campaigns and ad places with delivery, view and click tracking on the frontend.
+- [Feed import](docs/modules/08-feedimport.md): Imports RSS and Atom feed items as articles on request of a trigger URL.
+- [Addresses](docs/modules/09-addresses.md): Manages address and contact records with geocoding and renders a frontend address locator.
+- [SEO Log](docs/modules/10-seolog.md): Backend module listing search engine referrer hits collected on the frontend.
+- [Statistics](docs/modules/11-statistic.md): Backend dashboards over article status, downloads, newsletter subscriptions, guestbook entries, polls, logins and SEO log data.
+- [phpwcms modules](docs/modules/12-module-manager.md): Informational backend panel presenting available phpwcms modules.
+- [Glossary](docs/modules/13-glossary.md): Keywords highlighted as abbr tooltips on the frontend and managed in the backend.
