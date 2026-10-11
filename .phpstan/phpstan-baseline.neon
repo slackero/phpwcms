@@ -235,18 +235,6 @@ parameters:
 			path: ../img/cmsimage.php
 
 		-
-			message: '#^Variable \$_h might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: ../img/cmsimage.php
-
-		-
-			message: '#^Variable \$_w might not be defined\.$#'
-			identifier: variable.undefined
-			count: 6
-			path: ../img/cmsimage.php
-
-		-
 			message: '#^Path in require_once\(\) "\.\./include/config/conf\.inc\.php" is not a file or it does not exist\.$#'
 			identifier: requireOnce.fileNotFound
 			count: 1
@@ -1144,12 +1132,6 @@ parameters:
 			message: '#^Variable \$CNT_TMP might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
-			path: ../include/inc_front/content/cnt13.article.inc.php
-
-		-
-			message: '#^Variable \$_search_max_pages might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
 			path: ../include/inc_front/content/cnt13.article.inc.php
 
 		-
@@ -3277,6 +3259,12 @@ parameters:
 			path: ../include/inc_lib/helper.image.php
 
 		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: ../include/inc_lib/helper.image.php
+
+		-
 			message: '#^Left side of && is always false\.$#'
 			identifier: booleanAnd.leftAlwaysFalse
 			count: 2
@@ -3359,12 +3347,6 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: ../include/inc_module/mod_addresses/frontend.render.php
-
-		-
-			message: '#^Constant MODULE_HREF_DECODE not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: ../include/inc_module/mod_addresses/inc/processing.inc.php
 
 		-
 			message: '#^Variable \$content might not be defined\.$#'
@@ -3559,12 +3541,6 @@ parameters:
 			path: ../include/inc_module/mod_feedimport/inc/processing.inc.php
 
 		-
-			message: '#^Constant MODULE_HREF_DECODE not found\.$#'
-			identifier: constant.notFound
-			count: 2
-			path: ../include/inc_module/mod_feedimport/inc/processing.inc.php
-
-		-
 			message: '#^Variable \$module might not be defined\.$#'
 			identifier: variable.undefined
 			count: 9
@@ -3694,12 +3670,6 @@ parameters:
 			message: '#^Variable \$_cart_request_link might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
-			path: ../include/inc_module/mod_shop/frontend.render.php
-
-		-
-			message: '#^Variable \$_tmpl might not be defined\.$#'
-			identifier: variable.undefined
-			count: 65
 			path: ../include/inc_module/mod_shop/frontend.render.php
 
 		-
@@ -4935,7 +4905,7 @@ parameters:
 		-
 			message: '#^Variable \$row might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 1
 			path: ../include/inc_tmpl/content/cnt24.list.inc.php
 
 		-

@@ -121,7 +121,9 @@ async function buildJs() {
     }
 
     // 3. Minify and optimize cookieconsent2 (legacy v2)
-    const srcCc2 = path.join(__dirname, '../../node_modules/cookieconsent2/cookieconsent.js');
+    // Source is vendored in the release tree; the npm package is dropped because
+    // it misdeclares gulp ^3.9.0 as a dependency and drags a vulnerable build tree.
+    const srcCc2 = path.join(rootDir, '../template/lib/cookieconsent2/cookieconsent.js');
     const destCc2 = path.join(rootDir, '../template/lib/cookieconsent2/cookieconsent.min.js');
     if (fs.existsSync(srcCc2)) {
         let codeCc2 = fs.readFileSync(srcCc2, 'utf8');

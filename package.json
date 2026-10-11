@@ -1,6 +1,6 @@
 {
   "name": "phpwcms",
-  "version": "2.0.0-dev",
+  "version": "2.0.0-beta.1",
   "description": "phpwcms web content management system asset build scripts",
   "private": true,
   "scripts": {
@@ -15,7 +15,6 @@
     "ace-builds": "^1.44.0",
     "bootstrap-icons": "^1.13.1",
     "bootstrap": "^5.3.3",
-    "cookieconsent2": "^1.0.10-2",
     "dayjs": "^1.11.23",
     "dropzone": "^5.9.3",
     "flag-icons": "^7.5.0",

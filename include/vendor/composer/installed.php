@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '73c254031bdeb2bc6e061812702258f2fade0439',
+        'reference' => '25af7468e7550424e56f53b312271d5c9afe7d9c',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '73c254031bdeb2bc6e061812702258f2fade0439',
+            'reference' => '25af7468e7550424e56f53b312271d5c9afe7d9c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -274,9 +274,9 @@
             'dev_requirement' => false,
         ),
         'phpstan/phpstan' => array(
-            'pretty_version' => '2.2.16',
-            'version' => '2.2.16.0',
-            'reference' => '46a6d9060e5a7763adfcc21ebcb8b504ebdbcb92',
+            'pretty_version' => '2.3.1',
+            'version' => '2.3.1.0',
+            'reference' => '6155239b488e95d26d1ebd95c6b4bb294d7f09db',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpstan/phpstan',
             'aliases' => array(),
@@ -366,7 +366,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '69ddaead6caa68f4f6190e2ee732f103326e78ba',
+            'reference' => '96cf8b77ade13bb6638d1b26d48a72deec75b7d0',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(
@@ -467,9 +467,9 @@
             'dev_requirement' => false,
         ),
         'tinymce/tinymce' => array(
-            'pretty_version' => '8.9.2',
-            'version' => '8.9.2.0',
-            'reference' => '67a98eeff4a9c99fd6d8ff36bed9a55e858169e1',
+            'pretty_version' => '8.9.3',
+            'version' => '8.9.3.0',
+            'reference' => 'a85d8cad504d6bbf6affa63e98615e8f0a42ad28',
             'type' => 'component',
             'install_path' => __DIR__ . '/../tinymce/tinymce',
             'aliases' => array(),
