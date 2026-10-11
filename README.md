@@ -6,12 +6,16 @@
   </picture>
 </a>
 
+[![Release](https://img.shields.io/badge/release-2.0.0--beta.1-orange.svg?style=flat-edge)](https://github.com/slackero/phpwcms/releases)
+[![Revision](https://img.shields.io/badge/revision-r561-informational.svg?style=flat-edge)](CHANGELOG.md)
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.2-8892BF.svg?style=flat-edge)](https://php.net)
 [![Database](https://img.shields.io/badge/MySQL-%3E%3D%205.5%20(MariaDB%20rec)-blue.svg?style=flat-edge)](https://mysql.com)
 [![Maintainer](https://img.shields.io/badge/Maintained%20by-Oliver%20Georgi-informational.svg?style=flat-edge)](https://www.phpwcms.org)
 [![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-green.svg?style=flat-edge)](https://opensource.org/licenses/GPL-2.0)
 
 **phpwcms** is an exceptionally flexible, fast, robust, and developer-friendly web-based Content Management System (CMS) and CMS Framework. Crafted for speed, customizable architectures, and ease of use, phpwcms empowers developers to build and manage highly-tailored digital experiences under PHP and MySQL/MariaDB.
+
+Current development state: **2.0.0-beta.1** (database revision `r561`), PHP 8.2+.
 
 Created and lovingly maintained by [Oliver Georgi](https://www.phpwcms.org).
 
@@ -32,6 +36,7 @@ Created and lovingly maintained by [Oliver Georgi](https://www.phpwcms.org).
 * **Comprehensive Localization**: 100% translation parity across 35 European, regional, and Asian language packs with language-specific typographic formatting.
 * **Enterprise-Ready Emailing**: Standardized on **PHPMailer 7.1+** supporting modern secure transports including OAuth2 (Google & Microsoft Azure).
 * **AI & LLM Integration**: Built-in standard `ai.txt` (AI bot crawling rules and EU TDM Article 4(3) reservation) and `llms.txt` (structured project context for AI models).
+* **Complete Reference Documentation**: 94-page documentation set in `docs/` covering concepts, installation, administration, backend, frontend, templates, all 37 content part types and every shipped module — plus agent-ready `docs/llms.txt` (curated index) and `docs/llms-full.txt` (full content in one file).
 * **Docker Ready**: Complete local development environment with PHP 8.2, MariaDB 10.11, phpMyAdmin, Mailpit email capture, and image processing tools.
 
 ---
@@ -65,9 +70,12 @@ To support all features, the following PHP extensions must be enabled in your en
 
 * `/include` — Core CMS logic, extensions (`inc_ext`), language packs (`inc_lang`), modular libraries, update engine, and Composer dependencies (`include/vendor`).
 * `/template` — Visual templates, site assets, layouts, frontend render scripts (`inc_script/frontend_render`), and client libraries.
+* `/docs` — Full reference documentation as markdown, including `llms.txt` and `llms-full.txt` for AI agents and the authoring tooling in `docs/_authoring/`.
 * `/setup` — Automatic browser installation wizard and standalone CLI/web upgrader (`setup/upgrade.php`).
 * `/content` — Internal cache, generated images (`content/images`), temporary files (`content/tmp`), and automated backups (`content/backup`).
 * `/filearchive` — Secure centralized storage for all uploaded media assets and files.
+* `/tests` — Update engine, API client, backup and end-to-end test scripts (run directly via `php tests/update/test-*.php`).
+* `/bin` — CLI utilities, e.g. `bin/get-oauth-token.php` for Google/Microsoft XOAUTH2 refresh tokens.
 * `phpwcms.php` & `index.php` — Primary bootstrap entry points routing the administration backend and public frontend.
 
 ---
@@ -102,7 +110,7 @@ docker compose up -d
 ```
 
 * **phpwcms Web**: `http://localhost:8080` (or run installer at `http://localhost:8080/setup/`)
-* **phpMyAdmin**: `http://localhost:8081` (User: `phpwcms`, Password: `password`)
+* **phpMyAdmin**: `http://localhost:8081` (User: `phpwcms`, Password: `phpwcmspassword`)
 * **Mailpit (Email Capture)**: `http://localhost:8026`
 
 ---
@@ -118,7 +126,7 @@ phpwcms provides three seamless upgrade methods depending on your preferences:
 
 If you are already running phpwcms with the self-update engine:
 1. Log in to the backend as an administrator.
-2. Navigate to **Admin -> System Update** (`phpwcms.php?do=admin&p=update`).
+2. Navigate to **Admin -> System Update** (`phpwcms.php?do=admin&p=18`).
 3. Click **Check for Updates** to query the latest release from GitHub.
 4. Review the change summary and release notes.
 5. Click **Install Update**. The system will:
@@ -183,7 +191,7 @@ The standalone upgrade script can update existing installations from the command
   ```bash
   php setup/upgrade.php
   ```
-  *(Prompts for admin authentication, creates backups, applies file updates, and executes database revisions r401–r559).*
+  *(Prompts for admin authentication, creates backups, applies file updates, and executes database revisions r401–r561).*
 
   Supported CLI options:
   * `--reinstall` (or `--force`): Reinstall and overwrite the currently installed version.
@@ -200,6 +208,40 @@ The standalone upgrade script can update existing installations from the command
    * **DO NOT delete** existing files in `filearchive/`, `content/images/`, or `template/`.
 3. **Run Migrations**: Run the database migration script via CLI (`php setup/upgrade.php`) or log in to the backend (`phpwcms.php`). The system will detect outdated revisions and run pending database updates automatically.
 4. **Clear Cache**: Empty `content/tmp/` and `content/cache/` to ensure new templates and assets take immediate effect.
+
+### Method 4: Local-First Upgrade on a New Table Prefix (Safest for Production)
+
+Upgrade on a local copy while production stays untouched, using a second table prefix so the old and migrated data sets can coexist in one database:
+
+1. **Back up** the production database and protected files.
+2. **Import** the production dump into a local database and run the upgrade there.
+3. **Rename** the copied tables to a new prefix (e.g. `cms2026_phpwcms_*`) — the `information_schema` generator in the documentation produces the `RENAME TABLE` list for every table including module tables.
+4. **Point** the local `conf.inc.php` at the new prefix and run the local 2.x installation; the revision chain migrates the data-carrying copy. Test locally.
+5. **Go live** by importing the migrated database next to the old tables and swapping the application folder — or test on a subdomain first. The old `phpwcms_*` tables stay untouched, so rollback is a folder swap back.
+
+Full step-by-step walkthrough with the rename generator, subdomain variant and rollback semantics: [`docs/installation/updating.md`](docs/installation/updating.md).
+
+---
+
+## Documentation 📖
+
+The complete reference lives in [`docs/`](docs/index.md):
+
+| Section | Entry point |
+|:---|:---|
+| Core concepts (structure levels, articles, content parts, templates) | [`docs/general/concepts.md`](docs/general/concepts.md) |
+| Requirements | [`docs/requirements/index.md`](docs/requirements/index.md) |
+| Installation & updates (incl. 1.x → 2.x migration) | [`docs/installation/fresh-install.md`](docs/installation/fresh-install.md), [`docs/installation/updating.md`](docs/installation/updating.md) |
+| Administration (users, usergroups, config keys, cache, images) | [`docs/administration/admin-panel.md`](docs/administration/admin-panel.md) |
+| Backend (structure, articles, file center, messaging, profile) | [`docs/backend/01-overview.md`](docs/backend/01-overview.md) |
+| Frontend (rendering pipeline, replacement tags, render scripts) | [`docs/frontend/page-rendering.md`](docs/frontend/page-rendering.md) |
+| Templates (layout tags, template editor, default templates, assets) | [`docs/templates/template-system.md`](docs/templates/template-system.md) |
+| Content parts (all 37 types) | [`docs/content-parts/index.md`](docs/content-parts/index.md) |
+| Modules (shop, calendar, glossary, newsletter, ads, feed import, addresses, SEO log, statistics) | [`docs/modules/index.md`](docs/modules/index.md) |
+
+For AI agents and tooling: [`docs/llms.txt`](docs/llms.txt) is a curated index of every page with descriptions, [`docs/llms-full.txt`](docs/llms-full.txt) contains all pages concatenated. Both are regenerated after content changes via `php docs/_authoring/gen-llms.php`; `php docs/_authoring/linkcheck.php` verifies every internal link.
+
+External resources: [phpwcms.org](https://www.phpwcms.org), [wiki](https://wiki.phpwcms.org/), [support forum](https://forum.phpwcms.org/), [GitHub releases](https://github.com/slackero/phpwcms/releases).
 
 ---
 
@@ -229,7 +271,9 @@ You can find the complete step-by-step setup guide for Microsoft Azure and XOAUT
 You can find the setup guide for Google accounts and XOAUTH2 authentication in the [Using Gmail with XOAUTH2 PHPMailer Wiki](https://github.com/PHPMailer/PHPMailer/wiki/Using-Gmail-with-XOAUTH2). To easily generate the required refresh token, run `php bin/get-oauth-token.php --provider=google`.
 
 ### Where can I find AI crawler and LLM context files?
-phpwcms includes standard `/ai.txt` and `/llms.txt` files in the repository root. Distribution templates are also provided as `example.ai.txt` and `example.llms.txt`.
+phpwcms includes standard `/ai.txt` and `/llms.txt` files in the repository root (project overview and crawling policy). Distribution templates are also provided as `example.ai.txt` and `example.llms.txt`.
+
+For the full documentation set, `docs/llms.txt` is a curated index of all 94 documentation pages with descriptions, and `docs/llms-full.txt` contains every page concatenated in reading order. Regenerate both after documentation changes with `php docs/_authoring/gen-llms.php`.
 
 ---
 

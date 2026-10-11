@@ -6,13 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.0.0-beta.1] – 2026/10/11
+
 ### Added
 - **In-App Self-Update Engine:** Added a comprehensive automated update management engine in the administration backend (**Admin -> System Update** / `phpwcms.php?do=admin&p=update`).
   - Queries latest release packages directly from GitHub releases via the GitHub API.
   - Performs automated pre-update database dumps and file backups into `content/backup/`.
   - Supports staged, atomic file replacement with automated maintenance mode during the update process and automatic rollback on failure.
   - Verifies package integrity using `.update-manifest` files while preserving user configurations (`conf.inc.php`), `.htaccess`, `robots.txt`, and file archives.
-- **Standalone Upgrade Tool (`setup/upgrade.php`):** Added an interactive CLI and web-based updater script capable of running database migrations (up through revision r559) and system upgrades independently of the main application. Supports non-interactive automated deployment via `--yes`.
+- **Standalone Upgrade Tool (`setup/upgrade.php`):** Added an interactive CLI and web-based updater script capable of running database migrations (up through revision r561) and system upgrades independently of the main application. CLI flags: `--force`/`--reinstall` and `--allow-unverified` for legacy packages without an update manifest.
 - **Database Revision r559:** Created `phpwcms_update_log` table for auditing update operations, and added `phpwcms_mailtemplates` table with group permissions (`admmailtpl`).
 - **Master Email Layout & System Templates:** Added visual template management for system notification emails (**Admin -> Email Templates**).
   - Features modular sub-templates (`mail_layout`, `mail_header`, `mail_footer`) for custom branding.

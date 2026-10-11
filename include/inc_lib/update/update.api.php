@@ -12,7 +12,7 @@ const PHPWCMS_UPDATE_REPO = 'slackero/phpwcms';
 // Standalone fallback: PHPWCMS_VERSION is normally defined by revision.php,
 // which is not loaded when this client is used on its own.
 if (!defined('PHPWCMS_VERSION')) {
-    define('PHPWCMS_VERSION', '2.0.0-dev');
+    define('PHPWCMS_VERSION', '2.0.0-beta.1');
 }
 
 /**
