@@ -4,12 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
-
 ## [2.0.0-beta.1] – 2026/10/11
 
 ### Added
-- **In-App Self-Update Engine:** Added a comprehensive automated update management engine in the administration backend (**Admin -> System Update** / `phpwcms.php?do=admin&p=update`).
+- **In-App Self-Update Engine:** Added a comprehensive automated update management engine in the administration backend (**Admin -> System Update** / `phpwcms.php?do=admin&p=18`).
   - Queries latest release packages directly from GitHub releases via the GitHub API.
   - Performs automated pre-update database dumps and file backups into `content/backup/`.
   - Supports staged, atomic file replacement with automated maintenance mode during the update process and automatic rollback on failure.
@@ -38,6 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Setup Database Auto-Creation & Auto-Detection:** Added automatic interactive database creation in setup when connecting to a server where the target database does not exist yet, alongside socket/port detection, timezone detection, browser language auto-detection, and auto SSL support.
 - **Prism.js Highlighting Support:** Added modern code highlighting templates (`JavaScript-Prism.tmpl` and `PHP-Prism.tmpl`) under `template/inc_cntpart/code/example/` using Prism.js.
 - **CodeQL Configuration:** Added `.github/codeql/codeql-config.yml` to exclude third-party vendor directories from security scans.
+- **Complete Reference Documentation:** Added a 94-page documentation set under `docs/` covering concepts, requirements, installation and update paths, administration, backend, frontend rendering and replacement tags, templates, all 37 content part types and every shipped module. Ships `docs/llms.txt` (curated index with descriptions) and `docs/llms-full.txt` (all pages in one file) for AI agents, plus the authoring tooling in `docs/_authoring/` (format contract, `linkcheck.php`, `gen-llms.php`).
 
 ### Changed
 - **PHP 8.2+ Architecture & Type Safety:** Comprehensive static analysis pass using PHPStan Level 5 across the entire codebase (1,157 files passing with 0 errors).
@@ -48,6 +47,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Setup Table Creation Workflow:** Improved setup database initialization to execute table creation immediately upon form submission and pre-fill the creation checkbox on empty databases.
 - **Enhanced PHPMailer OAuth2 Integration:** Intercepted constructor validation errors to prevent error erasure during `preSend()`, supported exception options in `PhpwcmsMailer`, and preserved custom port and encryption settings for Google and Azure.
 - **CDN Loading for Highlighters & Polyfills:** Modified SyntaxHighlighter, Prism.js, and legacy IE polyfills to load from CDN by default with local file fallbacks.
+- **Release Identity 2.0.0-beta.1:** `PHPWCMS_VERSION` now reads `2.0.0-beta.1` (release date 2026/10/11, revision r561) in `include/inc_lib/revision/revision.php`, the standalone update API fallback, `package.json` and `package-lock.json`. The update engine already strips pre-release suffixes when comparing installed versions.
+- **README Modernization:** Added release and revision badges plus a current-state line, extended the directory map with `docs/`, `tests/` and `bin/`, added a documentation section with entry points and the llms files, documented the local-first upgrade on a new table prefix (Method 4) including the subdomain switchover, and corrected the System Update URL (`p=18`) and the phpMyAdmin container credentials.
+- **Composer Dependencies:** `tinymce/tinymce` 8.9.2 → 8.9.3, `phpstan/phpstan` 2.2.16 → 2.3.1, `roave/security-advisories` to the current snapshot; constraints kept at the installed versions (`^8.9.3`, `^2.3.1`).
+- **Architecture Maps:** Refreshed the generated codebase map (`CLAUDE.md`), dependency graph (`DEPENDENCIES.md`) and `stacklit.json` — 129 modules / 257k lines after the documentation tree was added.
 
 ### Fixed
 - **Migration Concurrency & Authentication:** Gated database migrations behind validated admin login and session checks, preventing concurrency race conditions and unauthorized schema adjustments.
@@ -56,11 +59,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **PHP 8.2 Database Exceptions in Setup:** Guarded setup table creation and seed data inserts with `CREATE TABLE IF NOT EXISTS`, `INSERT IGNORE INTO`, and exception handling to prevent uncaught `mysqli_sql_exception` fatal errors on existing tables or duplicate entries.
 - **Input Group Element Heights:** Removed custom `.input-group-text` padding override in `phpwcms.css` that caused input group addons and buttons to render taller than standard text inputs.
 - **Revision r554 Migration on Missing Tables:** Added table existence check in `phpwcms_revision_r554_update_datetime()` so migrations safely skip deprecated or optional tables without throwing missing table errors.
+- **Content Part 1 `{IMAGE_HEIGHT}` Tag:** The Text w/image renderer filled the template tag with the configured image width instead of the height; templates using both `{IMAGE_WIDTH}` and `{IMAGE_HEIGHT}` received a doubled width value.
+- **PHPStan Level 5 Clean:** Removed the provably-dead `DB_PREPEND` emptiness guard in `_dbNormalizeTable()`, checked the `realpath()` result before use in the documentation link checker, dropped three redundant `$configFile` checks in the standalone updater and stripped trailing whitespace plus the closing tag from the shop content part form. The baseline was regenerated at the current analyzer version with an unchanged identifier profile.
 
 ### Removed
 - **GD 1.x Legacy Support:** Removed deprecated GD 1.x option from setup media configuration and core image library fallback lists in favor of GD2.
 - **Obsolete Language Fragments:** Removed redundant `lang.pp.inc.php` and `lang.ext.inc.php` includes in `login.php`, `phpwcms.php`, `articlebrowser.php`, and `fileinfo.php` (already merged into main `lang.inc.php` language packs).
 - **Unused Local Polyfills and Libraries:** Deleted legacy library directories to reduce repository bloat (`syntaxhighlighter`, `html5shiv`, `respond`, `swfobject`, `ie7-js`, and `nonverblaster`).
+
+### Security
+- **npm Audit Clean (36 advisories resolved):** All findings traced to `cookieconsent2@1.0.10-2` misdeclaring `gulp ^3.9.0` as a dependency, which pulled a vulnerable build-only tree (`gulp` 3.9, `node-sass`, `request`, `lodash`, `tar`, `semver` and more — 4 critical). The one file the asset build consumes is now vendored at `template/lib/cookieconsent2/cookieconsent.js`, `include/build/build-js.js` reads it locally, and the dependency is dropped; a rebuild produces a byte-identical `cookieconsent.min.js`. `@xmldom/xmldom` (via `video.js` → `mpd-parser`) was bumped as well. `npm audit` reports 0 vulnerabilities; `composer audit` is clean too.
+- **Known Accepted Risk — CKEditor 4.22.1:** The vendored editor under `include/inc_ext/ckeditor/` remains on the last free release. Version 4.23+ is commercial LTS only, so CVE-2024-24815 stays unfixed; TinyMCE 8 is the default editor and CKEditor 4 remains an optional legacy choice. Recorded in `doc/codebase-scan-2026-10-11-dependency-audit.md`.
 
 ---
 
