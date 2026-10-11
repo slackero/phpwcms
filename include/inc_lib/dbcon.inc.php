@@ -191,7 +191,7 @@ function _dbNormalizeTable($table = '', $prefix = null)
         if (str_starts_with($table, $prefix)) {
             $table = substr($table, strlen($prefix));
         }
-    } elseif (DB_PREPEND !== '' && str_starts_with($table, DB_PREPEND)) {
+    } elseif (str_starts_with($table, DB_PREPEND)) {
         $table = substr($table, strlen(DB_PREPEND));
     } elseif (str_starts_with($table, 'phpwcms_')) {
         $table = substr($table, 8);

@@ -15,7 +15,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // Shop module content part form fields
 
 if (empty($content['shop']) || !is_array($content['shop'])) {
@@ -63,8 +62,6 @@ if ($content['shop']['tmpl_file'] !== '') {
 }
 
 ?>
-
-
 <div class="form-group align-items-center row g-2">
 	<label for="shop_template" class="col-sm-2 col-form-label text-end"><?php echo $content['shop']['module_lang']['cp_template'] ?? $BL['be_admin_struct_template']; ?></label>
 	<div class="col-sm-4">
@@ -267,7 +264,6 @@ $content['shop']['category_options'] = function ($parent, $depth) use (&$content
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -299,15 +295,13 @@ $content['shop']['category_options'] = function ($parent, $depth) use (&$content
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 	</div>
 </div>
 
 <?php $BE['BODY_CLOSE'][] = '<script type="text/javascript">
 function updateShopActionFields() {
-	var currentAction = $("#shop_action").val();
+	const currentAction = $("#shop_action").val();
 	$("#shop_category_group").toggle(currentAction === "category");
 	$(".shop-action-group").each(function() {
 		var actions = ($(this).data("shop-action") || "").split(" ");
@@ -318,6 +312,4 @@ $(function(){
 	$("#shop_action").on("change", updateShopActionFields);
 	updateShopActionFields();
 });
-</script>'; ?>
-
-
+</script>';

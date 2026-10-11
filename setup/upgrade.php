@@ -2146,7 +2146,7 @@ if ($isCli) {
 
                 // Write to conf.inc.php. Clearing the license key leaves the
                 // configured brand_table_prefix untouched (no silent wipe).
-                if ($configFile && is_writable($configFile)) {
+                if (is_writable($configFile)) {
                     $cli_conf = file_get_contents($configFile);
                     if ($cli_conf !== false) {
                         $cli_esc_key = str_replace(['\\', "'"], ['\\\\', "\\'"], $cli_new_key);
@@ -2236,7 +2236,7 @@ if ($isCli) {
                 } else {
                     $cli_persist_why = !is_writable($configFile)
                         ? 'the file is not writable'
-                        : ($configFile && strpos((string) @file_get_contents($configFile), "\$phpwcms['brand_table_prefix']") === false
+                        : (strpos((string) @file_get_contents($configFile), "\$phpwcms['brand_table_prefix']") === false
                             ? "the file does not contain a \$phpwcms['brand_table_prefix'] line (e.g. legacy cmsgo config that could not be migrated)"
                             : 'writing the file failed');
                     cli_print("Error: Could not update brand_table_prefix in $configFile — $cli_persist_why.\n\n", 'red');
@@ -2560,7 +2560,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        if ($wl_save_error === '' && $configFile && is_writable($configFile)) {
+        if ($wl_save_error === '' && is_writable($configFile)) {
             $wl_conf = file_get_contents($configFile);
             if ($wl_conf !== false) {
                 $wl_esc_key = str_replace(['\\', "'"], ['\\\\', "\\'"], $wl_key_post);

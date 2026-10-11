@@ -24,8 +24,8 @@ foreach ($files as $file) {
             }
             [$target, $anchor] = array_pad(explode('#', $path, 2), 2, null);
             $clean = html_entity_decode($target, ENT_QUOTES);
-            $full = str_replace('\\', '/', realpath($relDir . '/' . $clean));
-            $ok = $full !== false && is_file($full);
+            $resolved = realpath($relDir . '/' . $clean);
+            $ok = $resolved !== false && is_file($resolved);
             if (!$ok) {
                 echo "BROKEN: " . basename($file) . ' -> ' . $link . "\n";
                 $errors++;
