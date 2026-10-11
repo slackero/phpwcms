@@ -305,7 +305,7 @@ if(!$crow['has_image']) {
 
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CLASS', $crow['imagetext_class']);
 $crow["acontent_template"] = str_replace('{IMAGE_WIDTH}', $crow["settings"]['width'], $crow["acontent_template"]);
-$crow["acontent_template"] = str_replace('{IMAGE_HEIGHT}', $crow["settings"]['width'], $crow["acontent_template"]);
+$crow["acontent_template"] = str_replace('{IMAGE_HEIGHT}', $crow["settings"]['height'], $crow["acontent_template"]);
 $crow["acontent_template"] = str_replace('{ID}', $crow["acontent_id"], $crow["acontent_template"]);
 
 $CNT_TMP .= render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_text"]);
