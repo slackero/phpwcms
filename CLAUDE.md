@@ -14,11 +14,13 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-phpwcms-dev | php | 109 modules | 187,558 lines | Docker
-test: npm test | env: "8081, MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_ROOT_PASSWORD, MYSQL_USER, PMA_HOST, PMA_PORT, container_name, db, db_data, depends_on, image, phpmyadmin, ports, restart, volumes
+phpwcms-dev | php | 129 modules | 257,803 lines | Docker
+test: npm test | env: "1026, "8026, "8081, MP_MAX_MESSAGES, MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_ROOT_PASSWORD, MYSQL_USER, PMA_HOST, PMA_PORT, container_name, db, db_data, depends_on, image, mailpit, phpmyadmin, ports, restart, volumes
 
 modules:
   .phpstan                        .phpstan
+  .superpowers/sdd/2026-09-01-se  2026-09-01-self-update
+  docs/_authoring                 authoring
   img                             img
   include/config                  configuration management
   include/inc_act                 inc act
@@ -33,37 +35,57 @@ modules:
   include/inc_front/content/cnt_  cnt functions
   include/inc_front/lib           shared library code
   include/inc_js                  inc js
+  include/inc_js/ace              ace
   include/inc_js/dayjs-locale     dayjs-locale
   include/inc_js/jquery           jquery
   include/inc_lang                inc lang
   include/inc_lang/backend/ar     ar
   include/inc_lang/backend/bg     bg
+  include/inc_lang/backend/bn     bn
   include/inc_lang/backend/bs     bs
   include/inc_lang/backend/ca     ca
   include/inc_lang/backend/cs     cs
   include/inc_lang/backend/da     da
   include/inc_lang/backend/de     de
+  include/inc_lang/backend/de-at  de-at
   include/inc_lang/backend/de-ch  de-ch
   include/inc_lang/backend/en     en
   include/inc_lang/backend/es     es
   include/inc_lang/backend/et     et
+  include/inc_lang/backend/eu     eu
   include/inc_lang/backend/fi     fi
   include/inc_lang/backend/fr     fr
+  include/inc_lang/backend/gl     gl
   include/inc_lang/backend/gr     gr
+  include/inc_lang/backend/hi     hi
+  include/inc_lang/backend/hr     hr
   include/inc_lang/backend/hu     hu
+  include/inc_lang/backend/id     id
+  include/inc_lang/backend/is     is
   include/inc_lang/backend/it     it
+  include/inc_lang/backend/ja     ja
   include/inc_lang/backend/lt     lt
+  include/inc_lang/backend/lv     lv
+  include/inc_lang/backend/mk     mk
+  include/inc_lang/backend/ms     ms
   include/inc_lang/backend/nl     nl
   include/inc_lang/backend/no     no
+  include/inc_lang/backend/pa     pa
   include/inc_lang/backend/pl     pl
   include/inc_lang/backend/pt     pt
   include/inc_lang/backend/ro     ro
   include/inc_lang/backend/ru     ru
   include/inc_lang/backend/sk     sk
   include/inc_lang/backend/sl     sl
+  include/inc_lang/backend/sq     sq
+  include/inc_lang/backend/sr     sr
   include/inc_lang/backend/sv     sv
+  include/inc_lang/backend/ta     ta
   include/inc_lang/backend/tr     tr
+  include/inc_lang/backend/ua     ua
+  include/inc_lang/backend/ur     ur
   include/inc_lang/backend/vi     vi
+  include/inc_lang/backend/zh-cn  zh-cn
   include/inc_lang/date           date
   include/inc_lang/formmailer     formmailer
   include/inc_lang/image          image
@@ -71,6 +93,7 @@ modules:
   include/inc_lib/classes         classes
   include/inc_lib/content         content
   include/inc_lib/revision        revision
+  include/inc_lib/update          update
   include/inc_module/mod_address  mod addresses
   include/inc_module/mod_address  inc
   include/inc_module/mod_address  lang
@@ -110,7 +133,6 @@ modules:
   template/config/ckeditor        ckeditor
   template/inc_default            inc default
   template/inc_js                 inc js
-  template/inc_script/access      access
   template/inc_script/felogin     felogin
   template/inc_script/frontend_i  disabled
   template/inc_script/frontend_r  disabled
@@ -119,16 +141,14 @@ modules:
   template/lib/cookieconsent2     cookieconsent2
   template/lib/cookieconsent3     cookieconsent3
   template/lib/cookieconsent3/co  core
-  template/lib/fancybox           fancybox
   template/lib/glightbox          glightbox
   template/lib/jquery             jquery
   template/lib/jquery/plugin      plugin
-  template/lib/js-cookie          js-cookie
   template/lib/simplegmaps        simplegmaps
-  template/lib/slick              slick
+  template/lib/splide             splide
   template/lib/video-js           video-js
 
-hot: include/inc_css/phpwcmsspecial.css (18 commits/90d), include/inc_lib/backend.functions.inc.php (16 commits/90d), phpwcms.php (15 commits/90d)
+hot: include/inc_css/backend.min.css (52 commits/90d), include/inc_css/phpwcms.css (52 commits/90d), phpwcms.php (46 commits/90d)
 do-not-touch: .github/
 ```
 # end stacklit map
