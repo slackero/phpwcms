@@ -81,6 +81,11 @@ function phpwcms_get_content_file_usage()
                 }
             }
 
+            // File/image custom fields (e.g. tab icons) stored inside acontent_form
+            foreach (phpwcms_get_form_custom_field_file_ids($row['acontent_form'] ?? '') as $ref_id) {
+                $file_ids[] = $ref_id;
+            }
+
             $text_parts = [];
             foreach (['acontent_text', 'acontent_html', 'acontent_media', 'acontent_form'] as $text_field) {
                 if (!empty($row[$text_field])) {
@@ -109,6 +114,59 @@ function phpwcms_get_content_file_usage()
     $rows = array_merge($rows, phpwcms_get_module_file_usage());
 
     return $rows;
+}
+
+/**
+ * Collects file IDs that are stored as file/image custom fields inside the
+ * serialized configuration of a content part (acontent_form), e.g. the
+ * "Icon" field of a tab (tabs[n][custom_fields][symbol] = ['id' => 53, ...]).
+ * These IDs appear neither in acontent_files/acontent_image nor as a hash
+ * in the text, so they were not detected as "in use" before.
+ *
+ * Only values below a "custom_fields" key are read, and only arrays that
+ * carry an id / file_id / image_id - plain numbers are ignored on purpose
+ * (an integer field must not mark a file as used).
+ *
+ * @param string|null $serialized  value of acontent_form
+ * @return int[]
+ */
+function phpwcms_get_form_custom_field_file_ids($serialized)
+{
+    $ids = [];
+
+    if (!is_string($serialized) || $serialized === '' || strpos($serialized, 'custom_fields') === false) {
+        return $ids;
+    }
+
+    $data = @unserialize($serialized, ['allowed_classes' => false]);
+    if (!is_array($data)) {
+        return $ids;
+    }
+
+    $walk = static function ($node, $in_custom) use (&$walk, &$ids) {
+        if (!is_array($node)) {
+            return;
+        }
+        foreach ($node as $key => $value) {
+            if (!is_array($value)) {
+                continue;
+            }
+            if ($in_custom) {
+                foreach (['id', 'file_id', 'image_id'] as $id_key) {
+                    if (isset($value[$id_key]) && (is_int($value[$id_key]) || ctype_digit((string)$value[$id_key]))) {
+                        $ref_id = (int)$value[$id_key];
+                        if ($ref_id > 0) {
+                            $ids[] = $ref_id;
+                        }
+                    }
+                }
+            }
+            $walk($value, $in_custom || $key === 'custom_fields');
+        }
+    };
+    $walk($data, false);
+
+    return array_values(array_unique($ids));
 }
 
 /**
@@ -389,6 +447,11 @@ function phpwcms_mark_content_files_used($acontent_id)
                 }
             }
         }
+    }
+
+    // File/image custom fields (e.g. tab icons) stored inside acontent_form
+    foreach (phpwcms_get_form_custom_field_file_ids($row['acontent_form'] ?? '') as $ref_id) {
+        $file_ids[] = $ref_id;
     }
 
     if ($file_ids) {
