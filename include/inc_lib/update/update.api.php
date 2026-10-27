@@ -45,7 +45,6 @@ function phpwcms_update_http_get_once(string $url): array|false
         $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $errno = curl_errno($ch);
         $location = (string)curl_getinfo($ch, CURLINFO_REDIRECT_URL);
-        curl_close($ch);
         if ($errno || !is_string($body)) {
             return false;
         }
@@ -187,7 +186,6 @@ function phpwcms_update_http_probe(string $url): array|false
         $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $errno = curl_errno($ch);
         $location = (string)curl_getinfo($ch, CURLINFO_REDIRECT_URL);
-        curl_close($ch);
         if ($errno) {
             return false;
         }
@@ -289,7 +287,6 @@ function phpwcms_update_download_asset(string $zipUrl, string $targetPath): bool
         $ok = curl_exec($ch);
         $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $errno = curl_errno($ch);
-        curl_close($ch);
         fclose($handle);
         if (!$ok || $errno !== 0 || $code !== 200) {
             @unlink($targetPath);

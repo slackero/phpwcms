@@ -15,13 +15,6 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'fdc0e9724ddc47859c8bf0c1ea0a623a' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/constants.php',
         '9e71c1459ef1226520e4b26dac3a180d' => __DIR__ . '/..' . '/php81_bc/strftime/src/php-8.1-strftime.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
-        'b686b8e46447868025a15ce5d0cb2634' => __DIR__ . '/..' . '/symfony/polyfill-php74/bootstrap.php',
-        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
-        '5897ea0ac4cccf14d323035e65887801' => __DIR__ . '/..' . '/symfony/polyfill-php82/bootstrap.php',
-        '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
-        '9d2b9fc6db0f153a0a149fefb182415e' => __DIR__ . '/..' . '/symfony/polyfill-php84/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -35,14 +28,7 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         ),
         'S' =>
         array (
-            'Symfony\\Polyfill\\Php84\\' => 23,
-            'Symfony\\Polyfill\\Php83\\' => 23,
-            'Symfony\\Polyfill\\Php82\\' => 23,
-            'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Php80\\' => 23,
-            'Symfony\\Polyfill\\Php74\\' => 23,
-            'Symfony\\Polyfill\\Php73\\' => 23,
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
             'SimplePie\\' => 10,
         ),
         'P' =>
@@ -111,37 +97,9 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
-        'Symfony\\Polyfill\\Php84\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php84',
-        ),
-        'Symfony\\Polyfill\\Php83\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php83',
-        ),
-        'Symfony\\Polyfill\\Php82\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php82',
-        ),
-        'Symfony\\Polyfill\\Php81\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php81',
-        ),
         'Symfony\\Polyfill\\Php80\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
-        ),
-        'Symfony\\Polyfill\\Php74\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php74',
-        ),
-        'Symfony\\Polyfill\\Php73\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
-        ),
-        'Symfony\\Polyfill\\Mbstring\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
         'SimplePie\\' =>
         array (
@@ -270,22 +228,10 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
     );
 
     public static $classMap = array (
-        'AllowDynamicProperties' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/AllowDynamicProperties.php',
         'AtomCreator03' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/AtomCreator03.php',
         'AtomCreator10' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/AtomCreator10.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
-        'CURLStringFile' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
-        'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
-        'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
-        'DateInvalidTimeZoneException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidTimeZoneException.php',
-        'DateMalformedIntervalStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedIntervalStringException.php',
-        'DateMalformedPeriodStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedPeriodStringException.php',
-        'DateMalformedStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedStringException.php',
-        'DateObjectError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateObjectError.php',
-        'DateRangeError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateRangeError.php',
-        'Deprecated' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Deprecated.php',
         'FeedCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/FeedCreator.php',
         'FeedDate' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Element/FeedDate.php',
         'FeedHtmlField' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Element/FeedHtmlField.php',
@@ -296,7 +242,6 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'HtmlDescribable' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Element/HtmlDescribable.php',
         'JSCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/JSCreator.php',
         'JSONCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/JSONCreator.php',
-        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'KMLCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/KMLCreator.php',
         'MBOXCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/MBOXCreator.php',
         'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -318,14 +263,23 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'Nette\\Schema\\Context' => __DIR__ . '/..' . '/nette/schema/src/Schema/Context.php',
         'Nette\\Schema\\DynamicParameter' => __DIR__ . '/..' . '/nette/schema/src/Schema/DynamicParameter.php',
         'Nette\\Schema\\Elements\\AnyOf' => __DIR__ . '/..' . '/nette/schema/src/Schema/Elements/AnyOf.php',
+        'Nette\\Schema\\Elements\\ArrayType' => __DIR__ . '/..' . '/nette/schema/src/Schema/Elements/ArrayType.php',
         'Nette\\Schema\\Elements\\Base' => __DIR__ . '/..' . '/nette/schema/src/Schema/Elements/Base.php',
+        'Nette\\Schema\\Elements\\EnumType' => __DIR__ . '/..' . '/nette/schema/src/Schema/Elements/EnumType.php',
+        'Nette\\Schema\\Elements\\NumberType' => __DIR__ . '/..' . '/nette/schema/src/Schema/Elements/NumberType.php',
+        'Nette\\Schema\\Elements\\StringType' => __DIR__ . '/..' . '/nette/schema/src/Schema/Elements/StringType.php',
         'Nette\\Schema\\Elements\\Structure' => __DIR__ . '/..' . '/nette/schema/src/Schema/Elements/Structure.php',
+        'Nette\\Schema\\Elements\\TupleType' => __DIR__ . '/..' . '/nette/schema/src/Schema/Elements/TupleType.php',
         'Nette\\Schema\\Elements\\Type' => __DIR__ . '/..' . '/nette/schema/src/Schema/Elements/Type.php',
         'Nette\\Schema\\Expect' => __DIR__ . '/..' . '/nette/schema/src/Schema/Expect.php',
         'Nette\\Schema\\Helpers' => __DIR__ . '/..' . '/nette/schema/src/Schema/Helpers.php',
+        'Nette\\Schema\\JsonSchema' => __DIR__ . '/..' . '/nette/schema/src/Schema/JsonSchema.php',
+        'Nette\\Schema\\Kind' => __DIR__ . '/..' . '/nette/schema/src/Schema/enums.php',
+        'Nette\\Schema\\MergeMode' => __DIR__ . '/..' . '/nette/schema/src/Schema/enums.php',
         'Nette\\Schema\\Message' => __DIR__ . '/..' . '/nette/schema/src/Schema/Message.php',
         'Nette\\Schema\\Processor' => __DIR__ . '/..' . '/nette/schema/src/Schema/Processor.php',
         'Nette\\Schema\\Schema' => __DIR__ . '/..' . '/nette/schema/src/Schema/Schema.php',
+        'Nette\\Schema\\TypeExpression' => __DIR__ . '/..' . '/nette/schema/src/Schema/TypeExpression.php',
         'Nette\\Schema\\ValidationException' => __DIR__ . '/..' . '/nette/schema/src/Schema/ValidationException.php',
         'Nette\\ShouldNotHappenException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\SmartObject' => __DIR__ . '/..' . '/nette/utils/src/SmartObject.php',
@@ -366,31 +320,12 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
         'OPMLCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/OPMLCreator.php',
-        'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
         'PHPCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/PHPCreator.php',
         'PIECreator01' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/PIECreator01.php',
-        'Pdo\\Dblib' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Pdo/Dblib.php',
-        'Pdo\\Firebird' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Pdo/Firebird.php',
-        'Pdo\\Mysql' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Pdo/Mysql.php',
-        'Pdo\\Odbc' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Pdo/Odbc.php',
-        'Pdo\\Pgsql' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Pdo/Pgsql.php',
-        'Pdo\\Sqlite' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Pdo/Sqlite.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'RSSCreator091' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator091.php',
         'RSSCreator10' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator10.php',
         'RSSCreator20' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator20.php',
-        'Random\\BrokenRandomEngineError' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/Random/BrokenRandomEngineError.php',
-        'Random\\CryptoSafeEngine' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/Random/CryptoSafeEngine.php',
-        'Random\\Engine' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/Random/Engine.php',
-        'Random\\Engine\\Secure' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/Random/Engine/Secure.php',
-        'Random\\RandomError' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/Random/RandomError.php',
-        'Random\\RandomException' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/Random/RandomException.php',
-        'ReflectionConstant' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/ReflectionConstant.php',
-        'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
-        'RoundingMode' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/RoundingMode.php',
-        'SQLite3Exception' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/SQLite3Exception.php',
-        'SensitiveParameter' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/SensitiveParameter.php',
-        'SensitiveParameterValue' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/SensitiveParameterValue.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'UniversalFeedCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/UniversalFeedCreator.php',

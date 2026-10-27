@@ -8,7 +8,7 @@ sidebar_position: 3
 
 > Source: `docker-compose.yml`, `Dockerfile`
 
-The repository ships a complete local development stack: PHP 8.2 with Apache, MariaDB, phpMyAdmin and Mailpit, including the full graphics toolchain. It is a development environment — do not expose it to production as-is.
+The repository ships a complete local development stack: PHP 8.4 with Apache, MariaDB, phpMyAdmin and Mailpit, including the full graphics toolchain. It is a development environment — do not expose it to production as-is.
 
 ## Starting
 
@@ -22,7 +22,7 @@ Then open the setup wizard at `http://localhost:8080/setup/` to install (see [Se
 
 | Service | Image | Ports (host:container) | Purpose |
 | ------- | ----- | ---------------------- | ------- |
-| `web` | built from local `Dockerfile` (`php:8.2-apache`) | `8080:80` | phpwcms itself; repository bind-mounted at `/var/www/html`. |
+| `web` | built from local `Dockerfile` (`php:8.4-apache`) | `8080:80` | phpwcms itself; repository bind-mounted at `/var/www/html`. |
 | `db` | `mariadb:10.11` | `3307:3306` | Database with `--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci`; data in the named volume `db_data`. |
 | `mailpit` | `axllent/mailpit:latest` | `8026:8025` (web), `1026:1025` (SMTP) | Captures all outgoing mail; limited to `MP_MAX_MESSAGES = 500`. |
 | `phpmyadmin` | `phpmyadmin:latest` | `8081:80` | `PMA_HOST=db`, `PMA_PORT=3306`. |

@@ -8,11 +8,11 @@ sidebar_position: 1
 
 > Source: `README.md` (Installation), `setup/index.php`, `setup/inc/step6.inc.php`, `setup/inc/setup.func.inc.php`
 
-Confirm the [system requirements](../requirements/index.md) first — PHP 8.2+, a MySQL 5.5+/MariaDB database, and at least one graphics library. For a prebuilt local stack, see [Docker installation](docker.md).
+Confirm the [system requirements](../requirements/index.md) first — PHP 8.4+, a MySQL 5.5+/MariaDB database, and at least one graphics library. For a prebuilt local stack, see [Docker installation](docker.md).
 
 ## Install steps
 
-1. **Download and extract** a phpwcms release archive (releases ship `include/vendor/` prebuilt, so no Composer step is needed) into the web server document root. Installing from Git instead requires `composer install --no-dev --optimize-autoloader` under PHP 8.2.
+1. **Download and extract** a phpwcms release archive (releases ship `include/vendor/` prebuilt, so no Composer step is needed) into the web server document root. Installing from Git instead requires `composer install --no-dev --optimize-autoloader` under PHP 8.4.
 2. **Configure the web server**: use the shipped templates — rename `_.htaccess` to `.htaccess` for Apache (the setup wizard offers to do this), adapt `nginx.conf` or `web.config`. Rewritten URLs need `mod_rewrite`/matching server rules; see [SEO settings](../administration/seo-settings.md).
 3. **Set write permissions** for the web server user on:
    - `content/` and its subfolders (`content/images/`, `content/tmp/`, `content/cache/`, `content/form/`, `content/rss/`, `content/pages/`)

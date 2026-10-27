@@ -1,8 +1,11 @@
 {
   "name": "phpwcms",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "phpwcms web content management system asset build scripts",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build:css": "node include/build/build-css.js",
     "build:css:dev": "node include/build/build-css.js --no-minify",

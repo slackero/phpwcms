@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Changed
+- **PHP 8.4 Baseline:** Raised the minimum PHP version from 8.2 to 8.4 across `composer.json` (`platform` 8.4.27, `require` `>=8.4`), `setup/upgrade.php` (`MIN_PHP_VERSION`), the `Dockerfile` (`php:8.4-apache`), the Makefile PHP fallback, README badges and the documentation set. PHP 8.2 reaches end of life on 2026-12-31.
+- **PHPStan Runs on PHP 8.4:** Pinned `phpVersion: 80400` in `.phpstan/phpstan.neon` so analysis matches the runtime target; full codebase still passes at level 5.
+- **Composer Dependencies:** `enshrined/svg-sanitize` 1.0.0 → 1.1.1, `netcarver/textile` 4.1.5 → 4.1.6 (constraints lifted to caret ranges), `tinymce/tinymce` 8.9.3 → 8.10.0, `league/commonmark` 2.10.3 → 2.10.4, `php81_bc/strftime` 0.7.6 → 0.7.7, `phpstan/phpstan` 2.3.1 → 2.3.3, plus transitive `guzzlehttp/*`, `nette/*`, `maennchen/zipstream-php` and the `mklkj/tinymce-i18n`, `simplepie/simplepie`, `roave/security-advisories` dev snapshots.
+- **Node Dependencies:** `ace-builds` 1.44.0 → 1.45.2, `bootstrap-icons` 1.13.1 → 1.13.2, `flag-icons` 7.5.0 → 7.6.0, `video.js` 8.24.1 → 8.24.2. Added `engines.node >=22`. Major versions (`dropzone` 6, `jQuery` 4, `video.js` 10) intentionally not adopted.
+- **Redundant Polyfills Dropped:** Removed the explicit `symfony/polyfill-php73`, `php74`, `php80`, `php81`, `php82`, `php83`, `php84` and `polyfill-mbstring` requirements — all superseded by PHP 8.4 and the required `mbstring` extension. `symfony/polyfill-php80` remains as a transitive dependency of Guzzle, PSR-7 and CommonMark; `php81_bc/strftime` is kept because `strftime()` is not part of PHP 8.
+- **Package Version:** `package.json` and `package-lock.json` now report `2.0.0-beta.2`, matching the release.
+
+### Fixed
+- **PHP 8.4 Deprecations:** Removed the now-deprecated `curl_close()` calls in `setup/upgrade.php`, `include/inc_lib/update/update.api.php` and `include/inc_module/mod_feedimport/inc/functions.inc.php` (no-ops since PHP 8.0).
+
 ## [2.0.0-beta.1] – 2026/10/11
 
 ### Added

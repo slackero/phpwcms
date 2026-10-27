@@ -8,7 +8,7 @@ sidebar_position: 0
 
 > Source: `README.md`, `https://github.com/slackero/phpwcms`
 
-phpwcms is a free, open source web based content management system (CMS) and CMS framework, written in PHP 8.2+ and backed by MySQL or MariaDB. It has been continuously developed since 2002 and is maintained by [Oliver Georgi](https://github.com/slackero).
+phpwcms is a free, open source web based content management system (CMS) and CMS framework, written in PHP 8.4+ and backed by MySQL or MariaDB. It has been continuously developed since 2002 and is maintained by [Oliver Georgi](https://github.com/slackero).
 
 phpwcms is built for speed and for the separation of layout and content: you define the layout once in templates, editors fill structure levels and articles with content parts, and the system serves pages on demand — no page cache rebuilding ceremonies, no build step. It stays developer friendly: plain file templates, replacement tags, and frontend render scripts you can script against without touching the core.
 

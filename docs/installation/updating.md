@@ -8,7 +8,7 @@ sidebar_position: 4
 
 > Source: `include/inc_lib/update/update.php`, `update.api.php`, `update.backup.php`, `include/inc_tmpl/admin.update.tmpl.php`, `setup/upgrade.php`, `include/inc_lib/revision/` (`r401.php`–`r561.php`, `revision.php`), `README.md` (Upgrading), `CHANGELOG.md`
 
-Always back up the database and files before updating, and confirm the host runs PHP 8.2+. Three paths cover every situation; all of them run the same database revision chain afterward.
+Always back up the database and files before updating, and confirm the host runs PHP 8.4+. Three paths cover every situation; all of them run the same database revision chain afterward.
 
 **Back up before every update — no exceptions.** A full backup means both:
 
@@ -52,7 +52,7 @@ Behavior:
 
 - **Same backup rule as above, before you download anything: full database dump plus the protected files (`conf.inc.php`, `template/`, `filearchive/`, `content/images/`), stored off the server.** The script's own dump/zip under `content/backup/` covers rollback on the same host only.
 
-- Requires PHP 8.2+ and an installed revision of `r401` or newer (the revision tracking was introduced in r401); upgrades from phpwcms 1.x without a manifest need the `--allow-unverified` flag.
+- Requires PHP 8.4+ and an installed revision of `r401` or newer (the revision tracking was introduced in r401); upgrades from phpwcms 1.x without a manifest need the `--allow-unverified` flag.
 - Authentication uses your admin backend credentials, including Two-Factor (TOTP or backup codes) when enabled; database migrations are gated behind that login.
 - Detects the actual database table prefix (including whitelabel/`cmsgo` brand prefixes) and repairs missing whitelabel config lines in `conf.inc.php` when needed (`conf.inc.cmsgo-backup.php` keeps the original).
 - Dumps the database and builds a files zip below `content/backup/<timestamp>/` (excluding `content/images/`, `content/tmp/`, `content/cache/`, `content/rss/`, `content/backup/` itself and `.git*` from the archive), then applies the release zip with the same preserved-paths rules as the in-app engine.
@@ -76,7 +76,7 @@ Database revisions are one-way transformations. If a revision fails half-applied
 
 This is the riskiest update path — legacy schema, version jumps, PHP changes. Treat the backup rule as mandatory: full database dump + all protected files, off the server, before you touch anything.
 
-- **PHP baseline moved to 8.2.** 1.x installs run on PHP 7.4/8.0/8.1-compatible code; 2.x requires PHP 8.2 or newer — upgrade PHP first.
+- **PHP baseline moved to 8.4.** 1.x installs run on PHP 7.4/8.0/8.1-compatible code; 2.x requires PHP 8.4 or newer — upgrade PHP first.
 - **GD 1.x support removed**; pick a modern engine from the setup ([Image processing](../administration/image-processing.md)).
 - The revision system starts at r401: upgrading from a 1.x state without revisions uses `setup/upgrade.php` (possibly with `--allow-unverified`) or the manual path; the in-app engine remains locked at versions 2.0.0 and below.
 - Table prefixes: legacy `cmsgo`-style installs are detected and migrated automatically by the standalone script.

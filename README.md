@@ -8,14 +8,14 @@
 
 [![Release](https://img.shields.io/badge/release-2.0.0--beta.2-orange.svg?style=flat-edge)](https://github.com/slackero/phpwcms/releases)
 [![Revision](https://img.shields.io/badge/revision-r561-informational.svg?style=flat-edge)](CHANGELOG.md)
-[![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.2-8892BF.svg?style=flat-edge)](https://php.net)
+[![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.4-8892BF.svg?style=flat-edge)](https://php.net)
 [![Database](https://img.shields.io/badge/MySQL-%3E%3D%205.5%20(MariaDB%20rec)-blue.svg?style=flat-edge)](https://mysql.com)
 [![Maintainer](https://img.shields.io/badge/Maintained%20by-Oliver%20Georgi-informational.svg?style=flat-edge)](https://www.phpwcms.org)
 [![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-green.svg?style=flat-edge)](https://opensource.org/licenses/GPL-2.0)
 
 **phpwcms** is an exceptionally flexible, fast, robust, and developer-friendly web-based Content Management System (CMS) and CMS Framework. Crafted for speed, customizable architectures, and ease of use, phpwcms empowers developers to build and manage highly-tailored digital experiences under PHP and MySQL/MariaDB.
 
-Current development state: **2.0.0-beta.2** (database revision `r561`), PHP 8.2+.
+Current development state: **2.0.0-beta.2** (database revision `r561`), PHP 8.4+.
 
 Created and lovingly maintained by [Oliver Georgi](https://www.phpwcms.org).
 
@@ -37,18 +37,18 @@ Created and lovingly maintained by [Oliver Georgi](https://www.phpwcms.org).
 * **Enterprise-Ready Emailing**: Standardized on **PHPMailer 7.1+** supporting modern secure transports including OAuth2 (Google & Microsoft Azure).
 * **AI & LLM Integration**: Built-in standard `ai.txt` (AI bot crawling rules and EU TDM Article 4(3) reservation) and `llms.txt` (structured project context for AI models).
 * **Complete Reference Documentation**: 94-page documentation set in `docs/` covering concepts, installation, administration, backend, frontend, templates, all 37 content part types and every shipped module — plus agent-ready `docs/llms.txt` (curated index) and `docs/llms-full.txt` (full content in one file).
-* **Docker Ready**: Complete local development environment with PHP 8.2, MariaDB 10.11, phpMyAdmin, Mailpit email capture, and image processing tools.
+* **Docker Ready**: Complete local development environment with PHP 8.4, MariaDB 10.11, phpMyAdmin, Mailpit email capture, and image processing tools.
 
 ---
 
 ## Server & System Requirements 🖥️
 
-This version is fine-tuned and fully compatible with **PHP 8.2+** (tested on PHP 8.2, 8.3, and 8.4).
+This version is fine-tuned and fully compatible with **PHP 8.4+** (tested on PHP 8.4 and 8.5).
 
 ### Required Environment
 | Requirement | Minimum Version | Recommended Version | Note |
 |:---|:---|:---|:---|
-| **PHP** | `8.2` | `8.2+` or `8.3` | Native type safety, JIT support, and memory optimizations |
+| **PHP** | `8.4` | `8.4+` or `8.5` | Native type safety, JIT support, and memory optimizations |
 | **MySQL / MariaDB** | `5.5` | `10.4+` (MariaDB) / `8.0+` (MySQL) | InnoDB transactional storage engines and utf8mb4 |
 | **Web Server** | Apache (with `mod_rewrite`), Nginx, or IIS | Apache / Nginx | Configuration templates provided (`.htaccess`, `nginx.conf`, `web.config`) |
 
@@ -105,7 +105,7 @@ To support all features, the following PHP extensions must be enabled in your en
 A pre-configured development stack is included:
 
 ```bash
-# Start Apache PHP 8.2, MariaDB 10.11, phpMyAdmin, and Mailpit
+# Start Apache PHP 8.4, MariaDB 10.11, phpMyAdmin, and Mailpit
 docker compose up -d
 ```
 
@@ -118,7 +118,7 @@ docker compose up -d
 ## Upgrading Existing Installations 🔄
 
 > [!IMPORTANT]
-> **Before upgrading**: Always create a full backup of your database and files. Ensure your host environment runs **PHP 8.2 or higher**.
+> **Before upgrading**: Always create a full backup of your database and files. Ensure your host environment runs **PHP 8.4 or higher**.
 
 phpwcms provides three seamless upgrade methods depending on your preferences:
 
@@ -307,7 +307,7 @@ Many thanks to **[JetBrains](https://www.jetbrains.com/)** for supporting **phpw
 * **[Guzzle](https://github.com/guzzle/guzzle)**: Extensible PHP HTTP client and PSR-7 implementation (MIT).
 * **[SimplePie](http://simplepie.org/)**: RSS and Atom feed parser (BSD-3-Clause).
 * **[SVG Sanitize](https://github.com/darylldoyle/svg-sanitizer)**: SVG cleaning and sanitization utility (GPL-2.0+).
-* **[Symfony Polyfills](https://github.com/symfony/polyfill)** & **[strftime Polyfill](https://github.com/php81-bc/strftime)**: Backward compatibility and modern multibyte functions (MIT).
+* **[Symfony Polyfills](https://github.com/symfony/polyfill)** & **[strftime Polyfill](https://github.com/php81-bc/strftime)**: Backward compatibility for PHP 8.0-era functions and `strftime()` (MIT).
 * **[Textile Parser](https://github.com/textile/php-textile)**: Textile markup parser (BSD-3-Clause).
 * **[UniversalFeedCreator](https://github.com/flack/UniversalFeedCreator)**: Feed generation for RSS, Atom, and OPML formats (LGPL-2.1+).
 * **[ZipStream-PHP](https://github.com/maennchen/ZipStream-PHP)**: Streaming zip archive generator used with PhpSpreadsheet (MIT).

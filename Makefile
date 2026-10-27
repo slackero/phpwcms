@@ -2,8 +2,8 @@
 
 .PHONY: phpstan baseline stacklit help sync minify-sync
 
-# Default PHP executable (check for php8 in PATH, fallback to MAMP php8.2.32)
-PHP ?= $(shell which php8 2>/dev/null || echo /Applications/MAMP/bin/php/php8.2.32/bin/php)
+# Default PHP executable (check for php8 in PATH, fallback to MAMP php8.4.27)
+PHP ?= $(shell which php8 2>/dev/null || echo /Applications/MAMP/bin/php/php8.4.27/bin/php)
 PHPSTAN = $(PHP) -d memory_limit=1G include/vendor/bin/phpstan
 STACKLIT ?= stacklit
 SYNC_TARGET ?= /Users/slackero/Sites/dev-phpwcms

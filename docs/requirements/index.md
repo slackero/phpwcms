@@ -12,7 +12,7 @@ sidebar_position: 1
 
 | Requirement | Minimum | Recommended |
 | ----------- | ------- | ----------- |
-| PHP | 8.2 | 8.2 / 8.3 (tested on 8.2, 8.3, 8.4) |
+| PHP | 8.4 | 8.4 / 8.5 (tested on 8.4, 8.5) |
 | MySQL / MariaDB | 5.5 | MariaDB 10.4+ / MySQL 8.0+, InnoDB, utf8mb4 |
 | Web server | Apache with `mod_rewrite`, Nginx or IIS | Apache / Nginx |
 
@@ -35,7 +35,7 @@ Image tooling beyond GD: ImageMagick and GhostScript extend supported input form
 
 ## Composer dependencies
 
-Releases ship `include/vendor/` prebuilt. Installing from Git requires `composer install` (PHP 8.2). Key libraries: PHPMailer 7+, TinyMCE 8, htmlpurifier, phpspreadsheet, simplepie, league/commonmark, oauth2 providers (Google, Azure).
+Releases ship `include/vendor/` prebuilt. Installing from Git requires `composer install` (PHP 8.4). Key libraries: PHPMailer 7+, TinyMCE 8, htmlpurifier, phpspreadsheet, simplepie, league/commonmark, oauth2 providers (Google, Azure).
 
 ## Client
 
@@ -43,7 +43,7 @@ Backend UI is Bootstrap 5 based and targets current evergreen browsers; no legac
 
 ## Docker
 
-A complete local stack (PHP 8.2, MariaDB 10.11, phpMyAdmin, Mailpit, image tools) ships as `docker-compose.yml` / `Dockerfile` — see [Docker installation](../installation/docker.md).
+A complete local stack (PHP 8.4, MariaDB 10.11, phpMyAdmin, Mailpit, image tools) ships as `docker-compose.yml` / `Dockerfile` — see [Docker installation](../installation/docker.md).
 
 ## Related
 

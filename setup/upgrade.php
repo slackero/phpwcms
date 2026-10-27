@@ -26,7 +26,7 @@ if (function_exists('ignore_user_abort')) {
 
 const UPGRADE_VERSION = '2.0.0';
 const UPGRADE_REPO    = 'slackero/phpwcms';
-const MIN_PHP_VERSION = '8.2.0';
+const MIN_PHP_VERSION = '8.4.0';
 const MIN_INSTALLED_REVISION = 401;
 
 function phpwcms_logo_svg(int $height = 30): string
@@ -648,7 +648,6 @@ function fetch_latest_release(string $repo = UPGRADE_REPO): array|false
         ]);
         $body = curl_exec($ch);
         $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-        curl_close($ch);
         if ($code !== 200 || !is_string($body)) {
             $body = false;
         }
@@ -730,7 +729,6 @@ function upgrade_http_probe(string $url): array|false
         $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $errno = curl_errno($ch);
         $location = (string)curl_getinfo($ch, CURLINFO_REDIRECT_URL);
-        curl_close($ch);
         if ($errno) {
             return false;
         }
@@ -839,7 +837,6 @@ function download_file(string $url, string $destPath): bool
         $success = curl_exec($ch);
         $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
         $errno = curl_errno($ch);
-        curl_close($ch);
         fclose($fp);
 
         if (!$success || $errno !== 0 || $code !== 200) {
