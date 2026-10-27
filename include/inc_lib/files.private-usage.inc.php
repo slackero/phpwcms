@@ -81,6 +81,11 @@ function phpwcms_get_content_file_usage()
                 }
             }
 
+            // File/image custom fields (e.g. tab icons) stored inside acontent_form
+            foreach (phpwcms_get_form_custom_field_file_ids($row['acontent_form'] ?? '') as $ref_id) {
+                $file_ids[] = $ref_id;
+            }
+
             $text_parts = [];
             foreach (['acontent_text', 'acontent_html', 'acontent_media', 'acontent_form'] as $text_field) {
                 if (!empty($row[$text_field])) {
@@ -109,6 +114,136 @@ function phpwcms_get_content_file_usage()
     $rows = array_merge($rows, phpwcms_get_module_file_usage());
 
     return $rows;
+}
+
+/**
+ * Collects file IDs that are stored as file/image custom fields inside the
+ * serialized configuration of a content part (acontent_form).
+ *
+ * Supported shapes:
+ * - Tabs (cnt32):       tabs[n][custom_fields][field] = ['id' => 53, ...]
+ * - Image div (cnt29):  custom_fields[field] = ['id' => 12, ...]
+ * - WYSIWYG (cnt14):    cnt_fields[field] = '34' (scalar file ID)
+ * - Custom CPT (cnt60): custom_form[custom_elements][n][custom_fields][field] = '53'
+ *
+ * Array values are read independent of the field definition, because only the
+ * file/image pickers store arrays there. Numeric scalar values are only read
+ * when the stored fieldgroup defines that field as type file/image, so a plain
+ * integer field can never mark a file as used.
+ *
+ * Path values are not resolved: they do not contain the f_hash the text
+ * fallback in phpwcms_get_content_file_usage() matches.
+ *
+ * @param string|null $serialized value of acontent_form
+ * @return int[]
+ */
+function phpwcms_get_form_custom_field_file_ids($serialized)
+{
+    static $fieldgroup_cache = [];
+
+    $ids = [];
+
+    if (!is_string($serialized) || $serialized === '' ||
+        (strpos($serialized, 'custom_fields') === false && strpos($serialized, 'cnt_fields') === false)) {
+        return $ids;
+    }
+
+    $data = @unserialize($serialized, ['allowed_classes' => false]);
+    if (!is_array($data)) {
+        return $ids;
+    }
+
+    $settings = isset($GLOBALS['template_default']['settings']) && is_array($GLOBALS['template_default']['settings'])
+        ? $GLOBALS['template_default']['settings']
+        : [];
+    $definitions = [];
+
+    // Resolve the field definitions of the stored fieldgroup per container key
+    if (isset($data['custom_form']['fieldgroup']) && is_scalar($data['custom_form']['fieldgroup'])) {
+        $fieldgroup = (string)$data['custom_form']['fieldgroup'];
+        if ($fieldgroup !== '') {
+            if (!isset($fieldgroup_cache['cpt:' . $fieldgroup])) {
+                $fields = [];
+                if (function_exists('get_custom_contentpart_by_key')) {
+                    $cpt = get_custom_contentpart_by_key($fieldgroup);
+                    if (!empty($cpt['fields']) && is_array($cpt['fields'])) {
+                        $fields = $cpt['fields'];
+                    }
+                }
+                if (!$fields && isset($settings['customctp_custom_fields'][$fieldgroup]['fields']) &&
+                    is_array($settings['customctp_custom_fields'][$fieldgroup]['fields'])) {
+                    $fields = $settings['customctp_custom_fields'][$fieldgroup]['fields'];
+                }
+                $fieldgroup_cache['cpt:' . $fieldgroup] = $fields;
+            }
+            $definitions['custom_fields'] = $fieldgroup_cache['cpt:' . $fieldgroup];
+        }
+    } elseif (isset($data['tabs'])) {
+        $fieldgroup = isset($data['tab_fieldgroup']) && is_scalar($data['tab_fieldgroup']) ? (string)$data['tab_fieldgroup'] : '';
+        if ($fieldgroup !== '' && isset($settings['tabs_custom_fields'][$fieldgroup]['fields']) &&
+            is_array($settings['tabs_custom_fields'][$fieldgroup]['fields'])) {
+            $definitions['custom_fields'] = $settings['tabs_custom_fields'][$fieldgroup]['fields'];
+        }
+    } else {
+        $fieldgroup = isset($data['cnt_fieldgroup']) && is_scalar($data['cnt_fieldgroup']) ? (string)$data['cnt_fieldgroup'] : '';
+        if ($fieldgroup !== '') {
+            if (isset($settings['imgdiv_custom_fields'][$fieldgroup]['fields']) &&
+                is_array($settings['imgdiv_custom_fields'][$fieldgroup]['fields'])) {
+                $definitions['custom_fields'] = $settings['imgdiv_custom_fields'][$fieldgroup]['fields'];
+            }
+            if (isset($settings['wysiwyg_custom_fields'][$fieldgroup]['fields']) &&
+                is_array($settings['wysiwyg_custom_fields'][$fieldgroup]['fields'])) {
+                $definitions['cnt_fields'] = $settings['wysiwyg_custom_fields'][$fieldgroup]['fields'];
+            }
+        }
+    }
+
+    $add_id = static function ($value) use (&$ids) {
+        // is_scalar() before the cast: an array id must not raise a warning
+        if (!is_scalar($value)) {
+            return;
+        }
+        $value = trim((string)$value);
+        if ($value === '' || !ctype_digit($value)) {
+            return;
+        }
+        $ref_id = (int)$value;
+        if ($ref_id > 0) {
+            $ids[] = $ref_id;
+        }
+    };
+
+    $walk = static function ($node) use (&$walk, $definitions, $add_id) {
+        if (!is_array($node)) {
+            return;
+        }
+        foreach ($node as $key => $value) {
+            if (!is_array($value)) {
+                continue;
+            }
+            if ($key === 'custom_fields' || $key === 'cnt_fields') {
+                $fields = isset($definitions[$key]) && is_array($definitions[$key]) ? $definitions[$key] : [];
+                foreach ($value as $field_key => $field_value) {
+                    $field_type = isset($fields[$field_key]['type']) ? $fields[$field_key]['type'] : '';
+                    if (is_array($field_value)) {
+                        // File/image pickers store arrays carrying the selected file ID
+                        foreach (['file_id', 'image_id', 'id'] as $id_key) {
+                            if (array_key_exists($id_key, $field_value)) {
+                                $add_id($field_value[$id_key]);
+                            }
+                        }
+                    } elseif ($field_type === 'file' || $field_type === 'image') {
+                        // Custom CPT and WYSIWYG fields keep the ID as a scalar
+                        $add_id($field_value);
+                    }
+                }
+            }
+            $walk($value);
+        }
+    };
+    $walk($data);
+
+    return array_values(array_unique($ids));
 }
 
 /**
@@ -389,6 +524,11 @@ function phpwcms_mark_content_files_used($acontent_id)
                 }
             }
         }
+    }
+
+    // File/image custom fields (e.g. tab icons) stored inside acontent_form
+    foreach (phpwcms_get_form_custom_field_file_ids($row['acontent_form'] ?? '') as $ref_id) {
+        $file_ids[] = $ref_id;
     }
 
     if ($file_ids) {
