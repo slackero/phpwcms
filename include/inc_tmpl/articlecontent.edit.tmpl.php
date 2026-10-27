@@ -112,7 +112,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
             break;
 
         default:
-            echo 'onsubmit="var ct=document.getElementById("target_ctype"); if(ct.disabled){ct.disabled=false;} return checkCp(this);"';
+            echo 'onsubmit="var ct=document.getElementById(\'target_ctype\'); if(ct&&ct.disabled){ct.disabled=false;} return checkCp(this);"';
 
     }
 
