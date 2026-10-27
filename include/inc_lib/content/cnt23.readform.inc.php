@@ -182,6 +182,8 @@ foreach($_POST['cform_field_type'] as $key => $value) {
         $content['form']["fields"][$field_counter]['class'] = clean_slweg($_POST['cform_field_class'][$key]);
         $content['form']["fields"][$field_counter]['placeholder'] = clean_slweg($_POST['cform_field_placeholder'][$key]);
         $content['form']["fields"][$field_counter]['profile'] = empty($_POST['cform_field_profile'][$key]) ? '' : clean_slweg($_POST['cform_field_profile'][$key]);
+        $content['form']["fields"][$field_counter]['size'] = '';
+        $content['form']["fields"][$field_counter]['max'] = '';
 
         switch($value) {
 
@@ -195,6 +197,41 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 
                 $content['form']["fields"][$field_counter]['size']  = intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
                 $content['form']["fields"][$field_counter]['max']   = intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : '';
+                break;
+
+            case 'tel':
+            case 'url':
+            case 'color':
+                /*
+                 * HTML5 text-like input types: size and maxlength
+                 */
+                $content['form']["fields"][$field_counter]['size']  = (int)($_POST['cform_field_size'][$key] ?? 0) ?: '';
+                $content['form']["fields"][$field_counter]['max']   = (int)($_POST['cform_field_max'][$key] ?? 0) ?: '';
+                break;
+
+            case 'number':
+            case 'range':
+                /*
+                 * HTML5 numeric inputs: min and max
+                 */
+                $_field_min = clean_slweg($_POST['cform_field_size'][$key] ?? '');
+                $_field_max = clean_slweg($_POST['cform_field_max'][$key] ?? '');
+                $content['form']["fields"][$field_counter]['size']  = preg_match('/^-?\d+(?:\.\d+)?$/', $_field_min) ? $_field_min : '';
+                $content['form']["fields"][$field_counter]['max']   = preg_match('/^-?\d+(?:\.\d+)?$/', $_field_max) ? $_field_max : '';
+                unset($_field_min, $_field_max);
+                break;
+
+            case 'date':
+            case 'time':
+                /*
+                 * HTML5 date/time inputs: min and max in ISO format
+                 */
+                $_field_min = clean_slweg($_POST['cform_field_size'][$key] ?? '');
+                $_field_max = clean_slweg($_POST['cform_field_max'][$key] ?? '');
+                $_field_pattern = $value === 'date' ? '/^\d{4}-\d{2}-\d{2}$/' : '/^\d{2}:\d{2}(?::\d{2})?$/';
+                $content['form']["fields"][$field_counter]['size']  = preg_match($_field_pattern, $_field_min) ? $_field_min : '';
+                $content['form']["fields"][$field_counter]['max']   = preg_match($_field_pattern, $_field_max) ? $_field_max : '';
+                unset($_field_min, $_field_max, $_field_pattern);
                 break;
 
             case 'special':
