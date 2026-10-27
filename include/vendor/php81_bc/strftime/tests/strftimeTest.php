@@ -161,7 +161,7 @@
       ), '%c: Preferred date and time stamp based on locale');
 
       $result = strftime('%D', '20220306 13:02:03');
-      $this->assertEquals('03/06/2022', $result, '%D: Same as "%m/%d/%y"');
+      $this->assertEquals('03/06/22', $result, '%D: Same as "%m/%d/%y"');
 
       $result = strftime('%F', '20220306 13:02:03');
       $this->assertEquals('2022-03-06', $result, '%F: Same as "%Y-%m-%d" (commonly used in database datestamps)');
@@ -182,6 +182,12 @@
 
       $result = strftime('%%', '20220306 13:02:03');
       $this->assertEquals('%', $result, '%%: A literal percentage character ("%")');
+
+      $result = strftime('%%Y', '20220306 13:02:03');
+      $this->assertEquals('%Y', $result, '%%Y: A literal percentage character followed by "Y"');
+
+      $result = strftime('%%%Y', '20220306 13:02:03');
+      $this->assertEquals('%2022', $result, '%%%Y: A literal percentage character followed by the year');
     }
 
     /**
