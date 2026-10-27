@@ -280,7 +280,7 @@ function phpwcms_revision_r554() {
 
     ];
 
-    return $status;
+    return $status && !in_array(false, $updated, true);
 }
 
 /**
@@ -297,6 +297,12 @@ function phpwcms_revision_r554_update_datetime($table, $fields, $preserve = []) 
 
     $table = _dbEscape($table, false);
 
+    // Skip tables that do not exist in this installation (e.g. optional modules)
+    $table_exists = _dbQuery("SHOW TABLES LIKE '" . _dbEscape(DB_PREPEND . $table, false) . "'");
+    if (empty($table_exists)) {
+        return true;
+    }
+
     $alter_table = 'ALTER TABLE `' . DB_PREPEND . $table . '`';
     $drop = [];
     $update = [];
@@ -304,7 +310,8 @@ function phpwcms_revision_r554_update_datetime($table, $fields, $preserve = []) 
     foreach ($fields as $field => $type) {
         // check if NULL is already allowed
         $result = _dbQuery('SHOW COLUMNS FROM `' . DB_PREPEND . $table . '` WHERE Field=' . _dbEscape($field));
-        if (isset($result[0]['Null']) && strtoupper($result[0]['Null']) === 'YES') {
+        if (!isset($result[0]['Field']) || (isset($result[0]['Null']) && strtoupper($result[0]['Null']) === 'YES')) {
+            // column missing in this installation or NULL already allowed
             unset($fields[$field]);
             continue;
         }
