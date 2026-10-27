@@ -117,7 +117,7 @@ You can find the complete step-by-step setup guide for Google and XOAUTH2 in the
 
 ## Version 🔢
 
-Current development release: **1.12.4-dev** (revision 555, released 2026-10-02).
+Current development release: **1.12.5-dev** (revision 555, released 2026-10-28).
 
 The version, release date and revision are defined in `include/inc_lib/revision/revision.php`. Database and setup
 upgrades are shipped as numbered revision files in `include/inc_lib/revision/` and applied automatically on upgrade.
