@@ -280,7 +280,7 @@ function phpwcms_revision_r554() {
 
     ];
 
-    return $status && !in_array(false, $updated, true);
+    return !in_array(false, $updated, true);
 }
 
 /**

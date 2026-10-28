@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 - **Prism.js Highlighting Support:** Added modern code highlighting templates (`JavaScript-Prism.tmpl` and `PHP-Prism.tmpl`) under `template/inc_cntpart/code/example/` using Prism.js.
 - **CodeQL Configuration:** Added `.github/codeql/codeql-config.yml` to exclude third-party vendor directories (e.g. `tinymce`, `mootools`, `jquery`, etc.) from security scans.
 
+### Fixed
+- **PHPStan Report Clean:** `phpwcms_revision_r554()` no longer checks `$status` in its final return — the value is guaranteed `true` at that point because the function returns early otherwise. Five stale suppression entries (variables `$file_durchlauf`, `$_h`, `$_w`, `$_search_max_pages` and `$_tmpl` in `mod_shop/frontend.render.php`) were removed from `phpstan-baseline.neon`; the analysis now reports no errors against the updated dependency set.
+
 ### Changed
 - **Composer Dependencies:** `enshrined/svg-sanitize` 1.0.0 → 1.1.1, `netcarver/textile` 4.1.4 → 4.1.6 (constraints lifted to caret ranges), `tinymce/tinymce` 8.9.2 → 8.10.0, `league/commonmark` 2.10.3 → 2.10.4, `php81_bc/strftime` 0.7.6 → 0.7.7, `phpstan/phpstan` 2.2.16 → 2.3.3, plus transitive `guzzlehttp/*`, `nette/*` and the `mklkj/tinymce-i18n`, `simplepie/simplepie`, `roave/security-advisories` dev snapshots.
 - **Redundant Polyfills Dropped:** Removed `symfony/polyfill-php73`, `php74`, `php80`, `php81`, `php82` and `polyfill-mbstring` — all superseded by the PHP 8.2 minimum and the required `mbstring` extension. `polyfill-php83` and `polyfill-php84` stay for installs below those branches; `polyfill-php80` also remains as a transitive dependency of Guzzle, PSR-7 and CommonMark.
