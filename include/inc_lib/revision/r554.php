@@ -11,6 +11,12 @@
 /**
  * Revision 554 Update Check
  *
+ * - Update DATE/TIME DEFAULT NULL then update 0000-00-00 00:00:00 by NULL
+ * - Housekeeping for obsolete leftovers of old installations (issue #390):
+ *   drop sysvalue_tstamp (zero-date default blocks revision marker INSERTs
+ *   under strict sql_mode NO_ZERO_DATE) and drop phpwcms_bad_behavior
+ *   (Bad Behavior library, removed in 1.5)
+ *
  * @return bool
  */
 function phpwcms_revision_r554()
@@ -267,7 +273,37 @@ function phpwcms_revision_r554()
 
     ];
 
-    return !in_array(false, $updated, true);
+    $status = !in_array(false, $updated, true);
+
+    // Housekeeping for obsolete leftovers that only exist on installations
+    // upgraded from old versions (issue #390). Newer installations never have them.
+    //
+    // sysvalue_tstamp: NOT NULL DEFAULT '0000-00-00 00:00:00', only in tables
+    // upgraded from 1.2.x-1.4.x. Not used anymore, but its zero-date default
+    // makes the sysvalue INSERTs of the revision markers fail under strict
+    // sql_mode NO_ZERO_DATE (MySQL default since 5.7).
+    if (_dbColumnExists('sysvalue', 'sysvalue_tstamp')) {
+        if (!_dbQuery('ALTER TABLE `' . _dbTableName('sysvalue') . '` DROP `sysvalue_tstamp`', 'ALTER')) {
+            $status = false;
+        }
+    }
+
+    // phpwcms_bad_behavior: leftover of the Bad Behavior library, shipped
+    // until 1.5 and removed in r427. Drop only if the structure matches the
+    // table the library created, never a table that only shares the name.
+    if (
+        _dbTableExists('bad_behavior')
+        && _dbColumnExists('bad_behavior', 'request_method')
+        && _dbColumnExists('bad_behavior', 'http_headers')
+        && _dbColumnExists('bad_behavior', 'user_agent')
+        && _dbColumnExists('bad_behavior', 'request_entity')
+    ) {
+        if (!_dbQuery('DROP TABLE `' . _dbTableName('bad_behavior') . '`', 'DROP')) {
+            $status = false;
+        }
+    }
+
+    return $status;
 }
 
 /**
