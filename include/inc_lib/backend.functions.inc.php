@@ -1108,6 +1108,23 @@ function phpwcms_revision_check($revision) {
     $target_revision = (int)$revision;
     $GLOBALS['phpwcms']['revision_error'] = '';
 
+    // Drop the obsolete sysvalue_tstamp column before any revision marker insert.
+    // The column (NOT NULL DEFAULT '0000-00-00 00:00:00') only exists on installs
+    // upgraded from 1.2.x-1.4.x and makes the sysvalue INSERTs of
+    // phpwcms_mark_revision_checked() fail under strict sql_mode NO_ZERO_DATE
+    // (MySQL default since 5.7). It is not read anywhere in phpwcms.
+    if (function_exists('_dbQuery')) {
+        $result = _dbQuery("SHOW COLUMNS FROM `" . DB_PREPEND . "phpwcms_sysvalue` WHERE Field='sysvalue_tstamp'");
+        if (isset($result[0]['Field'])) {
+            if (!@_dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_sysvalue` DROP `sysvalue_tstamp`", 'ALTER')) {
+                // Fail the run with a clear message: every revision marker INSERT
+                // would keep failing under strict NO_ZERO_DATE until the column is gone
+                $GLOBALS['phpwcms']['revision_error'] = 'Could not drop obsolete sysvalue_tstamp column';
+                return false;
+            }
+        }
+    }
+
     // Run every revision up to the target one. Revisions do not have to
     // call their predecessor explicitly any more, so a revision added
     // later cannot silently skip an earlier one.
