@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '3eb546e14a1d14eae670215cbf1c0f2b0925bba8',
+        'reference' => '066eca03143ad3e6167ba932ba36d46f0553f763',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3eb546e14a1d14eae670215cbf1c0f2b0925bba8',
+            'reference' => '066eca03143ad3e6167ba932ba36d46f0553f763',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -128,9 +128,9 @@
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(
-            'pretty_version' => '2.10.4',
-            'version' => '2.10.4.0',
-            'reference' => '40821b7606d8d946bac57dbd2290076c722e3a65',
+            'pretty_version' => '2.10.7',
+            'version' => '2.10.7.0',
+            'reference' => '8eb53e906fd60c67038d22f1f1cab420ed58b8be',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/commonmark',
             'aliases' => array(),
@@ -274,9 +274,9 @@
             'dev_requirement' => false,
         ),
         'phpstan/phpstan' => array(
-            'pretty_version' => '2.3.3',
-            'version' => '2.3.3.0',
-            'reference' => '4b57dc8ca7456b635d1661845f44bc060b02c6b0',
+            'pretty_version' => '2.3.4',
+            'version' => '2.3.4.0',
+            'reference' => 'f20ce6f3c82556cfcfc086b152445a12d1d64fff',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpstan/phpstan',
             'aliases' => array(),
@@ -366,7 +366,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '5c4f62cd657fb51cc53ad01b503cb0c1d44a7367',
+            'reference' => '7c964bc969c1b16050a4b85b7a55614777a3f597',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(
@@ -377,7 +377,7 @@
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '1449f94e0e46211f2abb50fe07aabd6a01255a46',
+            'reference' => 'd9cfee7c4478f6e9f3f174851cab375960a729c0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplepie/simplepie',
             'aliases' => array(
@@ -404,9 +404,9 @@
             'dev_requirement' => false,
         ),
         'tinymce/tinymce' => array(
-            'pretty_version' => '8.10.0',
-            'version' => '8.10.0.0',
-            'reference' => '99bc848f4eb53902cc210ea5f8a191abaeeeb716',
+            'pretty_version' => '8.10.1',
+            'version' => '8.10.1.0',
+            'reference' => '2389164632e1b6e23cc8a9322fc16776d6985192',
             'type' => 'component',
             'install_path' => __DIR__ . '/../tinymce/tinymce',
             'aliases' => array(),
