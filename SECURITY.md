@@ -7,14 +7,29 @@ recommend to update to a current version whenever possible.
 
 On regular basis the following versions of **phpwcms** are supported:
 
-| Version   | Supported          |
-|-----------| ------------------ |
-| &gt;= 1.9.33 | :white_check_mark: |
-| &lt; 1.9.33  | :x:                |
+| Version            | Supported          |
+|--------------------| ------------------ |
+| &gt;= 2.0.0-beta.1 | :white_check_mark: |
+| &gt;= 1.12.4       | :white_check_mark: |
+| &gt;= 1.9.50       | :white_check_mark: |
+| &lt; 1.9.50        | :x:                |
+
+`1.9.x` is the legacy line and receives security fixes only. `2.0.x` is a pre-release line; treat the
+supported version above as the minimum, and always run the latest available `2.0.0-beta` release.
 
 ## Reporting a Vulnerability
 
-If you find a vulnerability you can report it by email to <og@phpwcms.org>.
+Please report vulnerabilities privately — do not open a public issue for a security problem.
 
-Mostly I am ok with opening an [issue](https://github.com/slackero/phpwcms/issues)
-if the vulnerability isn't accessible in the frontend of **phpwcms**.
+- Preferred: [private vulnerability report](https://github.com/slackero/phpwcms/security/advisories/new)
+- Alternative: email to <og@phpwcms.org>
+
+A useful report includes the affected **phpwcms** version, the component or content part involved, the
+preconditions (for example "publicly reachable form with an upload field"), steps to reproduce, and the
+impact you were able to demonstrate.
+
+Published advisories are listed at
+<https://github.com/slackero/phpwcms/security/advisories>.
+
+Opening an [issue](https://github.com/slackero/phpwcms/issues) is fine for hardening ideas, missing
+checks or other non-exploitable findings.

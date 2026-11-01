@@ -1072,39 +1072,92 @@ function initJQuery() {
 }
 
 // make phpwcms compatibility and upgrade check
+function phpwcms_get_available_revisions() {
+    $files = glob(PHPWCMS_ROOT.'/include/inc_lib/revision/r*.php');
+    $revisions = array();
+    if (is_array($files)) {
+        foreach ($files as $file) {
+            if (preg_match('/r(\d+)\.php$/i', $file, $matches)) {
+                $revisions[] = (int)$matches[1];
+            }
+        }
+        sort($revisions, SORT_NUMERIC);
+    }
+    return $revisions;
+}
+
+function phpwcms_mark_revision_checked($revision, $return_message = '') {
+    $revision_str = (string)$revision;
+    $GLOBALS['phpwcms']['check_r'.$revision_str] = true;
+    $extra = empty($return_message) ? '' : "\n\nReturn:\n-------\n" . $return_message;
+    $tmp_file = PHPWCMS_TEMP.'r'.$revision_str.'.checked.tmp';
+    $result = @write_textfile($tmp_file, date('Y-m-d H:i:s').$extra);
+
+    if (!empty($GLOBALS['db']) && function_exists('_setConfig')) {
+        @_setConfig('revision_r'.$revision_str, 1, 'sys_revision');
+    }
+
+    return $result;
+}
+
 function phpwcms_revision_check($revision) {
 
-    $revision_file = PHPWCMS_ROOT.'/include/inc_lib/revision/r';
-
-    // loop while trying to find the latest revision file (for r407 and up)
-    // then there is no need to implement new revision updater for each revision
-    while(!is_file( $revision_file . $revision.'.php')) {
-        $revision--;
-        if($revision < 406) {
-            return false;
-        }
-    }
-
-    $revision_temp = phpwcms_revision_check_temp($revision);
-    if($revision_temp === NULL) {
+    if (empty($revision)) {
         return false;
-    } elseif($revision_temp) {
-        return true;
     }
 
-    include_once $revision_file . $revision.'.php';
+    $target_revision = (int)$revision;
+    $GLOBALS['phpwcms']['revision_error'] = '';
 
-    $revision_function = 'phpwcms_revision_r'.$revision;
-    if(function_exists($revision_function) && empty($GLOBALS['phpwcms']['check_r'.$revision])) {
+    // Run every revision up to the target one. Revisions do not have to
+    // call their predecessor explicitly any more, so a revision added
+    // later cannot silently skip an earlier one.
+    foreach (phpwcms_get_available_revisions() as $rev) {
+
+        if ($rev > $target_revision) {
+            break;
+        }
+
+        if (phpwcms_revision_check_temp($rev) === true) {
+            continue;
+        }
+
+        $revision_file = PHPWCMS_ROOT.'/include/inc_lib/revision/r'.$rev.'.php';
+        if (!is_file($revision_file)) {
+            continue;
+        }
+        include_once $revision_file;
+
+        $revision_function = 'phpwcms_revision_r'.$rev;
+        if (!function_exists($revision_function) || !empty($GLOBALS['phpwcms']['check_r'.$rev])) {
+            continue;
+        }
+
         $GLOBALS['phpwcms']['revision_return'] = '';
-        if( call_user_func($revision_function) !== false ) {
-            $GLOBALS['phpwcms']['check_r'.$revision] = true;
-            $phpwcms_revision_return = empty($GLOBALS['phpwcms']['revision_return']) ? '' : "\n\nReturn:\n-------\n".strval($GLOBALS['phpwcms']['revision_return']);
-            @write_textfile(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp', date('Y-d-m H:i:s').$phpwcms_revision_return);
-            return true;
+        $exec_result = false;
+        try {
+            $exec_result = call_user_func($revision_function);
+        } catch (Throwable $e) {
+            $exec_result = false;
+            $GLOBALS['phpwcms']['revision_return'] = $e->getMessage();
+        }
+
+        if ($exec_result !== false) {
+            phpwcms_mark_revision_checked($rev, $GLOBALS['phpwcms']['revision_return']);
+            $GLOBALS['phpwcms']['revision_success'][] = 'r'.$rev;
         } else {
+            $db_err = function_exists('_dbError') ? _dbError() : '';
+            $err_msg = 'Database revision update r'.$rev.' failed!';
+            if (!empty($GLOBALS['phpwcms']['revision_return'])) {
+                $err_msg .= ' Error: ' . $GLOBALS['phpwcms']['revision_return'];
+            }
+            if (!empty($db_err)) {
+                $err_msg .= ' MySQL Error: ' . $db_err;
+            }
+            $GLOBALS['phpwcms']['revision_error'] = $err_msg;
             return false;
         }
+
     }
 
     return true;
@@ -1115,7 +1168,21 @@ function phpwcms_revision_check_temp($revision) {
     if(empty($revision) || !preg_match('/^\d+$/', $revision)) {
         return NULL;
     }
-    return is_file(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp');
+    $revision_str = strval($revision);
+    $tmp_file = PHPWCMS_TEMP.'r'.$revision_str.'.checked.tmp';
+    if (is_file($tmp_file)) {
+        return true;
+    }
+    // Fall back to the database marker, the temp folder may have been cleaned
+    if (!empty($GLOBALS['db']) && function_exists('_getConfig')) {
+        $db_checked = _getConfig('revision_r'.$revision_str, false);
+        if (!empty($db_checked)) {
+            $GLOBALS['phpwcms']['check_r'.$revision_str] = true;
+            @write_textfile($tmp_file, date('Y-m-d H:i:s')."\n\nSynced from DB sys_revision");
+            return true;
+        }
+    }
+    return false;
 }
 
 /*
