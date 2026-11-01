@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [2.0.0-beta.2] – 2026/11/01
 
 ### Changed
 - **PHP 8.4 Baseline:** Raised the minimum PHP version from 8.2 to 8.4 across `composer.json` (`platform` 8.4.27, `require` `>=8.4`), `setup/upgrade.php` (`MIN_PHP_VERSION`), the `Dockerfile` (`php:8.4-apache`), the Makefile PHP fallback, README badges and the documentation set. PHP 8.2 reaches end of life on 2026-12-31.
