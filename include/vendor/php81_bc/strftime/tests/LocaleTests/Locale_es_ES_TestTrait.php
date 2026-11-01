@@ -38,7 +38,8 @@
       $this->assertEquals('13:02:03', $result, '%X: Preferred time representation based on locale, without the date');
 
       $result = strftime('%c', '20220306 13:02:03', $locale);
-      $this->assertEquals('6 de marzo de 2022, 13:02', $result, '%c: Preferred date and time stamp based on locale');
+      $expected = (intval(INTL_ICU_VERSION) >= 78) ? '6 de marzo de 2022 a las 13:02' : '6 de marzo de 2022, 13:02';
+      $this->assertEquals($expected, $result, '%c: Preferred date and time stamp based on locale');
 
       $result = strftime('%x', '20220306 13:02:03', $locale);
       $this->assertEquals('6/3/22', $result, '%x: Preferred date representation based on locale, without the time');

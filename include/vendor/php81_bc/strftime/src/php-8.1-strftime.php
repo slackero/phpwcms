@@ -173,13 +173,18 @@
 
       // Time and Date Stamps
       '%c' => $intl_formatter,
-      '%D' => 'm/d/Y',
+      '%D' => 'm/d/y', // %m/%d/%y
       '%F' => 'Y-m-d',
       '%s' => 'U',
       '%x' => $intl_formatter,
     ];
 
-    $out = preg_replace_callback('/(?<!%)%([_#-]?)([a-zA-Z])/', function ($match) use ($translation_table, $timestamp) {
+    // %% is matched as its own token, so that "%%%Y" becomes "%" followed by the year
+    $out = preg_replace_callback('/%%|%([_#-]?)([a-zA-Z])/', function ($match) use ($translation_table, $timestamp) {
+      if ($match[0] == '%%') {
+        return '%';
+      }
+
       $prefix = $match[1];
       $char = $match[2];
       $pattern = '%'.$char;
@@ -214,6 +219,5 @@
       return $result;
     }, $format);
 
-    $out = str_replace('%%', '%', $out);
     return $out;
   }

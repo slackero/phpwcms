@@ -139,12 +139,6 @@ parameters:
 			path: ../filebrowser.php
 
 		-
-			message: '#^Variable \$file_durchlauf might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../filebrowser.php
-
-		-
 			message: '#^Variable \$filetype might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -250,18 +244,6 @@ parameters:
 			message: '#^Result of && is always false\.$#'
 			identifier: booleanAnd.alwaysFalse
 			count: 3
-			path: ../img/cmsimage.php
-
-		-
-			message: '#^Variable \$_h might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: ../img/cmsimage.php
-
-		-
-			message: '#^Variable \$_w might not be defined\.$#'
-			identifier: variable.undefined
-			count: 6
 			path: ../img/cmsimage.php
 
 		-
@@ -1018,12 +1000,6 @@ parameters:
 			message: '#^Variable \$CNT_TMP might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
-			path: ../include/inc_front/content/cnt13.article.inc.php
-
-		-
-			message: '#^Variable \$_search_max_pages might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
 			path: ../include/inc_front/content/cnt13.article.inc.php
 
 		-
@@ -4120,12 +4096,6 @@ parameters:
 			message: '#^Variable \$_cart_request_link might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
-			path: ../include/inc_module/mod_shop/frontend.render.php
-
-		-
-			message: '#^Variable \$_tmpl might not be defined\.$#'
-			identifier: variable.undefined
-			count: 65
 			path: ../include/inc_module/mod_shop/frontend.render.php
 
 		-
