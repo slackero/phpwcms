@@ -3,7 +3,7 @@
 All notable changes to the phpwcms legacy line (PHP 7.4 and older installations) are documented in this file.
 New features land on the v1.10-dev branch instead.
 
-## [Unreleased]
+## [1.9.51] - 2026-11-01
 
 ### Fixed
 - **Skipped Revisions on Upgrade:** `phpwcms_revision_check()` only executed the newest available revision file and relied on every revision calling its predecessor, so an upgrade could silently skip pending revisions and leave articles hidden behind converted date fields. It now iterates every revision up to the target revision, and the checked markers are persisted in `phpwcms_sysvalue` as well, so a cleaned `content/tmp/` folder no longer loses upgrade state. Refs #389, #390.

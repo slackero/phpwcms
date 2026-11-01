@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'edec65e2f9010bf6f504567b501ec6ef45702464',
+        'pretty_version' => 'dev-phpwcms-legacy',
+        'version' => 'dev-phpwcms-legacy',
+        'reference' => '82bcce994a05672e549736d80d33bbbeaabfd62b',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'edec65e2f9010bf6f504567b501ec6ef45702464',
+            'pretty_version' => 'dev-phpwcms-legacy',
+            'version' => 'dev-phpwcms-legacy',
+            'reference' => '82bcce994a05672e549736d80d33bbbeaabfd62b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
