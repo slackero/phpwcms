@@ -13,7 +13,6 @@ return array(
     '2cffec82183ee1cea088009cef9a6fc3' => $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     'fdc0e9724ddc47859c8bf0c1ea0a623a' => $vendorDir . '/openpsa/universalfeedcreator/lib/constants.php',
     '9e71c1459ef1226520e4b26dac3a180d' => $vendorDir . '/php81_bc/strftime/src/php-8.1-strftime.php',
-    '9b38cf48e83f5d8f60375221cd213eee' => $vendorDir . '/phpstan/phpstan/bootstrap.php',
     '662a729f963d39afe703c9d9b7ab4a8c' => $vendorDir . '/symfony/polyfill-php83/bootstrap.php',
     '9d2b9fc6db0f153a0a149fefb182415e' => $vendorDir . '/symfony/polyfill-php84/bootstrap.php',
 );
