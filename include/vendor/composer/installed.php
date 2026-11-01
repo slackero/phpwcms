@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '6d04dbc27a2e5fc40b8dbce6ff1e7e7d9ebc4ed1',
+        'reference' => 'edec65e2f9010bf6f504567b501ec6ef45702464',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '6d04dbc27a2e5fc40b8dbce6ff1e7e7d9ebc4ed1',
+            'reference' => 'edec65e2f9010bf6f504567b501ec6ef45702464',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -83,9 +83,9 @@
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(
-            'pretty_version' => '2.10.4',
-            'version' => '2.10.4.0',
-            'reference' => '40821b7606d8d946bac57dbd2290076c722e3a65',
+            'pretty_version' => '2.10.7',
+            'version' => '2.10.7.0',
+            'reference' => '8eb53e906fd60c67038d22f1f1cab420ed58b8be',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/commonmark',
             'aliases' => array(),
@@ -220,7 +220,7 @@
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '1449f94e0e46211f2abb50fe07aabd6a01255a46',
+            'reference' => 'd9cfee7c4478f6e9f3f174851cab375960a729c0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplepie/simplepie',
             'aliases' => array(
@@ -238,9 +238,9 @@
             'dev_requirement' => false,
         ),
         'symfony/polyfill-mbstring' => array(
-            'pretty_version' => 'v1.43.0',
-            'version' => '1.43.0.0',
-            'reference' => '4d5d331bf731e0aedbc6b2f5e61135b7b7996a72',
+            'pretty_version' => 'v1.43.3',
+            'version' => '1.43.3.0',
+            'reference' => '122889ed24dc000165bcbfd77ec412f15cbdfc6a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-mbstring',
             'aliases' => array(),

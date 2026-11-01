@@ -11,7 +11,7 @@
         "algo26-matthias/idna-convert": "^v3.2.1",
         "enshrined/svg-sanitize": "^1.1.1",
         "netcarver/textile": "^4.1.6",
-        "league/commonmark": "^2.10.3",
+        "league/commonmark": "^2.10.7",
         "ezyang/htmlpurifier": "^v4.19.1",
         "openpsa/universalfeedcreator": "^v1.9.0",
         "phpmailer/phpmailer": "^v7.1.1",

@@ -413,17 +413,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.10.4",
-            "version_normalized": "2.10.4.0",
+            "version": "2.10.7",
+            "version_normalized": "2.10.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "40821b7606d8d946bac57dbd2290076c722e3a65"
+                "reference": "8eb53e906fd60c67038d22f1f1cab420ed58b8be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/40821b7606d8d946bac57dbd2290076c722e3a65",
-                "reference": "40821b7606d8d946bac57dbd2290076c722e3a65",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/8eb53e906fd60c67038d22f1f1cab420ed58b8be",
+                "reference": "8eb53e906fd60c67038d22f1f1cab420ed58b8be",
                 "shasum": ""
             },
             "require": {
@@ -457,7 +457,8 @@
             "suggest": {
                 "symfony/yaml": "v2.3+ required if using the Front Matter extension"
             },
-            "time": "2026-10-17T19:59:50+00:00",
+            "time": "2026-10-31T13:35:37+00:00",
+            "published-time": "2026-10-31T13:35:57+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1506,12 +1507,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplepie/simplepie.git",
-                "reference": "1449f94e0e46211f2abb50fe07aabd6a01255a46"
+                "reference": "d9cfee7c4478f6e9f3f174851cab375960a729c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/1449f94e0e46211f2abb50fe07aabd6a01255a46",
-                "reference": "1449f94e0e46211f2abb50fe07aabd6a01255a46",
+                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/d9cfee7c4478f6e9f3f174851cab375960a729c0",
+                "reference": "d9cfee7c4478f6e9f3f174851cab375960a729c0",
                 "shasum": ""
             },
             "require": {
@@ -1537,7 +1538,8 @@
                 "ext-mbstring": "",
                 "mf2/mf2": "Microformat module that allows for parsing HTML for microformats"
             },
-            "time": "2026-10-27T11:38:13+00:00",
+            "time": "2026-10-30T12:37:14+00:00",
+            "published-time": "2026-10-30T12:37:19+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
@@ -1656,17 +1658,17 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.43.0",
-            "version_normalized": "1.43.0.0",
+            "version": "v1.43.3",
+            "version_normalized": "1.43.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72"
+                "reference": "122889ed24dc000165bcbfd77ec412f15cbdfc6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
-                "reference": "4d5d331bf731e0aedbc6b2f5e61135b7b7996a72",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/122889ed24dc000165bcbfd77ec412f15cbdfc6a",
+                "reference": "122889ed24dc000165bcbfd77ec412f15cbdfc6a",
                 "shasum": ""
             },
             "require": {
@@ -1679,7 +1681,8 @@
             "suggest": {
                 "ext-mbstring": "For best performance"
             },
-            "time": "2026-09-24T15:19:04+00:00",
+            "time": "2026-10-28T09:35:49+00:00",
+            "published-time": "2026-10-28T10:07:45+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -1720,7 +1723,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.43.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.43.3"
             },
             "funding": [
                 {
