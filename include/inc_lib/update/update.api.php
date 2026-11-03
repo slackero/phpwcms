@@ -65,7 +65,7 @@ function phpwcms_update_http_get_once(string $url): array|false
     }
     $code = 0;
     $location = '';
-    foreach ($http_response_header as $header) {
+    foreach (http_get_last_response_headers() ?? [] as $header) {
         if (preg_match('/^HTTP\/\S+\s+(\d{3})/', $header, $m)) {
             $code = (int)$m[1];
         }
@@ -207,7 +207,7 @@ function phpwcms_update_http_probe(string $url): array|false
     }
     $code = 0;
     $location = '';
-    foreach ($http_response_header as $header) {
+    foreach (http_get_last_response_headers() ?? [] as $header) {
         if (preg_match('/^HTTP\/\S+\s+(\d{3})/', $header, $m)) {
             $code = (int)$m[1];
         }
@@ -308,7 +308,7 @@ function phpwcms_update_download_asset(string $zipUrl, string $targetPath): bool
         return false;
     }
     $code = 0;
-    foreach ($http_response_header as $header) {
+    foreach (http_get_last_response_headers() ?? [] as $header) {
         if (preg_match('/^HTTP\/\S+\s+(\d{3})/', $header, $m)) {
             $code = (int)$m[1];
         }

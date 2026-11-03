@@ -344,9 +344,10 @@ function phpwcmsversionCheck() {
         $version_info = @file_get_contents('https://www.phpwcms.org/versioncheck/'.$identify, false, $context);
         if ($version_info !== false) {
             $get_info = true;
+            $response_headers = http_get_last_response_headers() ?? [];
             if (
-                isset($http_response_header[0])
-                && preg_match('/^HTTP\/1\.[01]\s+(\d+)/i', $http_response_header[0], $status_match)
+                isset($response_headers[0])
+                && preg_match('/^HTTP\/1\.[01]\s+(\d+)/i', $response_headers[0], $status_match)
             ) {
                 $status_code = (int)$status_match[1];
                 if ($status_code !== 200) {
