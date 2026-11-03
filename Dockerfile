@@ -35,6 +35,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
         intl \
         zip \
         mbstring \
+        bcmath \
         opcache \
     && pecl install imagick \
     && docker-php-ext-enable imagick
