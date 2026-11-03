@@ -439,6 +439,39 @@ if (!$canExtract || !$canArchive) {
     exit(1);
 }
 
+// Required PHP extensions — mirrors the ext-* requirements of composer.json
+// (mysqli included: the upgrade executes revisions against the DB). Keep in
+// sync with the required-extension check in setup/inc/step0.inc.php.
+$requiredExtensions = array(
+    'curl', 'mbstring', 'intl', 'openssl', 'zip', 'fileinfo',
+    'gd', 'iconv', 'dom', 'xmlreader', 'simplexml', 'libxml',
+    'ctype', 'bcmath', 'mysqli'
+);
+$missingExtensions = array();
+foreach ($requiredExtensions as $ext) {
+    if (!extension_loaded($ext)) {
+        $missingExtensions[] = $ext;
+    }
+}
+if ($missingExtensions) {
+    if (PHP_SAPI === 'cli') {
+        fwrite(STDERR, "\033[0;31mError: phpwcms requires these missing PHP extensions: " . implode(', ', $missingExtensions) . ".\033[0m\n");
+    } else {
+        http_response_code(500);
+        echo '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">';
+        echo '<title>Missing PHP Extensions</title><style>' . upgrade_css() . '</style></head><body>';
+        echo '<div class="upgrade-card upgrade-card-sm"><div class="upgrade-header danger d-flex align-items-center justify-content-between">';
+        echo '<div class="d-flex align-items-center">';
+        echo '<span class="me-3">' . phpwcms_logo_svg(28) . '</span>';
+        echo '<h4 class="m-0 text-white font-weight-bold">Missing PHP Extensions</h4>';
+        echo '</div></div>';
+        echo '<div class="upgrade-body"><p>The upgrade process requires the following PHP extensions to be installed and enabled:</p>';
+        echo '<p><code>' . htmlspecialchars(implode(', ', $missingExtensions)) . '</code></p>';
+        echo '<p class="mb-0">Please enable the missing extensions in your PHP configuration before running the updater. The upgrade has not been started, no files were changed.</p></div></div></body></html>';
+    }
+    exit(1);
+}
+
 // Determine document root and setup directory
 $scriptDir = __DIR__;
 if (basename($scriptDir) === 'setup') {

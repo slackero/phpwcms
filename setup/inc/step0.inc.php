@@ -262,22 +262,39 @@ if (!$img_tools['gd']['installed'] && !$img_tools['imagick']['installed'] && !$i
     <div class="card-body">
         <div class="row">
             <div class="col-sm-6 mb-3 mb-sm-0">
-                <h6 class="fw-bold text-muted small text-uppercase mb-2">Recommended Extensions</h6>
+                <h6 class="fw-bold text-muted small text-uppercase mb-2">Required PHP Extensions</h6>
                 <ul class="list-unstyled mb-0 small">
                     <?php
+                    // Mirrors the ext-* requirements of composer.json
+                    // (mysqli is checked separately above). Keep in sync
+                    // with the required-extension pre-flight check in
+                    // setup/upgrade.php.
                     $exts = array(
                         'curl'      => 'cURL (Remote requests)',
                         'mbstring'  => 'Multibyte String (mbstring)',
                         'intl'      => 'Internationalization (intl)',
                         'openssl'   => 'OpenSSL (Secure comms)',
                         'zip'       => 'Zip Archive Support',
-                        'fileinfo'  => 'Fileinfo (MIME detection)'
+                        'fileinfo'  => 'Fileinfo (MIME detection)',
+                        'gd'        => 'GD Graphics Library',
+                        'iconv'     => 'Iconv (Character conversion)',
+                        'dom'       => 'DOM (HTML/XML processing)',
+                        'xmlreader' => 'XMLReader',
+                        'simplexml' => 'SimpleXML',
+                        'libxml'    => 'libxml',
+                        'ctype'     => 'Ctype (Character type)',
+                        'bcmath'    => 'BCMath (Arbitrary precision)'
                     );
                     foreach ($exts as $ext => $label) {
                         $loaded = extension_loaded($ext);
                         echo '<li class="d-flex justify-content-between align-items-center py-1">';
                         echo '<span>' . html_specialchars($label) . '</span>';
-                        echo $loaded ? '<span class="badge text-bg-success">OK</span>' : '<span class="badge text-bg-light text-muted border">Optional</span>';
+                        if ($loaded) {
+                            echo '<span class="badge text-bg-success">OK</span>';
+                        } else {
+                            $setup_recommend = false;
+                            echo '<span class="badge text-bg-danger">Required</span>';
+                        }
                         echo '</li>';
                     }
                     ?>
