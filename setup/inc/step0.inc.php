@@ -18,7 +18,7 @@ $setup_recommend = true;
 
 ?>
 <h2 class="h4 text-primary fw-normal mb-3">2. System Requirements &amp; Environment Check</h2>
-<p class="text-muted">Please review the system requirements and environment checks below before proceeding with the installation (PHP 8.2+, MySQL 5.6+ recommended).</p>
+<p class="text-muted">Please review the system requirements and environment checks below before proceeding with the installation (PHP 8.4+, MySQL 5.5+ / MariaDB 10.4+ recommended).</p>
 
 <div class="card mb-4 border">
     <div class="card-header bg-light fw-bold">Core Environment</div>
@@ -36,10 +36,10 @@ $setup_recommend = true;
                 <h6 class="mb-0 fw-bold">PHP Version</h6>
                 <small class="text-muted"><?php echo html_specialchars(phpversion()) ?></small>
             </div>
-            <?php if (version_compare(phpversion(), '8.2.0', '>=')): ?>
+            <?php if (version_compare(phpversion(), '8.4.0', '>=')): ?>
                 <span class="badge text-bg-success rounded-pill">OK (<?php echo html_specialchars(phpversion()) ?>)</span>
             <?php else: $setup_recommend = false; ?>
-                <span class="badge text-bg-danger rounded-pill">Requires PHP 8.2+</span>
+                <span class="badge text-bg-danger rounded-pill">Requires PHP 8.4+</span>
             <?php endif; ?>
         </div>
 
