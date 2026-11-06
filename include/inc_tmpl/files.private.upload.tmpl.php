@@ -173,12 +173,21 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
             $fileName = makeCharsetConversion($fileName, 'utf-8', PHPWCMS_CHARSET);
         }
         $fileName = sanitize_filename($fileName);
-        if(false === ($fileExt = check_image_extension($_FILES["file"]["tmp_name"], $fileName, $file_image_size))) {
-            $fileExt = which_ext($fileName);
+        $uploadedExt = strtolower(which_ext($fileName));
+        $detected_ext = check_image_extension($_FILES["file"]["tmp_name"], $fileName, $file_image_size);
+        if ($detected_ext === false) {
+            $fileExt = $uploadedExt;
+        } else {
+            $fileExt = $detected_ext;
         }
-        $fileHash = md5( $fileName . microtime() );
-        $fileType = is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt);
+        $fileHash = md5($fileName . microtime());
+        $fileType = !empty($file_image_size['mime']) ? $file_image_size['mime'] : (is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt));
         $fileSize = intval($_FILES["file"]["size"]);
+
+        // Disallow if a WebP file was renamed to something other than webp, or a non-WebP file was renamed to webp
+        if (($detected_ext === 'webp' && $uploadedExt !== 'webp') || ($uploadedExt === 'webp' && $detected_ext !== 'webp')) {
+            $file_error["file"] = sprintf($BL['be_fprivup_err7'], $fileName);
+        }
 
         // Check against forbidden file names
         $forbiddenUploadName = array(

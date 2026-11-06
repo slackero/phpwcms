@@ -223,10 +223,21 @@ if(!$ftp['error']) {
 
             $file_type      = '';
             $file_size      = filesize($file_path);
-            if(false === ($file_ext = check_image_extension($file_path, $file, $file_image_size))) {
-                $file_ext = which_ext($file);
+            $uploadedExt    = strtolower(which_ext($file));
+            $detected_ext   = check_image_extension($file_path, $file, $file_image_size);
+            if ($detected_ext === false) {
+                $file_ext   = $uploadedExt;
+            } else {
+                $file_ext   = $detected_ext;
             }
             $file_ext = strtolower($file_ext);
+
+            // Disallow if a WebP file was renamed to something other than webp, or a non-WebP file was renamed to webp
+            if (($detected_ext === 'webp' && $uploadedExt !== 'webp') || ($uploadedExt === 'webp' && $detected_ext !== 'webp')) {
+                $file_error['upload'] = sprintf($BL['be_fprivup_err7'], $file);
+                echo $file. ' (' .html($file_error['upload']). ')<br />';
+                continue;
+            }
 
             // security gate: FTP takeover must respect the upload whitelist and
             // must never copy executable files into the web-accessible filearchive

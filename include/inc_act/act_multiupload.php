@@ -15,6 +15,7 @@ require_once $PHPWCMS_ROOT . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 $user_lang = !empty($_SESSION['wcs_user_lang']) ? strtolower(substr($_SESSION['wcs_user_lang'], 0, 2)) : 'en';
 require_once PHPWCMS_ROOT . '/include/inc_lang/backend/en/lang.inc.php';
@@ -127,6 +128,21 @@ if ($file_field && isset($_FILES[$file_field])) {
         }
         $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
+        $file_image_size = null;
+        $detected_ext = check_image_extension($fileItem['tmp_name'], $fileName, $file_image_size);
+
+        // Disallow if a WebP file was renamed to something other than webp, or a non-WebP file was renamed to webp
+        if (($detected_ext === 'webp' && $fileExt !== 'webp') || ($fileExt === 'webp' && $detected_ext !== 'webp')) {
+            http_response_code(400);
+            header('Content-Type: text/plain; charset=utf-8');
+            $tmpl = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
+            die(html_entity_decode(strip_tags($tmpl), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        }
+
+        if ($detected_ext !== false) {
+            $fileExt = $detected_ext;
+        }
+
         if (!empty($phpwcms['allowed_upload_ext']) && is_array($phpwcms['allowed_upload_ext']) && !in_array($fileExt, $phpwcms['allowed_upload_ext'])) {
             http_response_code(400);
             header('Content-Type: text/plain; charset=utf-8');
@@ -137,6 +153,7 @@ if ($file_field && isset($_FILES[$file_field])) {
         if ($is_filebrowser_upload) {
             // Direct upload to file archive storage (phpwcms_file DB + filearchive)
             $fileHash = md5($fileName . microtime());
+            $fileType = !empty($file_image_size['mime']) ? $file_image_size['mime'] : (is_mimetype_format($fileItem['type']) ? $fileItem['type'] : get_mimetype_by_extension($fileExt));
             $data = [
                 'f_pid' => $target_dir,
                 'f_uid' => (int)$_SESSION['wcs_user_id'],
@@ -146,7 +163,7 @@ if ($file_field && isset($_FILES[$file_field])) {
                 'f_name' => $fileName,
                 'f_created' => now(),
                 'f_size' => (int)$fileItem['size'],
-                'f_type' => $fileItem['type'],
+                'f_type' => $fileType,
                 'f_ext' => $fileExt,
                 'f_svg' => 0,
                 'f_longinfo' => $file_longinfo,
@@ -156,7 +173,7 @@ if ($file_field && isset($_FILES[$file_field])) {
             ];
 
             // Extract image / SVG dimensions from uploaded tmp file directly
-            if ($file_image_size = getimagesize($fileItem['tmp_name'])) {
+            if (!empty($file_image_size[0]) && !empty($file_image_size[1])) {
                 $data['f_image_width'] = $file_image_size[0];
                 $data['f_image_height'] = $file_image_size[1];
             } elseif ($fileExt === 'svg') {

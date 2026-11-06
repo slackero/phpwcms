@@ -1448,6 +1448,31 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
     ];
 
     $GLOBALS['phpwcms'][$index]['hash'] = md5(implode('', $GLOBALS['phpwcms'][$index]) . getRemoteIP());
+
+    if (!$webp) {
+        switch ($agent) {
+            case 'Chrome':
+            case 'Opera':
+            case 'Edge':
+                if ((int)$ver > 50) {
+                    $webp = true;
+                }
+                break;
+            case 'Firefox':
+                if ((int)$ver > 70) {
+                    $webp = true;
+                }
+                break;
+            case 'Safari':
+                if ($platform === 'Mac' && (int)$ver >= 14) {
+                    $webp = true;
+                } elseif ($platform === 'iOS' && (int)$ver >= 14) {
+                    $webp = true;
+                }
+                break;
+        }
+    }
+
     $GLOBALS['phpwcms'][$index]['webp'] = $webp; // do not use webp to generate the hash index, seems it likely fails on some browsers with XMLHttpRequest (Ajax)
 
     return $GLOBALS['phpwcms'][$index];

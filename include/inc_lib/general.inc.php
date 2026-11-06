@@ -368,6 +368,9 @@ function convert_into($extension) {
             case 'png':
                 $ext = 'png';
                 break;
+            case 'webp':
+                $ext = 'webp';
+                break;
         }
     } else {
         switch ($extension) {
@@ -376,6 +379,9 @@ function convert_into($extension) {
                 break;
             case 'png':
                 $ext = 'png';
+                break;
+            case 'webp':
+                $ext = 'webp';
                 break;
         }
     }
