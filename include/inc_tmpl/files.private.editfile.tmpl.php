@@ -138,10 +138,24 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
         }
     }
 
+    $db_file = _dbGet('phpwcms_file', 'f_ext', 'f_id=' . $file_id);
+    $orig_ext = !empty($db_file[0]['f_ext']) ? strtolower($db_file[0]['f_ext']) : strtolower($file_ext);
+    $new_ext = trim(strtolower(FileExtension($file_name)));
+
     if(empty($file_name)) {
         $file_error["name"] = 1;
-    } elseif(trim(strtolower(FileExtension($file_name))) != trim($file_ext)) {
-        $file_name .= ".".$file_ext;
+    } else {
+        if ($orig_ext === 'webp') {
+            // File rename is unproblematic, but changing the .webp extension is blocked
+            if ($new_ext !== 'webp') {
+                $file_name = cut_ext($file_name) . '.webp';
+            }
+        } elseif ($new_ext === 'webp') {
+            // A non-WebP file cannot be given a .webp extension
+            $file_name = cut_ext($file_name) . '.' . $file_ext;
+        } elseif ($new_ext !== trim($file_ext)) {
+            $file_name .= "." . $file_ext;
+        }
     }
 
     if(empty($file_error)) {

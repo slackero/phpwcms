@@ -127,7 +127,7 @@ function subnavback($text, $link, $h_before=0, $h_after=0) {
  * @param mixed &$file_image_size
  * @return string
  */
-function check_image_extension($file, $filename, $file_image_size) {
+function check_image_extension($file, $filename, &$file_image_size) {
 
     $result = false;
     if(empty($file_image_size[2])) {
@@ -169,6 +169,7 @@ function check_image_extension($file, $filename, $file_image_size) {
                      break;
 
             case 16: $result = 'xbm'; break;
+            case 18:
             case 32: $result = 'webp'; break;
         }
     }

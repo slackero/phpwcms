@@ -19,6 +19,7 @@ if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {
 }
 
 require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require PHPWCMS_ROOT.'/include/inc_js/uploader/fileuploader.php';
 
 if(@ini_get('post_max_size')) {
@@ -50,6 +51,21 @@ $result = $uploader->handleUpload($uploadDir, NULL, TRUE, FALSE);
 
 $result['filename']	= $uploader->getUploadName();
 
+$detected_ext = false;
+$file_image_size = null;
+
+if(!empty($result['success'])) {
+	$uploadedFile = $uploadDir . $result['filename'];
+	$uploadedExt = strtolower($uploader->getFileExtension());
+	$detected_ext = check_image_extension($uploadedFile, $result['filename'], $file_image_size);
+
+	// Disallow if a WebP file was renamed to something other than webp, or a non-WebP file was renamed to webp
+	if (($detected_ext === 'webp' && $uploadedExt !== 'webp') || ($uploadedExt === 'webp' && $detected_ext !== 'webp')) {
+		@unlink($uploadedFile);
+		$result = array('error' => 'Invalid file type.', 'success' => false);
+	}
+}
+
 if(!empty($result['success']) && !empty($_GET['file_public'])) {
 
 	require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
@@ -63,8 +79,8 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 		'f_name'		=> $result['filename'],
 		'f_created'		=> now(),
 		'f_size'		=> $uploader->getFileSize(),
-		'f_type'		=> $uploader->getFileType(),
-		'f_ext'			=> strtolower($uploader->getFileExtension()),
+		'f_type'		=> !empty($file_image_size['mime']) ? $file_image_size['mime'] : $uploader->getFileType(),
+		'f_ext'			=> $detected_ext !== false ? $detected_ext : strtolower($uploader->getFileExtension()),
 		'f_svg'         => 0,
 		'f_longinfo'	=> slweg($_GET['file_longinfo']),
 		'f_hash'		=> md5( $result['filename'] . microtime() ),
@@ -82,7 +98,7 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 	$userftppath = PHPWCMS_ROOT.$phpwcms["ftp_path"];
 
 	// Try to detect image data
-    if($file_image_size = getimagesize($userftppath.$result['filename'])) {
+    if(!empty($file_image_size[0]) && !empty($file_image_size[1])) {
 
         $data['f_image_width'] = $file_image_size[0];
         $data['f_image_height'] = $file_image_size[1];
