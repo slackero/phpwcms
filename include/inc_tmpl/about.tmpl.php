@@ -101,11 +101,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <a href="https://commonmark.thephpleague.com/" target="_blank" rel="noopener noreferrer"><strong>CommonMark</strong></a>,
         Copyright &copy; Colin O'Dell / The PHP League,
         <a href="https://github.com/thephpleague/commonmark/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">BSD 3-Clause License</a>
-    </li>
-    <li>
-        <strong>ConvertCharset</strong>,
-        Copyright &copy; 2003&ndash;2004 Mikolaj Jedrzejak
-    </li>
+
     <li>
         <a href="https://cookieconsent.orestbida.com/" target="_blank" rel="noopener noreferrer"><strong>CookieConsent</strong></a>,
         Copyright &copy; Orest Bida / Insites,
@@ -204,6 +200,11 @@ if (!defined('PHPWCMS_ROOT')) {
         <a href="https://github.com/PHPOffice/PhpSpreadsheet" target="_blank" rel="noopener noreferrer"><strong>PhpSpreadsheet</strong></a>,
         Copyright &copy; PHPOffice,
         <a href="https://github.com/PHPOffice/PhpSpreadsheet/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+    </li>
+    <li>
+        <a href="https://github.com/voku/portable-utf8" target="_blank" rel="noopener noreferrer"><strong>Portable UTF-8</strong></a>,
+        Copyright &copy; Lars M&ouml;lleken,
+        <a href="https://github.com/voku/portable-utf8/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">MIT License / Apache-2.0</a>
     </li>
     <li>
         <a href="https://github.com/SubZane/simplegmaps" target="_blank" rel="noopener noreferrer"><strong>SimpleGMaps</strong></a>,

@@ -648,11 +648,6 @@ parameters:
 			count: 1
 			path: ../include/inc_act/ajax_template.php
 
-		-
-			message: '#^Call to function is_array\(\) with non\-empty\-array\<string, string\> will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: ../include/inc_ext/ConvertCharset/ConvertCharset.class.php
 
 		-
 			message: '#^Comparison operation "\=\=" between \*NEVER\* and 1 results in an error\.$#'

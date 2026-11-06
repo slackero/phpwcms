@@ -15,7 +15,6 @@ graph LR
   include_config["include/config<br/>Configuration management"]:::php
   include_inc_act["include/inc_act<br/>Inc Act"]:::php
   include_inc_ext["include/inc_ext<br/>Inc Ext"]:::php
-  include_inc_ext_ConvertCharset["include/inc_ext/ConvertCharset<br/>ConvertCharset"]:::php
   include_inc_ext_ckeditor["include/inc_ext/ckeditor<br/>Ckeditor"]:::php
   include_inc_ext_ckeditor_adapters["include/inc_ext/ckeditor/adapters<br/>Adapters"]:::php
   include_inc_ext_ckeditor_lang["include/inc_ext/ckeditor/lang<br/>Lang"]:::php

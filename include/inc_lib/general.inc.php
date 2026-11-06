@@ -1638,36 +1638,23 @@ function formatRTDate($matches) {
 }
 
 function makeCharsetConversion($string = '', $in_charset = 'utf-8', $out_charset = 'utf-8', $entityEncode = false) {
-    global $phpwcms;
     if (empty($string)) {
         return $string;
     }
     $in_charset = strtolower($in_charset);
     $out_charset = strtolower($out_charset);
-    if ($in_charset == $out_charset || empty($in_charset) || empty($out_charset)) {
+    if (($in_charset === $out_charset && !$entityEncode) || empty($in_charset) || empty($out_charset)) {
         return $string;
     }
-    $phpCharsetSuppport = returnCorrectCharset($in_charset);
-    if ($phpCharsetSuppport) {
-        $string = doHtmlEntityPHPCleanUp($string, $phpCharsetSuppport);
+    if ($in_charset !== $out_charset) {
+        $string = \voku\helper\UTF8::encode($out_charset, $string, false, $in_charset);
     }
     if ($entityEncode) {
-        $convertInOut = $in_charset . $out_charset . 'EntitiesOn';
-        $entityEncode = true;
-    } else {
-        $convertInOut = $in_charset . $out_charset . 'EntitiesOff';
-        $entityEncode = false;
+        $utf8_str = ($out_charset === 'utf-8') ? $string : \voku\helper\UTF8::to_utf8($string);
+        $string = \voku\helper\UTF8::encode('HTML', $utf8_str);
     }
-    if (!isset($phpwcms['convert_charsets'])) {
-        $phpwcms['convert_charsets'] = array();
-    }
-    if (!isset($phpwcms['convert_charsets'][$convertInOut])) {
-        require_once PHPWCMS_ROOT . '/include/inc_ext/ConvertCharset/ConvertCharset.class.php';
-        $phpwcms['convert_charsets'][$convertInOut] = new ConvertCharset($in_charset, $out_charset, $entityEncode);
-    }
-    $NewEncoding =& $phpwcms['convert_charsets'][$convertInOut];
 
-    return $NewEncoding->Convert($string);
+    return $string;
 }
 
 function doHtmlEntityPHPCleanUp($string, $charset) {

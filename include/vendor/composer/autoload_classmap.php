@@ -97,6 +97,7 @@ return array(
     'Nette\\Utils\\Type' => $vendorDir . '/nette/utils/src/Utils/Type.php',
     'Nette\\Utils\\UnknownImageFileException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\Utils\\Validators' => $vendorDir . '/nette/utils/src/Utils/Validators.php',
+    'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
     'OPMLCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/OPMLCreator.php',
     'PHPCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/PHPCreator.php',
     'PIECreator01' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/PIECreator01.php',

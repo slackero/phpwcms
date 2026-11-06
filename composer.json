@@ -39,7 +39,8 @@
         "ext-curl": "*",
         "ext-bcmath": "*",
         "pragmarx/google2fa": "^9.1",
-        "bacon/bacon-qr-code": "^3.1"
+        "bacon/bacon-qr-code": "^3.1",
+        "voku/portable-utf8": "^6.1"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

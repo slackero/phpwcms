@@ -25,7 +25,6 @@ modules:
   include/config                  configuration management
   include/inc_act                 inc act
   include/inc_ext                 inc ext
-  include/inc_ext/ConvertCharset  convertcharset
   include/inc_ext/ckeditor        ckeditor
   include/inc_ext/ckeditor/adapt  adapters
   include/inc_ext/ckeditor/lang   lang

@@ -155,22 +155,6 @@
       },
       "activity": "low"
     },
-    "include/inc_ext/ConvertCharset": {
-      "purpose": "ConvertCharset",
-      "language": "php",
-      "files": 1,
-      "lines": 304,
-      "file_list": [
-        "ConvertCharset.class.php"
-      ],
-      "exports": [
-        "ConvertCharset"
-      ],
-      "type_defs": {
-        "ConvertCharset": "ConvertCharset"
-      },
-      "activity": "low"
-    },
     "include/inc_ext/ckeditor": {
       "purpose": "Ckeditor",
       "language": "javascript",
@@ -2051,7 +2035,6 @@
       "include/config",
       "include/inc_act",
       "include/inc_ext",
-      "include/inc_ext/ConvertCharset",
       "include/inc_ext/ckeditor",
       "include/inc_ext/ckeditor/adapters"
     ],
@@ -2063,7 +2046,6 @@
       "include/config",
       "include/inc_act",
       "include/inc_ext",
-      "include/inc_ext/ConvertCharset",
       "include/inc_ext/ckeditor",
       "include/inc_ext/ckeditor/adapters",
       "include/inc_ext/ckeditor/lang",
