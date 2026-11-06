@@ -70,9 +70,9 @@ if ($file_field && isset($_FILES[$file_field])) {
     $file_dir = PHPWCMS_ROOT . $phpwcms['file_path'];
 
     if ($is_filebrowser_upload) {
-        $file_longinfo = isset($_POST['file_longinfo']) ? slweg($_POST['file_longinfo']) : '';
-        $file_copyright = isset($_POST['file_copyright']) ? slweg($_POST['file_copyright']) : '';
-        $file_tags = isset($_POST['file_tags']) ? clean_slweg($_POST['file_tags']) : '';
+        $file_longinfo = isset($_POST['file_longinfo']) && $_POST['file_longinfo'] !== 'undefined' && $_POST['file_longinfo'] !== 'null' ? slweg($_POST['file_longinfo']) : '';
+        $file_copyright = isset($_POST['file_copyright']) && $_POST['file_copyright'] !== 'undefined' && $_POST['file_copyright'] !== 'null' ? slweg($_POST['file_copyright']) : '';
+        $file_tags = isset($_POST['file_tags']) && $_POST['file_tags'] !== 'undefined' && $_POST['file_tags'] !== 'null' ? trim(clean_slweg($_POST['file_tags']), ',') : '';
 
         if (PHPWCMS_CHARSET !== 'utf-8') {
             $file_longinfo = makeCharsetConversion($file_longinfo, 'utf-8', PHPWCMS_CHARSET);
@@ -172,7 +172,8 @@ if ($file_field && isset($_FILES[$file_field])) {
                 'f_longinfo' => $file_longinfo,
                 'f_hash' => $fileHash,
                 'f_copyright' => $file_copyright,
-                'f_tags' => $file_tags
+                'f_tags' => $file_tags,
+                'f_vars' => ''
             ];
 
             // Extract image / SVG dimensions from uploaded tmp file directly

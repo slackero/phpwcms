@@ -145,9 +145,11 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <meta charset="<?php echo PHPWCMS_CHARSET ?>" />
     <?php echo get_theme_boot_script(); ?>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/tom-select.bootstrap5.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/dropzone.min.css" rel="stylesheet" type="text/css">
     <script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
     <script src="include/inc_js/bootstrap.bundle.min.js"></script>
+    <script src="include/inc_js/jquery/tom-select.complete.min.js"></script>
     <script src="include/inc_js/dropzone.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/phpwcms.min.js"></script>
@@ -182,6 +184,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
 			<div class="form-group mb-0">
 				<span class="fw-bold small mb-1 d-block"><?php echo $BL['be_tags'] ?></span>
 				<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
+				<input name="file_tags" type="hidden" id="file_tags" value="" />
 			</div>
 			<div class="mt-3 text-end">
 				<button type="button" class="btn btn-success btn-sm fw-bold px-3" id="upload-trigger-send"><i class="fas fa-upload me-1"></i><?php echo $BL['be_files_upload'] ?></button>
@@ -707,9 +710,9 @@ $(function() {
             this.on("sending", function(file, xhr, formData) {
                 formData.append("filepublic", "1");
                 formData.append("filedir", "<?php echo (int)$_SESSION['imgdir']; ?>");
-                formData.append("file_longinfo", $('#file_longinfo').val());
-                formData.append("file_copyright", $('#file_copyright').val());
-                formData.append("file_tags", $('#as-values-keyword-autosuggest').val());
+                formData.append("file_longinfo", $('#file_longinfo').val() || '');
+                formData.append("file_copyright", $('#file_copyright').val() || '');
+                formData.append("file_tags", $('#file_tags').val() || '');
                 if (file.previewElement) {
                     var pBar = file.previewElement.querySelector(".dz-progress-bar");
                     if (pBar) {
