@@ -354,11 +354,14 @@ function FileExtension($filename) {
 }
 
 function convert_into($extension) {
+    $extension = strtolower($extension);
+    if ($extension === 'avif') {
+        return 'avif';
+    }
     if (PHPWCMS_WEBP) {
         return 'webp';
     }
     //check which extension to give back
-    $extension = strtolower($extension);
     $ext = 'jpg';
     if (function_exists('imagegif')) {
         switch ($extension) {
@@ -371,6 +374,9 @@ function convert_into($extension) {
             case 'webp':
                 $ext = 'webp';
                 break;
+            case 'avif':
+                $ext = 'avif';
+                break;
         }
     } else {
         switch ($extension) {
@@ -382,6 +388,9 @@ function convert_into($extension) {
                 break;
             case 'webp':
                 $ext = 'webp';
+                break;
+            case 'avif':
+                $ext = 'avif';
                 break;
         }
     }
@@ -411,6 +420,13 @@ function is_ext_true($extension) {
                     $gd_has_webp = function_exists('imagewebp') && function_exists('imagecreatefromwebp');
                 }
                 $ext = $gd_has_webp ? 'webp' : 'jpg';
+                break;
+            case 'avif':
+                static $gd_has_avif = null;
+                if ($gd_has_avif === null) {
+                    $gd_has_avif = function_exists('imageavif') && function_exists('imagecreatefromavif');
+                }
+                $ext = $gd_has_avif ? 'avif' : 'jpg';
                 break;
         }
     } else {
@@ -447,6 +463,9 @@ function is_ext_true($extension) {
                 break;
             case 'webp':
                 $ext = 'webp';
+                break;
+            case 'avif':
+                $ext = 'avif';
                 break;
         }
     }
@@ -2097,7 +2116,8 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
                 14 => 'iff',
                 15 => 'wbmp',
                 16 => 'xbm',
-                18 => 'webp'
+                18 => 'webp',
+                19 => 'avif'
             );
             if (!$data && !$exttype) {
                 $file_status['error'] = 'Format' . ($file_status['ext'] ? ' *.' . $file_status['ext'] : '') . ' not supported (';

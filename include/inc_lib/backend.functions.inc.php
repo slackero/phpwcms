@@ -169,6 +169,7 @@ function check_image_extension($file, $filename, &$file_image_size) {
             case 16: $result = 'xbm'; break;
             case 18:
             case 32: $result = 'webp'; break;
+            case 19: $result = 'avif'; break;
         }
     }
 

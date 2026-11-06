@@ -63,6 +63,13 @@ if ( $img_info ) {
             $img_source = imagecreatefromwebp( $img_file );
             $do = 1;
             break;
+
+        case IMAGETYPE_AVIF: // AVIF
+            $img_mimetype = 'image/avif';
+            $img_target = 'avif';
+            $img_source = function_exists( 'imagecreatefromavif' ) ? imagecreatefromavif( $img_file ) : false;
+            $do = 1;
+            break;
     }
 
     // fill image with points
@@ -92,6 +99,11 @@ if ( $do ) {
             break;
         case 'webp':
             imagewebp( $img_source, null, $img_quality );
+            break;
+        case 'avif':
+            if ( function_exists( 'imageavif' ) ) {
+                imageavif( $img_source, null, $img_quality );
+            }
             break;
         case 'png':
             imagepng( $img_source, null, 9 );

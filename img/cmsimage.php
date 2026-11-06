@@ -132,7 +132,7 @@ if(isset($data[1])) {
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'file WHERE ';
             $sql  .= 'f_id='.intval($hash)." AND ";
             if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
-                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg', 'webp') AND ";
+                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg', 'webp', 'avif') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
@@ -163,7 +163,7 @@ if(isset($data[1])) {
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
             if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
-                $sql .= "f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp') AND ";
+                $sql .= "f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp', 'avif') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
@@ -346,7 +346,9 @@ if(isset($data[1])) {
                 $value["max_height"] = $basis * $grid;
             }
 
-            if ((PHPWCMS_WEBP || $ext === 'webp') && !$svg) {
+            if ($ext === 'avif' && !$svg) {
+                $value['target_ext'] = 'avif';
+            } elseif ((PHPWCMS_WEBP || $ext === 'webp') && !$svg) {
                 $value['target_ext'] = 'webp';
             }
 

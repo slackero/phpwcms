@@ -22,7 +22,7 @@ if($imgpath) {
 	if(is_dir($imgpath)) {
 		$handle = opendir( $imgpath );
 		while($file = readdir( $handle )) {
-   			if(substr($file, 0, 1) !== '.' && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.png|\.gif)$/i', $file) )
+   			if(substr($file, 0, 1) !== '.' && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.png|\.gif|\.webp|\.avif)$/i', $file) )
 				$imgArray[] = $file;
 		}
 		closedir( $handle );
@@ -46,6 +46,7 @@ if($imageinfo && isset($imageinfo[2])) {
 		case IMAGETYPE_JPEG: header('Content-Type: image/jpeg'); break;
 		case IMAGETYPE_PNG: header('Content-Type: image/png'); break;
 		case IMAGETYPE_WEBP: header('Content-Type: image/webp'); break;
+		case IMAGETYPE_AVIF: header('Content-Type: image/avif'); break;
 		default: header('Content-Type: image/gif');
 	}
 	@readfile($file);

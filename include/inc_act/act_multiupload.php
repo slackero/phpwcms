@@ -131,8 +131,11 @@ if ($file_field && isset($_FILES[$file_field])) {
         $file_image_size = null;
         $detected_ext = check_image_extension($fileItem['tmp_name'], $fileName, $file_image_size);
 
-        // Disallow if a WebP file was renamed to something other than webp, or a non-WebP file was renamed to webp
-        if (($detected_ext === 'webp' && $fileExt !== 'webp') || ($fileExt === 'webp' && $detected_ext !== 'webp')) {
+        // Disallow if a WebP/AVIF file was renamed to something other than webp/avif, or a non-WebP/AVIF file was renamed to webp/avif
+        if (
+            ($detected_ext === 'webp' && $fileExt !== 'webp') || ($fileExt === 'webp' && $detected_ext !== 'webp') ||
+            ($detected_ext === 'avif' && $fileExt !== 'avif') || ($fileExt === 'avif' && $detected_ext !== 'avif')
+        ) {
             http_response_code(400);
             header('Content-Type: text/plain; charset=utf-8');
             $tmpl = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';

@@ -25,7 +25,7 @@ if(empty($result)) {
     echo $BL['f_alias'];
 }
 
-$sql =  "SELECT f_name, f_id FROM ".DB_PREPEND."file WHERE f_alias = '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png' OR f_ext like 'svg') ";
+$sql =  "SELECT f_name, f_id FROM ".DB_PREPEND."file WHERE f_alias = '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png' OR f_ext like 'svg' OR f_ext like 'webp' OR f_ext like 'avif') ";
 
 $emptyalias = _dbCount($sql);
 $countstr = ($emptyalias > 0) ? $emptyalias.$BL['count'] : $BL['nocount'];
@@ -87,7 +87,7 @@ if(isset($_POST['keyword'])) {
 
 <?php
 
-$sql =  "SELECT f_alias, f_id, f_name, f_hash FROM ".DB_PREPEND."file WHERE f_alias <> '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png')";
+$sql =  "SELECT f_alias, f_id, f_name, f_hash FROM ".DB_PREPEND."file WHERE f_alias <> '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png' OR f_ext like 'svg' OR f_ext like 'webp' OR f_ext like 'avif')";
 
 $result = _dbQuery($sql);
 if(isset($result[0]['f_id'])) {

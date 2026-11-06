@@ -64,6 +64,11 @@ switch ($img_target) {
         $img_target = 'webp';
         break;
 
+    case 'avif':
+        $img_mimetype = 'image/avif';
+        $img_target = 'avif';
+        break;
+
     case 'jpeg':
     case 'jpg':
     default:
@@ -100,6 +105,7 @@ if ($img_file !== '' && is_readable($img_file) && $img_info = getimagesize($img_
         case 'jpg':
         case 'png':
         case 'webp':
+        case 'avif':
             $new_img = imagecreatetruecolor($img_width, $img_height);
             break;
 
@@ -124,9 +130,13 @@ if ($img_file !== '' && is_readable($img_file) && $img_info = getimagesize($img_
         case IMAGETYPE_WEBP: // WEBP
             $img_source = imagecreatefromwebp($img_file);
             break;
+
+        case IMAGETYPE_AVIF: // AVIF
+            $img_source = function_exists('imagecreatefromavif') ? imagecreatefromavif($img_file) : false;
+            break;
     }
 
-    if (isset($img_source)) {
+    if (!empty($img_source)) {
         $result = imagecopyresized($new_img, $img_source, 0, 0, 0, 0, $img_width, $img_height, $img_info[0], $img_info[1]);
     } else {
         $result = false;
@@ -141,6 +151,9 @@ if ($img_file !== '' && is_readable($img_file) && $img_info = getimagesize($img_
                 break;
             case 'webp':
                 $result = imagewebp($new_img, NULL, $img_quality);
+                break;
+            case 'avif':
+                $result = function_exists('imageavif') ? imageavif($new_img, NULL, $img_quality) : false;
                 break;
             case 'png':
                 $result = imagepng($new_img, NULL, 9);

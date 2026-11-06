@@ -232,8 +232,11 @@ if(!$ftp['error']) {
             }
             $file_ext = strtolower($file_ext);
 
-            // Disallow if a WebP file was renamed to something other than webp, or a non-WebP file was renamed to webp
-            if (($detected_ext === 'webp' && $uploadedExt !== 'webp') || ($uploadedExt === 'webp' && $detected_ext !== 'webp')) {
+            // Disallow if a WebP/AVIF file was renamed to something other than webp/avif, or a non-WebP/AVIF file was renamed to webp/avif
+            if (
+                ($detected_ext === 'webp' && $uploadedExt !== 'webp') || ($uploadedExt === 'webp' && $detected_ext !== 'webp') ||
+                ($detected_ext === 'avif' && $uploadedExt !== 'avif') || ($uploadedExt === 'avif' && $detected_ext !== 'avif')
+            ) {
                 $file_error['upload'] = sprintf($BL['be_fprivup_err7'], $file);
                 echo $file. ' (' .html($file_error['upload']). ')<br />';
                 continue;

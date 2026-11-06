@@ -167,8 +167,13 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
             if ($new_ext !== 'webp') {
                 $file_name = cut_ext($file_name) . '.webp';
             }
-        } elseif ($new_ext === 'webp') {
-            // A non-WebP file cannot be given a .webp extension
+        } elseif ($orig_ext === 'avif') {
+            // File rename is unproblematic, but changing the .avif extension is blocked
+            if ($new_ext !== 'avif') {
+                $file_name = cut_ext($file_name) . '.avif';
+            }
+        } elseif ($new_ext === 'webp' || $new_ext === 'avif') {
+            // A non-WebP/non-AVIF file cannot be given a .webp or .avif extension
             $file_name = cut_ext($file_name) . '.' . $file_ext;
         } elseif ($new_ext !== trim($file_ext)) {
             $file_name .= "." . $file_ext;

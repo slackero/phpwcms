@@ -188,6 +188,9 @@ define('PHPWCMS_WEBP', !empty($phpwcms['webp_enable']) && !empty($phpwcms['USER_
 define('PHPWCMS_QUALITY', PHPWCMS_WEBP ? $phpwcms['webp_quality'] : $phpwcms['jpg_quality']);
 define('PHPWCMS_RESIZE_ANIMATED_GIF', !isset($phpwcms['resize_animated_gif']) || $phpwcms['resize_animated_gif']);
 define('PHPWCMS_PASS_IGNORE', 'data-form-type="other" data-1p-ignore data-lpignore="true" data-bwignore="true" data-protonpass-ignore="true" data-keepassxc-ignore="true"');
+if (!defined('IMAGETYPE_AVIF')) {
+    define('IMAGETYPE_AVIF', 19);
+}
 
 if (function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -463,6 +466,7 @@ if (empty($phpwcms['allowed_upload_ext'])) {
         'jpeg',
         'png',
         'webp',
+        'avif',
         'gif',
         'tif',
         'tiff',

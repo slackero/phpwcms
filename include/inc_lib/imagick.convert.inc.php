@@ -41,7 +41,7 @@ function image_manipulate($config=array()) {
             'error' => '',
             'image_name' => '',
             'thumb_name' => '',
-            'target_ext' => (PHPWCMS_WEBP || (!empty($config['image_name']) && which_ext($config['image_name']) === 'webp')) ? 'webp' : 'jpg',
+            'target_ext' => (!empty($config['image_name']) && which_ext($config['image_name']) === 'avif') ? 'avif' : ((PHPWCMS_WEBP || (!empty($config['image_name']) && which_ext($config['image_name']) === 'webp')) ? 'webp' : 'jpg'),
             'image_dir' => PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
             'thumb_dir' => PHPWCMS_THUMB,
             'quality' => PHPWCMS_QUALITY,
@@ -262,6 +262,8 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         $val['animated_gif'] = true; // Try to preserve animated GIF
     } elseif ($val['target_ext'] === 'webp' && is_animated_webp($val['image_dir'].$val['image_name'])) {
         $val['animated_webp'] = true; // Try to preserve animated WebP
+    } elseif ($val['target_ext'] === 'avif' || which_ext($val['image_name']) === 'avif') { // Preserve native AVIF - never auto-convert to WebP
+        $val['target_ext'] = 'avif';
     } elseif (PHPWCMS_WEBP || $val['target_ext'] === 'webp' || which_ext($val['image_name']) === 'webp') { // Test against WebP support
         $val['target_ext'] = 'webp';
     }
@@ -281,7 +283,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         $sql .= 'f_kid=1 AND f_hash=' . _dbEscape($hash)." AND ";
         $sql .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
         if(substr($GLOBALS['phpwcms']['image_library'], 0, 2) === 'gd') {
-            $sql .= " AND f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp')";
+            $sql .= " AND f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'avif')";
         }
         $imagedetail = _dbQuery($sql);
 
@@ -306,7 +308,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         if ($val['sharpen_level']) {
             $thumb_spec_info .= 's' . $val['sharpen_level'];
         }
-        if ($val['target_ext'] === 'jpg' || $val['target_ext'] === 'webp') {
+        if ($val['target_ext'] === 'jpg' || $val['target_ext'] === 'webp' || $val['target_ext'] === 'avif') {
             $thumb_spec_info .= 'q' . $val['quality'];
         }
         if (!isset($thumb_filename_basis)) {
@@ -320,7 +322,19 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     }
     $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
-    if (PHPWCMS_WEBP || $val['target_ext'] === 'webp') {
+    if ($val['target_ext'] === 'avif') {
+        if (is_file($thumb_check . '.avif')) {
+            $thumb_image_info[0] = $val['thumb_name'] . '.avif';
+            $thumb_image_info['type'] = 'image/avif';
+        } elseif ($val["target_ext"] = is_ext_true($val["target_ext"])) {
+            $create_preview = image_manipulate($val);
+            if (is_file($val['thumb_dir'] . $create_preview["thumb_name"])) {
+                $thumb_image_info[0] = $create_preview["thumb_name"];
+                $thumb_image_info['type'] = 'image/avif';
+                $imgCache = true; // insert/update information in db image cache
+            }
+        }
+    } elseif (PHPWCMS_WEBP || $val['target_ext'] === 'webp') {
         if (is_file($thumb_check . '.webp')) {
             $thumb_image_info[0] = $val['thumb_name'].'.webp';
             $thumb_image_info['type'] = 'image/webp';
@@ -344,11 +358,19 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     } elseif (is_file($thumb_check.'.webp')) {
         $thumb_image_info[0] = $val['thumb_name'].'.webp';
         $thumb_image_info['type'] = 'image/webp';
+    } elseif (is_file($thumb_check.'.avif')) {
+        $thumb_image_info[0] = $val['thumb_name'].'.avif';
+        $thumb_image_info['type'] = 'image/avif';
         // check if current file's extension is handable by ImageMagick or GD
     } elseif ($val["target_ext"] = is_ext_true($val["target_ext"])) {
         $create_preview = image_manipulate($val);
         if (is_file($val['thumb_dir'].$create_preview["thumb_name"])) {
             $thumb_image_info[0] = $create_preview["thumb_name"];
+            if ($val['target_ext'] === 'avif') {
+                $thumb_image_info['type'] = 'image/avif';
+            } elseif ($val['target_ext'] === 'webp') {
+                $thumb_image_info['type'] = 'image/webp';
+            }
             $imgCache = true; // insert/update information in db image cache
         }
     }

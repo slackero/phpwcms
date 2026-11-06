@@ -92,6 +92,7 @@ class Phpwcms_Image_lib
         'imglib_png_not_supported' => 'PNG images are not supported.',
         'imglib_webp_not_supported' => 'WebP images are not supported.',
         'imglib_webp_animated_not_supported' => 'Animated WebP images are not supported.',
+        'imglib_avif_not_supported' => 'AVIF images are not supported.',
         'imglib_jpg_or_png_required' => 'The image resize protocol specified in your preferences only works with JPEG or PNG image types.',
         'imglib_copy_error' => 'An error was encountered while attempting to replace the file. Please make sure your file directory is writable.',
         'imglib_rotate_unsupported' => 'Image rotation does not appear to be supported by your server.',
@@ -116,7 +117,9 @@ class Phpwcms_Image_lib
      */
     public function __construct($props = [])
     {
-        if (PHPWCMS_WEBP || (!empty($props['target_ext']) && $props['target_ext'] === 'webp') || (!empty($props['source_image']) && $this->explode_name($props['source_image'], true) === 'webp')) {
+        if ((!empty($props['target_ext']) && $props['target_ext'] === 'avif') || (!empty($props['source_image']) && $this->explode_name($props['source_image'], true) === 'avif')) {
+            $this->target_ext = 'avif';
+        } elseif (PHPWCMS_WEBP || (!empty($props['target_ext']) && $props['target_ext'] === 'webp') || (!empty($props['source_image']) && $this->explode_name($props['source_image'], true) === 'webp')) {
             $this->target_ext = 'webp';
         }
         if (count($props)) {
@@ -280,7 +283,9 @@ class Phpwcms_Image_lib
             return false;
         }
         $this->source_ext = $this->explode_name($this->source_image, true);
-        if ($this->source_ext === 'webp' && (PHPWCMS_WEBP || empty($props['target_ext']) || $props['target_ext'] === 'webp')) {
+        if ($this->source_ext === 'avif' && (empty($props['target_ext']) || $props['target_ext'] === 'avif')) {
+            $this->target_ext = 'avif';
+        } elseif ($this->source_ext === 'webp' && (PHPWCMS_WEBP || empty($props['target_ext']) || $props['target_ext'] === 'webp')) {
             $this->target_ext = 'webp';
         }
         /*
@@ -305,7 +310,7 @@ class Phpwcms_Image_lib
                 $full_dest_path = $this->new_image;
             }
             // Is there a file name?
-            if (!preg_match('#\.(jpg|jpeg|gif|png|webp)$#i', $full_dest_path)) {
+            if (!preg_match('#\.(jpg|jpeg|gif|png|webp|avif)$#i', $full_dest_path)) {
                 $this->dest_folder = $full_dest_path . '/';
                 $this->dest_image = $this->source_image;
             } else {
@@ -559,7 +564,7 @@ class Phpwcms_Image_lib
             $copy = 'imagecopyresized';
         }
         $dst_img = $create($this->width, $this->height);
-        if ($this->image_type === IMAGETYPE_PNG || $this->image_type === IMAGETYPE_GIF || $this->image_type === IMAGETYPE_WEBP) // png, gif and webp, preserve transparency
+        if ($this->image_type === IMAGETYPE_PNG || $this->image_type === IMAGETYPE_GIF || $this->image_type === IMAGETYPE_WEBP || $this->image_type === IMAGETYPE_AVIF) // png, gif, webp and avif, preserve transparency
         {
             imagealphablending($dst_img, false);
             imagesavealpha($dst_img, true);
@@ -615,7 +620,7 @@ class Phpwcms_Image_lib
         $picnum = '[0]';
         if ($this->target_ext === 'jpg') {
             $cmd .= ' -colorspace ' . $this->colorspace . ' -type TrueColor';
-        } elseif ($this->target_ext === 'png' || $this->target_ext === 'webp') {
+        } elseif ($this->target_ext === 'png' || $this->target_ext === 'webp' || $this->target_ext === 'avif') {
             $cmd .= ' -colorspace ' . $this->colorspace;
         } elseif ($this->target_ext === 'gif') {
             // Check if it is an animated GIF an coalesce the image
@@ -837,8 +842,14 @@ class Phpwcms_Image_lib
             @chmod($this->full_dst_path, 0666);
             return true;
         } catch (Exception $e) {
-            // Fallback to GD2 if WebP was targeted and Imagick failed (e.g. missing WebP delegate)
-            if (function_exists('imagewebp') && ($this->target_ext === 'webp' || $this->source_ext === 'webp') && extension_loaded('gd')) {
+            // Fallback to GD2 if WebP or AVIF was targeted and Imagick failed (e.g. missing delegate)
+            if (
+                extension_loaded('gd') &&
+                (
+                    (function_exists('imagewebp') && ($this->target_ext === 'webp' || $this->source_ext === 'webp')) ||
+                    (function_exists('imageavif') && ($this->target_ext === 'avif' || $this->source_ext === 'avif'))
+                )
+            ) {
                 return $this->image_process_gd($action);
             }
             $this->set_error('imglib_image_process_failed');
@@ -1346,6 +1357,37 @@ class Phpwcms_Image_lib
                     return false;
                 }
                 break;
+            case IMAGETYPE_AVIF:
+                $im = function_exists('imagecreatefromavif') ? @imagecreatefromavif($path) : false;
+                if ($im === false && function_exists('shell_exec')) {
+                    // Attempt CLI fallback with full environment PATH
+                    $cmd = '';
+                    if (!empty($this->library_path)) {
+                        $im_bin = rtrim($this->library_path, '/');
+                        if (!preg_match('/' . $this->graphicsmagick . 'convert$/i', $im_bin)) {
+                            $im_bin .= '/' . $this->graphicsmagick . 'convert';
+                        }
+                        $cmd = escapeshellarg($im_bin) . ' ' . escapeshellarg($path . '[0]') . ' png:- 2>/dev/null';
+                    }
+                    if (!$cmd) {
+                        $cli_search = !empty($GLOBALS['phpwcms']['cli_path'])
+                            ? (string)$GLOBALS['phpwcms']['cli_path']
+                            : '/usr/local/bin:/opt/local/bin:/opt/local/lib/ImageMagick7/bin:/opt/homebrew/bin:/usr/bin:/bin:/opt/bin';
+                        $env_path = 'PATH="' . $cli_search . '"';
+                        $exec_path = @shell_exec($env_path . ' which convert 2>/dev/null || ' . $env_path . ' which magick 2>/dev/null');
+                        if ($exec_path && ($exec_path = trim(explode("\n", $exec_path)[0]))) {
+                            $cmd = escapeshellarg($exec_path) . ' ' . escapeshellarg($path . '[0]') . ' png:- 2>/dev/null';
+                        }
+                    }
+                    if ($cmd && ($png_data = @shell_exec($cmd))) {
+                        $im = @imagecreatefromstring($png_data);
+                    }
+                }
+                if ($im === false) {
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_avif_not_supported']);
+                    return false;
+                }
+                break;
             default:
                 $im = null;
         }
@@ -1484,6 +1526,9 @@ class Phpwcms_Image_lib
      */
     public function image_save_gd($resource)
     {
+        if ($this->target_ext === 'avif' && function_exists('imageavif') && $resource instanceof \GdImage && @imageavif($resource, $this->full_dst_path, (int)$this->quality)) {
+            return true;
+        }
         if ($this->target_ext === 'webp' && function_exists('imagewebp') && imagewebp($resource, $this->full_dst_path, $this->quality)) {
             return true;
         }
@@ -1539,6 +1584,16 @@ class Phpwcms_Image_lib
                     return false;
                 }
                 break;
+            case IMAGETYPE_AVIF:
+                if (!function_exists('imageavif') || !($resource instanceof \GdImage)) {
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_avif_not_supported']);
+                    return false;
+                }
+                if (!@imageavif($resource, $this->full_dst_path, (int)$this->quality)) {
+                    $this->set_error('imglib_save_failed');
+                    return false;
+                }
+                break;
             default:
                 $this->set_error('imglib_unsupported_imagecreate');
                 return false;
@@ -1573,6 +1628,11 @@ class Phpwcms_Image_lib
                 break;
             case IMAGETYPE_WEBP:
                 imagewebp($resource, null, $this->quality);
+                break;
+            case IMAGETYPE_AVIF:
+                if (function_exists('imageavif') && $resource instanceof \GdImage) {
+                    imageavif($resource, null, (int)$this->quality);
+                }
                 break;
             default:
                 echo 'Unable to display the image';
@@ -1661,7 +1721,8 @@ class Phpwcms_Image_lib
                 IMAGETYPE_GIF => 'gif',
                 IMAGETYPE_JPEG => 'jpeg',
                 IMAGETYPE_PNG => 'png',
-                IMAGETYPE_WEBP => 'webp'
+                IMAGETYPE_WEBP => 'webp',
+                IMAGETYPE_AVIF => 'avif'
             ];
             $mime = isset($vals[2]) && isset($types[$vals[2]]) ? 'image/' . $types[$vals[2]] : 'image/jpg';
             $this->image_current_vals = $vals;
