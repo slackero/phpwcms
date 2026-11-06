@@ -44,6 +44,7 @@ include/config.codekit3
 /include/vendor/netcarver/textile/docker/
 /include/vendor/openpsa/universalfeedcreator/.github/
 /include/vendor/openpsa/universalfeedcreator/test/
+
 # Required for dev only
 #/include/vendor/rector
 #/include/vendor/phpstan
@@ -56,6 +57,8 @@ include/config.codekit3
 #/include/vendor/phpcompatibility
 #/include/vendor/phpcsstandards
 #/include/vendor/squizlabs
+
+# Ignore ai generated or related files
 /.claude
 /stacklit.html
 /.mcp.json
@@ -64,4 +67,8 @@ include/config.codekit3
 node_modules/
 /doc/
 /bin/*
+/skills/
+
+# Oauth token generator script is required for the
+# setup wizard to work, so we need to keep it in the repo
 !/bin/get-oauth-token.php
