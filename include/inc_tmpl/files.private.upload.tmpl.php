@@ -164,14 +164,18 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     } else {
 
         $fileName = sanitize_filename($_FILES["file"]["name"]);
-        if(false === ($fileExt = check_image_extension($_FILES["file"]["tmp_name"], $fileName, $file_image_size))) {
-            $fileExt = which_ext($fileName);
+        $uploadedExt = strtolower(which_ext($fileName));
+        $detected_ext = check_image_extension($_FILES["file"]["tmp_name"], $fileName, $file_image_size);
+        if ($detected_ext === false) {
+            $fileExt = $uploadedExt;
+        } else {
+            $fileExt = $detected_ext;
         }
-        $fileHash = md5( $fileName . microtime() );
-        $fileType = is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt);
+        $fileHash = md5($fileName . microtime());
+        $fileType = !empty($file_image_size['mime']) ? $file_image_size['mime'] : (is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt));
         $fileSize = intval($_FILES["file"]["size"]);
 
-        // Check against forbidden file names
+        // Check against forbidden file names and spoofed WebP extensions
         $forbiddenUploadName = array(
             '.htaccess', // Apache config
             'web.config', // IIS config
@@ -179,7 +183,12 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
             'nginx.conf', // Nginx
         );
 
-        if(str_starts_with($fileName, '.') || in_array(strtolower($fileName), $forbiddenUploadName)) {
+        if (
+            str_starts_with($fileName, '.') ||
+            in_array(strtolower($fileName), $forbiddenUploadName) ||
+            ($detected_ext === 'webp' && $uploadedExt !== 'webp') ||
+            ($uploadedExt === 'webp' && $detected_ext !== 'webp')
+        ) {
             $file_error["file"] = sprintf($BL['be_fprivup_err7'], $fileName);
         }
 

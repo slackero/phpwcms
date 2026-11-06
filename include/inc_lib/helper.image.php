@@ -114,7 +114,7 @@ class Phpwcms_Image_lib {
      * @return  void
      */
     public function __construct($props = []) {
-        if (PHPWCMS_WEBP) {
+        if (PHPWCMS_WEBP || (!empty($props['target_ext']) && $props['target_ext'] === 'webp') || (!empty($props['source_image']) && $this->explode_name($props['source_image'], true) === 'webp')) {
             $this->target_ext = 'webp';
         }
         if (count($props)) {
@@ -275,6 +275,9 @@ class Phpwcms_Image_lib {
             return false;
         }
         $this->source_ext = $this->explode_name($this->source_image, true);
+        if ($this->source_ext === 'webp' && (PHPWCMS_WEBP || empty($props['target_ext']) || $props['target_ext'] === 'webp')) {
+            $this->target_ext = 'webp';
+        }
         /*
          * Assign the "new" image name/path
          *
