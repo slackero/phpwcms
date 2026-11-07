@@ -8,42 +8,59 @@
  *
  **/
 
-$phpwcms = array();
+$phpwcms = [];
 require_once __DIR__ . '/include/config/conf.inc.php';
 require_once __DIR__ . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
 
-$src = "img/leer.gif";
+$src = 'img/leer.gif';
 $name = '';
-$attr = '';
+$lang = '';
 
-if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), true))) {
-    $src = clean_slweg($data['src'] ?? '');
-    $is_valid_cdn = false;
-    if (PHPWCMS_CDN_IMAGE_URL && str_starts_with($src, PHPWCMS_CDN_IMAGE_URL)) {
-        $cdn_rel = substr($src, strlen(PHPWCMS_CDN_IMAGE_URL));
-        if (strspn($cdn_rel, '/\\.') === 0 && !str_contains($cdn_rel, '..')) {
-            $is_valid_cdn = true;
+if (!empty($_GET['lang']) && is_string($_GET['lang'])) {
+    $lang = clean_slweg($_GET['lang']);
+}
+
+if (!empty($_GET['show']) && is_string($_GET['show'])) {
+    $raw_data = base64_decode($_GET['show'], true);
+    $data = $raw_data ? json_decode($raw_data, true) : null;
+
+    if (is_array($data)) {
+        $src = clean_slweg($data['src'] ?? '');
+        $is_valid_cdn = false;
+        if (PHPWCMS_CDN_IMAGE_URL && str_starts_with($src, PHPWCMS_CDN_IMAGE_URL)) {
+            $cdn_rel = substr($src, strlen(PHPWCMS_CDN_IMAGE_URL));
+            if (strspn($cdn_rel, '/\\.') === 0 && !str_contains($cdn_rel, '..')) {
+                $is_valid_cdn = true;
+            }
         }
-    }
-    if (!$is_valid_cdn) {
-        $src_schema = parse_url($src);
-        if (!empty($src_schema['scheme'])) {
-            $src = "img/leer.gif";
+        if (!$is_valid_cdn) {
+            $src_schema = parse_url($src);
+            if (!empty($src_schema['scheme'])) {
+                $src = 'img/leer.gif';
+            }
+            // keep the image source a relative path contained under the install dir
+            if (strspn($src, '/\\.') !== 0 || str_contains($src, '..')) {
+                $src = 'img/leer.gif';
+            }
         }
-        // keep the image source a relative path contained under the install dir
-        if (strspn($src, '/\\.') !== 0 || str_contains($src, '..')) {
-            $src = "img/leer.gif";
+        $name = is_scalar($data['name'] ?? null) ? clean_plain_utf8((string)$data['name'], 'utf-8') : '';
+        if (PHPWCMS_CHARSET !== 'utf-8') {
+            $name = makeCharsetConversion($name, 'utf-8', PHPWCMS_CHARSET);
         }
-    }
-    $name = is_scalar($data['name'] ?? null) ? decode_entities(phpwcms_strip_tags((string)$data['name'])) : '';
-    if (PHPWCMS_CHARSET !== 'utf-8') {
-        $name = makeCharsetConversion($name, 'utf-8', PHPWCMS_CHARSET);
+        if ($lang === '' && !empty($data['lang']) && is_string($data['lang'])) {
+            $lang = clean_slweg($data['lang']);
+        }
     }
 }
 
+$lang = strtolower(preg_replace('/[^a-z0-9_-]/i', '', $lang));
+if ($lang === '') {
+    $lang = $phpwcms['DOCTYPE_LANG'];
+}
+
 ?><!DOCTYPE html>
-<html <?php echo get_backend_html_tag_attributes($phpwcms['DOCTYPE_LANG'], false); ?>>
+<html lang="<?php echo html($lang); ?>"<?php echo get_html_dir_attribute($lang); ?>>
 <head>
     <title><?php echo html($name); ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">

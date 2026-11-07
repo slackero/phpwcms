@@ -3778,8 +3778,17 @@ function getFileDetails($file) {
 
 }
 
-function getClickZoomImageParameter($src='', $size='', $name='') {
-    return 'show='.rawurlencode(base64_encode(json_encode(array('src' => $src, 'attr' => $size, 'name' => $name))));
+function getClickZoomImageParameter($src = '', $size = '', $name = '', $lang = '') {
+    $data = [
+        'src'  => $src,
+        'attr' => $size,
+        'name' => $name
+    ];
+    $lang = !empty($lang) ? $lang : ($GLOBALS['phpwcms']['DOCTYPE_LANG'] ?? '');
+    if (!empty($lang)) {
+        $data['lang'] = $lang;
+    }
+    return 'show=' . rawurlencode(base64_encode(json_encode($data)));
 }
 
 /**
