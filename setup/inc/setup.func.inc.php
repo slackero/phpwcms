@@ -13,6 +13,37 @@
 $DOCROOT = rtrim(str_replace('\\', '/', dirname(__DIR__, 2)), '/');
 include $DOCROOT . '/include/inc_lib/revision/revision.php';
 
+if (is_file($DOCROOT . '/include/vendor/autoload.php')) {
+    require_once $DOCROOT . '/include/vendor/autoload.php';
+}
+
+if (!function_exists('phpwcms_strip_tags')) {
+    /**
+     * UTF-8 and multibyte safe strip_tags() replacement using voku/portable-utf8
+     *
+     * @param string $string
+     * @param string|array<string>|null $allowable_tags
+     * @return string
+     */
+    function phpwcms_strip_tags($string = '', $allowable_tags = null) {
+        if (!is_string($string) || $string === '') {
+            return (string)$string;
+        }
+
+        if (class_exists(\voku\helper\UTF8::class)) {
+            if (is_array($allowable_tags)) {
+                $allowable_tags = empty($allowable_tags) ? null : '<' . implode('><', array_map(static function($tag) {
+                    return trim($tag, '<> ');
+                }, $allowable_tags)) . '>';
+            }
+
+            return \voku\helper\UTF8::strip_tags($string, $allowable_tags, true);
+        }
+
+        return strip_tags($string, is_array($allowable_tags) ? implode('', $allowable_tags) : $allowable_tags);
+    }
+}
+
 // setup.conf.inc.php is the wizard's working state file and is not tracked
 // by git (it stores local credentials once the setup runs). Bootstrap it
 // from the dist template if it is missing.
@@ -78,7 +109,7 @@ function slweg($string_wo_slashes_weg, $string_laenge = 0) {
 
 function clean_slweg($string_wo_slashes_weg, $string_laenge = 0, $trim = true) {
     $string_wo_slashes_weg = (string)$string_wo_slashes_weg;
-    $string_wo_slashes_weg = strip_tags($string_wo_slashes_weg);
+    $string_wo_slashes_weg = phpwcms_strip_tags($string_wo_slashes_weg);
     if ($trim) {
         $string_wo_slashes_weg = trim($string_wo_slashes_weg);
     }

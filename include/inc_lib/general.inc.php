@@ -64,7 +64,7 @@ function sanitize_form_redirect($target = '') {
 
 function clean_slweg($text = '', $maxlen = 0, $trim = true) {
     $text = (string) $text;
-    $text = \voku\helper\UTF8::strip_tags($text);
+    $text = phpwcms_strip_tags($text);
     $text = \voku\helper\UTF8::cleanup($text);
     if ($trim) {
         $text = trim($text);
@@ -1313,7 +1313,7 @@ function stripped_cache_content($page = '') {
     // clean up html page
     $page = preg_replace('@<script[^>]*?>.*?</script>@si', '', (string)$page);
     $page = str_replace('><', '> <', $page);
-    $page = \voku\helper\UTF8::strip_tags($page);
+    $page = phpwcms_strip_tags($page);
 
     return preg_replace('/\s+/s', ' ', decode_entities($page));
 }
