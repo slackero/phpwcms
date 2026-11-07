@@ -17,7 +17,7 @@ $name = '';
 $attr = '';
 
 if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), true))) {
-    $src = strip_tags($data['src']);
+    $src = phpwcms_strip_tags($data['src']);
     $is_valid_cdn = false;
     if (PHPWCMS_CDN_IMAGE_URL && str_starts_with($src, PHPWCMS_CDN_IMAGE_URL)) {
         $cdn_rel = substr($src, strlen(PHPWCMS_CDN_IMAGE_URL));
@@ -35,7 +35,7 @@ if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), t
             $src = "img/leer.gif";
         }
     }
-    $name = is_scalar($data['name']) ? strip_tags((string)$data['name']) : '';
+    $name = is_scalar($data['name']) ? phpwcms_strip_tags((string)$data['name']) : '';
 }
 
 ?><!DOCTYPE html>

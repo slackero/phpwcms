@@ -70,7 +70,7 @@ if($guestbook['visible']) {
     $guestbook['entry']         = get_tmpl_section('GUESTBOOK_ENTRY', $guestbook['template']);
     $guestbook['list']          = get_tmpl_section('GUESTBOOK', $guestbook['template']);
     $guestbook['ban']           = trim(get_tmpl_section('BAN', $guestbook['template']).' '.$guestbook['banned']);
-    $guestbook['replace']       = strip_tags(trim(get_tmpl_section('BAN_REPLACE', $guestbook['template'])));
+    $guestbook['replace']       = phpwcms_strip_tags(trim(get_tmpl_section('BAN_REPLACE', $guestbook['template'])));
     $guestbook['ban_ip']        = trim(get_tmpl_section('BAN_IP', $guestbook['template']));
     $guestbook['comment']       = trim(get_tmpl_section('COMMENT', $guestbook['template']));
     $guestbook['comment']       = explode('|', $guestbook['comment']);

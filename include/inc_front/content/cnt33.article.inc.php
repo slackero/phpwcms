@@ -555,7 +555,7 @@ if($news['template']) {
                 }
 
                 if($value['cnt_description']) {
-                    $content['opengraph']['description'] = preg_replace('/\s+/', ' ', strip_tags($value['cnt_description']));
+                    $content['opengraph']['description'] = preg_replace('/\s+/', ' ', phpwcms_strip_tags($value['cnt_description']));
                     set_meta('description', $content['opengraph']['description']);
                 }
                 if($value['cnt_title']) {

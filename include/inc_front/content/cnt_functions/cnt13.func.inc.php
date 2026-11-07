@@ -295,7 +295,7 @@ class search_News {
 
 function clean_search_text($string='') {
 
-	$string = strip_tags($string);
+	$string = phpwcms_strip_tags($string);
 	$string = strip_bbcode($string);
 	$string = clean_replacement_tags($string);
 	$string = remove_unsecure_rptags($string);

@@ -970,7 +970,7 @@ function parse_downloads($match) {
 
             global $phpwcms;
 
-            $value['cnt_object']['cnt_files']['caption'] = isset($match[3]) ? @html_entity_decode(trim($match[3]), ENT_QUOTES, PHPWCMS_CHARSET) : '';
+            $value['cnt_object']['cnt_files']['caption'] = isset($match[3]) ? decode_entities(trim($match[3])) : '';
             $value['files_direct_download'] = 0;
             $value['files_template'] = 'download-inline';
             if(!empty($match[2])) {

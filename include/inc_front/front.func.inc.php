@@ -2373,7 +2373,7 @@ function clean_replacement_tags($text = '', $allowed_tags='<a><b><i><strong>') {
     // strip out special replacement tags
     $text = render_PHPcode($text);
     $text = str_replace('<td>', '<td> ', $text);
-    $text = strip_tags($text, $allowed_tags);
+    $text = phpwcms_strip_tags($text, $allowed_tags);
     $text = str_replace('|', ' ', $text);
 
     $search = array(
@@ -4270,7 +4270,7 @@ function getArticleMenu($data=array()) {
                         if($data['articlemenu_options']['textlength'] === 'HTML') {
                             $item['amenu_text'] = $item['article_summary'];
                         } else {
-                            $item['amenu_text'] = trim(strip_tags($item['article_summary']));
+                            $item['amenu_text'] = trim(phpwcms_strip_tags($item['article_summary']));
                             $item['amenu_text'] = getCleanSubString($item['amenu_text'], abs($data['articlemenu_options']['textlength']), $GLOBALS['template_default']['ellipse_sign'], $data['articlemenu_options']['textlength'] < 0 ? 'char' : 'word');
                         }
                         break;

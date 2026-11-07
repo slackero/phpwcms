@@ -25,7 +25,7 @@ if (is_file($cust_lang)) {
 }
 
 if (empty($_SESSION['wcs_user_id']) || !validate_csrf_get_token()) {
-    $errMsg = !empty($BL['CSRF_GET_FAILED']) ? strip_tags($BL['CSRF_GET_FAILED']) : 'Session or CSRF failure';
+    $errMsg = !empty($BL['CSRF_GET_FAILED']) ? phpwcms_strip_tags($BL['CSRF_GET_FAILED']) : 'Session or CSRF failure';
     die(json_encode(['jquery-upload-file-error' => $errMsg]));
 }
 
@@ -33,7 +33,7 @@ if (empty($_SESSION['wcs_user_id']) || !validate_csrf_get_token()) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0) {
     $max_post = ini_get('post_max_size');
     $errMsg = sprintf($BL['be_fprivup_err10'], $max_post);
-    die(json_encode(['jquery-upload-file-error' => strip_tags($errMsg)]));
+    die(json_encode(['jquery-upload-file-error' => phpwcms_strip_tags($errMsg)]));
 }
 
 if (@ini_get('post_max_size')) {
@@ -110,10 +110,7 @@ if ($file_field && isset($_FILES[$file_field])) {
             header('Content-Type: text/plain; charset=utf-8');
             $max_post = ini_get('upload_max_filesize');
             $tmpl = !empty($BL['be_fprivup_err10']) ? $BL['be_fprivup_err10'] : 'Server limit exceeded: %s';
-            $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
-            if (strtolower($charset) !== 'utf-8') {
-                $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8');
-            }
+            $tmpl = decode_entities($tmpl);
             die(sprintf($tmpl, $max_post));
         }
 
@@ -139,7 +136,7 @@ if ($file_field && isset($_FILES[$file_field])) {
             http_response_code(400);
             header('Content-Type: text/plain; charset=utf-8');
             $tmpl = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
-            die(html_entity_decode(strip_tags($tmpl), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            die(decode_entities(phpwcms_strip_tags($tmpl)));
         }
 
         if ($detected_ext !== false) {
@@ -150,7 +147,7 @@ if ($file_field && isset($_FILES[$file_field])) {
             http_response_code(400);
             header('Content-Type: text/plain; charset=utf-8');
             $tmpl = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
-            die(html_entity_decode(strip_tags($tmpl), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            die(decode_entities(phpwcms_strip_tags($tmpl)));
         }
 
         if ($is_filebrowser_upload) {
@@ -214,10 +211,7 @@ if ($file_field && isset($_FILES[$file_field])) {
                 http_response_code(400);
                 header('Content-Type: text/plain; charset=utf-8');
                 $tmpl = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists.';
-                $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
-                if (strtolower($charset) !== 'utf-8') {
-                    $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8');
-                }
+                $tmpl = decode_entities($tmpl);
                 die(sprintf($tmpl, $ftpFileName));
             }
 
