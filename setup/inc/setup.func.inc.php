@@ -490,12 +490,12 @@ function get_server_default_collation($db) {
 }
 
 if (!function_exists('decode_entities')) {
-    function decode_entities($text) {
-        $text = html_entity_decode((string)$text, ENT_QUOTES, 'UTF-8');
+    function decode_entities($text, $flags = null, $encoding = 'UTF-8') {
+        $text = html_entity_decode((string)$text, $flags ?? (ENT_QUOTES | ENT_HTML5), $encoding);
         if (!str_contains($text, '&#')) {
             return $text;
         }
-        return mb_decode_numericentity($text, [0x0, 0x10FFFF, 0, 0x1FFFFF], 'UTF-8');
+        return mb_decode_numericentity($text, [0x0, 0x10FFFF, 0, 0x1FFFFF], $encoding);
     }
 }
 function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enable_port = true) {

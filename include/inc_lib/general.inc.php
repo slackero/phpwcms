@@ -1133,7 +1133,7 @@ function checkFormTrackingValue() {
 }
 
 function cleanUpSpecialHtmlEntities($string = '') {
-    return empty($string) ? $string : \voku\helper\UTF8::html_entity_decode((string)$string);
+    return decode_entities($string);
 }
 
 function cleanUpFormMailerPostValue($string = '') {
@@ -1142,7 +1142,7 @@ function cleanUpFormMailerPostValue($string = '') {
     }
     $string = clean_slweg($string);
 
-    return cleanUpSpecialHtmlEntities($string);
+    return decode_entities($string);
 }
 
 function cleanUpForEmailHeader($text = '') {
@@ -1281,12 +1281,12 @@ function get_unique_array($array, $diff= ['', null, false]) {
     return array_unique($array);
 }
 
-function decode_entities($text) {
+function decode_entities($text, $flags = null, $encoding = 'UTF-8') {
     if (!is_string($text) || $text === '' || !str_contains($text, '&')) {
         return (string)$text;
     }
 
-    return \voku\helper\UTF8::html_entity_decode($text);
+    return \voku\helper\UTF8::html_entity_decode($text, $flags, $encoding);
 }
 
 function convertHexNumericToChar($matches) {
@@ -1328,7 +1328,6 @@ function optimizeForSearch() {
         }
         $text = stripped_cache_content($text);
         $text = decode_entities($text);
-        $text = cleanUpSpecialHtmlEntities($text);
         $text = str_replace(
             [
                 '!',

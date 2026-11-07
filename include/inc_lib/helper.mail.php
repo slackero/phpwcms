@@ -400,7 +400,7 @@ function render_system_email(string $key, array $data = [], ?string $lang = null
 
     // Replace placeholders in subject
     $subject = str_replace(array_keys($data), array_values($data), $template['subject']);
-    $subject = cleanUpForEmailHeader(html_entity_decode(i18n_substitute_text($subject), ENT_QUOTES, 'UTF-8'));
+    $subject = cleanUpForEmailHeader(decode_entities(i18n_substitute_text($subject)));
 
     // Replace placeholders in HTML content
     $content_html = str_replace(array_keys($data), array_values($data), $template['content_html']);
@@ -408,7 +408,7 @@ function render_system_email(string $key, array $data = [], ?string $lang = null
 
     // Replace placeholders in Plain Text content
     $content_text = str_replace(array_keys($data), array_values($data), $template['content_text']);
-    $content_text = html_entity_decode(i18n_substitute_text($content_text), ENT_QUOTES, 'UTF-8');
+    $content_text = decode_entities(i18n_substitute_text($content_text));
 
     // Render inside standard HTML shell
     $full_html = renderSystemEmailHTML($subject, $content_html, $subject, $target_lang ?? $lang ?? null);

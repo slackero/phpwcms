@@ -137,8 +137,8 @@ $(function() {
         $newLi.find("input[name^=\'cform_field_name\']").focus();
     });
 
-    var confirmMsgTmpl = \'' . js_singlequote(html_entity_decode($BL['be_admin_custom_cpt_delete_field_confirm'] ?? 'Really delete field "%s"?', ENT_QUOTES | ENT_HTML5, 'ISO-8859-1')) . '\';
-    var confirmMsgSimple = \'' . js_singlequote(html_entity_decode($BL['be_admin_custom_cpt_delete_field_confirm_simple'] ?? 'Really delete this field?', ENT_QUOTES | ENT_HTML5, 'ISO-8859-1')) . '\';
+    var confirmMsgTmpl = \'' . js_singlequote(decode_entities($BL['be_admin_custom_cpt_delete_field_confirm'] ?? 'Really delete field "%s"?')) . '\';
+    var confirmMsgSimple = \'' . js_singlequote(decode_entities($BL['be_admin_custom_cpt_delete_field_confirm_simple'] ?? 'Really delete this field?')) . '\';
 
     function getFieldConfirmMsg($container) {
         var name = ($container.find("input[name^=\'cform_field_name\']").val() || "").trim();

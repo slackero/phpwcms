@@ -1397,7 +1397,7 @@ if( $_shop_load_order !== false ) {
         $order_process = str_replace('{ORDER}', $order_num, $order_process);
         $order_process = render_cnt_date($order_process, time());
 
-        $mail_customer = @html_entity_decode($order_process);
+        $mail_customer = decode_entities($order_process);
 
         // prepare new order mail
         $order_process = $_tmpl['mail_neworder'];
@@ -1415,7 +1415,7 @@ if( $_shop_load_order !== false ) {
         $order_process = str_replace('{ORDER}', $order_num, $order_process);
         $order_process = render_cnt_date($order_process, time());
 
-        $mail_neworder = @html_entity_decode($order_process);
+        $mail_neworder = decode_entities($order_process);
 
         if(empty($_SESSION[CART_KEY]['selfpickup'])) {
             $mail_customer = render_cnt_template($mail_customer, 'SELFPICKUP', '');

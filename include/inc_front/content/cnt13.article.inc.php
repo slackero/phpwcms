@@ -62,7 +62,6 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
     $content["search_word"] = clean_slweg($content["search_word"]);
     $content["search_word"] = clean_replacement_tags($content["search_word"]);
     $content["search_word"] = decode_entities($content["search_word"]);
-    $content["search_word"] = cleanUpSpecialHtmlEntities($content["search_word"]);
 
     // split all search words
     $content["search_word"] = explode(' ', $content["search_word"]);

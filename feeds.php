@@ -274,10 +274,9 @@ function combinedParser($string, $charset='utf-8', $allowed_tags='') {
         }
     }
 
-    $string = html_entity_decode($string, ENT_QUOTES | ENT_HTML5, $charset);
-    $string = cleanUpSpecialHtmlEntities($string);
+    $string = decode_entities($string);
     // When charsets are the same the string is already clean UTF-8 after
-    // decode_entities() + cleanUpSpecialHtmlEntities(). Calling html_specialchars()
+    // decode_entities(). Calling html_specialchars()
     // would double-encode quotes (' → &#039;) and corrupt multibyte Cyrillic/etc.
 
     // Strip away unwanted UTF-8 chars to avoid XML fatal parsing error

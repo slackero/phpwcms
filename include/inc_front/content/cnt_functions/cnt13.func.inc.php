@@ -302,7 +302,6 @@ function clean_search_text($string='') {
 	$string = str_replace('&nbsp;', ' ', $string);
 	$string = preg_replace('/\s+/', ' ', $string);
 	$string = decode_entities($string);
-	$string = cleanUpSpecialHtmlEntities($string);
 
 	return $string;
 }

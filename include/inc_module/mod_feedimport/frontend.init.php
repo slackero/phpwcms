@@ -115,19 +115,19 @@ if(!empty($_getVar['feedimport'])) {
 					continue;
 				}
 
-                $article_title          = html_entity_decode($rssvalue->get_title(), ENT_COMPAT, PHPWCMS_CHARSET);
+                $article_title          = decode_entities($rssvalue->get_title());
                 $article_alias          = proof_alias(0, $article_title, 'ARTICLE');
                 $article_begin          = $rssvalue->get_date('U');
                 $article_end            = now()+(3600*24*365*10);
                 $article_summary        = $rssvalue->get_description();
                 $article_content        = $rssvalue->get_content();
-                $article_description    = preg_replace('/\s+/', ' ', html_entity_decode(phpwcms_strip_tags($article_summary), ENT_COMPAT, PHPWCMS_CHARSET));
+                $article_description    = preg_replace('/\s+/', ' ', decode_entities(phpwcms_strip_tags($article_summary)));
 				list($article_description) = explode("\n", wordwrap($article_description, 250), 2);
 				list($article_description) = explode("-- ", $article_description, 2);
                 $article_description    = preg_replace('/(.*?\.).+?$/', '$1', $article_description);
                 $article_author         = $rssvalue->get_author();
 				if($article_author) {
-                    $article_author     = html_entity_decode($article_author->get_name(), ENT_COMPAT, PHPWCMS_CHARSET);
+                    $article_author     = decode_entities($article_author->get_name());
 				} else {
                     $article_author     = $feedimport_result['cnt_object']['author_name'];
 				}

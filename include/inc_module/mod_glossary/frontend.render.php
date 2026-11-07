@@ -26,7 +26,7 @@ if(!isset($content['glossary'])) {
 		// search keyword in glossary table
 		$keyword = trim($matches[1]);
 		if($keyword !== '') {
-			$keyword = html_entity_decode($keyword, ENT_QUOTES, PHPWCMS_CHARSET);
+			$keyword = decode_entities($keyword);
 
 			// check against cache
 			if(!isset($content['glossary_cache'][$keyword])) {
