@@ -533,38 +533,6 @@ if (!function_exists('decode_entities')) {
     }
 }
 
-if (!function_exists('clean_plain_utf8')) {
-    /**
-     * Clean HTML tags, convert to UTF-8 from source charset, and decode entities
-     *
-     * @param mixed $string
-     * @param string|null $in_charset Source charset, defaults to PHPWCMS_CHARSET or 'utf-8'
-     * @param string|array<string>|null $allowable_tags Optional tags to preserve during strip_tags
-     * @return string
-     */
-    function clean_plain_utf8($string = '', $in_charset = null, $allowable_tags = null) {
-        if (!is_string($string) || $string === '') {
-            return is_scalar($string) ? (string)$string : '';
-        }
-
-        $string = phpwcms_strip_tags($string, $allowable_tags);
-
-        $in_charset = $in_charset !== null && $in_charset !== ''
-            ? strtolower($in_charset)
-            : (defined('PHPWCMS_CHARSET') ? PHPWCMS_CHARSET : 'utf-8');
-
-        if ($in_charset !== 'utf-8') {
-            if (function_exists('makeCharsetConversion')) {
-                $string = makeCharsetConversion($string, $in_charset, 'utf-8');
-            } elseif (class_exists(\voku\helper\UTF8::class)) {
-                $string = \voku\helper\UTF8::encode('utf-8', $string, false, $in_charset);
-            }
-        }
-
-        return decode_entities($string);
-    }
-}
-
 function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enable_port = true) {
     $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
         || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https')

@@ -140,80 +140,6 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/mimetype.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/revision/revision.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/whitelabel.inc.php';
 require_once PHPWCMS_ROOT . '/include/vendor/autoload.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/charset_helper.inc.php';
-
-if (!function_exists('phpwcms_strip_tags')) {
-    /**
-     * UTF-8 and multibyte safe strip_tags() replacement using voku/portable-utf8
-     *
-     * @param string $string
-     * @param string|array<string>|null $allowable_tags
-     * @return string
-     */
-    function phpwcms_strip_tags($string = '', $allowable_tags = null) {
-        if (!is_string($string) || $string === '') {
-            return (string)$string;
-        }
-
-        if (is_array($allowable_tags)) {
-            $allowable_tags = empty($allowable_tags) ? null : '<' . implode('><', array_map(static function($tag) {
-                return trim($tag, '<> ');
-            }, $allowable_tags)) . '>';
-        }
-
-        return \voku\helper\UTF8::strip_tags($string, $allowable_tags, true);
-    }
-}
-
-if (!function_exists('decode_entities')) {
-    /**
-     * UTF-8 and multibyte safe HTML entity decode using voku/portable-utf8
-     *
-     * @param string $text
-     * @param int|null $flags
-     * @param string $encoding
-     * @return string
-     */
-    function decode_entities($text, $flags = null, $encoding = 'UTF-8') {
-        if (!is_string($text) || $text === '' || !str_contains($text, '&')) {
-            return (string)$text;
-        }
-
-        return \voku\helper\UTF8::html_entity_decode($text, $flags, $encoding);
-    }
-}
-
-if (!function_exists('clean_plain_utf8')) {
-    /**
-     * Clean HTML tags, convert to UTF-8 from source charset, and decode entities
-     *
-     * @param mixed $string
-     * @param string|null $in_charset Source charset, defaults to PHPWCMS_CHARSET or 'utf-8'
-     * @param string|array<string>|null $allowable_tags Optional tags to preserve during strip_tags
-     * @return string
-     */
-    function clean_plain_utf8($string = '', $in_charset = null, $allowable_tags = null) {
-        if (!is_string($string) || $string === '') {
-            return is_scalar($string) ? (string)$string : '';
-        }
-
-        $string = phpwcms_strip_tags($string, $allowable_tags);
-
-        $in_charset = $in_charset !== null && $in_charset !== ''
-            ? strtolower($in_charset)
-            : (defined('PHPWCMS_CHARSET') ? PHPWCMS_CHARSET : 'utf-8');
-
-        if ($in_charset !== 'utf-8') {
-            if (function_exists('makeCharsetConversion')) {
-                $string = makeCharsetConversion($string, $in_charset, 'utf-8');
-            } elseif (class_exists(\voku\helper\UTF8::class)) {
-                $string = \voku\helper\UTF8::encode('utf-8', $string, false, $in_charset);
-            }
-        }
-
-        return decode_entities($string);
-    }
-}
 
 phpwcms_whitelabel_init($phpwcms);
 
@@ -699,7 +625,7 @@ if (is_whitelabel()) {
     $whitelabel_comment = '    ' . html_specialchars($phpwcms['whitelabel']['brand_name']);
     $whitelabel_copyright = get_brand_copyright();
     if ($whitelabel_copyright) {
-        $whitelabel_comment .= LF . '    ' . decode_entities(phpwcms_strip_tags($whitelabel_copyright));
+        $whitelabel_comment .= LF . '    ' . \voku\helper\UTF8::html_entity_decode(\voku\helper\UTF8::strip_tags($whitelabel_copyright));
     }
     $whitelabel_url = get_brand_url();
     if ($whitelabel_url) {
