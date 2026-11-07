@@ -11,17 +11,18 @@
 $phpwcms = array();
 require_once __DIR__ . '/include/config/conf.inc.php';
 require_once __DIR__ . '/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
 
 $src = "img/leer.gif";
 $name = '';
 $attr = '';
 
 if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), true))) {
-    $src = phpwcms_strip_tags($data['src']);
+    $src = clean_slweg($data['src'] ?? '');
     $is_valid_cdn = false;
     if (PHPWCMS_CDN_IMAGE_URL && str_starts_with($src, PHPWCMS_CDN_IMAGE_URL)) {
         $cdn_rel = substr($src, strlen(PHPWCMS_CDN_IMAGE_URL));
-        if (strspn($cdn_rel, '/\\.') === 0 && strpos($cdn_rel, '..') === false) {
+        if (strspn($cdn_rel, '/\\.') === 0 && !str_contains($cdn_rel, '..')) {
             $is_valid_cdn = true;
         }
     }
@@ -31,11 +32,11 @@ if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), t
             $src = "img/leer.gif";
         }
         // keep the image source a relative path contained under the install dir
-        if (strspn($src, '/\\.') !== 0 || strpos($src, '..') !== false) {
+        if (strspn($src, '/\\.') !== 0 || str_contains($src, '..')) {
             $src = "img/leer.gif";
         }
     }
-    $name = is_scalar($data['name']) ? phpwcms_strip_tags((string)$data['name']) : '';
+    $name = is_scalar($data['name'] ?? null) ? decode_entities(phpwcms_strip_tags((string)$data['name'])) : '';
 }
 
 ?><!DOCTYPE html>

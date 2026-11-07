@@ -400,7 +400,7 @@ $(function () {
             if (existingFiles.indexOf(file.name.toLowerCase()) !== -1) {
                 var errStr = <?php
                     $err = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists in destination.';
-                    echo json_encode(decode_entities($err)) ?: '""';
+                    echo json_encode(decode_entities(phpwcms_strip_tags($err))) ?: '""';
                 ?>;
                 done(errStr.replace('%s', file.name));
             } else {
@@ -409,7 +409,7 @@ $(function () {
         },
         dictDefaultMessage: <?php
             $msg = !empty($BL['be_fileuploader_dictDefaultMessage']) ? $BL['be_fileuploader_dictDefaultMessage'] : (!empty($BL['be_fileuploader_uploadButtonText']) ? $BL['be_fileuploader_uploadButtonText'] : 'Drop files here to upload');
-            echo json_encode(decode_entities($msg)) ?: '""';
+            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
         ?>,
         dictFallbackMessage: <?php
             $msg = !empty($BL['be_fileuploader_dictFallbackMessage']) ? $BL['be_fileuploader_dictFallbackMessage'] : 'Your browser does not support drag and drop.';

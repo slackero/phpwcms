@@ -11,7 +11,7 @@
 // <img src="image_resized.php?format=jpg&w=100&h=200&q=85&imgfile=test.jpg" alt="" border="0">
 
 $img_target = isset($_GET['format']) ? strtolower(trim($_GET['format'])) : 'jpg';
-$img_file = isset($_GET['imgfile']) ? trim(urldecode($_GET['imgfile'])) : 'img/leer.gif';
+$img_file = isset($_GET['imgfile']) ? trim(rawurldecode($_GET['imgfile'])) : 'img/leer.gif';
 $img_width = isset($_GET['w']) ? (int)$_GET['w'] : 0;
 $img_height = isset($_GET['h']) ? (int)$_GET['h'] : 0;
 $img_quality = isset($_GET['q']) && (int)$_GET['q'] <= 100 && (int)$_GET['q'] ? (int)$_GET['q'] : 75;
@@ -28,13 +28,13 @@ if (
         ||
         $img_file[0] === '\\'
         ||
-        strpos($img_file, ':/') !== false
+        str_contains($img_file, ':/')
         ||
-        strpos($img_file, './') !== false
+        str_contains($img_file, './')
         ||
-        strpos($img_file, ':\\') !== false
+        str_contains($img_file, ':\\')
         ||
-        strpos($img_file, '.\\') !== false
+        str_contains($img_file, '.\\')
     )
 ) {
     $img_file = '';
