@@ -64,8 +64,56 @@ if ($lang === '') {
 <head>
     <title><?php echo html($name); ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            color-scheme: dark;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            cursor: pointer;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        img {
+            display: block;
+            max-width: 100vw;
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+            border: 0;
+            object-fit: contain;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+    </style>
     <script src="<?php echo TEMPLATE_PATH; ?>inc_js/imagezoom.js"></script>
-    <link href="<?php echo TEMPLATE_PATH; ?>inc_css/dialog/popup.image.css" rel="stylesheet">
 </head>
 <body><a href="#" title="Close PopUp" onclick="window.close();return false;"><img src="<?php echo html($src); ?>" alt="<?php echo html($name); ?>" /></a></body>
 </html>
