@@ -522,6 +522,9 @@ function get_server_default_collation($db) {
 
 if (!function_exists('decode_entities')) {
     function decode_entities($text, $flags = null, $encoding = 'UTF-8') {
+        if (class_exists(\voku\helper\UTF8::class)) {
+            return \voku\helper\UTF8::html_entity_decode((string)$text, $flags, $encoding);
+        }
         $text = html_entity_decode((string)$text, $flags ?? (ENT_QUOTES | ENT_HTML5), $encoding);
         if (!str_contains($text, '&#')) {
             return $text;
