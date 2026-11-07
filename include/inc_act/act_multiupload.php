@@ -25,15 +25,15 @@ if (is_file($cust_lang)) {
 }
 
 if (empty($_SESSION['wcs_user_id']) || !validate_csrf_get_token()) {
-    $errMsg = !empty($BL['CSRF_GET_FAILED']) ? decode_entities(phpwcms_strip_tags($BL['CSRF_GET_FAILED'])) : 'Session or CSRF failure';
+    $errMsg = !empty($BL['CSRF_GET_FAILED']) ? clean_plain_utf8($BL['CSRF_GET_FAILED']) : 'Session or CSRF failure';
     die(json_encode(['jquery-upload-file-error' => $errMsg]));
 }
 
 // Detect POST Content-Length overflow
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0) {
     $max_post = ini_get('post_max_size');
-    $errMsg = sprintf($BL['be_fprivup_err10'], $max_post);
-    die(json_encode(['jquery-upload-file-error' => decode_entities(phpwcms_strip_tags($errMsg))]));
+    $errMsg = sprintf(clean_plain_utf8($BL['be_fprivup_err10'] ?? 'Server limit exceeded: %s'), $max_post);
+    die(json_encode(['jquery-upload-file-error' => $errMsg]));
 }
 
 if (@ini_get('post_max_size')) {
@@ -110,8 +110,7 @@ if ($file_field && isset($_FILES[$file_field])) {
             header('Content-Type: text/plain; charset=utf-8');
             $max_post = ini_get('upload_max_filesize');
             $tmpl = !empty($BL['be_fprivup_err10']) ? $BL['be_fprivup_err10'] : 'Server limit exceeded: %s';
-            $tmpl = decode_entities(phpwcms_strip_tags($tmpl));
-            die(sprintf($tmpl, $max_post));
+            die(sprintf(clean_plain_utf8($tmpl), $max_post));
         }
 
         if ($fileItem['error'] !== UPLOAD_ERR_OK || empty($fileItem['tmp_name']) || !is_uploaded_file($fileItem['tmp_name'])) {
@@ -136,7 +135,7 @@ if ($file_field && isset($_FILES[$file_field])) {
             http_response_code(400);
             header('Content-Type: text/plain; charset=utf-8');
             $tmpl = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
-            die(decode_entities(phpwcms_strip_tags($tmpl)));
+            die(clean_plain_utf8($tmpl));
         }
 
         if ($detected_ext !== false) {
@@ -147,7 +146,7 @@ if ($file_field && isset($_FILES[$file_field])) {
             http_response_code(400);
             header('Content-Type: text/plain; charset=utf-8');
             $tmpl = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
-            die(decode_entities(phpwcms_strip_tags($tmpl)));
+            die(clean_plain_utf8($tmpl));
         }
 
         if ($is_filebrowser_upload) {
@@ -201,7 +200,7 @@ if ($file_field && isset($_FILES[$file_field])) {
                     _dbQuery('DELETE FROM ' . DB_PREPEND . 'file WHERE f_id=' . _dbEscape($insert['INSERT_ID']));
                     http_response_code(500);
                     header('Content-Type: text/plain; charset=utf-8');
-                    die($BL['be_error_while_save']);
+                    die(clean_plain_utf8($BL['be_error_while_save'] ?? 'Error saving file'));
                 }
             }
         } else {
@@ -211,8 +210,7 @@ if ($file_field && isset($_FILES[$file_field])) {
                 http_response_code(400);
                 header('Content-Type: text/plain; charset=utf-8');
                 $tmpl = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists.';
-                $tmpl = decode_entities(phpwcms_strip_tags($tmpl));
-                die(sprintf($tmpl, $ftpFileName));
+                die(sprintf(clean_plain_utf8($tmpl), $ftpFileName));
             }
 
             if (move_uploaded_file($fileItem['tmp_name'], $ftp_dir . $ftpFileName)) {
@@ -220,7 +218,7 @@ if ($file_field && isset($_FILES[$file_field])) {
             } else {
                 http_response_code(500);
                 header('Content-Type: text/plain; charset=utf-8');
-                die($BL['be_error_while_save']);
+                die(clean_plain_utf8($BL['be_error_while_save'] ?? 'Error saving file'));
             }
         }
     }

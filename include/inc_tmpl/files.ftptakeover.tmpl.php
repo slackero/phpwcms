@@ -400,7 +400,7 @@ $(function () {
             if (existingFiles.indexOf(file.name.toLowerCase()) !== -1) {
                 var errStr = <?php
                     $err = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists in destination.';
-                    echo json_encode(decode_entities(phpwcms_strip_tags($err))) ?: '""';
+                    echo json_encode(clean_plain_utf8($err)) ?: '""';
                 ?>;
                 done(errStr.replace('%s', file.name));
             } else {
@@ -409,43 +409,43 @@ $(function () {
         },
         dictDefaultMessage: <?php
             $msg = !empty($BL['be_fileuploader_dictDefaultMessage']) ? $BL['be_fileuploader_dictDefaultMessage'] : (!empty($BL['be_fileuploader_uploadButtonText']) ? $BL['be_fileuploader_uploadButtonText'] : 'Drop files here to upload');
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         dictFallbackMessage: <?php
             $msg = !empty($BL['be_fileuploader_dictFallbackMessage']) ? $BL['be_fileuploader_dictFallbackMessage'] : 'Your browser does not support drag and drop.';
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         dictFallbackText: <?php
             $msg = !empty($BL['be_fileuploader_dictFallbackText']) ? $BL['be_fileuploader_dictFallbackText'] : '';
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         dictFileTooBig: <?php
             $msg = !empty($BL['be_fileuploader_dictFileTooBig']) ? $BL['be_fileuploader_dictFileTooBig'] : 'File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.';
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         dictInvalidFileType: <?php
             $msg = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         dictResponseError: <?php
             $msg = !empty($BL['be_fileuploader_dictResponseError']) ? $BL['be_fileuploader_dictResponseError'] : 'Server error {{statusCode}}.';
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         dictCancelUpload: <?php
             $msg = !empty($BL['be_fileuploader_dictCancelUpload']) ? $BL['be_fileuploader_dictCancelUpload'] : 'Cancel';
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         dictCancelUploadConfirmation: <?php
             $msg = !empty($BL['be_fileuploader_dictCancelUploadConfirmation']) ? $BL['be_fileuploader_dictCancelUploadConfirmation'] : 'Cancel upload?';
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         dictRemoveFile: <?php
             $msg = !empty($BL['be_fileuploader_dictRemoveFile']) ? $BL['be_fileuploader_dictRemoveFile'] : 'Remove';
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         dictMaxFilesExceeded: <?php
             $msg = !empty($BL['be_fileuploader_dictMaxFilesExceeded']) ? $BL['be_fileuploader_dictMaxFilesExceeded'] : 'Max files exceeded.';
-            echo json_encode(decode_entities(phpwcms_strip_tags($msg))) ?: '""';
+            echo json_encode(clean_plain_utf8($msg)) ?: '""';
         ?>,
         addRemoveLinks: false,
         init: function() {

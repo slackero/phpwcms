@@ -37,6 +37,9 @@ if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), t
         }
     }
     $name = is_scalar($data['name'] ?? null) ? decode_entities(phpwcms_strip_tags((string)$data['name'])) : '';
+    if (PHPWCMS_CHARSET !== 'utf-8') {
+        $name = makeCharsetConversion($name, 'utf-8', PHPWCMS_CHARSET);
+    }
 }
 
 ?><!DOCTYPE html>
