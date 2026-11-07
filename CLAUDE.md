@@ -14,7 +14,7 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-phpwcms-dev | php | 129 modules | 257,803 lines | Docker
+phpwcms-dev | php | 128 modules | 257,715 lines | Docker
 test: npm test | env: "1026, "8026, "8081, MP_MAX_MESSAGES, MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_ROOT_PASSWORD, MYSQL_USER, PMA_HOST, PMA_PORT, container_name, db, db_data, depends_on, image, mailpit, phpmyadmin, ports, restart, volumes
 
 modules:
@@ -147,7 +147,7 @@ modules:
   template/lib/splide             splide
   template/lib/video-js           video-js
 
-hot: include/inc_css/backend.min.css (52 commits/90d), include/inc_css/phpwcms.css (52 commits/90d), phpwcms.php (46 commits/90d)
+hot: include/inc_css/phpwcms.css (45 commits/90d), include/inc_css/backend.min.css (44 commits/90d), include/inc_lang/backend/de/lang.inc.php (33 commits/90d)
 do-not-touch: .github/
 ```
 # end stacklit map
