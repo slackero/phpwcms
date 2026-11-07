@@ -62,10 +62,11 @@ function sanitize_form_redirect($target = '') {
 function clean_slweg($text = '', $maxlen = 0, $trim = true) {
     $text = (string) $text;
     $text = strip_tags($text);
+    $text = \voku\helper\UTF8::cleanup($text);
     if ($trim) {
         $text = trim($text);
     }
-    if ($maxlen && strlen($text) > $maxlen) {
+    if ($maxlen && mb_strlen($text) > $maxlen) {
         $text = mb_substr($text, 0, $maxlen);
     }
 
@@ -1108,11 +1109,7 @@ function checkFormTrackingValue() {
 }
 
 function cleanUpSpecialHtmlEntities($string = '') {
-    if (isset($GLOBALS['SPECIAL_ENTITIES_TABLES'])) {
-        $string = str_replace([$GLOBALS['SPECIAL_ENTITIES_TABLES']['latin1_encode'], $GLOBALS['SPECIAL_ENTITIES_TABLES']['symbol_encode'], $GLOBALS['SPECIAL_ENTITIES_TABLES']['specialchars_encode']], [$GLOBALS['SPECIAL_ENTITIES_TABLES']['latin1_decode'], $GLOBALS['SPECIAL_ENTITIES_TABLES']['symbol_decode'], $GLOBALS['SPECIAL_ENTITIES_TABLES']['specialchars_decode']], $string);
-    }
-
-    return $string;
+    return empty($string) ? $string : \voku\helper\UTF8::html_entity_decode((string)$string);
 }
 
 function cleanUpFormMailerPostValue($string = '') {
@@ -2545,8 +2542,9 @@ function uri_sanitize($text, $allow_slash = PHPWCMS_ALIAS_WSLASH) {
         $text = rawurldecode($text);
     }
     if (str_contains($text, '&')) {
-        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $text = \voku\helper\UTF8::html_entity_decode($text);
     }
+    $text = \voku\helper\UTF8::cleanup($text);
     $text = str_replace(['[br]', '__', '[b]', '[/b]', '[i]', '[/i]'], ' ', $text); // cleanup special bbcode and __
     if (!$allow_slash) {
         $text = str_replace('/', '-', $text);
