@@ -33,12 +33,15 @@ function str_empty($string) {
 function slweg($text = '', $maxlen = 0, $trim = true) {
     $text = (string) $text;
     if ($text && str_ends_with($text, '>')) {
-        $text = preg_replace(['/<br>$/i', '/<br \/>$/i', '/<p><\/p>$/i', '/<p>&nbsp;<\/p>$/i'], '', rtrim($text));
+        $text = \voku\helper\UTF8::html_stripe_empty_tags($text);
+        $text = \voku\helper\UTF8::remove_html_breaks($text);
+        $text = preg_replace('/<p>&nbsp;<\/p>$/i', '', rtrim($text));
     }
+    $text = \voku\helper\UTF8::cleanup($text);
     if ($trim) {
         $text = trim($text);
     }
-    if ($maxlen && strlen($text) > $maxlen) {
+    if ($maxlen && mb_strlen($text) > $maxlen) {
         $text = mb_substr($text, 0, $maxlen);
     }
 
@@ -61,7 +64,7 @@ function sanitize_form_redirect($target = '') {
 
 function clean_slweg($text = '', $maxlen = 0, $trim = true) {
     $text = (string) $text;
-    $text = strip_tags($text);
+    $text = \voku\helper\UTF8::strip_tags($text);
     $text = \voku\helper\UTF8::cleanup($text);
     if ($trim) {
         $text = trim($text);
@@ -1258,13 +1261,11 @@ function get_unique_array($array, $diff= ['', null, false]) {
 }
 
 function decode_entities($text) {
-    $text = @html_entity_decode($text, ENT_QUOTES, PHPWCMS_CHARSET);
-    if (!str_contains($text, '&')) {
-        return $text;
+    if (!is_string($text) || $text === '' || !str_contains($text, '&')) {
+        return (string)$text;
     }
-    $text = preg_replace_callback('/&#x([0-9a-f]+);/i', 'convertHexNumericToChar', $text);
 
-    return preg_replace_callback('/&#([0-9]+);/', 'convertNumericToChar', $text);
+    return \voku\helper\UTF8::html_entity_decode($text);
 }
 
 function convertHexNumericToChar($matches) {
@@ -1276,40 +1277,22 @@ function convertNumericToChar($matches) {
 }
 
 function convertDecChar($decChar) {
-    if ($decChar < 128) {
-        return chr($decChar);
-    }
-
-    if ($decChar < 2048) {
-        return chr(($decChar >> 6) + 192) . chr(($decChar & 63) + 128);
-    }
-
-    if ($decChar < 65536) {
-        return chr(($decChar >> 12) + 224) . chr((($decChar >> 6) & 63) + 128) . chr(($decChar & 63) + 128);
-    }
-
-    if ($decChar < 2097152) {
-        return chr(($decChar >> 18) + 240) . chr((($decChar >> 12) & 63) + 128) . chr((($decChar >> 6) & 63) + 128) . chr(($decChar & 63) + 128);
-    }
-
-    return $decChar;
+    return \voku\helper\UTF8::chr((int)$decChar);
 }
 
 function is_html($string = '') {
-    $length_1 = strlen($string);
-    $length_2 = strlen(strip_tags($string));
-    if ($length_1 !== $length_2) {
-        return true;
+    if (!is_string($string) || $string === '') {
+        return false;
     }
-    $length_2 = strlen(decode_entities($string));
-    return $length_1 !== $length_2;
+
+    return \voku\helper\UTF8::is_html($string) || (str_contains($string, '&') && \voku\helper\UTF8::html_entity_decode($string) !== $string);
 }
 
 function stripped_cache_content($page = '') {
     // clean up html page
-    $page = preg_replace('@<script[^>]*?>.*?</script>@si', '', $page);
+    $page = preg_replace('@<script[^>]*?>.*?</script>@si', '', (string)$page);
     $page = str_replace('><', '> <', $page);
-    $page = strip_tags($page);
+    $page = \voku\helper\UTF8::strip_tags($page);
 
     return preg_replace('/\s+/s', ' ', decode_entities($page));
 }
