@@ -8,6 +8,8 @@
  *
  **/
 
+use voku\helper\UTF8;
+
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_INCLUDE_CHECK')) {
@@ -1606,17 +1608,16 @@ function init_frontend_edit() {
 }
 
 function html($string, $double_encode = false) {
-    return htmlspecialchars((string)$string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
+    return UTF8::htmlspecialchars((string)$string, ENT_QUOTES | ENT_SUBSTITUTE, PHPWCMS_CHARSET, $double_encode);
 }
+
 function html_entities($string = '', $quote_mode = ENT_QUOTES, $charset = PHPWCMS_CHARSET) {
-    return htmlentities((string)$string, $quote_mode, $charset);
+    return UTF8::htmlentities((string)$string, $quote_mode, $charset);
 }
 
 function html_specialchars($string = '', $quote_mode = ENT_QUOTES, $charset = PHPWCMS_CHARSET) {
-    //used to replace the htmlspecialchars original php function
-    //not compatible with many international chars like turkish, polish
-    $string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', (string)$string); //works correct for "&#8230;" and/or "&ndash;"
-    return str_replace(['<', '>', '"', "'", "\\"], ['&lt;', '&gt;', '&quot;', '&#039;', '&#92;'], $string);
+    $string = UTF8::htmlspecialchars((string)$string, $quote_mode | ENT_SUBSTITUTE, $charset, false);
+    return str_replace('\\', '&#92;', $string);
 }
 
 /**
