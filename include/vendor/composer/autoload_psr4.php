@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'voku\\helper\\' => array($vendorDir . '/voku/anti-xss/src/voku/helper'),
     'voku\\' => array($vendorDir . '/voku/portable-utf8/src/voku', $vendorDir . '/voku/portable-ascii/src/voku'),
     'enshrined\\svgSanitize\\' => array($vendorDir . '/enshrined/svg-sanitize/src'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),

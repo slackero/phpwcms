@@ -207,6 +207,11 @@ if (!defined('PHPWCMS_ROOT')) {
         <a href="https://github.com/voku/portable-utf8/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">MIT License / Apache-2.0</a>
     </li>
     <li>
+        <a href="https://github.com/voku/anti-xss" target="_blank" rel="noopener noreferrer"><strong>AntiXSS</strong></a>,
+        Copyright &copy; Lars M&ouml;lleken,
+        <a href="https://github.com/voku/anti-xss/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+    </li>
+    <li>
         <a href="https://github.com/SubZane/simplegmaps" target="_blank" rel="noopener noreferrer"><strong>SimpleGMaps</strong></a>,
         Copyright &copy; Patrik B&aring;nkestad,
         <a href="https://github.com/SubZane/simplegmaps/blob/master/LICENSE-MIT" target="_blank" rel="noopener noreferrer">MIT License</a>

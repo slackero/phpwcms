@@ -15,16 +15,17 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'b46ad4fe52f4d1899a2951c7e6ea56b0' => __DIR__ . '/..' . '/voku/portable-utf8/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'fdc0e9724ddc47859c8bf0c1ea0a623a' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/constants.php',
         '9e71c1459ef1226520e4b26dac3a180d' => __DIR__ . '/..' . '/php81_bc/strftime/src/php-8.1-strftime.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
-        'b46ad4fe52f4d1899a2951c7e6ea56b0' => __DIR__ . '/..' . '/voku/portable-utf8/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'v' =>
         array (
+            'voku\\helper\\' => 12,
             'voku\\' => 5,
         ),
         'e' =>
@@ -102,6 +103,10 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
     );
 
     public static $prefixDirsPsr4 = array (
+        'voku\\helper\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/voku/anti-xss/src/voku/helper',
+        ),
         'voku\\' =>
         array (
             0 => __DIR__ . '/..' . '/voku/portable-utf8/src/voku',
