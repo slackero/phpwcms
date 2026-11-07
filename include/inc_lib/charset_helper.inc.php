@@ -46,7 +46,51 @@ function phpwcms_remove_accents($string) {
         $string = UTF8::to_utf8($string);
     }
 
-    $lang = !empty($GLOBALS['phpwcms']['default_lang']) ? (string)$GLOBALS['phpwcms']['default_lang'] : 'en';
+    $lang = !empty($GLOBALS['phpwcms']['default_lang']) ? (string)$GLOBALS['phpwcms']['default_lang'] : (defined('PHPWCMS_USER_LANG') ? PHPWCMS_USER_LANG : 'en');
 
-    return ASCII::to_ascii($string, $lang);
+    return ASCII::to_ascii($string, $lang, false, false, true);
+}
+
+/**
+ * Generate a clean URL slug using voku/portable-ascii and voku/portable-utf8
+ *
+ * @param string $string
+ * @param string $separator
+ * @param bool|null $allow_slash If null, defaults to PHPWCMS_ALIAS_WSLASH
+ * @return string
+ */
+function phpwcms_slugify($string, $separator = '-', $allow_slash = null) {
+    if (!is_string($string) || $string === '') {
+        return '';
+    }
+
+    $allow_slash = $allow_slash ?? (defined('PHPWCMS_ALIAS_WSLASH') && PHPWCMS_ALIAS_WSLASH);
+    $string = UTF8::cleanup($string);
+    $lang = !empty($GLOBALS['phpwcms']['default_lang']) ? (string)$GLOBALS['phpwcms']['default_lang'] : (defined('PHPWCMS_USER_LANG') ? PHPWCMS_USER_LANG : 'en');
+
+    if ($allow_slash && str_contains($string, '/')) {
+        $parts = explode('/', $string);
+        $slugs = [];
+        foreach ($parts as $part) {
+            $part = trim($part);
+            if ($part === '') {
+                continue;
+            }
+            if (defined('PHPWCMS_ALIAS_UTF8') && PHPWCMS_ALIAS_UTF8) {
+                $slug = UTF8::strtolower(uri_sanitize($part, false));
+            } else {
+                $slug = ASCII::to_slugify($part, $separator, $lang, [], false, true, true);
+            }
+            if ($slug !== '') {
+                $slugs[] = $slug;
+            }
+        }
+        return implode('/', $slugs);
+    }
+
+    if (defined('PHPWCMS_ALIAS_UTF8') && PHPWCMS_ALIAS_UTF8) {
+        return UTF8::strtolower(uri_sanitize($string, false));
+    }
+
+    return ASCII::to_slugify($string, $separator, $lang, [], false, true, true);
 }

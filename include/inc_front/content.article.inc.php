@@ -735,7 +735,7 @@ if(isset($result[0]['article_id'])) {
 
                 foreach($trow as $tabkey => $tabitem) {
 
-                    $tabitem['id']              = 'cpgroup-' . uri_sanitize(strtolower($tabitem['title'])) . '-' . $g['counter'];
+                    $tabitem['id']              = 'cpgroup-' . uri_sanitize(\voku\helper\UTF8::strtolower($tabitem['title'])) . '-' . $g['counter'];
                     $tabitem['class']           = $template_default['classes']['cpgroup-title'] ?: '';
                     $tabitem['content-class']   = $template_default['classes']['cpgroup'] ? $template_default['classes']['cpgroup'] . ' ' . $template_default['classes']['cpgroup'] . '-' . $g['counter'] : '';
 
@@ -796,7 +796,7 @@ if(isset($result[0]['article_id'])) {
 
                 foreach($trow as $tabkey => $tabitem) {
 
-                    $tabitem['id']              = 'tab-' . uri_sanitize(strtolower($tabitem['title'])) . '-' . $g['counter'];
+                    $tabitem['id']              = 'tab-' . uri_sanitize(\voku\helper\UTF8::strtolower($tabitem['title'])) . '-' . $g['counter'];
                     $tabitem['class']           = $template_default['classes']['tab-item'] ? $template_default['classes']['tab-item'].'-'.$g['counter'] : '';
                     $tabitem['content-class']   = $template_default['classes']['tab-content'];
 

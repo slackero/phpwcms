@@ -712,11 +712,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
 
     $allow_slash = !($mode === 'FILE') && PHPWCMS_ALIAS_WSLASH;
     $alias       = uri_sanitize(clean_slweg($alias), $allow_slash);
-    if (function_exists('mb_strtolower')) {
-        $alias = mb_strtolower($alias, 'UTF-8');
-    } else {
-        $alias = strtolower($alias);
-    }
+    $alias       = \voku\helper\UTF8::strtolower($alias);
 
     $reserved = [
         'print',
@@ -760,11 +756,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
         }
 
         $alias = uri_sanitize(clean_slweg($alias), $allow_slash);
-        if (function_exists('mb_strtolower')) {
-            $alias = mb_strtolower($alias, 'UTF-8');
-        } else {
-            $alias = strtolower($alias);
-        }
+        $alias = \voku\helper\UTF8::strtolower($alias);
 
         if($alias === '') {
             if ($mode === 'FILE') {
@@ -783,12 +775,12 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
 
             // Only check first "path" section
             $alias_sections = explode('/', $alias);
-            $alias_proof = function_exists('mb_strtolower') ? mb_strtolower($alias_sections[0], 'UTF-8') : strtolower($alias_sections[0]);
+            $alias_proof = \voku\helper\UTF8::strtolower($alias_sections[0]);
             $alias_proof_suffix = '';
             $alias_proof_suffix_count = 0;
 
             foreach($root_folders as $key => $folder) {
-                $root_folders[$key] = function_exists('mb_strtolower') ? mb_strtolower($folder, 'UTF-8') : strtolower($folder);
+                $root_folders[$key] = \voku\helper\UTF8::strtolower($folder);
             }
 
             while(in_array($alias_proof.$alias_proof_suffix, $root_folders)) {
@@ -803,11 +795,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
         }
     }
 
-    if (function_exists('mb_substr')) {
-        $alias = mb_substr($alias, 0, 230, 'UTF-8');
-    } else {
-        $alias = substr($alias, 0, 230);
-    }
+    $alias = \voku\helper\UTF8::substr($alias, 0, 230);
 
     if($allow_slash) {
         $alias = trim($alias, '/');
@@ -1441,11 +1429,11 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
         }
 
         if (!empty($indexpage['acat_pagetitle']) && strlen($indexpage['acat_name']) > strlen($indexpage['acat_pagetitle'])) {
-            return strtolower(uri_sanitize($indexpage['acat_pagetitle']));
+            return \voku\helper\UTF8::strtolower(uri_sanitize($indexpage['acat_pagetitle']));
         }
 
         if(!empty($indexpage['acat_name'])) {
-            return strtolower(uri_sanitize($indexpage['acat_name']));
+            return \voku\helper\UTF8::strtolower(uri_sanitize($indexpage['acat_name']));
         }
 
         return '';
@@ -1482,16 +1470,16 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
     while($start_id && isset($struct_array[$start_id]) && !isset($visited[$start_id])) {
         $visited[$start_id] = true;
         if(!empty($struct_array[$start_id]['acat_pagetitle']) && strlen($struct_array[$start_id]['acat_name']) > strlen($struct_array[$start_id]['acat_pagetitle'])) {
-            $data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_pagetitle']));
+            $data[$start_id] = \voku\helper\UTF8::strtolower(uri_sanitize($struct_array[$start_id]['acat_pagetitle']));
         } else {
-            $data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_name']));
+            $data[$start_id] = \voku\helper\UTF8::strtolower(uri_sanitize($struct_array[$start_id]['acat_name']));
         }
         $start_id = $struct_array[$start_id]["acat_struct"];
     }
     if(!empty($struct_array[$start_id]['acat_pagetitle']) && strlen($struct_array[$start_id]['acat_name']) > strlen($struct_array[$start_id]['acat_pagetitle'])) {
-        $data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_pagetitle']));
+        $data[$start_id] = \voku\helper\UTF8::strtolower(uri_sanitize($struct_array[$start_id]['acat_pagetitle']));
     } elseif(!empty($struct_array[$start_id]['acat_name'])) {
-        $data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_name']));
+        $data[$start_id] = \voku\helper\UTF8::strtolower(uri_sanitize($struct_array[$start_id]['acat_name']));
     }
 
     return implode($GLOBALS['phpwcms']['alias_allow_slash'] ? '/' : '-', array_reverse($data));

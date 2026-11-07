@@ -2020,7 +2020,21 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
     return $file_status;
 }
 
+/**
+ * Convert string to alphanumeric characters and dashes
+ *
+ * @param string $string
+ * @param bool $remove_accents
+ * @param string $replace_space
+ * @param bool $allow_slashes
+ * @return string
+ */
 function get_alnum_dashes($string, $remove_accents = false, $replace_space = '-', $allow_slashes = false) {
+    if (!is_string($string) || $string === '') {
+        return '';
+    }
+
+    $string = \voku\helper\UTF8::cleanup($string);
     $replace_chars = [' ', '?', ':', '&', '\\', ';', '#', '=', '+'];
     if (!$allow_slashes) {
         $replace_chars[] = '/';
@@ -2028,19 +2042,19 @@ function get_alnum_dashes($string, $remove_accents = false, $replace_space = '-'
     $string = str_replace($replace_chars, $replace_space, $string);
     if ($remove_accents) {
         $string = phpwcms_remove_accents($string);
-        $string = preg_replace('/[^a-z0-9\-_\.' . ($allow_slashes ? '\/' : '') . ']/i', '', $string);
+        $string = preg_replace('/[^a-z0-9\-_\.' . ($allow_slashes ? '\/' : '') . ']/i', '', (string)$string);
     } else {
-        $string = preg_replace('/[^a-z0-9\x{00A0}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFEF}\-_\.' . ($allow_slashes ? '\/' : '') . ']/iu', '', $string);
+        $string = preg_replace('/[^\p{L}\p{N}\-_\.' . ($allow_slashes ? '\/' : '') . ']/iu', '', (string)$string);
     }
 
     if ($allow_slashes) {
-        $string = preg_replace('/\/+/', '/', $string);
-        $string = preg_replace('/[\-_]*\/+[\-_]*/', '/', $string);
+        $string = preg_replace('/\/+/', '/', (string)$string);
+        $string = preg_replace('/[\-_]*\/+[\-_]*/', '/', (string)$string);
     }
-    $string = preg_replace('/\-\-+/', $replace_space, $string);
-    $string = preg_replace('/__+/', '_', $string);
+    $string = preg_replace('/\-\-+/', $replace_space, (string)$string);
+    $string = preg_replace('/__+/', '_', (string)$string);
 
-    return trim($string, '._/-' . $replace_space);
+    return trim((string)$string, '._/-' . $replace_space);
 }
 
 /**
@@ -2406,15 +2420,26 @@ function phpwcms_boolval($BOOL, $STRICT = false) {
     return (bool)$BOOL;
 }
 
-// sanitize a text for nice URL/alias or whatever
+/**
+ * Sanitize a text for nice URL/alias or slug
+ *
+ * @param string $text
+ * @param bool|int|null $allow_slash
+ * @return string
+ */
 function uri_sanitize($text, $allow_slash = PHPWCMS_ALIAS_WSLASH) {
+    if (!is_string($text) || $text === '') {
+        return '';
+    }
+
     $allow_slash = (bool)$allow_slash;
     if (str_contains($text, '%')) {
-        $text = rawurldecode($text);
+        $text = \voku\helper\UTF8::rawurldecode($text);
     }
     if (str_contains($text, '&')) {
         $text = \voku\helper\UTF8::html_entity_decode($text);
     }
+    $text = phpwcms_strip_tags($text);
     $text = \voku\helper\UTF8::cleanup($text);
     $text = str_replace(['[br]', '__', '[b]', '[/b]', '[i]', '[/i]'], ' ', $text); // cleanup special bbcode and __
     if (!$allow_slash) {
@@ -2427,9 +2452,9 @@ function uri_sanitize($text, $allow_slash = PHPWCMS_ALIAS_WSLASH) {
             $text = preg_replace('/\/+/', '/', $text);
             $text = preg_replace('/[\-_]*\/+[\-_]*/', '/', $text);
         }
-        $text = preg_replace('/\-\-+/', '-', $text);
-        $text = preg_replace('/__+/', '_', $text);
-        $text = trim($text, $allow_slash ? '-_./' : '-_.');
+        $text = preg_replace('/\-\-+/', '-', (string)$text);
+        $text = preg_replace('/__+/', '_', (string)$text);
+        $text = trim((string)$text, $allow_slash ? '-_./' : '-_.');
     }
 
     return $text;
