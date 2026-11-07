@@ -76,6 +76,27 @@ function clean_slweg($text = '', $maxlen = 0, $trim = true) {
     return $text;
 }
 
+/**
+ * UTF-8 and multibyte safe strip_tags() replacement using voku/portable-utf8
+ *
+ * @param string $string
+ * @param string|array<string>|null $allowable_tags
+ * @return string
+ */
+function phpwcms_strip_tags($string = '', $allowable_tags = null) {
+    if (!is_string($string) || $string === '') {
+        return (string)$string;
+    }
+
+    if (is_array($allowable_tags)) {
+        $allowable_tags = empty($allowable_tags) ? null : '<' . implode('><', array_map(static function($tag) {
+            return trim($tag, '<> ');
+        }, $allowable_tags)) . '>';
+    }
+
+    return \voku\helper\UTF8::strip_tags($string, $allowable_tags, true);
+}
+
 function getpostvar($formvar, $string_laenge = 0) {
     //combines trim, stripslashes und apostrophe replace
     return _dbEscape(slweg($formvar, $string_laenge), false);

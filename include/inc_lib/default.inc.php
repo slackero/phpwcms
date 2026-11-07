@@ -625,7 +625,7 @@ if (is_whitelabel()) {
     $whitelabel_comment = '    ' . html_specialchars($phpwcms['whitelabel']['brand_name']);
     $whitelabel_copyright = get_brand_copyright();
     if ($whitelabel_copyright) {
-        $whitelabel_comment .= LF . '    ' . html_entity_decode(strip_tags($whitelabel_copyright), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $whitelabel_comment .= LF . '    ' . html_entity_decode(phpwcms_strip_tags($whitelabel_copyright), ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
     $whitelabel_url = get_brand_url();
     if ($whitelabel_url) {

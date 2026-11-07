@@ -100,7 +100,7 @@ $(function() {
       <?php if(!empty($article['article_summary'])): ?>
         <div class="alert alert-light border p-2 mb-3 text-muted small">
           <strong><?php echo $BL['be_article_asummary']; ?>:</strong>
-          <?php echo html(getCleanSubString(strip_tags($article['article_summary']), 300, '&#8230;'), false); ?>
+          <?php echo html(getCleanSubString(phpwcms_strip_tags($article['article_summary']), 300, '&#8230;'), false); ?>
         </div>
       <?php endif; ?>
 

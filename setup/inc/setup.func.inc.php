@@ -76,9 +76,12 @@ function slweg($string_wo_slashes_weg, $string_laenge = 0) {
     return $string_wo_slashes_weg;
 }
 
-function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
-    $string_wo_slashes_weg = trim($string_wo_slashes_weg);
+function clean_slweg($string_wo_slashes_weg, $string_laenge = 0, $trim = true) {
+    $string_wo_slashes_weg = (string)$string_wo_slashes_weg;
     $string_wo_slashes_weg = strip_tags($string_wo_slashes_weg);
+    if ($trim) {
+        $string_wo_slashes_weg = trim($string_wo_slashes_weg);
+    }
     if ($string_laenge) {
         $string_wo_slashes_weg = substr($string_wo_slashes_weg, 0, $string_laenge);
     }

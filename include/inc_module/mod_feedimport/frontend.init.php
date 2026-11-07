@@ -121,7 +121,7 @@ if(!empty($_getVar['feedimport'])) {
                 $article_end            = now()+(3600*24*365*10);
                 $article_summary        = $rssvalue->get_description();
                 $article_content        = $rssvalue->get_content();
-                $article_description    = preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($article_summary), ENT_COMPAT, PHPWCMS_CHARSET));
+                $article_description    = preg_replace('/\s+/', ' ', html_entity_decode(phpwcms_strip_tags($article_summary), ENT_COMPAT, PHPWCMS_CHARSET));
 				list($article_description) = explode("\n", wordwrap($article_description, 250), 2);
 				list($article_description) = explode("-- ", $article_description, 2);
                 $article_description    = preg_replace('/(.*?\.).+?$/', '$1', $article_description);
@@ -139,7 +139,7 @@ if(!empty($_getVar['feedimport'])) {
 					$article_summary = $article_content;
 					$article_content = '';
 				}
-				if($article_summary && $article_summary == strip_tags($article_summary)) {
+				if($article_summary && $article_summary == phpwcms_strip_tags($article_summary)) {
 					$article_summary = plaintext_htmlencode($article_summary);
 				} elseif($article_summary && strpos($article_summary, '<') !== false) {
 					$article_summary = preg_replace(array(

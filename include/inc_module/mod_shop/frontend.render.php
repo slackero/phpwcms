@@ -1073,7 +1073,7 @@ if( $_shop_load_list !== false ) {
                 }
 
                 if($row['meta_description']) {
-                    $row['meta_description'] = trim( strip_tags( strip_bbcode($row['meta_description']) ) );
+                    $row['meta_description'] = trim( phpwcms_strip_tags( strip_bbcode($row['meta_description']) ) );
                     $row['meta_description'] = getCleanSubString($row['meta_description'], 75, '', 'word');
                     $row['meta_description_rendered'] = true;
                 } else {

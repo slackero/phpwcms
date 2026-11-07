@@ -64,4 +64,4 @@ if(!empty($_POST['customfield']) && count($_POST['customfield'])) {
 	}
 }
 
-$content['search'] = trim(strip_tags(implode(' ', $content['custom_fields'])));
+$content['search'] = trim(phpwcms_strip_tags(implode(' ', $content['custom_fields'])));

@@ -223,10 +223,13 @@ if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
 } elseif($phpwcms['output_action']) {
 
     if(empty($phpwcms['output_function_filter']) || !is_array($phpwcms['output_function_filter'])) {
-        $phpwcms['output_function_filter'] = array('trim', 'strip_tags');
+        $phpwcms['output_function_filter'] = array('trim', 'strip_tags', 'phpwcms_strip_tags');
     }
 
     $phpwcms['output_function'] = array_intersect($phpwcms['output_function_filter'], $phpwcms['output_function']);
+    $phpwcms['output_function'] = array_map(static function($fn) {
+        return $fn === 'strip_tags' ? 'phpwcms_strip_tags' : $fn;
+    }, $phpwcms['output_function']);
 
     $content = ob_get_clean();
 

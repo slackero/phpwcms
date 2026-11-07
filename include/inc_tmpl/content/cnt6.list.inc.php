@@ -25,7 +25,7 @@ if (!empty($row['acontent_subtitle'])) {
     $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
 }
 if (!empty($row['acontent_html'])) {
-    $cinfo[] = html(str_replace(["\r\n", "\r", "\n"], ' ', getCleanSubString(strip_tags($row['acontent_html']), 150, '&#8230;')));
+    $cinfo[] = html(str_replace(["\r\n", "\r", "\n"], ' ', getCleanSubString(phpwcms_strip_tags($row['acontent_html']), 150, '&#8230;')));
 }
 
 $cinfo_result = implode(' / ', $cinfo);

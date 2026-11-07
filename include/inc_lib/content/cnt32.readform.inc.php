@@ -101,7 +101,7 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 			}
 		}
 
-		$content['search'] .= strip_tags(trim($content["tabs"][$x]['tabtitle'] . ' ' . $content["tabs"][$x]['tabheadline'] . ' ' . $content["tabs"][$x]['tabtext'] . ' ' . $_cp_search)) . ' ';
+		$content['search'] .= phpwcms_strip_tags(trim($content["tabs"][$x]['tabtitle'] . ' ' . $content["tabs"][$x]['tabheadline'] . ' ' . $content["tabs"][$x]['tabtext'] . ' ' . $_cp_search)) . ' ';
 
 		$content['html'][] = '<dt>'.html_specialchars($content["tabs"][$x]['tabtitle']).'</dt>';
 		$content['html'][] = '<dd>';

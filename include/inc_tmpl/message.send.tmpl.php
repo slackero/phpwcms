@@ -56,8 +56,8 @@ if(isset($result[0]['detail_signature']) && trim($result[0]['detail_signature'])
 }
 
 if(isset($_POST['msg_send_aktion']) && intval($_POST['msg_send_aktion'])) {
-    $msg_subject    = strip_tags(slweg(trim($_POST["msg_send_subject"])));
-    $msg_message    = strip_tags(slweg($_POST["msg_send_msg"]));
+    $msg_subject    = clean_slweg($_POST["msg_send_subject"]);
+    $msg_message    = clean_slweg($_POST["msg_send_msg"]);
     $msg_to         = slweg(trim($_POST["msg_send_receiver"]));
     $msg_pid        = intval($_POST['msg_send_pid']);
 
