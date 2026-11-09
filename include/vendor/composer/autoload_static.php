@@ -52,6 +52,7 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
             'PragmaRX\\Google2FA\\' => 19,
+            'PhpOffice\\WMF\\' => 14,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
             'ParagonIE\\ConstantTime\\' => 23,
             'PHPMailer\\PHPMailer\\' => 20,
@@ -164,6 +165,10 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'PragmaRX\\Google2FA\\' =>
         array (
             0 => __DIR__ . '/..' . '/pragmarx/google2fa/src',
+        ),
+        'PhpOffice\\WMF\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/wmf/src/WMF',
         ),
         'PhpOffice\\PhpSpreadsheet\\' =>
         array (
