@@ -402,5 +402,6 @@ tinymce.addI18n("dv", {
     "ImageProxy HTTP error: Rejected request": "",
     "ImageProxy HTTP error: Could not find Image Proxy": "",
     "ImageProxy HTTP error: Incorrect Image Proxy URL": "",
-    "ImageProxy HTTP error: Unknown ImageProxy error": ""
+    "ImageProxy HTTP error: Unknown ImageProxy error": "",
+    "_dir": "rtl"
 });

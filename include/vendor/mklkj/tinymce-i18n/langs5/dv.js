@@ -226,5 +226,6 @@ tinymce.addI18n('dv',{
 "Tools": "\u0793\u07ab\u078d\u07b0\u078c\u07a6\u0787\u07b0",
 "View": "\u0788\u07a8\u0787\u07aa",
 "Table": "\u0793\u07ad\u0784\u07a6\u078d\u07b0",
-"Format": "\u078a\u07af\u0789\u07ac\u0793\u07b0"
+"Format": "\u078a\u07af\u0789\u07ac\u0793\u07b0",
+"_dir": "rtl"
 });

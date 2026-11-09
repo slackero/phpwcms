@@ -41,6 +41,7 @@ class ComposerStaticInit4b55c751baaf47512d22ca0465e5183a
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
+            'PhpOffice\\WMF\\' => 14,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
@@ -126,6 +127,10 @@ class ComposerStaticInit4b55c751baaf47512d22ca0465e5183a
         'Psr\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
+        ),
+        'PhpOffice\\WMF\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/wmf/src/WMF',
         ),
         'PhpOffice\\PhpSpreadsheet\\' =>
         array (
