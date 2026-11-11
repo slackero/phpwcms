@@ -1230,7 +1230,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         if(!$is_disallowed && !empty($_FILES[$POST_name]['tmp_name']) && is_uploaded_file($_FILES[$POST_name]['tmp_name'])) {
                             if(extension_loaded('fileinfo') && ($finfo = finfo_open(FILEINFO_MIME_TYPE))) {
                                 $upload_mime = finfo_file($finfo, $_FILES[$POST_name]['tmp_name']);
-                                finfo_close($finfo);
+                                unset($finfo);
                                 $disallowed_mimes = array(
                                     'text/x-php', 'application/x-httpd-php', 'application/x-httpd-php-source',
                                     'application/x-php', 'text/x-perl', 'text/x-python', 'text/x-shellscript',
