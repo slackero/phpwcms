@@ -213,7 +213,6 @@ if(isset($result[0]['article_title'])) {
         $item->link             = $abs_url;
         $item->description      = combinedParser( empty($data["article_summary"]) ? $data["article_subtitle"] : $data["article_summary"] , FEED_ENCODING);
         $item->date             = $data['article_created'] + $timePlus;
-        $item->updateDate       = $data['article_changeDate'] + $timePlus + 1;
         $item->source           = PHPWCMS_URL;
         $item->guid             = $abs_url;
 
@@ -266,11 +265,7 @@ function combinedParser($string, $charset='utf-8', $allowed_tags='') {
     if(!empty($string) && strtolower(PHPWCMS_CHARSET) !== strtolower($charset)) {
         // If string is already valid UTF-8, skip forced ISO->UTF-8 conversion
         if (strtolower($charset) !== 'utf-8' || !mb_check_encoding($string, 'UTF-8')) {
-            if (function_exists('mb_convert_encoding')) {
-                $string = @mb_convert_encoding($string, $charset, PHPWCMS_CHARSET);
-            } else {
-                $string = makeCharsetConversion($string, PHPWCMS_CHARSET, $charset);
-            }
+            $string = makeCharsetConversion($string, PHPWCMS_CHARSET, $charset);
         }
     }
 

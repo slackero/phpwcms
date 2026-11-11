@@ -46,9 +46,7 @@ if(empty($value)) {
 }
 
 // do charset conversions for value
-if(PHPWCMS_CHARSET !== 'utf-8') {
-    $value = mb_convert_encoding( $value, PHPWCMS_CHARSET, 'utf-8' );
-}
+$value = makeCharsetConversion($value, 'utf-8', PHPWCMS_CHARSET);
 
 $data = array();
 
@@ -61,7 +59,7 @@ switch($action) {
 
 		if(isset($result[0])) {
 			foreach($result as $row) {
-				$val = (PHPWCMS_CHARSET !== 'utf-8') ? mb_convert_encoding($row['cat_name'], 'UTF-8', PHPWCMS_CHARSET) : $row['cat_name'];
+				$val = makeCharsetConversion($row['cat_name'], PHPWCMS_CHARSET, 'UTF-8');
 				$data[] = $jquery ? array('cat_name' => $val) : $val;
 			}
 		}
@@ -75,7 +73,7 @@ switch($action) {
 
 		if(isset($result[0])) {
 			foreach($result as $row) {
-				$val = (PHPWCMS_CHARSET !== 'utf-8') ? mb_convert_encoding($row['cat_name'], 'UTF-8', PHPWCMS_CHARSET) : $row['cat_name'];
+				$val = makeCharsetConversion($row['cat_name'], PHPWCMS_CHARSET, 'UTF-8');
 				$data[] = $jquery ? array('cat_name' => $val) : $val;
 			}
 		}
@@ -114,7 +112,7 @@ switch($action) {
 
     if(isset($result[0])) {
       foreach($result as $key => $row) {
-        $title = (PHPWCMS_CHARSET !== 'utf-8') ? mb_convert_encoding($row['article_title'], 'UTF-8', PHPWCMS_CHARSET) : $row['article_title'];
+        $title = makeCharsetConversion($row['article_title'], PHPWCMS_CHARSET, 'UTF-8');
         $data[] = array('article_title' => $title);
       }
     }

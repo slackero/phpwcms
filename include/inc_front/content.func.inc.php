@@ -1732,11 +1732,11 @@ if (!$phpwcms['cookie_consent']) {
     elseif (!empty($block['cookie_consent']['enable'])) {
         $block['cookie_consent']['options'] = [];
         if (!empty($block['cookie_consent']['message'])) {
-            $block['cookie_consent']['options']['message'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['message'] : mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
+            $block['cookie_consent']['options']['message'] = makeCharsetConversion($block['cookie_consent']['message'], PHPWCMS_CHARSET, 'utf-8');
             $block['cookie_consent']['options']['message'] = i18n_substitute_text($block['cookie_consent']['options']['message']);
         }
         if (!empty($block['cookie_consent']['dismiss'])) {
-            $block['cookie_consent']['options']['dismiss'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['dismiss'] : mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
+            $block['cookie_consent']['options']['dismiss'] = makeCharsetConversion($block['cookie_consent']['dismiss'], PHPWCMS_CHARSET, 'utf-8');
             $block['cookie_consent']['options']['dismiss'] = i18n_substitute_text($block['cookie_consent']['options']['dismiss']);
         }
         if (!empty($block['cookie_consent']['link'])) {
@@ -1748,7 +1748,7 @@ if (!$phpwcms['cookie_consent']) {
             }
 
             if (!empty($block['cookie_consent']['more'])) {
-                $block['cookie_consent']['options']['learnMore'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['more'] : mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
+                $block['cookie_consent']['options']['learnMore'] = makeCharsetConversion($block['cookie_consent']['more'], PHPWCMS_CHARSET, 'utf-8');
                 $block['cookie_consent']['options']['learnMore'] = i18n_substitute_text($block['cookie_consent']['options']['learnMore']);
             }
         }

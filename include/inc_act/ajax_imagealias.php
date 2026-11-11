@@ -31,11 +31,7 @@ $file_id    = isset($_GET['file_id']) ? intval($_GET['file_id']) : '';
 $value    = $_POST['value'] ?? 'json';
 
 // do charset conversions for value
-if(PHPWCMS_CHARSET !== 'utf-8') {
-    if(function_exists('mb_convert_encoding')) {
-        $value = mb_convert_encoding( $value, PHPWCMS_CHARSET, 'utf-8' );
-    }
-}
+$value = makeCharsetConversion($value, 'utf-8', PHPWCMS_CHARSET);
 
 if($file_id && !$file_alias) {
     $sql = 'SELECT * FROM '.DB_PREPEND.'file WHERE f_id='.$file_id.' AND f_trash=0 AND f_kid=1 LIMIT 1;';

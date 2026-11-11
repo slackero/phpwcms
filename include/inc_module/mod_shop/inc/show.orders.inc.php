@@ -430,7 +430,7 @@ if (!defined('PHPWCMS_ROOT')) {
     <pre class="pre-scrollable mb-0 p-3"><?php
             // only a slight fix
             if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_customer'], '�') !== false) {
-                $plugin['data']['order_data']['mail_customer'] = mb_convert_encoding($plugin['data']['order_data']['mail_customer'], PHPWCMS_CHARSET, 'utf-8');
+                $plugin['data']['order_data']['mail_customer'] = makeCharsetConversion($plugin['data']['order_data']['mail_customer'], 'utf-8', PHPWCMS_CHARSET);
             }
 
             echo html($plugin['data']['order_data']['mail_customer']);
@@ -445,7 +445,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <pre class="pre-scrollable mb-0 p-3"><?php
             // only a slight fix
             if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_self'], '�') !== false) {
-                $plugin['data']['order_data']['mail_self'] = mb_convert_encoding($plugin['data']['order_data']['mail_self'], PHPWCMS_CHARSET, 'utf-8');
+                $plugin['data']['order_data']['mail_self'] = makeCharsetConversion($plugin['data']['order_data']['mail_self'], 'utf-8', PHPWCMS_CHARSET);
             }
             echo html($plugin['data']['order_data']['mail_self']);
             ?>

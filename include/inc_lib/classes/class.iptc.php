@@ -465,7 +465,7 @@ class IPTC {
 			// most of the time if there is no 1:90 tag, it is either ascii, latin1, or utf-8
 			$oldData = $data;
 			//UtfNormal\Validator::quickIsNFCVerify( $data ); // make $data valid utf-8
-			$data = phpwcms_seems_utf8($data) ? $data : mb_convert_encoding($data, 'UTF-8');
+			$data = phpwcms_seems_utf8($data) ? $data : makeCharsetConversion($data, 'Windows-1252', 'UTF-8');
 
 			if ( $data === $oldData ) {
 				return $data; // if validation didn't change $data

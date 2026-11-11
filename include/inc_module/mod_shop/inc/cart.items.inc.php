@@ -181,13 +181,8 @@ if($subtotal['shipping_calc_type'] === 2) {
 
         if($subtotal['shop_zone_base']) {
             // http://maps.googleapis.com/maps/api/directions/json?origin=Dessau&destination=Berlin&sensor=false
-            if(PHPWCMS_CHARSET !== 'utf-8') {
-                $_base_address = mb_convert_encoding($subtotal['shop_zone_base'], 'utf-8', PHPWCMS_CHARSET);
-                $_delivery_address = mb_convert_encoding($_SESSION[CART_KEY]['delivery_address'], 'utf-8', PHPWCMS_CHARSET);
-            } else {
-                $_base_address = $subtotal['shop_zone_base'];
-                $_delivery_address = $_SESSION[CART_KEY]['delivery_address'];
-            }
+            $_base_address = makeCharsetConversion($subtotal['shop_zone_base'], PHPWCMS_CHARSET, 'utf-8');
+            $_delivery_address = makeCharsetConversion($_SESSION[CART_KEY]['delivery_address'], PHPWCMS_CHARSET, 'utf-8');
 
             $_query = sprintf(
                 'http://maps.googleapis.com/maps/api/directions/json?origin=%s&destination=%s&sensor=false',
@@ -215,12 +210,12 @@ if($subtotal['shipping_calc_type'] === 2) {
                             foreach($_response->results[0]->address_components as $_component) {
                                 if(isset($_component->types[0])) {
                                     if($_component->types[0] === 'locality') {
-                                        $_SESSION[CART_KEY]['distance_details']['city'] = PHPWCMS_CHARSET == 'utf-8' ? $_component->long_name : mb_convert_encoding($_component->long_name, PHPWCMS_CHARSET, 'utf-8');
+                                        $_SESSION[CART_KEY]['distance_details']['city'] = makeCharsetConversion($_component->long_name, 'utf-8', PHPWCMS_CHARSET);
                                     } elseif($_component->types[0] === 'country') {
-                                        $_SESSION[CART_KEY]['distance_details']['country'] = PHPWCMS_CHARSET == 'utf-8' ? $_component->long_name : mb_convert_encoding($_component->long_name, PHPWCMS_CHARSET, 'utf-8');
+                                        $_SESSION[CART_KEY]['distance_details']['country'] = makeCharsetConversion($_component->long_name, 'utf-8', PHPWCMS_CHARSET);
                                         $_SESSION[CART_KEY]['distance_details']['country_code'] = strtolower($_component->short_name);
                                     } elseif($_component->types[0] === 'postal_code') {
-                                        $_SESSION[CART_KEY]['distance_details']['postcode'] = PHPWCMS_CHARSET == 'utf-8' ? $_component->long_name : mb_convert_encoding($_component->long_name, PHPWCMS_CHARSET, 'utf-8');
+                                        $_SESSION[CART_KEY]['distance_details']['postcode'] = makeCharsetConversion($_component->long_name, 'utf-8', PHPWCMS_CHARSET);
                                     }
                                 }
                             }

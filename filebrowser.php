@@ -520,9 +520,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         echo implode(LF . ' ', $js_files_all);
         echo LF . ' //if(closewin == true) '."parent.$('#browserModal').modal('hide');";
         $confirm = str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']);
-        if(PHPWCMS_CHARSET !== 'utf-8') {
-            $confirm = mb_convert_encoding($confirm, PHPWCMS_CHARSET);
-        }
+        $confirm = makeCharsetConversion($confirm, 'utf-8', PHPWCMS_CHARSET);
         echo LF . ' bsConfirmInfo(' . json_encode($confirm, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT) . ', function() { parent.$(\'#browserModal\').modal(\'hide\'); });';
         echo LF . '}' . LF;
 

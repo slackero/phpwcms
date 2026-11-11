@@ -1498,7 +1498,7 @@ function correct_charset($text='', $js=false) {
 
     $text = decode_entities($text);
     if(PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($text)) {
-        $text = mb_convert_encoding($text, PHPWCMS_CHARSET);
+        $text = makeCharsetConversion($text, 'utf-8', PHPWCMS_CHARSET);
     }
     if($js) {
         $text = js_singlequote($text);

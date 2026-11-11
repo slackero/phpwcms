@@ -80,7 +80,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
     if($_tmpl['source']) {
 
         if(PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($_tmpl['source'])) {
-            $_tmpl['source'] = mb_convert_encoding($_tmpl['source'], PHPWCMS_CHARSET, 'utf-8');
+            $_tmpl['source'] = makeCharsetConversion($_tmpl['source'], 'utf-8', PHPWCMS_CHARSET);
         }
 
         $_tmpl['config'] = parse_ini_str(get_tmpl_section('CONFIG', $_tmpl['source']), false);

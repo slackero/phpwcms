@@ -447,7 +447,7 @@ if ($content['cp_setting_mode']):
                 const ctab_number = document.getElementById('ctab_number');
 
                 if(ctab.selectedIndex > 0 && ctab_title.value === '' && ctab_number.value === '') {
-                    bsConfirmWarning('<?php echo js_singlequote(PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : mb_convert_encoding($BL['confirm_cp_tab_warning'], PHPWCMS_CHARSET)) ?>', function() {
+                    bsConfirmWarning('<?php echo js_singlequote(makeCharsetConversion($BL['confirm_cp_tab_warning'], 'utf-8', PHPWCMS_CHARSET)) ?>', function() {
                         form.submit();
                     });
                     return false;

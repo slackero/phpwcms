@@ -72,7 +72,7 @@ function load_system_email_defaults(?string $lang = 'en'): array {
             if (defined('PHPWCMS_CHARSET') && PHPWCMS_CHARSET !== 'utf-8') {
                 array_walk_recursive($data, function (&$val) {
                     if (is_string($val)) {
-                        $val = mb_convert_encoding($val, PHPWCMS_CHARSET, 'UTF-8');
+                        $val = makeCharsetConversion($val, 'UTF-8', PHPWCMS_CHARSET);
                     }
                 });
             }

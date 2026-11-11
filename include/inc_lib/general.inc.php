@@ -1011,14 +1011,14 @@ function sendEmail($data = [
         // convert body and subject so mail clients never see mixed encodings
         if (PHPWCMS_CHARSET !== 'utf-8') {
             $mail->CharSet = 'UTF-8';
-            if (!mb_check_encoding($data['html'], 'UTF-8')) {
-                $data['html'] = mb_convert_encoding($data['html'], 'UTF-8', PHPWCMS_CHARSET);
+            if (!phpwcms_seems_utf8($data['html'])) {
+                $data['html'] = makeCharsetConversion($data['html'], PHPWCMS_CHARSET, 'UTF-8');
             }
-            if (!mb_check_encoding($data['text'], 'UTF-8')) {
-                $data['text'] = mb_convert_encoding($data['text'], 'UTF-8', PHPWCMS_CHARSET);
+            if (!phpwcms_seems_utf8($data['text'])) {
+                $data['text'] = makeCharsetConversion($data['text'], PHPWCMS_CHARSET, 'UTF-8');
             }
-            if (!mb_check_encoding($subject, 'UTF-8')) {
-                $subject = mb_convert_encoding($subject, 'UTF-8', PHPWCMS_CHARSET);
+            if (!phpwcms_seems_utf8($subject)) {
+                $subject = makeCharsetConversion($subject, PHPWCMS_CHARSET, 'UTF-8');
             }
         }
         $mail->isHTML($data['isHTML']);

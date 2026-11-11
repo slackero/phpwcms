@@ -32,13 +32,8 @@ $article_id = isset($_REQUEST['article_id']) ? intval($_REQUEST['article_id']) :
 $acat_id = isset($_REQUEST['acat_id']) ? intval($_REQUEST['acat_id']) : '';
 $acattemplate = isset($_REQUEST['template']) ? intval($_REQUEST['template']) : '0';
 
-if (PHPWCMS_CHARSET === 'utf-8') {
-    $article_description = isset($_REQUEST['article_description']) ? clean_slweg($_REQUEST["article_description"], 255) : '';
-    $acat_pagetitle = isset($_REQUEST['acat_pagetitle']) ? clean_slweg($_REQUEST["acat_pagetitle"], 255) : '';
-} else {
-    $article_description = isset($_REQUEST['article_description']) ? clean_slweg(mb_convert_encoding($_REQUEST["article_description"], PHPWCMS_CHARSET), 255) : '';
-    $acat_pagetitle = isset($_REQUEST['acat_pagetitle']) ? clean_slweg(mb_convert_encoding($_REQUEST["acat_pagetitle"], PHPWCMS_CHARSET), 255) : '';
-}
+$article_description = isset($_REQUEST['article_description']) ? clean_slweg(makeCharsetConversion($_REQUEST["article_description"], 'utf-8', PHPWCMS_CHARSET), 255) : '';
+$acat_pagetitle = isset($_REQUEST['acat_pagetitle']) ? clean_slweg(makeCharsetConversion($_REQUEST["acat_pagetitle"], 'utf-8', PHPWCMS_CHARSET), 255) : '';
 
 if($action === 'form' && $article_id) {
     $content['current_article'] = _dbGet('article', '*', 'article_id='._dbEscape($article_id), '', '', 1);
