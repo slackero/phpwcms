@@ -163,8 +163,7 @@ if ($img_file !== '' && is_readable($img_file) && $img_info = getimagesize($img_
                 break;
         }
 
-        imagedestroy($new_img);
-        imagedestroy($img_source); // @phpstan-ignore-line
+        unset($new_img, $img_source);
     }
 }
 
@@ -175,5 +174,5 @@ if (!$result) {
     $text_color = imagecolorallocate($new_img, 255, 255, 255);
     imagestring($new_img, 1, 5, 5, 'Image Error', $text_color);
     imagepng($new_img, NULL, 9);
-    imagedestroy($new_img);
+    unset($new_img);
 }

@@ -584,9 +584,8 @@ class Phpwcms_Image_lib
         {
             return false;
         }
-        // Kill the file handles
-        imagedestroy($dst_img);
-        imagedestroy($src_img);
+        // Free image memory; GdImage objects are released automatically since PHP 8.0
+        unset($dst_img, $src_img);
         // Set the file to 777
         @chmod($this->full_dst_path, 0666);
         return true;
@@ -990,9 +989,8 @@ class Phpwcms_Image_lib
         {
             return false;
         }
-        // Kill the file handles
-        imagedestroy($dst_img);
-        imagedestroy($src_img);
+        // Free image memory; GdImage objects are released automatically since PHP 8.0
+        unset($dst_img, $src_img);
         // Set the file to 666
         @chmod($this->full_dst_path, 0666);
         return true;
@@ -1049,8 +1047,8 @@ class Phpwcms_Image_lib
         {
             return false;
         }
-        // Kill the file handles
-        imagedestroy($src_img);
+        // Free image memory; GdImage objects are released automatically since PHP 8.0
+        unset($src_img);
         // Set the file to 666
         @chmod($this->full_dst_path, 0666);
         return true;
@@ -1159,8 +1157,7 @@ class Phpwcms_Image_lib
         {
             return false;
         }
-        imagedestroy($src_img);
-        imagedestroy($wm_img);
+        unset($src_img, $wm_img);
         return true;
     }
 
@@ -1272,7 +1269,7 @@ class Phpwcms_Image_lib
         } else {
             $this->image_save_gd($src_img);
         }
-        imagedestroy($src_img);
+        unset($src_img);
         return true;
     }
 

@@ -3128,18 +3128,6 @@ parameters:
 			path: ../include/inc_lib/helper.image.php
 
 		-
-			message: '#^Parameter \#1 \$image of function imagedestroy expects GdImage, resource given\.$#'
-			identifier: argument.type
-			count: 4
-			path: ../include/inc_lib/helper.image.php
-
-		-
-			message: '#^Parameter \#1 \$image of function imagedestroy expects GdImage, resource\|false given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../include/inc_lib/helper.image.php
-
-		-
 			message: '#^Parameter \#1 \$image of function imagegif expects GdImage, resource given\.$#'
 			identifier: argument.type
 			count: 1
