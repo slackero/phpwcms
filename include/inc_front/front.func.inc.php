@@ -4559,6 +4559,10 @@ function parse_markdown(string $text) {
     if ($text === '') {
         return '';
     }
+    // CommonMark requires UTF-8 input
+    if (PHPWCMS_CHARSET !== 'utf-8' && !phpwcms_seems_utf8($text)) {
+        $text = makeCharsetConversion($text, PHPWCMS_CHARSET, 'utf-8');
+    }
     init_markdown();
     $html = (string) $GLOBALS['phpwcms']['commonmark_class']->convert($text);
     if (PHPWCMS_CHARSET !== 'utf-8') {
