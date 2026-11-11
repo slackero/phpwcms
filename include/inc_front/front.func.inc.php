@@ -697,6 +697,11 @@ function get_actcat_articles_data($act_cat_id) {
 function setArticleSummaryImageData($img) {
     // used to set correct list image values based on given data
 
+    // normalize to array, false is passed for articles without image data
+    if(!is_array($img)) {
+        $img = array();
+    }
+
     //first check if list_image data is set - will not for all old articles
     if(!isset($img['list_usesummary'])) {
         $img['list_usesummary'] = 1;
@@ -3701,7 +3706,9 @@ function _checkFrontendUserAutoLogin() {
         unset($_SESSION[ session_id() ]);
         setcookie('phpwcmsFeLoginRemember', '', time()-3600, '/',  getCookieDomain(), PHPWCMS_SSL, true);
     }
-    define('FEUSER_LOGIN_STATUS', _getFeUserLoginStatus() );
+    if (!defined('FEUSER_LOGIN_STATUS')) {
+        define('FEUSER_LOGIN_STATUS', _getFeUserLoginStatus() );
+    }
 }
 
 function _getStructureLevelDisplayStatus($level_ID, $current_ID) {

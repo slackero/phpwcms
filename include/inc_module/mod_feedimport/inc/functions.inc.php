@@ -67,7 +67,7 @@ function is_feed_available($url, $timeout = 30) {
 
 	$retval = curl_getinfo($ch, CURLINFO_HTTP_CODE); // check if HTTP OK
 
-	curl_close($ch); // close handle
+	unset($ch); // close handle
 
 	return $retval == 200; // true | false
 }

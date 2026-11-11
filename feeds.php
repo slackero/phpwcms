@@ -212,7 +212,6 @@ if(isset($result[0]['article_title'])) {
         $item->link             = $abs_url;
         $item->description      = combinedParser( empty($data["article_summary"]) ? $data["article_subtitle"] : $data["article_summary"] , FEED_ENCODING);
         $item->date             = $data['article_created'] + $timePlus;
-        $item->updateDate       = $data['article_changeDate'] + $timePlus + 1;
         $item->source           = PHPWCMS_URL;
         $item->guid             = $abs_url;
 

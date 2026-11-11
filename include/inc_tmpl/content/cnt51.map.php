@@ -75,7 +75,7 @@ if ( $img_info ) {
             }
         }
     }
-    imagedestroy( $img_point );
+    unset( $img_point );
 }
 
 header( "Expires: Mon, 26 Jul 1997 05:00:00 GMT" );
@@ -101,7 +101,7 @@ if ( $do ) {
             break;
     }
 
-    imagedestroy( $img_source );
+    unset( $img_source );
 } else {
     // error / no image
     header( 'Content-type: image/png' );
@@ -109,7 +109,7 @@ if ( $do ) {
     $text_color = imagecolorallocate( $new_img, 255, 255, 255 );
     imagestring( $new_img, 1, 5, 5, "Image Error", $text_color );
     imagepng( $new_img, null, 9 );
-    imagedestroy( $new_img );
+    unset( $new_img );
 }
 
 function hex2rgb( $hex ) {
