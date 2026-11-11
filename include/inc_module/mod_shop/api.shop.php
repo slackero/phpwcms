@@ -35,17 +35,6 @@ function get_shop_option_value_config() {
     );
 }
 
-// define a charset helper here
-if(PHPWCMS_CHARSET !== 'utf-8') {
-    function _convert_charset($string) {
-        return mb_convert_encoding($string, 'utf-8', PHPWCMS_CHARSET);
-    }
-} else {
-    function _convert_charset($string) {
-        return $string;
-    }
-}
-
 // Get API Key and check if API access is enabled
 $shop_api_access    = _getConfig('shop_pref_api_access');
 $shop_api_key       = _getConfig('shop_pref_api_key');
@@ -104,24 +93,24 @@ if($shop_api_access) {
             $row_data = array(
 
                 'id'            => md5($row["order_id"].$row['order_number']),
-                'number'        => _convert_charset($row['order_number']),
+                'number'        => makeCharsetConversion($row['order_number'], PHPWCMS_CHARSET, 'utf-8'),
                 'date'          => $row['order_date'],
-                'lang'          => empty($row['order_data']['lang']) ? '' : _convert_charset($row['order_data']['lang']),
-                'email'         => _convert_charset($row['order_email']),
-                'salutation'    => _convert_charset($row['order_data']['address']['INV_SALUTATION']),
-                'title'         => _convert_charset($row['order_data']['address']['INV_TITLE']),
-                'firstname'     => _convert_charset($row['order_firstname']),
-                'name'          => _convert_charset($row['order_name']),
-                'company'       => _convert_charset($row['order_data']['address']['INV_COMPANY']),
-                'address'       => _convert_charset($row['order_data']['address']['INV_ADDRESS']),
-                'address2'      => _convert_charset($row['order_data']['address']['INV_ADDRESS2']),
-                'postcode'      => _convert_charset($row['order_data']['address']['INV_ZIP']),
-                'city'          => _convert_charset($row['order_data']['address']['INV_CITY']),
-                'region'        => _convert_charset($row['order_data']['address']['INV_REGION']),
-                'country'       => _convert_charset($row['order_data']['address']['INV_COUNTRY']),
-                'phone'         => _convert_charset($row['order_data']['address']['PHONE']),
+                'lang'          => empty($row['order_data']['lang']) ? '' : makeCharsetConversion($row['order_data']['lang'], PHPWCMS_CHARSET, 'utf-8'),
+                'email'         => makeCharsetConversion($row['order_email'], PHPWCMS_CHARSET, 'utf-8'),
+                'salutation'    => makeCharsetConversion($row['order_data']['address']['INV_SALUTATION'], PHPWCMS_CHARSET, 'utf-8'),
+                'title'         => makeCharsetConversion($row['order_data']['address']['INV_TITLE'], PHPWCMS_CHARSET, 'utf-8'),
+                'firstname'     => makeCharsetConversion($row['order_firstname'], PHPWCMS_CHARSET, 'utf-8'),
+                'name'          => makeCharsetConversion($row['order_name'], PHPWCMS_CHARSET, 'utf-8'),
+                'company'       => makeCharsetConversion($row['order_data']['address']['INV_COMPANY'], PHPWCMS_CHARSET, 'utf-8'),
+                'address'       => makeCharsetConversion($row['order_data']['address']['INV_ADDRESS'], PHPWCMS_CHARSET, 'utf-8'),
+                'address2'      => makeCharsetConversion($row['order_data']['address']['INV_ADDRESS2'], PHPWCMS_CHARSET, 'utf-8'),
+                'postcode'      => makeCharsetConversion($row['order_data']['address']['INV_ZIP'], PHPWCMS_CHARSET, 'utf-8'),
+                'city'          => makeCharsetConversion($row['order_data']['address']['INV_CITY'], PHPWCMS_CHARSET, 'utf-8'),
+                'region'        => makeCharsetConversion($row['order_data']['address']['INV_REGION'], PHPWCMS_CHARSET, 'utf-8'),
+                'country'       => makeCharsetConversion($row['order_data']['address']['INV_COUNTRY'], PHPWCMS_CHARSET, 'utf-8'),
+                'phone'         => makeCharsetConversion($row['order_data']['address']['PHONE'], PHPWCMS_CHARSET, 'utf-8'),
                 'custom_fields' => null,
-                'payment'       => _convert_charset(strtolower($row['order_payment'])),
+                'payment'       => makeCharsetConversion(strtolower($row['order_payment']), PHPWCMS_CHARSET, 'utf-8'),
                 'total'         => array(
                     'total_net'     => floatval($row['order_net']),
                     'total_vat'     => floatval($row['order_gross']) - floatval($row['order_net']),
@@ -141,7 +130,7 @@ if($shop_api_access) {
             }
             if(isset($row_data['distance']['label'])) {
                 foreach($row_data['distance'] as $key => $value) {
-                    $row_data['distance'][$key] = _convert_charset($row_data['distance'][$key]);
+                    $row_data['distance'][$key] = makeCharsetConversion($row_data['distance'][$key], PHPWCMS_CHARSET, 'utf-8');
                 }
                 $row_data['shipping']['shipping_zone'] = $row_data['distance']['label'];
             }
@@ -176,7 +165,7 @@ if($shop_api_access) {
             if(count($row['order_data']['address'])) {
                 $row_data['custom_fields'] = array();
                 foreach($row['order_data']['address'] as $field => $value) {
-                    $row_data['custom_fields'][$field] = is_string($value) ? _convert_charset($value) : $value;
+                    $row_data['custom_fields'][$field] = is_string($value) ? makeCharsetConversion($value, PHPWCMS_CHARSET, 'utf-8') : $value;
                 }
             }
 
@@ -189,7 +178,7 @@ if($shop_api_access) {
                     'ordernum_basis' => '',
                     'ordernum_opt1' => '',
                     'ordernum_opt2' => '',
-                    'title' => _convert_charset($item['shopprod_name1']),
+                    'title' => makeCharsetConversion($item['shopprod_name1'], PHPWCMS_CHARSET, 'utf-8'),
                     'quantity' => 0,
                     'option1' => '',
                     'option2' => '',
@@ -255,7 +244,7 @@ if($shop_api_access) {
                                 } else {
                                     $value_opt1_float = $_cart_opt_1[$key][1];
                                 }
-                                $position['option1'] = _convert_charset($_cart_opt_1[$key]['option']);
+                                $position['option1'] = makeCharsetConversion($_cart_opt_1[$key]['option'], PHPWCMS_CHARSET, 'utf-8');
                                 $position['ordernum_opt1'] = $_cart_opt_1[$key][2];
                             }
 
@@ -266,7 +255,7 @@ if($shop_api_access) {
                                 } else {
                                     $value_opt2_float = $_cart_opt_2[$key][1];
                                 }
-                                $position['option2'] = _convert_charset($_cart_opt_2[$key]['option']);
+                                $position['option2'] = makeCharsetConversion($_cart_opt_2[$key]['option'], PHPWCMS_CHARSET, 'utf-8');
                                 $position['ordernum_opt2'] = $_cart_opt_2[$key][2];
                             }
 
