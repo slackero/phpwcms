@@ -51,9 +51,9 @@ function get_random_image_tag($path) {
 
 	if(count($imgArray) && ($imageinfo = is_random_image($imgArray, $imgpath))) {
 		if($tag) {
-			return '<img src="' . $path . '/'. urlencode($imageinfo['imagename']) . '" ' . $imageinfo[3] . ' alt="' . html($imageinfo["imagename"]) . '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+			return '<img src="' . $path . '/'. rawurlencode($imageinfo['imagename']) . '" ' . $imageinfo[3] . ' alt="' . html($imageinfo["imagename"]) . '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 		} else {
-			return PHPWCMS_URL . $path . '/' . urlencode($imageinfo['imagename']);
+			return PHPWCMS_URL . $path . '/' . rawurlencode($imageinfo['imagename']);
 		}
 	}
 
@@ -68,50 +68,56 @@ function is_random_image($imgArray, $imagepath, $count=0) {
 	$imageinfo = @getimagesize($file);
 	//if $imageinfo is not true repeat function and count smaller count all images
 	if(!$imageinfo && $count < count($imgArray)) {
-		$imageinfo = is_random_image($imgArray, $imagepath, $count);
-	} else {
-		$imageinfo["imagename"] = $imgArray[ $randval ];
+		return is_random_image($imgArray, $imagepath, $count);
 	}
+	if(!$imageinfo) {
+		return false;
+	}
+	$imageinfo["imagename"] = $imgArray[ $randval ];
 	return $imageinfo;
 }
 
 function html_parser_deprecated($string='') {
 
-	$search			= array();
-	$replace		= array();
-
 	// random GIF Image
-	$search[0]		= '/\{RANDOM_GIF:(.*?)\}/';
-	$replace[0]		= '<img src="img/random_image.php?type=0&amp;imgdir=$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	$string = preg_replace_callback('/\{RANDOM_GIF:(.*?)\}/', function ($matches) {
+		return '<img src="img/random_image.php?type=0&amp;imgdir=' . html($matches[1]) . '" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	}, $string);
 
 	// random JPEG Image
-	$search[1]		= '/\{RANDOM_JPEG:(.*?)\}/';
-	$replace[1]		= '<img src="img/random_image.php?type=1&amp;imgdir=$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	$string = preg_replace_callback('/\{RANDOM_JPEG:(.*?)\}/', function ($matches) {
+		return '<img src="img/random_image.php?type=1&amp;imgdir=' . html($matches[1]) . '" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	}, $string);
 
 	// random PNG Image
-	$search[2]		= '/\{RANDOM_PNG:(.*?)\}/';
-	$replace[2]		= '<img src="img/random_image.php?type=2&amp;imgdir=$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	$string = preg_replace_callback('/\{RANDOM_PNG:(.*?)\}/', function ($matches) {
+		return '<img src="img/random_image.php?type=2&amp;imgdir=' . html($matches[1]) . '" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	}, $string);
 
 	// insert non db image standard
-	$search[3]		= '/\{IMAGE:(.*?)\}/';
-	$replace[3]		= '<img src="picture/$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	$string = preg_replace_callback('/\{IMAGE:(.*?)\}/', function ($matches) {
+		return '<img src="picture/' . html($matches[1]) . '" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	}, $string);
 
 	// insert non db image left
-	$search[4]		= '/\{IMAGE_LEFT:(.*?)\}/';
-	$replace[4]		= '<img src="picture/$1" align="left" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	$string = preg_replace_callback('/\{IMAGE_LEFT:(.*?)\}/', function ($matches) {
+		return '<img src="picture/' . html($matches[1]) . '" align="left" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	}, $string);
 
 	// insert non db image right
-	$search[5]		= '/\{IMAGE_RIGHT:(.*?)\}/';
-	$replace[5]		= '<img src="picture/$1" align="right" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	$string = preg_replace_callback('/\{IMAGE_RIGHT:(.*?)\}/', function ($matches) {
+		return '<img src="picture/' . html($matches[1]) . '" align="right" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+	}, $string);
 
 	// insert non db image center
-	$search[6]		= '/\{IMAGE_CENTER:(.*?)\}/';
-	$replace[6]		= '<div style="text-align:center;"><img src="picture/$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE . '</div>';
+	$string = preg_replace_callback('/\{IMAGE_CENTER:(.*?)\}/', function ($matches) {
+		return '<div style="text-align:center;"><img src="picture/' . html($matches[1]) . '" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE . '</div>';
+	}, $string);
 
 	// random Image Tag
-	$string			= preg_replace_callback('/\{RANDOM:(.*?)\}/', 'get_random_image_tag', $string);
+	$string = preg_replace_callback('/\{RANDOM:(.*?)\}/', 'get_random_image_tag', $string);
 
-	return preg_replace($search, $replace, $string);
+	return $string;
 
 }
 
@@ -123,7 +129,7 @@ function nav_table_simple_struct($struct, $act_cat_id, $link_to="index.php") {
 	$nav_table .= "<td width=\"10\"><img src=\"img/leer.gif\" width=\"10\" height=\"1\" alt=\"\" /></td>\n";
 	$nav_table .= '<td width="100%"'.(empty($struct[$act_cat_id]["acat_class"]) ? '' : ' class="'.$struct[$act_cat_id]["acat_class"].'"').'><strong>';
 	$nav_table .= html_specialchars($struct[$act_cat_id]["acat_name"]);
-	$nav_table .= "</strong></td>\n<tr>";
+	$nav_table .= "</strong></td>\n</tr>";
 	foreach($struct as $key => $value) {
 
 		if($key != $act_cat_id && _getStructureLevelDisplayStatus($key, $act_cat_id) ) {
@@ -133,7 +139,7 @@ function nav_table_simple_struct($struct, $act_cat_id, $link_to="index.php") {
 			$nav_table .= '<td width="100%"'.(empty($struct[$key]["acat_class"]) ? '' : ' class="'.$struct[$key]["acat_class"].'"').'>';
 
 			if(!$struct[$key]["acat_redirect"]) {
-				$nav_table .= '<a href="index.php?';
+				$nav_table .= '<a href="' . $link_to . '?';
 				if($struct[$key]["acat_alias"]) {
 					$nav_table .= html_specialchars($struct[$key]["acat_alias"]);
 				} else {
@@ -145,10 +151,10 @@ function nav_table_simple_struct($struct, $act_cat_id, $link_to="index.php") {
 				$nav_table .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
 			}
 
-			$nav_table .= html_specialchars($struct[$key]["acat_name"])."</a></td>\n<tr>";
+			$nav_table .= html_specialchars($struct[$key]["acat_name"])."</a></td>\n</tr>";
 		}
 	}
-	$nav_table .= '</table>';
+	$nav_table .= "\n</table>";
 	return $nav_table;
 }
 
@@ -163,7 +169,7 @@ function nav_table_struct ($struct, $act_cat_id, $level, $nav_table_struct, $lin
 	// return the tree starting with given start_id (like breadcrumb)
 	// if the $start_id = 0 then this stops because 0 = top level
 
-	$level 			= intval($level);
+	$level 			= (int)$level;
 	$start_id 		= $act_cat_id;
 	$data 			= array();
 	$c 				= 0;
@@ -265,7 +271,7 @@ function nav_level_row($show_id, $show_home=1) {
 	if(strtoupper($show_id) == 'CURRENT') {
 		$act_cat_id = $GLOBALS['content']["cat_id"];
 	} else {
-		$act_cat_id = intval($show_id);
+		$act_cat_id = (int)$show_id;
 	}
 
 	$nav = '';
@@ -344,7 +350,7 @@ function nav_level_row($show_id, $show_home=1) {
 }
 
 function nav_list_struct_callback($matches) {
-	return nav_list_struct($GLOBALS['content']["struct"], $GLOBALS['content']["cat_id"], $matches[1], $matches[2]);
+	return nav_list_struct($GLOBALS['content']["struct"], $GLOBALS['content']["cat_id"], $matches[1], $matches[2] ?? '');
 }
 
 function nav_list_struct($struct, $act_cat_id, $level, $class='') {
@@ -354,7 +360,7 @@ function nav_list_struct($struct, $act_cat_id, $level, $class='') {
 	// return the tree starting with given start_id (like breadcrumb)
 	// if the $start_id = 0 then this stops because 0 = top level
 
-	$level		= intval($level);
+	$level		= (int)$level;
 	$data		= array();
 	$start_id 	= $act_cat_id;
 	$class 		= trim($class);
@@ -379,7 +385,7 @@ function css_level_list_top_callback($matches) {
 	return css_level_list($GLOBALS['content']["struct"], $GLOBALS['content']["cat_path"], 0, $matches[1], 1, $matches[2]);
 }
 
-function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $parent_level=1, $class='') {
+function css_level_list($struct, $struct_path, $level, $parent_level_name='', $parent_level=1, $class='') {
 	// returns list <div><ul><li></li></ul></div> of the current structure level
 	// if $parent_level=1 the first list entry will be the parent level
 	// $parent_level=0 - only the list of all levels in this structure
@@ -389,8 +395,8 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 		$class = 'list_level';
 	}
 	$parent_level_name	= trim($parent_level_name);
-	$level 				= intval($level);
-	$parent_level 		= intval($parent_level);
+	$level 				= (int)$level;
+	$parent_level 		= (int)$parent_level;
 	$activated			= 0;
 	$css_list			= '';
 
@@ -435,7 +441,7 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 			$link = $redirect['link'];
 		}
 
-		$css_list_home  = '	<li class="' . trim( ($GLOBALS['aktion'][0] == $level ? 'active' : 'parent') . ' ' . $struct[$level]["acat_class"] ) .'">';
+		$css_list_home  = '	<li class="' . trim( (!empty($GLOBALS['aktion'][0]) && $GLOBALS['aktion'][0] == $level ? 'active' : 'parent') . ' ' . $struct[$level]["acat_class"] ) .'">';
 		$css_list_home .= '<a href="'.$link.'"'.$redirect['target'].'>';
 		$css_list_home .= html_specialchars((!$parent_level_name) ? $struct[$level]["acat_name"] : $parent_level_name);
 		$css_list_home .= '</a></li>'.LF;

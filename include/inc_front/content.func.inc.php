@@ -1036,7 +1036,7 @@ if($phpwcms['enable_deprecated']) {
         $content['all'] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content['struct'], $content['cat_path'], $content['cat_id']), $content['all']);
 
         // list based navigation starting at given level
-        $content['all'] = preg_replace_callback('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/', 'nav_list_struct_callback', $content['all']);
+        $content['all'] = preg_replace_callback('/\{NAV_LIST:(\d+)(?::(.*?))?\}/', 'nav_list_struct_callback', $content['all']);
 
         // List based navigation with Top Level - default settings
         // creates a list styled top nav menu, + optional Home | {NAV_LIST_TOP:home_name:class_name} | default class name = list_top
