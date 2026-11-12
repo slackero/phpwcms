@@ -39,6 +39,8 @@ if (empty($_SESSION['wcs_user_lang'])) {
 
 checkLogin();
 
+$indexpage = get_indexpage_data();
+
 if (isset($_GET['open'])) {
     $parts = explode(':', $_GET['open']);
     $open_id = intval($parts[0] ?? 0);
@@ -240,7 +242,7 @@ function articlebrowser_struct_list($id, $counter = 0, $js = '', $js_aktion = 0)
     $counter++;
     $sql = 'SELECT t1.*, t2.template_default, t2.template_name, t2.template_trash FROM ' . DB_PREPEND . 'articlecat t1 ';
     $sql .= 'LEFT JOIN ' . DB_PREPEND . 'template t2 ON t1.acat_template=t2.template_id ';
-    $sql .= 'WHERE acat_trash=0 AND acat_struct=' . intval($id) . ' ORDER BY acat_sort';
+    $sql .= 'WHERE acat_trash=0 AND acat_struct=' . intval($id) . ' AND acat_id!=0 ORDER BY acat_sort';
     $result = _dbQuery($sql);
 
     if (isset($result[0]['acat_struct'])) {
@@ -322,7 +324,7 @@ function get_root_childcount($id) {
     // get amount of active child levels
     $id = intval($id);
 
-    $p1_count = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'articlecat WHERE acat_trash=0 AND acat_struct=' . $id, 'COUNT');
+    $p1_count = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'articlecat WHERE acat_trash=0 AND acat_struct=' . $id . ' AND acat_id!=0', 'COUNT');
     $p2_count = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'article WHERE article_deleted=0 AND article_cid=' . $id, 'COUNT');
 
     return $p1_count + $p2_count;

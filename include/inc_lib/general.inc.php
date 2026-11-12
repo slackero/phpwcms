@@ -2656,3 +2656,168 @@ function get_locale_canonical($lang_iso = '') {
     return (strlen($lang_iso) === 2) ? $lang_iso . '_' . strtoupper($lang_iso) : str_replace('-', '_', $lang_iso);
 }
 
+/**
+ * Return the site index page settings (category ID 0).
+ *
+ * The index page is stored as a regular row with acat_id=0 in the
+ * articlecat table. include/config/conf.indexpage.inc.php is kept as
+ * fallback for installs not migrated yet and as readable mirror written
+ * on every backend save.
+ *
+ * @return array
+ */
+function get_indexpage_data() {
+
+    static $indexpage_data = null;
+
+    if ($indexpage_data !== null) {
+        return $indexpage_data;
+    }
+
+    $indexpage_data = isset($GLOBALS['indexpage']) && is_array($GLOBALS['indexpage'])
+        ? $GLOBALS['indexpage']
+        : array();
+
+    $row = _dbQuery('SELECT * FROM ' . DB_PREPEND . 'articlecat WHERE acat_id=0 LIMIT 1');
+
+    if (isset($row[0]['acat_id'])) {
+
+        $row = $row[0];
+
+        $fields = array(
+            'acat_name', 'acat_title', 'acat_info', 'acat_alias', 'acat_aktiv', 'acat_template',
+            'acat_hidden', 'acat_ssl', 'acat_regonly', 'acat_topcount', 'acat_maxlist', 'acat_redirect',
+            'acat_order', 'acat_nosearch', 'acat_nositemap', 'acat_permit', 'acat_cntpart',
+            'acat_pagetitle', 'acat_paginate', 'acat_overwrite', 'acat_archive', 'acat_class',
+            'acat_keywords', 'acat_cpdefault', 'acat_disable301', 'acat_opengraph', 'acat_canonical',
+            'acat_breadcrumb', 'acat_onepage'
+        );
+
+        foreach ($fields as $field) {
+            if (array_key_exists($field, $row)) {
+                $indexpage_data[$field] = $row[$field];
+            }
+        }
+
+        // the database column is named acat_cache
+        $indexpage_data['acat_timeout'] = $row['acat_cache'];
+    }
+
+    return $indexpage_data;
+}
+
+/**
+ * Check that the index page row (articlecat.acat_id=0) exists.
+ *
+ * @return bool
+ */
+function indexpage_row_exists() {
+
+    try {
+        $row = _dbQuery('SELECT acat_id FROM ' . DB_PREPEND . 'articlecat WHERE acat_id=0 LIMIT 1');
+    } catch (Throwable $e) {
+        return false;
+    }
+
+    return isset($row[0]['acat_id']);
+}
+
+/**
+ * Store the index page row (articlecat.acat_id=0).
+ *
+ * MySQL rewrites an explicit 0 on an AUTO_INCREMENT column into a new
+ * AUTO_INCREMENT value unless NO_AUTO_VALUE_ON_ZERO is active for that
+ * statement, and it does so silently. The mode is enabled here for the
+ * write and restored afterwards. The insert alone can "succeed" while
+ * writing under a different ID, so the row is re-read before returning.
+ *
+ * Callers pass raw values; escaping happens here. Array values have to be
+ * joined before (acat_permit, acat_cntpart). `acat_id` is ignored.
+ *
+ * @param array $values Column => raw value
+ * @return bool
+ */
+function set_indexpage_data(array $values) {
+
+    $escaped = array();
+    $update  = array();
+
+    foreach ($values as $column => $value) {
+        if ($column === 'acat_id' || !preg_match('/^[a-z0-9_]+$/i', $column)) {
+            continue;
+        }
+        if (!is_scalar($value) && $value !== null) {
+            return false;
+        }
+        $escaped[$column] = _dbEscape($value);
+        $update[] = '`' . $column . '`=' . $escaped[$column];
+    }
+
+    if (empty($escaped)) {
+        return false;
+    }
+
+    $sql  = 'INSERT INTO ' . DB_PREPEND . 'articlecat (`acat_id`, `' . implode('`, `', array_keys($escaped)) . '`) ';
+    $sql .= 'VALUES (0, ' . implode(', ', $escaped) . ') ';
+    $sql .= 'ON DUPLICATE KEY UPDATE ' . implode(', ', $update);
+
+    $sql_mode    = '';
+    $mode_set    = false;
+    $result      = false;
+
+    try {
+        $row      = _dbQuery('SELECT @@SESSION.sql_mode AS sql_mode');
+        $sql_mode = $row[0]['sql_mode'] ?? '';
+
+        // comma-fenced check: an empty sql_mode must not produce a leading
+        // comma and an already active mode must not be appended twice
+        if ($sql_mode === '') {
+            $sql_mode_extended = 'NO_AUTO_VALUE_ON_ZERO';
+        } elseif (str_contains(',' . $sql_mode . ',', ',NO_AUTO_VALUE_ON_ZERO,')) {
+            $sql_mode_extended = $sql_mode;
+        } else {
+            $sql_mode_extended = $sql_mode . ',NO_AUTO_VALUE_ON_ZERO';
+        }
+
+        if (!_dbQuery('SET SESSION sql_mode=' . _dbEscape($sql_mode_extended), 'SET')) {
+            return false;
+        }
+        $mode_set = true;
+
+        $result = _dbQuery($sql, 'ON_DUPLICATE');
+    } catch (Throwable $e) {
+        $result = false;
+    } finally {
+        // mysqli throws on SQL errors since PHP 8.1, the mode must be restored
+        // even then, otherwise it leaks into the next request on db_pers
+        if ($mode_set) {
+            try {
+                _dbQuery('SET SESSION sql_mode=' . _dbEscape($sql_mode), 'SET');
+            } catch (Throwable $e) {
+                // connection is gone, nothing left to restore
+            }
+        }
+    }
+
+    if (!is_array($result)) {
+        return false;
+    }
+
+    if (indexpage_row_exists()) {
+        return true;
+    }
+
+    // MySQL rewrote the explicit 0 to a new AUTO_INCREMENT value: drop the
+    // category row it created instead of leaving an orphan behind
+    $insert_id = (int)($result['INSERT_ID'] ?? 0);
+    if ($insert_id > 0) {
+        try {
+            _dbQuery('DELETE FROM ' . DB_PREPEND . 'articlecat WHERE acat_id=' . $insert_id, 'DELETE');
+        } catch (Throwable $e) {
+            // cleanup only, the caller still reports the failed write
+        }
+    }
+
+    return false;
+}
+

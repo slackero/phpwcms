@@ -1,8 +1,11 @@
 <?php
+// Fallback only: once the articlecat row with acat_id=0 exists, it is the
+// source of truth and this file is just a readable mirror, rewritten on every
+// index page save in the backend. Hand edits here are ignored then.
 $indexpage['acat_name'] = 'Home';
 $indexpage['acat_title'] = '';
 $indexpage['acat_info'] = '';
-$indexpage['acat_alias'] = 'index/home/home';
+$indexpage['acat_alias'] = 'index';
 $indexpage['acat_aktiv'] = 1;
 $indexpage['acat_template'] = 2;
 $indexpage['acat_hidden'] = 0;

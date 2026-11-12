@@ -424,7 +424,7 @@ function get_struct_data($root_name='', $root_info='') {
         return $data;
     }
 
-    global $indexpage;
+    $indexpage = get_indexpage_data();
     $data = array();
 
     $data[0] = array(
@@ -464,7 +464,9 @@ function get_struct_data($root_name='', $root_info='') {
         // for 0 AND 1
         $sql .= "acat_aktiv=1 AND ";
     }
-    $sql .= "acat_trash=0 ORDER BY acat_struct, acat_sort";
+    // the index page row (acat_id=0) is taken from get_indexpage_data() above,
+    // the raw row must not overwrite its normalized array
+    $sql .= "acat_trash=0 AND acat_id!=0 ORDER BY acat_struct, acat_sort";
 
     $result = _dbQuery($sql);
 

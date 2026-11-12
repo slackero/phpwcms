@@ -87,12 +87,18 @@ if(has_admin_permission('artstruc')) { // Only for admin users
     $acat_onepage = empty($_POST["acat_onepage"]) ? 0 : 1;
 
     if(isset($_POST["acat_id"]) && $_POST["acat_id"] === 'index') {
+        // computed once, used for the config mirror and the database row
+        $acat_index_alias = proof_alias($_POST["acat_id"], $_POST["acat_alias"] ?? '');
+
         // write index page config to flat file
         $sql  = "<?php\n";
+        $sql .= "// Fallback only: once the articlecat row with acat_id=0 exists, it is the\n";
+        $sql .= "// source of truth and this file is just a readable mirror. Hand edits here\n";
+        $sql .= "// are ignored then.\n";
         $sql .= "\$indexpage['acat_name'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_name"], 2000))."';\n";
         $sql .= "\$indexpage['acat_title'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_title"], 2000))."';\n";
         $sql .= "\$indexpage['acat_info'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_info"], 32000))."';\n";
-        $sql .= "\$indexpage['acat_alias'] = '". proof_alias($_POST["acat_id"], $_POST["acat_alias"])."';\n";
+        $sql .= "\$indexpage['acat_alias'] = '". $acat_index_alias."';\n";
         $sql .= "\$indexpage['acat_aktiv'] = ". (isset($_POST["acat_aktiv"]) ? 1 : 0).";\n";
         $sql .= "\$indexpage['acat_template'] = ". intval($_POST["acat_template"]).";\n";
         $sql .= "\$indexpage['acat_hidden'] = ". $acat_hidden.";\n";
@@ -122,7 +128,68 @@ if(has_admin_permission('artstruc')) { // Only for admin users
         $sql .= "\$indexpage['acat_breadcrumb'] = ". $acat_breadcrumb .";\n";
         $sql .= "\$indexpage['acat_onepage'] = ". $acat_onepage .";\n";
 
-        write_textfile(PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php', $sql);
+        // The index page is a regular article category with ID 0. Keep that
+        // row in sync; the config file above is only a readable mirror.
+        // set_indexpage_data() handles the AUTO_INCREMENT pitfall.
+        $index_values = array(
+            'acat_name'         => clean_slweg($_POST['acat_name'] ?? '', 2000),
+            'acat_title'        => clean_slweg($_POST['acat_title'] ?? '', 2000),
+            'acat_info'         => clean_slweg($_POST['acat_info'] ?? '', 32000),
+            'acat_alias'        => $acat_index_alias,
+            'acat_aktiv'        => isset($_POST['acat_aktiv']) ? 1 : 0,
+            'acat_template'     => (int)($_POST['acat_template'] ?? 0),
+            'acat_hidden'       => $acat_hidden,
+            'acat_ssl'          => isset($_POST['acat_ssl']) ? 1 : 0,
+            'acat_regonly'      => isset($_POST['acat_regonly']) ? 1 : 0,
+            'acat_topcount'     => (int)($_POST['acat_topcount'] ?? 0),
+            'acat_maxlist'      => (int)($_POST['acat_maxlist'] ?? 0),
+            'acat_redirect'     => clean_slweg($_POST['acat_redirect'] ?? ''),
+            'acat_order'        => set_correct_ordersort(),
+            'acat_cache'        => $cache_timeout,
+            'acat_nosearch'     => isset($_POST['acat_nosearch']) && (int)$_POST['acat_nosearch'] ? '1' : '',
+            'acat_nositemap'    => isset($_POST['acat_nositemap']) ? 1 : 0,
+            'acat_permit'       => $acat_permit,
+            'acat_cntpart'      => $acat_cntpart,
+            'acat_pagetitle'    => clean_slweg($_POST['acat_pagetitle'] ?? ''),
+            'acat_paginate'     => isset($_POST['acat_paginate']) ? 1 : 0,
+            'acat_overwrite'    => clean_slweg($_POST['acat_overwrite'] ?? ''),
+            'acat_archive'      => empty($_POST['acat_archive']) ? 0 : 1,
+            'acat_class'        => $acat_class,
+            'acat_keywords'     => $acat_keywords,
+            'acat_cpdefault'    => (int)($_POST['acat_cpdefault'] ?? 0),
+            'acat_disable301'   => empty($_POST['acat_disable301']) ? 0 : 1,
+            'acat_opengraph'    => empty($_POST['acat_opengraph']) ? 0 : 1,
+            'acat_canonical'    => clean_slweg($_POST['acat_canonical'] ?? '', 2000),
+            'acat_breadcrumb'   => $acat_breadcrumb,
+            'acat_onepage'      => $acat_onepage,
+            'acat_struct'       => 0,
+            'acat_sort'         => 0,
+            'acat_uid'          => (int)$_SESSION['wcs_user_id'],
+            'acat_trash'        => 0,
+        );
+
+        $index_status = set_indexpage_data($index_values);
+
+        // The database row is the source of truth, the config file is the
+        // fallback. Write it when the row was stored, and also when there is
+        // no row at all - then the file is what the site actually reads and
+        // the change must not get lost. With an existing row but a failed
+        // write the file is ignored anyway, so it is not touched.
+        // $sql still holds the generated config source.
+        $config_status = ($index_status || !indexpage_row_exists())
+            ? write_textfile(PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php', $sql)
+            : false;
+
+        // Distinguish a failed save from a failed mirror write: with the row
+        // stored the change is live, only the readable copy is missing.
+        if (!$index_status) {
+            set_status_message($GLOBALS['BL']['be_error_while_save'] ?? 'Storing data failed.', 'error');
+        } elseif (!$config_status) {
+            set_status_message(
+                'The index page was saved, but the fallback file include/config/conf.indexpage.inc.php could not be written.',
+                'warning'
+            );
+        }
     }
 
     $acat_sort_fallback = isset($_POST["acat_sort"]) ? intval(trim($_POST["acat_sort"])) : 0;

@@ -24,6 +24,7 @@ require_once PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_front/ext.func.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_front/cnt.lang.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
+$indexpage = get_indexpage_data();
 require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
 
 $feeds_formats  = array('0.91', 'RSS0.91', '1.0', 'RSS1.0', '2.0', 'RSS2.0', 'ATOM', 'ATOM1.0', 'ATOM0.3');

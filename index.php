@@ -68,6 +68,7 @@ $content['page_end'] = '';
 require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+$indexpage = get_indexpage_data();
 require_once PHPWCMS_ROOT.'/include/inc_front/cnt.lang.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php';

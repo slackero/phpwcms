@@ -305,7 +305,7 @@ if (isset($step)) {
 
                                 //mysqli_query($db, 'SET storage_engine=MYISAM');
                                 try {
-                                    mysqli_query($db, 'SET SQL_MODE=NO_ENGINE_SUBSTITUTION');
+                                    mysqli_query($db, 'SET SQL_MODE=NO_ENGINE_SUBSTITUTION,NO_AUTO_VALUE_ON_ZERO');
                                 } catch (Throwable $e) {}
 
                                 try {

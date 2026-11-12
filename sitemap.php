@@ -39,6 +39,7 @@ const VISIBLE_MODE = 0;
 require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT . '/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
+$indexpage = get_indexpage_data();
 require_once PHPWCMS_ROOT . '/include/inc_front/front.func.inc.php';
 
 // start XML
