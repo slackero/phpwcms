@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '39ee3f8002a5e04d36cafe43542debb2380a793e',
+        'reference' => '2abdc35ef20a4b2dddc9d4881d81bcee96c6fdf8',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '39ee3f8002a5e04d36cafe43542debb2380a793e',
+            'reference' => '2abdc35ef20a4b2dddc9d4881d81bcee96c6fdf8',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -110,9 +110,9 @@
             'dev_requirement' => false,
         ),
         'guzzlehttp/psr7' => array(
-            'pretty_version' => '2.13.2',
-            'version' => '2.13.2.0',
-            'reference' => 'adee536f95101929f262b8c59e8a61472f347d58',
+            'pretty_version' => '2.13.3',
+            'version' => '2.13.3.0',
+            'reference' => '6d3cd8285a97eaa352956a4ada92fa03ecce1c4e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../guzzlehttp/psr7',
             'aliases' => array(),
@@ -202,9 +202,9 @@
             'dev_requirement' => false,
         ),
         'netcarver/textile' => array(
-            'pretty_version' => 'v4.1.7',
-            'version' => '4.1.7.0',
-            'reference' => 'a231b33457acd00e8607c9d32be3ba28a11d4a56',
+            'pretty_version' => 'v4.1.8',
+            'version' => '4.1.8.0',
+            'reference' => '01b0882dfce73966632363397b555b2720c07f15',
             'type' => 'library',
             'install_path' => __DIR__ . '/../netcarver/textile',
             'aliases' => array(),
@@ -375,7 +375,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'a09945ae024a4cb2be97d080558455b979e3f743',
+            'reference' => '9fb1049dda127f1732cac541e68f8e490db77825',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(
@@ -386,7 +386,7 @@
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '9a648760e4c2472c30281d02f9c7a6ffa840bfe7',
+            'reference' => '631a17f873fb915cb002f3baeaad2401532e5b59',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplepie/simplepie',
             'aliases' => array(
@@ -458,9 +458,9 @@
             'dev_requirement' => false,
         ),
         'tinymce/tinymce' => array(
-            'pretty_version' => '8.10.1',
-            'version' => '8.10.1.0',
-            'reference' => '2389164632e1b6e23cc8a9322fc16776d6985192',
+            'pretty_version' => '8.10.2',
+            'version' => '8.10.2.0',
+            'reference' => '62d608aac401d450ab586dbd946bf0caead3434f',
             'type' => 'component',
             'install_path' => __DIR__ . '/../tinymce/tinymce',
             'aliases' => array(),
