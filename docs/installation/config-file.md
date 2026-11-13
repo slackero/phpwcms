@@ -113,6 +113,8 @@ See [SEO settings](../administration/seo-settings.md) for rendering details.
 | `php_charset` | bool | `false` | `true` sets PHP's default charset to `charset`. |
 | `i18n_parse` | bool | `1` | Parse browser-language `@@Text@@` translation markers. |
 | `i18n_complex` | bool | `0` | `0` matches the easy two-char language form, `1` the `en-gb` form. |
+| `i18n_lang_file_max_size` | int | `1048576` | Maximum size in bytes of a generated `template/template_lang/<lang>.php` file. New tokens are rendered but no longer appended once the file exceeds it. `0` removes the limit. |
+| `i18n_token_max_length` | int | `1024` | Maximum character length of a single `@@Text@@` token. Longer tokens render as plain text and are not written to the language file. `0` removes the limit. |
 | `php_timezone` | string | `''` | Override the PHP date default time zone. |
 
 ## Rendering and output

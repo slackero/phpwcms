@@ -112,6 +112,8 @@ $phpwcms['enable_messages']      = 0; // enable or disable internal messages, by
 $phpwcms['enable_seolog']        = 1; // enable or disable logging of search engine referrer data
 $phpwcms['i18n_parse']           = 1; // enable|disable browser based language parser - all @@Text@@ will be parsed and checked for translation/var based replacement
 $phpwcms['i18n_complex']         = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars "en"), true - "en-gb"...
+$phpwcms['i18n_lang_file_max_size'] = 1048576; // max size in bytes of a generated template_lang language file, 0 = unlimited
+$phpwcms['i18n_token_max_length'] = 1024; // max character length of a single @@Text@@ translation token, 0 = unlimited
 $phpwcms['FCK_FileBrowser']      = 1; // enable|disable phpwcms Filebrowser in FCKeditor instead of built-in FCK file bowser support
 $phpwcms['feuser_regkey']        = 'FEUSER';
 $phpwcms['login.php']             = 'login.php';

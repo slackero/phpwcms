@@ -104,7 +104,7 @@ Search result highlighting works with the markers `<!--SEARCH_HIGHLIGHT_START//-
 | `[PRINT_PDF]…[/PRINT_PDF]` | PDF link, `print=2`, class `link-print-pdf`; needs `wkhtmltopdf_path` configured. |
 | `[BACK]…[/BACK]` | `history.back()` link, class `link-back`; content is the link text. |
 | `[LANG:xx]…[/LANG:xx]` | Language split markup, kept for the active frontend language with `lang_parse` enabled; the legacy `[xx]…[/xx]` form works as well. |
-| `@@Text@@` | i18n substitution, applied when `i18n_parse` is enabled. |
+| `@@Text@@` | i18n substitution, applied when `i18n_parse` is enabled; tokens are stored per frontend language in `template/template_lang/`. |
 | `[HTML]…[/HTML]` | Inner text through `html_entities()`. |
 | `[HTML_SPECIAL]…[/HTML_SPECIAL]` | Inner text through `html()`. |
 | `[IF_CAT:id,id]…[/IF_CAT]` | Keeps inner content when the current level ID matches; `{IF_CAT_ID}` prints the matched ID. |
@@ -114,6 +114,8 @@ Search result highlighting works with the markers `<!--SEARCH_HIGHLIGHT_START//-
 | `{RSSIMG}` | RSS icon, see [RSS](09-rss.md). |
 | `{PHPWCMS_RESIZE_IMAGE}` | Image resize path, see [site tags](02-site.md). |
 | `{GT:style}text{/GT}` | Deprecated: wraps text in `<span class="gt-style">`; renders only with `gt_mod` enabled. |
+
+> **Note:** Since 2.0, an `@@Text@@` token above `i18n_token_max_length` characters or containing control characters renders as plain text and is not written to the language file. A language file above `i18n_lang_file_max_size` stops receiving new entries. Both settings are documented in the [config file](../../installation/config-file.md).
 
 ## Not present in 2.x
 
