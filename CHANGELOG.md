@@ -3,6 +3,26 @@
 All notable changes to the phpwcms legacy line (PHP 7.4 and older installations) are documented in this file.
 New features land on the v1.10-dev branch instead.
 
+## [1.9.52] - 2026-11-13
+
+### Security
+- **PHP Injection via Translation Tokens:** `i18n_substitute_text_token()` escaped apostrophes but not a preceding backslash, so an article editor could close the generated PHP string in `template/template_lang/` and execute code when the file was included. Entries are now written with `var_export()`, tokens containing control characters or more than 1024 characters are rejected, and generated language files stop growing above 1 MiB. Both limits are configurable through `i18n_token_max_length` and `i18n_lang_file_max_size`. See GHSA-xw8p-7592-hg99.
+
+### Added
+- **Native WebP Support:** WebP files can be uploaded, processed and used like JPEG or PNG; the image extension integrity checks cover the new format.
+
+### Changed
+- **Setup Config Writer:** `write_conf_file()` emits string values with `var_export()` instead of wrapping hand-escaped text in quotes; the local `escape_quote()` helper is gone.
+- **IPTC Charset Handling:** The first IPTC conversion only tested validity and discarded its result; the data is now checked with `phpwcms_seems_utf8()` and converted once.
+
+### Fixed
+- **Legacy IPTC Charset:** IPTC data without a 1:90 tag is decoded as Windows-1252 through `makeCharsetConversion()` instead of the deprecated `utf8_encode()`.
+- **PHP 8.5 Deprecations:** `imagedestroy()`, `finfo_close()` and `curl_close()` calls are replaced with `unset()`; `FEUSER_LOGIN_STATUS` is guarded against redeclaration; non-array article image data is normalized; the unused dynamic `FeedItem::$updateDate` write is removed.
+- **Forms and Replacers:** A custom form anchor is no longer ignored when no jump target is set, `parse_markdown()` passes UTF-8 to CommonMark, and captured `{IMAGE*}` / `{RANDOM_*}` values are escaped.
+
+### Dependency Updates
+- **Dependency Refresh:** `phpmailer/phpmailer` 7.1.1 -> 7.2.0, `phpoffice/phpspreadsheet` 1.30.7 -> 1.30.8, `netcarver/textile` 4.1.6 -> 4.1.9, plus the current `simplepie/simplepie` snapshot. Constraints state the installed versions as caret ranges.
+
 ## [1.9.51] - 2026-11-01
 
 ### Fixed
