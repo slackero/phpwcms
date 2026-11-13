@@ -278,16 +278,48 @@ function is_mimetype_by_extension($ext) {
 }
 
 /**
- * Content-Disposition for a file extension: types that can execute scripts
- * when rendered by the browser (SVG, HTML, XML, JS) are always delivered
- * as attachment to prevent stored XSS through uploaded files.
+ * Extensions that are safe to render inside the browser: raster images,
+ * PDF, plain text/CSV, audio and video. Everything else (SVG, HTML, XML,
+ * JS, Office documents, archives, executables) is downloaded.
+ */
+function is_inline_file_extension($ext='') {
+	$ext = strtolower((string)$ext);
+	return in_array($ext, array(
+		'jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'bmp', 'ico',
+		'pdf', 'txt', 'csv',
+		'mp3', 'm4a', 'wav', 'oga', 'ogg', 'flac',
+		'mp4', 'm4v', 'mov', 'webm', 'ogv', 'ogm'
+	), true);
+}
+
+/**
+ * Content-Disposition for a file extension. Uses an allowlist so uploaded
+ * files cannot be rendered inline when their type is attacker controlled.
  */
 function dl_file_disposition($ext='') {
-	$ext = strtolower((string)$ext);
-	if(in_array($ext, array('svg', 'svgz', 'html', 'htm', 'xhtml', 'xml', 'js', 'mjs'))) {
-		return 'attachment';
+	return is_inline_file_extension($ext) ? 'inline' : 'attachment';
+}
+
+/**
+ * True when a MIME type cannot execute scripts and is safe for inline
+ * rendering. SVG and all XML based types are excluded explicitly.
+ */
+function is_inline_mimetype($mimetype='') {
+	$mimetype = strtolower(trim(strtok((string)$mimetype, ';')));
+	if($mimetype === '') {
+		return false;
 	}
-	return 'inline';
+	if(in_array($mimetype, array(
+		'image/svg+xml', 'text/html', 'application/xhtml+xml',
+		'text/xml', 'application/xml', 'text/javascript',
+		'application/javascript', 'application/ecmascript', 'text/ecmascript'
+	), true)) {
+		return false;
+	}
+	if(str_starts_with($mimetype, 'image/') || str_starts_with($mimetype, 'audio/') || str_starts_with($mimetype, 'video/')) {
+		return true;
+	}
+	return in_array($mimetype, array('application/pdf', 'text/plain', 'text/csv'), true);
 }
 
 /**
