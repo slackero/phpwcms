@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '2abdc35ef20a4b2dddc9d4881d81bcee96c6fdf8',
+        'reference' => '6ca8c479e61929914eec8b8d39e2144824f62607',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '2abdc35ef20a4b2dddc9d4881d81bcee96c6fdf8',
+            'reference' => '6ca8c479e61929914eec8b8d39e2144824f62607',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -202,9 +202,9 @@
             'dev_requirement' => false,
         ),
         'netcarver/textile' => array(
-            'pretty_version' => 'v4.1.8',
-            'version' => '4.1.8.0',
-            'reference' => '01b0882dfce73966632363397b555b2720c07f15',
+            'pretty_version' => 'v4.1.9',
+            'version' => '4.1.9.0',
+            'reference' => '6e23a83d26e7b238066b446f882db880e9193b94',
             'type' => 'library',
             'install_path' => __DIR__ . '/../netcarver/textile',
             'aliases' => array(),
@@ -375,7 +375,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '9fb1049dda127f1732cac541e68f8e490db77825',
+            'reference' => 'a874c13980f04137c4adbcf86ae2cf1e7a74edb1',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(

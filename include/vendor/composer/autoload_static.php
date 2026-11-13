@@ -23,20 +23,20 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
     );
 
     public static $prefixLengthsPsr4 = array (
-        'v' =>
+        'v' => 
         array (
             'voku\\helper\\' => 12,
             'voku\\' => 5,
         ),
-        'e' =>
+        'e' => 
         array (
             'enshrined\\svgSanitize\\' => 22,
         ),
-        'Z' =>
+        'Z' => 
         array (
             'ZipStream\\' => 10,
         ),
-        'S' =>
+        'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -45,7 +45,7 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
             'Symfony\\Polyfill\\Iconv\\' => 23,
             'SimplePie\\' => 10,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Http\\Message\\' => 17,
@@ -57,214 +57,214 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
             'ParagonIE\\ConstantTime\\' => 23,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
-        'N' =>
+        'N' => 
         array (
             'Nette\\' => 6,
             'Netcarver\\Textile\\' => 18,
         ),
-        'M' =>
+        'M' => 
         array (
             'Matrix\\' => 7,
         ),
-        'L' =>
+        'L' => 
         array (
             'League\\OAuth2\\Client\\' => 21,
             'League\\Config\\' => 14,
             'League\\CommonMark\\' => 18,
         ),
-        'H' =>
+        'H' => 
         array (
             'Html2Text\\' => 10,
         ),
-        'G' =>
+        'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
             'Greew\\OAuth2\\Client\\Provider\\' => 29,
         ),
-        'D' =>
+        'D' => 
         array (
             'Dflydev\\DotAccessData\\' => 22,
             'DASPRiD\\Enum\\' => 13,
         ),
-        'C' =>
+        'C' => 
         array (
             'Composer\\Pcre\\' => 14,
             'Complex\\' => 8,
         ),
-        'B' =>
+        'B' => 
         array (
             'BaconQrCode\\' => 12,
         ),
-        'A' =>
+        'A' => 
         array (
             'Algo26\\IdnaConvert\\' => 19,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'voku\\helper\\' =>
+        'voku\\helper\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/anti-xss/src/voku/helper',
         ),
-        'voku\\' =>
+        'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-utf8/src/voku',
             1 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
         ),
-        'enshrined\\svgSanitize\\' =>
+        'enshrined\\svgSanitize\\' => 
         array (
             0 => __DIR__ . '/..' . '/enshrined/svg-sanitize/src',
         ),
-        'ZipStream\\' =>
+        'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
-        'Symfony\\Polyfill\\Php80\\' =>
+        'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' =>
+        'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Intl\\Normalizer\\' =>
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
-        'Symfony\\Polyfill\\Intl\\Grapheme\\' =>
+        'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
         ),
-        'Symfony\\Polyfill\\Iconv\\' =>
+        'Symfony\\Polyfill\\Iconv\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-iconv',
         ),
-        'SimplePie\\' =>
+        'SimplePie\\' => 
         array (
             0 => __DIR__ . '/..' . '/simplepie/simplepie/src',
         ),
-        'Psr\\SimpleCache\\' =>
+        'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
-        'Psr\\Http\\Message\\' =>
+        'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
             1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' =>
+        'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Psr\\EventDispatcher\\' =>
+        'Psr\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
         ),
-        'PragmaRX\\Google2FA\\' =>
+        'PragmaRX\\Google2FA\\' => 
         array (
             0 => __DIR__ . '/..' . '/pragmarx/google2fa/src',
         ),
-        'PhpOffice\\WMF\\' =>
+        'PhpOffice\\WMF\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/wmf/src/WMF',
         ),
-        'PhpOffice\\PhpSpreadsheet\\' =>
+        'PhpOffice\\PhpSpreadsheet\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
-        'ParagonIE\\ConstantTime\\' =>
+        'ParagonIE\\ConstantTime\\' => 
         array (
             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
         ),
-        'PHPMailer\\PHPMailer\\' =>
+        'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'Nette\\' =>
+        'Nette\\' => 
         array (
             0 => __DIR__ . '/..' . '/nette/schema/src',
             1 => __DIR__ . '/..' . '/nette/utils/src',
         ),
-        'Netcarver\\Textile\\' =>
+        'Netcarver\\Textile\\' => 
         array (
             0 => __DIR__ . '/..' . '/netcarver/textile/src/Netcarver/Textile',
         ),
-        'Matrix\\' =>
+        'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
         ),
-        'League\\OAuth2\\Client\\' =>
+        'League\\OAuth2\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/oauth2-google/src',
             1 => __DIR__ . '/..' . '/league/oauth2-client/src',
         ),
-        'League\\Config\\' =>
+        'League\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/config/src',
         ),
-        'League\\CommonMark\\' =>
+        'League\\CommonMark\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/commonmark/src',
         ),
-        'Html2Text\\' =>
+        'Html2Text\\' => 
         array (
             0 => __DIR__ . '/..' . '/html2text/html2text/src',
         ),
-        'GuzzleHttp\\Psr7\\' =>
+        'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' =>
+        'GuzzleHttp\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' =>
+        'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Greew\\OAuth2\\Client\\Provider\\' =>
+        'Greew\\OAuth2\\Client\\Provider\\' => 
         array (
             0 => __DIR__ . '/..' . '/greew/oauth2-azure-provider/src/Provider',
         ),
-        'Dflydev\\DotAccessData\\' =>
+        'Dflydev\\DotAccessData\\' => 
         array (
             0 => __DIR__ . '/..' . '/dflydev/dot-access-data/src',
         ),
-        'DASPRiD\\Enum\\' =>
+        'DASPRiD\\Enum\\' => 
         array (
             0 => __DIR__ . '/..' . '/dasprid/enum/src',
         ),
-        'Composer\\Pcre\\' =>
+        'Composer\\Pcre\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/pcre/src',
         ),
-        'Complex\\' =>
+        'Complex\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
-        'BaconQrCode\\' =>
+        'BaconQrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
-        'Algo26\\IdnaConvert\\' =>
+        'Algo26\\IdnaConvert\\' => 
         array (
             0 => __DIR__ . '/..' . '/algo26-matthias/idna-convert/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'S' =>
+        'S' => 
         array (
-            'SimplePie' =>
+            'SimplePie' => 
             array (
                 0 => __DIR__ . '/..' . '/simplepie/simplepie/library',
             ),
         ),
-        'H' =>
+        'H' => 
         array (
-            'HTMLPurifier' =>
+            'HTMLPurifier' => 
             array (
                 0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
             ),
