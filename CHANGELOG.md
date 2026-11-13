@@ -4,15 +4,6 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Fixed
-- **Skipped Revisions on Upgrade:** `phpwcms_revision_check()` only executed the newest available revision file and relied on every revision calling its predecessor, so an upgrade could silently skip pending revisions — an upgrade from the legacy 1.9.50 release skipped the r554 date conversion and left all articles hidden behind the `0000-00-00` end date. It now iterates every revision up to the target revision, and the checked markers are persisted in `phpwcms_sysvalue`, so a cleaned `content/tmp/` folder no longer loses upgrade state. Fixes #389.
-- **Obsolete `sysvalue_tstamp` Column and Bad Behavior Table:** `r554` no longer aborts when an optional module table such as `phpwcms_ads_campaign` does not exist; missing tables and columns are skipped and per-table failures are reported. The revision engine also drops the leftover `sysvalue_tstamp` column (`NOT NULL DEFAULT '0000-00-00 00:00:00'`, which made marker INSERTs fail under strict `NO_ZERO_DATE`) and the `phpwcms_bad_behavior` table left from the Bad Behavior library removed in 1.5. Fixes #390.
-- **PHPStan Report Clean:** `phpwcms_revision_r554()` no longer checks `$status` in its final return — the value is guaranteed `true` at that point because the function returns early otherwise. Five stale suppression entries (variables `$file_durchlauf`, `$_h`, `$_w`, `$_search_max_pages` and `$_tmpl` in `mod_shop/frontend.render.php`) were removed from `phpstan-baseline.neon`; the analysis now reports no errors against the updated dependency set.
-
-### Dependency Updates
-- **Dependency Refresh:** `league/commonmark` 2.10.4 → 2.10.7, `tinymce/tinymce` 8.10.0 → 8.10.1, `phpstan/phpstan` 2.3.3 → 2.3.4, plus the current `simplepie/simplepie` and `roave/security-advisories` snapshots. Constraints state the installed versions as caret ranges.
-
-
 ---
 
 ## CDN-Replaced Libraries (How to host locally)
