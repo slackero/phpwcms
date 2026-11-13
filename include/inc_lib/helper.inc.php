@@ -58,11 +58,18 @@ function i18n_get_file_open_text() {
 }
 // substitutes a single token
 function i18n_substitute_text_token($token) {
-	global $i18n_tokens;
+	global $i18n_tokens, $phpwcms;
 	$a = trim($token[1] ?? $token);
     if($a === '') {
         return '';
     }
+	// Translation tokens are plain text labels, never code or binary data.
+	// Reject control characters and oversized tokens so they cannot end up in
+	// the generated language file.
+	$max_length = isset($phpwcms['i18n_token_max_length']) ? (int)$phpwcms['i18n_token_max_length'] : 1024;
+	if(($max_length > 0 && mb_strlen($a, 'UTF-8') > $max_length) || preg_match('/[\x00-\x1F\x7F]/', $a)) {
+		return $a;
+	}
 	if(isset($i18n_tokens[$a])) {
 		return $i18n_tokens[$a];
 	} else {
@@ -78,9 +85,19 @@ function i18n_substitute_text_token($token) {
 		if(isset($i18n_tokens[$a])) {
 			return $i18n_tokens[$a];
 		}
+		// Stop appending once the language file exceeds the configured limit.
+		// Defaults to 1 MiB, 0 disables the limit.
+		$max_size = isset($phpwcms['i18n_lang_file_max_size']) ? (int)$phpwcms['i18n_lang_file_max_size'] : 1048576;
+		if($max_size > 0 && is_file($f) && filesize($f) > $max_size) {
+			return $a;
+		}
+
 		$i18n_tokens[$a] = $a;
-		$as = str_replace("'", "\\'", $a);
-		$s = '$i18n_tokens' . "['" . $as . "']" . " = '" . $as . "'; // NEW " . now('Y-m-d H:i:s') . LF;
+		// var_export() generates a valid PHP literal for both the array key and the
+		// value. Hand-made escaping broke on backslashes and allowed PHP code
+		// injection into the generated language file (CWE-94/-95/-96).
+		$export = var_export($a, true);
+		$s = '$i18n_tokens[' . $export . '] = ' . $export . '; // NEW ' . now('Y-m-d H:i:s') . LF;
 		if($handle = fopen($f, 'ab')) {
 			fwrite($handle, $s);
 			fclose($handle);

@@ -42,7 +42,7 @@ function image_manipulate($config=array()) {
             'error' => '',
             'image_name' => '',
             'thumb_name' => '',
-            'target_ext' => PHPWCMS_WEBP ? 'webp' : 'jpg',
+            'target_ext' => (PHPWCMS_WEBP || (!empty($config['image_name']) && which_ext($config['image_name']) === 'webp')) ? 'webp' : 'jpg',
             'image_dir' => PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
             'thumb_dir' => PHPWCMS_THUMB,
             'quality' => PHPWCMS_QUALITY,
@@ -259,10 +259,8 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     // Check if animated GIF
     if ($val['target_ext'] === 'gif' && in_array($GLOBALS['phpwcms']['image_library'], array('imagemagick', 'gm', 'graphicsmagick')) && is_animated_gif($val['image_dir'].$val['image_name'])) {
         $val['animated_gif'] = true; // Try to preserve animated GIF
-    } elseif (PHPWCMS_WEBP) { // Test against WebP support
+    } elseif (PHPWCMS_WEBP || $val['target_ext'] === 'webp' || which_ext($val['image_name']) === 'webp') { // Test against WebP support
         $val['target_ext'] = 'webp';
-    } elseif ($val['target_ext'] === 'webp') {
-        $val['target_ext'] = 'jpg';
     }
 
     // Try to catch file name from database
@@ -319,7 +317,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     }
     $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
-    if (PHPWCMS_WEBP) {
+    if (PHPWCMS_WEBP || $val['target_ext'] === 'webp') {
         if (is_file($thumb_check . '.webp')) {
             $thumb_image_info[0] = $val['thumb_name'].'.webp';
             $thumb_image_info['type'] = 'image/webp';
@@ -327,6 +325,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             $create_preview = image_manipulate($val);
             if (is_file($val['thumb_dir'].$create_preview["thumb_name"])) {
                 $thumb_image_info[0] = $create_preview["thumb_name"];
+                $thumb_image_info['type'] = $val['target_ext'] === 'webp' ? 'image/webp' : 'image/jpeg';
                 $imgCache = true; // insert/update information in db image cache
             }
         }

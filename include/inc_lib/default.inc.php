@@ -1300,9 +1300,9 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
                 }
                 break;
             case 'Safari':
-                if ($platform === 'Mac' && $ver > 15) {
+                if ($platform === 'Mac' && $ver >= 14) {
                     $webp = true;
-                } elseif ($platform === 'iOS' && $ver > 13) {
+                } elseif ($platform === 'iOS' && $ver >= 14) {
                     $webp = true;
                 }
                 break;

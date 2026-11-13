@@ -70,7 +70,7 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
     // Fileinfo method
     if(extension_loaded('fileinfo') && (empty($fileinfo['mimetype']) || ($disposition === 'inline' && in_array($fileinfo['mimetype'], $force_mimetype_check))) && ($finfo = finfo_open(FILEINFO_MIME))) {
         $fileinfo['mimetype'] = finfo_file($finfo, $file);
-        finfo_close($finfo);
+        unset($finfo);
     }
 
     if(empty($fileinfo['extension'])) {

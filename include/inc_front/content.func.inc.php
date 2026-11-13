@@ -1039,7 +1039,7 @@ if($phpwcms['enable_deprecated']) {
         $content["all"] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content["struct"], $content["cat_path"], $content["cat_id"]), $content["all"]);
 
         // list based navigation starting at given level
-        $content["all"] = preg_replace_callback('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/', 'nav_list_struct_callback', $content["all"]);
+        $content["all"] = preg_replace_callback('/\{NAV_LIST:(\d+)(?::(.*?))?\}/', 'nav_list_struct_callback', $content["all"]);
 
         // List based navigation with Top Level - default settings
         // creates a list styled top nav menu, + optional Home | {NAV_LIST_TOP:home_name:class_name} | default class name = list_top
@@ -1680,11 +1680,11 @@ if (!$phpwcms['cookie_consent']) {
     elseif (!empty($block['cookie_consent']['enable'])) {
         $block['cookie_consent']['options'] = [];
         if (!empty($block['cookie_consent']['message'])) {
-            $block['cookie_consent']['options']['message'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['message'] : mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
+            $block['cookie_consent']['options']['message'] = makeCharsetConversion($block['cookie_consent']['message'], PHPWCMS_CHARSET, 'utf-8');
             $block['cookie_consent']['options']['message'] = i18n_substitute_text($block['cookie_consent']['options']['message']);
         }
         if (!empty($block['cookie_consent']['dismiss'])) {
-            $block['cookie_consent']['options']['dismiss'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['dismiss'] : mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
+            $block['cookie_consent']['options']['dismiss'] = makeCharsetConversion($block['cookie_consent']['dismiss'], PHPWCMS_CHARSET, 'utf-8');
             $block['cookie_consent']['options']['dismiss'] = i18n_substitute_text($block['cookie_consent']['options']['dismiss']);
         }
         if (!empty($block['cookie_consent']['link'])) {
@@ -1696,7 +1696,7 @@ if (!$phpwcms['cookie_consent']) {
             }
 
             if (!empty($block['cookie_consent']['more'])) {
-                $block['cookie_consent']['options']['learnMore'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['more'] : mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
+                $block['cookie_consent']['options']['learnMore'] = makeCharsetConversion($block['cookie_consent']['more'], PHPWCMS_CHARSET, 'utf-8');
                 $block['cookie_consent']['options']['learnMore'] = i18n_substitute_text($block['cookie_consent']['options']['learnMore']);
             }
         }

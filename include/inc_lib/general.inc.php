@@ -396,6 +396,9 @@ function convert_into($extension) {
             case 'png':
                 $ext = 'png';
                 break;
+            case 'webp':
+                $ext = 'webp';
+                break;
         }
     } else {
         switch ($extension) {
@@ -404,6 +407,9 @@ function convert_into($extension) {
                 break;
             case 'png':
                 $ext = 'png';
+                break;
+            case 'webp':
+                $ext = 'webp';
                 break;
         }
     }
@@ -428,7 +434,11 @@ function is_ext_true($extension) {
                 $ext = 'png';
                 break;
             case 'webp':
-                $ext = PHPWCMS_WEBP ? 'webp' : 'jpg';
+                static $gd_has_webp = null;
+                if ($gd_has_webp === null) {
+                    $gd_has_webp = function_exists('imagewebp') && function_exists('imagecreatefromwebp');
+                }
+                $ext = $gd_has_webp ? 'webp' : 'jpg';
                 break;
         }
     } else {
@@ -464,7 +474,7 @@ function is_ext_true($extension) {
                 $ext = "gif";
                 break;
             case 'webp':
-                $ext = PHPWCMS_WEBP ? 'webp' : 'jpg';
+                $ext = 'webp';
                 break;
         }
     }

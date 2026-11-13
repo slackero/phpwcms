@@ -44,7 +44,7 @@ if(isset($data[1])) {
     // first check hashed data
     if(isset($data[1])) {
 
-        $data[1]    = preg_replace('/[^a-fgijpn0-9\.]/i', '', $data[1]);
+        $data[1]    = preg_replace('/[^a-z0-9\.]/i', '', $data[1]);
         $hash       = cut_ext($data[1]);
         $ext        = which_ext($data[1]);
         $value      = array();
@@ -347,7 +347,7 @@ if(isset($data[1])) {
                 $value["max_height"] = $basis * $grid;
             }
 
-            if (PHPWCMS_WEBP && !$svg) {
+            if ((PHPWCMS_WEBP || $ext === 'webp') && !$svg) {
                 $value['target_ext'] = 'webp';
             }
 

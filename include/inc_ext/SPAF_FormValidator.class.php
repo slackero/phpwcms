@@ -264,7 +264,7 @@ class SPAF_FormValidator {
 
         header( 'Content-Type: image/' . $this->img_func_suffix );
         $function( $image );
-        imagedestroy( $image );
+        unset( $image );
 
         return true;
     }
