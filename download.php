@@ -78,7 +78,7 @@ if(!empty($hash) && strlen($hash) === 32) {
 
             $fileinfo['path']       = PHPWCMS_ROOT.$phpwcms["file_path"];
             $fileinfo['filesize']   = $download['f_size'];
-            $fileinfo['method']     = empty($phpwcms["inline_download"]) ? 'attachment' : 'inline';
+            $fileinfo['method']     = empty($phpwcms["inline_download"]) ? 'attachment' : dl_file_disposition($download["f_ext"]);
             $fileinfo['mimetype']   = $download["f_type"];
             $fileinfo['file']       = $fileinfo['path'].$fileinfo['filename'];
             $fileinfo['extension']  = $download["f_ext"];
@@ -98,13 +98,25 @@ if(!empty($hash) && strlen($hash) === 32) {
 
     if(is_file($file)) {
 
-        $mime = empty($_GET['type']) ? '' : clean_slweg($_GET['type'], 100);
+        $extension   = which_ext($file);
+        $disposition = dl_file_disposition($extension);
 
-        if(!is_mimetype_format($mime)) {
-            $mime = get_mimetype_by_extension( which_ext($file) );
+        // never honour a client supplied Content-Type for inline rendering
+        if($disposition === 'inline') {
+            $mime = get_mimetype_by_extension($extension);
+        } else {
+            $mime = empty($_GET['type']) ? '' : clean_slweg($_GET['type'], 100);
+            if(!is_mimetype_format($mime)) {
+                $mime = get_mimetype_by_extension($extension);
+            }
         }
 
         header('Content-Type: ' . $mime);
+        header('X-Content-Type-Options: nosniff');
+
+        if(!isset($_GET['ios'])) {
+            header('Content-Disposition: ' . $disposition . '; filename="'.($phpwcms['sanitize_dlname'] ? phpwcms_remove_accents($filename) : $filename).'"');
+        }
 
         if(BROWSER_OS == 'iOS') {
 
@@ -115,9 +127,6 @@ if(!empty($hash) && strlen($hash) === 32) {
         } else {
 
             header('Content-Transfer-Encoding: binary');
-            if(!isset($_GET['ios'])) {
-                header('Content-Disposition: inline; filename="'.($phpwcms['sanitize_dlname'] ? phpwcms_remove_accents($filename) : $filename).'"');
-            }
             header('Content-Length: ' . filesize($file));
 
             readfile($file);
