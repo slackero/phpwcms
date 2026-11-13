@@ -112,24 +112,20 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
     return $string_wo_slashes_weg;
 }
 
-function escape_quote($text='') {
-    return str_replace(array('\\', "'"), array('\\\\', "\\'"), $text);
-}
-
 function write_conf_file($val) {
     $conf_file = '<?' . "php\n\n";
     $conf_file .= "// database values\n";
-    $conf_file .= "\$phpwcms['db_host'] = '" . escape_quote($val['db_host']) . "';\n";
+    $conf_file .= "\$phpwcms['db_host'] = " . var_export((string)($val['db_host']), true) . ";\n";
     $conf_file .= "\$phpwcms['db_port'] = " . (empty($val['db_port']) || !intval($val['db_port']) ? 3306 : (int)$val['db_port']) . ";\n";
-    $conf_file .= "\$phpwcms['db_user'] = '" . escape_quote($val['db_user']) . "';\n";
-    $conf_file .= "\$phpwcms['db_pass'] = '" . escape_quote($val['db_pass']) . "';\n";
-    $conf_file .= "\$phpwcms['db_table'] = '" . escape_quote($val['db_table']) . "';\n";
-    $conf_file .= "\$phpwcms['db_prepend'] = '" . escape_quote($val['db_prepend']) . "';\n";
+    $conf_file .= "\$phpwcms['db_user'] = " . var_export((string)($val['db_user']), true) . ";\n";
+    $conf_file .= "\$phpwcms['db_pass'] = " . var_export((string)($val['db_pass']), true) . ";\n";
+    $conf_file .= "\$phpwcms['db_table'] = " . var_export((string)($val['db_table']), true) . ";\n";
+    $conf_file .= "\$phpwcms['db_prepend'] = " . var_export((string)($val['db_prepend']), true) . ";\n";
     $conf_file .= "\$phpwcms['db_pers'] = " . intval($val["db_pers"]) . ";\n";
-    $conf_file .= "\$phpwcms['db_charset'] = '" . escape_quote($val['db_charset']) . "';\n";
-    $conf_file .= "\$phpwcms['db_collation'] = '" . escape_quote($val['db_collation']) . "';\n";
-    $conf_file .= "\$phpwcms['db_version'] = '" . escape_quote($val['db_version']) . "';\n";
-    $conf_file .= "\$phpwcms['db_timezone'] = '" . escape_quote(trim($val['db_timezone'])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
+    $conf_file .= "\$phpwcms['db_charset'] = " . var_export((string)($val['db_charset']), true) . ";\n";
+    $conf_file .= "\$phpwcms['db_collation'] = " . var_export((string)($val['db_collation']), true) . ";\n";
+    $conf_file .= "\$phpwcms['db_version'] = " . var_export((string)($val['db_version']), true) . ";\n";
+    $conf_file .= "\$phpwcms['db_timezone'] = " . var_export((string)(trim($val['db_timezone'])), true) . "; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
     $conf_file .= "\$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
     $conf_file .= "\$phpwcms['db_errorlog'] = false; // Log DB queries - false|true\n";
 
@@ -138,7 +134,7 @@ function write_conf_file($val) {
     if ($check_url === 'http://' . $_SERVER['SERVER_NAME'] || $check_url === 'https://' . $_SERVER['SERVER_NAME']) {
         $conf_file .= "\$phpwcms['site'] = '';";
     } else {
-        $conf_file .= "\$phpwcms['site'] = '" . escape_quote($val['site']) . "';";
+        $conf_file .= "\$phpwcms['site'] = " . var_export((string)($val['site']), true) . ";";
     }
 
     $conf_file .= " // leave empty to auto configure or try 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
@@ -146,16 +142,16 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['site_ssl_url'] = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
     $conf_file .= "\$phpwcms['site_ssl_port'] = 443; // The Port on which you SSL Service serve the secure Sites, default SSL port is 443\n\n";
 
-    $conf_file .= "\$phpwcms['admin_name'] = '" . escape_quote($val["admin_name"]) . "'; //default: Webmaster\n";
-    $conf_file .= "\$phpwcms['admin_user'] = '" . escape_quote($val["admin_user"]) . "'; //default: admin\n";
-    $conf_file .= "\$phpwcms['admin_pass'] = '" . escape_quote($val["admin_pass"]) . "'; //Password hash\n";
-    $conf_file .= "\$phpwcms['admin_email'] = '" . escape_quote($val["admin_email"]) . "'; //default: noreplay@host\n";
+    $conf_file .= "\$phpwcms['admin_name'] = " . var_export((string)($val["admin_name"]), true) . "; //default: Webmaster\n";
+    $conf_file .= "\$phpwcms['admin_user'] = " . var_export((string)($val["admin_user"]), true) . "; //default: admin\n";
+    $conf_file .= "\$phpwcms['admin_pass'] = " . var_export((string)($val["admin_pass"]), true) . "; //Password hash\n";
+    $conf_file .= "\$phpwcms['admin_email'] = " . var_export((string)($val["admin_email"]), true) . "; //default: noreplay@host\n";
 
     $conf_file .= "\n// paths\n";
     if (!$val['DOC_ROOT'] || $val['DOC_ROOT'] == $_SERVER['DOCUMENT_ROOT']) {
         $conf_file .= "\$phpwcms['DOC_ROOT'] = \$_SERVER['DOCUMENT_ROOT'];";
     } else {
-        $conf_file .= "\$phpwcms['DOC_ROOT'] = '" . escape_quote($val["DOC_ROOT"]) . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
+        $conf_file .= "\$phpwcms['DOC_ROOT'] = " . var_export((string)($val["DOC_ROOT"]), true) . "; //default: \$_SERVER['DOCUMENT_ROOT']";
     }
 
     $real_doc = str_replace('\\', '/', dirname(__FILE__, 3));
@@ -163,13 +159,13 @@ function write_conf_file($val) {
         $real_doc = explode($val["root"], $real_doc);
         $real_doc = rtrim($real_doc[0], '/');
     }
-    $conf_file .= "// current DOC_ROOT seems to be: '" . escape_quote($real_doc) . "' \n";
-    $conf_file .= "\$phpwcms['root'] = '" . escape_quote($val["root"]) . "'; //default: ''\n";
-    $conf_file .= "\$phpwcms['file_path'] = '" . escape_quote($val["file_path"]) . "'; //default: 'filearchive'\n";
-    $conf_file .= "\$phpwcms['templates'] = '" . escape_quote($val["templates"]) . "'; //default: 'template'\n";
-    $conf_file .= "\$phpwcms['content_path'] = '" . escape_quote($val["content_path"]) . "'; //default: 'content'\n";
+    $conf_file .= "// current DOC_ROOT seems to be: " . var_export((string)($real_doc), true) . " \n";
+    $conf_file .= "\$phpwcms['root'] = " . var_export((string)($val["root"]), true) . "; //default: ''\n";
+    $conf_file .= "\$phpwcms['file_path'] = " . var_export((string)($val["file_path"]), true) . "; //default: 'filearchive'\n";
+    $conf_file .= "\$phpwcms['templates'] = " . var_export((string)($val["templates"]), true) . "; //default: 'template'\n";
+    $conf_file .= "\$phpwcms['content_path'] = " . var_export((string)($val["content_path"]), true) . "; //default: 'content'\n";
     $conf_file .= "\$phpwcms['cimage_path'] = 'images';  //default: 'images'\n";
-    $conf_file .= "\$phpwcms['ftp_path'] = '" . escape_quote($val["ftp_path"]) . "'; //default: 'upload'\n";
+    $conf_file .= "\$phpwcms['ftp_path'] = " . var_export((string)($val["ftp_path"]), true) . "; //default: 'upload'\n";
     $conf_file .= "\$phpwcms['ads_path'] = 'marketing'; // it's the former 'ads' dir in '/content'\n";
 
     $conf_file .= "\n// content values\n";
@@ -197,8 +193,8 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['use_content_lang'] = false; // if true use content language based on article and/or structure level\n";
     $conf_file .= "\$phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
     $conf_file .= "\$phpwcms['DOCTYPE_LANG'] = ''; //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
-    $conf_file .= "\$phpwcms['default_lang'] = '" . escape_quote($val["default_lang"]) . "';  //default language\n";
-    $conf_file .= "\$phpwcms['charset'] = '" . escape_quote($val["charset"]) . "';  //default charset 'utf-8'\n";
+    $conf_file .= "\$phpwcms['default_lang'] = " . var_export((string)($val["default_lang"]), true) . ";  //default language\n";
+    $conf_file .= "\$phpwcms['charset'] = " . var_export((string)($val["charset"]), true) . ";  //default charset 'utf-8'\n";
     $conf_file .= "\$phpwcms['php_charset'] = false; // set PHP default charset to \$phpwcms['charset']\n";
     $conf_file .= "\$phpwcms['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
     $conf_file .= "\$phpwcms['jpg_quality'] = 85; //JPG Quality Range 25-100\n";
@@ -288,16 +284,16 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
-    $conf_file .= "\$phpwcms['SMTP_FROM_EMAIL'] = '" . escape_quote($val["SMTP_FROM_EMAIL"]) . "'; // reply/from email address\n";
-    $conf_file .= "\$phpwcms['SMTP_FROM_NAME'] = '" . escape_quote($val["SMTP_FROM_NAME"]) . "'; // reply/from name\n";
-    $conf_file .= "\$phpwcms['SMTP_HOST'] = '" . escape_quote($val["SMTP_HOST"]) . "'; // SMTP server (host/IP)\n";
+    $conf_file .= "\$phpwcms['SMTP_FROM_EMAIL'] = " . var_export((string)($val["SMTP_FROM_EMAIL"]), true) . "; // reply/from email address\n";
+    $conf_file .= "\$phpwcms['SMTP_FROM_NAME'] = " . var_export((string)($val["SMTP_FROM_NAME"]), true) . "; // reply/from name\n";
+    $conf_file .= "\$phpwcms['SMTP_HOST'] = " . var_export((string)($val["SMTP_HOST"]), true) . "; // SMTP server (host/IP)\n";
     $conf_file .= "\$phpwcms['SMTP_PORT'] = " . intval($val["SMTP_PORT"]) . "; // SMTP server port (default 25)\n";
-    $conf_file .= "\$phpwcms['SMTP_MAILER'] = '" . escape_quote($val["SMTP_MAILER"]) . "'; // mail method: mail (default), smtp, sendmail\n";
-    $conf_file .= "\$phpwcms['SMTP_USER'] = '" . escape_quote($val["SMTP_USER"]) . "'; // default SMTP login (user) name\n";
-    $conf_file .= "\$phpwcms['SMTP_PASS'] = '" . escape_quote($val["SMTP_PASS"]) . "'; // default SMTP password\n";
-    $conf_file .= "\$phpwcms['SMTP_SECURE'] = '" . escape_quote($val["SMTP_SECURE"]) . "'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
+    $conf_file .= "\$phpwcms['SMTP_MAILER'] = " . var_export((string)($val["SMTP_MAILER"]), true) . "; // mail method: mail (default), smtp, sendmail\n";
+    $conf_file .= "\$phpwcms['SMTP_USER'] = " . var_export((string)($val["SMTP_USER"]), true) . "; // default SMTP login (user) name\n";
+    $conf_file .= "\$phpwcms['SMTP_PASS'] = " . var_export((string)($val["SMTP_PASS"]), true) . "; // default SMTP password\n";
+    $conf_file .= "\$phpwcms['SMTP_SECURE'] = " . var_export((string)($val["SMTP_SECURE"]), true) . "; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
     $conf_file .= "\$phpwcms['SMTP_AUTH'] = " . intval($val["SMTP_AUTH"]) . "; // SMTP authentication, ON=1/OFF=0\n";
-    $conf_file .= "\$phpwcms['SMTP_AUTH_TYPE'] = '" . escape_quote($val["SMTP_AUTH_TYPE"]) . "'; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
+    $conf_file .= "\$phpwcms['SMTP_AUTH_TYPE'] = " . var_export((string)($val["SMTP_AUTH_TYPE"]), true) . "; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
 
     $conf_file .= "\ndefine('PHPWCMS_INCLUDE_CHECK', true);\n";
 
