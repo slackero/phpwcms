@@ -81,6 +81,18 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
         $fileinfo['mimetype'] = $GLOBALS['phpwcms']['mime_types'][$fileinfo['extension']] ?? 'application/force-download';
     }
 
+    // Inline delivery is limited to MIME types that cannot execute scripts.
+    // The detected type wins over the stored, possibly client supplied, one.
+    if($disposition === 'inline' && extension_loaded('fileinfo') && ($finfo = finfo_open(FILEINFO_MIME))) {
+        $detected_mimetype = finfo_file($finfo, $file);
+        unset($finfo);
+        if(empty($detected_mimetype) || !is_inline_mimetype($detected_mimetype)) {
+            $disposition = 'attachment';
+        } else {
+            $fileinfo['mimetype'] = $detected_mimetype;
+        }
+    }
+
     // Disable output compression.
     //@apache_setenv('no-gzip', 1); // disabled because using this the download fails
     @ini_set('zlib.output_compression', 'Off');
@@ -99,6 +111,7 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 
     //Use the switch-generated Content-Type
     header('Content-Type: '.$fileinfo['mimetype']);
+    header('X-Content-Type-Options: nosniff');
 
     if(isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtoupper($_SERVER['HTTP_USER_AGENT']), 'MSIE')) {
         // Workaround for IE filename bug with multiple periods / multiple
