@@ -15,7 +15,7 @@
 
 **phpwcms** is an exceptionally flexible, fast, robust, and developer-friendly web-based Content Management System (CMS) and CMS Framework. Crafted for speed, customizable architectures, and ease of use, phpwcms empowers developers to build and manage highly-tailored digital experiences under PHP and MySQL/MariaDB.
 
-Current development state: **2.0.0-beta.2** (database revision `r561`), PHP 8.4+.
+Current development state: **2.0.0-beta.3** (database revision `r562`), PHP 8.4+.
 
 Created and lovingly maintained by [Oliver Georgi](https://www.phpwcms.org).
 

@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [2.0.0-beta.3] – 2026/11/13
+
+### Security
+- **PHP Injection via Translation Tokens:** `i18n_substitute_text_token()` escaped apostrophes but not a preceding backslash, so an article editor could close the generated PHP string in `template/template_lang/` and execute code when the file was included. Entries are now written with `var_export()`, tokens containing control characters or more than 1024 characters are rejected, and generated language files stop growing above 1 MiB. Both limits are configurable through `i18n_token_max_length` and `i18n_lang_file_max_size`. See GHSA-xw8p-7592-hg99.
+- **Setup Config Writer:** `write_conf_file()` emits string values with `var_export()` instead of wrapping hand-escaped text in quotes; the local `escape_quote()` helper is gone.
+
+### Added
+- **Index Page as Article Category:** The index page is stored as the regular article category row `acat_id = 0`, so it can be edited and ordered like any other category. `include/config/conf.indexpage.inc.php` remains a fallback and readable mirror. Revision `r562` seeds the row for existing installations.
+- **Native AVIF and WebP Support:** AVIF and WebP files can be uploaded, processed and used like JPEG or PNG; the image extension integrity checks cover both formats.
+- **Required PHP Extensions Enforced:** Setup and the updater now verify the extensions listed in `composer.json` and abort before changing files or the database. Setup requires PHP 8.4, matching the Composer platform check.
+- **`clean_plain_utf8()` Helper:** New charset helper preserves valid UTF-8 and converts other input, used for UTF-8 and JSON output paths.
+- **Docker:** The web image installs `bcmath`.
+
+### Changed
+- **voku/portable-utf8 Modernization:** Legacy charset converters, `strip_tags()` wrappers and entity decoding in core and setup now use the UTF-8 helpers; URL alias and slug generation is rebuilt on the same library. The legacy `ConvertCharset` class is dropped.
+- **voku/anti-xss Filtering:** XSS filtering and HTML cleanup now use `voku/anti-xss`.
+- **Image Zoom:** `image_zoom.php` is modernized and ships its recommended CSS inline; the HTML tag gets a `lang` attribute.
+- **Duplicate Definitions Removed:** Obsolete `function_exists()` guards and duplicated function definitions are gone.
+
+### Fixed
+- **Filebrowser 500 on Upload:** The filebrowser includes the missing Tom Select assets, passes file tags through a hidden input and sanitizes `file_tags`, `file_longinfo` and `file_copyright` against literal `undefined`. Fixes #394.
+- **PHP 8.5 Deprecations:** Reading of `$http_response_header` is replaced with `http_get_last_response_headers()`; `imagedestroy()`, `finfo_close()` and `curl_close()` calls become `unset()`; the dynamic `FeedItem::$updateDate` write is removed.
+- **Forms, Markdown and Replacers:** A custom form anchor is no longer ignored when no jump target is set, `parse_markdown()` passes UTF-8 to CommonMark, and captured `{IMAGE*}` / `{RANDOM_*}` values are escaped.
+- **Legacy IPTC Charset:** IPTC data without a 1:90 tag is decoded as Windows-1252 through `makeCharsetConversion()` instead of the deprecated `utf8_encode()`.
+- **Deprecated Replacers:** Legacy replacer handling is hardened and no longer raises notices.
+
+### Dependency Updates
+- **Dependency Refresh:** `phpmailer/phpmailer` 7.1.1 -> 7.2.0, `phpoffice/phpspreadsheet` 5.10.0 -> 5.11.0, `tinymce/tinymce` 8.10.1 -> 8.10.2, `netcarver/textile` 4.1.8 -> 4.1.9, `guzzlehttp/psr7` 2.13.2 -> 2.13.3, plus the current `simplepie/simplepie` and `roave/security-advisories` snapshots. Constraints state the installed versions as caret ranges.
+
 ## [2.0.0-beta.2] – 2026/11/01
 
 ### Changed
