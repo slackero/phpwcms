@@ -1230,7 +1230,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         if(!$is_disallowed && !empty($_FILES[$POST_name]['tmp_name']) && is_uploaded_file($_FILES[$POST_name]['tmp_name'])) {
                             if(extension_loaded('fileinfo') && ($finfo = finfo_open(FILEINFO_MIME_TYPE))) {
                                 $upload_mime = finfo_file($finfo, $_FILES[$POST_name]['tmp_name']);
-                                finfo_close($finfo);
+                                unset($finfo);
                                 $disallowed_mimes = array(
                                     'text/x-php', 'application/x-httpd-php', 'application/x-httpd-php-source',
                                     'application/x-php', 'text/x-perl', 'text/x-python', 'text/x-shellscript',
@@ -2509,7 +2509,7 @@ if($form_cnt) {
     $CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.abs_url();
     if(empty($cnt_form['anchor_off'])) {
         $CNT_TMP .= '#';
-        $CNT_TMP .= empty($cnt_form['anchor_name']) ? html($cnt_form['anchor_name']) : 'jumpForm'.$crow["acontent_id"];
+        $CNT_TMP .= empty($cnt_form['anchor_name']) ? 'jumpForm'.$crow["acontent_id"] : html($cnt_form['anchor_name']);
     }
     $CNT_TMP .= '" ';
     if($cnt_form['is_enctype']) {

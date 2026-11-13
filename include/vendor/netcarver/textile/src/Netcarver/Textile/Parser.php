@@ -384,7 +384,7 @@ class Parser
      *
      * @var string
      */
-    protected $ver = '4.1.6';
+    protected $ver = '4.1.9';
 
     /**
      * Regular expression snippets.
@@ -3158,7 +3158,10 @@ class Parser
     protected function doTagBr($tag, $in)
     {
         return (string)preg_replace_callback(
-            '@<(?P<tag>'.preg_quote($tag).')(?P<atts>[^>]*?)>(?P<content>.*)(?P<closetag></\1>)@s',
+            '@<(?P<tag>'.preg_quote($tag).')'.
+            '(?P<atts>\s+[^>]*?|)>'.
+            '(?P<content>(?:(?!</\1>|<\1(?:\s+[^>]*?|)>).)*?)'.
+            '(?P<closetag></\1>)@s',
             array($this, 'fBr'),
             $in
         );
@@ -3173,7 +3176,10 @@ class Parser
     protected function doPBr($in)
     {
         return (string)preg_replace_callback(
-            '@<(?P<tag>p|h[1-6])(?P<atts>[^>]*?)>(?P<content>.*)(?P<closetag></\1>)@s',
+            '@<(?P<tag>p|h[1-6])'.
+            '(?P<atts>\s+[^>]*?|)>'.
+            '(?P<content>(?:(?!</\1>|<\1(?:\s+[^>]*?|)>).)*?)'.
+            '(?P<closetag></\1>)@s',
             array($this, 'fPBr'),
             $in
         );
@@ -4283,13 +4289,28 @@ class Parser
         $title = isset($m['title']) ? $m['title'] : '';
         $m = array();
 
-        $pop = $tight = '';
+        $preUrl = $pop = $tight = '';
         $counts = array(
             '[' => null,
             ']' => substr_count($url, ']'), # We need to know how many closing square brackets we have
             '(' => null,
             ')' => null,
         );
+
+        // Split off leading IPv6 address, excluding the included brackets from the balance check.
+        if ($counts[']']
+            && 1 === preg_match(
+                '#^(?P<preUrl>(?:[^:\#?]+:)?//(?:[^:@]+(?::[^:@]+)?@)?\[[0-9:a-f]+\](?::[0-9]+)?)#'.
+                $this->regex_snippets['mod'],
+                $url,
+                $m
+            )
+        ) {
+            $preUrl = $m['preUrl'];
+            $url = substr($url, strlen($preUrl));
+            $counts[']'] = substr_count($url, ']');
+            $m = array();
+        }
 
         // Look for footnotes or other square-bracket delimieted stuff at the end of the url...
         // eg. "text":url][otherstuff... will have "[otherstuff" popped back out.
@@ -4334,20 +4355,23 @@ class Parser
                 case '!':
                 case '?':
                 case ':':
-                case ';':
                 case '.':
                 case ',':
+                case '<':
                     $pop = $c . $pop;
                     $popped = true;
                     break;
 
                 case '>':
+                case ';':
                     $urlLeft = implode('', $url_chars);
+                    $popped = true;
 
-                    if (preg_match('@(?P<tag><\/[a-z]+)$@', $urlLeft, $m)) {
+                    if (preg_match('@(?P<tag>(?:<|&lt;)/?[^\s<>&/]+/?|&lt|&gt)$@', $urlLeft, $m)) {
                         $url_chars = str_split(substr($urlLeft, 0, strlen($m['tag']) * -1));
                         $pop = $m['tag'] . $c . $pop;
-                        $popped = true;
+                    } else {
+                        $pop = $c . $pop;
                     }
 
                     break;
@@ -4399,7 +4423,7 @@ class Parser
             $first = false;
         } while ($popped);
 
-        $url = implode('', $url_chars);
+        $url = $preUrl . implode('', $url_chars);
         $uri_parts = array();
         $this->parseURI($url, $uri_parts);
 
@@ -4950,6 +4974,10 @@ class Parser
     protected function fTextile($m)
     {
         $m = $this->getSpecialOptions($m);
+
+        if ($this->isRestrictedModeEnabled()) {
+            $m['content'] = str_replace('"', '&quot;', $m['content']);
+        }
 
         return $m['before'].$this->shelve($m['content']).$m['after'];
     }
