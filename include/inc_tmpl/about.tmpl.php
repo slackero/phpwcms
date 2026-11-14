@@ -178,7 +178,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <a href="https://jquery.org/license/" target="_blank" rel="noopener noreferrer">MIT License</a>
     </li>
     <li>
-        <a href="https://www.mediawiki.org" target="_blank" rel="noopener noreferrer"><strong>MediaWiki Components</strong></a> (ConvertibleTimestamp, IPTC, SVG Reader),
+        <a href="https://www.mediawiki.org" target="_blank" rel="noopener noreferrer"><strong>MediaWiki Components</strong></a> (IPTC, SVG Reader),
         Copyright &copy; MediaWiki.org contributors,
         <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank" rel="noopener noreferrer">GNU GPL</a>
     </li>
