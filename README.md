@@ -6,8 +6,8 @@
   </picture>
 </a>
 
-[![Release](https://img.shields.io/badge/release-2.0.0--beta.2-orange.svg?style=flat-edge)](https://github.com/slackero/phpwcms/releases)
-[![Revision](https://img.shields.io/badge/revision-r561-informational.svg?style=flat-edge)](CHANGELOG.md)
+[![Release](https://img.shields.io/badge/release-2.0.0--beta.3-orange.svg?style=flat-edge)](https://github.com/slackero/phpwcms/releases)
+[![Revision](https://img.shields.io/badge/revision-r562-informational.svg?style=flat-edge)](CHANGELOG.md)
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.4-8892BF.svg?style=flat-edge)](https://php.net)
 [![Database](https://img.shields.io/badge/MySQL-%3E%3D%205.5%20(MariaDB%20rec)-blue.svg?style=flat-edge)](https://mysql.com)
 [![Maintainer](https://img.shields.io/badge/Maintained%20by-Oliver%20Georgi-informational.svg?style=flat-edge)](https://www.phpwcms.org)
@@ -258,6 +258,19 @@ make sync             # Synchronize local repository changes to test server
 make docker-up        # Start containerized development environment
 make docker-down      # Stop containerized development environment
 make stacklit-update  # Update codebase architecture maps and documentation
+make changed-archive FROM=v2.0.0-beta.3  # Archive files changed between a tag/commit and HEAD
+```
+
+`make changed-archive` packs the state at `HEAD` of every file changed since `FROM` (deleted files are skipped). Add `ARCHIVE_FORMAT=zip` for a ZIP instead of the default `.tar.gz`. The same task is available without `make`, for example on macOS without Xcode Command Line Tools or on Windows:
+
+```bash
+./scripts/changed-archive.sh v2.0.0-beta.3          # Linux, macOS, Git Bash
+./scripts/changed-archive.sh v2.0.0-beta.3 zip
+```
+
+```powershell
+.\scripts\changed-archive.ps1 -From v2.0.0-beta.3
+.\scripts\changed-archive.ps1 -From v2.0.0-beta.3 -Format zip
 ```
 
 ---

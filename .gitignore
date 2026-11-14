@@ -61,6 +61,7 @@ include/config.codekit3
 # Ignore ai generated or related files
 /.claude
 /stacklit.html
+/phpwcms-*-to-HEAD.*
 /.mcp.json
 /.codex
 /.phpstan/cache/

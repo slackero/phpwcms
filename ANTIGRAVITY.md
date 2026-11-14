@@ -25,6 +25,7 @@ Welcome! This is the developer instructions file for **Antigravity CLI**. It pro
 - **Update autoload maps**: `composer dump-autoload`
 - **Standalone Upgrader / Migrations**: `/Applications/MAMP/bin/php/php8.2.32/bin/php setup/upgrade.php`
 - **Update codebase map**: `make stacklit-update`
+- **Archive changed files**: `make changed-archive FROM=<tag-or-commit>` (add `ARCHIVE_FORMAT=zip` for ZIP; no-make fallbacks: `./scripts/changed-archive.sh <ref> [zip]` or `.\scripts\changed-archive.ps1 -From <ref> [-Format zip]`)
 
 ## Coding Style & Conventions
 - **PHP Compatibility**: Maintain strict compatibility with PHP 8.2+. Always run `/Applications/MAMP/bin/php/php8.2.32/bin/php -l` to verify syntax.

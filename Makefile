@@ -1,12 +1,16 @@
 # Makefile for phpwcms-v2.0 development tasks
 
-.PHONY: phpstan baseline stacklit help sync minify-sync
+.PHONY: phpstan baseline stacklit help sync minify-sync changed-archive
 
 # Default PHP executable (check for php8 in PATH, fallback to MAMP php8.4.27)
 PHP ?= $(shell which php8 2>/dev/null || echo /Applications/MAMP/bin/php/php8.4.27/bin/php)
 PHPSTAN = $(PHP) -d memory_limit=1G include/vendor/bin/phpstan
 STACKLIT ?= stacklit
 SYNC_TARGET ?= /Users/slackero/Sites/dev-phpwcms
+# Archive of files changed since FROM (tag or commit hash, compared against HEAD)
+FROM ?=
+ARCHIVE_FORMAT ?= tar.gz
+ARCHIVE_OUT ?= phpwcms-$(subst /,-,$(FROM))-to-HEAD.$(ARCHIVE_FORMAT)
 
 # Default target
 all: help
@@ -15,6 +19,7 @@ help:
 	@echo "Available commands:"
 	@echo "  make sync            - Sync repository changes to local test web server"
 	@echo "  make minify-sync     - Minify all CSS/JS assets and sync to local test web server"
+	@echo "  make changed-archive - Archive files changed between FROM tag/commit and HEAD (FROM=<ref>)"
 	@echo "  make css-minify      - Build and minify backend.min.css"
 	@echo "  make js-minify       - Minify phpwcms.js to phpwcms.min.js"
 	@echo "  make minify          - Build all minified CSS and JS assets"
@@ -31,6 +36,25 @@ sync:
 	git ls-files -z --cached --others --exclude-standard | rsync -av --files-from=- ./ $(SYNC_TARGET)/
 
 minify-sync: minify sync
+
+# Archive files changed between FROM (tag/commit) and HEAD, content taken from HEAD
+#   make changed-archive FROM=v2.0.0-beta.2
+#   make changed-archive FROM=598ec8e59 ARCHIVE_FORMAT=tar.gz
+changed-archive:
+	@test -n "$(FROM)" || { echo "Usage: make changed-archive FROM=<tag-or-commit>"; exit 1; }
+	@files=$$(git diff --name-only --diff-filter=ACMR $(FROM) HEAD) || exit 1; \
+	test -n "$$files" || { echo "No changed files between $(FROM) and HEAD"; exit 1; }
+	@tmp=$$(mktemp -d); trap 'rm -rf "$$tmp"' EXIT; \
+	git diff -z --name-only --diff-filter=ACMR $(FROM) HEAD | \
+		git --work-tree="$$tmp" checkout-index -f -z --stdin || exit 1; \
+	if [ "$(ARCHIVE_FORMAT)" = "zip" ]; then \
+		git diff --name-only --diff-filter=ACMR $(FROM) HEAD | \
+			(cd "$$tmp" && zip -q "$(CURDIR)/$(ARCHIVE_OUT)" -@); \
+	else \
+		git diff -z --name-only --diff-filter=ACMR $(FROM) HEAD | \
+			tar -czf "$(ARCHIVE_OUT)" -C "$$tmp" --null -T -; \
+	fi
+	@echo "Created $(ARCHIVE_OUT)"
 
 css-minify:
 	npm run build:css
