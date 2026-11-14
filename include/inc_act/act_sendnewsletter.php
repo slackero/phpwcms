@@ -175,14 +175,14 @@ if(!$newsletter) {
 
             if($newsletter['newsletter_vars']['html'] && $newsletter['newsletter_vars']['text']) {
                 //send both TEXT and HTML part
-                $mail->Body =    build_email_text($newsletter['newsletter_vars']['html'], $value);
+                $mail->Body =    build_email_text($newsletter['newsletter_vars']['html'], $value, true);
                 $mail->AltBody = build_email_text($newsletter['newsletter_vars']['text'], $value);
                 $mail->isHTML();
             }
 
             if($newsletter['newsletter_vars']['html'] && !$newsletter['newsletter_vars']['text']) {
                 //send HTML part
-                $mailBody = build_email_text($newsletter['newsletter_vars']['html'], $value);
+                $mailBody = build_email_text($newsletter['newsletter_vars']['html'], $value, true);
                 $mail->Body = $mailBody;
                 $mail->isHTML();
                 $altBody = new \Html2Text\Html2Text($mailBody);
@@ -246,13 +246,17 @@ if(!$newsletter) {
     echo 'no permission';
 }
 
-function build_email_text($text, $value) {
+function build_email_text($text, $value, $isHtml = false) {
 
     //build right message part
     $refkey = rawurlencode($value['address_key']);
 
-    $text = str_replace('###RECIPIENT_NAME###', $value['address_name'], $text);
-    $text = str_replace('###RECIPIENT_EMAIL###', $value['address_email'], $text);
+    // subscriber supplied values must not inject markup into the HTML body
+    $recipientName  = $isHtml ? html($value['address_name']) : $value['address_name'];
+    $recipientEmail = $isHtml ? html($value['address_email']) : $value['address_email'];
+
+    $text = str_replace('###RECIPIENT_NAME###', $recipientName, $text);
+    $text = str_replace('###RECIPIENT_EMAIL###', $recipientEmail, $text);
     $text = str_replace('###SITE_URL###', PHPWCMS_URL, $text);
     $text = str_replace('###VERIFY_LINK###', PHPWCMS_URL.'verify.php?s='.$refkey, $text);
     $text = str_replace('###DELETE_LINK###', PHPWCMS_URL.'verify.php?u='.$refkey, $text);
