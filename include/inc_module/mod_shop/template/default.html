@@ -82,7 +82,9 @@ default_request_url = https://example.com?product={PRODUCT}&num={NUM}
 mail_customer_subject = "[#{ORDER}] Your order at MyShop"
 mail_neworder_subject = "[#{ORDER}] New order"
 
-label_payby_prepay = "Cash with order"
+label_payby_paypal = "PayPal"
+label_payby_ccard = "Credit card"
+label_payby_prepay = "Advance payment"
 label_payby_pod = "Cash on delivery"
 label_payby_onbill = "On account"
 label_payby_cash = "Cash"
@@ -923,9 +925,9 @@ Thank you very much for your order.
 Your order: {ORDER}
             {DATE:d/m/Y H:i}
 
-Payment: [PAYBY_PREPAY]You have choosen to pay by Cash with Order.
+Payment: [PAYBY_PREPAY]You have chosen to pay in advance.
          We will send your order after we have received your payment.
-         Please send to follwong account....[/PAYBY_PREPAY][PAYBY_POD]Cash on Delivery[/PAYBY_POD][PAYBY_ONBILL]You will receive an invoice with your order which has to be paid within 7 days.[/PAYBY_ONBILL][PAYBY_CASH]Payment by cash.[/PAYBY_CASH]
+         Please send to the following account....[/PAYBY_PREPAY][PAYBY_POD]Cash on Delivery[/PAYBY_POD][PAYBY_ONBILL]You will receive an invoice with your order which has to be paid within 7 days.[/PAYBY_ONBILL][PAYBY_PAYPAL]We will send you a PayPal payment request for this order.[/PAYBY_PAYPAL][PAYBY_CCARD]We will contact you separately to arrange the card payment. Please do not send card details by e-mail.[/PAYBY_CCARD][PAYBY_CASH]Payment by cash.[/PAYBY_CASH]
 
 [SELFPICKUP]You like to pick up the order yourself.
 

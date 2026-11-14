@@ -221,7 +221,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
             'image_list_crop'           => false,
             'mail_customer_subject'     => "[#{ORDER}] Your order at MyShop",
             'mail_neworder_subject'     => "[#{ORDER}] New order",
-            'label_payby_prepay'        => "@@Cash with order@@",
+            'label_payby_prepay'        => "@@Advance payment@@",
             'label_payby_pod'           => "@@Cash on delivery@@",
             'label_payby_onbill'        => "@@On account@@",
             'label_payby_cash'          => "@@Cash@@",
@@ -1314,6 +1314,11 @@ if( $_shop_load_order !== false ) {
 
             $payment_fields = array();
             $payment_selected = isset($_SESSION[CART_KEY]['payby']) && isset($payment_options[ $_SESSION[CART_KEY]['payby'] ]) ? $_SESSION[CART_KEY]['payby'] : '';
+            // templates shipped before PayPal/credit card support have no label for them
+            $payment_labels = array();
+            foreach($payment_options as $item_key => $row) {
+                $payment_labels[$item_key] = $_tmpl['config']['label_payby_'.$item_key] ?? ucfirst($item_key);
+            }
             foreach($payment_options as $item_key => $row) {
                 $payment_fields[$item_key]  = '<div class="shop-payment-option"><label class="shop-payment-option-label">';
                 $payment_fields[$item_key] .= '<input type="radio" name="shopping_payment" id="shopping_payment_'.$item_key.'" ';
@@ -1322,7 +1327,7 @@ if( $_shop_load_order !== false ) {
                     $payment_fields[$item_key] .= ' checked="checked"';
                 }
                 $payment_fields[$item_key] .= ' class="shop-payment-option-radio" />';
-                $payment_fields[$item_key] .= '<span>' . html($_tmpl['config']['label_payby_'.$item_key]) . '</span>';
+                $payment_fields[$item_key] .= '<span>' . html($payment_labels[$item_key]) . '</span>';
                 $payment_fields[$item_key] .= '</label></div>';
             }
             $order_process = render_cnt_template($order_process, 'PAYMENT', implode(LF, $payment_fields));
@@ -1425,12 +1430,15 @@ if( $_shop_load_order !== false ) {
             $mail_neworder = render_cnt_template($mail_neworder, 'SELFPICKUP', ' ');
         }
 
-        if(!empty($_SESSION[CART_KEY]['payby'])) {
+        $payment = '';
+        $payment_options = get_payment_options();
+        if(!empty($_SESSION[CART_KEY]['payby']) && isset($payment_options[$_SESSION[CART_KEY]['payby']])) {
             $payment = $_SESSION[CART_KEY]['payby'];
-            $mail_customer = render_cnt_template($mail_customer, 'PAYBY_'.strtoupper($payment), $_tmpl['config']['label_payby_'.$payment]);
-            $mail_customer = render_cnt_template($mail_customer, 'PAYMENT', $_tmpl['config']['label_payby_'.$payment]);
-            $mail_neworder = render_cnt_template($mail_neworder, 'PAYBY_'.strtoupper($payment), $_tmpl['config']['label_payby_'.$payment]);
-            $mail_neworder = render_cnt_template($mail_neworder, 'PAYMENT', $_tmpl['config']['label_payby_'.$payment]);
+            $payment_label = $_tmpl['config']['label_payby_'.$payment] ?? ucfirst($payment);
+            $mail_customer = render_cnt_template($mail_customer, 'PAYBY_'.strtoupper($payment), $payment_label);
+            $mail_customer = render_cnt_template($mail_customer, 'PAYMENT', $payment_label);
+            $mail_neworder = render_cnt_template($mail_neworder, 'PAYBY_'.strtoupper($payment), $payment_label);
+            $mail_neworder = render_cnt_template($mail_neworder, 'PAYMENT', $payment_label);
         } else {
             $mail_customer = render_cnt_template($mail_customer, 'PAYBY_'.strtoupper($payment), 'n.a.');
             $mail_customer = render_cnt_template($mail_customer, 'PAYMENT', 'n.a.');

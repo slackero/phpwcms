@@ -127,7 +127,7 @@ if ($action == 'edit') {
             'onbill' => empty($_POST['pref_payment_onbill']) ? 0 : 1,
             'ccard' => empty($_POST['pref_payment_ccard']) ? 0 : 1,
             'cash' => empty($_POST['pref_payment_cash']) ? 0 : 1,
-            'accepted_ccard' => (is_array($_POST['pref_supported_ccard']) ? $_POST['pref_supported_ccard'] : array())
+            'accepted_ccard' => is_array($_POST['pref_supported_ccard']) ? array_values(array_intersect(array('americanexpress', 'mastercard', 'visa'), $_POST['pref_supported_ccard'])) : array()
         );
 
         // Discount Setting
