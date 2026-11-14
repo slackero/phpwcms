@@ -1,0 +1,272 @@
+Upstream: ezyang/htmlpurifier fixes after v4.19.1 (library/ only).
+Included commits:
+  fadfa8a4 fix: replace E_USER_ERROR usages deprecated in PHP 8.4 (#491)
+  f3494776 fix: support spaced composite aspect ratios (#489)
+  a09c01df fix: reject data URI when tempnam() fails (#492)
+  710c8dcd fix: keep the image URL case and trailing tokens in list-style (#493)
+  08bdd2b6 fix: keep the slash in border-radius (#494)
+Excluded: e1272475 (sms: scheme feature), 4a7c7b82 (CI/tests/composer only)
+Applies to: include/vendor/ezyang/htmlpurifier (patch -p1).
+
+diff --git a/library/HTMLPurifier.autoload.php b/library/HTMLPurifier.autoload.php
+index 7a691132..6c92bde0 100644
+--- a/library/HTMLPurifier.autoload.php
++++ b/library/HTMLPurifier.autoload.php
+@@ -19,7 +19,7 @@ if (function_exists('spl_autoload_register') && function_exists('spl_autoload_un
+ 
+ // phpcs:ignore PHPCompatibility.IniDirectives.RemovedIniDirectives.zend_ze1_compatibility_modeRemoved
+ if (ini_get('zend.ze1_compatibility_mode')) {
+-    trigger_error("HTML Purifier is not compatible with zend.ze1_compatibility_mode; please turn it off", E_USER_ERROR);
++    throw new Exception("HTML Purifier is not compatible with zend.ze1_compatibility_mode; please turn it off");
+ }
+ 
+ // vim: et sw=4 sts=4
+diff --git a/library/HTMLPurifier.includes.php b/library/HTMLPurifier.includes.php
+index 18b1150a..305f23ae 100644
+--- a/library/HTMLPurifier.includes.php
++++ b/library/HTMLPurifier.includes.php
+@@ -89,6 +89,7 @@ require 'HTMLPurifier/AttrDef/CSS/AlphaValue.php';
+ require 'HTMLPurifier/AttrDef/CSS/Background.php';
+ require 'HTMLPurifier/AttrDef/CSS/BackgroundPosition.php';
+ require 'HTMLPurifier/AttrDef/CSS/Border.php';
++require 'HTMLPurifier/AttrDef/CSS/BorderRadius.php';
+ require 'HTMLPurifier/AttrDef/CSS/Color.php';
+ require 'HTMLPurifier/AttrDef/CSS/Composite.php';
+ require 'HTMLPurifier/AttrDef/CSS/DenyElementDecorator.php';
+@@ -102,6 +103,7 @@ require 'HTMLPurifier/AttrDef/CSS/ListStyle.php';
+ require 'HTMLPurifier/AttrDef/CSS/Multiple.php';
+ require 'HTMLPurifier/AttrDef/CSS/Percentage.php';
+ require 'HTMLPurifier/AttrDef/CSS/Ratio.php';
++require 'HTMLPurifier/AttrDef/CSS/AspectRatio.php';
+ require 'HTMLPurifier/AttrDef/CSS/TextDecoration.php';
+ require 'HTMLPurifier/AttrDef/CSS/URI.php';
+ require 'HTMLPurifier/AttrDef/HTML/Bool.php';
+diff --git a/library/HTMLPurifier.safe-includes.php b/library/HTMLPurifier.safe-includes.php
+index 8a417d24..9675bc8c 100644
+--- a/library/HTMLPurifier.safe-includes.php
++++ b/library/HTMLPurifier.safe-includes.php
+@@ -83,6 +83,7 @@ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/AlphaValue.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/Background.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/BackgroundPosition.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/Border.php';
++require_once $__dir . '/HTMLPurifier/AttrDef/CSS/BorderRadius.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/Color.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/Composite.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/DenyElementDecorator.php';
+@@ -96,6 +97,7 @@ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/ListStyle.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/Multiple.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/Percentage.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/Ratio.php';
++require_once $__dir . '/HTMLPurifier/AttrDef/CSS/AspectRatio.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/TextDecoration.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/CSS/URI.php';
+ require_once $__dir . '/HTMLPurifier/AttrDef/HTML/Bool.php';
+diff --git a/library/HTMLPurifier/AttrDef/CSS/AspectRatio.php b/library/HTMLPurifier/AttrDef/CSS/AspectRatio.php
+new file mode 100644
+index 00000000..2009625d
+--- /dev/null
++++ b/library/HTMLPurifier/AttrDef/CSS/AspectRatio.php
+@@ -0,0 +1,55 @@
++<?php
++
++/**
++ * Validates the aspect-ratio property as defined by the CSS spec:
++ * `auto || <ratio>`, allowing auto to be combined with a ratio in
++ * either order.
++ */
++class HTMLPurifier_AttrDef_CSS_AspectRatio extends HTMLPurifier_AttrDef_CSS_Ratio
++{
++    /**
++     * @param   string               $aspect_ratio   Aspect ratio to validate
++     * @param   HTMLPurifier_Config  $config  Configuration options
++     * @param   HTMLPurifier_Context $context Context
++     *
++     * @return  string|boolean
++     */
++    public function validate($aspect_ratio, $config, $context)
++    {
++        $aspect_ratio = $this->parseCDATA($aspect_ratio);
++
++        if (strtolower($aspect_ratio) === 'auto') {
++            return 'auto';
++        }
++
++        // Peel auto off before delegating to the strict <ratio>
++        // validator, so it isn't confused with the space CSS allows
++        // inside the ratio itself (e.g. "16 / 9").
++        $len = strlen($aspect_ratio);
++        $auto_before = false;
++        $auto_after = false;
++        if ($len >= 5 && strncasecmp($aspect_ratio, 'auto ', 5) === 0) {
++            $auto_before = true;
++            $aspect_ratio = ltrim(substr($aspect_ratio, 5));
++        } elseif ($len >= 5 && strcasecmp(substr($aspect_ratio, -5), ' auto') === 0) {
++            $auto_after = true;
++            $aspect_ratio = rtrim(substr($aspect_ratio, 0, -5));
++        }
++
++        $result = parent::validate($aspect_ratio, $config, $context);
++
++        if ($result === false) {
++            return false;
++        }
++
++        if ($auto_before) {
++            return 'auto ' . $result;
++        }
++        if ($auto_after) {
++            return $result . ' auto';
++        }
++        return $result;
++    }
++}
++
++// vim: et sw=4 sts=4
+diff --git a/library/HTMLPurifier/AttrDef/CSS/BorderRadius.php b/library/HTMLPurifier/AttrDef/CSS/BorderRadius.php
+new file mode 100644
+index 00000000..137e7356
+--- /dev/null
++++ b/library/HTMLPurifier/AttrDef/CSS/BorderRadius.php
+@@ -0,0 +1,46 @@
++<?php
++
++/**
++ * Validates the border-radius shorthand: one to four horizontal radii,
++ * optionally followed by a slash and one to four vertical radii.
++ */
++class HTMLPurifier_AttrDef_CSS_BorderRadius extends HTMLPurifier_AttrDef
++{
++    /**
++     * @type HTMLPurifier_AttrDef_CSS_Multiple
++     */
++    protected $radii;
++
++    /**
++     * @param HTMLPurifier_AttrDef $single Validator for a single radius
++     */
++    public function __construct($single)
++    {
++        $this->radii = new HTMLPurifier_AttrDef_CSS_Multiple($single, 4);
++    }
++
++    /**
++     * @param string $string
++     * @param HTMLPurifier_Config $config
++     * @param HTMLPurifier_Context $context
++     * @return bool|string
++     */
++    public function validate($string, $config, $context)
++    {
++        $parts = explode('/', $this->parseCDATA($string));
++        if (count($parts) > 2) {
++            return false;
++        }
++        $result = $this->radii->validate($parts[0], $config, $context);
++        if ($result === false || count($parts) === 1) {
++            return $result;
++        }
++        $vertical = $this->radii->validate($parts[1], $config, $context);
++        if ($vertical === false) {
++            return false;
++        }
++        return $result . ' / ' . $vertical;
++    }
++}
++
++// vim: et sw=4 sts=4
+diff --git a/library/HTMLPurifier/AttrDef/CSS/ListStyle.php b/library/HTMLPurifier/AttrDef/CSS/ListStyle.php
+index e74d4265..9fc2c406 100644
+--- a/library/HTMLPurifier/AttrDef/CSS/ListStyle.php
++++ b/library/HTMLPurifier/AttrDef/CSS/ListStyle.php
+@@ -40,7 +40,7 @@ class HTMLPurifier_AttrDef_CSS_ListStyle extends HTMLPurifier_AttrDef
+         }
+ 
+         // assumes URI doesn't have spaces in it
+-        $bits = explode(' ', strtolower($string)); // bits to process
++        $bits = explode(' ', $string); // bits to process
+ 
+         $caught = array();
+         $caught['type'] = false;
+@@ -52,7 +52,7 @@ class HTMLPurifier_AttrDef_CSS_ListStyle extends HTMLPurifier_AttrDef
+ 
+         foreach ($bits as $bit) {
+             if ($i >= 3) {
+-                return;
++                break;
+             } // optimization bit
+             if ($bit === '') {
+                 continue;
+diff --git a/library/HTMLPurifier/AttrDef/CSS/URI.php b/library/HTMLPurifier/AttrDef/CSS/URI.php
+index 6617acac..50d71a00 100644
+--- a/library/HTMLPurifier/AttrDef/CSS/URI.php
++++ b/library/HTMLPurifier/AttrDef/CSS/URI.php
+@@ -29,7 +29,7 @@ class HTMLPurifier_AttrDef_CSS_URI extends HTMLPurifier_AttrDef_URI
+         // the parent object
+ 
+         $uri_string = $this->parseCDATA($uri_string);
+-        if (strpos($uri_string, 'url(') !== 0) {
++        if (stripos($uri_string, 'url(') !== 0) {
+             return false;
+         }
+         $uri_string = substr($uri_string, 4);
+diff --git a/library/HTMLPurifier/CSSDefinition.php b/library/HTMLPurifier/CSSDefinition.php
+index 923d6f3d..fe7d3ac9 100644
+--- a/library/HTMLPurifier/CSSDefinition.php
++++ b/library/HTMLPurifier/CSSDefinition.php
+@@ -301,12 +301,7 @@ class HTMLPurifier_CSSDefinition extends HTMLPurifier_Definition
+                     $trusted_max_wh
+                 );
+ 
+-        $this->info['aspect-ratio'] = new HTMLPurifier_AttrDef_CSS_Multiple(
+-            new HTMLPurifier_AttrDef_CSS_Composite([
+-                new HTMLPurifier_AttrDef_CSS_Ratio(),
+-                new HTMLPurifier_AttrDef_Enum(['auto']),
+-            ])
+-        );
++        $this->info['aspect-ratio'] = new HTMLPurifier_AttrDef_CSS_AspectRatio();
+ 
+         // text-decoration and related shorthands
+         $this->info['text-decoration'] = new HTMLPurifier_AttrDef_CSS_TextDecoration();
+@@ -463,8 +458,7 @@ class HTMLPurifier_CSSDefinition extends HTMLPurifier_Definition
+         $this->info['border-top-right-radius'] =
+         $this->info['border-bottom-right-radius'] =
+         $this->info['border-bottom-left-radius'] = new HTMLPurifier_AttrDef_CSS_Multiple($border_radius, 2);
+-        // TODO: support SLASH syntax
+-        $this->info['border-radius'] = new HTMLPurifier_AttrDef_CSS_Multiple($border_radius, 4);
++        $this->info['border-radius'] = new HTMLPurifier_AttrDef_CSS_BorderRadius($border_radius);
+ 
+     }
+ 
+diff --git a/library/HTMLPurifier/ContentSets.php b/library/HTMLPurifier/ContentSets.php
+index d3429952..1524984f 100644
+--- a/library/HTMLPurifier/ContentSets.php
++++ b/library/HTMLPurifier/ContentSets.php
+@@ -143,10 +143,7 @@ class HTMLPurifier_ContentSets
+             return $return;
+         }
+ 
+-        throw new Exception(
+-            'Could not determine which ChildDef class to instantiate',
+-            E_USER_ERROR
+-        );
++        throw new Exception('Could not determine which ChildDef class to instantiate');
+     }
+ 
+     /**
+diff --git a/library/HTMLPurifier/URIScheme/data.php b/library/HTMLPurifier/URIScheme/data.php
+index 02e540cb..3f77fc61 100644
+--- a/library/HTMLPurifier/URIScheme/data.php
++++ b/library/HTMLPurifier/URIScheme/data.php
+@@ -91,6 +91,12 @@ class HTMLPurifier_URIScheme_data extends HTMLPurifier_URIScheme
+         } else {
+             $file = tempnam("/tmp", "");
+         }
++        if ($file === false) {
++            // error; could not create a temporary file (e.g. the temp
++            // directory is not writable or is outside open_basedir), so
++            // we cannot verify the image data
++            return false;
++        }
+         file_put_contents($file, $raw_data);
+         if (function_exists('exif_imagetype')) {
+             $image_code = exif_imagetype($file);

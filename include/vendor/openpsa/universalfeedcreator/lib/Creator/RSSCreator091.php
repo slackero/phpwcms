@@ -172,6 +172,9 @@ class RSSCreator091 extends FeedCreator
             if ($this->items[$i]->thumb != "") {
                 $feed .= "            <g:image_link>".htmlspecialchars($this->items[$i]->thumb)."</g:image_link>\n";
             }
+            if ($this->items[$i]->enclosure != null) {
+                $feed .= "            <enclosure url=\"".$this->items[$i]->enclosure->url."\" type=\"".$this->items[$i]->enclosure->type."\"  length=\"".$this->items[$i]->enclosure->length."\" />";
+            }
             $feed .= $this->_createAdditionalElements($this->items[$i]->additionalElements, "            ");
             $feed .= "        </item>\n";
         }

@@ -1,0 +1,17 @@
+Upstream: flack/UniversalFeedCreator commit c656647 ("chore: add missing
+enclosure tag rendering code to RSS creator"), merged in 98bbc60.
+Not released as of v1.9.0 (2024-02-22).
+Applies to: include/vendor/openpsa/universalfeedcreator (patch -p1).
+
+--- a/lib/Creator/RSSCreator091.php
++++ b/lib/Creator/RSSCreator091.php
+@@ -172,6 +172,9 @@ class RSSCreator091 extends FeedCreator
+             if ($this->items[$i]->thumb != "") {
+                 $feed .= "            <g:image_link>".htmlspecialchars($this->items[$i]->thumb)."</g:image_link>\n";
+             }
++            if ($this->items[$i]->enclosure != null) {
++                $feed .= "            <enclosure url=\"".$this->items[$i]->enclosure->url."\" type=\"".$this->items[$i]->enclosure->type."\"  length=\"".$this->items[$i]->enclosure->length."\" />";
++            }
+             $feed .= $this->_createAdditionalElements($this->items[$i]->additionalElements, "            ");
+             $feed .= "        </item>\n";
+         }

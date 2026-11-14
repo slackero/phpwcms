@@ -301,12 +301,7 @@ class HTMLPurifier_CSSDefinition extends HTMLPurifier_Definition
                     $trusted_max_wh
                 );
 
-        $this->info['aspect-ratio'] = new HTMLPurifier_AttrDef_CSS_Multiple(
-            new HTMLPurifier_AttrDef_CSS_Composite([
-                new HTMLPurifier_AttrDef_CSS_Ratio(),
-                new HTMLPurifier_AttrDef_Enum(['auto']),
-            ])
-        );
+        $this->info['aspect-ratio'] = new HTMLPurifier_AttrDef_CSS_AspectRatio();
 
         // text-decoration and related shorthands
         $this->info['text-decoration'] = new HTMLPurifier_AttrDef_CSS_TextDecoration();
@@ -463,8 +458,7 @@ class HTMLPurifier_CSSDefinition extends HTMLPurifier_Definition
         $this->info['border-top-right-radius'] =
         $this->info['border-bottom-right-radius'] =
         $this->info['border-bottom-left-radius'] = new HTMLPurifier_AttrDef_CSS_Multiple($border_radius, 2);
-        // TODO: support SLASH syntax
-        $this->info['border-radius'] = new HTMLPurifier_AttrDef_CSS_Multiple($border_radius, 4);
+        $this->info['border-radius'] = new HTMLPurifier_AttrDef_CSS_BorderRadius($border_radius);
 
     }
 
