@@ -52,6 +52,13 @@ class SVGMetadataExtractor {
             return false;
         }
 
+        // Drop any DOCTYPE before a parser sees the file, keep Illustrator's
+        // inline namespace entities working.
+        $svgContent = self::stripDoctype($svgContent);
+        if ($svgContent === false) {
+            return false;
+        }
+
         if ($sanitize) {
             $sanitizer = new Sanitizer();
             $sanitizer->minify(true);
@@ -63,9 +70,10 @@ class SVGMetadataExtractor {
             }
         }
 
-        // Suppress XML warnings and parse root <svg> tag with SimpleXML
+        // Suppress XML warnings and parse root <svg> tag with SimpleXML.
+        // LIBXML_NONET blocks any network access while parsing external DTDs.
         $useErrors = libxml_use_internal_errors(true);
-        $xml = @simplexml_load_string($svgContent);
+        $xml = @simplexml_load_string($svgContent, 'SimpleXMLElement', LIBXML_NONET);
         libxml_use_internal_errors($useErrors);
 
         if (!$xml || strtolower($xml->getName()) !== 'svg') {
@@ -114,6 +122,64 @@ class SVGMetadataExtractor {
             'originalWidth' => $rawWidth ?? (string)$calcWidth,
             'originalHeight' => $rawHeight ?? (string)$calcHeight
         ];
+    }
+
+    /**
+     * Remove the DOCTYPE declaration and inline its internal entity values.
+     *
+     * Adobe Illustrator writes the SVG namespaces as entities inside the
+     * DOCTYPE (T33719). Those files are valid images, so the declaration is
+     * resolved textually instead of handed to an XML parser: no DTD is ever
+     * loaded, and external/parameter entities or nested references are refused.
+     *
+     * @param string $svgContent Raw SVG source
+     * @return string|false SVG without DOCTYPE, or false when it cannot be resolved
+     */
+    private static function stripDoctype($svgContent) {
+        if (stripos($svgContent, '<!DOCTYPE') === false) {
+            return $svgContent;
+        }
+
+        $pattern = '/<!DOCTYPE\b[^>\[]*(?:\[(.*?)\])?\s*>/is';
+
+        if (!preg_match($pattern, $svgContent, $matches)) {
+            return false;
+        }
+
+        $subset = $matches[1] ?? '';
+        $svgContent = preg_replace($pattern, '', $svgContent, 1);
+
+        $replace = array();
+        $entityPattern = '/<!ENTITY\s+([A-Za-z_][\w.-]*)\s+"([^"<>&]*)"\s*>/i';
+
+        if ($subset !== '') {
+            // parameter entities, external identifiers and nested references
+            // are never supported, refuse the whole file instead
+            if (preg_match('/<!ENTITY\s+%|SYSTEM|PUBLIC|NOTATION/i', $subset)) {
+                return false;
+            }
+
+            if (preg_match_all($entityPattern, $subset, $entities, PREG_SET_ORDER)) {
+                foreach ($entities as $entity) {
+                    $replace['&' . $entity[1] . ';'] = $entity[2];
+                }
+            }
+
+            // whatever remains in the subset must be declarations we handled
+            if (trim(preg_replace($entityPattern, '', $subset)) !== '') {
+                return false;
+            }
+        }
+
+        if ($replace) {
+            $svgContent = strtr($svgContent, $replace);
+        }
+
+        // an entity reference that is not XML predefined and not resolved above
+        // would break the XML parser, so treat it as an invalid image
+        return preg_match('/&(?!amp;|lt;|gt;|quot;|apos;|#)[A-Za-z_][\w.-]*;/', $svgContent) ?
+            false :
+            $svgContent;
     }
 
     /**

@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Security
+- **SVG Metadata Parsing:** `SVGMetadataExtractor::getMetadata()` strips the DOCTYPE textually before a parser sees the file and passes `LIBXML_NONET` to `simplexml_load_string()`. External, parameter and notation entities are refused, and any unresolved entity reference invalidates the image. Adobe Illustrator files that declare their SVG namespaces as inline entities keep working, because their literal entity values are substituted before the declaration is dropped.
 - **Inline Download of Uploaded Files:** Inline rendering is now limited by an extension allowlist (raster images, PDF, plain text/CSV, audio and video); every other extension is delivered as attachment. The stored MIME type, which is client controlled at upload through `X-Mime-Type` and `$_FILES`, no longer decides the disposition: `dl_file_resume()` re-detects the type with `fileinfo` and falls back to attachment when the detected type can execute scripts. `download.php?file=` ignores the `?type=` parameter for inline responses, sends `Content-Disposition` on the iOS range download path, and both delivery paths send `X-Content-Type-Options: nosniff`. Closes GHSA-rmf4-vf3j-hq8g.
 
 ## [2.0.0-beta.3] – 2026/11/13
