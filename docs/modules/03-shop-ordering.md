@@ -66,9 +66,9 @@ With `shop_pref_shipping_selfpickup` enabled, the `[SELFPICKUP]` checkbox lets v
 
 > Source: `frontend.init.php` (`get_payment_options()`)
 
-The checkout radio list offers exactly the four methods whitelisted in code: `prepay` (prepayment), `pod` (cash on delivery), `onbill` (on account), `cash`. Conditionals `[PAYBY_PREPAY]`, `[PAYBY_POD]`, `[PAYBY_ONBILL]`, `[PAYBY_CASH]` switch template sections; `{PAYMENT}` renders the chosen label.
+The checkout radio list offers every method enabled in the preferences and whitelisted in code: `paypal`, `prepay` (advance payment), `pod` (cash on delivery), `onbill` (on account), `ccard` (credit card), `cash`. Conditionals `[PAYBY_PAYPAL]`, `[PAYBY_PREPAY]`, `[PAYBY_POD]`, `[PAYBY_ONBILL]`, `[PAYBY_CCARD]`, `[PAYBY_CASH]` switch template sections; `{PAYMENT}` renders the chosen label. Templates shipped before PayPal and credit card support have no label for them — the label falls back to the capitalised method key, and orders re-check the submitted method against the currently enabled options. Accepted card brands are limited to `americanexpress`, `mastercard` and `visa` before they are stored.
 
-The preferences store a PayPal email and a credit-card flag with accepted card types, and mails can be addressed with `shop_pref_email_paypal` — but no PayPal or credit-card gateway processing exists in `include/inc_module/mod_shop/`: the checkout accepts these data as stored preferences only. Any payment processing beyond prepayment/cash-on-delivery/on-account/cash would be integration work (webhook, IPN or external provider) outside this code.
+The preferences store a PayPal email and a credit-card flag with accepted card types, and mails can be addressed with `shop_pref_email_paypal` — but no PayPal or credit-card gateway processing exists in `include/inc_module/mod_shop/`: the checkout accepts these data as stored preferences only. Any payment processing beyond prepayment/cash-on-delivery/on-account/cash would be integration work (webhook, IPN or external provider) outside this code. PayPal and credit card can be selected at checkout, but that only records the choice in the order and the notification mails; nothing is charged.
 
 ## Pricing, VAT and discounts
 

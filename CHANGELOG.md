@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [2.0.0-beta.4] – 2026/11/15
 
 ### Security
 - **Host Header Poisoning of Mailed Links:** `get_url_origin()` believes `X-Forwarded-Host` only when the request comes from a `trusted_proxies` entry, validates the resulting host (RFC 3986 reg-name, label and port limits) and honours the new `$phpwcms['trusted_hosts']` allowlist. Every mailer that embeds an absolute link — password reminder, form double opt-in, newsletter verification, guestbook notification, e-card, profile notifications, feed import status and the backend newsletter send — now uses `phpwcms_mail_site_url()` and skips the mail when the site URL was derived from an unverified request host. The setup wizard now stores the detected URL in `site` when the field is left empty, so a fresh install has a canonical host; a URL entered by the operator must be an absolute `http(s)` URL without credentials, query or fragment and is stored with a normalised trailing slash. Closes GHSA-x5fx-f274-39p8.
@@ -12,6 +12,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Newsletter Recipient Values:** `build_email_text()` escapes `###RECIPIENT_NAME###` and `###RECIPIENT_EMAIL###` when building the HTML part, so a subscriber name cannot inject markup into the newsletter body before it is converted to the plain text alternative.
 - **SVG Metadata Parsing:** `SVGMetadataExtractor::getMetadata()` strips the DOCTYPE textually before a parser sees the file and passes `LIBXML_NONET` to `simplexml_load_string()`. External, parameter and notation entities are refused, and any unresolved entity reference invalidates the image. Adobe Illustrator files that declare their SVG namespaces as inline entities keep working, because their literal entity values are substituted before the declaration is dropped.
 - **Inline Download of Uploaded Files:** Inline rendering is now limited by an extension allowlist (raster images, PDF, plain text/CSV, audio and video); every other extension is delivered as attachment. The stored MIME type, which is client controlled at upload through `X-Mime-Type` and `$_FILES`, no longer decides the disposition: `dl_file_resume()` re-detects the type with `fileinfo` and falls back to attachment when the detected type can execute scripts. `download.php?file=` ignores the `?type=` parameter for inline responses, sends `Content-Disposition` on the iOS range download path, and both delivery paths send `X-Content-Type-Options: nosniff`. Closes GHSA-rmf4-vf3j-hq8g.
+
+### Added
+- **PHP 8.5 Analysis Target:** `make phpstan-analyse-85`, `composer phpstan:8.5` and `.phpstan/phpstan-php85.neon` analyse the codebase against PHP 8.5. The 8.5 stubs type `session_get_cookie_params()['samesite']` as never falsy, so the single resulting finding is tracked in `.phpstan/phpstan-baseline-php85.neon` and the Lax default stays.
+- **Changed-Files Archive Targets:** `make changed-archive FROM=<ref>` and `scripts/changed-archive.sh` / `scripts/changed-archive.ps1` pack the `HEAD` state of every file changed since a tag or commit, skipping deleted files, for lean release uploads. `ARCHIVE_FORMAT=zip` selects ZIP instead of `.tar.gz`.
+
+### Changed
+- **Vendor Patches:** `build/patches/` now carries the unreleased upstream HTML Purifier fixes — no `E_USER_ERROR` deprecation on PHP 8.4, spaced `aspect-ratio` and `border-radius` values that survive purification, `data:` URI rejection when no temp file can be created, `list-style` image URL case — and the UniversalFeedCreator fix that renders `<enclosure>` for RSS 2.0. Each patch documents its upstream commits, the excluded changes and the apply command; re-apply them after `composer install` or `composer update`.
+
+### Fixed
+- **Shop Checkout Payment Methods:** The preferences expose six payment methods but the frontend whitelist knew four, so enabling only PayPal or credit card left checkout without any option. Every enabled method is offered now, labels for both ship with the templates and fall back to a readable key for custom templates, orders re-check the chosen method against the current options, and the accepted card brands are whitelisted before they are stored. Prepayment is labelled "Advance payment" instead of "Cash with order".
+- **Form Fallback Subject:** A form saved without a subject passed the site URL as `substr()` length, a `TypeError` on PHP 8 that returned HTTP 500, sent no mail and left the upload orphaned in `content/form/`. The fallback subject is the parsed site host now.
 
 ## [2.0.0-beta.3] – 2026/11/13
 

@@ -12,8 +12,8 @@
 #   ./scripts/changed-archive.sh <tag-or-commit> [tar.gz|zip]
 #
 # Examples:
-#   ./scripts/changed-archive.sh v2.0.0-beta.3
-#   ./scripts/changed-archive.sh v2.0.0-beta.3 zip
+#   ./scripts/changed-archive.sh v2.0.0-beta.4
+#   ./scripts/changed-archive.sh v2.0.0-beta.4 zip
 
 set -euo pipefail
 

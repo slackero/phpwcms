@@ -23,7 +23,7 @@ All uploaded files live in a single storage directory on the server, referenced 
 | `multimedia_ext` | string | `'aif,aiff,mov,...'` | Extensions the file browser treats as multimedia entries. |
 | `trash_delete_files` | bool | `false` | If `true`, emptying a file trash physically deletes the stored file. If `false`, the maintenance action moves it to `filearchive/can_be_deleted/` instead; see [Admin panel](admin-panel.md#maintenance-actions). |
 | `sanitize_dlname` | bool | `0` | Rewrite special characters in `Content-Disposition` filenames on download when browsers choke on them. |
-| `inline_download` | bool | `1` | Try to display downloads in the browser (`inline`) instead of forcing `attachment`. |
+| `inline_download` | bool | `1` | Try to display downloads in the browser (`inline`) instead of forcing `attachment`. Inline delivery is limited to an extension allowlist (raster images, PDF, plain text/CSV, audio, video); every other extension is sent as attachment. |
 | `recipient_count` | int | `0` | Legacy key; the setting is no longer read in 2.x code and has no effect. It still exists in `conf.inc.php` written by the setup wizard. |
 
 There is no storage quota system: the only limit is `file_maxsize` per file plus the disk space of the host.
@@ -52,6 +52,8 @@ The filestorage stores files under their md5 `<hash>.<ext>` names, which the `ph
 | `image_memoryinfo.png` | Replaces an image when PHP memory is too low to resize it. |
 
 The default `.htaccess`/web-server config should treat the directory as non-executable storage; downloads flow through `download.php` with resumable range support and ETag headers, not direct links.
+
+Inline downloads never trust the stored MIME type, which the client controls at upload through the `X-Mime-Type` header and `$_FILES`. `dl_file_disposition()` decides inline or attachment from an extension allowlist (`is_inline_file_extension()`: `jpg`, `jpeg`, `png`, `gif`, `webp`, `avif`, `bmp`, `ico`, `pdf`, `txt`, `csv`, `mp3`, `m4a`, `wav`, `oga`, `ogg`, `flac`, `mp4`, `m4v`, `mov`, `webm`, `ogv`, `ogm`), and `dl_file_resume()` re-detects the type with `fileinfo` and downgrades to attachment when the detected MIME type can execute scripts (`is_inline_mimetype()` rejects SVG and every XML, HTML and JavaScript type). `download.php?file=` ignores `?type=` for inline responses and both paths send `X-Content-Type-Options: nosniff`.
 
 ## FTP takeover
 

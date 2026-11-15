@@ -19,10 +19,10 @@
     Archive path. Defaults to phpwcms-<From>-to-HEAD.<Format>.
 
 .EXAMPLE
-    .\scripts\changed-archive.ps1 -From v2.0.0-beta.3
+    .\scripts\changed-archive.ps1 -From v2.0.0-beta.4
 
 .EXAMPLE
-    .\scripts\changed-archive.ps1 -From v2.0.0-beta.3 -Format zip
+    .\scripts\changed-archive.ps1 -From v2.0.0-beta.4 -Format zip
 #>
 param(
     [Parameter(Mandatory = $true, Position = 0)]
