@@ -2159,8 +2159,11 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
     // get email addresses of recipients and senders
     $cnt_form["target"] = convertStringToArray($cnt_form["target"], ';');
     if(empty($cnt_form["subject"])) {
-        $cnt_form["alt_subj"] = str_replace('http://', '', $phpwcms['site']);
-        $cnt_form["alt_subj"] = substr($cnt_form["alt_subj"], 0, trim($phpwcms['site'], '/'));
+        // fallback subject is the site host; PHP 8 rejects a string length
+        $cnt_form["alt_subj"] = (string) parse_url($phpwcms['site'], PHP_URL_HOST);
+        if($cnt_form["alt_subj"] === '') {
+            $cnt_form["alt_subj"] = trim((string) $phpwcms['site'], '/');
+        }
         $cnt_form["subject"]  = 'Webform: '.$cnt_form["alt_subj"];
     }
 
