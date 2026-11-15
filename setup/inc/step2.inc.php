@@ -16,6 +16,9 @@ if (!defined('PHP8')) {
 if ($err) {
     echo '<p class="error"><b>Check your admin user name and password!</b></p>';
 }
+if (!empty($site_err)) {
+    echo '<p class="error"><b>Enter an absolute http(s) URL, for example https://example.com/.</b></p>';
+}
 
 ?>
 <h1>7. Path settings </h1>

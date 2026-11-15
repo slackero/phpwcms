@@ -756,3 +756,4 @@ $BL['be_cnt_bid_startbid']              = 'start bid';
 // added: 29-04-2004
 $BL['be_cnt_bid_nextbidadd']            = 'increase&nbsp;by';
 
+$BL['be_newsletter_nourl'] = 'Бюлетинът не е изпратен: URL адресът на сайта не е конфигуриран или не е надежден.';

@@ -14,6 +14,10 @@
 $DOCROOT = rtrim(str_replace('\\', '/', dirname(dirname(dirname(__FILE__)))), '/');
 include $DOCROOT . '/include/inc_lib/revision/revision.php';
 
+if (is_file($DOCROOT . '/include/vendor/autoload.php')) {
+    require_once $DOCROOT . '/include/vendor/autoload.php';
+}
+
 if (empty($_SERVER['DOCUMENT_ROOT'])) {
     $_SERVER['DOCUMENT_ROOT'] = $DOCROOT;
 }
@@ -135,12 +139,12 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['db_errorlog'] = false; // Log DB queries - false|true\n";
 
     $conf_file .= "\n// site values\n";
-    $check_url = rtrim($val["site"], '/');
-    if ($check_url === 'http://' . $_SERVER['SERVER_NAME'] || $check_url === 'https://' . $_SERVER['SERVER_NAME']) {
-        $conf_file .= "\$phpwcms['site'] = '';";
-    } else {
-        $conf_file .= "\$phpwcms['site'] = " . var_export((string)($val["site"]), true) . ";";
-    }
+    $site_url = trim((string)($val['site'] ?? ''));
+    $site_url = setup_resolve_site_url(
+        $site_url,
+        $site_url === '' ? get_url_origin(true) : ''
+    );
+    $conf_file .= "\$phpwcms['site'] = " . var_export($site_url, true) . ";";
 
     $conf_file .= " // leave empty to auto configure or try 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
     $conf_file .= "\$phpwcms['site_ssl_mode'] = 0; // turns the SSL Support of WCMS on (1) or off (0), default value 0\n";
@@ -229,6 +233,9 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['version_check'] = 1; // checks for current release of phpwcms online \n";
     $conf_file .= "\$phpwcms['SESSION_FEinit'] = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend \n";
     $conf_file .= "\$phpwcms['Login_IPcheck'] = 0; \n";
+    $conf_file .= "\$phpwcms['trusted_proxies'] = array(); // CIDR list of reverse proxies/CDNs whose forwarded headers may be believed, e.g. array('173.245.48.0/20', '2400:cb00::/32'); empty = trust no forwarded headers\n";
+    $conf_file .= "\$phpwcms['trusted_proxy_priority_header'] = ''; // optional unambiguous client IP header to prefer when the peer is a trusted proxy, e.g. 'CF-Connecting-IP' (Cloudflare) or 'Fastly-Client-IP'\n";
+    $conf_file .= "\$phpwcms['trusted_hosts'] = array(); // canonical hostnames phpwcms may generate links for, e.g. array('example.com', 'www.example.com'); any other request host is replaced by the first entry; empty = derive the host from the request\n";
     $conf_file .= "\$phpwcms['frontend_edit'] = 0; // enable content specific direct links - linking direct into the backend \n";
     $conf_file .= "\$phpwcms['gd_memcheck_off'] = 0; // disable GD php memory check before resize an image \n";
     $conf_file .= "\$phpwcms['enable_chat'] = 0; // enable or disable chat function, by default it is disabled - not recommend anymore to use it \n";
@@ -473,6 +480,147 @@ if (!function_exists('decode_entities')) {
     }
 }
 
+/**
+ * Resolve the value written to $phpwcms['site']. An entered URL is kept, an
+ * empty field falls back to the detected URL. Both get one trailing slash.
+ *
+ * @param string $site           value entered by the operator
+ * @param string $detected_site  detected URL, only used when $site is empty
+ *
+ * @return string
+ */
+function setup_resolve_site_url($site, $detected_site) {
+    $site = trim((string) $site);
+    if ($site === '') {
+        $detected_site = trim((string) $detected_site);
+        if ($detected_site !== '' && $detected_site !== 'http://' && $detected_site !== 'https://') {
+            $site = $detected_site;
+        }
+    }
+    if ($site === '') {
+        return '';
+    }
+
+    $site = setup_site_url_to_idn($site);
+
+    // a scheme is case-insensitive, so store it lowercase: the consumers
+    // (write_conf_file() and default.inc.php) test for a literal 'https://'
+    $site = preg_replace_callback('#^([a-z][a-z0-9+.\-]*)://#i', static function ($matches) {
+        return strtolower($matches[1]) . '://';
+    }, $site);
+
+    return rtrim($site, '/') . '/';
+}
+
+/**
+ * Convert an internationalized hostname in a URL to Punycode, so the stored
+ * base URL is ASCII. URLs without non-ASCII characters pass through.
+ *
+ * @param string $url
+ *
+ * @return string
+ */
+function setup_site_url_to_idn($url) {
+    $url   = (string) $url;
+    $parts = parse_url($url);
+    if (!is_array($parts) || empty($parts['host']) || preg_match('/[^\x20-\x7E]/', $parts['host']) !== 1) {
+        return $url;
+    }
+    if (!class_exists('\Algo26\IdnaConvert\ToIdn')) {
+        return $url;
+    }
+
+    try {
+        $host = (new \Algo26\IdnaConvert\ToIdn())->convert($parts['host']);
+    } catch (\Throwable $e) {
+        return $url;
+    }
+
+    $idn_url = $parts['scheme'] . '://' . $host;
+    if (!empty($parts['port'])) {
+        $idn_url .= ':' . $parts['port'];
+    }
+    if (!empty($parts['path'])) {
+        $idn_url .= $parts['path'];
+    }
+
+    return $idn_url;
+}
+
+/**
+ * Check an operator-entered site URL. Only an absolute http(s) URL counts;
+ * a bare host or a different scheme would leave PHPWCMS_URL malformed.
+ *
+ * @param string $url
+ *
+ * @return bool
+ */
+function setup_site_url_is_valid($url) {
+    // an internationalized hostname is converted before the syntax check
+    $url = trim(setup_site_url_to_idn(trim((string) $url)));
+    if ($url === '' || !filter_var($url, FILTER_VALIDATE_URL)) {
+        return false;
+    }
+    if (preg_match('#^https?://#i', $url) !== 1) {
+        return false;
+    }
+
+    // credentials, query and fragment have no meaning in a base URL
+    $parts = parse_url($url);
+    if (!is_array($parts) || !empty($parts['user']) || !empty($parts['pass'])
+        || isset($parts['query']) || isset($parts['fragment'])
+    ) {
+        return false;
+    }
+
+    return !empty($parts['host']);
+}
+
+/**
+ * Setup runs before include/config and cannot load include/inc_lib/default.inc.php,
+ * so this function is a copy of the one defined there. Keep both in sync.
+ */
+function phpwcms_validate_url_host($host) {
+    // a single trailing dot marks a fully qualified hostname and carries no
+    // meaning for the generated URL; more than one dot keeps the empty labels
+    $host = trim((string) $host);
+    if (substr($host, -1) === '.') {
+        $host = substr($host, 0, -1);
+    }
+
+    if ($host === '' || strlen($host) > 255) {
+        return '';
+    }
+
+    // hostname part and port, an IPv6 literal keeps its brackets
+    $pattern = '/^(\[[^\]]+\]|[a-z0-9_](?:[a-z0-9._-]*[a-z0-9_])?)(?::([0-9]{1,5}))?$/i';
+    if (!preg_match($pattern, $host, $matches, PREG_UNMATCHED_AS_NULL)) {
+        return '';
+    }
+
+    // a port above 65535 is not a valid TCP port
+    if ($matches[2] !== null && (int) $matches[2] > 65535) {
+        return '';
+    }
+
+    if (substr($matches[1], 0, 1) === '[') {
+        // bracketed IPv6 literal, RFC 3986 IP-literal
+        if (!filter_var(substr($matches[1], 1, -1), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            return '';
+        }
+    } else {
+        // every hostname label needs 1 to 63 characters and may neither start
+        // nor end with a hyphen
+        foreach (explode('.', $matches[1]) as $label) {
+            if ($label === '' || strlen($label) > 63 || $label[0] === '-' || substr($label, -1) === '-') {
+                return '';
+            }
+        }
+    }
+
+    return $host;
+}
+
 function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enable_port = true) {
     $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off');
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
@@ -487,8 +635,38 @@ function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enab
     } else {
         $port = '';
     }
-    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
-    $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
+    // Setup never trusts X-Forwarded-Host: ip_in_cidr_list() is not available
+    // here and a fresh install has no trusted proxies yet, so the detected URL
+    // can be the internal host behind a proxy. The operator can enter the
+    // public URL instead. $use_forwarded_host keeps the signature in sync with
+    // the frontend function but has no effect.
+    $host = phpwcms_validate_url_host($_SERVER['HTTP_HOST'] ?? '');
+    if ($host === '') {
+        $host = phpwcms_validate_url_host(($_SERVER['SERVER_NAME'] ?? 'localhost') . $port);
+    }
+
+    // canonical hostnames win over any request host, see $phpwcms['trusted_hosts']
+    $trusted_hosts = $GLOBALS['phpwcms']['trusted_hosts'] ?? array();
+    if (is_array($trusted_hosts) && $trusted_hosts) {
+        $request_host = strtolower(preg_replace('/:[0-9]+$/', '', $host));
+        $fallback_host = '';
+        foreach ($trusted_hosts as $trusted_host) {
+            $trusted_host = phpwcms_validate_url_host($trusted_host);
+            if ($trusted_host === '') {
+                continue;
+            }
+            if ($fallback_host === '') {
+                $fallback_host = $trusted_host;
+            }
+            if (strtolower(preg_replace('/:[0-9]+$/', '', $trusted_host)) === $request_host) {
+                $fallback_host = $trusted_host;
+                break;
+            }
+        }
+        if ($fallback_host !== '') {
+            $host = $fallback_host;
+        }
+    }
 
     return $protocol . $host;
 }

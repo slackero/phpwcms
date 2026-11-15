@@ -648,3 +648,4 @@ $BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTMLترميز لغة ';
 $BL['be_admin_struct_regonly']          = 'مرئي للزوار الذين قاموا بتسجيل الدخول للموقع فقط';
 $BL['be_admin_struct_status']           = 'حالة قائمة إعدادات واجهة زوار الموقع';
 
+$BL['be_newsletter_nourl'] = 'لم يتم إرسال الرسالة الإخبارية: عنوان URL للموقع غير مهيأ أو غير موثوق.';

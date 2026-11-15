@@ -1104,3 +1104,4 @@ $BL['be_selection']                     = 'Selectie';
 
 $BL['be_ctype_module']                  = 'Plug-in';
 
+$BL['be_newsletter_nourl'] = 'Nieuwsbrief niet verzonden: de site-URL is niet geconfigureerd of niet vertrouwd.';

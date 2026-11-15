@@ -779,6 +779,4 @@ $BL['be_article_nosummary']             = 'nezobrazova&#357; s&uacute;hrn v celo
 $BL['be_article_forlist']               = 'prezeranie &#269;l&aacute;nkov';
 $BL['be_article_forfull']               = 'zobrazi&#357; cel&yacute; &#269;l&aacute;nok';
 
-
-
-
+$BL['be_newsletter_nourl'] = 'Newsletter nebol odoslaný: URL stránky nie je nastavená alebo nie je dôveryhodná.';

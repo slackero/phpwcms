@@ -654,3 +654,4 @@ $BL['be_ctype_articlemenu']             = 'article menu';
 $BL['be_cnt_sitelevel']                 = 'site level';
 $BL['be_cnt_sitecurrent']               = 'current site level';
 
+$BL['be_newsletter_nourl'] = 'Boletín no enviado: la URL del sitio no está configurada o no es de confianza.';
