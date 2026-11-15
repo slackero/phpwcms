@@ -49,7 +49,7 @@ The leading tag collects `id="video-js-fmp<cp id>"`, class `video-js <skin> vjs-
 | WebM | `video/webm` | `audio/webm` |
 | Ogg | `video/ogg` | `audio/ogg` |
 
-Video.js loads locally from `template/lib/video-js/video.min.js`, else from the `vjs.zencdn.net/8.24.0` CDN (`initVideoJs()`); the init script registers the instance in `videoJsInstances`, applies markers, volume and deep links, and honors the `js_in_body` config for head vs. body placement. A URL parameter `?fmp=<cp id>-<seconds>` (or `-m<marker number>`) seeks the matching player instance and scrolls to it.
+Video.js loads locally from `template/lib/video-js/video.min.js`, else from the `vjs.zencdn.net/8.24.2` CDN (`initVideoJs()`); the init script registers the instance in `videoJsInstances`, applies markers, volume and deep links, and honors the `js_in_body` config for head vs. body placement. A URL parameter `?fmp=<cp id>-<seconds>` (or `-m<marker number>`) seeks the matching player instance and scrolls to it.
 
 ### Flash fallback
 

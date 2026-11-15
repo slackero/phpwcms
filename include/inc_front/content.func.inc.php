@@ -1574,8 +1574,8 @@ if (!$phpwcms['cookie_consent']) {
         ];
 
         if (PHPWCMS_USE_CDN) {
-            $block['custom_htmlhead']['cookieconsent_v3'] = '  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.css" />';
-            $block['custom_htmlhead']['cookieconsent.js'] = '  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.umd.js"></script>';
+            $block['custom_htmlhead']['cookieconsent_v3'] = '  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.3.0/dist/cookieconsent.css" />';
+            $block['custom_htmlhead']['cookieconsent.js'] = '  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.3.0/dist/cookieconsent.umd.js"></script>';
         } else {
             $block['custom_htmlhead']['cookieconsent_v3'] = '  <link rel="stylesheet" type="text/css" href="' . PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent3/cookieconsent.css" />';
             $block['custom_htmlhead']['cookieconsent.js'] = '  <script src="' . PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent3/cookieconsent.umd.js"></script>';

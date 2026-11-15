@@ -16,13 +16,13 @@ Libraries a template's markup or settings pull in. Everything under `template/li
 | `bootstrap5/` | Bootstrap CSS and bundle JS | `<!-- JS: … -->`/`<!-- CSS: … -->` comments or htmlhead markup |
 | `bootstrap-icons/` | Icon font CSS plus fonts | template markup |
 | `cookieconsent2/` | Silktide consent scripts and themes | Template setting *Cookie consent v2* — the theme field names a CSS file in this directory, loaded with CDN fallback to cdnjs 1.0.10 | 
-| `cookieconsent3/` | orestbida `CookieConsent.run()` assets, components CSS and `lang/<lang>.json` translations | Template setting *Cookie consent v3*; CDN variant pulls jsdelivr 3.1.0 |
+| `cookieconsent3/` | orestbida `CookieConsent.run()` assets, components CSS and `lang/<lang>.json` translations | Template setting *Cookie consent v3*; CDN variant pulls jsdelivr 3.3.0 |
 | `glightbox/` | Lightbox | `initGlightbox()` (article summary and image lightboxes), options via `$phpwcms['glightbox_options']` |
 | `jquery/` | One minified jQuery per version, 1.3.2 through 4.0.0 plus migrate builds and `plugin/` | Selected by the template's JS library setting |
 | `jquery/plugin/` | Standalone jQuery plugins: cycle, dimensions, easing, fancybox, mousewheel, switchClass, zebra_accordion | `<!-- JS: <name> -->` for any `jquery.<name>.js` file |
 | `simplegmaps/` | Google Maps wrapper | Content part templates load it via a `<!-- JS:{TEMPLATE}lib/simplegmaps/simplegmaps.min.js -->` comment, e.g. `template/inc_cntpart/tabs/simplegmaps.tmpl` |
 | `splide/` | Slider | Content part templates reference it through `<!-- CSS: template/lib/splide/splide.min.css -->` and `<!-- JS: template/lib/splide/splide.min.js -->`, e.g. `template/inc_cntpart/images/Splide-Slider-Single-Image.tmpl` |
-| `video-js/` | video.js player | `initVideoJs()` for multimedia content parts; falls back to the CDN `vjs.zencdn.net/8.24.0/` unless `template/lib/video-js/video.min.js` exists or `$phpwcms['video-js']` sets a path |
+| `video-js/` | video.js player | `initVideoJs()` for multimedia content parts; falls back to the CDN `vjs.zencdn.net/8.24.2/` unless `template/lib/video-js/video.min.js` exists or `$phpwcms['video-js']` sets a path |
 
 ## include/inc_js/
 
