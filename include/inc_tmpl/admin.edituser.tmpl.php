@@ -115,10 +115,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                     $rendered_mail = render_system_email('edit_user', [
                         '{NAME}'       => $new_name ?: $new_login,
                         '{LOGIN}'      => $new_login,
-                        '{PASSWORD}'   => $pass_label,
-                        '{SITE}'       => PHPWCMS_HOST,
-                        '{SITE_URL}'   => PHPWCMS_URL,
-                        '{LOGIN_PAGE}' => PHPWCMS_URL . get_login_file()
+                        '{PASSWORD}'   => $pass_label
                     ]);
 
                     sendEmail([

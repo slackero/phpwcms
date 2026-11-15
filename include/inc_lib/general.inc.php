@@ -808,8 +808,12 @@ function renderSystemEmailHTML($title, $contentHtml, $preheader = '', ?string $l
     global $phpwcms;
 
     $siteName = empty($phpwcms['site']) ? get_brand_name() : $phpwcms['site'];
-    $siteUrl = PHPWCMS_URL;
-    $siteLink = '<a href="' . html($siteUrl) . '" style="color:#6c757d;text-decoration:none;">' . html(PHPWCMS_HOST) . '</a>';
+    // a system mail must not link to a host derived from the request headers;
+    // without a trustworthy base URL the link becomes plain text and the brand
+    // name replaces the unverified host
+    $siteUrl = phpwcms_mail_site_url();
+    $siteLabel = $siteUrl === '' ? get_brand_name() : PHPWCMS_HOST;
+    $siteLink = $siteUrl === '' ? html($siteLabel) : '<a href="' . html($siteUrl) . '" style="color:#6c757d;text-decoration:none;">' . html($siteLabel) . '</a>';
 
     // header: site name, optionally preceded by a logo image
     // mail_logo_url accepts https?:// URLs and data:image/*;base64, URIs
@@ -823,10 +827,10 @@ function renderSystemEmailHTML($title, $contentHtml, $preheader = '', ?string $l
     // logo element
     if ($logoUrl !== '' && (preg_match('#^https?://#i', $logoUrl) || preg_match('#^data:image/(png|jpe?g|gif|webp);base64,#i', $logoUrl))) {
         $logoHtml = '<img src="' . html($logoUrl) . '" alt="' . html($siteName) . '" height="50" style="display:block;height:50px;max-width:240px;border:0;" />';
-        $headerHtml = '<a href="' . html($siteUrl) . '">' . $logoHtml . '</a>';
+        $headerHtml = $siteUrl === '' ? $logoHtml : '<a href="' . html($siteUrl) . '">' . $logoHtml . '</a>';
     } else {
-        $logoHtml = '<span style="font-size:18px;font-weight:bold;color:#212529;">' . html(PHPWCMS_HOST) . '</span>';
-        $headerHtml = '<a href="' . html($siteUrl) . '" style="font-size:18px;font-weight:bold;color:#212529;text-decoration:none;">' . html(PHPWCMS_HOST) . '</a>';
+        $logoHtml = '<span style="font-size:18px;font-weight:bold;color:#212529;">' . html($siteLabel) . '</span>';
+        $headerHtml = $siteUrl === '' ? $logoHtml : '<a href="' . html($siteUrl) . '" style="font-size:18px;font-weight:bold;color:#212529;text-decoration:none;">' . html($siteLabel) . '</a>';
     }
 
     // Check if custom or default mail_header sub-template exists

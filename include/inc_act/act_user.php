@@ -37,8 +37,6 @@ if (has_admin_permission('admuser')) {
                 $rendered_mail = render_system_email('account_deactivated', [
                     '{NAME}'       => $user_email,
                     '{LOGIN}'      => $user_email,
-                    '{SITE}'       => PHPWCMS_HOST,
-                    '{SITE_URL}'   => PHPWCMS_URL,
                     '{ADMIN_EMAIL}'=> $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? ''
                 ]);
 

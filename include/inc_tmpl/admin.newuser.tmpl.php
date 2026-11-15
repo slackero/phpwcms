@@ -69,10 +69,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] === "create_account") {
                 $rendered_mail = render_system_email('new_user', [
                     '{NAME}'       => $new_name ?: $new_login,
                     '{LOGIN}'      => $new_login,
-                    '{PASSWORD}'   => $new_password,
-                    '{SITE}'       => PHPWCMS_HOST,
-                    '{SITE_URL}'   => PHPWCMS_URL,
-                    '{LOGIN_PAGE}' => PHPWCMS_URL . get_login_file()
+                    '{PASSWORD}'   => $new_password
                 ]);
 
                 sendEmail([

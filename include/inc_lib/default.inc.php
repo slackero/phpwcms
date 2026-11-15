@@ -85,7 +85,9 @@ if (defined('CUSTOM_CONTENT_TYPE')) {
     $_use_content_type = 'text/html';
 }
 
+$phpwcms['site_derived'] = $phpwcms['site'] === '';
 $phpwcms['site'] = $phpwcms['site'] === '' ? get_url_origin(true) : rtrim($phpwcms['site'], '/');
+$_phpwcms_site_ssl_configured = !empty($phpwcms['site_ssl_url']);
 $phpwcms['site_ssl_url'] = empty($phpwcms['site_ssl_url']) ? $phpwcms['site'] : rtrim($phpwcms['site_ssl_url'], '/');
 if (str_starts_with($phpwcms['site_ssl_url'], 'http:')) {
     $phpwcms['site_ssl_url'] = 'https' . substr($phpwcms['site_ssl_url'], 4);
@@ -98,6 +100,10 @@ if ($phpwcms['site_ssl_port'] !== 443) {
 if (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
     if (str_starts_with($phpwcms['site'], 'http:')) {
         $phpwcms['site'] = $phpwcms['site_ssl_url'];
+        if ($_phpwcms_site_ssl_configured) {
+            // an administrator-configured SSL URL is not derived from the request
+            $phpwcms['site_derived'] = false;
+        }
     }
     define('PHPWCMS_SSL', true);
     define('PHPWCMS_HTTP_SCHEMA', 'https');
@@ -1694,16 +1700,177 @@ function get_user_rc($g = '', $pu = 501289, $pr = 506734, $e = ['SAAAAA', 'PT96y
     return $c;
 }
 
+/**
+ * Validate a host[:port] value taken from a request header or SERVER_NAME.
+ * Only a URI reg-name (RFC 3986) such as a hostname or IPv4 address, or a
+ * bracketed IPv6 address, with an optional port is accepted, so a forged
+ * header cannot inject arbitrary text into generated URLs such as password
+ * reminder links. Underscores stay allowed because an HTTP Host value is a
+ * reg-name and not strictly an RFC 1123 hostname.
+ *
+ * @param string $host
+ *
+ * @return string the host, or an empty string when it is not valid
+ */
+function phpwcms_validate_url_host($host) {
+    // a single trailing dot marks a fully qualified hostname and carries no
+    // meaning for the generated URL; more than one dot keeps the empty labels
+    $host = trim((string) $host);
+    if (substr($host, -1) === '.') {
+        $host = substr($host, 0, -1);
+    }
+
+    if ($host === '' || strlen($host) > 255) {
+        return '';
+    }
+
+    // hostname part and port, an IPv6 literal keeps its brackets
+    $pattern = '/^(\[[^\]]+\]|[a-z0-9_](?:[a-z0-9._-]*[a-z0-9_])?)(?::([0-9]{1,5}))?$/i';
+    if (!preg_match($pattern, $host, $matches, PREG_UNMATCHED_AS_NULL)) {
+        return '';
+    }
+
+    // a port above 65535 is not a valid TCP port
+    if ($matches[2] !== null && (int) $matches[2] > 65535) {
+        return '';
+    }
+
+    if (str_starts_with($matches[1], '[')) {
+        // bracketed IPv6 literal, RFC 3986 IP-literal
+        if (!filter_var(substr($matches[1], 1, -1), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            return '';
+        }
+    } else {
+        // every hostname label needs 1 to 63 characters and may neither start
+        // nor end with a hyphen
+        foreach (explode('.', $matches[1]) as $label) {
+            if ($label === '' || strlen($label) > 63 || $label[0] === '-' || substr($label, -1) === '-') {
+                return '';
+            }
+        }
+    }
+
+    return $host;
+}
+
 function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
     $ssl = !empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off';
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
     $protocol = $set_protocol ? (substr($sp, 0, strpos($sp, '/')) . ($ssl ? 's' : '') . '://') : '';
-    $port = $_SERVER['SERVER_PORT'];
-    $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : (':' . $port);
-    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : ($_SERVER['HTTP_HOST'] ?? null);
-    $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
+    $port = (int) ($_SERVER['SERVER_PORT'] ?? 0);
+    $port = $port === 0 || (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : (':' . $port);
+
+    // X-Forwarded-Host is client-controlled unless the immediate peer is a
+    // configured trusted proxy, so it must never be used otherwise.
+    $host = '';
+    if ($use_forwarded_host && !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+        $trusted = $GLOBALS['phpwcms']['trusted_proxies'] ?? array();
+        if (is_array($trusted) && $trusted && ip_in_cidr_list($_SERVER['REMOTE_ADDR'] ?? '', $trusted)) {
+            // the header may carry a comma-separated chain, the left-most
+            // entry is the host originally requested by the client
+            $forwarded = explode(',', (string) $_SERVER['HTTP_X_FORWARDED_HOST']);
+            $host = phpwcms_validate_url_host($forwarded[0]);
+        }
+    }
+    if ($host === '') {
+        $host = phpwcms_validate_url_host($_SERVER['HTTP_HOST'] ?? '');
+    }
+    if ($host === '') {
+        $host = phpwcms_validate_url_host(($_SERVER['SERVER_NAME'] ?? '') . $port);
+    }
+
+    // A configured list of canonical hostnames defeats Host header poisoning:
+    // every request host that is not listed is replaced by the first entry, so
+    // generated links such as password reminders never follow a forged host.
+    $trusted_hosts = (array) ($GLOBALS['phpwcms']['trusted_hosts'] ?? array());
+    if ($trusted_hosts) {
+        $request_host = strtolower(preg_replace('/:[0-9]+$/', '', $host));
+        $fallback_host = '';
+        foreach ($trusted_hosts as $trusted_host) {
+            $trusted_host = phpwcms_validate_url_host($trusted_host);
+            if ($trusted_host === '') {
+                continue;
+            }
+            if ($fallback_host === '') {
+                $fallback_host = $trusted_host;
+            }
+            if (strtolower(preg_replace('/:[0-9]+$/', '', $trusted_host)) === $request_host) {
+                $fallback_host = $trusted_host;
+                // keep a nonstandard request port when the entry has none
+                if (!preg_match('/:[0-9]+$/', $trusted_host) && preg_match('/:([0-9]+)$/', $host, $request_port)) {
+                    $fallback_host .= ':' . $request_port[1];
+                }
+                break;
+            }
+        }
+        if ($fallback_host !== '') {
+            $host = $fallback_host;
+        }
+    }
 
     return $protocol . $host;
+}
+
+/**
+ * Tell whether $phpwcms['site'] may be used to build links that leave the
+ * server, such as password reminder emails. A site URL configured by the
+ * administrator is always trusted. A URL derived from the current request is
+ * trusted only when its host is one of the configured canonical hosts, so a
+ * forged Host header cannot poison such a link.
+ *
+ * @return bool
+ */
+function phpwcms_site_url_is_trusted() {
+    if (empty($GLOBALS['phpwcms']['site'])) {
+        return false;
+    }
+
+    // fail closed: a missing flag means the site URL is not known to be
+    // configured, so it must pass the trusted_hosts check below
+    $site_derived = $GLOBALS['phpwcms']['site_derived'] ?? true;
+    if (!$site_derived) {
+        return true;
+    }
+
+    $trusted_hosts = (array) ($GLOBALS['phpwcms']['trusted_hosts'] ?? array());
+    if (!$trusted_hosts) {
+        return false;
+    }
+
+    $host = parse_url($GLOBALS['phpwcms']['site'], PHP_URL_HOST);
+    if (!is_string($host) || $host === '') {
+        return false;
+    }
+
+    $host = strtolower($host);
+    foreach ($trusted_hosts as $trusted_host) {
+        $trusted_host = phpwcms_validate_url_host($trusted_host);
+        if ($trusted_host === '') {
+            continue;
+        }
+        if (strtolower(preg_replace('/:[0-9]+$/', '', $trusted_host)) === $host) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Base URL for links embedded in outgoing mail. Returns an empty string when
+ * the site URL was derived from an unverified request host, so a caller must
+ * not send such a link: a forged Host header would otherwise be mailed out.
+ *
+ * Every mailer that embeds an absolute link must use this function instead of
+ * PHPWCMS_URL: frontend password reminder, form double opt-in, newsletter
+ * verification, guestbook notification, e-card, profile notifications, the
+ * feed import status mail and the backend newsletter send. Callers treat an
+ * empty return as "do not send".
+ *
+ * @return string
+ */
+function phpwcms_mail_site_url() {
+    return phpwcms_site_url_is_trusted() ? PHPWCMS_URL : '';
 }
 
 function get_full_url($use_forwarded_host = false, $set_protocol = true) {

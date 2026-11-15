@@ -1889,6 +1889,64 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     }
 }
 
+// map submitted field names to their declared type, the fields array itself
+// is indexed by position and not by name
+$cnt_form_field_types = array();
+if(!empty($cnt_form['fields']) && is_array($cnt_form['fields'])) {
+    foreach($cnt_form['fields'] as $cnt_form_field) {
+        if(isset($cnt_form_field['name'])) {
+            $cnt_form_field_types[$cnt_form_field['name']][] = isset($cnt_form_field['type']) ? $cnt_form_field['type'] : '';
+        }
+    }
+}
+
+/**
+ * Resolve a stored form upload to an absolute path. Returns false unless the
+ * file exists and really lives inside PHPWCMS_ROOT, so a forged folder or
+ * name value cannot reach arbitrary server files. The file is read later, so
+ * the check is best effort and not a substitute for safe upload handling.
+ *
+ * @param mixed $folder
+ * @param mixed $name
+ *
+ * @return string|false
+ */
+$cnt_form_upload_file = function($folder, $name) {
+    if(!is_string($folder) || !is_string($name) || $name === '') {
+        return false;
+    }
+    $file = realpath(PHPWCMS_ROOT . '/' . $folder . '/' . $name);
+    $root = realpath(PHPWCMS_ROOT);
+    if($file === false || $root === false || !is_file($file) || !str_starts_with($file, $root . DIRECTORY_SEPARATOR)) {
+        return false;
+    }
+
+    return $file;
+};
+
+/**
+ * Build the link to a stored form upload for the outgoing mail. Returns the
+ * escaped file name when no trustworthy base URL is available.
+ *
+ * @param array  $upload
+ * @param string $base_url
+ *
+ * @return string
+ */
+$cnt_form_upload_link = function($upload, $base_url) {
+    if(!is_array($upload) || !isset($upload['name'])) {
+        return '';
+    }
+    if($base_url === '') {
+        return html_specialchars($upload['name']);
+    }
+
+    return '<a href="' . $base_url . $upload['folder'] . '/' . rawurlencode($upload['name']) . '" target="_blank">' . html_specialchars($upload['name']) . '</a>';
+};
+
+// base URL for every link this form mails out, empty when it cannot be trusted
+$_cnt_form_mail_site_url = phpwcms_mail_site_url();
+
 if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
     $POST_attach = array();
@@ -2021,14 +2079,21 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
         $cnt_form['fe_current_url'] = abs_url(array(), array(), '', 'rawurlencode');
 
+        // the mail template must not carry a host forged through the request
+        // headers; without a trustworthy base URL the tag stays empty
+        $_cnt_form_mail_current_url = '';
+        if($_cnt_form_mail_site_url !== '' && str_starts_with($cnt_form['fe_current_url'], PHPWCMS_URL)) {
+            $_cnt_form_mail_current_url = $_cnt_form_mail_site_url . substr($cnt_form['fe_current_url'], strlen(PHPWCMS_URL));
+        }
+
         $GLOBALS['phpwcms']['callback'] = now();
-        $cnt_form['template'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template']);
+        $cnt_form['template'] = str_replace('{FORM_URL}', $_cnt_form_mail_current_url, $cnt_form['template']);
         $cnt_form['template'] = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form['template']);
         $cnt_form['template'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template']);
 
         if( !$cnt_form['template_equal'] ) {
 
-            $cnt_form['template_copy'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template_copy']);
+            $cnt_form['template_copy'] = str_replace('{FORM_URL}', $_cnt_form_mail_current_url, $cnt_form['template_copy']);
             $cnt_form['template_copy'] = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form['template_copy']);
             $cnt_form['template_copy'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template_copy']);
             $cnt_form['template_copy'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_copy']);
@@ -2037,7 +2102,14 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
         if(!empty($cnt_form['doubleoptin'])) {
             $POST_savedb['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash($cnt_form['doubleoptin_target'].time() ) );
-            $cnt_form['template_doubleoptin'] = str_replace('{FORM_URL}', abs_url(array('hash' => $POST_savedb['hash']), array(), '', 'rawurlencode'), $cnt_form['template_doubleoptin']);
+            // the confirmation link is mailed out, so it must not follow a host
+            // forged through the request headers
+            $mail_form_abs = abs_url(array('hash' => $POST_savedb['hash']), array(), '', 'rawurlencode');
+            $mail_form_url = '';
+            if($_cnt_form_mail_site_url !== '' && str_starts_with($mail_form_abs, PHPWCMS_URL)) {
+                $mail_form_url = $_cnt_form_mail_site_url . substr($mail_form_abs, strlen(PHPWCMS_URL));
+            }
+            $cnt_form['template_doubleoptin'] = str_replace('{FORM_URL}', $mail_form_url, $cnt_form['template_doubleoptin']);
             $cnt_form['template_doubleoptin'] = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form['template_doubleoptin']);
             $cnt_form['template_doubleoptin'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template_doubleoptin']);
             $cnt_form['template_doubleoptin'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_doubleoptin']);
@@ -2098,7 +2170,10 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$doubleoptin_error)) {
 
     // check if there are form values which should be saved in db
-    if(!empty($cnt_form['savedb']) && count($POST_savedb)) {
+    // a double opt-in row is useless without a mailed confirmation link
+    if(!empty($cnt_form['savedb']) && count($POST_savedb)
+        && ($_cnt_form_mail_site_url !== '' || empty($cnt_form['doubleoptin']))
+    ) {
         $POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'formresult ';
         $POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
         $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).", ";
@@ -2108,11 +2183,14 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
     if(!empty($cnt_form["doubleoptin"]) && !empty($cnt_form['doubleoptin_target']) && $POST_DO) {
 
-        if(!empty($cnt_form["onsuccess"])) {
-            $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["onsuccess"].'</p>';
-        }
+        if($_cnt_form_mail_site_url === '') {
+            // no trustworthy link, so do not send a confirmation mail at all
+            $CNT_TMP .= '<p class="error form-copy-to">@@Double opt-in email was not sent because the site URL is not configured.@@</p>';
+        } elseif (is_valid_email($cnt_form['doubleoptin_target'])) {
 
-        if (is_valid_email($cnt_form['doubleoptin_target'])) {
+            if(!empty($cnt_form["onsuccess"])) {
+                $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["onsuccess"].'</p>';
+            }
 
             $mail = new PhpwcmsMailer($phpwcms);
 
@@ -2326,8 +2404,10 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                         $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_NAME}', $form_newletter_setting['name_field'], $cnt_form['verifyemail']);
                         $cnt_form['verifyemail'] = str_replace('{SUBSCRIPTIONS}', implode(LF, $form_newletter_setting['subscr_text']), $cnt_form['verifyemail']);
                         $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_EMAIL}', $form_newletter_setting['email_field'], $cnt_form['verifyemail']);
-                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_VERIFY}', PHPWCMS_URL.'verify.php?s='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
-                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_DELETE}', PHPWCMS_URL.'verify.php?u='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
+                        // verification links are mailed out, so they must not
+                        // follow a host forged through the request headers
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_VERIFY}', $_cnt_form_mail_site_url.'verify.php?s='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_DELETE}', $_cnt_form_mail_site_url.'verify.php?u='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
                         $cnt_form['verifyemail'] = str_replace(array('[br]', '[BR]'), LF, $cnt_form['verifyemail']);
                         $cnt_form['verifyemail'] = replaceGlobalRT($cnt_form['verifyemail']);
 
@@ -2339,15 +2419,21 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                         }
 
                         // now send verification email
-                        @sendEmail(array(
-                           'recipient' => $form_newletter_setting['email_field'],
-                            'toName'    => $form_newletter_setting['name_field'],
-                            'subject'   => $form_newletter_setting['subject'],
-                            'text'      => $cnt_form['verifyemail'],
-                            'from'      => $form_newletter_setting['sender_email'],
-                            'fromName'  => $form_newletter_setting['sender_name'],
-                            'sender'    => $form_newletter_setting['sender_email']
-                        ));
+                        if ($_cnt_form_mail_site_url !== '') {
+                            @sendEmail(array(
+                                'recipient' => $form_newletter_setting['email_field'],
+                                'toName'    => $form_newletter_setting['name_field'],
+                                'subject'   => $form_newletter_setting['subject'],
+                                'text'      => $cnt_form['verifyemail'],
+                                'from'      => $form_newletter_setting['sender_email'],
+                                'fromName'  => $form_newletter_setting['sender_name'],
+                                'sender'    => $form_newletter_setting['sender_email']
+                            ));
+                        } else {
+                            // no trustworthy link, so no verification mail; the
+                            // form already reported success, so only log it
+                            log_message('NEWSLETTER', 'Verification mail not sent: site URL is not configured');
+                        }
                     }
                 }
             }

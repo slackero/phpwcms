@@ -368,10 +368,13 @@ function render_system_email(string $key, array $data = [], ?string $lang = null
         $template['content_text'] = $defaults['content_text'] ?? '';
     }
 
-    // Standard baseline placeholders
-    $data['{SITE}']       = $data['{SITE}'] ?? PHPWCMS_HOST;
-    $data['{SITE_URL}']   = $data['{SITE_URL}'] ?? PHPWCMS_URL;
-    $data['{LOGIN_PAGE}'] = $data['{LOGIN_PAGE}'] ?? (PHPWCMS_URL . get_login_file());
+    // Standard baseline placeholders. A site URL derived from an unverified
+    // request host is never mailed out, so the link placeholders stay empty
+    // until the caller supplies a trustworthy value.
+    $mail_site_url = phpwcms_mail_site_url();
+    $data['{SITE}']       = $data['{SITE}'] ?? ($mail_site_url !== '' ? PHPWCMS_HOST : '');
+    $data['{SITE_URL}']   = $data['{SITE_URL}'] ?? $mail_site_url;
+    $data['{LOGIN_PAGE}'] = $data['{LOGIN_PAGE}'] ?? ($mail_site_url !== '' ? $mail_site_url . get_login_file() : '');
     $data['{ADMIN_EMAIL}']= $data['{ADMIN_EMAIL}'] ?? ($phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '');
 
     // Handle button placeholder if {BUTTON} is not set

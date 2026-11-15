@@ -149,7 +149,17 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
             $content["newsletter"]["reffering_key"] = '';
         }
 
-        if($content["newsletter"]["reffering_key"]) {
+        // verification links are mailed out, so they must not follow a host
+        // forged through the request headers
+        $mail_site_url = phpwcms_mail_site_url();
+
+        if($mail_site_url === '') {
+            // without a trustworthy verification link the subscription can
+            // never be confirmed, so do not touch the database
+            $content["newsletter"]["success"] = 0;
+            $content["newsletter"]["email_address_error"] = 1;
+            $content["newsletter"]["newsletter_error"] = '@@Newsletter verification email was not sent because the site URL is not configured or not trusted.@@';
+        } elseif($content["newsletter"]["reffering_key"]) {
 
             //if email exists in newsletter address list update entry
             $e_sql = "UPDATE ".DB_PREPEND."address SET ".
@@ -187,8 +197,8 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 
         }
 
-        $content["newsletter"]["verify_link"] = PHPWCMS_URL."verify.php?s=".rawurlencode($content["newsletter"]["reffering_key"]);
-        $content["newsletter"]["delete_link"] = PHPWCMS_URL."verify.php?u=".rawurlencode($content["newsletter"]["reffering_key"]);
+        $content["newsletter"]["verify_link"] = $mail_site_url."verify.php?s=".rawurlencode($content["newsletter"]["reffering_key"]);
+        $content["newsletter"]["delete_link"] = $mail_site_url."verify.php?u=".rawurlencode($content["newsletter"]["reffering_key"]);
         $content["newsletter"]["mailtext"] = ($content["newsletter"]["updated"]) ? $content["newsletter"]["change_text"] : $content["newsletter"]["reg_text"];
         $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_NAME}", $content["newsletter"]["email_name"], $content["newsletter"]["mailtext"]);
         $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_EMAIL}", $content["newsletter"]["email_address"], $content["newsletter"]["mailtext"]);
@@ -207,25 +217,29 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
             $content['newsletter']['subject'] = $content['newsletter']['subject']['tag'];
         }
 
-        // PhpwcmsMailer Class
-        $mail = new PhpwcmsMailer($phpwcms);
-        $mail->isHTML(false);
-        $mail->Subject = $content['newsletter']['subject'];
-        $mail->Body = $content['newsletter']['mailtext'];
+        // safety net: the guard above only sets the error state and does not
+        // leave the block, so the mail must stay gated here as well
+        if($mail_site_url !== '') {
+            // PhpwcmsMailer Class
+            $mail = new PhpwcmsMailer($phpwcms);
+            $mail->isHTML(false);
+            $mail->Subject = $content['newsletter']['subject'];
+            $mail->Body = $content['newsletter']['mailtext'];
 
-        $mail->setFrom($phpwcms['SMTP_FROM_EMAIL'], $phpwcms['SMTP_FROM_NAME']);
-        $mail->addReplyTo($phpwcms["admin_email"]);
+            $mail->setFrom($phpwcms['SMTP_FROM_EMAIL'], $phpwcms['SMTP_FROM_NAME']);
+            $mail->addReplyTo($phpwcms["admin_email"]);
 
-        $mail->clearAddresses();
-        $mail->addAddress($content["newsletter"]["email_address"]);
+            $mail->clearAddresses();
+            $mail->addAddress($content["newsletter"]["email_address"]);
 
-        if(!$mail->send()) {
-            $template_default["article"]["newsletter_error"] = html($mail->ErrorInfo);
-            $content["newsletter"]["success"] = 0;
-            $content["newsletter"]["email_address_error"] = 1;
+            if(!$mail->send()) {
+                $template_default["article"]["newsletter_error"] = html($mail->ErrorInfo);
+                $content["newsletter"]["success"] = 0;
+                $content["newsletter"]["email_address_error"] = 1;
+            }
+
+            $mail->smtpClose();
         }
-
-        $mail->smtpClose();
 
     } else {
         //Error
