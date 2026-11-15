@@ -1807,3 +1807,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Alam-mall e-kirja alumise jaluse / kon
 $BL['be_admin_mail_ph_logo']        = 'Logo pildisilt või stiliseeritud saidi nimi';
 $BL['be_admin_mail_component_html_note'] = 'Selle komponendi HTML-märgistus. See manustatakse põhikujundusse vastava kohahoidja kaudu.';
 $BL['be_admin_mail_template']       = 'E-kirja mall';
+
+$BL['be_newsletter_nourl'] = 'Uudiskiri jäi saatmata: saidi URL pole seadistatud või pole usaldusväärne.';

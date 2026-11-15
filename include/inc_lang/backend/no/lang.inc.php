@@ -1798,3 +1798,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Delmal for den nederste e-postbunnteks
 $BL['be_admin_mail_ph_logo']        = 'Logobildetagg eller formatert nettstedsnavn';
 $BL['be_admin_mail_component_html_note'] = 'HTML-kode for denne komponenten. Den bygges inn i hovedoppsettet via den tilhørende plassholderen.';
 $BL['be_admin_mail_template']       = 'E-postmal';
+
+$BL['be_newsletter_nourl'] = 'Nyhetsbrevet ble ikke sendt: nettstedets URL er ikke konfigurert eller ikke klarert.';

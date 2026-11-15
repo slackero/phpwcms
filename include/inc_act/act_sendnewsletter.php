@@ -136,6 +136,18 @@ if(!$newsletter) {
 
     }
 
+    // links mailed to subscribers must not follow a host forged through the request headers;
+    // empty means no trustworthy URL is available and nothing gets sent
+    $mail_site_url = phpwcms_mail_site_url();
+
+    // a newsletter without a trustworthy base URL would mail every subscriber
+    // a verification and delete link on an unverified host
+    if($mail_site_url === '' && count($recipient)) {
+        log_message('NEWSLETTER', 'Newsletter '.$newsletter["newsletter_id"].' not sent: site URL is not configured or not trusted');
+        echo '<p><strong>'.$BL['be_newsletter_nourl'].'</strong></p>';
+        $recipient = array();
+    }
+
     if(count($recipient)) {
 
         echo '<p><strong>'.$BL['be_newsletter_to'].': </strong><p>';
@@ -153,7 +165,7 @@ if(!$newsletter) {
         }
 
         if(!empty($newsletter['newsletter_vars']['html'])) {
-            $newsletter['newsletter_vars']['html'] = convert_rel2abs($newsletter['newsletter_vars']['html'], PHPWCMS_URL);
+            $newsletter['newsletter_vars']['html'] = convert_rel2abs($newsletter['newsletter_vars']['html'], $mail_site_url);
         }
 
         $mail = new PhpwcmsMailer($phpwcms);
@@ -255,17 +267,20 @@ function build_email_text($text, $value, $isHtml = false) {
     $recipientName  = $isHtml ? html($value['address_name']) : $value['address_name'];
     $recipientEmail = $isHtml ? html($value['address_email']) : $value['address_email'];
 
+    // mailed links must not follow a host forged through the request headers
+    $site_url = phpwcms_mail_site_url();
+
     $text = str_replace('###RECIPIENT_NAME###', $recipientName, $text);
     $text = str_replace('###RECIPIENT_EMAIL###', $recipientEmail, $text);
-    $text = str_replace('###SITE_URL###', PHPWCMS_URL, $text);
-    $text = str_replace('###VERIFY_LINK###', PHPWCMS_URL.'verify.php?s='.$refkey, $text);
-    $text = str_replace('###DELETE_LINK###', PHPWCMS_URL.'verify.php?u='.$refkey, $text);
+    $text = str_replace('###SITE_URL###', $site_url, $text);
+    $text = str_replace('###VERIFY_LINK###', $site_url.'verify.php?s='.$refkey, $text);
+    $text = str_replace('###DELETE_LINK###', $site_url.'verify.php?u='.$refkey, $text);
 	//tag for opener, add absolute url
-	$text = str_replace('###OPENER###', '<img src="'.PHPWCMS_URL.'verify.php?o='.intval($value['queue_id']).'" alt="" />', $text);
-	$text = str_replace('href="download.php', 'href="'.PHPWCMS_URL.'download.php', $text);
-	$text = str_replace('src="img/cmsimage.php', 'src="'.PHPWCMS_URL.'img/cmsimage.php', $text);
-	$text = str_replace('href="http://download.php', 'href="'.PHPWCMS_URL.'download.php', $text);
-	$text = str_replace('src="http://img/cmsimage.php', 'src="'.PHPWCMS_URL.'img/cmsimage.php', $text);
+	$text = str_replace('###OPENER###', '<img src="'.$site_url.'verify.php?o='.intval($value['queue_id']).'" alt="" />', $text);
+	$text = str_replace('href="download.php', 'href="'.$site_url.'download.php', $text);
+	$text = str_replace('src="img/cmsimage.php', 'src="'.$site_url.'img/cmsimage.php', $text);
+	$text = str_replace('href="http://download.php', 'href="'.$site_url.'download.php', $text);
+	$text = str_replace('src="http://img/cmsimage.php', 'src="'.$site_url.'img/cmsimage.php', $text);
 	// end
     return $text;
 }

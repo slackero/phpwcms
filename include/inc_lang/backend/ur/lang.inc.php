@@ -1796,3 +1796,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'نچلے ای میل فوٹر / قان
 $BL['be_admin_mail_ph_logo']        = 'لوگو تصویر کا ٹیگ یا سائٹ کا اسٹائل شدہ نام';
 $BL['be_admin_mail_component_html_note'] = 'اس جزو کے لیے HTML مارک اپ۔ یہ اپنے متعلقہ پلیس ہولڈر کے ذریعے مرکزی لے آؤٹ میں شامل کیا جاتا ہے۔';
 $BL['be_admin_mail_template']       = 'ای میل ٹیمپلیٹ';
+
+$BL['be_newsletter_nourl'] = 'نیوز لیٹر نہیں بھیجا گیا: سائٹ کا URL ترتیب نہیں دیا گیا یا قابلِ اعتماد نہیں ہے۔';

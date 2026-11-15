@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Čiastkov&aacute; &scaron;abl&oacute;n
 $BL['be_admin_mail_ph_logo']        = 'Značka obr&aacute;zka loga alebo &scaron;t&yacute;lovan&yacute; n&aacute;zov webu';
 $BL['be_admin_mail_component_html_note'] = 'HTML k&oacute;d pre tento komponent. Vklad&aacute; sa do hlavn&eacute;ho rozloženia prostredn&iacute;ctvom pr&iacute;slu&scaron;n&eacute;ho z&aacute;stupn&eacute;ho symbolu.';
 $BL['be_admin_mail_template']       = 'E-mailov&aacute; &scaron;abl&oacute;na';
+
+$BL['be_newsletter_nourl'] = 'Newsletter nebol odoslaný: URL stránky nie je nastavená alebo nie je dôveryhodná.';

@@ -1779,3 +1779,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'E-posta altbilgisi / künye için alt 
 $BL['be_admin_mail_ph_logo']        = 'Logo resmi etiketi veya biçimlendirilmiş site adı';
 $BL['be_admin_mail_component_html_note'] = 'Bu bileşen için HTML biçimlendirmesi. İlgili yer tutucusu aracılığıyla ana düzene gömülür.';
 $BL['be_admin_mail_template']       = 'E-posta Şablonu';
+
+$BL['be_newsletter_nourl'] = 'Bülten gönderilmedi: site URL adresi yapılandırılmamış veya güvenilir değil.';

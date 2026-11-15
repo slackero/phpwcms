@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'メール下部フッター/署名欄�
 $BL['be_admin_mail_ph_logo']        = 'ロゴ画像タグまたはスタイル設定されたサイト名';
 $BL['be_admin_mail_component_html_note'] = 'このコンポーネントのHTMLマークアップ。対応するプレースホルダーを介してマスターレイアウトに埋め込まれます。';
 $BL['be_admin_mail_template']       = 'メールテンプレート';
+
+$BL['be_newsletter_nourl'] = 'ニュースレターは送信されませんでした：サイトURLが設定されていないか、信頼されていません。';

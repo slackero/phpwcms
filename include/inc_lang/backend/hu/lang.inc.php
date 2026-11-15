@@ -1808,3 +1808,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Al-sablon az als&oacute; e-mail l&aacu
 $BL['be_admin_mail_ph_logo']        = 'Log&oacute; k&eacute;p c&iacute;mke vagy form&aacute;zott webhelynév';
 $BL['be_admin_mail_component_html_note'] = 'HTML jel&ouml;l&eacute;s ehhez a komponenshez. A megfelelő helyőrzőn kereszt&uuml;l &aacute;gyaz&oacute;dik be a mester elrendez&eacute;sbe.';
 $BL['be_admin_mail_template']       = 'E-mail sablon';
+
+$BL['be_newsletter_nourl'] = 'A hírlevél nem lett elküldve: a webhely URL-je nincs beállítva vagy nem megbízható.';

@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'ईमेल निचले फ़ु
 $BL['be_admin_mail_ph_logo']        = 'लोगो छवि टैग या स्टाइल किया गया साइट नाम';
 $BL['be_admin_mail_component_html_note'] = 'इस घटक के लिए HTML मार्कअप। यह संबंधित प्लेसहोल्डर के माध्यम से मास्टर लेआउट में एम्बेड किया जाता है।';
 $BL['be_admin_mail_template']       = 'ईमेल टेम्पलेट';
+
+$BL['be_newsletter_nourl'] = 'न्यूज़लेटर नहीं भेजा गया: साइट URL कॉन्फ़िगर नहीं है या विश्वसनीय नहीं है।';

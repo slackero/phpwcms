@@ -1807,3 +1807,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Delskabelon til den nederste e-mail-si
 $BL['be_admin_mail_ph_logo']        = 'Logo-billedtag eller stiliseret webstedsnavn';
 $BL['be_admin_mail_component_html_note'] = 'HTML-markup for denne komponent. Den integreres i hovedlayoutet via den tilhørende pladsholder.';
 $BL['be_admin_mail_template']       = 'E-mailskabelon';
+
+$BL['be_newsletter_nourl'] = 'Nyhedsbrev ikke sendt: webstedsadressen er ikke konfigureret eller ikke betroet.';

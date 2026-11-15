@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'ਹੇਠਲੇ ਈਮੇਲ ਫੁੱ
 $BL['be_admin_mail_ph_logo']        = 'ਲੋਗੋ ਚਿੱਤਰ ਟੈਗ ਜਾਂ ਸਟਾਈਲ ਕੀਤਾ ਸਾਈਟ ਨਾਮ';
 $BL['be_admin_mail_component_html_note'] = 'ਇਸ ਕੰਪੋਨੈਂਟ ਲਈ HTML ਮਾਰਕਅੱਪ। ਇਹ ਇਸਦੇ ਸੰਬੰਧਿਤ ਪਲੇਸਹੋਲਡਰ ਰਾਹੀਂ ਮਾਸਟਰ ਖਾਕੇ ਵਿੱਚ ਸ਼ਾਮਲ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।';
 $BL['be_admin_mail_template']       = 'ਈਮੇਲ ਟੈਮਪਲੇਟ';
+
+$BL['be_newsletter_nourl'] = 'ਨਿਊਜ਼ਲੈਟਰ ਨਹੀਂ ਭੇਜਿਆ ਗਿਆ: ਸਾਈਟ URL ਕੌਂਫਿਗਰ ਨਹੀਂ ਹੈ ਜਾਂ ਭਰੋਸੇਯੋਗ ਨਹੀਂ ਹੈ।';

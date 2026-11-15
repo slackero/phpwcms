@@ -1795,3 +1795,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Submodelo para o pé de páxina / avis
 $BL['be_admin_mail_ph_logo']        = 'Etiqueta de imaxe do logotipo ou nome estilizado do sitio';
 $BL['be_admin_mail_component_html_note'] = 'Marcado HTML para este compoñente. Insírese no deseño principal mediante o seu marcador de posición correspondente.';
 $BL['be_admin_mail_template']       = 'Modelo de correo';
+
+$BL['be_newsletter_nourl'] = 'Boletín non enviado: o URL do sitio non está configurado ou non é de confianza.';

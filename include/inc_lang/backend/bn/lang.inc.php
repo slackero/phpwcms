@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'নীচের ইমেল ফুট
 $BL['be_admin_mail_ph_logo']        = 'লোগো চিত্র ট্যাগ বা স্টাইলযুক্ত সাইটের নাম';
 $BL['be_admin_mail_component_html_note'] = 'এই উপাদানের জন্য HTML মার্কআপ। এটি সংশ্লিষ্ট প্লেসহোল্ডারের মাধ্যমে মাস্টার লেআউটে এম্বেড করা হয়।';
 $BL['be_admin_mail_template']       = 'ইমেল টেমপ্লেট';
+
+$BL['be_newsletter_nourl'] = 'নিউজলেটার পাঠানো হয়নি: সাইটের URL কনফিগার করা নেই বা বিশ্বস্ত নয়।';

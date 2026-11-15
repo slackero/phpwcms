@@ -1770,3 +1770,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Nën-shabllon për fundin e poshtëm t
 $BL['be_admin_mail_ph_logo']        = 'Etiketë imazhi për logon ose emër i stilizuar i faqes';
 $BL['be_admin_mail_component_html_note'] = 'Kodi HTML për këtë komponent. Ai përfshihet në strukturën kryesore përmes shënuesit përkatës.';
 $BL['be_admin_mail_template']       = 'Shabllon email-i';
+
+$BL['be_newsletter_nourl'] = 'Buletini nuk u dërgua: URL-ja e sajtit nuk është konfiguruar ose nuk është e besueshme.';

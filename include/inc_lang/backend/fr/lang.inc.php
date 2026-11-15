@@ -1771,3 +1771,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Sous-modèle pour le pied de page / me
 $BL['be_admin_mail_ph_logo']        = 'Balise d’image du logo ou nom stylisé du site';
 $BL['be_admin_mail_component_html_note'] = 'Balisage HTML pour ce composant. Il est inséré dans la mise en page principale via son espace réservé correspondant.';
 $BL['be_admin_mail_template']       = 'Modèle d’e-mail';
+
+$BL['be_newsletter_nourl'] = 'Newsletter non envoyée : l’URL du site n’est pas configurée ou n’est pas fiable.';

@@ -1797,3 +1797,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Sub-șablon pentru subsolul inferior /
 $BL['be_admin_mail_ph_logo']        = 'Etichetă imagine siglă sau nume stilizat al site-ului';
 $BL['be_admin_mail_component_html_note'] = 'Marcaj HTML pentru această componentă. Este inclus în structura principală prin substituentul corespunzător.';
 $BL['be_admin_mail_template']       = 'Șablon de e-mail';
+
+$BL['be_newsletter_nourl'] = 'Newsletterul nu a fost trimis: URL-ul site-ului nu este configurat sau nu este de încredere.';

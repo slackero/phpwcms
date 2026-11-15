@@ -1780,3 +1780,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Podpredloga za spodnjo nogo e-po&scaro
 $BL['be_admin_mail_ph_logo']        = 'Oznaka slike logotipa ali oblikovano ime spletnega mesta';
 $BL['be_admin_mail_component_html_note'] = 'HTML koda za to komponento. V glavno postavitev se vstavi prek ustreznega ogradnega znaka.';
 $BL['be_admin_mail_template']       = 'E-po&scaron;tna predloga';
+
+$BL['be_newsletter_nourl'] = 'E-novičke niso bile poslane: URL spletnega mesta ni nastavljen ali ni zaupanja vreden.';

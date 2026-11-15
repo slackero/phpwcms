@@ -1807,3 +1807,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Delmall för den nedre e-postsidfoten 
 $BL['be_admin_mail_ph_logo']        = 'Logotypbild-tagg eller formaterat webbplatsnamn';
 $BL['be_admin_mail_component_html_note'] = 'HTML-kod för denna komponent. Den bäddas in i huvudlayouten via motsvarande platshållare.';
 $BL['be_admin_mail_template']       = 'E-postmall';
+
+$BL['be_newsletter_nourl'] = 'Nyhetsbrevet skickades inte: webbplatsens URL är inte konfigurerad eller inte betrodd.';

@@ -1776,3 +1776,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Podšablon za donje podnožje e-pošte
 $BL['be_admin_mail_ph_logo']        = 'Oznaka slike logotipa ili stilizovani naziv sajta';
 $BL['be_admin_mail_component_html_note'] = 'HTML označavanje za ovu komponentu. Ugrađuje se u glavni raspored putem odgovarajuće zamenske oznake.';
 $BL['be_admin_mail_template']       = 'Šablon e-pošte';
+
+$BL['be_newsletter_nourl'] = 'Newsletter nije poslat: URL sajta nije konfigurisan ili nije pouzdan.';

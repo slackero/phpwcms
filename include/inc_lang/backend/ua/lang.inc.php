@@ -1805,3 +1805,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Підшаблон нижнього п
 $BL['be_admin_mail_ph_logo']        = 'Тег зображення логотипу або форматована назва сайту';
 $BL['be_admin_mail_component_html_note'] = 'HTML-розмітка цього компонента. Вбудовується в основний макет через відповідну змінну.';
 $BL['be_admin_mail_template']       = 'Шаблон email';
+
+$BL['be_newsletter_nourl'] = 'Розсилку не надіслано: URL-адреса сайту не налаштована або не є довіреною.';

@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Sub-templat untuk footer bawah / diskl
 $BL['be_admin_mail_ph_logo']        = 'Tag gambar logo atau nama situs yang diformat';
 $BL['be_admin_mail_component_html_note'] = 'Markup HTML untuk komponen ini. Komponen disematkan ke tata letak utama melalui placeholder yang sesuai.';
 $BL['be_admin_mail_template']       = 'Templat Email';
+
+$BL['be_newsletter_nourl'] = 'Buletin tidak dikirim: URL situs belum dikonfigurasi atau tidak tepercaya.';

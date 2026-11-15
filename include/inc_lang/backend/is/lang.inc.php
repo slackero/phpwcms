@@ -1797,3 +1797,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Undirsniðmát fyrir neðri fót / fyr
 $BL['be_admin_mail_ph_logo']        = 'Lógó-myndarmerki eða stílað heiti vefsvæðis';
 $BL['be_admin_mail_component_html_note'] = 'HTML-kóði fyrir þennan þátt. Hann er felldur inn í aðalsniðmátið með samsvarandi staðgengli.';
 $BL['be_admin_mail_template']       = 'Tölvupóstsniðmát';
+
+$BL['be_newsletter_nourl'] = 'Frétbréfið var ekki sent: slóð vefsvæðisins er ekki stillt eða ekki traust.';

@@ -1863,3 +1863,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Mẫu phụ cho phần chân trang ema
 $BL['be_admin_mail_ph_logo']        = 'Thẻ hình ảnh logo hoặc tên trang web có định dạng';
 $BL['be_admin_mail_component_html_note'] = 'Mã đánh dấu HTML cho thành phần này. Nó được nhúng vào bố cục chính thông qua biến giữ chỗ tương ứng.';
 $BL['be_admin_mail_template']       = 'Mẫu email';
+
+$BL['be_newsletter_nourl'] = 'Bản tin chưa được gửi: URL của trang web chưa được cấu hình hoặc không đáng tin cậy.';

@@ -1796,3 +1796,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Apakšveidne e-pasta apakšējai kāje
 $BL['be_admin_mail_ph_logo']        = 'Logotipa attēla tags vai stilizēts vietnes nosaukums';
 $BL['be_admin_mail_component_html_note'] = 'Šī komponenta HTML marķējums. Tas tiek iekļauts galvenajā izkārtojumā, izmantojot atbilstošo vietturi.';
 $BL['be_admin_mail_template']       = 'E-pasta veidne';
+
+$BL['be_newsletter_nourl'] = 'Biļetens nav nosūtīts: vietnes URL nav konfigurēts vai nav uzticams.';

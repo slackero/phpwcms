@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Подшаблон за долния �
 $BL['be_admin_mail_ph_logo']        = 'HTML таг за изображение на лого или стилизирано име на сайт';
 $BL['be_admin_mail_component_html_note'] = 'HTML код за този компонент. Вгражда се в основното оформление чрез съответния параметър.';
 $BL['be_admin_mail_template']       = 'Шаблон за имейл';
+
+$BL['be_newsletter_nourl'] = 'Бюлетинът не е изпратен: URL адресът на сайта не е конфигуриран или не е надежден.';

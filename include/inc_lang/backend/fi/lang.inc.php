@@ -1801,3 +1801,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Alipohja sähköpostin alaosalle / tie
 $BL['be_admin_mail_ph_logo']        = 'Logokuvan tagi tai tyylitelty sivuston nimi';
 $BL['be_admin_mail_component_html_note'] = 'Tämän komponentin HTML-merkkaus. Se upotetaan pääpohjaan vastaavan muuttujan kautta.';
 $BL['be_admin_mail_template']       = 'Sähköpostipohja';
+
+$BL['be_newsletter_nourl'] = 'Uutiskirjettä ei lähetetty: sivuston URL-osoitetta ei ole määritetty tai se ei ole luotettava.';

@@ -1805,3 +1805,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Submodelo para o rodapé / aviso legal
 $BL['be_admin_mail_ph_logo']        = 'Tag de imagem do logotipo ou nome estilizado do site';
 $BL['be_admin_mail_component_html_note'] = 'Marcação HTML para este componente. É inserida no layout principal através do seu marcador correspondente.';
 $BL['be_admin_mail_template']       = 'Modelo de e-mail';
+
+$BL['be_newsletter_nourl'] = 'Boletim não enviado: o URL do site não está configurado ou não é de confiança.';

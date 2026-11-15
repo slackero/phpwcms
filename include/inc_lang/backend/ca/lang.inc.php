@@ -1808,3 +1808,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Subplantilla per al peu de pàgina / a
 $BL['be_admin_mail_ph_logo']        = 'Etiqueta d’imatge del logotip o nom estilitzat del lloc';
 $BL['be_admin_mail_component_html_note'] = 'Marcatge HTML per a aquest component. S’insereix al disseny principal mitjançant el seu marcador de posició corresponent.';
 $BL['be_admin_mail_template']       = 'Plantilla de correu';
+
+$BL['be_newsletter_nourl'] = 'Butlletí no enviat: l’URL del lloc no està configurada o no és de confiança.';

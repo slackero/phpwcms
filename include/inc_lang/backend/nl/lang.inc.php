@@ -1770,3 +1770,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Deelsjabloon voor de onderste e-mailvo
 $BL['be_admin_mail_ph_logo']        = 'Logo-afbeeldingstag of gestileerde websitenaam';
 $BL['be_admin_mail_component_html_note'] = 'HTML-opmaak voor deze component. Deze wordt via de bijbehorende plaatshouder in de hoofdlayout ingebed.';
 $BL['be_admin_mail_template']       = 'E-mailsjabloon';
+
+$BL['be_newsletter_nourl'] = 'Nieuwsbrief niet verzonden: de site-URL is niet geconfigureerd of niet vertrouwd.';

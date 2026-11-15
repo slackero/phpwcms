@@ -1768,3 +1768,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Sub-template for the email bottom foot
 $BL['be_admin_mail_ph_logo']        = 'Logo image tag or styled site name';
 $BL['be_admin_mail_component_html_note'] = 'HTML markup for this component. It is embedded into the master layout via its corresponding placeholder.';
 $BL['be_admin_mail_template']       = 'Email Template';
+
+$BL['be_newsletter_nourl'] = 'Newsletter not sent: the site URL is not configured or not trusted.';

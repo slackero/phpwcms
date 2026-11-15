@@ -1769,3 +1769,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Teilvorlage f&uuml;r den unteren E-Mai
 $BL['be_admin_mail_ph_logo']        = 'Logo-Bild oder formatierter Website-Name';
 $BL['be_admin_mail_component_html_note'] = 'HTML-Markup dieser Komponente. Sie wird &uuml;ber den entsprechenden Platzhalter in das Haupt-Layout eingebettet.';
 $BL['be_admin_mail_template']       = 'E-Mail Vorlage';
+
+$BL['be_newsletter_nourl'] = 'Newsletter nicht gesendet: Die Website-URL ist nicht konfiguriert oder nicht vertrauenswürdig.';

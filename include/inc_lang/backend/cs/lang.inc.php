@@ -1789,3 +1789,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Dílčí šablona pro spodní zápatí
 $BL['be_admin_mail_ph_logo']        = 'Značka obrázku loga nebo stylovaný název webu';
 $BL['be_admin_mail_component_html_note'] = 'HTML kód této komponenty. Vkládá se do hlavního rozvržení prostřednictvím příslušného zástupného symbolu.';
 $BL['be_admin_mail_template']       = 'E-mailová šablona';
+
+$BL['be_newsletter_nourl'] = 'Newsletter nebyl odeslán: URL webu není nastavena nebo není důvěryhodná.';

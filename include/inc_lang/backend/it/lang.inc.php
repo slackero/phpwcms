@@ -1770,3 +1770,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Sotto-modello per il piè di pagina in
 $BL['be_admin_mail_ph_logo']        = 'Tag immagine del logo o nome formattato del sito';
 $BL['be_admin_mail_component_html_note'] = 'Markup HTML per questo componente. Viene incorporato nel layout principale tramite il relativo segnaposto.';
 $BL['be_admin_mail_template']       = 'Modello di email';
+
+$BL['be_newsletter_nourl'] = 'Newsletter non inviata: l’URL del sito non è configurato o non è affidabile.';

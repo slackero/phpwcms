@@ -1770,3 +1770,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Subplantilla para el pie de página / 
 $BL['be_admin_mail_ph_logo']        = 'Etiqueta de imagen del logotipo o nombre estilizado del sitio';
 $BL['be_admin_mail_component_html_note'] = 'Marcado HTML para este componente. Se inserta en el diseño principal mediante su marcador de posición correspondiente.';
 $BL['be_admin_mail_template']       = 'Plantilla de correo';
+
+$BL['be_newsletter_nourl'] = 'Boletín no enviado: la URL del sitio no está configurada o no es de confianza.';

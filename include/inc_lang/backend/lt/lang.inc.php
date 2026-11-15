@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Apatinės el. laiško poraštės / rek
 $BL['be_admin_mail_ph_logo']        = 'Logotipo paveikslėlio žyma arba stilizuotas svetainės pavadinimas';
 $BL['be_admin_mail_component_html_note'] = 'Šio komponento HTML žymėjimas. Jis įterpiamas į pagrindinį maketą per atitinkamą vietos žymeklį.';
 $BL['be_admin_mail_template']       = 'El. pašto šablonas';
+
+$BL['be_newsletter_nourl'] = 'Naujienlaiškis neišsiųstas: svetainės URL nenustatytas arba nepatikimas.';

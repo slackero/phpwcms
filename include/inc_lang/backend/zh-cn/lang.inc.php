@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = '邮件底部页脚 / 声明的子模�
 $BL['be_admin_mail_ph_logo']        = '徽标图像标签或带样式的网站名称';
 $BL['be_admin_mail_component_html_note'] = '此组件的 HTML 标记。它通过对应的占位符嵌入到主布局中。';
 $BL['be_admin_mail_template']       = '邮件模板';
+
+$BL['be_newsletter_nourl'] = '新闻简报未发送：网站 URL 未配置或不受信任。';

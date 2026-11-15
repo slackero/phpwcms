@@ -1796,3 +1796,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'قالب فرعي للتذييل ال�
 $BL['be_admin_mail_ph_logo']        = 'وسم صورة الشعار أو اسم الموقع المنسق';
 $BL['be_admin_mail_component_html_note'] = 'ترميز HTML لهذا المكون. يتم تضمينه في التخطيط الرئيسي عبر العنصر النائب المقابل له.';
 $BL['be_admin_mail_template']       = 'قالب البريد الإلكتروني';
+
+$BL['be_newsletter_nourl'] = 'لم يتم إرسال الرسالة الإخبارية: عنوان URL للموقع غير مهيأ أو غير موثوق.';

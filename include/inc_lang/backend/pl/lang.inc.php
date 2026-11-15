@@ -1770,3 +1770,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Podszablon dolnej stopki wiadomości /
 $BL['be_admin_mail_ph_logo']        = 'Znacznik obrazu logo lub stylizowana nazwa witryny';
 $BL['be_admin_mail_component_html_note'] = 'Kod HTML dla tego komponentu. Jest osadzany w szablonie głównym za pośrednictwem odpowiedniego znacznika.';
 $BL['be_admin_mail_template']       = 'Szablon e-mail';
+
+$BL['be_newsletter_nourl'] = 'Newsletter nie został wysłany: adres URL witryny nie jest skonfigurowany lub nie jest zaufany.';

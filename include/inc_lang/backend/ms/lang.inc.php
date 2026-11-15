@@ -1806,3 +1806,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Sub-templat untuk pengaki bawah e-mel 
 $BL['be_admin_mail_ph_logo']        = 'Tag imej logo atau nama laman yang diformat';
 $BL['be_admin_mail_component_html_note'] = 'Penanda HTML untuk komponen ini. Ia dibenamkan ke dalam tata letak utama melalui placeholder yang sepadan.';
 $BL['be_admin_mail_template']       = 'Templat E-mel';
+
+$BL['be_newsletter_nourl'] = 'Surat berita tidak dihantar: URL laman tidak dikonfigurasikan atau tidak dipercayai.';

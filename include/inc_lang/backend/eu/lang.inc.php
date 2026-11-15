@@ -1770,3 +1770,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Postaren beheko orri-oinerako / ohar l
 $BL['be_admin_mail_ph_logo']        = 'Logotipoaren irudi-etiketa edo gunearen izen estilizatua';
 $BL['be_admin_mail_component_html_note'] = 'Osagai honen HTML kodea. Diseinu nagusian kapsulatzen da dagokion leku-markaren bidez.';
 $BL['be_admin_mail_template']       = 'Posta-txantiloia';
+
+$BL['be_newsletter_nourl'] = 'Buletina ez da bidali: gunearen URLa ez dago konfiguratuta edo ez da fidagarria.';

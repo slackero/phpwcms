@@ -1776,3 +1776,5 @@ $BL['be_admin_mail_desc_mail_footer']  = 'Podpredložak za donje podnožje e-po�
 $BL['be_admin_mail_ph_logo']        = 'Oznaka slike logotipa ili stilizirani naziv web-mjesta';
 $BL['be_admin_mail_component_html_note'] = 'HTML označavanje za ovu komponentu. Ugrađuje se u glavni izgled putem odgovarajuće oznake mjesta.';
 $BL['be_admin_mail_template']       = 'Predložak e-pošte';
+
+$BL['be_newsletter_nourl'] = 'Newsletter nije poslan: URL web-mjesta nije konfiguriran ili nije pouzdan.';
