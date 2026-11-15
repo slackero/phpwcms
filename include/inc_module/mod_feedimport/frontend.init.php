@@ -68,6 +68,10 @@ if(!empty($_getVar['feedimport'])) {
 
 		if( $rss_obj->data ) {
 
+			// links in the status mail must not follow a host forged through
+			// the request headers
+			$mail_site_url = phpwcms_mail_site_url();
+
 			$feedimport_result['status'] = array(
 				'Feed Importer Status - ' . date('Y-m-d, H:i:s') . LF . '===========================================',
 				$feedimport_result['cnt_name'] . LF . $feedimport_result['cnt_text'] . LF
@@ -373,7 +377,8 @@ if(!empty($_getVar['feedimport'])) {
 
 					}
 
-					$feedimport_result['status'][] = date('Y-m-d, H:i:s', $article_begin) . LF . $article_title . LF . $rssvalue->get_permalink() . LF . PHPWCMS_URL . 'phpwcms.php?do=articles&p=2&s=1&id='.$result['INSERT_ID'];
+					$feedimport_result['status'][] = date('Y-m-d, H:i:s', $article_begin) . LF . $article_title . LF . $rssvalue->get_permalink()
+						. ($mail_site_url !== '' ? LF . $mail_site_url . 'phpwcms.php?do=articles&p=2&s=1&id='.$result['INSERT_ID'] : '');
 
 					$data = array(
                         'cref_type' => 'feed_to_article_import',
@@ -388,7 +393,7 @@ if(!empty($_getVar['feedimport'])) {
 			}
 
 			// check if status email should be sent
-			if(!empty($feedimport_result['cnt_object']['import_status_email']) && is_valid_email($feedimport_result['cnt_object']['import_status_email'])) {
+			if($mail_site_url !== '' && !empty($feedimport_result['cnt_object']['import_status_email']) && is_valid_email($feedimport_result['cnt_object']['import_status_email'])) {
 
 				$feedimport_result['status'] = implode(LF.LF, $feedimport_result['status']);
 

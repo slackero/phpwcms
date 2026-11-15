@@ -1152,3 +1152,4 @@ $BL['be_check_feuser_profile']          = '&ouml;nplan kullan&#305;c&#305; profi
 $BL['be_check_feuser_registration']     = 'kay&#305;t';
 $BL['be_check_feuser_manage']           = 'kullan&#305;c&#305; taraf&#305;ndan y&ouml;netildi';
 
+$BL['be_newsletter_nourl'] = 'Bülten gönderilmedi: site URL adresi yapılandırılmamış veya güvenilir değil.';

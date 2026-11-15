@@ -944,9 +944,4 @@ $BL['be_func_content_copy']              = 'kopier denne artikkelens innhold';
 $BL['be_func_content_no_copy']           = "Det er ikke mulig &#229; kopiere denne artikkelens innhold!";
 $BL['be_func_content_paste_cancel']      = 'avbryt endringer i artikkelinnhold';
 
-
-
-
-
-
-
+$BL['be_newsletter_nourl'] = 'Nyhetsbrevet ble ikke sendt: nettstedets URL er ikke konfigurert eller ikke klarert.';

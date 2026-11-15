@@ -1097,4 +1097,4 @@ $BL['CSRF_BTN_BACK'] = 'Retour';
 $BL['CSRF_BTN_LOGIN'] = 'connection';
 $BL['CSRF_BTN_DASHBOARD'] = 'Tableau de bord';
 
-
+$BL['be_newsletter_nourl'] = 'Newsletter non envoyée : l’URL du site n’est pas configurée ou n’est pas fiable.';

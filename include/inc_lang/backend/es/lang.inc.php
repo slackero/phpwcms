@@ -663,3 +663,4 @@ $BL['CSRF_BTN_BACK'] = 'Volver';
 $BL['CSRF_BTN_LOGIN'] = 'Ingresar';
 $BL['CSRF_BTN_DASHBOARD'] = 'Tablero';
 
+$BL['be_newsletter_nourl'] = 'Boletín no enviado: la URL del sitio no está configurada o no es de confianza.';

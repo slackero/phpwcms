@@ -137,6 +137,18 @@ if (!$newsletter) {
 
     }
 
+    // links mailed to subscribers must not follow a host forged through the request headers;
+    // empty means no trustworthy URL is available and nothing gets sent
+    $mail_site_url = phpwcms_mail_site_url();
+
+    // a newsletter without a trustworthy base URL would mail every subscriber
+    // a verification and delete link on an unverified host
+    if ($mail_site_url === '' && count($recipient)) {
+        log_message('NEWSLETTER', 'Newsletter ' . $newsletter["newsletter_id"] . ' not sent: site URL is not configured or not trusted');
+        echo '<p><strong>' . $BL['be_newsletter_nourl'] . '</strong></p>';
+        $recipient = array();
+    }
+
     if (count($recipient)) {
 
         echo '<p><strong>' . $BL['be_newsletter_to'] . ': </strong><p>';
@@ -154,7 +166,7 @@ if (!$newsletter) {
         }
 
         if (!empty($newsletter['newsletter_vars']['html'])) {
-            $newsletter['newsletter_vars']['html'] = convert_rel2abs($newsletter['newsletter_vars']['html'], PHPWCMS_URL);
+            $newsletter['newsletter_vars']['html'] = convert_rel2abs($newsletter['newsletter_vars']['html'], $mail_site_url);
         }
 
         $mail = new PhpwcmsMailer($phpwcms);
@@ -253,6 +265,9 @@ function build_email_text($text, $value)
     //build right message part
     $refkey = rawurlencode($value['address_key']);
 
+    // mailed links must not follow a host forged through the request headers
+    $site_url = phpwcms_mail_site_url();
+
     return str_replace(
         [
             '###RECIPIENT_NAME###',
@@ -269,14 +284,14 @@ function build_email_text($text, $value)
         [
             $value['address_name'],
             $value['address_email'],
-            PHPWCMS_URL,
-            PHPWCMS_URL . 'verify.php?s=' . $refkey,
-            PHPWCMS_URL . 'verify.php?u=' . $refkey,
-            '<img src="' . PHPWCMS_URL . 'verify.php?o=' . (int)$value['queue_id'] . '" alt="" />',
-            'href="' . PHPWCMS_URL . 'download.php',
-            'src="' . PHPWCMS_URL . 'img/cmsimage.php',
-            'href="' . PHPWCMS_URL . 'download.php',
-            'src="' . PHPWCMS_URL . 'img/cmsimage.php',
+            $site_url,
+            $site_url . 'verify.php?s=' . $refkey,
+            $site_url . 'verify.php?u=' . $refkey,
+            '<img src="' . $site_url . 'verify.php?o=' . (int)$value['queue_id'] . '" alt="" />',
+            'href="' . $site_url . 'download.php',
+            'src="' . $site_url . 'img/cmsimage.php',
+            'href="' . $site_url . 'download.php',
+            'src="' . $site_url . 'img/cmsimage.php',
         ],
         $text
     );

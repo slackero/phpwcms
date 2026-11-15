@@ -72,7 +72,10 @@ if(!empty($step)) {
         $phpwcms['db_collation']    = 'utf8mb4_general_ci';
         $db_sql = empty($_POST['db_sql']) ? 0 : 1;
 
-        write_conf_file($phpwcms);
+        // do not persist anything while the admin password check failed
+        if(empty($admin_err_pass)) {
+            write_conf_file($phpwcms);
+        }
         $err = 0;
 
         $prepend = $phpwcms["db_prepend"];
@@ -104,7 +107,9 @@ if(!empty($step)) {
                     if($row = mysqli_fetch_row($result)) {
 
                         $phpwcms['db_version'] = $row[0];
-                        write_conf_file($phpwcms);
+                        if(empty($admin_err_pass)) {
+                            write_conf_file($phpwcms);
+                        }
 
                     }
 
@@ -222,7 +227,18 @@ if(!empty($step)) {
 
     if($step == 2 && $do) {
 
-        $phpwcms["site"] = clean_slweg($_POST["site"]);
+        $err = 0;
+
+        // validate the raw input; clean_slweg() strips markup and would hide
+        // why a value is rejected
+        $submitted_site = (string)($_POST["site"] ?? '');
+        if (trim($submitted_site) !== '' && !setup_site_url_is_valid($submitted_site)) {
+            // stay on this step; the typed value is kept for redisplay and
+            // nothing is written to conf.inc.php while $err is set
+            $site_err = 1;
+            $err      = 1;
+        }
+        $phpwcms["site"] = clean_slweg($submitted_site);
 
         $phpwcms['SMTP_FROM_EMAIL'] = clean_slweg($_POST["smtp_from_email"]);
         if(!$phpwcms['SMTP_FROM_EMAIL']) {
@@ -249,7 +265,9 @@ if(!empty($step)) {
         $phpwcms['SMTP_PASS'] = slweg($_POST["smtp_pass"]);
         $phpwcms['SMTP_SECURE'] = clean_slweg($_POST["smtp_secure"]);
 
-        write_conf_file($phpwcms);
+        if(!$err && empty($admin_err_pass)) {
+            write_conf_file($phpwcms);
+        }
 
         if(!empty($_POST["admin_create"])) {
             try {
@@ -288,11 +306,14 @@ if(!empty($step)) {
 
     if($step == 3 && $do) {
 
-        $phpwcms['DOC_ROOT']       = clean_slweg($_POST["doc_root"]);
-        $phpwcms["root"]           = clean_slweg($_POST["root"]);
-        $phpwcms["file_path"]      = clean_slweg($_POST["file_path"]);
-        $phpwcms["templates"]      = clean_slweg($_POST["templates"]);
-        $phpwcms["ftp_path"]       = clean_slweg($_POST["ftp_path"]);
+        // a partial POST must not rewrite conf.inc.php
+        $paths_ok = isset($_POST["doc_root"], $_POST["root"], $_POST["file_path"], $_POST["templates"], $_POST["ftp_path"]);
+
+        $phpwcms['DOC_ROOT']       = clean_slweg($_POST["doc_root"] ?? '');
+        $phpwcms["root"]           = clean_slweg($_POST["root"] ?? '');
+        $phpwcms["file_path"]      = clean_slweg($_POST["file_path"] ?? '');
+        $phpwcms["templates"]      = clean_slweg($_POST["templates"] ?? '');
+        $phpwcms["ftp_path"]       = clean_slweg($_POST["ftp_path"] ?? '');
 
         $phpwcms["file_path"]      = $phpwcms["file_path"] ?: "phpwcms_filestorage";
         $phpwcms["templates"]      = $phpwcms["templates"] ?: "phpwcms_template";
@@ -300,19 +321,25 @@ if(!empty($step)) {
         $phpwcms["cimage_path"]    = $phpwcms["cimage_path"] ?: "images";
         $phpwcms["ftp_path"]       = $phpwcms["ftp_path"] ?: "phpwcms_ftp";
 
-        write_conf_file($phpwcms);
-        header("Location: setup.php?step=4");
-        exit();
+        if($paths_ok) {
+            write_conf_file($phpwcms);
+            header("Location: setup.php?step=4");
+            exit();
+        }
     }
 
     if($step == 4 && $do) {
-        $phpwcms["file_maxsize"]     = intval($_POST["file_maxsize"]);
-        $phpwcms["content_width"]    = intval($_POST["content_width"]);
-        $phpwcms["img_list_width"]   = intval($_POST["img_list_width"]);
-        $phpwcms["img_list_height"]  = intval($_POST["img_list_height"]);
-        $phpwcms["img_prev_width"]   = intval($_POST["img_prev_width"]);
-        $phpwcms["img_prev_height"]  = intval($_POST["img_prev_height"]);
-        $phpwcms["max_time"]         = intval($_POST["max_time"]);
+        // a partial POST must not rewrite conf.inc.php
+        $images_ok = isset($_POST["file_maxsize"], $_POST["content_width"], $_POST["img_list_width"],
+            $_POST["img_list_height"], $_POST["img_prev_width"], $_POST["img_prev_height"], $_POST["max_time"]);
+
+        $phpwcms["file_maxsize"]     = intval($_POST["file_maxsize"] ?? 0);
+        $phpwcms["content_width"]    = intval($_POST["content_width"] ?? 0);
+        $phpwcms["img_list_width"]   = intval($_POST["img_list_width"] ?? 0);
+        $phpwcms["img_list_height"]  = intval($_POST["img_list_height"] ?? 0);
+        $phpwcms["img_prev_width"]   = intval($_POST["img_prev_width"] ?? 0);
+        $phpwcms["img_prev_height"]  = intval($_POST["img_prev_height"] ?? 0);
+        $phpwcms["max_time"]         = intval($_POST["max_time"] ?? 0);
         $phpwcms["file_maxsize"]     = $phpwcms["file_maxsize"] ?: 2097152;
         $phpwcms["content_width"]    = $phpwcms["content_width"] ?: 538;
         $phpwcms["img_list_width"]   = $phpwcms["img_list_width"] ?: 100;
@@ -321,9 +348,11 @@ if(!empty($step)) {
         $phpwcms["img_prev_height"]  = $phpwcms["img_prev_height"] ?: 400;
         $phpwcms["max_time"]         = $phpwcms["max_time"] ?: 1800;
 
-        write_conf_file($phpwcms);
-        header("Location: setup.php?step=5");
-        exit();
+        if($images_ok) {
+            write_conf_file($phpwcms);
+            header("Location: setup.php?step=5");
+            exit();
+        }
     }
 
 }

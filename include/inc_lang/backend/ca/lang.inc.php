@@ -820,3 +820,5 @@ $BL['be_admin_struct_orderdesc']        = 'Descendent';
 $BL['be_admin_struct_orderasc']         = 'Ascendent';
 $BL['be_admin_struct_ordermanual']      = 'Manual (fletxa amunt/avall)';
 $BL['be_cnt_sitemap_startid']           = 'Comen&ccedil;ant per';
+
+$BL['be_newsletter_nourl'] = 'Butlletí no enviat: l’URL del lloc no està configurada o no és de confiança.';

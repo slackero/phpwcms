@@ -993,3 +993,5 @@ $BL['be_cnt_guests']                    = 'kh&#225;ch';
 $BL['be_cnt_admin']                        = 'qu&#7843;n tr&#7883;';
 $BL['be_cnt_write']                        = 'vi&#7871;t';
 $BL['be_cnt_read']                        = '&#273;&#7885;c';
+
+$BL['be_newsletter_nourl'] = 'Bản tin chưa được gửi: URL của trang web chưa được cấu hình hoặc không đáng tin cậy.';

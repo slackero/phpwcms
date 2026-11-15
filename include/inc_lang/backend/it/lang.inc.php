@@ -664,4 +664,4 @@ $BL['CSRF_BTN_BACK'] = 'Indietro';
 $BL['CSRF_BTN_LOGIN'] = 'Login';
 $BL['CSRF_BTN_DASHBOARD'] = 'Bacheca';
 
-
+$BL['be_newsletter_nourl'] = 'Newsletter non inviata: l’URL del sito non è configurato o non è affidabile.';
