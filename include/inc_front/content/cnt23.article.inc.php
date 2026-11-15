@@ -808,7 +808,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                  */
                 if($POST_DO && isset($_POST[$POST_name])) {
                     if(is_array($_POST[$POST_name])) {
-                        $POST_val[$POST_name] = array_map('combined_POST_cleaning', $_POST[$POST_name]);
+                        // keep only the submitted values, never the keys
+                        $POST_val[$POST_name] = array_values(array_map('combined_POST_cleaning', $_POST[$POST_name]));
                         $POST_val[$POST_name] = array_diff($POST_val[$POST_name], array(''));
                         if(!count($POST_val[$POST_name])) {
                             $POST_val[$POST_name] = false;
@@ -916,7 +917,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                 if($POST_DO && ($cnt_form["fields"][$key]['required'] || isset($_POST[$POST_name]) ) ) {
                     if(isset($_POST[$POST_name]) && is_array($_POST[$POST_name])) {
-                        $POST_val[$POST_name] = array_map('combined_POST_cleaning', $_POST[$POST_name]);
+                        // array_values() drops attacker-chosen keys such as
+                        // folder, name and attachment and keeps the checkbox
+                        // a plain list of submitted values
+                        $POST_val[$POST_name] = array_values(array_map('combined_POST_cleaning', $_POST[$POST_name]));
                         $POST_val[$POST_name] = array_diff($POST_val[$POST_name], array(''));
                         if(!count($POST_val[$POST_name])) {
                             $POST_val[$POST_name] = '';
@@ -1580,7 +1584,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                 if($POST_DO && ($cnt_form["fields"][$key]['required'] || isset($_POST[$POST_name]) ) ) {
                     if(isset($_POST[$POST_name]) && is_array($_POST[$POST_name])) {
-                        $POST_val[$POST_name] = array_map('combined_POST_cleaning', $_POST[$POST_name]);
+                        // keep only the submitted values, never the keys
+                        $POST_val[$POST_name] = array_values(array_map('combined_POST_cleaning', $_POST[$POST_name]));
                         $POST_val[$POST_name] = array_diff($POST_val[$POST_name], array(''));
                         if(!count($POST_val[$POST_name])) {
                             $POST_val[$POST_name] = false;
@@ -1975,14 +1980,33 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
             }
 
             if(is_array($POST_keyval)) {
-                if (isset($POST_keyval['folder'])) {
+                // Only a field declared as upload may carry upload metadata.
+                // Without this check a checkbox submitted as an array could
+                // smuggle folder/name/attachment keys and turn any server file
+                // into a mail attachment.
+                $is_upload_field = isset($cnt_form_field_types[$POST_key])
+                    && in_array('upload', $cnt_form_field_types[$POST_key], true);
+                if ($is_upload_field && isset($POST_keyval['folder'])) {
                 // check if this is an array - and is an upload value
                     if (empty($POST_keyval['name'])) {
                         $POST_keyval = $POST_keyval['text_no_upload'];
                     } else {
-                        $POST_valurl = PHPWCMS_URL . $POST_keyval['folder'] . '/' . rawurlencode( $POST_keyval['name'] );
+                        // the link ends up in the mail, so it must not follow a
+                        // host forged through the request headers
+                        $POST_valurl = $_cnt_form_mail_site_url !== ''
+                            ? $_cnt_form_mail_site_url . $POST_keyval['folder'] . '/' . rawurlencode( $POST_keyval['name'] )
+                            : $POST_keyval['name'];
                         if ( isset( $POST_keyval['attachment'] ) && $POST_keyval['attachment'] ) {
-                            $POST_attach[] = PHPWCMS_ROOT . '/' . $POST_keyval['folder'] . '/' . $POST_keyval['name'];
+                            $attach_file = $cnt_form_upload_file($POST_keyval['folder'], $POST_keyval['name']);
+                            if ($attach_file !== false) {
+                                $POST_attach[] = $attach_file;
+                            } else {
+                                // never advertise a file that could not be
+                                // resolved, treat it like a missing upload
+                                // and keep the configured placeholder
+                                $POST_keyval = isset($POST_keyval['text_no_upload']) ? $POST_keyval['text_no_upload'] : '';
+                                $POST_valurl = $POST_keyval;
+                            }
                         }
                         if(!$cnt_form['template_format']) {
                             $POST_keyval = $POST_valurl;
@@ -1995,7 +2019,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
             }
 
             // prepare for storing in database
-            $POST_savedb[$POST_key] = empty($POST_valurl) ? $POST_keyval : $POST_valurl;
+            $POST_savedb[$POST_key] = $POST_valurl === '' ? $POST_keyval : $POST_valurl;
 
             // first check copy to email template related things
             if( !$cnt_form['template_equal'] ) {
@@ -2007,7 +2031,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
                     if(is_string($POST_keyval)) {
                         $POST_keyval_copy = html_specialchars($POST_keyval);
                     } elseif(is_array($POST_keyval) && isset($POST_keyval['folder'])) {
-                        $POST_keyval_copy = '<a href="'.$POST_valurl.'" target="_blank">'.html_specialchars($POST_keyval['name']).'</a>';
+                        $POST_keyval_copy = $cnt_form_upload_link($POST_keyval, $_cnt_form_mail_site_url);
                     }
 
                 }
@@ -2035,7 +2059,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
                     }
                     $POST_keyval = html_specialchars($POST_keyval);
                 } elseif(is_array($POST_keyval) && isset($POST_keyval['folder'])) {
-                    $POST_keyval = '<a href="'.$POST_valurl.'" target="_blank">'.html_specialchars($POST_keyval['name']).'</a>';
+                    $POST_keyval = $cnt_form_upload_link($POST_keyval, $_cnt_form_mail_site_url);
                 }
 
                 $cnt_form['is_html_entity'] = true;
@@ -2501,8 +2525,14 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         }
         if(isset($POST_val) && count($POST_val)) {
             foreach($POST_val as $file_key => $file_val) {
-                if(isset($POST_val[$file_key]['name'])) {
-                    @unlink(PHPWCMS_ROOT.'/'.$POST_val[$file_key]['folder'].$POST_val[$file_key]['name']);
+                // only a declared upload field may point at a stored file
+                if(isset($POST_val[$file_key]['name'], $POST_val[$file_key]['folder'], $cnt_form_field_types[$file_key])
+                    && in_array('upload', $cnt_form_field_types[$file_key], true)
+                ) {
+                    $delete_file = $cnt_form_upload_file($POST_val[$file_key]['folder'], $POST_val[$file_key]['name']);
+                    if($delete_file !== false) {
+                        @unlink($delete_file);
+                    }
                 }
             }
         }
