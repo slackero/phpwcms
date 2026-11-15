@@ -34,10 +34,14 @@ The setup-generated file adds one legacy key that `dist.conf.inc.php` no longer 
 
 | Key | Type | Default | Effect |
 | --- | ---- | ------- | ------ |
-| `site` | string | `''` | Base URL of the site; empty auto-detects. Example value: `'http://'.$_SERVER['SERVER_NAME'].'/'`. |
+| `site` | string | `''` | Base URL of the site; empty auto-detects per request. The setup wizard requires an absolute `http(s)` URL without credentials, query or fragment when one is entered, keeps a subdirectory path such as `https://example.com/cms/`, stores the value with one trailing slash, and stores the detected URL when the field is left empty. Internationalized hostnames are converted to Punycode. Example value: `'http://example.com/'`. |
 | `site_ssl_mode` | bool | `0` | Turns SSL support of the CMS on (`1`) or off (`0`). |
 | `site_ssl_url` | string | `''` | URL of the SSL certificate host, e.g. `'https://'.$_SERVER['SERVER_NAME'].'/'`. |
 | `site_ssl_port` | int | `443` | Port the SSL service listens on. |
+
+An empty `site` is derived from the request: `X-Forwarded-Host` is believed only when the request comes from a `trusted_proxies` entry, otherwise the `Host` header is used. Both are client-controlled, so features that mail a link — the frontend password reminder, form double opt-in, newsletter verification, guestbook notification, e-card, profile notifications, the feed import status mail and the backend newsletter send — refuse to build that link while the derived host is not listed in `trusted_hosts`. Set `site` or `trusted_hosts` to enable them; the setup wizard writes the detected URL into `site` when the field is left empty, so a fresh install works without further configuration. Because that value is then fixed, a multi-domain installation should clear `site` again and use `trusted_hosts` instead, and behind a reverse proxy the detected value can be the internal host — enter the public URL manually there.
+
+When the password reminder is refused, the page shows a Bootstrap 5 alert (`alert alert-danger`) after the reminder template. Its text is the i18n token `Password reminder is unavailable until the site URL is configured or trusted.`, editable per language under Admin → Template language translations; the token is registered on first render.
 
 ## Administrator account
 
@@ -202,6 +206,7 @@ See [Cache and performance](../administration/cache-performance.md) for behavior
 | `Login_IPcheck` | bool | `0` | Bind backend sessions to the login IP. |
 | `trusted_proxies` | array | `[]` | CIDR ranges of reverse proxies/CDNs whose forwarded headers may be believed, e.g. `array('173.245.48.0/20', '2400:cb00::/32')`. |
 | `trusted_proxy_priority_header` | string | `''` | Preferred client-IP header behind a trusted proxy, e.g. `'CF-Connecting-IP'`. |
+| `trusted_hosts` | array | `[]` | Canonical hostnames phpwcms may build links for, e.g. `array('example.com', 'www.example.com')`. A request host that is not listed is replaced by the first entry. Required for the frontend password reminder when `site` is empty. |
 | `SESSION_FEinit` | bool | `0` | Start PHP sessions for the frontend (`1`) or not (`0`, default). |
 | `BOTS` | array | googlebot, msnbot, bingbot, ... | User agents that never start sessions. |
 | `session.cookie_httponly.off` | bool | `false` | `true` makes the session cookie JavaScript-accessible. |
