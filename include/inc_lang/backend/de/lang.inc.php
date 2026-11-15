@@ -1599,3 +1599,5 @@ $BL['be_about_website'] = 'Website';
 $BL['be_about_copyright'] = 'Urheberrecht';
 $BL['be_about_contributors'] = 'und Mitwirkende';
 $BL['be_about_and_contributors'] = 'und andere Mitwirkende (darunter Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 und andere) &ndash; detaillierte Copyright- und Lizenzinformationen entnehmen Sie bitte dem <a href="https://github.com/slackero/phpwcms" title="Quellcode auf GitHub" target="_blank">Quellcode</a>.';
+
+$BL['be_newsletter_nourl'] = 'Newsletter nicht gesendet: Die Website-URL ist nicht konfiguriert oder nicht vertrauenswürdig.';

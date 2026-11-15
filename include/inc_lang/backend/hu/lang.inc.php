@@ -822,4 +822,4 @@ $BL['be_admin_struct_orderasc']         = 'növekvõ';
 $BL['be_admin_struct_ordermanual']      = 'manualis (nyil fel/le)';
 $BL['be_cnt_sitemap_startid']           = 'ezzel&nbspkezdõdik';
 
-
+$BL['be_newsletter_nourl'] = 'A hírlevél nem lett elküldve: a webhely URL-je nincs beállítva vagy nem megbízható.';

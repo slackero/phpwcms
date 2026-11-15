@@ -91,7 +91,10 @@ if(isset($_POST['ecard_chooser'])) {
 			"max_height"	=>	$phpwcms["img_prev_height"],
 			"thumb_name"	=>	md5($ecard['images'][$ecard["chooser"]][2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'].'ecard')
 		));
-		$list_img_temp  = '<img src="'.PHPWCMS_URL.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.html($ecard['images'][$ecard["chooser"]][1]).'"'.PHPWCMS_LAZY_LOADING.HTML_TAG_CLOSE;
+		// the e-card is mailed out, so its links must not follow a host forged
+		// through the request headers
+		$mail_site_url  = phpwcms_mail_site_url();
+		$list_img_temp  = $mail_site_url !== '' ? '<img src="'.$mail_site_url.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.html($ecard['images'][$ecard["chooser"]][1]).'"'.PHPWCMS_LAZY_LOADING.HTML_TAG_CLOSE : '';
 
 		if($ecard["mail"]) {
 			$ecard["mail"] = str_replace('###ECARD_TITLE###', html_specialchars(chop($ecard["capt"][$ecard["chooser"]])), $ecard["mail"]);
@@ -106,14 +109,22 @@ if(isset($_POST['ecard_chooser'])) {
 		} else {
 			$ecard["mailer"]->Body = '<div align="center"><h3>E-Card &quot;'.html_specialchars(chop($ecard["capt"][$ecard["chooser"]])).'&quot;</h3>'.
 									 '<p><strong>sent to you from '.html_specialchars($ecard["sender_name"].(($ecard["sender_name"]) ? ' ('.$ecard["sender_email"].')': $ecard["sender_email"])).'</strong></p>'.
-									 '<p>'.$list_img_temp.'</p>'.
-									 '<p>'.nl2br(html_specialchars($ecard["sender_msg"])).'</p><hr /><a href="'.$phpwcms["site"].'" target="_blank">'.$phpwcms["site"].'</a></div>';
+									 ($list_img_temp !== '' ? '<p>'.$list_img_temp.'</p>' : '').
+									 '<p>'.nl2br(html_specialchars($ecard["sender_msg"])).'</p>'.
+									 ($mail_site_url !== '' ? '<hr /><a href="'.$mail_site_url.'" target="_blank" rel="noopener noreferrer">'.$mail_site_url.'</a>' : '').
+									 '</div>';
 		}
 
-		$ecard["mailer"]->send();
+		if($mail_site_url !== '') {
+			$ecard["mailer"]->send();
 
-		$CNT_TMP .= $ecard["send"];
-		$ecard["send_success"]	= 1;
+			$CNT_TMP .= $ecard["send"];
+			$ecard["send_success"]	= 1;
+		} else {
+			// no trustworthy link, so do not send the e-card at all; the
+			// generic FORM_ERROR block stays hidden, this notice is enough
+			$CNT_TMP .= '<p class="formError">@@E-card was not sent because the site URL is not configured.@@</p>';
+		}
 	}
 }
 

@@ -822,4 +822,4 @@ $BL['be_admin_struct_orderasc']         = 'tõusvas järjestuses';
 $BL['be_admin_struct_ordermanual']      = 'käsitsi (nool üles/alla)';
 $BL['be_cnt_sitemap_startid']           = 'alusta';
 
-
+$BL['be_newsletter_nourl'] = 'Uudiskiri jäi saatmata: saidi URL pole seadistatud või pole usaldusväärne.';

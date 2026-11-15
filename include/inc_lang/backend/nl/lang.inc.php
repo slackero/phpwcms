@@ -1113,4 +1113,4 @@ $BL['CSRF_BTN_BACK'] = 'Terug';
 $BL['CSRF_BTN_LOGIN'] = 'Inloggen';
 $BL['CSRF_BTN_DASHBOARD'] = 'Dashboard';
 
-
+$BL['be_newsletter_nourl'] = 'Nieuwsbrief niet verzonden: de site-URL is niet geconfigureerd of niet vertrouwd.';

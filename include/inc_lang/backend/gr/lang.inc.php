@@ -960,3 +960,4 @@ $BL['be_cnt_toplink'] = 'top link setting of contentpart alias';
 $BL['be_cnt_block'] = 'display (block) setting of contentpart alias';
 $BL['be_cnt_title'] = 'titles of contentpart alias';
 
+$BL['be_newsletter_nourl'] = 'Το ενημερωτικό δελτίο δεν στάλθηκε: η διεύθυνση URL του ιστότοπου δεν έχει ρυθμιστεί ή δεν είναι αξιόπιστη.';

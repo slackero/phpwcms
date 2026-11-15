@@ -68,10 +68,13 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] === "create_account") {
             $new_user_id = $result['INSERT_ID'];
             $user_ok = 1;
             if($send_verification) {
+                // links in this mail must not follow a host forged through the
+                // request headers; empty means no trustworthy URL
+                $mail_site_url = phpwcms_mail_site_url();
                 $emailbody = str_replace('{LOGIN}', $new_login, $BL['be_admin_usr_mailbody']);
                 $emailbody = str_replace('{PASSWORD}', $new_password, $emailbody);
-                $emailbody = str_replace('{SITE}', PHPWCMS_URL, $emailbody);
-                $emailbody = str_replace('{LOGIN_PAGE}', PHPWCMS_URL.get_login_file(), $emailbody);
+                $emailbody = str_replace('{SITE}', $mail_site_url, $emailbody);
+                $emailbody = str_replace('{LOGIN_PAGE}', $mail_site_url !== '' ? $mail_site_url.get_login_file() : '', $emailbody);
 
                 sendEmail(  array(
                     'recipient' => $new_email,

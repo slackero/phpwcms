@@ -783,3 +783,4 @@ $BL['be_article_nosummary']             = 'não mostrar o sumário com o artigo 
 $BL['be_article_forlist']               = 'listagem de artigos';
 $BL['be_article_forfull']               = 'mostrar artigo completo';
 
+$BL['be_newsletter_nourl'] = 'Boletim não enviado: o URL do site não está configurado ou não é de confiança.';

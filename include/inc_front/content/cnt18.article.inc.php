@@ -415,9 +415,13 @@ if($guestbook['visible']) {
                 // check if notify email should be sent
                 if(!empty($guestbook['notify'])) {
 
+                    // notification links are mailed out, so they must not follow
+                    // a host forged through the request headers
+                    $mail_site_url = phpwcms_mail_site_url();
+
                     $guestbook['notify'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/guestbook/notify_email.txt');
                     if(!$guestbook['notify']) {
-                        $guestbook['notify'] = 'New entry - please proof:'.LF.PHPWCMS_URL.'index.php?id='.implode(',', $aktion);
+                        $guestbook['notify'] = 'New entry - please proof:'.LF.$mail_site_url.'index.php?id='.implode(',', $aktion);
                     }
 
                     $guestbook['notify']    = str_replace(
@@ -425,27 +429,31 @@ if($guestbook['visible']) {
                             '{FE_URL}', '{BE_URL}', '{IP}', '{BROWSER}', '{DATE}', '{NAME}', '{EMAIL}', '{URL}', '{MESSAGE}', '{IMG_NAME}', '{IMG_URL}'
                         ),
                         array(
-                            PHPWCMS_URL.'index.php?id='.implode(',', $aktion),
-                            PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1&aktion=2&id='.$aktion[1].'&acid='.$guestbook['cid'],
+                            $mail_site_url.'index.php?id='.implode(',', $aktion),
+                            $mail_site_url.'phpwcms.php?do=articles&p=2&s=1&aktion=2&id='.$aktion[1].'&acid='.$guestbook['cid'],
                             PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(),  $_SERVER['HTTP_USER_AGENT'], date('Y/m/d H:i:s'),
                             $guestbook['post']['name'], $guestbook['post']['email'],
                             $guestbook['post']['url'], $guestbook['post']['msg'],
                             empty($guestbook['image']['name']) ? '' : $guestbook['image']['name'],
-                            empty($guestbook['image']['file']) ? '' : PHPWCMS_URL.PHPWCMS_FILES.'guestbook_'.$guestbook['cid'].'/'.$guestbook['image']['file']
+                            empty($guestbook['image']['file']) ? '' : $mail_site_url.PHPWCMS_FILES.'guestbook_'.$guestbook['cid'].'/'.$guestbook['image']['file']
                         ),
                         $guestbook['notify']
                     );
 
-                    sendEmail(
-                        array(
-                                'recipient' => $guestbook['notify_email'],
-                                'subject'   => 'New guestbook/comment entry',
-                                'isHTML'    => 0,
-                                'text'      => $guestbook['notify'],
-                                'from'      => $phpwcms["admin_email"],
-                                'sender'    => $phpwcms["admin_email"]
-                        )
-                    );
+                    if($mail_site_url === '') {
+                        log_message('GUESTBOOK', 'Notification mail for entry '.$guestbook['cid'].' not sent: site URL is not configured');
+                    } else {
+                        sendEmail(
+                            array(
+                                    'recipient' => $guestbook['notify_email'],
+                                    'subject'   => 'New guestbook/comment entry',
+                                    'isHTML'    => 0,
+                                    'text'      => $guestbook['notify'],
+                                    'from'      => $phpwcms["admin_email"],
+                                    'sender'    => $phpwcms["admin_email"]
+                            )
+                        );
+                    }
 
                 }
 
