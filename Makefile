@@ -35,6 +35,10 @@ help:
 	@echo "  make docker-shell    - Open bash shell inside web container"
 
 sync:
+	@case "$$(git rev-parse --abbrev-ref HEAD)" in \
+		v2*) ;; \
+		*) echo "sync: refusing to sync branch '$$(git rev-parse --abbrev-ref HEAD)' to $(SYNC_TARGET): only v2 branches may reach the dev site" >&2; exit 1 ;; \
+	esac
 	git ls-files -z --cached --others --exclude-standard | rsync -av --files-from=- ./ $(SYNC_TARGET)/
 
 minify-sync: minify sync
