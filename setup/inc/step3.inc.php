@@ -15,7 +15,7 @@ if (!defined('PHPWCMS_SETUP')) {
 ?>
 <h2 class="h4 text-primary fw-normal mb-3">5. Site URL &amp; Email Transport</h2>
 
-<?php if ($err): ?>
+<?php if ($err && empty($site_err)): ?>
     <div class="alert alert-danger mb-4"><i class="fa fa-exclamation-triangle"></i> Please check your site and email settings.</div>
 <?php endif; ?>
 
@@ -32,8 +32,17 @@ $selected_timezone = !empty($phpwcms['php_timezone']) ? $phpwcms['php_timezone']
                 <label for="site" class="col-sm-3 col-form-label fw-bold">Site Basis URL</label>
                 <div class="col-sm-6">
                     <input name="site" type="url" class="form-control" id="site" value="<?php echo html_specialchars($phpwcms['site']) ?>" placeholder="<?php echo html_specialchars(get_url_origin(true)); ?>" />
+                    <?php if (!empty($site_err)): ?>
+                        <div class="form-text text-danger small">Enter an absolute http(s) URL, for example https://example.com/.</div>
+                    <?php endif; ?>
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Detected: <code><?php echo html_specialchars(get_url_origin(true)); ?></code></div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-12 col-sm-6 offset-sm-3">
+                    <div class="form-text text-muted small">Leave empty to store the detected URL, which behind a proxy can be the internal host. Multi-domain sites should enter the public URL instead.</div>
+                </div>
             </div>
 
             <div class="form-group row mb-0">
