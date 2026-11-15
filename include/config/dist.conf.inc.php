@@ -100,6 +100,9 @@ $phpwcms['GET_pageinfo']         = 0; // will add "&pageinfo=/cat1/cat2/page-tit
 $phpwcms['version_check']        = 1; // checks for current release of phpwcms online
 $phpwcms['SESSION_FEinit']       = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend
 $phpwcms['Login_IPcheck']        = 0;
+$phpwcms['trusted_proxies'] = array(); // CIDR list of reverse proxies/CDNs whose forwarded headers may be believed, e.g. array('173.245.48.0/20', '2400:cb00::/32'); empty = trust no forwarded headers
+$phpwcms['trusted_proxy_priority_header'] = ''; // optional unambiguous client IP header to prefer when the peer is a trusted proxy, e.g. 'CF-Connecting-IP' (Cloudflare) or 'Fastly-Client-IP'
+$phpwcms['trusted_hosts'] = array(); // canonical hostnames phpwcms may generate links for, e.g. array('example.com', 'www.example.com'); any other request host is replaced by the first entry; empty = derive the host from the request
 $phpwcms['frontend_edit']        = 0; // enable content specific direct links - linking direct into the backend
 $phpwcms['gd_memcheck_off']      = 0; // disable GD php memory check before resize an image
 $phpwcms['enable_chat']          = 0; // enable or disable chat function, by default it is disabled - not recommend anymore to use it

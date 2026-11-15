@@ -882,4 +882,4 @@ $BL['be_cnt_rssfeed_item']              = 'aiheet';
 $BL['be_cnt_rssfeed_max']               = 'max.';
 $BL['be_cnt_rssfeed_cut']               = 'piilota 1. aihe';
 
-
+$BL['be_newsletter_nourl'] = 'Uutiskirjettä ei lähetetty: sivuston URL-osoitetta ei ole määritetty tai se ei ole luotettava.';

@@ -1531,3 +1531,5 @@ $BL['be_cnt_form_apikey_reset'] = 'reset';
 $BL['be_copy_link'] = 'copy link';
 
 $BL['be_deprecated'] = 'deprecated';
+
+$BL['be_newsletter_nourl'] = 'Newsletter not sent: the site URL is not configured or not trusted.';

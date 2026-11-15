@@ -104,10 +104,13 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                 $user_ok = 1;
                 $new_user_id = NULL;
                 if($send_verification) {
+                    // links in this mail must not follow a host forged through
+                    // the request headers; empty means no trustworthy URL
+                    $mail_site_url = phpwcms_mail_site_url();
                     $emailbody = str_replace('{LOGIN}',         $new_login, $BL['be_admin_usr_emailbody']);
                     $emailbody = str_replace('{PASSWORD}',      (($new_password) ? $new_password : $BL['be_admin_usr_passnochange']), $emailbody);
-                    $emailbody = str_replace('{SITE}',          PHPWCMS_URL, $emailbody);
-                    $emailbody = str_replace('{LOGIN_PAGE}',    PHPWCMS_URL.get_login_file(), $emailbody);
+                    $emailbody = str_replace('{SITE}',          $mail_site_url, $emailbody);
+                    $emailbody = str_replace('{LOGIN_PAGE}',    $mail_site_url !== '' ? $mail_site_url.get_login_file() : '', $emailbody);
 
                     sendEmail(array(
                         'recipient' => $new_email,

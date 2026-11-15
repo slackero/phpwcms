@@ -937,4 +937,4 @@ $BL['be_func_content_copy']              = 'kopírovat tuto èást èlánku do j
 $BL['be_func_content_no_copy']           = "Není moné kopírovat tuto èást èlánku do tohoto èlánku!";
 $BL['be_func_content_paste_cancel']      = 'zruit akci s touto èástí èlánku';
 
-
+$BL['be_newsletter_nourl'] = 'Newsletter nebyl odeslán: URL webu není nastavena nebo není důvěryhodná.';

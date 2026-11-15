@@ -761,3 +761,4 @@ $BL['be_cnt_pages_manually']            = 'путь до файла или URL';
 $BL['be_cnt_pages_cust']                = 'файл/URL';
 $BL['be_cnt_pages_from']                = 'источник';
 
+$BL['be_newsletter_nourl'] = 'Рассылка не отправлена: URL сайта не настроен или не является доверенным.';

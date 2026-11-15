@@ -1518,3 +1518,5 @@ $BL['be_cnt_form_apikey_reset'] = 'zur&uuml;cksetzen';
 $BL['be_copy_link'] = 'Link kopieren';
 
 $BL['be_deprecated'] = 'veraltet';
+
+$BL['be_newsletter_nourl'] = 'Newsletter nicht gesendet: Die Website-URL ist nicht konfiguriert oder nicht vertrauenswürdig.';

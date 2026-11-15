@@ -106,8 +106,19 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
         $_loginData['remind_data'] = slweg($_POST['feReminder']);
         $_loginData['remind_login_known'] = empty($_POST['feReminderLoginKnown']) ? false : true;
 
+        // Never reset a password or mail a reminder link while $phpwcms['site']
+        // was derived from an unverified request host: an anonymous visitor
+        // could otherwise poison the login URL sent to the account owner.
+        $mail_site_url = phpwcms_mail_site_url();
+        $reminder_allowed = $mail_site_url !== '';
+
+        if(!$reminder_allowed) {
+            // tell the visitor that this is a configuration problem
+            $_loginData['site_url_untrusted'] = true;
+        }
+
         // check if valid email - send login
-        if($_loginData['remind_data'] && !$_loginData['remind_login_known'] && is_valid_email($_loginData['remind_data']) ) {
+        if($reminder_allowed && $_loginData['remind_data'] && !$_loginData['remind_login_known'] && is_valid_email($_loginData['remind_data']) ) {
 
             if($_loginData['validate_db']['userdetail']) {
                 $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."phpwcms_userdetail WHERE LOWER(detail_email)=";
@@ -132,7 +143,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
         }
 
         // otherwise check login and send password
-        if($_loginData['remind_data'] && empty($_loginData['remind_login'])) {
+        if($reminder_allowed && $_loginData['remind_data'] && empty($_loginData['remind_login'])) {
 
             if($_loginData['validate_db']['userdetail']) {
                 $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."phpwcms_userdetail WHERE ";
@@ -168,13 +179,13 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
             }
         }
 
-        if(isset($_loginData['remind_password']) || isset($_loginData['remind_login'])) {
+        if($reminder_allowed && (isset($_loginData['remind_password']) || isset($_loginData['remind_login']))) {
 
             $_loginData['reminder'] = $_loginData['reminder_success'];
 
             $_loginData['LOGIN_URL'] = rel_url(array(), array('profile_manage', 'profile_register', 'profile_reminder', 'feLogout') );
 
-            $_loginData['reminder_email'] = str_replace('{LOGIN_URL}', PHPWCMS_URL . $_loginData['LOGIN_URL'], $_loginData['reminder_email']);
+            $_loginData['reminder_email'] = str_replace('{LOGIN_URL}', $mail_site_url . $_loginData['LOGIN_URL'], $_loginData['reminder_email']);
 
             if(isset($_loginData['remind_password'])) {
 
@@ -201,9 +212,23 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
                 'text' => $_loginData['reminder_email_body']
             ));
 
+            // the log-once flag belongs to the blocked state only
+            if(session_status() === PHP_SESSION_ACTIVE) {
+                unset($_SESSION['phpwcms_fe_reminder_blocked']);
+            }
+
         } else {
 
             $_loginData['error'] = true;
+
+            // log the real reason once per frontend session so a bot cannot
+            // flood the log table through the anonymous reminder form
+            if(!$reminder_allowed && session_status() === PHP_SESSION_ACTIVE
+                && empty($_SESSION['phpwcms_fe_reminder_blocked'])
+            ) {
+                $_SESSION['phpwcms_fe_reminder_blocked'] = true;
+                log_message('FELOGIN', 'Password reminder blocked: site URL is not configured');
+            }
 
         }
 
@@ -251,6 +276,12 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 
         $_loginData['template'] = render_cnt_template($_loginData['reminder'], 'ERROR', ($_loginData['error'] ? 'login/email wrong' : '') );
         $_loginData['template'] = render_cnt_template($_loginData['template'], 'REMINDER', html_specialchars($_loginData['remind_data']) );
+
+        // appended after render_cnt_template(), so a custom reminder template
+        // that already prints its own [ERROR] block shows this notice as well
+        if(!empty($_loginData['site_url_untrusted'])) {
+            $_loginData['template'] .= '<div class="alert alert-danger" role="alert">@@Password reminder is unavailable until the site URL is configured or trusted.@@</div>';
+        }
 
     } else {
 

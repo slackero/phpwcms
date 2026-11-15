@@ -1088,3 +1088,4 @@ $BL['be_selection']                     = 's&eacute;lection';
 
 $BL['be_ctype_module']                  = 'plug-in';
 
+$BL['be_newsletter_nourl'] = 'Newsletter non envoyée : l’URL du site n’est pas configurée ou n’est pas fiable.';
