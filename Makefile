@@ -1,6 +1,6 @@
 # Makefile for phpwcms-v2.0 development tasks
 
-.PHONY: phpstan baseline stacklit help sync minify-sync changed-archive
+.PHONY: phpstan phpstan-analyse phpstan-analyse-85 phpstan-update phpstan-update-85 baseline stacklit help sync minify-sync changed-archive
 
 # Default PHP executable (check for php8 in PATH, fallback to MAMP php8.4.27)
 PHP ?= $(shell which php8 2>/dev/null || echo /Applications/MAMP/bin/php/php8.4.27/bin/php)
@@ -24,7 +24,9 @@ help:
 	@echo "  make js-minify       - Minify phpwcms.js to phpwcms.min.js"
 	@echo "  make minify          - Build all minified CSS and JS assets"
 	@echo "  make phpstan-analyse - Run phpstan analysis"
+	@echo "  make phpstan-analyse-85 - Run phpstan analysis against PHP 8.5"
 	@echo "  make phpstan-update  - Update phpstan baseline file"
+	@echo "  make phpstan-update-85 - Update the PHP 8.5 phpstan baseline file"
 	@echo "  make stacklit-update - Update stacklit index and CLAUDE.md map"
 	@echo "  make docker-up       - Start Docker testing containers (web, db, phpmyadmin)"
 	@echo "  make docker-down     - Stop Docker testing containers"
@@ -71,8 +73,14 @@ minify:
 phpstan-analyse:
 	$(PHPSTAN) analyse -c .phpstan/phpstan.neon
 
+phpstan-analyse-85:
+	$(PHPSTAN) analyse -c .phpstan/phpstan-php85.neon
+
 phpstan-update:
 	$(PHPSTAN) analyse -c .phpstan/phpstan.neon --generate-baseline=.phpstan/phpstan-baseline.neon
+
+phpstan-update-85:
+	$(PHPSTAN) analyse -c .phpstan/phpstan-php85.neon --generate-baseline=.phpstan/phpstan-baseline-php85.neon
 
 stacklit-update:
 	$(STACKLIT) generate

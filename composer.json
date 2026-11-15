@@ -48,6 +48,7 @@
         "phpstan/phpstan": "^2.3"
     },
     "scripts": {
-        "phpstan": "phpstan analyse -c .phpstan/phpstan.neon"
+        "phpstan": "phpstan analyse -c .phpstan/phpstan.neon",
+        "phpstan:8.5": "phpstan analyse -c .phpstan/phpstan-php85.neon"
     }
 }

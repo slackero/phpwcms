@@ -1,0 +1,9 @@
+parameters:
+	ignoreErrors:
+		# PHPStan's stub types session_get_cookie_params()['samesite'] as a
+		# non-empty union, but PHP returns "" when no SameSite is configured.
+		# Verified with php8.5.12: string(0) "". The Lax default must stay.
+		-
+			message: '#^Offset ''samesite'' on array\{.*\} in empty\(\) always exists and is not falsy\.$#'
+			path: ../include/inc_lib/default.inc.php
+			identifier: empty.offset
