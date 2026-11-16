@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Upgrade Script:** the post-upgrade revision run bootstraps `PHPWCMS_ROOT`, `PHPWCMS_TEMP` and the database connection itself, skips with a logged reason when the table prefix does not match, and reports skipped revisions in the web log instead of "completed".
 
 ### Fixed
-- **Index Page Template Reset on Update:** a database revision used to seed the index page row from a release-shipped `conf.indexpage.inc.php`, which a file deploy had overwritten with the dist default. That reset the index page template to the default template (GH #397). Revision `r562` now reads only the installation's own file and keeps the previously selected template.
+- **Index Page Template Reset on Update:** a database revision used to seed the index page row from a release-shipped `conf.indexpage.inc.php`, which a file deploy had overwritten with the dist default. That reset the index page template to the default template (GH #397). Revision `r562` now reads only the installation's own file and keeps the previously selected template. It also verifies the stored template: an ID that does not exist or is trashed is reset to `0` and logged with a hint to select the intended template again.
 
 ## [2.0.0-beta.4] – 2026/11/15
 

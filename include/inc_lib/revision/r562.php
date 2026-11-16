@@ -17,6 +17,9 @@
  * - Seed that row for existing installs from the current config file.
  * - MySQL would assign a new AUTO_INCREMENT value for an explicit 0, so the
  *   insert runs with NO_AUTO_VALUE_ON_ZERO for this session.
+ * - Verify the stored template afterwards: an ID that does not exist or is
+ *   trashed is reset to 0 and reported, see
+ *   phpwcms_revision_r562_verify_indexpage_template().
  *
  * @return bool
  */
@@ -25,7 +28,9 @@ function phpwcms_revision_r562() {
     $exists = _dbQuery('SELECT acat_id FROM ' . DB_PREPEND . 'articlecat WHERE acat_id=0 LIMIT 1');
 
     if (isset($exists[0]['acat_id'])) {
-        return true;
+        // the row may have been created by a file-deployed default template,
+        // so the stored template is verified even when nothing is seeded
+        return phpwcms_revision_r562_verify_indexpage_template();
     }
 
     // Only the installation's own file is a valid seed. The shipped
@@ -112,5 +117,60 @@ function phpwcms_revision_r562() {
         'acat_trash'      => 0,
     );
 
-    return set_indexpage_data($values);
+    if (!set_indexpage_data($values)) {
+        return false;
+    }
+
+    return phpwcms_revision_r562_verify_indexpage_template();
+}
+
+/**
+ * Verify that the index page row points at an existing, non-trashed template.
+ *
+ * A release-shipped conf.indexpage.inc.php could carry the template ID of a
+ * different installation. include/inc_front/content.func.inc.php:446 then
+ * falls back to the default template without telling anybody. Such an ID is
+ * reset to 0, which asks for the default template explicitly, and the repair
+ * is reported through the revision return message and the PHP error log.
+ *
+ * @return bool
+ */
+function phpwcms_revision_r562_verify_indexpage_template() {
+
+    $row = _dbQuery('SELECT acat_template FROM ' . DB_PREPEND . 'articlecat WHERE acat_id=0 LIMIT 1');
+
+    if (!isset($row[0]['acat_template'])) {
+        return true;
+    }
+
+    $template_id = (int)$row[0]['acat_template'];
+
+    if ($template_id === 0) {
+        return true;
+    }
+
+    $template = _dbQuery(
+        'SELECT template_id FROM ' . DB_PREPEND . 'template '
+        . 'WHERE template_trash=0 AND template_id=' . $template_id . ' LIMIT 1'
+    );
+
+    if (isset($template[0]['template_id'])) {
+        return true;
+    }
+
+    $updated = _dbQuery('UPDATE ' . DB_PREPEND . 'articlecat SET acat_template=0 WHERE acat_id=0', 'UPDATE');
+
+    if (!is_array($updated)) {
+        return false;
+    }
+
+    $message = 'Index page template ID ' . $template_id . ' does not exist or is trashed. '
+        . 'It was reset to the default template; select the intended template under '
+        . 'Admin > Structure > Index page. The previous selection cannot be restored automatically.';
+
+    $GLOBALS['phpwcms']['revision_return'] = $message;
+
+    trigger_error('phpwcms r562: ' . $message, E_USER_WARNING);
+
+    return true;
 }
