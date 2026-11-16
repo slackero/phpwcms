@@ -67,8 +67,9 @@ if (file_exists($projectRoot . '/include/inc_lib/default.inc.php')) {
     require_once $projectRoot . '/include/inc_lib/default.inc.php';
     require_once $projectRoot . '/include/inc_lib/helper.session.php';
     require_once $projectRoot . '/include/inc_lib/dbcon.inc.php';
-    require_once $projectRoot . '/include/config/conf.template_default.inc.php';
-    require_once $projectRoot . '/include/config/conf.indexpage.inc.php';
+    require_once $projectRoot . '/include/inc_lib/user.config.inc.php';
+    require_once phpwcms_user_config_path('conf.template_default.inc.php');
+    require_once phpwcms_user_config_path('conf.indexpage.inc.php');
     require_once $projectRoot . '/include/inc_lib/general.inc.php';
     require_once $projectRoot . '/include/inc_lib/backend.functions.inc.php';
     require_once $projectRoot . '/include/inc_lang/code.lang.inc.php';

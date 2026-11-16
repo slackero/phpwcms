@@ -18,7 +18,7 @@ The backend lives at `/phpwcms.php` and requires a login through `login.php`. It
 | Content | The active section, wrapped as cards; a status message (success/error) is rendered above it |
 | Footer | Version and copyright, switchable by the whitelabel feature (`is_whitelabel()`, `get_brand_name()`) |
 
-Branding, logo, footer wording and custom CSS can be replaced by whitelabel settings from `include/config/custom_settings.php`; see `include/inc_lib/whitelabel.inc.php`.
+Branding, logo, footer wording and custom CSS can be replaced by whitelabel settings (the `brand_*` keys in `include/config/conf.inc.php`, or a signed whitelabel license verified in `include/inc_lib/whitelabel.inc.php`).
 
 ## Main navigation
 

@@ -29,6 +29,7 @@ The wizard installs phpwcms through a browser. Start it at `https://your-domain.
 | ------ | ------- |
 | `setup/setup.conf.inc.php` | The wizard's working state — initialized by copying `include/config/dist.conf.inc.php`, then rewritten from the `write_conf_file()` template with every form value after each step. Keys not on any form keep the shipped defaults. |
 | `include/config/conf.inc.php` | Copy of the state file; written in step 6 with write → copy → rename fallbacks. Only written when absent. Falls back to the `setup/get_conf_file.php` manual download when all writes fail. |
+| Installation config files | After `conf.inc.php` was written for the first time, step 6 copies `conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini` and `sitemap.custom.php` from their `dist.*` templates. Existing copies are never overwritten, and a re-run on a live installation seeds nothing. `iptc.inc.php` stays optional and is not seeded. |
 | `.htaccess` (document root) | Created from `_.htaccess` when missing; inside a subdirectory the wizard rewrites `RewriteBase /` to the subfolder path. Existing `.htaccess` files are left untouched. |
 | `setup/.htaccess` | Written with `Deny from all` as a baseline block of the setup directory. |
 | Database tables | From `setup/default_sql/phpwcms_init.sql` and `phpwcms_inserts.sql`, executed with `CREATE TABLE IF NOT EXISTS` / `INSERT IGNORE` guards on submit; existing tables with a different prefix are reported so you can change the prefix. |

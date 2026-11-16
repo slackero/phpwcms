@@ -16,6 +16,8 @@ mkdir -p "$STAGE"
 
 # Copy the docroot into a clean stage, excluding everything the update engine
 # must never touch or ship (config secrets, user content, VCS, dev tooling).
+# Keep the installation-owned exclude list below in sync with .gitignore and
+# write_user_config_files() in include/inc_lib/user.config.inc.php.
 rsync -a \
   --exclude '.git*' \
   --exclude '.agents/' --exclude '.claude/' --exclude '.codex/' --exclude '.superpowers/' \
@@ -23,6 +25,9 @@ rsync -a \
   --exclude '.DS_Store' --exclude '.phpstan/' \
   --exclude 'stacklit.html' --exclude 'stacklit.json' \
   --exclude 'include/config/conf.inc.php' --exclude 'include/config/config.inc.php' \
+  --exclude 'include/config/conf.indexpage.inc.php' --exclude 'include/config/conf.template_default.inc.php' \
+  --exclude 'include/config/feeds.ini.php' --exclude 'include/config/iptc.inc.php' \
+  --exclude 'include/config/sitemap.custom.ini' --exclude 'include/config/sitemap.custom.php' \
   --exclude 'setup/setup.conf.inc.php' \
   --exclude 'bin/whitelabel-license.php' --exclude 'bin/examples/' \
   --exclude 'filearchive/' --exclude 'content/' --exclude 'upload/' \
@@ -34,6 +39,12 @@ rsync -a \
 for sensitive in \
   "$STAGE/include/config/conf.inc.php" \
   "$STAGE/include/config/config.inc.php" \
+  "$STAGE/include/config/conf.indexpage.inc.php" \
+  "$STAGE/include/config/conf.template_default.inc.php" \
+  "$STAGE/include/config/feeds.ini.php" \
+  "$STAGE/include/config/iptc.inc.php" \
+  "$STAGE/include/config/sitemap.custom.ini" \
+  "$STAGE/include/config/sitemap.custom.php" \
   "$STAGE/bin/whitelabel-license.php"; do
   if [ -e "$sensitive" ]; then
     echo "CRITICAL ERROR: Sensitive file found in stage: $sensitive" >&2

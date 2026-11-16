@@ -12,6 +12,11 @@
 
 $DOCROOT = rtrim(str_replace('\\', '/', dirname(__DIR__, 2)), '/');
 include $DOCROOT . '/include/inc_lib/revision/revision.php';
+// marks the setup context for the direct-access guards of the included libs
+if (!defined('PHPWCMS_SETUP')) {
+    define('PHPWCMS_SETUP', true);
+}
+require_once $DOCROOT . '/include/inc_lib/user.config.inc.php';
 
 if (is_file($DOCROOT . '/include/vendor/autoload.php')) {
     require_once $DOCROOT . '/include/vendor/autoload.php';
@@ -58,7 +63,6 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 $phpwcms_version = PHPWCMS_VERSION;
 $phpwcms_release_date = PHPWCMS_RELEASE_DATE;
 $phpwcms_revision = PHPWCMS_REVISION;
-define('PHPWCMS_SETUP', true);
 
 function read_textfile($filename) {
     if (is_file($filename)) {

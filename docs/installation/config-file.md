@@ -12,6 +12,14 @@ sidebar_position: 5
 
 The setup-generated file adds one legacy key that `dist.conf.inc.php` no longer ships: `GETparameterName` (`'id'`) — it is read nowhere in 2.x code.
 
+## Installation-owned config files
+
+Next to `conf.inc.php` the directory holds files that belong to the installation and are never shipped in a release nor replaced by an update: `conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini`, `sitemap.custom.php` and `iptc.inc.php`. Only their `dist.*` templates are tracked. A fresh install copies five of them (`conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini`, `sitemap.custom.php`) from `include/config/dist.<name>` during setup; an existing install keeps its own files. When `conf.indexpage.inc.php`, `conf.template_default.inc.php` or `feeds.ini.php` is missing, the runtime falls back to its `dist.*` template. The remaining files are opt-in: `sitemap.custom.*` and `iptc.inc.php` are loaded only when the installation file exists, and `iptc.inc.php` is the only one setup does not seed.
+
+`conf.indexpage.inc.php` is a fallback and a readable mirror: once the index page row (`articlecat.acat_id = 0`) exists, that row is the source of truth and hand edits to the file are ignored. The backend rewrites the file on every index page save, so keep it writable if you want the mirror to stay current.
+
+Because these files are not replaced by an update, defaults added to a `dist.*` template in a later release do **not** reach an existing install. After an update, compare your `conf.template_default.inc.php` (and `feeds.ini.php` when you customised it) against the shipped `include/config/dist.<name>` and copy over the entries you want — a key missing from your file is not restored automatically, and code that reads such a key directly (for example `include/inc_front/front.func.inc.php`) can emit an undefined-index warning instead of using the old default.
+
 ## Database
 
 | Key | Type | Default | Effect |

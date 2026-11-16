@@ -77,6 +77,12 @@ if (!is_file($this_root . '/include/config/conf.inc.php')) {
     }
 }
 
+// only a fresh install seeds the installation config files; re-running the
+// wizard on a live install must not recreate files the admin removed
+$user_config = $result
+    ? write_user_config_files($this_root)
+    : array('created' => array(), 'failed' => array());
+
 @write_textfile($this_root . '/setup/.htaccess', 'Deny from all');
 ?>
 
@@ -87,6 +93,10 @@ if (!is_file($this_root . '/include/config/conf.inc.php')) {
             <div class="alert alert-success"><i class="fa fa-check-circle"></i> The configuration file <code>conf.inc.php</code> was successfully written to <code>include/config/</code>.</div>
         <?php else: ?>
             <div class="alert alert-warning"><i class="fa fa-exclamation-triangle"></i> Automated configuration file writing failed. Download <a href="get_conf_file.php" class="alert-link">conf.inc.php</a> manually and place it into <code>include/config/conf.inc.php</code>.</div>
+        <?php endif; ?>
+
+        <?php if (!empty($user_config['failed'])): ?>
+            <div class="alert alert-warning"><i class="fa fa-exclamation-triangle"></i> These installation config files could not be created from their templates: <?php echo implode(', ', array_map('htmlspecialchars', $user_config['failed'])); ?>. Copy <code>include/config/dist.&lt;name&gt;</code> to <code>include/config/&lt;name&gt;</code> manually and make <code>include/config/</code> writable.</div>
         <?php endif; ?>
 
         <?php

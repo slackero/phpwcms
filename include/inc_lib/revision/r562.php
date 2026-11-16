@@ -28,6 +28,12 @@ function phpwcms_revision_r562() {
         return true;
     }
 
+    // Only the installation's own file is a valid seed. The shipped
+    // dist.conf.indexpage.inc.php carries the fresh-install template ID,
+    // which means nothing on an install that never used that ID; without an
+    // own file the defaults below apply (acat_template 0). A template ID of 0
+    // makes include/inc_front/content.func.inc.php:446 skip the direct
+    // template lookup, so the page uses the current default template.
     $indexpage = array();
     $indexpage_file = PHPWCMS_ROOT . '/include/config/conf.indexpage.inc.php';
 

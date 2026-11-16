@@ -5,6 +5,17 @@ composer.lock
 
 # setup wizard working state - bootstrapped from include/config/dist.conf.inc.php
 /setup/setup.conf.inc.php
+
+# installation-owned config files, never shipped in a release and never
+# overwritten by an update; only their dist.* templates are tracked.
+# Keep in sync with write_user_config_files() in include/inc_lib/user.config.inc.php
+# and the excludes in build/make-release.sh
+/include/config/conf.indexpage.inc.php
+/include/config/conf.template_default.inc.php
+/include/config/feeds.ini.php
+/include/config/sitemap.custom.ini
+/include/config/sitemap.custom.php
+/include/config/iptc.inc.php
 /content/images/*.*
 !/content/images/index.html
 /content/tmp/*.*

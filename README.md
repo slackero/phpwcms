@@ -92,7 +92,7 @@ To support all features, the following PHP extensions must be enabled in your en
 3. **Set File Permissions**: Ensure the web server has write permissions to:
    * `content/` (and all subfolders: `content/images/`, `content/tmp/`, `content/cache/`, `content/form/`, `content/backup/`)
    * `filearchive/`
-   * `include/config/`
+   * `include/config/` (the wizard writes `conf.inc.php` and seeds the installation config files from their `dist.*` templates)
    * `template/`
 4. **Run the Installer**: Navigate to `https://your-domain.com/setup/` in your browser.
    * The installer will verify PHP requirements and directory permissions.
@@ -132,7 +132,7 @@ If you are already running phpwcms with the self-update engine:
 5. Click **Install Update**. The system will:
    * Create an automated pre-update database dump and file backup in `content/backup/`.
    * Enable maintenance mode to prevent traffic inconsistencies.
-   * Atomically stage and apply updated files while preserving configuration (`conf.inc.php`), `.htaccess`, `robots.txt`, `filearchive/`, and custom templates.
+   * Atomically stage and apply updated files while preserving configuration (`conf.inc.php` and the installation-owned `include/config/*` files), `.htaccess`, `robots.txt`, `filearchive/`, and custom templates.
    * Automatically execute any pending database migrations.
    * Automatically revert via rollback if an error occurs.
 
@@ -204,7 +204,7 @@ The standalone upgrade script can update existing installations from the command
 
 1. **Backup**: Back up your database (via mysqldump or phpMyAdmin) and existing file directory.
 2. **Extract Files**: Extract the new phpwcms release files, overwriting core files in your web root.
-   * **DO NOT overwrite** `include/config/conf.inc.php`.
+   * **DO NOT overwrite** `include/config/conf.inc.php` or the installation-owned config files `include/config/{conf.indexpage.inc.php,conf.template_default.inc.php,feeds.ini.php,sitemap.custom.ini,sitemap.custom.php,iptc.inc.php}` — only their `dist.*` templates belong to the release.
    * **DO NOT delete** existing files in `filearchive/`, `content/images/`, or `template/`.
 3. **Run Migrations**: Run the database migration script via CLI (`php setup/upgrade.php`) or log in to the backend (`phpwcms.php`). The system will detect outdated revisions and run pending database updates automatically.
 4. **Clear Cache**: Empty `content/tmp/` and `content/cache/` to ensure new templates and assets take immediate effect.

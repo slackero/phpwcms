@@ -61,8 +61,8 @@ Behavior:
 
 ## Manual upgrade
 
-1. Back up the database **and** the protected files (`conf.inc.php`, `template/`, `filearchive/`, `content/images/`, `content/tmp/`) and store both copies off the web server — nothing in this path does it for you.
-2. Extract the new release over the document root, **never overwriting** `include/config/conf.inc.php` and never deleting content in `filearchive/`, `content/images/` or `template/`.
+1. Back up the database **and** the protected files (`conf.inc.php`, the installation-owned config files `conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini`, `sitemap.custom.php`, `iptc.inc.php`, `template/`, `filearchive/`, `content/images/`, `content/tmp/`) and store both copies off the web server — nothing in this path does it for you.
+2. Extract the new release over the document root, **never overwriting** `include/config/conf.inc.php` or the six installation-owned config files listed above, and never deleting content in `filearchive/`, `content/images/` or `template/`.
 3. Run the database migration: log into the backend once (runs pending revisions) or run `php setup/upgrade.php`; the revision chain detects outdated revisions automatically.
 4. Empty `content/tmp/` and `content/cache/` so new templates and assets take effect, and flush the image cache when image handling changed ([Admin panel](../administration/admin-panel.md)).
 

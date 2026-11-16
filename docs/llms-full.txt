@@ -326,6 +326,7 @@ The wizard installs phpwcms through a browser. Start it at `https://your-domain.
 | ------ | ------- |
 | `setup/setup.conf.inc.php` | The wizard's working state — initialized by copying `include/config/dist.conf.inc.php`, then rewritten from the `write_conf_file()` template with every form value after each step. Keys not on any form keep the shipped defaults. |
 | `include/config/conf.inc.php` | Copy of the state file; written in step 6 with write → copy → rename fallbacks. Only written when absent. Falls back to the `setup/get_conf_file.php` manual download when all writes fail. |
+| Installation config files | After `conf.inc.php` was written for the first time, step 6 copies `conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini` and `sitemap.custom.php` from their `dist.*` templates. Existing copies are never overwritten, and a re-run on a live installation seeds nothing. `iptc.inc.php` stays optional and is not seeded. |
 | `.htaccess` (document root) | Created from `_.htaccess` when missing; inside a subdirectory the wizard rewrites `RewriteBase /` to the subfolder path. Existing `.htaccess` files are left untouched. |
 | `setup/.htaccess` | Written with `Deny from all` as a baseline block of the setup directory. |
 | Database tables | From `setup/default_sql/phpwcms_init.sql` and `phpwcms_inserts.sql`, executed with `CREATE TABLE IF NOT EXISTS` / `INSERT IGNORE` guards on submit; existing tables with a different prefix are reported so you can change the prefix. |
@@ -528,6 +529,14 @@ The production database and the old files folder are never touched during the up
 `include/config/conf.inc.php` is the single runtime configuration of a phpwcms install, created by the [setup wizard](setup-wizard.md) and never touched by updates. All entries live in the `$phpwcms` array as `$phpwcms['key'] = value;` statements. Defaults below quote the shipped `include/config/dist.conf.inc.php` — never copy values from another installation's file. Edit by hand, then clear affected [caches](../administration/cache-performance.md) where noted.
 
 The setup-generated file adds one legacy key that `dist.conf.inc.php` no longer ships: `GETparameterName` (`'id'`) — it is read nowhere in 2.x code.
+
+## Installation-owned config files
+
+Next to `conf.inc.php` the directory holds files that belong to the installation and are never shipped in a release nor replaced by an update: `conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini`, `sitemap.custom.php` and `iptc.inc.php`. Only their `dist.*` templates are tracked. A fresh install copies five of them (`conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini`, `sitemap.custom.php`) from `include/config/dist.<name>` during setup; an existing install keeps its own files. When `conf.indexpage.inc.php`, `conf.template_default.inc.php` or `feeds.ini.php` is missing, the runtime falls back to its `dist.*` template. The remaining files are opt-in: `sitemap.custom.*` and `iptc.inc.php` are loaded only when the installation file exists, and `iptc.inc.php` is the only one setup does not seed.
+
+`conf.indexpage.inc.php` is a fallback and a readable mirror: once the index page row (`articlecat.acat_id = 0`) exists, that row is the source of truth and hand edits to the file are ignored. The backend rewrites the file on every index page save, so keep it writable if you want the mirror to stay current.
+
+Because these files are not replaced by an update, defaults added to a `dist.*` template in a later release do **not** reach an existing install. After an update, compare your `conf.template_default.inc.php` (and `feeds.ini.php` when you customised it) against the shipped `include/config/dist.<name>` and copy over the entries you want — a key missing from your file is not restored automatically, and code that reads such a key directly (for example `include/inc_front/front.func.inc.php`) can emit an undefined-index warning instead of using the old default.
 
 ## Database
 
@@ -1384,7 +1393,7 @@ The backend lives at `/phpwcms.php` and requires a login through `login.php`. It
 | Content | The active section, wrapped as cards; a status message (success/error) is rendered above it |
 | Footer | Version and copyright, switchable by the whitelabel feature (`is_whitelabel()`, `get_brand_name()`) |
 
-Branding, logo, footer wording and custom CSS can be replaced by whitelabel settings from `include/config/custom_settings.php`; see `include/inc_lib/whitelabel.inc.php`.
+Branding, logo, footer wording and custom CSS can be replaced by whitelabel settings (the `brand_*` keys in `include/config/conf.inc.php`, or a signed whitelabel license verified in `include/inc_lib/whitelabel.inc.php`).
 
 ## Main navigation
 
@@ -1545,7 +1554,7 @@ New levels inherit `acat_topcount`, `acat_order` and `acat_cntpart` from the ind
 
 ### The index page (level 0)
 
-The form opened with `struct=index` edits the `$indexpage` array — name, alternative title, alias, infotext, keywords, page title, template, listing/pagination defaults, order and every switch listed above. Saving does not write a database row; it generates `include/config/conf.indexpage.inc.php` as a flat PHP file instead, so keep the file writable. Language links and the sort value input are absent from this form.
+The form opened with `struct=index` edits the index page — name, alternative title, alias, infotext, keywords, page title, template, listing/pagination defaults, order and every switch listed above. Saving writes the `articlecat` row with `acat_id = 0` and rewrites `include/config/conf.indexpage.inc.php` as a readable mirror, so keep that file writable for the mirror to stay current; once the row exists it is the source of truth. Language links and the sort value input are absent from this form.
 
 ---
 

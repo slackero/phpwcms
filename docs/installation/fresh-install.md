@@ -17,13 +17,13 @@ Confirm the [system requirements](../requirements/index.md) first — PHP 8.4+, 
 3. **Set write permissions** for the web server user on:
    - `content/` and its subfolders (`content/images/`, `content/tmp/`, `content/cache/`, `content/form/`, `content/rss/`, `content/pages/`)
    - `filearchive/` and `upload/`
-   - `include/config/`
+   - `include/config/` (the wizard writes `conf.inc.php` and seeds the installation config files from `dist.*`)
    - `template/` (and `template/template_lang/`)
    - `setup/setup.conf.inc.php` (the wizard's working config, chmod 666 if needed)
 4. **Run the setup wizard**: open `https://your-domain.com/setup/` in the browser — see [Setup wizard](setup-wizard.md) for the seven steps including database creation, admin account and SMTP settings.
 5. **Finalize and harden** as below.
 
-Ownership should stay with the user the web server runs as (or a shared group) so the wizard can write `include/config/conf.inc.php`, `.htaccess` and the content directories.
+Ownership should stay with the user the web server runs as (or a shared group) so the wizard can write `include/config/conf.inc.php`, its installation config files, `.htaccess` and the content directories.
 
 ## Post-install hardening
 

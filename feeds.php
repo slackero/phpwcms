@@ -23,13 +23,22 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_front/ext.func.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_front/cnt.lang.inc.php';
-require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/user.config.inc.php';
+require_once phpwcms_user_config_path('conf.indexpage.inc.php');
 $indexpage = get_indexpage_data();
-require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
+require_once phpwcms_user_config_path('conf.template_default.inc.php');
 
 $feeds_formats  = array('0.91', 'RSS0.91', '1.0', 'RSS1.0', '2.0', 'RSS2.0', 'ATOM', 'ATOM1.0', 'ATOM0.3');
+$feeds_file     = phpwcms_user_config_path('feeds.ini.php');
 $feeds          = array();
-$feeds          = @parse_ini_file(PHPWCMS_ROOT.'/include/config/feeds.ini.php', true);
+if(is_readable($feeds_file)) {
+    $feeds = (array)@parse_ini_file($feeds_file, true);
+    if($feeds === array() && filesize($feeds_file) > 0) {
+        // error_log() instead of trigger_error(): this is a public XML endpoint
+        // and a printed warning would corrupt the feed document
+        error_log('phpwcms: could not parse feed definitions in ' . $feeds_file);
+    }
+}
 
 if(empty($feeds) || (is_array($feeds) && count($feeds) == 0)) {
 

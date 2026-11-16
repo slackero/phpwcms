@@ -65,8 +65,9 @@ ob_start();
 
 $content['page_end'] = '';
 
-require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
-require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/user.config.inc.php';
+require_once phpwcms_user_config_path('conf.template_default.inc.php');
+require_once phpwcms_user_config_path('conf.indexpage.inc.php');
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 $indexpage = get_indexpage_data();
 require_once PHPWCMS_ROOT.'/include/inc_front/cnt.lang.inc.php';

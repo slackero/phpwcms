@@ -1875,26 +1875,103 @@ function execute_post_upgrade_revisions(string $docRoot, ?callable $logger = nul
         return ['success' => true, 'version' => 'unknown'];
     }
 
+    // The revision engine runs on the regular core bootstrap (PHPWCMS_ROOT,
+    // PHPWCMS_TEMP, DB connection); the upgrade script itself does not load
+    // it, so provide the minimum it needs before requiring the engine files.
+    if (!defined('PHPWCMS_ROOT')) {
+        define('PHPWCMS_ROOT', $docRoot);
+    }
+    // marks the setup context: the included libs accept this instead of
+    // PHPWCMS_ROOT when they are loaded before a regular core bootstrap
+    if (!defined('PHPWCMS_SETUP')) {
+        define('PHPWCMS_SETUP', true);
+    }
+    if (!defined('PHPWCMS_TEMP')) {
+        $tmpDir = rtrim(str_replace('\\', '/', $docRoot), '/') . '/content/tmp';
+        // The revision engine writes its lock and marker files there; a missing
+        // or unwritable directory would fail every revision after the DB write.
+        if (!is_dir($tmpDir) || !is_writable($tmpDir)) {
+            // never share the lock and marker files with another installation
+            $tmpDir = rtrim(sys_get_temp_dir(), '/') . '/phpwcms-' . substr(md5(str_replace('\\', '/', $docRoot)), 0, 12);
+            if (!is_dir($tmpDir) && !@mkdir($tmpDir, 0775, true) && !is_dir($tmpDir)) {
+                $log('Revision marker directory ' . $tmpDir . ' could not be created; falling back to the shared temp dir.');
+                $tmpDir = rtrim(sys_get_temp_dir(), '/');
+            }
+        }
+        define('PHPWCMS_TEMP', $tmpDir . '/');
+    }
+
     require_once $revisionFile;
     $targetRevision = defined('PHPWCMS_REVISION') ? (int)PHPWCMS_REVISION : 0;
     $targetVersion  = defined('PHPWCMS_VERSION') ? PHPWCMS_VERSION : 'unknown';
 
-    $backendFunc = $docRoot . '/include/inc_lib/backend.functions.inc.php';
-    if (is_file($backendFunc)) {
-        require_once $backendFunc;
-        if (function_exists('phpwcms_revision_check')) {
-            $log("Applying database schema migrations up to revision r$targetRevision...");
-            $ok = phpwcms_revision_check($targetRevision);
-            if ($ok !== false) {
-                $log('Database schema revisions updated successfully.');
-            } else {
-                $errMsg = $GLOBALS['phpwcms']['revision_error'] ?? 'Unknown revision failure';
-                $log("Database revision warning: $errMsg");
-            }
+    $skipRevisions = static function (string $reason, bool $success = false) use ($log, $targetVersion, $targetRevision): array {
+        $log('Database revisions skipped: ' . $reason . ' Pending revisions are applied on the next backend login.');
+        return ['success' => $success, 'version' => $targetVersion, 'revision' => $targetRevision];
+    };
+
+    $bootstrapError = '';
+    try {
+        if (!function_exists('_dbQuery')) {
+            require_once $docRoot . '/include/inc_lib/dbcon.inc.php';
         }
+    } catch (Throwable $e) {
+        $bootstrapError = $e->getMessage();
     }
 
-    return ['success' => true, 'version' => $targetVersion, 'revision' => $targetRevision];
+    if ($bootstrapError !== '') {
+        return $skipRevisions($bootstrapError);
+    }
+
+    if (empty($GLOBALS['db'])) {
+        return $skipRevisions('no database connection');
+    }
+
+    // DB_PREPEND comes from the config; when the upgrade detected a different
+    // table prefix and it was not persisted, the revisions would hit tables
+    // that do not exist. Probe the core table and skip instead of failing.
+    try {
+        $probeError = '';
+        $core_table = _dbQuery(
+            'SELECT TABLE_NAME FROM information_schema.TABLES '
+            . 'WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '
+            . _dbEscape(DB_PREPEND . 'articlecat')
+        );
+    } catch (Throwable $e) {
+        // mysqli throws since PHP 8.1 and clears the error buffer, so the
+        // exception message is the only reliable error text here
+        $probeError = $e->getMessage();
+        $core_table = false;
+    }
+
+    if (empty($core_table)) {
+        return $skipRevisions($probeError !== ''
+            ? 'database query failed: ' . $probeError
+            : 'table ' . DB_PREPEND . 'articlecat was not found (table prefix mismatch)');
+    }
+
+    $backendFunc = $docRoot . '/include/inc_lib/backend.functions.inc.php';
+    if (!is_file($backendFunc)) {
+        return $skipRevisions('the revision engine file is missing');
+    }
+
+    require_once $backendFunc;
+    if (!function_exists('phpwcms_revision_check')) {
+        return $skipRevisions('the revision engine function is missing');
+    }
+
+    $success = false;
+    $log("Applying database schema migrations up to revision r$targetRevision...");
+    $ok = phpwcms_revision_check($targetRevision);
+    if ($ok !== false) {
+        $success = true;
+        $log('Database schema revisions updated successfully.');
+    } else {
+        $errMsg = $GLOBALS['phpwcms']['revision_error'] ?? 'Unknown revision failure';
+        $log("Database revision warning: $errMsg");
+    }
+
+    return ['success' => $success, 'version' => $targetVersion, 'revision' => $targetRevision];
 }
 
 // -------------------------------------------------------------------------
@@ -3069,8 +3146,10 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                     @unlink($tempZip);
 
                                     $logWeb('Applying database revisions...');
-                                    execute_post_upgrade_revisions($docRoot, $logWeb);
-                                    $logWeb('✓ Database revisions completed.');
+                                    $revisionResult = execute_post_upgrade_revisions($docRoot, $logWeb);
+                                    $logWeb(!empty($revisionResult['success'])
+                                        ? '✓ Database revisions completed.'
+                                        : '! Database revisions were skipped — see the log above.');
 
                                     $logWeb('');
                                     $logWeb('★ Upgrade successfully finished! You may now return to the phpwcms backend.');

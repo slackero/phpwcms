@@ -74,4 +74,6 @@ New levels inherit `acat_topcount`, `acat_order` and `acat_cntpart` from the ind
 
 ### The index page (level 0)
 
-The form opened with `struct=index` edits the `$indexpage` array — name, alternative title, alias, infotext, keywords, page title, template, listing/pagination defaults, order and every switch listed above. Saving does not write a database row; it generates `include/config/conf.indexpage.inc.php` as a flat PHP file instead, so keep the file writable. Language links and the sort value input are absent from this form.
+Level 0 is stored as the regular `articlecat` row with `acat_id = 0`; category listings and the article browser exclude that row.
+
+The form opened with `struct=index` edits the index page — name, alternative title, alias, infotext, keywords, page title, template, listing/pagination defaults, order and every switch listed above. Saving writes the `articlecat` row with `acat_id = 0` and rewrites `include/config/conf.indexpage.inc.php` as a readable mirror, so keep that file writable for the mirror to stay current; once the row exists it is the source of truth. Language links and the sort value input are absent from this form.

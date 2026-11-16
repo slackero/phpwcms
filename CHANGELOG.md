@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Added
+- **Installation-Owned Config Files:** `include/config/{conf.indexpage.inc.php,conf.template_default.inc.php,feeds.ini.php,sitemap.custom.ini,sitemap.custom.php,iptc.inc.php}` belong to the installation now. Only their `dist.*` templates are tracked, shipped in a release and replaced by an update. The setup wizard seeds copies of the five editable files; `iptc.inc.php` remains optional, and a missing required file falls back to its `dist.*` template through `phpwcms_user_config_path()`.
+
+### Changed
+- **Release Packages:** `build/make-release.sh` no longer ships the installation-owned config files and aborts when one reaches the staging directory. `include/config/custom_settings.php` (a cmsGo! leftover that no code loaded) is removed.
+- **Upgrade Script:** the post-upgrade revision run bootstraps `PHPWCMS_ROOT`, `PHPWCMS_TEMP` and the database connection itself, skips with a logged reason when the table prefix does not match, and reports skipped revisions in the web log instead of "completed".
+
+### Fixed
+- **Index Page Template Reset on Update:** a database revision used to seed the index page row from a release-shipped `conf.indexpage.inc.php`, which a file deploy had overwritten with the dist default. That reset the index page template to the default template (GH #397). Revision `r562` now reads only the installation's own file and keeps the previously selected template.
+
 ## [2.0.0-beta.4] – 2026/11/15
 
 ### Security
