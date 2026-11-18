@@ -1234,15 +1234,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         $POST_ERR[$key] = str_replace('{FILENAME}', '"n.a."', $POST_ERR[$key]);
                         $POST_ERR[$key] = str_replace('{FILEEXT}', '"n.a."', $POST_ERR[$key]);
                     } elseif(!empty($_FILES[$POST_name]['name'])) {
-                        $upload_ext = which_ext($_FILES[$POST_name]['name']);
-                        $disallowed_ext = array(
-                            'php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'pht', 'phar', 'phps', 'inc',
-                            'asp', 'aspx', 'cfm', 'cgi', 'pl', 'py', 'sh', 'bash',
-                            'exe', 'com', 'bat', 'cmd', 'msi', 'bin', 'dll', 'vbs', 'wsf', 'scr',
-                            'app', 'jar', 'java', 'js',
-                            'htaccess', 'htpasswd', 'ini', 'env', 'conf', 'bak', 'sql'
-                        );
-                        $is_disallowed = in_array($upload_ext, $disallowed_ext);
+                        $cnt_form['upload_value']['filename'] = form_upload_filename($_FILES[$POST_name]['name']);
+                        $is_disallowed = form_upload_extension_disallowed($cnt_form['upload_value']['filename']);
 
                         if(!$is_disallowed && !empty($_FILES[$POST_name]['tmp_name']) && is_uploaded_file($_FILES[$POST_name]['tmp_name'])) {
                             if(extension_loaded('fileinfo') && ($finfo = finfo_open(FILEINFO_MIME_TYPE))) {
@@ -1260,22 +1253,35 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                             }
 
                             if(!$is_disallowed) {
-                                $file_sample = file_get_contents($_FILES[$POST_name]['tmp_name'], false, null, 0, 8192);
-                                if(preg_match('/<\?(?:php|=)/i', $file_sample) || preg_match('/<script\s+[^>]*(?:language|type)\s*=\s*[\'"]?php/i', $file_sample)) {
-                                    $is_disallowed = true;
+                                $file_handle = @fopen($_FILES[$POST_name]['tmp_name'], 'rb');
+                                if($file_handle) {
+                                    $file_tail = '';
+                                    while(!feof($file_handle)) {
+                                        $file_chunk = fread($file_handle, 8192);
+                                        if($file_chunk === false || $file_chunk === '') {
+                                            break;
+                                        }
+                                        // overlap keeps a tag split across two chunks detectable
+                                        $file_sample = $file_tail.$file_chunk;
+                                        if(preg_match('/<\?(?:php|=)/i', $file_sample) || preg_match('/<script\s+[^>]*(?:language|type)\s*=\s*[\'"]?php/i', $file_sample)) {
+                                            $is_disallowed = true;
+                                            break;
+                                        }
+                                        $file_tail = substr($file_sample, -1024);
+                                    }
+                                    fclose($file_handle);
                                 }
                             }
                         }
 
-                        $cnt_form['upload_value']['filename'] = time().'_'.sanitize_filename($_FILES[$POST_name]['name']);
                         if(
                                 $is_disallowed
                                 ||
                                 (!empty($cnt_form['upload_value']['maxlength']) && $_FILES[$POST_name]['size'] > intval($cnt_form['upload_value']['maxlength']))
                                 ||
-                                (!empty($cnt_form['upload_value']['exclude']) && preg_match($cnt_form['upload_value']['regexp'], strtolower($_FILES[$POST_name]['name'])))
+                                (!empty($cnt_form['upload_value']['exclude']) && preg_match($cnt_form['upload_value']['regexp'], strtolower($cnt_form['upload_value']['filename'])))
                                 ||
-                                (!empty($cnt_form['upload_value']['accept']) && !preg_match($cnt_form['upload_value']['regexp'], strtolower($_FILES[$POST_name]['name'])))
+                                (!empty($cnt_form['upload_value']['accept']) && !preg_match($cnt_form['upload_value']['regexp'], strtolower($cnt_form['upload_value']['filename'])))
                                 ||
                                 !@move_uploaded_file(
                                         $_FILES[$POST_name]['tmp_name'],

@@ -1810,6 +1810,45 @@ function sanitize_filename($filename) {
 }
 
 /**
+ * Build the stored file name for a public Form upload.
+ *
+ * The random component keeps the name from being derived from the response
+ * time, so a stored upload cannot be requested by guessing its prefix.
+ *
+ * @param string $filename
+ *
+ * @return string
+ */
+function form_upload_filename($filename) {
+    return time().'_'.bin2hex(random_bytes(4)).'_'.sanitize_filename($filename);
+}
+
+/**
+ * Check the extension of the name an upload is stored as.
+ *
+ * The extension has to be checked after sanitize_filename(), because the
+ * sanitizer can remove a trailing dot and expose a dangerous extension the
+ * raw multipart name hid from the check.
+ *
+ * @param string $filename
+ *
+ * @return bool
+ */
+function form_upload_extension_disallowed($filename) {
+    $disallowed_ext = [
+        'php', 'php2', 'php3', 'php4', 'php5', 'php6', 'php7', 'php8', 'php9',
+        'phtml', 'pht', 'phar', 'phps', 'inc',
+        'asp', 'aspx', 'cfm', 'cgi', 'pl', 'py', 'sh', 'bash',
+        'exe', 'com', 'bat', 'cmd', 'msi', 'bin', 'dll', 'vbs', 'wsf', 'scr',
+        'app', 'jar', 'java', 'js',
+        'htaccess', 'htpasswd', 'ini', 'env', 'conf', 'bak', 'sql',
+        'shtml', 'shtm'
+    ];
+
+    return in_array(which_ext($filename), $disallowed_ext, true);
+}
+
+/**
  * Sanitize string which will be written to set the value of a PHP variable.
  * Should avoid users from bypassing it and execute PHP code.
  *
