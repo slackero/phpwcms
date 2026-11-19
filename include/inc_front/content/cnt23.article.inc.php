@@ -1183,7 +1183,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $cnt_form['upload_value']['attachment'] = 0;
                 }
                 if(empty($cnt_form['upload_value']['exclude'])) {
-                    $cnt_form['upload_value']['exclude'] = 'php,php3,php4,php5,php7,php8,phtml,pht,phar,phps,inc,asp,aspx,cfm,cgi,pl,py,sh,bash,exe,com,bat,cmd,msi,bin,dll,vbs,wsf,scr,app,jar,java,js,htaccess,htpasswd,ini,env,conf,bak,sql';
+                    $cnt_form['upload_value']['exclude'] = implode(',', form_upload_disallowed_extensions());
                 }
                 if(!isset($cnt_form['upload_value']['text_no_upload'])) {
                     $cnt_form['upload_value']['text_no_upload'] = '-';
