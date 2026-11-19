@@ -4,7 +4,7 @@
 // served content/form folder, keeps regular uploads and the shipped dot
 // files, does not recurse, and never removes anything.
 
-$source = file_get_contents(__DIR__ . '/../../include/inc_lib/revision/r564.php');
+$source = file_get_contents(dirname(__DIR__, 2) . '/include/inc_lib/revision/r564.php');
 $failures = 0;
 
 function check(bool $ok, string $message): void
@@ -53,7 +53,7 @@ mkdir($root . '/content/form/sub', 0777, true);
 mkdir($root . '/content/tmp', 0777, true);
 mkdir($root . '/include/inc_lib', 0777, true);
 check(
-    copy(__DIR__ . '/../../include/inc_lib/upload-extensions.inc.php', $root . '/include/inc_lib/upload-extensions.inc.php'),
+    copy(dirname(__DIR__, 2) . '/include/inc_lib/upload-extensions.inc.php', $root . '/include/inc_lib/upload-extensions.inc.php'),
     'shared extension list copied into the test root'
 );
 

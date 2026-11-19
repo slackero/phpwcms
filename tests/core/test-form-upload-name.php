@@ -5,8 +5,8 @@
 // the trailing dot and stores a .php file, so checking the raw name lets a
 // dangerous extension through.
 
-$general = file_get_contents(__DIR__ . '/../../include/inc_lib/general.inc.php');
-$cnt23 = file_get_contents(__DIR__ . '/../../include/inc_front/content/cnt23.article.inc.php');
+$general = file_get_contents(dirname(__DIR__, 2) . '/include/inc_lib/general.inc.php');
+$cnt23 = file_get_contents(dirname(__DIR__, 2) . '/include/inc_front/content/cnt23.article.inc.php');
 $failures = 0;
 
 define('PHPWCMS_ROOT', dirname(__DIR__, 2));
@@ -89,7 +89,8 @@ check(
 
 foreach ([
     'saveUploadedFile' => $general,
-    'private upload' => file_get_contents(__DIR__ . '/../../include/inc_tmpl/files.private.upload.tmpl.php'),
+    'private upload' => file_get_contents(dirname(__DIR__, 2) . '/include/inc_tmpl/files.private.upload.tmpl.php'),
+    'FTP takeover' => file_get_contents(dirname(__DIR__, 2) . '/include/inc_act/act_ftptakeover.php'),
 ] as $path => $source) {
     check(
         preg_match('/in_array\(.*?,\s*form_upload_executable_extensions\(\),\s*true\)/', $source) === 1,
@@ -105,7 +106,7 @@ check(
     'Form upload default exclude list is derived from the shared list'
 );
 
-$r564 = file_get_contents(__DIR__ . '/../../include/inc_lib/revision/r564.php');
+$r564 = file_get_contents(dirname(__DIR__, 2) . '/include/inc_lib/revision/r564.php');
 check(
     preg_match('/\$disallowed_ext\s*=\s*\(require \$extensions_file\)\[\'disallowed\'\]/', $r564) === 1
     && preg_match('/if \(!is_file\(\$extensions_file\)\)/', $r564) === 1,
