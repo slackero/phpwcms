@@ -142,6 +142,13 @@ if ($file_field && isset($_FILES[$file_field])) {
             $fileExt = $detected_ext;
         }
 
+        if (in_array(strtolower($fileExt), form_upload_executable_extensions(), true)) {
+            http_response_code(400);
+            header('Content-Type: text/plain; charset=utf-8');
+            $tmpl = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
+            die(clean_plain_utf8($tmpl));
+        }
+
         if (!empty($phpwcms['allowed_upload_ext']) && is_array($phpwcms['allowed_upload_ext']) && !in_array($fileExt, $phpwcms['allowed_upload_ext'])) {
             http_response_code(400);
             header('Content-Type: text/plain; charset=utf-8');
@@ -204,8 +211,10 @@ if ($file_field && isset($_FILES[$file_field])) {
                 }
             }
         } else {
-            // FTP takeover upload: move directly to temporary FTP takeover dir
-            $ftpFileName = sanitize_filename(clean_slweg($fileItem['name']));
+            // FTP takeover upload: move directly to temporary FTP takeover dir.
+            // Store the neutralized name, so an embedded handler extension such
+            // as notes.php.jpg cannot execute while the file waits in ftp_path.
+            [, , $ftpFileName] = upload_stored_name(clean_slweg($fileItem['name']));
             if (is_file($ftp_dir . $ftpFileName)) {
                 http_response_code(400);
                 header('Content-Type: text/plain; charset=utf-8');

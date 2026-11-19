@@ -245,7 +245,7 @@ if(!$ftp['error']) {
             // security gate: FTP takeover must respect the upload whitelist and
             // must never copy executable files into the web-accessible filearchive
             $takeover_allowed_ext = isset($GLOBALS['phpwcms']['allowed_upload_ext']) && is_array($GLOBALS['phpwcms']['allowed_upload_ext']) ? $GLOBALS['phpwcms']['allowed_upload_ext'] : [];
-            if (in_array($file_ext, ['php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'pht', 'phar', 'cgi', 'pl', 'py', 'sh', 'htaccess', 'htpasswd'])) {
+            if (in_array($file_ext, form_upload_executable_extensions(), true)) {
                 $file_error['upload'] = sprintf($BL['be_fprivup_err7'], $file);
                 echo $file. ' (' .html($file_error['upload']). ')<br />';
                 continue;

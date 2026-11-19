@@ -1824,28 +1824,116 @@ function form_upload_filename($filename) {
 }
 
 /**
- * Check the extension of the name an upload is stored as.
+ * Load the shared upload extension lists once per request.
  *
- * The extension has to be checked after sanitize_filename(), because the
+ * @return array{executable: string[], disallowed: string[]}
+ */
+function form_upload_extension_lists() {
+    /** @var array{executable: string[], disallowed: string[]}|null $lists */
+    static $lists = null;
+
+    if ($lists === null) {
+        // Plain require on purpose: require_once returns true on the second
+        // include and would hand back a bool instead of the lists. The closure
+        // keeps the file's own variables out of this scope.
+        $lists = (static function () {
+            return require PHPWCMS_ROOT . '/include/inc_lib/upload-extensions.inc.php';
+        })();
+    }
+
+    return $lists;
+}
+
+/**
+ * Extensions a web server executes or reads as configuration.
+ *
+ * Hard-coded on purpose: these must be rejected even when an installation
+ * adds them to allowed_upload_ext or to a form upload allow rule. Keep this
+ * set free of formats an editor may legitimately serve (html, svg, xml, js,
+ * css) — those stay governed by the allowlist.
+ *
+ * @return string[]
+ */
+function form_upload_executable_extensions() {
+    return form_upload_extension_lists()['executable'];
+}
+
+/**
+ * Extensions an upload must never carry.
+ *
+ * Shared by the frontend form upload check and by the backend upload name
+ * sanitizer, so both use the same list. Always contains the hard-coded
+ * server-executed set from form_upload_executable_extensions().
+ *
+ * @return string[]
+ */
+function form_upload_disallowed_extensions() {
+    $lists = form_upload_extension_lists();
+
+    return $lists['disallowed'];
+}
+
+/**
+ * Check every dot-separated extension of the name an upload is stored as.
+ *
+ * The extensions have to be checked after sanitize_filename(), because the
  * sanitizer can remove a trailing dot and expose a dangerous extension the
- * raw multipart name hid from the check.
+ * raw multipart name hid from the check. Checking every segment after the
+ * first dot also blocks multi-extension names such as notes.php.5 that
+ * Apache mod_mime can still map to a handler under AddHandler/AddType.
  *
  * @param string $filename
  *
  * @return bool
  */
 function form_upload_extension_disallowed($filename) {
-    $disallowed_ext = [
-        'php', 'php2', 'php3', 'php4', 'php5', 'php6', 'php7', 'php8', 'php9',
-        'phtml', 'pht', 'phar', 'phps', 'inc',
-        'asp', 'aspx', 'cfm', 'cgi', 'pl', 'py', 'sh', 'bash',
-        'exe', 'com', 'bat', 'cmd', 'msi', 'bin', 'dll', 'vbs', 'wsf', 'scr',
-        'app', 'jar', 'java', 'js',
-        'htaccess', 'htpasswd', 'ini', 'env', 'conf', 'bak', 'sql',
-        'shtml', 'shtm'
-    ];
+    $disallowed_ext = form_upload_disallowed_extensions();
 
-    return in_array(which_ext($filename), $disallowed_ext, true);
+    $segments = explode('.', strtolower($filename));
+    array_shift($segments);
+
+    foreach ($segments as $segment) {
+        if (in_array($segment, $disallowed_ext, true)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Build the name an upload is stored as together with its extension.
+ *
+ * Trailing dots are dropped, because which_ext() cannot see an extension
+ * behind them and some servers strip them before matching a handler.
+ * A dot-separated segment that names a handler extension is joined to the
+ * preceding segment with an underscore, so notes.php.5 is stored as
+ * notes_php.5 and mod_mime cannot map the embedded .php. The final
+ * extension itself is only checked by the caller, which keeps ordinary
+ * backend formats such as page.html or data.de.json uploadable.
+ *
+ * @param string $filename
+ *
+ * @return array{0: string, 1: string, 2: string} sanitized name, extension, stored name
+ */
+function upload_stored_name($filename) {
+    $filename = rtrim(sanitize_filename($filename), '. ');
+    $extension = which_ext($filename);
+
+    if ($extension === '') {
+        return [$filename, '', $filename];
+    }
+
+    $disallowed_ext = form_upload_disallowed_extensions();
+    $segments = explode('.', $filename);
+    array_pop($segments);
+    $stored = (string) array_shift($segments);
+
+    foreach ($segments as $segment) {
+        $stored .= (in_array(strtolower($segment), $disallowed_ext, true) ? '_' : '.') . $segment;
+    }
+
+    return [$filename, $extension, $stored . '.' . $extension];
 }
 
 /**
@@ -1929,13 +2017,11 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
 
         return $file_status;
     }
-    $file_status['name'] = sanitize_filename($_FILES[$file]['name']);
-    $file_status['ext'] = which_ext($file_status['name']);
+    [$file_status['name'], $file_status['ext'], $file_status['rename']] = upload_stored_name($_FILES[$file]['name']);
     $file_status['tmp_name'] = $_FILES[$file]['tmp_name'];
     $file_status['size'] = $_FILES[$file]['size'];
     $file_status['type'] = empty($_FILES[$file]['type']) || !is_mimetype_format($_FILES[$file]['type']) ? get_mimetype_by_extension($file_status['ext']) : $_FILES[$file]['type'];
     $file_status['path'] = $target;
-    $file_status['rename'] = $file_status['name'];
     $file_status['maxsize'] = empty($file_status['maxsize']) ? $GLOBALS['phpwcms']['file_maxsize'] : $file_status['maxsize'];
     if ((int)$file_status['size'] > $file_status['maxsize']) {
         $file_status['error'] = 'File is too large';
@@ -1949,12 +2035,6 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
 
         return $file_status;
     }
-    if (!@_mkdir($target)) {
-        $file_status['error'] = 'The target directory "' . $target . '" can not be found or generated';
-        $file_status['error_num'] = 412;
-
-        return $file_status;
-    }
     if ($_FILES[$file]['error']) {
         $file_status['error'] = $_FILES[$file]['error'];
         $file_status['error_num'] = 409;
@@ -1964,10 +2044,22 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
     if(is_string($GLOBALS['phpwcms']['allowed_upload_ext'])) {
         $GLOBALS['phpwcms']['allowed_upload_ext'] = convertStringToArray(strtolower($GLOBALS['phpwcms']['allowed_upload_ext']));
     }
-    if (empty($file_status['ext']) || !in_array($file_status['ext'], $GLOBALS['phpwcms']['allowed_upload_ext'], true)) {
+    // The executable set is checked first and never consults configuration,
+    // so adding such an extension to allowed_upload_ext does not enable it.
+    if (
+        in_array($file_status['ext'], form_upload_executable_extensions(), true)
+        || empty($file_status['ext'])
+        || !in_array($file_status['ext'], $GLOBALS['phpwcms']['allowed_upload_ext'], true)
+    ) {
         $file_status['error'] = 'The file with extension *.' . $file_status['ext'] . ' is not allowed or invalid for uploading';
         $file_status['error_num'] = 415;
         @unlink($_FILES[$file]['tmp_name']);
+
+        return $file_status;
+    }
+    if (!@_mkdir($target)) {
+        $file_status['error'] = 'The target directory "' . $target . '" can not be found or generated';
+        $file_status['error_num'] = 412;
 
         return $file_status;
     }

@@ -213,7 +213,11 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
             $fileExt = strtolower($fileExt);
 
-            if($fileExt === '') {
+            if(in_array($fileExt, form_upload_executable_extensions(), true)) {
+
+                $file_error["file"] = sprintf($BL['be_fprivup_err7'], $fileName);
+
+            } elseif($fileExt === '') {
 
                 $file_error["file"] = sprintf($BL['be_fprivup_err9'], implode(', ', $phpwcms['allowed_upload_ext']));
 
