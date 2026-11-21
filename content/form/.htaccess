@@ -1,3 +1,7 @@
+# Uploads may be linked by a form (attachment=0), so files stay readable.
+# Never list the directory and never execute anything in it.
+Options -Indexes
+
 # Deny access to all PHP variants, CGI, scripts, executables, and sensitive files
 <FilesMatch "(?i)\.(php[0-9]?|phtml|pht|phar|phps|inc|cgi|pl|py|sh|bash|exe|com|bat|cmd|msi|bin|dll|vbs|wsf|scr|htaccess|htpasswd|ini|env|conf|bak|sql)$">
     <IfModule mod_authz_core.c>

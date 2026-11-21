@@ -5,6 +5,21 @@ RedirectMatch 404 /\.nova
 RedirectMatch 404 /\.vscode
 RedirectMatch 404 /\.vs
 
+# Block web access to private storage, internal paths and upload folders.
+# Content form uploads stay readable when linked by a form (attachment=0);
+# directory listing and script execution there are blocked separately.
+RedirectMatch 404 ^/content/(tmp|cache|log|backup)/
+RedirectMatch 404 ^/include/(config|vendor)/
+# upload/ is private. filearchive/ is controlled by its own .htaccess,
+# which also toggles the direct-download option of file list content parts.
+RedirectMatch 404 ^/upload/
+RedirectMatch 404 ^/tests/
+
+# Block sensitive file types and development files at the document root
+RedirectMatch 404 \.(sql|log|bak|dist)$
+RedirectMatch 404 ^/(CHANGELOG|README|DEPENDENCIES|SECURITY|CODE_OF_CONDUCT|ANTIGRAVITY|CLAUDE)\.md$
+RedirectMatch 404 ^/(Makefile|stacklit\.json|composer\.lock)$
+
 # PHP: These settings are recommend - check phpinfo() before try these
 #   register_globals ON
 #   php_flag magic_quotes_gpc Off
