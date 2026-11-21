@@ -1,0 +1,82 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: "8.2"
+    container_name: phpwcms-legacy-web
+    restart: unless-stopped
+    ports:
+      - "8090:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+      - mailpit
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.fpm
+      args:
+        PHP_VERSION: "8.2"
+    container_name: phpwcms-legacy-php
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: phpwcms-legacy-nginx
+    restart: unless-stopped
+    ports:
+      - "8092:80"
+    volumes:
+      - .:/var/www/html
+      - ./nginx.conf:/etc/nginx/phpwcms.conf:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+
+  db:
+    image: mariadb:10.11
+    container_name: phpwcms-legacy-db
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3317:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: phpwcms
+      MYSQL_USER: phpwcms
+      MYSQL_PASSWORD: phpwcmspassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: phpwcms-legacy-mailpit
+    restart: unless-stopped
+    ports:
+      - "8036:8025"
+      - "1036:1025"
+    environment:
+      MP_MAX_MESSAGES: 500
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpwcms-legacy-pma
+    restart: unless-stopped
+    ports:
+      - "8091:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
+
+volumes:
+  db_data:
