@@ -504,6 +504,16 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
               break;
 
         case 'files':    // File manager
+              // same group gates as the backend menu, checked per feature
+              $files_allowed = !empty($_SESSION['wcs_user_admin'])
+                  || ($p === 8 && in_array($_SESSION['wcs_user_id'], $grouparray['fileupload']))
+                  || ($p === 4 && in_array($_SESSION['wcs_user_id'], $grouparray['fileaction']))
+                  || ($p !== 8 && $p !== 4 && in_array($_SESSION['wcs_user_id'], $grouparray['filecent']));
+              if (!$files_allowed) {
+                  // no permission for this file feature: show the backend start
+                  // page instead of an empty content area
+                  headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string());
+              }
               if ($p === 8) { //FTP File upload
 
                 include PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php';
@@ -580,9 +590,19 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
             break;
 
       case 'modules':    //Modules
-            // if a module is selected
-            if (isset($phpwcms['modules'][$module])) {
-                include $phpwcms['modules'][$module]['path'].'backend.default.php';
+            // serve a module only to admins, and to users in the module group
+            // and that module's own group — the same gates the backend menu uses
+            if (!empty($phpwcms['enable_backend_module']) && isset($phpwcms['modules'][$module])) {
+                $module_allowed = !empty($_SESSION['wcs_user_admin'])
+                    || (in_array($_SESSION['wcs_user_id'], $grouparray['module'])
+                        && isset($modulearray[$module])
+                        && in_array($_SESSION['wcs_user_id'], $modulearray[$module]));
+                if ($module_allowed) {
+                    include $phpwcms['modules'][$module]['path'].'backend.default.php';
+                } else {
+                    // no permission for this module: show the backend start page
+                    headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string());
+                }
             }
             break;
 
