@@ -293,7 +293,7 @@ class phpwcms_update
 
     private function initBackupDir(): void
     {
-        $this->backupDir = PHPWCMS_STORAGE_ROOT . 'backup/' . date('Y-m-d-His') . '/';
+        $this->backupDir = PHPWCMS_STORAGE_ROOT . 'backup/' . date('Y-m-d-His') . '-' . bin2hex(random_bytes(3)) . '/';
         if (!is_dir($this->backupDir) && !@mkdir($this->backupDir, 0700, true) && !is_dir($this->backupDir)) {
             throw new RuntimeException('Could not create backup dir ' . $this->backupDir);
         }

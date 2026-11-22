@@ -16,6 +16,7 @@ define('PHPWCMS_INCLUDE_CHECK', true);
 $base = sys_get_temp_dir() . '/phpwcms-e2e-' . getmypid();
 define('PHPWCMS_ROOT', $base . '/docroot');
 define('PHPWCMS_TEMP', $base . '/tmp/');
+define('PHPWCMS_STORAGE_ROOT', $base . '/storage/');
 define('PHPWCMS_VERSION', '2.0.0');
 define('PHPWCMS_REVISION', '559');
 define('DB_PREPEND', 'phpwcms_');
@@ -128,17 +129,6 @@ function buildReleaseZip(string $zipPath, array $files, string $version, string 
     $zip->close();
 }
 
-/** Newest timestamped backup dir under content/backup/, trailing slash. */
-function newestBackupDir(): string
-{
-    $dirs = glob(PHPWCMS_ROOT . '/content/backup/*', GLOB_ONLYDIR);
-    if (!$dirs) {
-        return '';
-    }
-    usort($dirs, fn($a, $b) => filemtime($b) <=> filemtime($a));
-    return $dirs[0] . '/';
-}
-
 /** Extract a named '## SECTION' body from a change report. */
 function reportSection(string $report, string $name): string
 {
@@ -165,7 +155,7 @@ assert(strpos(file_get_contents(PHPWCMS_ROOT . '/include/inc_lib/revision/revisi
 assert($GLOBALS['lastRevisionCheck'] === 560, 'S1: inline revision check uses NEWLY applied revision, not bootstrap constant');
 assert(is_file(PHPWCMS_ROOT . '/include/inc_lib/newfile.php'), 'S1: added file present');
 assert(is_file(PHPWCMS_ROOT . '/.update-manifest'), 'S1: new manifest written');
-$backup1 = newestBackupDir();
+$backup1 = $res['backup'];
 assert($backup1 !== '', 'S1: backup dir created');
 assert(is_file($backup1 . 'database.sql.gz'), 'S1: db dump in backup');
 assert(is_file($backup1 . 'files/phpwcms.php'), 'S1: modified file mirrored in backup');
@@ -187,7 +177,7 @@ $res = $u->run('v9.9.9');
 assert($res['success'] === true, 'S2: second run succeeds: ' . ($res['error'] ?? ''));
 assert(!file_exists(PHPWCMS_ROOT . '/include/inc_lib/newfile.php'), 'S2: removed file deleted from docroot');
 assert(file_get_contents(PHPWCMS_ROOT . '/phpwcms.php') === 'PHPWCMS-NEW2', 'S2: modified file applied');
-$backup2 = newestBackupDir();
+$backup2 = $res['backup'];
 assert(is_file($backup2 . 'files/include/inc_lib/newfile.php'), 'S2: deleted file backed up');
 $report2 = file_get_contents($backup2 . 'changed-files.txt');
 assert(strpos(reportSection($report2, 'DELETED'), 'include/inc_lib/newfile.php') !== false, 'S2: report lists deletion');
@@ -198,7 +188,7 @@ $u = new phpwcms_update(1, $zip2); // zip2 still ships TPL-RELEASE
 $res = $u->run('v9.9.9');
 assert($res['success'] === true, 'S3: run succeeds: ' . ($res['error'] ?? ''));
 assert(file_get_contents(PHPWCMS_ROOT . '/template/inc_default/startup.php') === 'TPL-RELEASE', 'S3: local template overwritten by release');
-$backup3 = newestBackupDir();
+$backup3 = $res['backup'];
 assert(file_get_contents($backup3 . 'files/template/inc_default/startup.php') === 'TPL-LOCAL', 'S3: old local version backed up');
 $report3 = file_get_contents($backup3 . 'changed-files.txt');
 assert(strpos(reportSection($report3, 'MODIFIED'), 'template/inc_default/startup.php') !== false, 'S3: report lists MODIFIED template');
@@ -207,9 +197,9 @@ assert(strpos(reportSection($report3, 'MODIFIED'), 'template/inc_default/startup
 resetDocroot();
 $zip4 = $base . '/rel-4.zip';
 buildReleaseZip($zip4, ['phpwcms.php' => 'PHPWCMS-NEW'], '9.9.9');
-@mkdir(PHPWCMS_ROOT . '/content/backup', 0775, true);
-@chmod(PHPWCMS_ROOT . '/content/backup', 0555);
-if (is_writable(PHPWCMS_ROOT . '/content/backup')) {
+@mkdir(PHPWCMS_STORAGE_ROOT . 'backup', 0700, true);
+@chmod(PHPWCMS_STORAGE_ROOT . 'backup', 0555);
+if (is_writable(PHPWCMS_STORAGE_ROOT . 'backup')) {
     // chmod ineffective (e.g. running as root) — force DB dump failure instead.
     $GLOBALS['forceDbDumpFail'] = true;
 }
@@ -219,7 +209,7 @@ $res = $u->run('v9.9.9');
 assert($res['success'] === false, 'S4: run must fail');
 assert(strpos($res['error'], 'backup') !== false, 'S4: error mentions backup: ' . $res['error']);
 assert($GLOBALS['logInserts'] === 0, 'S4: no log row inserted before abort');
-@chmod(PHPWCMS_ROOT . '/content/backup', 0755);
+@chmod(PHPWCMS_STORAGE_ROOT . 'backup', 0700);
 $GLOBALS['forceDbDumpFail'] = false;
 
 // --- Scenario 5: maintenance-flag safety net ---
@@ -250,7 +240,7 @@ $res = $u->run('v9.9.9');
 assert($res['success'] === true, 'S6b: second run succeeds: ' . ($res['error'] ?? ''));
 assert(file_get_contents(PHPWCMS_ROOT . '/phpwcms.php') === 'PHPWCMS-NEW2', 'S6: new file applied');
 assert(is_file(PHPWCMS_ROOT . '/.update-manifest'), 'S6: manifest present before rollback');
-$GLOBALS['logBackup'] = newestBackupDir();
+$GLOBALS['logBackup'] = $res['backup'];
 $GLOBALS['logStatus'] = 'success';
 $res = $u->rollback(1);
 assert($res['success'] === true, 'S6: rollback succeeds: ' . ($res['error'] ?? ''));
