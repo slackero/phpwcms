@@ -145,6 +145,7 @@ define('PHPWCMS_ALIAS_UTF8', !(empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CH
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT . '/include/inc_lib/mimetype.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/storage.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/revision/revision.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/whitelabel.inc.php';
 require_once PHPWCMS_ROOT . '/include/vendor/autoload.php';
@@ -179,7 +180,20 @@ if (empty($phpwcms['cdn_image_url'])) {
     define('PHPWCMS_CDN_IMAGE_URL', $phpwcms['cdn_image_url']);
     define('PHPWCMS_IMAGES', $phpwcms['cdn_image_url'] . $phpwcms['content_path'] . $phpwcms['cimage_path']);
 }
-define('PHPWCMS_TEMP', PHPWCMS_ROOT . '/' . $phpwcms['content_path'] . 'tmp/');
+// private storage outside the document root; writers fail closed, never into content/
+$phpwcms['storage_path'] = $phpwcms['storage_path'] ?? '../phpwcms-storage';
+$phpwcms_storage_root = phpwcms_storage_path((string)$phpwcms['storage_path'], PHPWCMS_ROOT);
+define('PHPWCMS_STORAGE_ROOT', $phpwcms_storage_root . '/');
+define('PHPWCMS_TEMP', PHPWCMS_STORAGE_ROOT . 'tmp/');
+define('PHPWCMS_CACHE', PHPWCMS_STORAGE_ROOT . 'cache/');
+define('PHPWCMS_BACKUP', PHPWCMS_STORAGE_ROOT . 'backup/');
+define('PHPWCMS_FORM', PHPWCMS_STORAGE_ROOT . 'form/');
+define('PHPWCMS_LOGDIR', PHPWCMS_STORAGE_ROOT . 'log');
+$phpwcms['form_token_key'] = (string)($phpwcms['form_token_key'] ?? '');
+define('PHPWCMS_FORM_TOKEN_KEY', $phpwcms['form_token_key'] !== '' ? $phpwcms['form_token_key'] : (string)$phpwcms['db_pass']);
+if (!phpwcms_storage_ensure($phpwcms_storage_root, 0700)) {
+    phpwcms_storage_require($phpwcms_storage_root);
+}
 define('PHPWCMS_CONTENT', PHPWCMS_ROOT . '/' . $phpwcms['content_path']);
 define('PHPWCMS_THUMB', PHPWCMS_CONTENT . $phpwcms['cimage_path']);
 define('PHPWCMS_RSS', PHPWCMS_CONTENT . 'rss');
@@ -191,7 +205,6 @@ define('PHPWCMS_PRESERVE_IMAGENAME', !empty($phpwcms['preserve_image_name']));
 define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
 define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
 define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) && $phpwcms['enable_GDPR']);
-define('PHPWCMS_LOGDIR', PHPWCMS_CONTENT . 'log');
 define('PHPWCMS_WEBP', !empty($phpwcms['webp_enable']) && !empty($phpwcms['USER_AGENT']['webp']));
 define('PHPWCMS_QUALITY', PHPWCMS_WEBP ? $phpwcms['webp_quality'] : $phpwcms['jpg_quality']);
 define('PHPWCMS_RESIZE_ANIMATED_GIF', !isset($phpwcms['resize_animated_gif']) || $phpwcms['resize_animated_gif']);
