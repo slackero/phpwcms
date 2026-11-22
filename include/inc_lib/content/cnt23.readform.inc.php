@@ -495,12 +495,9 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                                 break;
 
                             case 'folder':
-                                $upload_value['folder'] = isset($upload[1]) ? trim($upload[1]) : 'content/form/';
-                                $upload_value['folder'] = preg_replace('/\/{1,}$/', '', $upload_value['folder']);
-                                $upload_value['folder'] = preg_replace('/^\//', '', $upload_value['folder']);
-                                if(!is_dir(PHPWCMS_ROOT.'/'.$upload_value['folder']) || !is_writable(PHPWCMS_ROOT.'/'.$upload_value['folder'])) {
-                                    $upload_value['folder'] = 'content/form/';
-                                }
+                                // keep the raw value; phpwcms_form_upload_dir() rejects
+                                // traversal and falls back to the form storage root
+                                $upload_value['folder'] = isset($upload[1]) ? trim($upload[1]) : '';
                                 break;
 
                             case 'accept':

@@ -1192,9 +1192,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                 }
                 if(empty($cnt_form['upload_value']['folder'])) {
-                    $cnt_form['upload_value']['folder'] = 'content/form';
-                } else {
-                    $cnt_form['upload_value']['folder'] = trim($cnt_form['upload_value']['folder'], '/');
+                    // empty means the form storage root; phpwcms_form_upload_dir() validates it
+                    $cnt_form['upload_value']['folder'] = '';
                 }
                 if(empty($cnt_form['upload_value']['attachment'])) {
                     $cnt_form['upload_value']['attachment'] = 0;
@@ -1236,6 +1235,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     } elseif(!empty($_FILES[$POST_name]['name'])) {
                         $cnt_form['upload_value']['filename'] = form_upload_filename($_FILES[$POST_name]['name']);
                         $is_disallowed = form_upload_extension_disallowed($cnt_form['upload_value']['filename']);
+                        $cnt_form_upload_dir = phpwcms_form_upload_dir($cnt_form['upload_value']['folder']);
+                        phpwcms_storage_ensure($cnt_form_upload_dir, 0700);
 
                         if(!$is_disallowed && !empty($_FILES[$POST_name]['tmp_name']) && is_uploaded_file($_FILES[$POST_name]['tmp_name'])) {
                             if(extension_loaded('fileinfo') && ($finfo = finfo_open(FILEINFO_MIME_TYPE))) {
@@ -1287,7 +1288,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                 ||
                                 !@move_uploaded_file(
                                         $_FILES[$POST_name]['tmp_name'],
-                                        PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename']
+                                        $cnt_form_upload_dir . $cnt_form['upload_value']['filename']
                                         )
                                 ) {
 
@@ -1300,13 +1301,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                 } else {
 
                                     $POST_val[$POST_name]['name'] = $cnt_form['upload_value']['filename'];
-                                    @chmod(PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename'], 0644);
+                                    @chmod($cnt_form_upload_dir . $cnt_form['upload_value']['filename'], 0600);
 
                                 }
                     }
                     if(isset($POST_ERR[$key])) {
                         @unlink($_FILES[$POST_name]['tmp_name']);
-                        @unlink(PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename']);
+                        @unlink($cnt_form_upload_dir . $cnt_form['upload_value']['filename']);
                         $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     }
                 }

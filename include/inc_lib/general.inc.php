@@ -1874,6 +1874,36 @@ function form_upload_disallowed_extensions() {
 }
 
 /**
+ * Absolute directory a form upload is stored in, always inside PHPWCMS_FORM.
+ *
+ * `folder=` is a relative subdirectory. Anything that could leave the form
+ * storage (absolute paths, `..`, backslashes, drive letters) falls back to the
+ * form root, so a bad attribute cannot publish or overwrite files elsewhere.
+ *
+ * @param string $folder
+ *
+ * @return string Absolute directory with trailing slash
+ */
+function phpwcms_form_upload_dir($folder = '') {
+    $base = (string)PHPWCMS_FORM;
+    $folder = str_replace('\\', '/', (string)$folder);
+
+    // absolute paths never resolve inside the form storage
+    if ($folder === '' || str_starts_with($folder, '/') || preg_match('#^[A-Za-z]:#', $folder)) {
+        return $base;
+    }
+
+    $folder = trim($folder, '/');
+    foreach (explode('/', $folder) as $segment) {
+        if ($segment === '' || $segment === '.' || $segment === '..') {
+            return $base;
+        }
+    }
+
+    return $base . $folder . '/';
+}
+
+/**
  * Check every dot-separated extension of the name an upload is stored as.
  *
  * The extensions have to be checked after sanitize_filename(), because the
