@@ -65,6 +65,7 @@ Behavior:
 2. Extract the new release over the document root, **never overwriting** `include/config/conf.inc.php` or the six installation-owned config files listed above, and never deleting content in `filearchive/`, `content/images/` or `template/`.
 3. Run the database migration: log into the backend once (runs pending revisions) or run `php setup/upgrade.php`; the revision chain detects outdated revisions automatically.
 4. Empty `<storage_path>/tmp/` and `<storage_path>/cache/` so new templates and assets take effect, and flush the image cache when image handling changed ([Admin panel](../administration/admin-panel.md)).
+5. Open **Admin → Security Check** (`phpwcms.php?do=admin&p=20`) after the update and run *Repair safe findings*: the updater skips `content/`, `upload/`, `filearchive/` and `include/config/`, so per-directory protector files and legacy directories are never refreshed by the update itself.
 
 ## Database revision mechanism
 

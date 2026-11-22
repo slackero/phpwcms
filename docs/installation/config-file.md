@@ -27,7 +27,7 @@ Because these files are not replaced by an update, defaults added to a `dist.*` 
 | `db_host` | string | `'localhost'` | Database server host or socket path. |
 | `db_port` | int | `3306` | Database server port. |
 | `db_user` | string | `''` | Database user name. |
-| `db_pass` | string | `''` | Database password; also seeds `USER_KEY` and the `form_salt` fallback. |
+| `db_pass` | string | `''` | Database password; also seeds `USER_KEY`, the `form_salt` fallback and, together with `db_user`, the form-link token fallback. |
 | `db_table` | string | `''` | Database name. |
 | `db_prepend` | string | `''` | Optional namespace in front of the table prefix; final prefix is `[<db_prepend>_]<brand_table_prefix>_` (see [Whitelabel branding](../administration/whitelabel.md)). |
 | `db_pers` | bool | `0` | Use a persistent (non-closing) mysqli connection. |
@@ -70,7 +70,9 @@ Defaults written into a fresh install by the setup wizard; the wizard stores a `
 | `root` | string | `''` | Subdirectory below the document root when phpwcms does not run at domain root; no leading/trailing slash. |
 | `file_path` | string | `'filearchive'` | Filestorage directory name; see [File storage](../administration/file-storage.md). |
 | `templates` | string | `'template'` | Template directory. |
-| `content_path` | string | `'content'` | Frontend runtime directory for cache, images, tmp, rss, pages. |
+| `content_path` | string | `'content'` | Public frontend asset directory (`images`, `rss`, `pages`, `marketing`); private data lives below `storage_path`. |
+| `storage_path` | string | `'../phpwcms-storage'` | Private storage root outside the document root (`tmp`, `cache`, `log`, `backup`, `form`). Relative to the document root or absolute; created with mode `0700`. Writers fail closed when it is missing or not writable. |
+| `form_token_key` | string | `''` | Secret for signed form-upload links (`formfile.php?t=`). Empty falls back to `db_user` + `db_pass`, so changing either invalidates links in already-sent mail. |
 | `cimage_path` | string | `'images'` | Image directory name below `content_path`. |
 | `cdn_image_url` | string | `''` | Base URL of a CDN proxying `/content/images/` (e.g. `https://cdn.example.com`); the CDN must forward to the origin folder. |
 | `ftp_path` | string | `'upload'` | FTP takeover directory; see [File storage](../administration/file-storage.md). |

@@ -119,7 +119,7 @@ Hand-built search forms use three markers, replaced by `get_search_action()`:
 
 ## Print mode sections
 
-`?print=1` (HTML) and `?print=2` (PDF) switch the template: `template/inc_default/print.tmpl` or `pdf.tmpl` (or `{CONTENT}<hr/>{CURRENT_URL}` when the file is missing). Both understand `{CONTENT}` and `{CURRENT_URL}`; the PDF template may hold a `[PDF_SETTINGS]…[/PDF_SETTINGS]` INI section parsed by `parse_ini_str()` before `wkhtmltopdf` runs. The result then flows through the regular replacement cascade, so page level tags apply to print output as well.
+`?print=1` (HTML) and `?print=2` (PDF) switch the template: `template/inc_default/print.tmpl` or `pdf.tmpl` (or `{CONTENT}<hr/>{CURRENT_URL}` when the file is missing). Both understand `{CONTENT}` and `{CURRENT_URL}`; the PDF template may hold a `[PDF_SETTINGS]…[/PDF_SETTINGS]` INI section parsed by `parse_ini_str()` before `wkhtmltopdf` runs. The result then flows through the regular replacement cascade, so page level tags apply to print output as well. The PDF is rendered from a staging file in `<storage_path>/tmp/` and streamed inline with `Content-Disposition: inline`; it is never written to a public URL.
 
 | Section | Effect |
 | ------- | ------ |

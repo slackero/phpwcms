@@ -316,9 +316,9 @@ The wizard installs phpwcms through a browser. Start it at `https://your-domain.
 | `step=1` | Edition & whitelabel license | Standard GPL edition (leave the key empty) or Whitelabel edition: paste a signed license key, validated live via libsodium with licensee, domain and expiry shown. |
 | `step=2` | Database server connection | Host, port (auto-detected), user, password, database name (created automatically when missing, utf8mb4), table prefix, persistent connection; with a whitelabel key a *Brand Table Prefix* field appears. After connecting: MySQL version, default/allowed language selection with browser-language detection, collation choice (utf8mb4 variants), *Create initial phpwcms database tables* checkbox, then the superuser form (name, username, password + repeat, email) writing the `usr_admin` account. |
 | `step=3` | Site URL & email transport | Detected site basis URL, timezone select, sender email/name, mail transport (`mail()`, SMTP, unix sendmail), host/port, encryption (none/STARTTLS/SMTPS), SMTP authentication and credentials; whitelabel licenses additionally expose brand name, website URL and copyright. |
-| `step=4` | Internal paths & storage | Document root, subdirectory (`root`), filestorage, template and FTP upload directory names, optional CDN image URL. Values must not start or end with a slash. |
+| `step=4` | Internal paths & storage | Document root, subdirectory (`root`), filestorage, template and FTP upload directory names, optional CDN image URL, and the private storage directory (`storage_path`, default `../phpwcms-storage`). Path names must not start or end with a slash. The wizard resolves `storage_path` against the document root, creates the `tmp`, `cache`, `log`, `backup` and `form` tree and blocks the step when it cannot be created or is not writable; when the PHP user differs from the document-root owner it creates the tree with `0770` and `chgrp`s it to the owner group. |
 | `step=5` | Content & media defaults | Max upload size (bytes), content column width, thumbnail and preview sizes, session timeout, graphics engine select (priority Imagick > ImageMagick > GraphicsMagick > GD2 > NetPBM with installed/badges), CLI library path, JPEG/WebP quality, sharpen level. |
-| `step=6` | Finalization & permissions check | Writability check (auto-`chmod 0777` on failure) for the directories listed below, writes the configuration and `.htaccess`, displays the remove-`setup`-warning and a link to the login page. |
+| `step=6` | Finalization & permissions check | Writability check for the public directories (auto-`chmod 0777` on failure) and the private storage tree (kept at `0700`, or `0770` with the document root group), writes the configuration and `.htaccess`, displays the remove-`setup`-warning and a link to the login page. |
 
 ## What the wizard writes
 
@@ -352,9 +352,9 @@ The generated configuration enables the backend module and newsletter menus by d
 
 # Docker installation
 
-> Source: `docker-compose.yml`, `Dockerfile`
+> Source: `docker-compose.yml`, `Dockerfile`, `Dockerfile.fpm`, `nginx.conf`
 
-The repository ships a complete local development stack: PHP 8.4 with Apache, MariaDB, phpMyAdmin and Mailpit, including the full graphics toolchain. It is a development environment — do not expose it to production as-is.
+The repository ships a complete local development stack: PHP 8.4 with Apache, PHP-FPM and nginx, MariaDB, phpMyAdmin and Mailpit, including the full graphics toolchain. It is a development environment — do not expose it to production as-is.
 
 ## Starting
 
@@ -368,7 +368,9 @@ Then open the setup wizard at `http://localhost:8080/setup/` to install (see [Se
 
 | Service | Image | Ports (host:container) | Purpose |
 | ------- | ----- | ---------------------- | ------- |
-| `web` | built from local `Dockerfile` (`php:8.4-apache`) | `8080:80` | phpwcms itself; repository bind-mounted at `/var/www/html`. |
+| `web` | built from local `Dockerfile` (`php:8.4-apache`) | `8080:80` | phpwcms with Apache; repository bind-mounted at `/var/www/html`. |
+| `php` | built from local `Dockerfile.fpm` (`php:8.4-fpm`) | — | PHP-FPM worker for the nginx service; same extensions as the Apache image. |
+| `nginx` | `nginx:1.27-alpine` | `8082:80` | nginx with the repository `nginx.conf` included before the PHP location; use it to verify the default-deny rules. |
 | `db` | `mariadb:10.11` | `3307:3306` | Database with `--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci`; data in the named volume `db_data`. |
 | `mailpit` | `axllent/mailpit:latest` | `8026:8025` (web), `1026:1025` (SMTP) | Captures all outgoing mail; limited to `MP_MAX_MESSAGES = 500`. |
 | `phpmyadmin` | `phpmyadmin:latest` | `8081:80` | `PMA_HOST=db`, `PMA_PORT=3306`. |
@@ -382,17 +384,21 @@ Then open the setup wizard at `http://localhost:8080/setup/` to install (see [Se
 | `MYSQL_USER` | `phpwcms` |
 | `MYSQL_PASSWORD` | `phpwcmspassword` |
 
-Enter these in the setup wizard's database step: host `db`, port `3306`, database `phpwcms`, user `phpwcms`, password `phpwcmspassword`. Only the database data volume persists; the web directory is your working copy.
+Enter these in the setup wizard's database step: host `db`, port `3306`, database `phpwcms`, user `phpwcms`, password `phpwcmspassword`. The named volumes `db_data` and `phpwcms_storage` persist; the web directory is your working copy. `phpwcms_storage` is mounted at `/var/www/phpwcms-storage` in `web`, `php` and `nginx` (read-only for nginx), matching the default `../phpwcms-storage` relative to `/var/www/html`; the `php` service chowns it to `www-data` on start.
 
 ## PHP image details
 
 The Dockerfile builds the web container with:
 
-- PHP extensions: `gd` (freetype/jpeg/webp), `mysqli`, `pdo_mysql`, `intl`, `zip`, `mbstring`, `opcache`, plus `imagick` from PECL.
+- PHP extensions: `gd` (freetype/jpeg/webp), `mysqli`, `pdo_mysql`, `intl`, `zip`, `mbstring`, `opcache`, plus `imagick` from PECL. `Dockerfile.fpm` installs the same set for the nginx/FPM pair.
 - Image tools: ImageMagick, GraphicsMagick, NetPBM, Ghostscript — with the ImageMagick `policy.xml` entries for PDF, EPS, PS and XPS granted `read|write` rights so document preview rendering works; see [Image processing](../administration/image-processing.md).
 - PHP settings via a custom INI: `memory_limit = 256M`, `upload_max_filesize = 64M`, `post_max_size = 64M`, `max_execution_time = 300`, UTC timezone, and `display_errors` on for development.
 - Apache modules `rewrite` and `headers` enabled, `AllowOverride All` for `.htaccess` support.
 - Mail transport wired through msmtp: `sendmail_path = "/usr/bin/msmtp -t --host=mailpit --port=1025"`, so every `mail()` call from the CMS (SMTP_MAILER `mail`) lands in Mailpit.
+
+## Web server path tests
+
+`tests/web/path-protection.sh` starts the stack and probes both servers (Apache `8080`, nginx `8082`): private paths must answer 403/404, public assets 200, `/` must not be 404, and `formfile.php?t=invalid` must reach PHP (`File not found.`). Teardown uses `docker compose down` without `-v`, so the volumes survive. See the script and its README for `APACHE_URL`/`NGINX_URL` overrides.
 
 ## Mail testing with Mailpit
 
@@ -468,6 +474,7 @@ Behavior:
 2. Extract the new release over the document root, **never overwriting** `include/config/conf.inc.php` and never deleting content in `filearchive/`, `content/images/` or `template/`.
 3. Run the database migration: log into the backend once (runs pending revisions) or run `php setup/upgrade.php`; the revision chain detects outdated revisions automatically.
 4. Empty `<storage_path>/tmp/` and `<storage_path>/cache/` so new templates and assets take effect, and flush the image cache when image handling changed ([Admin panel](../administration/admin-panel.md)).
+5. Open **Admin → Security Check** (`phpwcms.php?do=admin&p=20`) after the update and run *Repair safe findings*: the updater skips `content/`, `upload/`, `filearchive/` and `include/config/`, so per-directory protector files and legacy directories are never refreshed by the update itself.
 
 ## Database revision mechanism
 
@@ -545,7 +552,7 @@ Because these files are not replaced by an update, defaults added to a `dist.*` 
 | `db_host` | string | `'localhost'` | Database server host or socket path. |
 | `db_port` | int | `3306` | Database server port. |
 | `db_user` | string | `''` | Database user name. |
-| `db_pass` | string | `''` | Database password; also seeds `USER_KEY` and the `form_salt` fallback. |
+| `db_pass` | string | `''` | Database password; also seeds `USER_KEY`, the `form_salt` fallback and, together with `db_user`, the form-link token fallback. |
 | `db_table` | string | `''` | Database name. |
 | `db_prepend` | string | `''` | Optional namespace in front of the table prefix; final prefix is `[<db_prepend>_]<brand_table_prefix>_` (see [Whitelabel branding](../administration/whitelabel.md)). |
 | `db_pers` | bool | `0` | Use a persistent (non-closing) mysqli connection. |
@@ -588,7 +595,9 @@ Defaults written into a fresh install by the setup wizard; the wizard stores a `
 | `root` | string | `''` | Subdirectory below the document root when phpwcms does not run at domain root; no leading/trailing slash. |
 | `file_path` | string | `'filearchive'` | Filestorage directory name; see [File storage](../administration/file-storage.md). |
 | `templates` | string | `'template'` | Template directory. |
-| `content_path` | string | `'content'` | Frontend runtime directory for cache, images, tmp, rss, pages. |
+| `content_path` | string | `'content'` | Public frontend asset directory (`images`, `rss`, `pages`, `marketing`); private data lives below `storage_path`. |
+| `storage_path` | string | `'../phpwcms-storage'` | Private storage root outside the document root (`tmp`, `cache`, `log`, `backup`, `form`). Relative to the document root or absolute; created with mode `0700`. Writers fail closed when it is missing or not writable. |
+| `form_token_key` | string | `''` | Secret for signed form-upload links (`formfile.php?t=`). Empty falls back to `db_user` + `db_pass`, so changing either invalidates links in already-sent mail. |
 | `cimage_path` | string | `'images'` | Image directory name below `content_path`. |
 | `cdn_image_url` | string | `''` | Base URL of a CDN proxying `/content/images/` (e.g. `https://cdn.example.com`); the CDN must forward to the origin folder. |
 | `ftp_path` | string | `'upload'` | FTP takeover directory; see [File storage](../administration/file-storage.md). |
@@ -1891,7 +1900,7 @@ Every frontend request runs `index.php` top to bottom. `content.func.inc.php` do
 
 - `$_POST` requests disable the 301 forcing (see [URL handling](../general/url-handling.md)).
 - `?phpwcms-preview` enters preview mode: it disables forcing, requires a backend login (otherwise redirects to the site root) and defines `PREVIEW_MODE`, which lifts the article `begin`/`end` time checks.
-- `?print=1` selects the HTML print template, `?print=2` the PDF template (`PRINT_PDF`, requires `$phpwcms['wkhtmltopdf_path']`).
+- `?print=1` selects the HTML print template, `?print=2` the PDF template (`PRINT_PDF`, requires `$phpwcms['wkhtmltopdf_path']`). The HTML staging file and the generated PDF live in `<storage_path>/tmp/` with mode `0600`; the PDF is streamed inline and removed afterwards, so it has no public URL.
 - `?phpwcms_output_action=F-filter1|filter2--S-SECTION1|SECTION2` requests a trimmed fragment of defined template sections instead of a full page; handled at the very end of `index.php`.
 
 ## 3. URL resolution
@@ -3467,7 +3476,7 @@ Hand-built search forms use three markers, replaced by `get_search_action()`:
 
 ## Print mode sections
 
-`?print=1` (HTML) and `?print=2` (PDF) switch the template: `template/inc_default/print.tmpl` or `pdf.tmpl` (or `{CONTENT}<hr/>{CURRENT_URL}` when the file is missing). Both understand `{CONTENT}` and `{CURRENT_URL}`; the PDF template may hold a `[PDF_SETTINGS]…[/PDF_SETTINGS]` INI section parsed by `parse_ini_str()` before `wkhtmltopdf` runs. The result then flows through the regular replacement cascade, so page level tags apply to print output as well.
+`?print=1` (HTML) and `?print=2` (PDF) switch the template: `template/inc_default/print.tmpl` or `pdf.tmpl` (or `{CONTENT}<hr/>{CURRENT_URL}` when the file is missing). Both understand `{CONTENT}` and `{CURRENT_URL}`; the PDF template may hold a `[PDF_SETTINGS]…[/PDF_SETTINGS]` INI section parsed by `parse_ini_str()` before `wkhtmltopdf` runs. The result then flows through the regular replacement cascade, so page level tags apply to print output as well. The PDF is rendered from a staging file in `<storage_path>/tmp/` and streamed inline with `Content-Disposition: inline`; it is never written to a public URL.
 
 | Section | Effect |
 | ------- | ------ |

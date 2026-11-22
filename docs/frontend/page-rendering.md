@@ -21,7 +21,7 @@ Every frontend request runs `index.php` top to bottom. `content.func.inc.php` do
 
 - `$_POST` requests disable the 301 forcing (see [URL handling](../general/url-handling.md)).
 - `?phpwcms-preview` enters preview mode: it disables forcing, requires a backend login (otherwise redirects to the site root) and defines `PREVIEW_MODE`, which lifts the article `begin`/`end` time checks.
-- `?print=1` selects the HTML print template, `?print=2` the PDF template (`PRINT_PDF`, requires `$phpwcms['wkhtmltopdf_path']`).
+- `?print=1` selects the HTML print template, `?print=2` the PDF template (`PRINT_PDF`, requires `$phpwcms['wkhtmltopdf_path']`). The HTML staging file and the generated PDF live in `<storage_path>/tmp/` with mode `0600`; the PDF is streamed inline and removed afterwards, so it has no public URL.
 - `?phpwcms_output_action=F-filter1|filter2--S-SECTION1|SECTION2` requests a trimmed fragment of defined template sections instead of a full page; handled at the very end of `index.php`.
 
 ## 3. URL resolution
