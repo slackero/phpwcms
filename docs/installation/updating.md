@@ -13,22 +13,22 @@ Always back up the database and files before updating, and confirm the host runs
 **Back up before every update — no exceptions.** A full backup means both:
 
 1. **Database dump** — complete, not the pre-update engine dump alone (`mysqldump --single-transaction <db> | gzip > backup.sql.gz` or phpMyAdmin "quick export" as gzip).
-2. **Files** — at minimum `include/config/conf.inc.php`, `template/`, `filearchive/`, `content/images/`, `content/tmp/` (session/scratch), plus the current directory listing (`ls -laR > filelist.txt`) to prove what you had.
+2. **Files** — at minimum `include/config/conf.inc.php`, `template/`, `filearchive/`, `content/images/`, `<storage_path>/tmp/` (session/scratch), plus the current directory listing (`ls -laR > filelist.txt`) to prove what you had.
 
-Store the backup off the web server — the built-in dumps land under `content/backup/` on the same hosting and die with it if the update or the server fails. Downloads, uploads, or `rsync` to a second host all count; a snapshot on the same disk is last resort only. Never start an update with unverified backups.
+Store the backup off the web server — the built-in dumps land under `<storage_path>/backup/` on the same hosting and die with it if the update or the server fails. Private storage is outside the document root and has no web endpoint: the old `setup/upgrade.php?download=` links are gone, so pull backups over FTP/SSH. Downloads, uploads, or `rsync` to a second host all count; a snapshot on the same disk is last resort only. Never start an update with unverified backups.
 
 ## In-app system update
 
 **Admin → System Update** (`phpwcms.php?do=admin&p=18`) — for self-hosted installs above version 2.0.0; see [Admin panel](../administration/admin-panel.md#system-update) for the panel itself and its backup layout. The engine:
 
-1. Fetches the latest release from the GitHub API (`slackero/phpwcms`), requires the PHP `zip` extension and writable `content/backup/`.
+1. Fetches the latest release from the GitHub API (`slackero/phpwcms`), requires the PHP `zip` extension and writable `<storage_path>/backup/`. The path comes from `$phpwcms['storage_path']`; the update form offers a field for it so an install whose storage root is not writable can point at an absolute path before the run.
 2. Dumps the database (pure PHP gzip dump) **before** downloading anything — dump failure aborts the run.
 3. Downloads the release zip from GitHub hosts only, verifies the `.update-manifest` sha256 list per file, and stages the release extract.
 4. Checks out a plan of added/modified/deleted files against the previous manifest; skips `include/config/`, `filearchive/`, `content/`, `upload/`, `setup/`, `.htaccess`, `robots.txt`. Your configuration, storage and templates survive every update.
 5. Applies the plan under a maintenance flag (auto-expiring after 15 minutes, clearable in the panel) and writes the new `.update-manifest`.
 6. Runs pending database revisions inline, records the run (status, file count, backup path, error) in `phpwcms_update_log`.
 
-The built-in dump is a convenience for rollback, not your backup: it lives under `content/backup/` on the same server. Export the database separately and pull `content/backup/` off the host before you update.
+The built-in dump is a convenience for rollback, not your backup: it lives under `<storage_path>/backup/` on the same server. Export the database separately and pull `<storage_path>/backup/` off the host before you update.
 
 Updates are blocked when a newer release would install on a half-migrated schema — run pending revisions first (a backend login triggers `phpwcms_revision_check()`). Rollback restores the pre-update file mirror per run. Older installs (2.0.0 or less) must use the standalone script or manual path.
 
@@ -50,21 +50,21 @@ php setup/upgrade.php                 # interactive CLI (prompts admin login)
 
 Behavior:
 
-- **Same backup rule as above, before you download anything: full database dump plus the protected files (`conf.inc.php`, `template/`, `filearchive/`, `content/images/`), stored off the server.** The script's own dump/zip under `content/backup/` covers rollback on the same host only.
+- **Same backup rule as above, before you download anything: full database dump plus the protected files (`conf.inc.php`, `template/`, `filearchive/`, `content/images/`), stored off the server.** The script's own dump/zip under `<storage_path>/backup/` covers rollback on the same host only.
 
 - Requires PHP 8.4+ and an installed revision of `r401` or newer (the revision tracking was introduced in r401); upgrades from phpwcms 1.x without a manifest need the `--allow-unverified` flag.
 - Authentication uses your admin backend credentials, including Two-Factor (TOTP or backup codes) when enabled; database migrations are gated behind that login.
-- Detects the actual database table prefix (including whitelabel/`cmsgo` brand prefixes) and repairs missing whitelabel config lines in `conf.inc.php` when needed (`conf.inc.cmsgo-backup.php` keeps the original).
-- Dumps the database and builds a files zip below `content/backup/<timestamp>/` (excluding `content/images/`, `content/tmp/`, `content/cache/`, `content/rss/`, `content/backup/` itself and `.git*` from the archive), then applies the release zip with the same preserved-paths rules as the in-app engine.
+- Detects the actual database table prefix (including whitelabel/`cmsgo` brand prefixes) and repairs missing whitelabel config lines in `conf.inc.php` when needed (`conf.inc.cmsgo-backup.php` keeps the original). The first update to a release with private storage runs revision `r565`, which moves `content/{tmp,cache,log,backup,form}` into `<storage_path>/` and leaves a deny file behind when an entry could not be moved. Form links in mail sent before the update pointed at `content/form/` and stop working.
+- Dumps the database and builds a files zip below `<storage_path>/backup/<timestamp>/` (excluding `content/images/`, `<storage_path>/tmp/`, `<storage_path>/cache/`, `content/rss/`, `<storage_path>/backup/` itself and `.git*` from the archive), then applies the release zip with the same preserved-paths rules as the in-app engine.
 - Runs `phpwcms_revision_check()` up to the staged release revision, bringing the schema to r561 at the time of writing.
 - CLI options: `--reinstall` or `--force` (overwrite the currently installed version again), `--allow-unverified` (upgrade legacy packages without a manifest).
 
 ## Manual upgrade
 
-1. Back up the database **and** the protected files (`conf.inc.php`, the installation-owned config files `conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini`, `sitemap.custom.php`, `iptc.inc.php`, `template/`, `filearchive/`, `content/images/`, `content/tmp/`) and store both copies off the web server — nothing in this path does it for you.
+1. Back up the database **and** the protected files (`conf.inc.php`, the installation-owned config files `conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini`, `sitemap.custom.php`, `iptc.inc.php`, `template/`, `filearchive/`, `content/images/`, `<storage_path>/tmp/`) and store both copies off the web server — nothing in this path does it for you.
 2. Extract the new release over the document root, **never overwriting** `include/config/conf.inc.php` or the six installation-owned config files listed above, and never deleting content in `filearchive/`, `content/images/` or `template/`.
 3. Run the database migration: log into the backend once (runs pending revisions) or run `php setup/upgrade.php`; the revision chain detects outdated revisions automatically.
-4. Empty `content/tmp/` and `content/cache/` so new templates and assets take effect, and flush the image cache when image handling changed ([Admin panel](../administration/admin-panel.md)).
+4. Empty `<storage_path>/tmp/` and `<storage_path>/cache/` so new templates and assets take effect, and flush the image cache when image handling changed ([Admin panel](../administration/admin-panel.md)).
 
 ## Database revision mechanism
 

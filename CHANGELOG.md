@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Security
+- **Private Storage Split:** `tmp`, `cache`, `log`, `backup` and `form` no longer live below the document root. `$phpwcms['storage_path']` (default `../phpwcms-storage`) points at a storage tree with mode `0700`; `default.inc.php` derives `PHPWCMS_STORAGE_ROOT`, `PHPWCMS_TEMP`, `PHPWCMS_CACHE`, `PHPWCMS_BACKUP`, `PHPWCMS_FORM` and `PHPWCMS_LOGDIR` from it. Private writers fail closed instead of falling back into `content/`. Revision `r565` moves existing data and leaves a deny file in a directory that could not be fully moved.
+- **Form Uploads Are Private:** uploads are stored in `<storage_path>/form/` with mode `0600` and served only through the signed controller `formfile.php?t=<token>`. Tokens use `$phpwcms['form_token_key']` (fallback `db_pass`), so links keep working from any IP but break when the database password changes. `folder=` is an optional subdirectory below the form storage; absolute paths and `..` are rejected. Links in mail sent before this change pointed at `content/form/` and no longer resolve.
+- **Default-Deny Web Server Configuration:** `.htaccess`, `_.htaccess`, `nginx.conf` and `web.config` deny `content/{tmp,cache,log,backup,form}`, internal `include/` directories, `upload/`, `tests/`, hidden files and sensitive extensions, and serve only an explicit public allowlist. Backups are no longer downloadable through `setup/upgrade.php?download=`; retrieve them over FTP/SSH.
+
+### Changed
+- **Updater Paths:** the update engine and `setup/upgrade.php` keep backups and temporary files in `<storage_path>/backup/` and `<storage_path>/tmp/`, create them with `0700`/`0600`, and the upgrade form accepts a `storage_path` override. The unused `content/less/` directory is removed.
+
 ## [2.0.0-beta.5] – 2026/11/18
 
 ### Security

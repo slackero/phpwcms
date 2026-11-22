@@ -104,7 +104,7 @@ All three require `$phpwcms['enable_inline_php']` in `config.inc.php`; otherwise
 | `{RELATED:<count>}`, `{RELATED:<count>:<opts>}` | Articles sharing the current article's keywords |
 | `{NEW:<count>:<start>}` | Newest articles, sorted per `template_default['news']['sort_by']` |
 | `{KEYWORD:<keywords>}` | Turns a keyword list into links to matching articles |
-| `{URL:<url>}[,CACHE=<seconds>]` | Includes the `<body>` of an external HTML page; with a trailing space and `CACHE=` seconds the result caches under `content/tmp/` |
+| `{URL:<url>}[,CACHE=<seconds>]` | Includes the `<body>` of an external HTML page; with a trailing space and `CACHE=` seconds the result caches under `<storage_path>/tmp/` |
 | `{BROWSE:UP:<text>}`, `{BROWSE:NEXT:<text>,<catdown>}`, `{BROWSE:PREV:<text>,<catup>}` | Links to the parent level / next article / previous article |
 
 ## Search form markers

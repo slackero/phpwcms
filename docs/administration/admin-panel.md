@@ -29,7 +29,7 @@ A new run is blocked while database migrations are pending or failed (`phpwcms_r
 
 ### Backup handling
 
-Before touching any file, the engine writes a run directory `content/backup/<YYYY-MM-DD-HHMMSS>/`:
+Before touching any file, the engine writes a run directory `<storage_path>/backup/<YYYY-MM-DD-HHMMSS>-<random>/`:
 
 | Backup artifact | Content |
 | --------------- | ------- |
@@ -41,7 +41,7 @@ The run directory gets a generated `.htaccess` (`Require all denied` / `Deny fro
 
 ### Maintenance mode and rollback
 
-While files are applied, a flag file `content/tmp/update/maintenance.flag` marks maintenance mode; the flag auto-expires after 15 minutes (stale flags mean the frontend serves normally) and can be cleared with the panel's *Clear maintenance mode* button. On any apply failure the flag stays active so a broken state is not exposed.
+While files are applied, a flag file `<storage_path>/tmp/update/maintenance.flag` marks maintenance mode; the flag auto-expires after 15 minutes (stale flags mean the frontend serves normally) and can be cleared with the panel's *Clear maintenance mode* button. On any apply failure the flag stays active so a broken state is not exposed.
 
 Rollback restores the `files/` mirror of the chosen run, marks the run `rolled_back` in the log and removes the document-root `.update-manifest` so the next update treats the install as manifest-less.
 

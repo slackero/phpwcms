@@ -264,7 +264,7 @@ Confirm the [system requirements](../requirements/index.md) first — PHP 8.4+, 
 1. **Download and extract** a phpwcms release archive (releases ship `include/vendor/` prebuilt, so no Composer step is needed) into the web server document root. Installing from Git instead requires `composer install --no-dev --optimize-autoloader` under PHP 8.4.
 2. **Configure the web server**: use the shipped templates — rename `_.htaccess` to `.htaccess` for Apache (the setup wizard offers to do this), adapt `nginx.conf` or `web.config`. Rewritten URLs need `mod_rewrite`/matching server rules; see [SEO settings](../administration/seo-settings.md).
 3. **Set write permissions** for the web server user on:
-   - `content/` and its subfolders (`content/images/`, `content/tmp/`, `content/cache/`, `content/form/`, `content/rss/`, `content/pages/`)
+   - `content/` and its subfolders (`content/images/`, `<storage_path>/tmp/`, `<storage_path>/cache/`, `<storage_path>/form/`, `content/rss/`, `content/pages/`)
    - `filearchive/` and `upload/`
    - `include/config/`
    - `template/` (and `template/template_lang/`)
@@ -281,7 +281,7 @@ The wizard's final step displays the required warning itself: **delete or secure
 - Remove the whole `/setup/` directory, or block access to it at the web server level. Re-adding it later only for upgrades is the documented workflow — `setup/upgrade.php` is downloaded separately per [Updating](updating.md).
 - If automated writing of `include/config/conf.inc.php` failed during setup, the wizard links `setup/get_conf_file.php`, which downloads `conf.inc.php` as an attachment; place it into `include/config/conf.inc.php`. Downloading the file once appends `$NO_ACCESS = true;` to `setup/setup.conf.inc.php`, which blocks further wizard access until the line is removed.
 - Verify `include/config/conf.inc.php` is not served as plain text — the `_.htaccess` and shipped server configs block `include/` and dot-prefixed files.
-- Check `content/cache/`, `content/backup/` (created later by the updater with a deny-all `.htaccess`) and `filearchive/` listing behavior; deny direct directory listing for storage folders.
+- Check `<storage_path>/cache/`, `<storage_path>/backup/` (created later by the updater with a deny-all `.htaccess`) and `filearchive/` listing behavior; deny direct directory listing for storage folders.
 - Log into `login.php` with the admin account created in the wizard and change defaults as needed: [Users and usergroups](../administration/users-usergroups.md), [Cache and performance](../administration/cache-performance.md).
 - Keep `template/` and `content/` under your own backup routine; the built-in [update engine](updating.md#in-app-system-update) backs up only on updates.
 
@@ -416,22 +416,22 @@ Always back up the database and files before updating, and confirm the host runs
 **Back up before every update — no exceptions.** A full backup means both:
 
 1. **Database dump** — complete, not the pre-update engine dump alone (`mysqldump --single-transaction <db> | gzip > backup.sql.gz` or phpMyAdmin "quick export" as gzip).
-2. **Files** — at minimum `include/config/conf.inc.php`, `template/`, `filearchive/`, `content/images/`, `content/tmp/` (session/scratch), plus the current directory listing (`ls -laR > filelist.txt`) to prove what you had.
+2. **Files** — at minimum `include/config/conf.inc.php`, `template/`, `filearchive/`, `content/images/`, `<storage_path>/tmp/` (session/scratch), plus the current directory listing (`ls -laR > filelist.txt`) to prove what you had.
 
-Store the backup off the web server — the built-in dumps land under `content/backup/` on the same hosting and die with it if the update or the server fails. Downloads, uploads, or `rsync` to a second host all count; a snapshot on the same disk is last resort only. Never start an update with unverified backups.
+Store the backup off the web server — the built-in dumps land under `<storage_path>/backup/` on the same hosting and die with it if the update or the server fails. Downloads, uploads, or `rsync` to a second host all count; a snapshot on the same disk is last resort only. Never start an update with unverified backups.
 
 ## In-app system update
 
 **Admin → System Update** (`phpwcms.php?do=admin&p=18`) — for self-hosted installs above version 2.0.0; see [Admin panel](../administration/admin-panel.md#system-update) for the panel itself and its backup layout. The engine:
 
-1. Fetches the latest release from the GitHub API (`slackero/phpwcms`), requires the PHP `zip` extension and writable `content/backup/`.
+1. Fetches the latest release from the GitHub API (`slackero/phpwcms`), requires the PHP `zip` extension and writable `<storage_path>/backup/`. The path comes from `$phpwcms['storage_path']`; the update form offers a field for it so an install whose storage root is not writable can point at an absolute path before the run.
 2. Dumps the database (pure PHP gzip dump) **before** downloading anything — dump failure aborts the run.
 3. Downloads the release zip from GitHub hosts only, verifies the `.update-manifest` sha256 list per file, and stages the release extract.
 4. Checks out a plan of added/modified/deleted files against the previous manifest; skips `include/config/`, `filearchive/`, `content/`, `upload/`, `setup/`, `.htaccess`, `robots.txt`. Your configuration, storage and templates survive every update.
 5. Applies the plan under a maintenance flag (auto-expiring after 15 minutes, clearable in the panel) and writes the new `.update-manifest`.
 6. Runs pending database revisions inline, records the run (status, file count, backup path, error) in `phpwcms_update_log`.
 
-The built-in dump is a convenience for rollback, not your backup: it lives under `content/backup/` on the same server. Export the database separately and pull `content/backup/` off the host before you update.
+The built-in dump is a convenience for rollback, not your backup: it lives under `<storage_path>/backup/` on the same server. Export the database separately and pull `<storage_path>/backup/` off the host before you update. Private storage has no web endpoint: the old `setup/upgrade.php?download=` links are gone, so retrieve backups over FTP/SSH.
 
 Updates are blocked when a newer release would install on a half-migrated schema — run pending revisions first (a backend login triggers `phpwcms_revision_check()`). Rollback restores the pre-update file mirror per run. Older installs (2.0.0 or less) must use the standalone script or manual path.
 
@@ -453,21 +453,21 @@ php setup/upgrade.php                 # interactive CLI (prompts admin login)
 
 Behavior:
 
-- **Same backup rule as above, before you download anything: full database dump plus the protected files (`conf.inc.php`, `template/`, `filearchive/`, `content/images/`), stored off the server.** The script's own dump/zip under `content/backup/` covers rollback on the same host only.
+- **Same backup rule as above, before you download anything: full database dump plus the protected files (`conf.inc.php`, `template/`, `filearchive/`, `content/images/`), stored off the server.** The script's own dump/zip under `<storage_path>/backup/` covers rollback on the same host only.
 
 - Requires PHP 8.4+ and an installed revision of `r401` or newer (the revision tracking was introduced in r401); upgrades from phpwcms 1.x without a manifest need the `--allow-unverified` flag.
 - Authentication uses your admin backend credentials, including Two-Factor (TOTP or backup codes) when enabled; database migrations are gated behind that login.
-- Detects the actual database table prefix (including whitelabel/`cmsgo` brand prefixes) and repairs missing whitelabel config lines in `conf.inc.php` when needed (`conf.inc.cmsgo-backup.php` keeps the original).
-- Dumps the database and builds a files zip below `content/backup/<timestamp>/` (excluding `content/images/`, `content/tmp/`, `content/cache/`, `content/rss/`, `content/backup/` itself and `.git*` from the archive), then applies the release zip with the same preserved-paths rules as the in-app engine.
+- Detects the actual database table prefix (including whitelabel/`cmsgo` brand prefixes) and repairs missing whitelabel config lines in `conf.inc.php` when needed (`conf.inc.cmsgo-backup.php` keeps the original). The first update to a release with private storage runs revision `r565`, which moves `content/{tmp,cache,log,backup,form}` into `<storage_path>/` and leaves a deny file behind when an entry could not be moved.
+- Dumps the database and builds a files zip below `<storage_path>/backup/<timestamp>/` (excluding `content/images/`, `<storage_path>/tmp/`, `<storage_path>/cache/`, `content/rss/`, `<storage_path>/backup/` itself and `.git*` from the archive), then applies the release zip with the same preserved-paths rules as the in-app engine.
 - Runs `phpwcms_revision_check()` up to the staged release revision, bringing the schema to r561 at the time of writing.
 - CLI options: `--reinstall` or `--force` (overwrite the currently installed version again), `--allow-unverified` (upgrade legacy packages without a manifest).
 
 ## Manual upgrade
 
-1. Back up the database **and** the protected files (`conf.inc.php`, `template/`, `filearchive/`, `content/images/`, `content/tmp/`) and store both copies off the web server — nothing in this path does it for you.
+1. Back up the database **and** the protected files (`conf.inc.php`, `template/`, `filearchive/`, `content/images/`, `<storage_path>/tmp/`) and store both copies off the web server — nothing in this path does it for you.
 2. Extract the new release over the document root, **never overwriting** `include/config/conf.inc.php` and never deleting content in `filearchive/`, `content/images/` or `template/`.
 3. Run the database migration: log into the backend once (runs pending revisions) or run `php setup/upgrade.php`; the revision chain detects outdated revisions automatically.
-4. Empty `content/tmp/` and `content/cache/` so new templates and assets take effect, and flush the image cache when image handling changed ([Admin panel](../administration/admin-panel.md)).
+4. Empty `<storage_path>/tmp/` and `<storage_path>/cache/` so new templates and assets take effect, and flush the image cache when image handling changed ([Admin panel](../administration/admin-panel.md)).
 
 ## Database revision mechanism
 
@@ -850,7 +850,7 @@ A new run is blocked while database migrations are pending or failed (`phpwcms_r
 
 ### Backup handling
 
-Before touching any file, the engine writes a run directory `content/backup/<YYYY-MM-DD-HHMMSS>/`:
+Before touching any file, the engine writes a run directory `<storage_path>/backup/<YYYY-MM-DD-HHMMSS>-<random>/`:
 
 | Backup artifact | Content |
 | --------------- | ------- |
@@ -858,11 +858,11 @@ Before touching any file, the engine writes a run directory `content/backup/<YYY
 | `files/` | Mirror of every file the run will modify or delete, in document-root-relative paths. |
 | `changed-files.txt` | Per-run report of added/modified/deleted files with sha256 hashes. |
 
-The run directory gets a generated `.htaccess` (`Require all denied` / `Deny from all`). Free disk space below 10 MB aborts the update during preflight.
+The run directory gets a generated `.htaccess` (`Require all denied` / `Deny from all`). It lives outside the document root and has no web endpoint: retrieve backups over FTP/SSH. Free disk space below 10 MB aborts the update during preflight.
 
 ### Maintenance mode and rollback
 
-While files are applied, a flag file `content/tmp/update/maintenance.flag` marks maintenance mode; the flag auto-expires after 15 minutes (stale flags mean the frontend serves normally) and can be cleared with the panel's *Clear maintenance mode* button. On any apply failure the flag stays active so a broken state is not exposed.
+While files are applied, a flag file `<storage_path>/tmp/update/maintenance.flag` marks maintenance mode; the flag auto-expires after 15 minutes (stale flags mean the frontend serves normally) and can be cleared with the panel's *Clear maintenance mode* button. On any apply failure the flag stays active so a broken state is not exposed.
 
 Rollback restores the `files/` mirror of the chosen run, marks the run `rolled_back` in the log and removes the document-root `.update-manifest` so the next update treats the install as manifest-less.
 
@@ -1124,7 +1124,7 @@ The OpenGraph title, description, URL and type (`website` / `article`) are compo
 - A level or article participates only when its *Sitemap* checkbox (`acat_nositemap` = 1 / `article_nositemap` = 1) is set — the field name is inherited from older versions although the meaning is "include in sitemap".
 - Custom URLs: create `include/config/sitemap.custom.php` defining `phpwcms_getCustomSitemap(&$struct)` returning `array('url' => ..., 'date' => ...)` entries, or add entries to `include/config/sitemap.custom.ini` in INI sections (`[1] url = "https://..."` / `date = "YYYY-MM-DD"`). Both ship as templates.
 - When no article qualifies, the base URL alone is emitted; flags `sitemap_set_base` / `sitemap_set_default` in the custom functions control whether the base link and all default articles render.
-- Output is cached for 12 hours in `content/cache/sitemap.cache.xml` — delete the file to force regeneration after publishing.
+- Output is cached for 12 hours in `<storage_path>/cache/sitemap.cache.xml` — delete the file to force regeneration after publishing.
 
 <a id="robots-ai-txt-and-llms-txt"></a>
 ## robots, ai.txt and llms.txt
@@ -1174,7 +1174,7 @@ Output compression (gzip/deflate) is not handled by phpwcms — the web server d
 | ----- | -------- | ----------- |
 | Image cache (generated sizes) | `content/images/` — one file per width/height/crop/quality/sharpen/colorspace combination, named by md5 thumb key | Admin → [Flush image cache](admin-panel.md#maintenance-actions); regenerate automatically on next request |
 | Structure meta cache | `phpwcms_sysvalue` table, key `frontend_render` — serialized level/article metadata | Rebuilt automatically while rendering; no manual action needed |
-| Sitemap cache | `content/cache/sitemap.cache.xml`, 12 hours | Delete the file after publishing to regenerate immediately |
+| Sitemap cache | `<storage_path>/cache/sitemap.cache.xml`, 12 hours | Delete the file after publishing to regenerate immediately |
 | Image convert cache | `content/images/<hash>-<function>.<ext>` for `/im/convert...` endpoint requests (e.g. grayscale conversion) so repeated conversion requests stay cheap | Part of the image cache, flushed together |
 
 ## Lazy loading
@@ -1868,7 +1868,7 @@ Every frontend request runs `index.php` top to bottom. `content.func.inc.php` do
 ## 1. Bootstrap
 
 1. `index.php` loads `include/config/conf.inc.php`, `default.inc.php`, `helper.session.php`, `dbcon.inc.php`.
-2. When `content/tmp/update/maintenance.flag` is fresh (< 15 minutes), a 503 maintenance page renders instead.
+2. When `<storage_path>/tmp/update/maintenance.flag` is fresh (< 15 minutes), a 503 maintenance page renders instead.
 3. `$IS_A_BOT` decides whether a session initializes (`SESSION_FEinit` or preview request). `cleanupPOSTandGET()` and `buildGlobalGET()` fill `$GLOBALS['_getVar']`; `FE_CURRENT_URL` captures the full URL; `init_frontend_edit()` prepares backend edit links.
 4. `ob_start()` buffers the whole render; the config defaults and language files load (`conf.template_default.inc.php`, `conf.indexpage.inc.php`, `cnt.lang.inc.php`, `modules.check.inc.php`, `article.contenttype.inc.php`, `imagick.convert.inc.php`, `front.func.inc.php`, `ext.func.inc.php`), then `content.func.inc.php` runs.
 5. Search engine referrers log into `log_seo` when `enable_seolog` is on.
@@ -3152,7 +3152,7 @@ Includes an external HTML page — but only the part between `<body>` and `</bod
 {URL:https://example.com/news.html CACHE=3600}
 ```
 
-With `CACHE=seconds` the content is stored in `content/tmp/<md5>-url` and reused until the timeout expires. Remote loading writes no content when the request fails. Do not confuse this with the plain `{URL}` field inside download templates — that one belongs to the [content parts reference](../../content-parts/index.md).
+With `CACHE=seconds` the content is stored in `<storage_path>/tmp/<md5>-url` and reused until the timeout expires. Remote loading writes no content when the request fails. Do not confuse this with the plain `{URL}` field inside download templates — that one belongs to the [content parts reference](../../content-parts/index.md).
 
 ## {BREADCRUMB}
 
@@ -3438,7 +3438,7 @@ All three require `$phpwcms['enable_inline_php']` in `config.inc.php`; otherwise
 | `{RELATED:<count>}`, `{RELATED:<count>:<opts>}` | Articles sharing the current article's keywords |
 | `{NEW:<count>:<start>}` | Newest articles, sorted per `template_default['news']['sort_by']` |
 | `{KEYWORD:<keywords>}` | Turns a keyword list into links to matching articles |
-| `{URL:<url>}[,CACHE=<seconds>]` | Includes the `<body>` of an external HTML page; with a trailing space and `CACHE=` seconds the result caches under `content/tmp/` |
+| `{URL:<url>}[,CACHE=<seconds>]` | Includes the `<body>` of an external HTML page; with a trailing space and `CACHE=` seconds the result caches under `<storage_path>/tmp/` |
 | `{BROWSE:UP:<text>}`, `{BROWSE:NEXT:<text>,<catdown>}`, `{BROWSE:PREV:<text>,<catup>}` | Links to the parent level / next article / previous article |
 
 ## Search form markers
@@ -5760,7 +5760,7 @@ File paths are normalized and must resolve inside `content/pages/` (`path_is_wit
 
 - Content part wrapper: `<div class="…" id="…">` when an attribute class or ID is set; content part title/subtitle render through the standard `headline()` function.
 - Manual/URL mode (`source = 1`): runs `include_url()` in `include/inc_front/front.func.inc.php`:
-  - Fetches the URL via `file_get_contents`; a trailing `CACHE=<seconds>` fragment caches the fetched markup in `content/tmp/` for that many seconds.
+  - Fetches the URL via `file_get_contents`; a trailing `CACHE=<seconds>` fragment caches the fetched markup in `<storage_path>/tmp/` for that many seconds.
   - Charset detection from the meta tag; the body converts into the installation charset.
   - Content between `<body>` and `</body>` is extracted; PHP delimiters are neutralized; relative `href`/`src`/`action` attributes become absolute URLs; output is sanitized (`htmlfilter_sanitize`).
 - File mode (`source = 0`): the stored path is read from disk relative to the installation root — or executed through `include_ext_php()` when `phpwcms['enable_inline_php']` is on, so local PHP can generate the output. The result is emitted as: body inner markup when a full HTML document with `<body>`; the markup as-is when it looks like HTML; otherwise HTML-escaped plain text.
@@ -5892,7 +5892,7 @@ Type-specific notes verifiable in code:
 - `select` / `selectemail` / `country` / `list` — one option per line, `OPTGROUP <label>` / `/OPTGROUP` group rows, `label-|-value` pairs; a row ending in ` selected` preselects, an option value ending in ` -` renders an empty first option. `selectemail` encrypts posted values with `phpwcms_encrypt()`; `country` takes `lang=`, `default=`, `prepend=`, `first=` INI values and uses `list_country()`.
 - `checkbox` / `radio` / `checkboxcopy` — `M/R` accepts `B3`, `B4`, `B5` to switch to Bootstrap form-check markup; multiple value lines build a group and post as array.
 - `newsletter` — value is an INI list: `all=`, `email_field=`, `name_field=` (`+`-joined field names), `sender_email=`, `sender_name=`, `url_subscribe=`, `url_unsubscribe=`, `double_optin=`, `optin_template=`, `subject=` and numeric subscription IDs (`<id>=<label>`). Requires a valid `email_field`. A newsletter field shows a `verifyemail` textarea as the opt-in mail template.
-- `upload` — value INI list: `maxlength=`, `folder=` (default `content/form/`, must exist and be writable), `accept=` (replaces `exclude=`), `exclude=` (long script/config blocklist by default), `attachment=` (attach to mail instead of link), `text_no_upload=`. Files are renamed `<time>_<sanitized name>`; error text placeholders `{MAXLENGTH}`, `{FILESIZE}`, `{FILENAME}`, `{FILEEXT}`.
+- `upload` — value INI list: `maxlength=`, `folder=` (optional subdirectory below `<storage_path>/form/`; absolute paths and `..` are rejected), `accept=` (replaces `exclude=`), `exclude=` (long script/config blocklist by default), `attachment=` (attach to mail instead of link), `text_no_upload=`. Files are renamed `<time>_<sanitized name>`; error text placeholders `{MAXLENGTH}`, `{FILESIZE}`, `{FILENAME}`, `{FILEEXT}`.
 - `captcha` / `captcha image` — SPAF captcha (`img/captcha.php`). The backend disables adding a second `captcha`, `captcha image`, `math spam protect`, `reCAPTCHA`, invisible reCAPTCHA or `submit` row once one of each exists in the form.
 - `math spam protect` — value INI list of operators text: `+`, `-`, `*`, `:`, `calc`; the question is randomized, the result is posted as MD5 hash of a salted calculation.
 - `reCAPTCHA` — INI values `site_key=`, `secret_key=` (aliases `public_key=`, `private_key=`), `lang=`, `theme=`, `type=`, `size=`; missing keys fall back to user reCAPTCHA settings.
@@ -5952,7 +5952,8 @@ A post matching `cpID<id>` runs field validation, then your custom validate func
 - Configuration and fields: `acontent_form`, serialized (max packet raised to 16 MB in `cnt23.sql.inc.php`).
 - Stored results: `phpwcms_formresult` rows `formresult_pid`, `formresult_ip`, `formresult_content` (serialized field values plus upload file URLs; double opt-in adds `hash`). Export by `exportformresult` and `exportformresultdetail` in `include/inc_act/act_export.php`.
 - Form tracking tokens: `phpwcms_formtracking` (`formtracking_hash` = MD5 of IP + salt + hour, `formtracking_ip`, `formtracking_sent`); see `getFormTrackingValue()` / `checkFormTrackingValue()` in `include/inc_lib/general.inc.php`. Not written in GDPR mode.
-- Uploads land in the configured folder, default `content/form/`.
+- Uploads land in `<storage_path>/form/`, plus the optional `folder=` subdirectory. The directory is created with mode `0700`; files are written with `0600`.
+- Uploads are private: a link in the mail points at the signed controller `formfile.php?t=<token>`, not at a public file. The token is encrypted with `$phpwcms['form_token_key']` (falls back to `db_pass`, so changing the database password invalidates links in already-sent mail). Links mailed by versions before the private-storage split pointed at `content/form/` and no longer resolve.
 - Newsletter opt-ins are inserted into `phpwcms_address` like the newsletter CP does.
 
 ## Related

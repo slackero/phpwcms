@@ -71,7 +71,7 @@ The OpenGraph title, description, URL and type (`website` / `article`) are compo
 - A level or article participates only when its *Sitemap* checkbox (`acat_nositemap` = 1 / `article_nositemap` = 1) is set — the field name is inherited from older versions although the meaning is "include in sitemap".
 - Custom URLs: create `include/config/sitemap.custom.php` defining `phpwcms_getCustomSitemap(&$struct)` returning `array('url' => ..., 'date' => ...)` entries, or add entries to `include/config/sitemap.custom.ini` in INI sections (`[1] url = "https://..."` / `date = "YYYY-MM-DD"`). Both ship as templates.
 - When no article qualifies, the base URL alone is emitted; flags `sitemap_set_base` / `sitemap_set_default` in the custom functions control whether the base link and all default articles render.
-- Output is cached for 12 hours in `content/cache/sitemap.cache.xml` — delete the file to force regeneration after publishing.
+- Output is cached for 12 hours in `<storage_path>/cache/sitemap.cache.xml` — delete the file to force regeneration after publishing.
 
 <a id="robots-ai-txt-and-llms-txt"></a>
 ## robots, ai.txt and llms.txt

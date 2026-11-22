@@ -72,11 +72,32 @@ To support all features, the following PHP extensions must be enabled in your en
 * `/template` — Visual templates, site assets, layouts, frontend render scripts (`inc_script/frontend_render`), and client libraries.
 * `/docs` — Full reference documentation as markdown, including `llms.txt` and `llms-full.txt` for AI agents and the authoring tooling in `docs/_authoring/`.
 * `/setup` — Automatic browser installation wizard and standalone CLI/web upgrader (`setup/upgrade.php`).
-* `/content` — Internal cache, generated images (`content/images`), temporary files (`content/tmp`), and automated backups (`content/backup`).
+* `/content` — Public assets only: generated images (`content/images`), feeds (`content/rss`), pages (`content/pages`) and marketing assets (`content/marketing`).
+* `../phpwcms-storage` — Private storage outside the document root (`storage_path`): `tmp/`, `cache/`, `log/`, `backup/` and `form/`. Never reachable over HTTP.
 * `/filearchive` — Secure centralized storage for all uploaded media assets and files.
 * `/tests` — Update engine, API client, backup and end-to-end test scripts (run directly via `php tests/update/test-*.php`).
 * `/bin` — CLI utilities, e.g. `bin/get-oauth-token.php` for Google/Microsoft XOAUTH2 refresh tokens.
 * `phpwcms.php` & `index.php` — Primary bootstrap entry points routing the administration backend and public frontend.
+
+---
+
+## Private Storage 🔒
+
+Temporary files, caches, logs, updater backups and form uploads live outside the document root:
+
+```
+<docroot>/../phpwcms-storage/    PHPWCMS_STORAGE_ROOT, mode 0700
+  tmp/  cache/  log/  backup/
+  form/                          private form uploads
+```
+
+- `$phpwcms['storage_path']` in `include/config/conf.inc.php` sets the location. Relative values resolve against the document root, absolute values are used as is. The default is `../phpwcms-storage`.
+- Directories are created with mode `0700` and private files with `0600` (`0770`/`0660` when the PHP user differs from the file owner).
+- **Fail closed:** if the storage root cannot be created or written, private writers report an error and never fall back to `content/`. On shared hosting where the parent of the document root is not writable, set an absolute `storage_path` (the installer and `setup/upgrade.php` both accept it).
+- **Form uploads** are stored in `<storage_path>/form/` and are no longer public. Mailed links use the signed controller `formfile.php?t=<token>`; the token is encrypted with `$phpwcms['form_token_key']` (falls back to `db_pass`), so changing the database password invalidates links in already-sent mail. Links sent by older versions pointed at `content/form/` and stop working.
+- **`folder=`** in a form field is an optional subdirectory below `<storage_path>/form/`. Absolute paths, `..`, backslashes and drive letters are rejected and fall back to the form root.
+- **Backups** are written to `<storage_path>/backup/` and are never exposed over HTTP. The old `upgrade.php?download=` links are gone; retrieve backups over FTP/SSH.
+- Server configuration in `.htaccess`, `nginx.conf` and `web.config` denies `content/{tmp,cache,log,backup,form}`, internal `include/` directories, `upload/`, `tests/` and `filearchive/` by default, independent of `.htaccess` support.
 
 ---
 
@@ -90,12 +111,13 @@ To support all features, the following PHP extensions must be enabled in your en
    composer install --no-dev --optimize-autoloader
    ```
 3. **Set File Permissions**: Ensure the web server has write permissions to:
-   * `content/` (and all subfolders: `content/images/`, `content/tmp/`, `content/cache/`, `content/form/`, `content/backup/`)
+   * `content/images/` and the other public asset folders
+   * `<storage_path>` (default `../phpwcms-storage`) and its subfolders, created by the installer with mode `0700`. If the parent of the document root is not writable, set an absolute `storage_path` in the installer.
    * `filearchive/`
    * `include/config/` (the wizard writes `conf.inc.php` and seeds the installation config files from their `dist.*` templates)
    * `template/`
 4. **Run the Installer**: Navigate to `https://your-domain.com/setup/` in your browser.
-   * The installer will verify PHP requirements and directory permissions.
+   * The installer will verify PHP requirements and directory permissions, and create the private storage tree.
    * Enter your database credentials (the installer can automatically create the database if it does not yet exist).
    * Configure administrator credentials, default language, timezone, and initial site structure.
 5. **Finalize**: Secure your server by removing or blocking access to the `/setup` directory after installation. Configure your web server rewrite rules using the provided `_.htaccess` (rename to `.htaccess`) or `nginx.conf`.
@@ -130,7 +152,7 @@ If you are already running phpwcms with the self-update engine:
 3. Click **Check for Updates** to query the latest release from GitHub.
 4. Review the change summary and release notes.
 5. Click **Install Update**. The system will:
-   * Create an automated pre-update database dump and file backup in `content/backup/`.
+   * Create an automated pre-update database dump and file backup in `<storage_path>/backup/`.
    * Enable maintenance mode to prevent traffic inconsistencies.
    * Atomically stage and apply updated files while preserving configuration (`conf.inc.php` and the installation-owned `include/config/*` files), `.htaccess`, `robots.txt`, `filearchive/`, and custom templates.
    * Automatically execute any pending database migrations.
@@ -207,7 +229,7 @@ The standalone upgrade script can update existing installations from the command
    * **DO NOT overwrite** `include/config/conf.inc.php` or the installation-owned config files `include/config/{conf.indexpage.inc.php,conf.template_default.inc.php,feeds.ini.php,sitemap.custom.ini,sitemap.custom.php,iptc.inc.php}` — only their `dist.*` templates belong to the release.
    * **DO NOT delete** existing files in `filearchive/`, `content/images/`, or `template/`.
 3. **Run Migrations**: Run the database migration script via CLI (`php setup/upgrade.php`) or log in to the backend (`phpwcms.php`). The system will detect outdated revisions and run pending database updates automatically.
-4. **Clear Cache**: Empty `content/tmp/` and `content/cache/` to ensure new templates and assets take immediate effect.
+4. **Clear Cache**: Empty `<storage_path>/tmp/` and `<storage_path>/cache/` to ensure new templates and assets take immediate effect.
 
 ### Method 4: Local-First Upgrade on a New Table Prefix (Safest for Production)
 

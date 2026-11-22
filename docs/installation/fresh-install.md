@@ -15,7 +15,8 @@ Confirm the [system requirements](../requirements/index.md) first — PHP 8.4+, 
 1. **Download and extract** a phpwcms release archive (releases ship `include/vendor/` prebuilt, so no Composer step is needed) into the web server document root. Installing from Git instead requires `composer install --no-dev --optimize-autoloader` under PHP 8.4.
 2. **Configure the web server**: use the shipped templates — rename `_.htaccess` to `.htaccess` for Apache (the setup wizard offers to do this), adapt `nginx.conf` or `web.config`. Rewritten URLs need `mod_rewrite`/matching server rules; see [SEO settings](../administration/seo-settings.md).
 3. **Set write permissions** for the web server user on:
-   - `content/` and its subfolders (`content/images/`, `content/tmp/`, `content/cache/`, `content/form/`, `content/rss/`, `content/pages/`)
+   - `content/images/`, `content/rss/` and `content/pages/` (public assets)
+   - `<storage_path>` (default `../phpwcms-storage`, outside the document root) and its `tmp/`, `cache/`, `log/`, `backup/` and `form/` subfolders — the wizard creates the tree with mode `0700`
    - `filearchive/` and `upload/`
    - `include/config/` (the wizard writes `conf.inc.php` and seeds the installation config files from `dist.*`)
    - `template/` (and `template/template_lang/`)
@@ -23,7 +24,9 @@ Confirm the [system requirements](../requirements/index.md) first — PHP 8.4+, 
 4. **Run the setup wizard**: open `https://your-domain.com/setup/` in the browser — see [Setup wizard](setup-wizard.md) for the seven steps including database creation, admin account and SMTP settings.
 5. **Finalize and harden** as below.
 
-Ownership should stay with the user the web server runs as (or a shared group) so the wizard can write `include/config/conf.inc.php`, its installation config files, `.htaccess` and the content directories.
+Ownership should stay with the user the web server runs as (or a shared group) so the wizard can write `include/config/conf.inc.php`, its installation config files, `.htaccess` and the content directories. When the PHP user differs from the owner (`mod_php` with `www-data`), the wizard creates private storage with `0770`/`0660` for the shared group.
+
+The wizard writes `$phpwcms['storage_path']` and `$phpwcms['form_token_key']`. If the parent of the document root is not writable, enter an absolute path for the private storage in step 6 (Internal Paths & Storage Settings); the wizard blocks the install when the tree cannot be created or is not writable. Private storage never falls back into `content/`.
 
 ## Post-install hardening
 
@@ -32,7 +35,7 @@ The wizard's final step displays the required warning itself: **delete or secure
 - Remove the whole `/setup/` directory, or block access to it at the web server level. Re-adding it later only for upgrades is the documented workflow — `setup/upgrade.php` is downloaded separately per [Updating](updating.md).
 - If automated writing of `include/config/conf.inc.php` failed during setup, the wizard links `setup/get_conf_file.php`, which downloads `conf.inc.php` as an attachment; place it into `include/config/conf.inc.php`. Downloading the file once appends `$NO_ACCESS = true;` to `setup/setup.conf.inc.php`, which blocks further wizard access until the line is removed.
 - Verify `include/config/conf.inc.php` is not served as plain text — the `_.htaccess` and shipped server configs block `include/` and dot-prefixed files.
-- Check `content/cache/`, `content/backup/` (created later by the updater with a deny-all `.htaccess`) and `filearchive/` listing behavior; deny direct directory listing for storage folders.
+- Check `<storage_path>/cache/`, `<storage_path>/backup/` (created later by the updater with a deny-all `.htaccess`) and `filearchive/` listing behavior; deny direct directory listing for storage folders.
 - Log into `login.php` with the admin account created in the wizard and change defaults as needed: [Users and usergroups](../administration/users-usergroups.md), [Cache and performance](../administration/cache-performance.md).
 - Keep `template/` and `content/` under your own backup routine; the built-in [update engine](updating.md#in-app-system-update) backs up only on updates.
 

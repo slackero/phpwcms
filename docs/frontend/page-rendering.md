@@ -12,7 +12,7 @@ Every frontend request runs `index.php` top to bottom. `content.func.inc.php` do
 ## 1. Bootstrap
 
 1. `index.php` loads `include/config/conf.inc.php`, `default.inc.php`, `helper.session.php`, `dbcon.inc.php`.
-2. When `content/tmp/update/maintenance.flag` is fresh (< 15 minutes), a 503 maintenance page renders instead.
+2. When `<storage_path>/tmp/update/maintenance.flag` is fresh (< 15 minutes), a 503 maintenance page renders instead.
 3. `$IS_A_BOT` decides whether a session initializes (`SESSION_FEinit` or preview request). `cleanupPOSTandGET()` and `buildGlobalGET()` fill `$GLOBALS['_getVar']`; `FE_CURRENT_URL` captures the full URL; `init_frontend_edit()` prepares backend edit links.
 4. `ob_start()` buffers the whole render; the config defaults and language files load (`conf.template_default.inc.php`, `conf.indexpage.inc.php`, `cnt.lang.inc.php`, `modules.check.inc.php`, `article.contenttype.inc.php`, `imagick.convert.inc.php`, `front.func.inc.php`, `ext.func.inc.php`), then `content.func.inc.php` runs.
 5. Search engine referrers log into `log_seo` when `enable_seolog` is on.

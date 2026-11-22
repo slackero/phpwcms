@@ -25,7 +25,7 @@ Output compression (gzip/deflate) is not handled by phpwcms — the web server d
 | ----- | -------- | ----------- |
 | Image cache (generated sizes) | `content/images/` — one file per width/height/crop/quality/sharpen/colorspace combination, named by md5 thumb key | Admin → [Flush image cache](admin-panel.md#maintenance-actions); regenerate automatically on next request |
 | Structure meta cache | `phpwcms_sysvalue` table, key `frontend_render` — serialized level/article metadata | Rebuilt automatically while rendering; no manual action needed |
-| Sitemap cache | `content/cache/sitemap.cache.xml`, 12 hours | Delete the file after publishing to regenerate immediately |
+| Sitemap cache | `<storage_path>/cache/sitemap.cache.xml`, 12 hours | Delete the file after publishing to regenerate immediately |
 | Image convert cache | `content/images/<hash>-<function>.<ext>` for `/im/convert...` endpoint requests (e.g. grayscale conversion) so repeated conversion requests stay cheap | Part of the image cache, flushed together |
 
 ## Lazy loading

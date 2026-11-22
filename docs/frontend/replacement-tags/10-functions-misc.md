@@ -66,7 +66,7 @@ Includes an external HTML page — but only the part between `<body>` and `</bod
 {URL:https://example.com/news.html CACHE=3600}
 ```
 
-With `CACHE=seconds` the content is stored in `content/tmp/<md5>-url` and reused until the timeout expires. Remote loading writes no content when the request fails. Do not confuse this with the plain `{URL}` field inside download templates — that one belongs to the [content parts reference](../../content-parts/index.md).
+With `CACHE=seconds` the content is stored in `<storage_path>/tmp/<md5>-url` and reused until the timeout expires. Remote loading writes no content when the request fails. Do not confuse this with the plain `{URL}` field inside download templates — that one belongs to the [content parts reference](../../content-parts/index.md).
 
 ## {BREADCRUMB}
 
