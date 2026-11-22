@@ -201,7 +201,7 @@ if ($action === 'exportformresultdetail' && $fid) {
             echo '<td valign="top" style="padding:0 0 3px 0;">';
             if (isset($export[$x][$key])) {
 
-                if (strpos((string)$export[$x][$key], '/' . $phpwcms['content_path'] . 'form/') !== false) {
+                if (strpos((string)$export[$x][$key], 'formfile.php?t=') !== false) {
 
                     $ext = which_ext($export[$x][$key]);
                     $export[$x][$key] = html($export[$x][$key]);

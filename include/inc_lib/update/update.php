@@ -91,7 +91,7 @@ class phpwcms_update
             if (version_compare($installedBase, self::MIN_SUPPORTED_VERSION, '<')) {
                 throw new RuntimeException('Automatic update is only supported for phpwcms version > ' . self::MIN_SUPPORTED_VERSION . '.');
             }
-            $this->initBackupDir();                  // content/backup/<run>/ + .htaccess + files/ subdir; throws on failure
+            $this->initBackupDir();                  // <storage>/backup/<run>/ + .htaccess + files/ subdir; throws on failure
             $free = @disk_free_space($this->backupDir);
             if ($free !== false && $free < self::MIN_FREE_DISK_BYTES) {
                 throw new RuntimeException('Not enough free disk space for update.');
@@ -293,8 +293,8 @@ class phpwcms_update
 
     private function initBackupDir(): void
     {
-        $this->backupDir = PHPWCMS_ROOT . '/content/backup/' . date('Y-m-d-His') . '/';
-        if (!is_dir($this->backupDir) && !@mkdir($this->backupDir, 0775, true) && !is_dir($this->backupDir)) {
+        $this->backupDir = PHPWCMS_STORAGE_ROOT . 'backup/' . date('Y-m-d-His') . '/';
+        if (!is_dir($this->backupDir) && !@mkdir($this->backupDir, 0700, true) && !is_dir($this->backupDir)) {
             throw new RuntimeException('Could not create backup dir ' . $this->backupDir);
         }
         if (!is_writable($this->backupDir)) {
@@ -303,12 +303,13 @@ class phpwcms_update
         $htaccess = $this->backupDir . '.htaccess';
         if (!is_file($htaccess)) {
             @file_put_contents($htaccess, "Require all denied\nDeny from all\n");
+            @chmod($htaccess, 0600);
         }
         if (!is_file($htaccess) || !is_writable($htaccess)) {
             throw new RuntimeException('Could not secure backup dir with .htaccess.');
         }
         $filesDir = $this->backupDir . 'files/';
-        if (!is_dir($filesDir) && !@mkdir($filesDir, 0775, true) && !is_dir($filesDir)) {
+        if (!is_dir($filesDir) && !@mkdir($filesDir, 0700, true) && !is_dir($filesDir)) {
             throw new RuntimeException('Could not create backup files dir.');
         }
     }

@@ -46,7 +46,7 @@ if(!formmailer_rate_limit(10, 60)) {
  * so no DB storage is needed for this lightweight throttle.
  */
 function formmailer_rate_limit($max = 10, $window = 60) {
-    $limit_dir = PHPWCMS_ROOT . $GLOBALS['phpwcms']['content_path'] . 'tmp/';
+    $limit_dir = PHPWCMS_TEMP;
     if(!is_dir($limit_dir) || !is_writable($limit_dir)) {
         return true; // cannot persist — do not block legit submissions
     }

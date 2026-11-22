@@ -1538,11 +1538,87 @@ function create_db_dump(mysqli $mysqli, string $prepend, string $destPath): bool
     return is_file($destPath) && filesize($destPath) > 0;
 }
 
+/**
+ * Resolve a private storage path without depending on a release that ships
+ * include/inc_lib/storage.inc.php: the updater runs on installations that may
+ * predate the private storage split.
+ */
+function upgrade_storage_path(string $configured, string $root): string
+{
+    if (function_exists('phpwcms_storage_path')) {
+        return phpwcms_storage_path($configured, $root);
+    }
+
+    $configured = trim(str_replace('\\', '/', $configured));
+    if ($configured === '') {
+        $configured = '../phpwcms-storage';
+    }
+    $root = rtrim(str_replace('\\', '/', $root), '/');
+    $isAbsolute = str_starts_with($configured, '/') || preg_match('#^[A-Za-z]:#', $configured) === 1;
+    $path = $isAbsolute ? $configured : $root . '/' . $configured;
+
+    $prefix = '';
+    if (preg_match('#^([A-Za-z]:)(/|$)#', $path, $match) === 1) {
+        $prefix = $match[1];
+        $path = substr($path, 2);
+    }
+    $absolute = str_starts_with($path, '/');
+    $segments = [];
+    foreach (explode('/', $path) as $segment) {
+        if ($segment === '' || $segment === '.') {
+            continue;
+        }
+        if ($segment === '..') {
+            if ($segments !== [] && end($segments) !== '..') {
+                array_pop($segments);
+            } elseif (!$absolute) {
+                $segments[] = '..';
+            }
+            continue;
+        }
+        $segments[] = $segment;
+    }
+    $normalized = ($absolute ? '/' : '') . implode('/', $segments);
+    if ($normalized === '') {
+        $normalized = $absolute ? '/' : '.';
+    }
+
+    return $prefix . $normalized;
+}
+
+/**
+ * Create a private directory when missing; true only when it exists and is
+ * writable afterwards.
+ */
+function upgrade_storage_ensure(string $dir, int $mode = 0700): bool
+{
+    if (function_exists('phpwcms_storage_ensure')) {
+        return phpwcms_storage_ensure($dir, $mode);
+    }
+    if (!is_dir($dir)) {
+        if (!@mkdir($dir, $mode, true) && !is_dir($dir)) {
+            return false;
+        }
+        @chmod($dir, $mode);
+    }
+
+    return is_dir($dir) && is_writable($dir);
+}
+
 function create_files_backup(string $docRoot, array $conf, string $zipPath, bool $includeArchive, ?callable $progress = null): bool
 {
     $dir = dirname($zipPath);
     if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
         return false;
+    }
+
+    // an absolute storage_path can point inside the document root; never
+    // recurse into the private storage while archiving the codebase
+    $storageExclude = '';
+    $storageRootAbs = str_replace('\\', '/', upgrade_storage_path((string)($conf['storage_path'] ?? ''), $docRoot));
+    $docRootNorm = rtrim(str_replace('\\', '/', (string)realpath($docRoot)), '/');
+    if ($docRootNorm !== '' && str_starts_with($storageRootAbs, $docRootNorm . '/')) {
+        $storageExclude = ltrim(substr($storageRootAbs, strlen($docRootNorm)), '/');
     }
 
     if (class_exists('ZipArchive')) {
@@ -1562,9 +1638,13 @@ function create_files_backup(string $docRoot, array $conf, string $zipPath, bool
             $contentPathRel . '/tmp',               // content/tmp
             $contentPathRel . '/cache',             // content/cache
             $contentPathRel . '/rss',               // content/rss
-            $contentPathRel . '/backup',            // content/backup (where backups live!)
+            $contentPathRel . '/backup',            // legacy content/backup, moved to private storage by r565
             'setup/backup',
         ];
+
+        if ($storageExclude !== '') {
+            $exclusions[] = $storageExclude;
+        }
 
         if (!$includeArchive && $filePathRel !== '') {
             $exclusions[] = $filePathRel;
@@ -1622,6 +1702,9 @@ function create_files_backup(string $docRoot, array $conf, string $zipPath, bool
         $hasZip = !empty(trim((string)@shell_exec('which zip 2>/dev/null')));
         if ($hasZip) {
             $cmd = "cd $escapedDocRoot && zip -q -r $escapedZip . -x '.git*' 'content/images/*' 'content/tmp/*' 'content/cache/*' 'content/rss/*' 'content/backup/*'";
+            if ($storageExclude !== '') {
+                $cmd .= ' ' . escapeshellarg($storageExclude . '/*');
+            }
             if (!$includeArchive && !empty($conf['file_path'])) {
                 $cmd .= ' ' . escapeshellarg(trim($conf['file_path'], '/') . '/*');
             }
@@ -1637,6 +1720,9 @@ function create_files_backup(string $docRoot, array $conf, string $zipPath, bool
             $tarFile = preg_replace('/\.zip$/i', '.tar.gz', $zipPath);
             $escapedTar = escapeshellarg($tarFile);
             $cmd = "cd $escapedDocRoot && tar --exclude='.git' --exclude='content/images' --exclude='content/tmp' --exclude='content/cache' --exclude='content/rss' --exclude='content/backup'";
+            if ($storageExclude !== '') {
+                $cmd .= ' --exclude=' . escapeshellarg($storageExclude);
+            }
             if (!$includeArchive && !empty($conf['file_path'])) {
                 $cmd .= ' --exclude=' . escapeshellarg(trim($conf['file_path'], '/'));
             }
@@ -1670,8 +1756,10 @@ function apply_release_zip(
         }
     };
 
-    $tempStage = $docRoot . '/content/tmp/upgrade_stage_' . time();
-    if (!is_dir($tempStage) && !mkdir($tempStage, 0775, true) && !is_dir($tempStage)) {
+    $storageRoot = upgrade_storage_path((string)($conf['storage_path'] ?? ''), $docRoot);
+    upgrade_storage_ensure($storageRoot . '/tmp', 0700);
+    $tempStage = $storageRoot . '/tmp/upgrade_stage_' . time();
+    if (!is_dir($tempStage) && !mkdir($tempStage, 0700, true) && !is_dir($tempStage)) {
         throw new RuntimeException('Cannot create staging directory: ' . $tempStage);
     }
 
@@ -1887,7 +1975,12 @@ function execute_post_upgrade_revisions(string $docRoot, ?callable $logger = nul
         define('PHPWCMS_SETUP', true);
     }
     if (!defined('PHPWCMS_TEMP')) {
-        $tmpDir = rtrim(str_replace('\\', '/', $docRoot), '/') . '/content/tmp';
+        // the revision engine writes lock and marker files there; point it at
+        // the private storage root so r565 does not delete it mid-run
+        $tmpDir = rtrim(upgrade_storage_path((string)($GLOBALS['phpwcms']['storage_path'] ?? ''), $docRoot), '/') . '/tmp';
+        if (!is_dir($tmpDir)) {
+            @mkdir($tmpDir, 0700, true);
+        }
         // The revision engine writes its lock and marker files there; a missing
         // or unwritable directory would fail every revision after the DB write.
         if (!is_dir($tmpDir) || !is_writable($tmpDir)) {
@@ -2050,6 +2143,26 @@ if (empty($phpwcms) && !empty($cmsgo) && is_array($cmsgo)) {
     }
 }
 
+// Resolve the private storage root. default.inc.php is not loaded here, so the
+// updater resolves it itself; the upgrade form can override the path before
+// anything is written.
+$upgrade_storage_path = trim((string)(!$isCli && isset($_POST['storage_path']) ? $_POST['storage_path'] : ($phpwcms['storage_path'] ?? '')));
+if ($upgrade_storage_path === '') {
+    $upgrade_storage_path = '../phpwcms-storage';
+}
+$phpwcms['storage_path'] = $upgrade_storage_path;
+$upgrade_storage_root = upgrade_storage_path($upgrade_storage_path, $docRoot);
+$upgrade_storage_ready = upgrade_storage_ensure($upgrade_storage_root, 0700);
+if ($upgrade_storage_ready) {
+    foreach (['backup', 'tmp'] as $upgrade_storage_sub) {
+        if (!upgrade_storage_ensure($upgrade_storage_root . '/' . $upgrade_storage_sub, 0700)) {
+            $upgrade_storage_ready = false;
+            break;
+        }
+    }
+}
+$upgrade_storage_error = $upgrade_storage_ready ? '' : $upgrade_storage_root;
+
 if (empty($phpwcms['db_table']) || empty($phpwcms['db_user'])) {
     $err = 'Invalid configuration in ' . $configFile;
     if ($isCli) {
@@ -2077,22 +2190,6 @@ $installedRevision = get_installed_phpwcms_revision($docRoot);
 // comparable with the phpwcms release line, so version comparisons are
 // bypassed for them (see the isSameVersion / isDowngrade handling).
 $isCmsgoInstall = get_install_flavour($docRoot) === 'cmsgo';
-
-// Handle direct backup downloads in browser mode
-if (!$isCli && isset($_GET['download']) && !empty($_SESSION['upgrade_authenticated'])) {
-    $dl = basename($_GET['download']);
-    $backupDir = $docRoot . '/content/backup';
-    $file = $backupDir . '/' . $dl;
-    if (is_file($file) && (str_ends_with($dl, '.sql.gz') || str_ends_with($dl, '.sql') || str_ends_with($dl, '.zip') || str_ends_with($dl, '.tar.gz'))) {
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . $dl . '"');
-        header('Content-Length: ' . filesize($file));
-        readfile($file);
-        exit();
-    }
-    http_response_code(404);
-    die('Backup file not found.');
-}
 
 // =========================================================================
 // CLI MODE EXECUTION
@@ -2449,13 +2546,19 @@ if ($isCli) {
         cli_print("Notice: Proceeding without an external backup is risky.\n", 'yellow');
     }
 
+    if ($upgrade_storage_error !== '') {
+        cli_print("Private storage directory {$upgrade_storage_error} could not be created or is not writable.\n", 'red');
+        cli_print("Create it with mode 0700 for the PHP user, or set \$phpwcms['storage_path'] to a writable path.\n", 'yellow');
+        exit(1);
+    }
+
     $runBackup = cli_confirm('Create full local backup before upgrading? (Recommended)', true);
     $backupFiles = [];
 
     if ($runBackup) {
         $backupTimestamp = date('Y-m-d-His');
-        $backupDir = $docRoot . '/content/backup/' . $backupTimestamp;
-        if (!mkdir($backupDir, 0775, true) && !is_dir($backupDir)) {
+        $backupDir = $upgrade_storage_root . '/backup/' . $backupTimestamp;
+        if (!mkdir($backupDir, 0700, true) && !is_dir($backupDir)) {
             throw new RuntimeException(sprintf('Directory "%s" was not created', $backupDir));
         }
 
@@ -2518,8 +2621,8 @@ if ($isCli) {
     cli_print(" Upgrade Execution\n", 'bold');
     cli_print("---------------------------------------------------------\n", 'blue');
 
-    $tempZip = $docRoot . '/content/tmp/phpwcms_' . $release['tag'] . '_' . time() . '.zip';
-    if (!is_dir(dirname($tempZip)) && !mkdir($concurrentDirectory = dirname($tempZip), 0775, true) && !is_dir($concurrentDirectory)) {
+    $tempZip = $upgrade_storage_root . '/tmp/phpwcms_' . $release['tag'] . '_' . time() . '.zip';
+    if (!is_dir(dirname($tempZip)) && !mkdir($concurrentDirectory = dirname($tempZip), 0700, true) && !is_dir($concurrentDirectory)) {
         throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
     }
 
@@ -3058,7 +3161,14 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                         <a href="../login.php" class="btn btn-primary">Return to Backend</a>
                     </div>
                 <?php elseif (isset($_POST['execute_upgrade'])): ?>
-                    <?php if (empty($_POST['has_external_backup'])): ?>
+                    <?php if ($upgrade_storage_error !== ''): ?>
+                        <div class="alert alert-danger">
+                            The private storage directory <code><?= htmlspecialchars($upgrade_storage_error) ?></code>
+                            could not be created or is not writable. Create it with mode 0700 for the PHP user,
+                            or enter an absolute path below that the PHP user can write to.
+                            <div class="mt-2"><a href="upgrade.php" class="alert-link">Back to the upgrade form</a></div>
+                        </div>
+                    <?php elseif (empty($_POST['has_external_backup'])): ?>
                         <div class="alert alert-danger">
                             Please confirm that you have verified an external backup before proceeding.
                         </div>
@@ -3085,13 +3195,12 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
 
                         $doBackup = !empty($_POST['create_backup']);
                         $includeArchive = !empty($_POST['include_filearchive']);
-                        $backupDownloadLinks = [];
 
                         $backupFailed = false;
                         if ($doBackup) {
                             $backupTimestamp = date('Y-m-d-His');
-                            $backupDir = $docRoot . '/content/backup';
-                            if (!mkdir($backupDir, 0775, true) && !is_dir($backupDir)) {
+                            $backupDir = $upgrade_storage_root . '/backup';
+                            if (!mkdir($backupDir, 0700, true) && !is_dir($backupDir)) {
                                 throw new RuntimeException(sprintf('Directory "%s" was not created', $backupDir));
                             }
 
@@ -3102,7 +3211,6 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                             $logWeb('Creating database backup' . ($hasZlib ? ' (compressed)...' : ' (uncompressed, ext-zlib missing)...'));
                             if (create_db_dump($mysqli, $dbPrepend, $backupDir . '/' . $sqlFile)) {
                                 $logWeb("✓ Database backup created: $sqlFile");
-                                $backupDownloadLinks['db'] = $sqlFile;
                             } else {
                                 $logWeb('✗ Database backup failed! Aborting upgrade to protect installation.');
                                 $backupFailed = true;
@@ -3115,7 +3223,6 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                     if (create_files_backup($docRoot, $phpwcms, $backupDir . '/' . $zipFile, $includeArchive)) {
                                         $actualFile = is_file($backupDir . '/' . $zipFile) ? $zipFile : "files-$backupTimestamp.tar.gz";
                                         $logWeb("✓ File backup created: $actualFile");
-                                        $backupDownloadLinks['files'] = $actualFile;
                                     } else {
                                         $logWeb('✗ File backup creation failed! Aborting upgrade to protect installation.');
                                         $backupFailed = true;
@@ -3131,7 +3238,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                             $logWeb('');
                             $logWeb('★ Upgrade aborted because backup creation failed. No installation files were modified.');
                         } else {
-                            $tempZip = $docRoot . '/content/tmp/release_' . time() . '.zip';
+                            $tempZip = $upgrade_storage_root . '/tmp/release_' . time() . '.zip';
                             $logWeb('Downloading release zip...');
                             if (!download_file($releaseInfo['zip_url'], $tempZip)) {
                                 $logWeb('✗ Failed to download release package from GitHub.');
@@ -3162,19 +3269,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                         ?>
                     </div>
 
-                    <div class="mt-4 d-flex justify-content-between align-items-center">
-                        <div>
-                            <?php if (!empty($backupDownloadLinks['db'])): ?>
-                                <a href="?download=<?= urlencode($backupDownloadLinks['db']) ?>" class="btn btn-outline-secondary btn-sm me-2">
-                                    Download DB Backup (<?= htmlspecialchars(pathinfo($backupDownloadLinks['db'], PATHINFO_EXTENSION) === 'gz' ? '.sql.gz' : '.sql') ?>)
-                                </a>
-                            <?php endif; ?>
-                            <?php if (!empty($backupDownloadLinks['files'])): ?>
-                                <a href="?download=<?= urlencode($backupDownloadLinks['files']) ?>" class="btn btn-outline-secondary btn-sm">
-                                    Download Files Backup (<?= htmlspecialchars(str_ends_with($backupDownloadLinks['files'], '.tar.gz') ? '.tar.gz' : '.zip') ?>)
-                                </a>
-                            <?php endif; ?>
-                        </div>
+                    <div class="mt-4 d-flex justify-content-end align-items-center">
                         <form method="post" class="d-inline">
                             <input type="hidden" name="action" value="logout">
                             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['upgrade_csrf_token']) ?>">
@@ -3282,6 +3377,16 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                         * Rebuildable cache files, temporary assets, and cached thumbnails in
                                         <code>/<?= htmlspecialchars($realContentPath) ?></code>
                                         are automatically excluded from the backup to preserve disk space.
+                                    </div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <label class="form-label fw-bold" for="upgradeStoragePath">Private storage directory</label>
+                                    <input type="text" class="form-control" id="upgradeStoragePath" name="storage_path"
+                                           value="<?= htmlspecialchars($upgrade_storage_path) ?>" placeholder="../phpwcms-storage">
+                                    <div class="form-text">
+                                        Outside the document root, relative to the installation root or absolute.
+                                        Backups and temporary files are written here.
                                     </div>
                                 </div>
                             </div>

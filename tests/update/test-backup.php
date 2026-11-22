@@ -55,4 +55,20 @@ assert(strpos($sql, 'DROP TABLE IF EXISTS `phpwcms_user`') !== false, 'dump has 
 assert(strpos($sql, 'CREATE TABLE `phpwcms_user`') !== false, 'dump has CREATE TABLE');
 assert(strpos($sql, 'INSERT INTO `phpwcms_user`') !== false, 'dump has INSERT INTO');
 
+// private backup root: backups must live in the private storage tree, never
+// below the document root
+define('PHPWCMS_STORAGE_ROOT', $tmp . '/storage/');
+define('PHPWCMS_TEMP', PHPWCMS_STORAGE_ROOT . 'tmp/');
+require_once __DIR__ . '/../../include/inc_lib/update/update.php';
+
+$updater = new phpwcms_update(1);
+$initBackupDir = new ReflectionMethod(phpwcms_update::class, 'initBackupDir');
+$initBackupDir->setAccessible(true);
+$initBackupDir->invoke($updater);
+$backupDirProp = new ReflectionProperty(phpwcms_update::class, 'backupDir');
+$backupDirProp->setAccessible(true);
+$backupDir = $backupDirProp->getValue($updater);
+assert(str_starts_with($backupDir, PHPWCMS_STORAGE_ROOT . 'backup/'), 'backup dir lives in private storage');
+assert(!is_dir(PHPWCMS_ROOT . '/content/backup'), 'no backup dir below the document root');
+
 echo 'OK' . PHP_EOL;
