@@ -32,7 +32,6 @@ $rules = [
     'upload directory' => 'upload',
     'tests directory' => 'tests',
     'hidden files' => '(?!well-known)',
-    'root entry script formfile.php' => 'formfile.php',
 ];
 
 foreach ($configs as $name => $source) {
@@ -46,6 +45,8 @@ check(str_contains($configs['nginx.conf'], 'sql|log|bak|dist'), 'nginx denies se
 check(str_contains($configs['.htaccess'], 'sql|log|bak|dist'), '.htaccess denies sensitive extensions');
 check(str_contains($configs['web.config'], 'fileExtension=".sql"'), 'web.config denies sensitive extensions');
 check(!preg_match('#location\s+~\s+\^/content/\(tmp#', $configs['nginx.conf']), 'nginx patterns stay unanchored');
+check(str_contains($configs['web.config'], 'Allow root PHP entry points'), 'web.config allows root PHP entry scripts (includes formfile.php)');
+check(str_contains($configs['web.config'], 'url="^[^/]+\\.php$"'), 'web.config root PHP rule matches root-level .php files');
 
 $private_dirs = [
     'content/form',

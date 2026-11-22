@@ -501,6 +501,15 @@ if (isset($step)) {
                     $storage_err = $setup_dir;
                     break;
                 }
+                if ($storage_mode === 0770) {
+                    // 0770 grants the PHP user's own group; share it with the
+                    // group that owns the installation instead
+                    $setup_group = @filegroup($setup_doc_root);
+                    if ($setup_group === false || !@chgrp($setup_dir, $setup_group)) {
+                        $storage_err = $setup_dir . ' (could not share it with the document root group)';
+                        break;
+                    }
+                }
             }
             if ($storage_err !== '') {
                 $paths_ok = false;

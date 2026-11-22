@@ -9,6 +9,8 @@ if (!function_exists('phpwcms_storage_path')) {
 $failures = 0;
 function check(bool $ok, string $message): void { global $failures; echo ($ok ? 'OK   ' : 'FAIL ') . "$message\n"; if (!$ok) $failures++; }
 
+check(str_contains($source, 'include/config/conf.inc.php') && !str_contains($source, 'inc.conf.php'), 'error message names conf.inc.php');
+
 check(phpwcms_storage_path('../phpwcms-storage', '/srv/www/site') === '/srv/www/phpwcms-storage', 'relative sibling resolves');
 check(phpwcms_storage_path('', '/srv/www/site') === '/srv/www/phpwcms-storage', 'empty uses default sibling');
 check(phpwcms_storage_path('/data/private', '/srv/www/site') === '/data/private', 'absolute stays absolute');

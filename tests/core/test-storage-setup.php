@@ -12,6 +12,7 @@ check(str_contains($setupFunc, "\$phpwcms['storage_path']"), 'conf writer persis
 check(str_contains($setupFunc, "'../phpwcms-storage'"), 'conf writer defaults to ../phpwcms-storage');
 check(str_contains($setupCheck, 'phpwcms_storage_path('), 'setup resolves the storage root');
 check(str_contains($setupCheck, 'phpwcms_storage_ensure('), 'setup creates the storage tree');
+check(str_contains($setupCheck, 'chgrp'), 'setup shares the private tree with the owner group');
 check(str_contains($step4, 'name="storage_path"'), 'path step renders the storage_path input');
 check(str_contains($step6, 'Private Storage'), 'installer reports the private storage directory');
 

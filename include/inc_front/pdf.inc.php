@@ -50,7 +50,7 @@ if(write_textfile($_PDF_html, $_PDF_page)) {
 
 		@chmod($_PDF_html, 0600);
 
-		$cmd = $phpwcms['wkhtmltopdf_path'] . ' --enable-local-file-access ' . escapeshellarg($_PDF_html) . ' ' . escapeshellarg($_PDF_file);
+		$cmd = $phpwcms['wkhtmltopdf_path'] . ' ' . escapeshellarg($_PDF_html) . ' ' . escapeshellarg($_PDF_file);
 
 		@exec($cmd, $output, $retval);
 
@@ -59,11 +59,15 @@ if(write_textfile($_PDF_html, $_PDF_page)) {
 			@chmod($_PDF_file, 0600);
 			@unlink($_PDF_html);
 
+			$_PDF_name = basename($_PDF_file);
+			$_PDF_ascii = str_replace(array('"', '\\', "\r", "\n"), '_', (string)preg_replace('/[^\x20-\x7E]/', '_', $_PDF_name));
+
 			header('Content-Type: application/pdf');
-			header("Content-Disposition: inline; filename*=UTF-8''" . rawurlencode(basename($_PDF_file)));
+			header('Content-Disposition: inline; filename="' . ($_PDF_ascii !== '' ? $_PDF_ascii : 'print.pdf') . '"; filename*=UTF-8\'\'' . rawurlencode($_PDF_name));
 			header('Content-Length: ' . filesize($_PDF_file));
 			header('Cache-Control: private, no-store');
 			readfile($_PDF_file);
+			@unlink($_PDF_file);
 			exit();
 
 		}

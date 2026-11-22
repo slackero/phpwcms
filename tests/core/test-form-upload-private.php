@@ -1,5 +1,6 @@
 <?php
 define('PHPWCMS_FORM', '/srv/private/form/');
+define('CONTENT_PATH', 'pages/');
 $general = file_get_contents(dirname(__DIR__, 2) . '/include/inc_lib/general.inc.php');
 if (!preg_match('/^function phpwcms_form_upload_dir\b.*?^}/ms', $general, $m)) {
     fwrite(STDERR, "FAIL could not find phpwcms_form_upload_dir() in general.inc.php\n");
@@ -20,5 +21,6 @@ check(phpwcms_form_upload_dir('C:\\temp') === '/srv/private/form/', 'drive path 
 check(phpwcms_form_upload_dir('a/../../b') === '/srv/private/form/', 'nested traversal rejected');
 check(phpwcms_form_upload_dir('a/./b') === '/srv/private/form/', 'dot segment rejected');
 check(phpwcms_form_upload_dir('content/form') === '/srv/private/form/', 'legacy default folder maps to the form root');
+check(phpwcms_form_upload_dir('pages/form') === '/srv/private/form/', 'legacy folder with a custom content path maps to the form root');
 check(phpwcms_form_upload_dir('content/form/invoices') === '/srv/private/form/content/form/invoices/', 'legacy prefix on a real subdirectory stays a subdirectory');
 exit($failures === 0 ? 0 : 1);

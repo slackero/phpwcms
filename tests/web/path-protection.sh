@@ -121,5 +121,5 @@ for base in "$APACHE_URL" "$NGINX_URL"; do
     fi
 done
 
-docker compose down -v
+docker compose down
 exit $((failures > 0 ? 1 : 0))

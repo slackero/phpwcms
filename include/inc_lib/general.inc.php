@@ -1901,7 +1901,9 @@ function phpwcms_form_upload_dir($folder = '') {
     if (defined('CONTENT_PATH')) {
         $legacy_root = trim((string)CONTENT_PATH, '/') . '/form';
     }
-    if ($folder === 'content/form' || ($legacy_root !== '' && strcasecmp($folder, $legacy_root) === 0)) {
+    // the pre-split default was the literal 'content/form', independent of a
+    // renamed content path
+    if (strcasecmp($folder, 'content/form') === 0 || ($legacy_root !== '' && strcasecmp($folder, $legacy_root) === 0)) {
         return $base;
     }
 
@@ -1985,7 +1987,8 @@ function phpwcms_form_upload_target($token) {
     $relative = substr($payload, 5);
     if (
         $relative === ''
-        || str_contains($relative, '..')
+        || str_starts_with($relative, '..')
+        || preg_match('#/\.\.(?:/|$)#', $relative) === 1
         || str_contains($relative, '\\')
         || str_starts_with($relative, '/')
         || preg_match('#^[A-Za-z]:#', $relative)

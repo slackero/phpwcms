@@ -94,7 +94,7 @@ function phpwcms_storage_require(?string $root = null): void
     if ($root === null) {
         if (!defined('PHPWCMS_STORAGE_ROOT')) {
             throw new RuntimeException(
-                'Private storage root is not configured. Set $phpwcms[\'storage_path\'] in include/config/inc.conf.php.'
+                'Private storage root is not configured. Set $phpwcms[\'storage_path\'] in include/config/conf.inc.php.'
             );
         }
         $root = (string)PHPWCMS_STORAGE_ROOT;

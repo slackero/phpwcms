@@ -35,6 +35,11 @@ check(!str_contains($sitemap, 'mkdir($cache_dir, 0777'), 'sitemap cache is not w
 $pdf = read_file($root . '/include/inc_front/pdf.inc.php');
 check(str_contains($pdf, 'PHPWCMS_TEMP'), 'print-to-PDF stages in PHPWCMS_TEMP');
 check(!str_contains($pdf, "PHPWCMS_CONTENT.'tmp/'"), 'print-to-PDF no longer writes content/tmp');
+check(str_contains($pdf, '@unlink($_PDF_file)'), 'print-to-PDF removes the streamed PDF afterwards');
+check(str_contains($pdf, 'filename="') && str_contains($pdf, 'filename*=UTF-8'), 'print-to-PDF sends an ASCII filename fallback');
+
+$default = read_file($root . '/include/inc_lib/default.inc.php');
+check(preg_match('/phpwcms_storage_ensure\(\s*PHPWCMS_STORAGE_ROOT\s*\.\s*\'tmp\/\'/', $default) === 1, 'bootstrap ensures the private tmp directory');
 
 $upgrade = read_file($root . '/setup/upgrade.php');
 $auth_pos = strpos($upgrade, '$isAuthenticated = !empty($_SESSION');

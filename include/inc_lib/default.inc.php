@@ -190,9 +190,13 @@ define('PHPWCMS_BACKUP', PHPWCMS_STORAGE_ROOT . 'backup/');
 define('PHPWCMS_FORM', PHPWCMS_STORAGE_ROOT . 'form/');
 define('PHPWCMS_LOGDIR', PHPWCMS_STORAGE_ROOT . 'log');
 $phpwcms['form_token_key'] = (string)($phpwcms['form_token_key'] ?? '');
-define('PHPWCMS_FORM_TOKEN_KEY', $phpwcms['form_token_key'] !== '' ? $phpwcms['form_token_key'] : $phpwcms['db_user'] . "\0" . $phpwcms['db_pass']);
+define('PHPWCMS_FORM_TOKEN_KEY', $phpwcms['form_token_key'] !== '' ? $phpwcms['form_token_key'] : (string)$phpwcms['db_user'] . "\0" . (string)$phpwcms['db_pass']);
 if (!phpwcms_storage_ensure($phpwcms_storage_root, 0700)) {
     phpwcms_storage_require($phpwcms_storage_root);
+}
+// the revision engine writes lock and marker files here on the first run
+if (!phpwcms_storage_ensure(PHPWCMS_STORAGE_ROOT . 'tmp/', 0700)) {
+    phpwcms_storage_require(PHPWCMS_STORAGE_ROOT . 'tmp/');
 }
 define('PHPWCMS_CONTENT', PHPWCMS_ROOT . '/' . $phpwcms['content_path']);
 define('PHPWCMS_THUMB', PHPWCMS_CONTENT . $phpwcms['cimage_path']);

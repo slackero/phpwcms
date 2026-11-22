@@ -97,7 +97,7 @@ Temporary files, caches, logs, updater backups and form uploads live outside the
 - **Form uploads** are stored in `<storage_path>/form/` and are no longer public. Mailed links use the signed controller `formfile.php?t=<token>`; the token is encrypted with `$phpwcms['form_token_key']` (falls back to `db_user` + `db_pass`), so changing the database user or password invalidates links in already-sent mail. Links sent by older versions pointed at `content/form/` and stop working.
 - **`folder=`** in a form field is an optional subdirectory below `<storage_path>/form/`. Absolute paths, `..`, backslashes and drive letters are rejected and fall back to the form root.
 - **Backups** are written to `<storage_path>/backup/` and are never exposed over HTTP. The old `upgrade.php?download=` links are gone; retrieve backups over FTP/SSH.
-- Server configuration in `.htaccess`, `nginx.conf` and `web.config` denies `content/{tmp,cache,log,backup,form}`, internal `include/` directories, `upload/`, `tests/` and `filearchive/` by default, independent of `.htaccess` support.
+- Server configuration denies `content/{tmp,cache,log,backup,form}`, internal `include/` directories, `upload/` and `tests/` by default. nginx and IIS (`web.config`) also deny `filearchive/` out of the box; on Apache it is protected by its own `.htaccess`, which is inert when the server runs with `AllowOverride None`.
 
 ---
 

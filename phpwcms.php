@@ -597,12 +597,14 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
                     || (in_array($_SESSION['wcs_user_id'], $grouparray['module'])
                         && isset($modulearray[$module])
                         && in_array($_SESSION['wcs_user_id'], $modulearray[$module]));
-                if ($module_allowed) {
-                    include $phpwcms['modules'][$module]['path'].'backend.default.php';
-                } else {
-                    // no permission for this module: show the backend start page
-                    headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string());
-                }
+            } else {
+                $module_allowed = false;
+            }
+            if ($module_allowed) {
+                include $phpwcms['modules'][$module]['path'].'backend.default.php';
+            } else {
+                // disabled, unknown or denied module: show the backend start page
+                headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string());
             }
             break;
 
