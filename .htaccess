@@ -1,6 +1,21 @@
 # Avoid accessing typical project specific IDE settings, system files, and configuration dependencies
-RedirectMatch 404 /(^|/)\.(?!well-known)
+RedirectMatch 404 /\.(?!well-known)
 RedirectMatch 404 /(composer\.(json|lock)|package(-lock)?\.json|Dockerfile|docker-compose\.ya?ml|Makefile|phpstan\.neon(\.default)?)$
+
+# Block web access to private storage, internal paths and upload folders.
+# Content form uploads are served by the signed-link controller formfile.php,
+# never by a public path. Directory listing and script execution in content/
+# are blocked separately. Patterns are not anchored to the document root, so
+# they also apply to installations in a subfolder.
+RedirectMatch 404 /content/(tmp|cache|log|backup|form)/
+RedirectMatch 404 /include/(config|vendor|inc_act|inc_front|inc_help|inc_lang|inc_lib|inc_module|inc_tmpl)/
+RedirectMatch 404 /include/inc_ext/(?!ckeditor/)
+RedirectMatch 404 /upload/
+RedirectMatch 404 /tests/
+RedirectMatch 404 /(CHANGELOG|README|DEPENDENCIES|SECURITY|CODE_OF_CONDUCT|ANTIGRAVITY|CLAUDE)\.md$
+RedirectMatch 404 \.(sql|log|bak|dist)$
+
+# Root entry scripts (index.php, formfile.php, …) stay reachable.
 
 # Add charset UTF-8 for css and js files
 AddCharset UTF-8 .css .js

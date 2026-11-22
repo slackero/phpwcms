@@ -9,9 +9,41 @@ services:
       - "8080:80"
     volumes:
       - .:/var/www/html
+      - phpwcms_storage:/var/www/phpwcms-storage
     depends_on:
       - db
       - mailpit
+      - php
+
+  # PHP-FPM for the nginx service
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.fpm
+    container_name: phpwcms-php
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+      - phpwcms_storage:/var/www/phpwcms-storage
+    # the named volume starts as root; the workers run as www-data
+    command: sh -c "mkdir -p /var/www/phpwcms-storage && chown -R www-data:www-data /var/www/phpwcms-storage && exec php-fpm"
+    depends_on:
+      - db
+      - mailpit
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: phpwcms-nginx
+    restart: unless-stopped
+    ports:
+      - "8082:80"
+    volumes:
+      - .:/var/www/html
+      - ./nginx.conf:/etc/nginx/phpwcms.conf:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - phpwcms_storage:/var/www/phpwcms-storage:ro
+    depends_on:
+      - php
 
   db:
     image: mariadb:10.11
@@ -52,3 +84,4 @@ services:
 
 volumes:
   db_data:
+  phpwcms_storage:

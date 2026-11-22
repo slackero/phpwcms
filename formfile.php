@@ -15,6 +15,14 @@
 $phpwcms = array('SESSION_START' => false);
 $phpwcms_root = rtrim(str_replace('\\', '/', dirname(__FILE__)), '/');
 
+// An uninstalled site has no private uploads; never leak a bootstrap fatal.
+if (!is_file($phpwcms_root . '/include/config/conf.inc.php')) {
+    http_response_code(404);
+    header('Content-Type: text/plain; charset=utf-8');
+    echo 'File not found.';
+    exit;
+}
+
 require_once $phpwcms_root . '/include/config/conf.inc.php';
 require_once $phpwcms_root . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';

@@ -2571,6 +2571,7 @@ if ($isCli) {
         }
         cli_print("Dumping database tables to $sqlBackupFile...\n");
         if (create_db_dump($mysqli, $dbPrepend, $sqlBackupFile)) {
+            @chmod($sqlBackupFile, 0600);
             $size = round(filesize($sqlBackupFile) / 1024, 1);
             cli_print("Database backup completed ($size KB).\n", 'green');
             $backupFiles['db'] = $sqlBackupFile;
@@ -2596,6 +2597,7 @@ if ($isCli) {
             echo "\n";
             $actualBackupFile = is_file($zipBackupFile) ? $zipBackupFile : $backupDir . '/files.tar.gz';
             if ($ok && is_file($actualBackupFile)) {
+                @chmod($actualBackupFile, 0600);
                 $mb = round(filesize($actualBackupFile) / (1024 * 1024), 2);
                 cli_print("File backup completed ($mb MB) at $actualBackupFile\n", 'green');
                 $backupFiles['files'] = $actualBackupFile;
@@ -3210,6 +3212,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
 
                             $logWeb('Creating database backup' . ($hasZlib ? ' (compressed)...' : ' (uncompressed, ext-zlib missing)...'));
                             if (create_db_dump($mysqli, $dbPrepend, $backupDir . '/' . $sqlFile)) {
+                                @chmod($backupDir . '/' . $sqlFile, 0600);
                                 $logWeb("✓ Database backup created: $sqlFile");
                             } else {
                                 $logWeb('✗ Database backup failed! Aborting upgrade to protect installation.');
@@ -3222,6 +3225,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                 try {
                                     if (create_files_backup($docRoot, $phpwcms, $backupDir . '/' . $zipFile, $includeArchive)) {
                                         $actualFile = is_file($backupDir . '/' . $zipFile) ? $zipFile : "files-$backupTimestamp.tar.gz";
+                                        @chmod($backupDir . '/' . $actualFile, 0600);
                                         $logWeb("✓ File backup created: $actualFile");
                                     } else {
                                         $logWeb('✗ File backup creation failed! Aborting upgrade to protect installation.');

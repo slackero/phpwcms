@@ -85,3 +85,6 @@ node_modules/
 # setup wizard to work, so we need to keep it in the repo
 !/bin/get-oauth-token.php
 /release
+
+# private storage (host-side path used by docker/manual installs)
+/phpwcms-storage/
