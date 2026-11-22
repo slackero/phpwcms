@@ -1929,8 +1929,12 @@ $cnt_form_upload_file = function($folder, $name) {
     if(!is_string($folder) || !is_string($name) || $name === '') {
         return false;
     }
-    $file = realpath(PHPWCMS_ROOT . '/' . $folder . '/' . $name);
-    $root = realpath(PHPWCMS_ROOT);
+    $dir = phpwcms_form_upload_dir($folder);
+    if(!is_file($dir . $name)) {
+        return false;
+    }
+    $file = realpath($dir . $name);
+    $root = realpath(PHPWCMS_FORM);
     if($file === false || $root === false || !is_file($file) || !str_starts_with($file, $root . DIRECTORY_SEPARATOR)) {
         return false;
     }
@@ -1954,8 +1958,9 @@ $cnt_form_upload_link = function($upload, $base_url) {
     if($base_url === '') {
         return html_specialchars($upload['name']);
     }
+    $relative = phpwcms_form_upload_relative($upload['folder'] ?? '', $upload['name']);
 
-    return '<a href="' . $base_url . $upload['folder'] . '/' . rawurlencode($upload['name']) . '" target="_blank">' . html_specialchars($upload['name']) . '</a>';
+    return '<a href="' . html_specialchars(phpwcms_form_upload_url($relative)) . '" target="_blank">' . html_specialchars($upload['name']) . '</a>';
 };
 
 // base URL for every link this form mails out, empty when it cannot be trusted
@@ -2000,10 +2005,10 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
                     if (empty($POST_keyval['name'])) {
                         $POST_keyval = $POST_keyval['text_no_upload'];
                     } else {
-                        // the link ends up in the mail, so it must not follow a
-                        // host forged through the request headers
+                        // the link ends up in the mail and points at the signed
+                        // controller, never at a public upload path
                         $POST_valurl = $_cnt_form_mail_site_url !== ''
-                            ? $_cnt_form_mail_site_url . $POST_keyval['folder'] . '/' . rawurlencode( $POST_keyval['name'] )
+                            ? phpwcms_form_upload_url(phpwcms_form_upload_relative($POST_keyval['folder'], $POST_keyval['name']))
                             : $POST_keyval['name'];
                         if ( isset( $POST_keyval['attachment'] ) && $POST_keyval['attachment'] ) {
                             $attach_file = $cnt_form_upload_file($POST_keyval['folder'], $POST_keyval['name']);

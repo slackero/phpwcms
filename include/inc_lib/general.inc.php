@@ -1904,6 +1904,94 @@ function phpwcms_form_upload_dir($folder = '') {
 }
 
 /**
+ * Path of a stored upload relative to PHPWCMS_FORM, as used by the token.
+ *
+ * @param string $folder
+ * @param string $name
+ *
+ * @return string
+ */
+function phpwcms_form_upload_relative($folder, $name) {
+    $dir = phpwcms_form_upload_dir($folder);
+
+    return ltrim(substr($dir, strlen((string)PHPWCMS_FORM)), '/') . (string)$name;
+}
+
+/**
+ * Signed token for a stored form upload. Uses the mail-stable form key, never
+ * the request-bound PHPWCMS_USER_KEY, so a link keeps working when the
+ * recipient opens the mail from another IP address.
+ *
+ * @param string $relative Path relative to PHPWCMS_FORM
+ *
+ * @return string URL-safe token
+ */
+function phpwcms_form_upload_token($relative) {
+    $encrypted = phpwcms_encrypt('form|' . (string)$relative, PHPWCMS_FORM_TOKEN_KEY);
+
+    return rtrim(strtr(base64_encode($encrypted), '+/', '-_'), '=');
+}
+
+/**
+ * Public link to a stored form upload.
+ *
+ * @param string $relative Path relative to PHPWCMS_FORM
+ *
+ * @return string
+ */
+function phpwcms_form_upload_url($relative) {
+    return rtrim((string)PHPWCMS_URL, '/') . '/formfile.php?t=' . rawurlencode(phpwcms_form_upload_token($relative));
+}
+
+/**
+ * Resolve a signed token to a file inside PHPWCMS_FORM.
+ *
+ * Returns false for edited or forged tokens, traversal payloads, absolute
+ * paths and missing files. The realpath() check keeps a symlink from pointing
+ * outside the form storage.
+ *
+ * @param string $token
+ *
+ * @return string|false Absolute file path
+ */
+function phpwcms_form_upload_target($token) {
+    if (!is_string($token) || $token === '') {
+        return false;
+    }
+
+    $encoded = strtr($token, '-_', '+/');
+    $encoded .= str_repeat('=', (4 - strlen($encoded) % 4) % 4);
+    $encrypted = base64_decode($encoded, true);
+    if ($encrypted === false) {
+        return false;
+    }
+
+    $payload = phpwcms_decrypt($encrypted, PHPWCMS_FORM_TOKEN_KEY);
+    if (!is_string($payload) || !str_starts_with($payload, 'form|')) {
+        return false;
+    }
+
+    $relative = substr($payload, 5);
+    if (
+        $relative === ''
+        || str_contains($relative, '..')
+        || str_contains($relative, '\\')
+        || str_starts_with($relative, '/')
+        || preg_match('#^[A-Za-z]:#', $relative)
+    ) {
+        return false;
+    }
+
+    $base = realpath(PHPWCMS_FORM);
+    $target = realpath(PHPWCMS_FORM . $relative);
+    if ($base === false || $target === false || !is_file($target)) {
+        return false;
+    }
+
+    return str_starts_with($target, $base . DIRECTORY_SEPARATOR) ? $target : false;
+}
+
+/**
  * Check every dot-separated extension of the name an upload is stored as.
  *
  * The extensions have to be checked after sanitize_filename(), because the
