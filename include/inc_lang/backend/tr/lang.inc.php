@@ -1781,3 +1781,49 @@ $BL['be_admin_mail_component_html_note'] = 'Bu bileşen için HTML biçimlendirm
 $BL['be_admin_mail_template']       = 'E-posta Şablonu';
 
 $BL['be_newsletter_nourl'] = 'Bülten gönderilmedi: site URL adresi yapılandırılmamış veya güvenilir değil.';
+
+// security check
+$BL['be_security_check'] = 'Güvenlik denetimi';
+$BL['be_security_intro'] = 'Özel depolamayı, eski content dizinlerini ve her dizinin red dosyalarını denetler. Güncelleyici %1$s, %2$s ve %3$s dizinlerini atlar; bu dosyalar güncellemeden sonra eksik veya eski olabilir.';
+$BL['be_security_results'] = 'Bulgular';
+$BL['be_security_ok'] = 'Tamam';
+$BL['be_security_warn'] = 'Uyarı';
+$BL['be_security_fail'] = 'Sorun';
+$BL['be_security_repair'] = 'Güvenli bulguları onar';
+$BL['be_security_repair_hint'] = 'Eksik özel dizinleri ve red dosyalarını oluşturur. Kullanıcı verilerini asla silmez veya taşımaz; elle çalışma gerektiren bulgular listede kalır.';
+$BL['be_security_fixed'] = 'bulgu onarıldı.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Özel depolama kökü';
+$BL['be_security_row_storage_dir'] = 'Özel: %s/';
+$BL['be_security_row_legacy_dir'] = 'Eski: %s/';
+$BL['be_security_row_protector_form'] = 'Form yükleme dizini';
+$BL['be_security_row_protector_cache'] = 'Eski önbellek dizini';
+$BL['be_security_row_protector_config'] = 'Yapılandırma dizini';
+$BL['be_security_row_protector_upload'] = 'FTP yükleme dizini';
+$BL['be_security_row_protector_tests'] = 'Test betikleri';
+$BL['be_security_row_protector_filearchive'] = 'Dosya arşivi';
+$BL['be_security_row_root_rule'] = 'Kök sunucu yapılandırması';
+$BL['be_security_row_form_token_key'] = 'Form bağlantısı sırrı';
+$BL['be_security_row_setup_dir'] = 'setup dizini';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Eksik: %s';
+$BL['be_security_detail_not_writable'] = 'Yazılamaz: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Eksik veya yazılamaz: %s';
+$BL['be_security_detail_no_root'] = 'Depolama kökü yapılandırılmamış.';
+$BL['be_security_detail_mode_open'] = 'Mod %s, beklenen 0700.';
+$BL['be_security_detail_removed'] = 'Kaldırıldı.';
+$BL['be_security_detail_leftover_one'] = '1 girdi hâlâ document root içinde.';
+$BL['be_security_detail_leftover_many'] = '%d girdi hâlâ document root içinde.';
+$BL['be_security_detail_leftover_denied_one'] = '1 girdi bir yasak dosyasının arkasında; özel depolamaya taşıyın.';
+$BL['be_security_detail_leftover_denied_many'] = '%d girdi bir yasak dosyasının arkasında; özel depolamaya taşıyın.';
+$BL['be_security_detail_empty_denied'] = 'Boş ve yasaklı; dizini kaldırın.';
+$BL['be_security_detail_empty_open'] = 'Yasak dosyası olmayan boş dizin.';
+$BL['be_security_detail_no_deny_rule'] = '%s içinde yasak kuralı yok.';
+$BL['be_security_detail_downloads_open'] = 'Doğrudan indirmeler etkin (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Doğrudan indirmeler devre dışı.';
+$BL['be_security_detail_root_ok'] = '%s özel yolları engeller.';
+$BL['be_security_detail_root_missing'] = 'Yasak kurallarını içeren sunucu yapılandırması bulunamadı.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key boş; db_user + db_pass kullanılıyor.';
+$BL['be_security_detail_token_ok'] = 'Özel bir form_token_key yapılandırılmış.';
+$BL['be_security_detail_setup_present'] = 'setup/ hâlâ mevcut; kaldırın veya engelleyin.';

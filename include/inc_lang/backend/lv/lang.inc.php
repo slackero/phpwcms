@@ -1798,3 +1798,49 @@ $BL['be_admin_mail_component_html_note'] = 'Šī komponenta HTML marķējums. Ta
 $BL['be_admin_mail_template']       = 'E-pasta veidne';
 
 $BL['be_newsletter_nourl'] = 'Biļetens nav nosūtīts: vietnes URL nav konfigurēts vai nav uzticams.';
+
+// security check
+$BL['be_security_check'] = 'Drošības pārbaude';
+$BL['be_security_intro'] = 'Pārbauda privāto krātuvi, vecās content mapes un katras mapes aizlieguma failus. Atjauninātājs izlaiž %1$s, %2$s un %3$s, tāpēc pēc atjaunināšanas šie faili var trūkt vai būt novecojuši.';
+$BL['be_security_results'] = 'Atradumi';
+$BL['be_security_ok'] = 'Labi';
+$BL['be_security_warn'] = 'Brīdinājums';
+$BL['be_security_fail'] = 'Problēma';
+$BL['be_security_repair'] = 'Labot drošos atradumus';
+$BL['be_security_repair_hint'] = 'Izveido trūkstošās privātās mapes un aizlieguma failus. Nekad nedzēš un nepārvieto lietotāja datus; atradumi, kam nepieciešams manuāls darbs, paliek sarakstā.';
+$BL['be_security_fixed'] = 'atradums(-i) labots.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Privātās krātuves sakne';
+$BL['be_security_row_storage_dir'] = 'Privāts: %s/';
+$BL['be_security_row_legacy_dir'] = 'Vecs: %s/';
+$BL['be_security_row_protector_form'] = 'Veidlapu augšupielādes mape';
+$BL['be_security_row_protector_cache'] = 'Vecā kešatmiņas mape';
+$BL['be_security_row_protector_config'] = 'Konfigurācijas mape';
+$BL['be_security_row_protector_upload'] = 'FTP augšupielādes mape';
+$BL['be_security_row_protector_tests'] = 'Testa skripti';
+$BL['be_security_row_protector_filearchive'] = 'Failu arhīvs';
+$BL['be_security_row_root_rule'] = 'Servera konfigurācija saknē';
+$BL['be_security_row_form_token_key'] = 'Veidlapu saišu noslēpums';
+$BL['be_security_row_setup_dir'] = 'setup mape';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Trūkst: %s';
+$BL['be_security_detail_not_writable'] = 'Nav rakstīšanas tiesību: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Trūkst vai nav rakstīšanas tiesību: %s';
+$BL['be_security_detail_no_root'] = 'Krātuves sakne nav konfigurēta.';
+$BL['be_security_detail_mode_open'] = 'Režīms %s, gaidīts 0700.';
+$BL['be_security_detail_removed'] = 'Noņemts.';
+$BL['be_security_detail_leftover_one'] = '1 ieraksts joprojām ir document root.';
+$BL['be_security_detail_leftover_many'] = '%d ieraksti joprojām ir document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 ieraksts ir aiz liegšanas faila; pārvietojiet to uz privāto krātuvi.';
+$BL['be_security_detail_leftover_denied_many'] = '%d ieraksti ir aiz liegšanas faila; pārvietojiet tos uz privāto krātuvi.';
+$BL['be_security_detail_empty_denied'] = 'Tukšs un liegts; noņemiet mapi.';
+$BL['be_security_detail_empty_open'] = 'Tukša mape bez liegšanas faila.';
+$BL['be_security_detail_no_deny_rule'] = 'Nav liegšanas noteikuma %s.';
+$BL['be_security_detail_downloads_open'] = 'Tiešās lejupielādes ir iespējotas (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Tiešās lejupielādes ir atslēgtas.';
+$BL['be_security_detail_root_ok'] = '%s liedz privātos ceļus.';
+$BL['be_security_detail_root_missing'] = 'Nav atrasta piegādātā servera konfigurācija ar liegšanas noteikumiem.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key ir tukšs; izmanto db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Ir konfigurēts atsevišķs form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ joprojām pastāv; noņemiet vai bloķējiet.';

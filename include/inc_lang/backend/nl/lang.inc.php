@@ -1772,3 +1772,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML-opmaak voor deze component. Dez
 $BL['be_admin_mail_template']       = 'E-mailsjabloon';
 
 $BL['be_newsletter_nourl'] = 'Nieuwsbrief niet verzonden: de site-URL is niet geconfigureerd of niet vertrouwd.';
+
+// security check
+$BL['be_security_check'] = 'Beveiligingscontrole';
+$BL['be_security_intro'] = 'Controleert de privéopslag, de oude content-mappen en de deny-bestanden per map. De updater slaat %1$s, %2$s en %3$s over, dus deze bestanden kunnen na een update ontbreken of verouderd zijn.';
+$BL['be_security_results'] = 'Bevindingen';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Waarschuwing';
+$BL['be_security_fail'] = 'Probleem';
+$BL['be_security_repair'] = 'Veilige bevindingen herstellen';
+$BL['be_security_repair_hint'] = 'Maakt ontbrekende privémappen en deny-bestanden aan. Verwijdert of verplaatst nooit gebruikersgegevens; bevindingen die handmatig werk vereisen blijven in de lijst staan.';
+$BL['be_security_fixed'] = 'bevinding(en) hersteld.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Privé-opslagroot';
+$BL['be_security_row_storage_dir'] = 'Privé: %s/';
+$BL['be_security_row_legacy_dir'] = 'Oud: %s/';
+$BL['be_security_row_protector_form'] = 'Uploadmap voor formulieren';
+$BL['be_security_row_protector_cache'] = 'Oude cachemap';
+$BL['be_security_row_protector_config'] = 'Configuratiemap';
+$BL['be_security_row_protector_upload'] = 'FTP-uploadmap';
+$BL['be_security_row_protector_tests'] = 'Testscripts';
+$BL['be_security_row_protector_filearchive'] = 'Bestandsarchief';
+$BL['be_security_row_root_rule'] = 'Serverconfiguratie in de root';
+$BL['be_security_row_form_token_key'] = 'Geheim voor formulierlinks';
+$BL['be_security_row_setup_dir'] = 'Setup-map';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Ontbreekt: %s';
+$BL['be_security_detail_not_writable'] = 'Niet beschrijfbaar: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Ontbreekt of niet beschrijfbaar: %s';
+$BL['be_security_detail_no_root'] = 'Geen opslagroot geconfigureerd.';
+$BL['be_security_detail_mode_open'] = 'Modus %s, 0700 verwacht.';
+$BL['be_security_detail_removed'] = 'Verwijderd.';
+$BL['be_security_detail_leftover_one'] = '1 item staat nog in de document root.';
+$BL['be_security_detail_leftover_many'] = '%d items staan nog in de document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 item staat achter een deny-bestand; verplaats het naar de privé-opslag.';
+$BL['be_security_detail_leftover_denied_many'] = '%d items staan achter een deny-bestand; verplaats ze naar de privé-opslag.';
+$BL['be_security_detail_empty_denied'] = 'Leeg en geweigerd; verwijder de map.';
+$BL['be_security_detail_empty_open'] = 'Lege map zonder deny-bestand.';
+$BL['be_security_detail_no_deny_rule'] = 'Geen deny-regel in %s.';
+$BL['be_security_detail_downloads_open'] = 'Directe downloads zijn ingeschakeld (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Directe downloads zijn uitgeschakeld.';
+$BL['be_security_detail_root_ok'] = '%s weigert de privépaden.';
+$BL['be_security_detail_root_missing'] = 'Geen meegeleverde serverconfiguratie met de deny-regels gevonden.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key is leeg; terugval op db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Er is een eigen form_token_key geconfigureerd.';
+$BL['be_security_detail_setup_present'] = 'setup/ bestaat nog; verwijder of blokkeer deze.';

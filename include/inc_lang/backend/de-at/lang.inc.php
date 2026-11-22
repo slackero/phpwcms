@@ -1773,3 +1773,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML-Markup dieser Komponente. Sie w
 $BL['be_admin_mail_template']       = 'E-Mail Vorlage';
 
 $BL['be_newsletter_nourl'] = 'Newsletter nicht gesendet: Die Website-URL ist nicht konfiguriert oder nicht vertrauenswürdig.';
+
+// security check
+$BL['be_security_check'] = 'Sicherheitspr&uuml;fung';
+$BL['be_security_intro'] = 'Pr&uuml;ft den privaten Speicher, die alten content-Verzeichnisse und die Sperrdateien der einzelnen Verzeichnisse. Der Updater &uuml;berspringt %1$s, %2$s und %3$s, daher k&ouml;nnen diese Dateien nach einem Update fehlen oder veraltet sein.';
+$BL['be_security_results'] = 'Befunde';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Warnung';
+$BL['be_security_fail'] = 'Problem';
+$BL['be_security_repair'] = 'Sichere Befunde beheben';
+$BL['be_security_repair_hint'] = 'Legt fehlende private Verzeichnisse und Sperrdateien an. L&ouml;scht oder verschiebt keine Benutzerdaten; Befunde mit manuellem Aufwand bleiben gelistet.';
+$BL['be_security_fixed'] = 'Befund(e) behoben.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Privates Speicherverzeichnis';
+$BL['be_security_row_storage_dir'] = 'Privat: %s/';
+$BL['be_security_row_legacy_dir'] = 'Alt: %s/';
+$BL['be_security_row_protector_form'] = 'Formular-Upload-Verzeichnis';
+$BL['be_security_row_protector_cache'] = 'Altes Cache-Verzeichnis';
+$BL['be_security_row_protector_config'] = 'Konfigurationsverzeichnis';
+$BL['be_security_row_protector_upload'] = 'FTP-Upload-Verzeichnis';
+$BL['be_security_row_protector_tests'] = 'Testskripte';
+$BL['be_security_row_protector_filearchive'] = 'Dateiarchiv';
+$BL['be_security_row_root_rule'] = 'Serverkonfiguration im Wurzelverzeichnis';
+$BL['be_security_row_form_token_key'] = 'Geheimnis f&uuml;r Formularlinks';
+$BL['be_security_row_setup_dir'] = 'Setup-Verzeichnis';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Fehlt: %s';
+$BL['be_security_detail_not_writable'] = 'Nicht beschreibbar: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Fehlt oder nicht beschreibbar: %s';
+$BL['be_security_detail_no_root'] = 'Kein Speicherverzeichnis konfiguriert.';
+$BL['be_security_detail_mode_open'] = 'Modus %s, erwartet 0700.';
+$BL['be_security_detail_removed'] = 'Entfernt.';
+$BL['be_security_detail_leftover_one'] = '1 Eintrag liegt noch im Document Root.';
+$BL['be_security_detail_leftover_many'] = '%d Eintr&auml;ge liegen noch im Document Root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 Eintrag liegt hinter einer Sperrdatei; in den privaten Speicher verschieben.';
+$BL['be_security_detail_leftover_denied_many'] = '%d Eintr&auml;ge liegen hinter einer Sperrdatei; in den privaten Speicher verschieben.';
+$BL['be_security_detail_empty_denied'] = 'Leer und gesperrt; Verzeichnis entfernen.';
+$BL['be_security_detail_empty_open'] = 'Leeres Verzeichnis ohne Sperrdatei.';
+$BL['be_security_detail_no_deny_rule'] = 'Keine Sperrregel in %s.';
+$BL['be_security_detail_downloads_open'] = 'Direkte Downloads sind aktiviert (Opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Direkte Downloads sind deaktiviert.';
+$BL['be_security_detail_root_ok'] = '%s sperrt die privaten Pfade.';
+$BL['be_security_detail_root_missing'] = 'Keine mitgelieferte Serverkonfiguration mit den Sperrregeln gefunden.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key ist leer; R&uuml;ckfall auf db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Ein eigener form_token_key ist konfiguriert.';
+$BL['be_security_detail_setup_present'] = 'setup/ ist noch vorhanden; entfernen oder sperren.';

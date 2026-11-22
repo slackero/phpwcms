@@ -1809,3 +1809,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML-markup for denne komponent. Den
 $BL['be_admin_mail_template']       = 'E-mailskabelon';
 
 $BL['be_newsletter_nourl'] = 'Nyhedsbrev ikke sendt: webstedsadressen er ikke konfigureret eller ikke betroet.';
+
+// security check
+$BL['be_security_check'] = 'Sikkerhedskontrol';
+$BL['be_security_intro'] = 'Kontrollerer det private lager, de gamle content-mapper og deny-filerne i hver mappe. Opdateringen springer %1$s, %2$s og %3$s over, så disse filer kan mangle eller være forældede efter en opdatering.';
+$BL['be_security_results'] = 'Fund';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Advarsel';
+$BL['be_security_fail'] = 'Problem';
+$BL['be_security_repair'] = 'Ret sikre fund';
+$BL['be_security_repair_hint'] = 'Opretter manglende private mapper og deny-filer. Sletter eller flytter aldrig brugerdata; fund, der kræver manuelt arbejde, bliver på listen.';
+$BL['be_security_fixed'] = 'fund rettet.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Privat lagerrod';
+$BL['be_security_row_storage_dir'] = 'Privat: %s/';
+$BL['be_security_row_legacy_dir'] = 'Gammel: %s/';
+$BL['be_security_row_protector_form'] = 'Formular-uploadmappe';
+$BL['be_security_row_protector_cache'] = 'Gammel cachemappe';
+$BL['be_security_row_protector_config'] = 'Konfigurationsmappe';
+$BL['be_security_row_protector_upload'] = 'FTP-uploadmappe';
+$BL['be_security_row_protector_tests'] = 'Testscripts';
+$BL['be_security_row_protector_filearchive'] = 'Filarkiv';
+$BL['be_security_row_root_rule'] = 'Serverkonfiguration i roden';
+$BL['be_security_row_form_token_key'] = 'Hemmelighed for formularlinks';
+$BL['be_security_row_setup_dir'] = 'Setup-mappe';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Mangler: %s';
+$BL['be_security_detail_not_writable'] = 'Ikke skrivbar: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Mangler eller ikke skrivbar: %s';
+$BL['be_security_detail_no_root'] = 'Ingen lagerrod er konfigureret.';
+$BL['be_security_detail_mode_open'] = 'Tilstand %s, forventet 0700.';
+$BL['be_security_detail_removed'] = 'Fjernet.';
+$BL['be_security_detail_leftover_one'] = '1 post ligger stadig i document root.';
+$BL['be_security_detail_leftover_many'] = '%d poster ligger stadig i document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 post ligger bag en deny-fil; flyt den til det private lager.';
+$BL['be_security_detail_leftover_denied_many'] = '%d poster ligger bag en deny-fil; flyt dem til det private lager.';
+$BL['be_security_detail_empty_denied'] = 'Tom og afvist; fjern mappen.';
+$BL['be_security_detail_empty_open'] = 'Tom mappe uden deny-fil.';
+$BL['be_security_detail_no_deny_rule'] = 'Ingen deny-regel i %s.';
+$BL['be_security_detail_downloads_open'] = 'Direkte downloads er aktiveret (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Direkte downloads er deaktiveret.';
+$BL['be_security_detail_root_ok'] = '%s afviser de private stier.';
+$BL['be_security_detail_root_missing'] = 'Ingen medfølgende serverkonfiguration med deny-reglerne fundet.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key er tom; falder tilbage til db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'En dedikeret form_token_key er konfigureret.';
+$BL['be_security_detail_setup_present'] = 'setup/ findes stadig; fjern eller blokér den.';

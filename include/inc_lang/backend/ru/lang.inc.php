@@ -1807,3 +1807,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML-разметка этого к�
 $BL['be_admin_mail_template']       = 'Шаблон email';
 
 $BL['be_newsletter_nourl'] = 'Рассылка не отправлена: URL сайта не настроен или не является доверенным.';
+
+// security check
+$BL['be_security_check'] = 'Проверка безопасности';
+$BL['be_security_intro'] = 'Проверяет приватное хранилище, старые каталоги content и файлы запрета в каждом каталоге. Обновление пропускает %1$s, %2$s и %3$s, поэтому после обновления эти файлы могут отсутствовать или устареть.';
+$BL['be_security_results'] = 'Находки';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Предупреждение';
+$BL['be_security_fail'] = 'Проблема';
+$BL['be_security_repair'] = 'Исправить безопасные находки';
+$BL['be_security_repair_hint'] = 'Создаёт отсутствующие приватные каталоги и файлы запрета. Никогда не удаляет и не перемещает данные пользователей; находки, требующие ручной работы, остаются в списке.';
+$BL['be_security_fixed'] = 'находок исправлено.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Корень приватного хранилища';
+$BL['be_security_row_storage_dir'] = 'Приватный: %s/';
+$BL['be_security_row_legacy_dir'] = 'Старый: %s/';
+$BL['be_security_row_protector_form'] = 'Каталог загрузок форм';
+$BL['be_security_row_protector_cache'] = 'Старый каталог кеша';
+$BL['be_security_row_protector_config'] = 'Каталог конфигурации';
+$BL['be_security_row_protector_upload'] = 'Каталог FTP-загрузок';
+$BL['be_security_row_protector_tests'] = 'Тестовые скрипты';
+$BL['be_security_row_protector_filearchive'] = 'Архив файлов';
+$BL['be_security_row_root_rule'] = 'Конфигурация сервера в корне';
+$BL['be_security_row_form_token_key'] = 'Секрет ссылок форм';
+$BL['be_security_row_setup_dir'] = 'Каталог setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Отсутствует: %s';
+$BL['be_security_detail_not_writable'] = 'Нет доступа на запись: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Отсутствует или нет доступа на запись: %s';
+$BL['be_security_detail_no_root'] = 'Корень хранилища не настроен.';
+$BL['be_security_detail_mode_open'] = 'Режим %s, ожидается 0700.';
+$BL['be_security_detail_removed'] = 'Удалено.';
+$BL['be_security_detail_leftover_one'] = '1 запись остаётся в document root.';
+$BL['be_security_detail_leftover_many'] = 'Записей в document root: %d.';
+$BL['be_security_detail_leftover_denied_one'] = '1 запись остаётся за файлом запрета; переместите её в приватное хранилище.';
+$BL['be_security_detail_leftover_denied_many'] = 'Записей за файлом запрета: %d; переместите их в приватное хранилище.';
+$BL['be_security_detail_empty_denied'] = 'Пусто и запрещено; удалите каталог.';
+$BL['be_security_detail_empty_open'] = 'Пустой каталог без файла запрета.';
+$BL['be_security_detail_no_deny_rule'] = 'Нет правила запрета в %s.';
+$BL['be_security_detail_downloads_open'] = 'Прямые загрузки включены (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Прямые загрузки отключены.';
+$BL['be_security_detail_root_ok'] = '%s запрещает приватные пути.';
+$BL['be_security_detail_root_missing'] = 'Не найдена поставляемая конфигурация сервера с правилами запрета.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key пуст; используется db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Настроен отдельный form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ всё ещё присутствует; удалите или заблокируйте.';

@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = 'ਇਸ ਕੰਪੋਨੈਂਟ ਲ�
 $BL['be_admin_mail_template']       = 'ਈਮੇਲ ਟੈਮਪਲੇਟ';
 
 $BL['be_newsletter_nourl'] = 'ਨਿਊਜ਼ਲੈਟਰ ਨਹੀਂ ਭੇਜਿਆ ਗਿਆ: ਸਾਈਟ URL ਕੌਂਫਿਗਰ ਨਹੀਂ ਹੈ ਜਾਂ ਭਰੋਸੇਯੋਗ ਨਹੀਂ ਹੈ।';
+
+// security check
+$BL['be_security_check'] = 'ਸੁਰੱਖਿਆ ਜਾਂਚ';
+$BL['be_security_intro'] = 'ਨਿੱਜੀ ਸਟੋਰੇਜ, ਪੁਰਾਣੀਆਂ content ਡਾਇਰੈਕਟਰੀਆਂ ਅਤੇ ਹਰ ਡਾਇਰੈਕਟਰੀ ਦੀਆਂ deny ਫ਼ਾਈਲਾਂ ਦੀ ਜਾਂਚ ਕਰਦਾ ਹੈ। ਅੱਪਡੇਟਰ %1$s, %2$s ਅਤੇ %3$s ਛੱਡ ਦਿੰਦਾ ਹੈ, ਇਸ ਲਈ ਅੱਪਡੇਟ ਤੋਂ ਬਾਅਦ ਇਹ ਫ਼ਾਈਲਾਂ ਗੁੰਮ ਜਾਂ ਪੁਰਾਣੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ।';
+$BL['be_security_results'] = 'ਨਤੀਜੇ';
+$BL['be_security_ok'] = 'ਠੀਕ ਹੈ';
+$BL['be_security_warn'] = 'ਚੇਤਾਵਨੀ';
+$BL['be_security_fail'] = 'ਸਮੱਸਿਆ';
+$BL['be_security_repair'] = 'ਸੁਰੱਖਿਅਤ ਨਤੀਜੇ ਠੀਕ ਕਰੋ';
+$BL['be_security_repair_hint'] = 'ਗੁੰਮ ਨਿੱਜੀ ਡਾਇਰੈਕਟਰੀਆਂ ਅਤੇ deny ਫ਼ਾਈਲਾਂ ਬਣਾਉਂਦਾ ਹੈ। ਵਰਤੋਂਕਾਰ ਡੇਟਾ ਨੂੰ ਕਦੇ ਨਹੀਂ ਮਿਟਾਉਂਦਾ ਜਾਂ ਹਿਲਾਉਂਦਾ; ਹੱਥੀਂ ਕੰਮ ਵਾਲੇ ਨਤੀਜੇ ਸੂਚੀ ਵਿੱਚ ਰਹਿੰਦੇ ਹਨ।';
+$BL['be_security_fixed'] = 'ਨਤੀਜੇ ਠੀਕ ਕੀਤੇ ਗਏ।';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'ਨਿੱਜੀ ਸਟੋਰੇਜ ਰੂਟ';
+$BL['be_security_row_storage_dir'] = 'ਨਿੱਜੀ: %s/';
+$BL['be_security_row_legacy_dir'] = 'ਪੁਰਾਣਾ: %s/';
+$BL['be_security_row_protector_form'] = 'ਫਾਰਮ ਅੱਪਲੋਡ ਡਾਇਰੈਕਟਰੀ';
+$BL['be_security_row_protector_cache'] = 'ਪੁਰਾਣੀ ਕੈਸ਼ ਡਾਇਰੈਕਟਰੀ';
+$BL['be_security_row_protector_config'] = 'ਕੌਨਫਿਗਰੇਸ਼ਨ ਡਾਇਰੈਕਟਰੀ';
+$BL['be_security_row_protector_upload'] = 'FTP ਅੱਪਲੋਡ ਡਾਇਰੈਕਟਰੀ';
+$BL['be_security_row_protector_tests'] = 'ਟੈਸਟ ਸਕ੍ਰਿਪਟ';
+$BL['be_security_row_protector_filearchive'] = 'ਫਾਈਲ ਆਰਕਾਈਵ';
+$BL['be_security_row_root_rule'] = 'ਰੂਟ ਸਰਵਰ ਕੌਨਫਿਗਰੇਸ਼ਨ';
+$BL['be_security_row_form_token_key'] = 'ਫਾਰਮ ਲਿੰਕ ਸੀਕ੍ਰੇਟ';
+$BL['be_security_row_setup_dir'] = 'setup ਡਾਇਰੈਕਟਰੀ';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'ਗੁੰਮ: %s';
+$BL['be_security_detail_not_writable'] = 'ਲਿਖਣ ਯੋਗ ਨਹੀਂ: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'ਗੁੰਮ ਜਾਂ ਲਿਖਣ ਯੋਗ ਨਹੀਂ: %s';
+$BL['be_security_detail_no_root'] = 'ਕੋਈ ਸਟੋਰੇਜ ਰੂਟ ਕੌਨਫਿਗਰ ਨਹੀਂ ਹੈ।';
+$BL['be_security_detail_mode_open'] = 'ਮੋਡ %s, ਉਮੀਦ 0700।';
+$BL['be_security_detail_removed'] = 'ਹਟਾਇਆ ਗਿਆ।';
+$BL['be_security_detail_leftover_one'] = 'document root ਵਿੱਚ 1 ਐਂਟਰੀ ਬਾਕੀ ਹੈ।';
+$BL['be_security_detail_leftover_many'] = 'document root ਵਿੱਚ %d ਐਂਟਰੀਆਂ ਬਾਕੀ ਹਨ।';
+$BL['be_security_detail_leftover_denied_one'] = '1 ਐਂਟਰੀ deny ਫਾਈਲ ਪਿੱਛੇ ਹੈ; ਇਸਨੂੰ ਨਿੱਜੀ ਸਟੋਰੇਜ ਵਿੱਚ ਲੈ ਜਾਓ।';
+$BL['be_security_detail_leftover_denied_many'] = '%d ਐਂਟਰੀਆਂ deny ਫਾਈਲ ਪਿੱਛੇ ਹਨ; ਇਹਨਾਂ ਨੂੰ ਨਿੱਜੀ ਸਟੋਰੇਜ ਵਿੱਚ ਲੈ ਜਾਓ।';
+$BL['be_security_detail_empty_denied'] = 'ਖਾਲੀ ਅਤੇ ਬਲੌਕ; ਡਾਇਰੈਕਟਰੀ ਹਟਾਓ।';
+$BL['be_security_detail_empty_open'] = 'deny ਫਾਈਲ ਤੋਂ ਬਿਨਾਂ ਖਾਲੀ ਡਾਇਰੈਕਟਰੀ।';
+$BL['be_security_detail_no_deny_rule'] = '%s ਵਿੱਚ ਕੋਈ deny ਨਿਯਮ ਨਹੀਂ।';
+$BL['be_security_detail_downloads_open'] = 'ਸਿੱਧੇ ਡਾਊਨਲੋਡ ਚਾਲੂ ਹਨ (opt-in)।';
+$BL['be_security_detail_downloads_closed'] = 'ਸਿੱਧੇ ਡਾਊਨਲੋਡ ਬੰਦ ਹਨ।';
+$BL['be_security_detail_root_ok'] = '%s ਨਿੱਜੀ ਰਾਹਾਂ ਨੂੰ ਬਲੌਕ ਕਰਦਾ ਹੈ।';
+$BL['be_security_detail_root_missing'] = 'deny ਨਿਯਮਾਂ ਵਾਲੀ ਸਰਵਰ ਕੌਨਫਿਗਰੇਸ਼ਨ ਨਹੀਂ ਮਿਲੀ।';
+$BL['be_security_detail_token_fallback'] = 'form_token_key ਖਾਲੀ ਹੈ; db_user + db_pass ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।';
+$BL['be_security_detail_token_ok'] = 'ਖਾਸ form_token_key ਕੌਨਫਿਗਰ ਹੈ।';
+$BL['be_security_detail_setup_present'] = 'setup/ ਅਜੇ ਵੀ ਮੌਜੂਦ ਹੈ; ਹਟਾਓ ਜਾਂ ਬਲੌਕ ਕਰੋ।';

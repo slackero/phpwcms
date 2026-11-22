@@ -1772,3 +1772,49 @@ $BL['be_admin_mail_component_html_note'] = 'Kodi HTML për këtë komponent. Ai 
 $BL['be_admin_mail_template']       = 'Shabllon email-i';
 
 $BL['be_newsletter_nourl'] = 'Buletini nuk u dërgua: URL-ja e sajtit nuk është konfiguruar ose nuk është e besueshme.';
+
+// security check
+$BL['be_security_check'] = 'Kontroll sigurie';
+$BL['be_security_intro'] = 'Kontrollon ruajtjen private, drejtoritë e vjetra content dhe skedarët e refuzimit të çdo drejtorie. Përditësuesi i kalon %1$s, %2$s dhe %3$s, prandaj këta skedarë mund të mungojnë ose të jenë të vjetruar pas përditësimit.';
+$BL['be_security_results'] = 'Gjetjet';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Paralajmërim';
+$BL['be_security_fail'] = 'Problem';
+$BL['be_security_repair'] = 'Riparo gjetjet e sigurta';
+$BL['be_security_repair_hint'] = 'Krijon drejtoritë private dhe skedarët e refuzimit që mungojnë. Nuk fshin dhe nuk lëviz kurrë të dhëna përdoruesi; gjetjet që kërkojnë punë manuale mbeten të listuara.';
+$BL['be_security_fixed'] = 'gjetje të riparuara.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Rrënja e ruajtjes private';
+$BL['be_security_row_storage_dir'] = 'Private: %s/';
+$BL['be_security_row_legacy_dir'] = 'E vjetër: %s/';
+$BL['be_security_row_protector_form'] = 'Folderi i ngarkimeve të formularit';
+$BL['be_security_row_protector_cache'] = 'Folderi i vjetër i cache';
+$BL['be_security_row_protector_config'] = 'Folderi i konfigurimit';
+$BL['be_security_row_protector_upload'] = 'Folderi i ngarkimit FTP';
+$BL['be_security_row_protector_tests'] = 'Skriptet e testit';
+$BL['be_security_row_protector_filearchive'] = 'Arkivi i skedarëve';
+$BL['be_security_row_root_rule'] = 'Konfigurimi i serverit në rrënjë';
+$BL['be_security_row_form_token_key'] = 'Sekreti i lidhjeve të formularit';
+$BL['be_security_row_setup_dir'] = 'Folderi setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Mungon: %s';
+$BL['be_security_detail_not_writable'] = 'Nuk shkruhet: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Mungon ose nuk shkruhet: %s';
+$BL['be_security_detail_no_root'] = 'Nuk është konfiguruar rrënjë ruajtjeje.';
+$BL['be_security_detail_mode_open'] = 'Modaliteti %s, pritej 0700.';
+$BL['be_security_detail_removed'] = 'U hoq.';
+$BL['be_security_detail_leftover_one'] = '1 zë mbetet në document root.';
+$BL['be_security_detail_leftover_many'] = '%d zëra mbeten në document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 zë mbetet pas një skedari bllokimi; zhvendoseni në ruajtjen private.';
+$BL['be_security_detail_leftover_denied_many'] = '%d zëra mbeten pas një skedari bllokimi; zhvendosini në ruajtjen private.';
+$BL['be_security_detail_empty_denied'] = 'Bosh dhe i bllokuar; hiqni folderin.';
+$BL['be_security_detail_empty_open'] = 'Folder bosh pa skedar bllokimi.';
+$BL['be_security_detail_no_deny_rule'] = 'Nuk ka rregull bllokimi në %s.';
+$BL['be_security_detail_downloads_open'] = 'Shkarkimet direkte janë aktive (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Shkarkimet direkte janë joaktive.';
+$BL['be_security_detail_root_ok'] = '%s bllokon shtigjet private.';
+$BL['be_security_detail_root_missing'] = 'Nuk u gjet konfigurim serveri me rregullat e bllokimit.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key është bosh; përdoret db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Është konfiguruar një form_token_key i dedikuar.';
+$BL['be_security_detail_setup_present'] = 'setup/ është ende aty; hiqeni ose bllokojeni.';

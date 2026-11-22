@@ -1798,3 +1798,49 @@ $BL['be_admin_mail_component_html_note'] = 'ترميز HTML لهذا المكو�
 $BL['be_admin_mail_template']       = 'قالب البريد الإلكتروني';
 
 $BL['be_newsletter_nourl'] = 'لم يتم إرسال الرسالة الإخبارية: عنوان URL للموقع غير مهيأ أو غير موثوق.';
+
+// security check
+$BL['be_security_check'] = 'فحص الأمان';
+$BL['be_security_intro'] = 'يتحقق من مساحة التخزين الخاصة ومن أدلة المحتوى القديمة وملفات الحظر لكل دليل. يتخطى المحدّث %1$s و%2$s و%3$s، لذلك قد تبقى هذه الملفات مفقودة أو قديمة بعد التحديث.';
+$BL['be_security_results'] = 'النتائج';
+$BL['be_security_ok'] = 'موافق';
+$BL['be_security_warn'] = 'تحذير';
+$BL['be_security_fail'] = 'مشكلة';
+$BL['be_security_repair'] = 'إصلاح النتائج الآمنة';
+$BL['be_security_repair_hint'] = 'ينشئ الأدلة الخاصة وملفات الحظر المفقودة. لا يحذف أو ينقل بيانات المستخدم أبدًا؛ تبقى النتائج التي تحتاج تدخلًا يدويًا مدرجة.';
+$BL['be_security_fixed'] = 'نتيجة/نتائج تم إصلاحها.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'جذر التخزين الخاص';
+$BL['be_security_row_storage_dir'] = 'خاص: %s/';
+$BL['be_security_row_legacy_dir'] = 'قديم: %s/';
+$BL['be_security_row_protector_form'] = 'مجلد تحميلات النماذج';
+$BL['be_security_row_protector_cache'] = 'مجلد التخزين المؤقت القديم';
+$BL['be_security_row_protector_config'] = 'مجلد الإعدادات';
+$BL['be_security_row_protector_upload'] = 'مجلد تحميل FTP';
+$BL['be_security_row_protector_tests'] = 'سكربتات الاختبار';
+$BL['be_security_row_protector_filearchive'] = 'أرشيف الملفات';
+$BL['be_security_row_root_rule'] = 'إعدادات الخادم في الجذر';
+$BL['be_security_row_form_token_key'] = 'سر روابط النموذج';
+$BL['be_security_row_setup_dir'] = 'مجلد setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'مفقود: %s';
+$BL['be_security_detail_not_writable'] = 'غير قابل للكتابة: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'مفقود أو غير قابل للكتابة: %s';
+$BL['be_security_detail_no_root'] = 'لم يتم إعداد جذر تخزين.';
+$BL['be_security_detail_mode_open'] = 'الوضع %s، المتوقع 0700.';
+$BL['be_security_detail_removed'] = 'تمت الإزالة.';
+$BL['be_security_detail_leftover_one'] = 'يبقى إدخال واحد في document root.';
+$BL['be_security_detail_leftover_many'] = 'تبقى %d إدخالات في document root.';
+$BL['be_security_detail_leftover_denied_one'] = 'يبقى إدخال واحد خلف ملف الحظر؛ انقله إلى التخزين الخاص.';
+$BL['be_security_detail_leftover_denied_many'] = 'تبقى %d إدخالات خلف ملف الحظر؛ انقلها إلى التخزين الخاص.';
+$BL['be_security_detail_empty_denied'] = 'فارغ ومحظور؛ احذف المجلد.';
+$BL['be_security_detail_empty_open'] = 'مجلد فارغ بدون ملف حظر.';
+$BL['be_security_detail_no_deny_rule'] = 'لا توجد قاعدة حظر في %s.';
+$BL['be_security_detail_downloads_open'] = 'التنزيلات المباشرة مفعّلة (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'التنزيلات المباشرة معطّلة.';
+$BL['be_security_detail_root_ok'] = '%s يحظر المسارات الخاصة.';
+$BL['be_security_detail_root_missing'] = 'لم يتم العثور على إعدادات خادم مرفقة بقواعد الحظر.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key فارغ؛ يُستخدم db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'تم إعداد form_token_key مخصص.';
+$BL['be_security_detail_setup_present'] = 'setup/ ما زال موجودًا؛ احذفه أو احظره.';

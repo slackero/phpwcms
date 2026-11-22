@@ -1782,3 +1782,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML koda za to komponento. V glavno
 $BL['be_admin_mail_template']       = 'E-po&scaron;tna predloga';
 
 $BL['be_newsletter_nourl'] = 'E-novičke niso bile poslane: URL spletnega mesta ni nastavljen ali ni zaupanja vreden.';
+
+// security check
+$BL['be_security_check'] = 'Varnostno preverjanje';
+$BL['be_security_intro'] = 'Preveri zasebno shrambo, stare mape content in zavrnitvene datoteke v vsaki mapi. Posodobitev preskoči %1$s, %2$s in %3$s, zato te datoteke po posodobitvi lahko manjkajo ali so zastarele.';
+$BL['be_security_results'] = 'Ugotovitve';
+$BL['be_security_ok'] = 'V redu';
+$BL['be_security_warn'] = 'Opozorilo';
+$BL['be_security_fail'] = 'Težava';
+$BL['be_security_repair'] = 'Popravi varne ugotovitve';
+$BL['be_security_repair_hint'] = 'Ustvari manjkajoče zasebne mape in zavrnitvene datoteke. Nikoli ne izbriše ali premakne uporabniških podatkov; ugotovitve, ki zahtevajo ročno delo, ostanejo na seznamu.';
+$BL['be_security_fixed'] = 'ugotovitev popravljenih.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Koren zasebne shrambe';
+$BL['be_security_row_storage_dir'] = 'Zasebno: %s/';
+$BL['be_security_row_legacy_dir'] = 'Staro: %s/';
+$BL['be_security_row_protector_form'] = 'Mapa nalaganja obrazcev';
+$BL['be_security_row_protector_cache'] = 'Stara mapa predpomnilnika';
+$BL['be_security_row_protector_config'] = 'Mapa konfiguracije';
+$BL['be_security_row_protector_upload'] = 'Mapa nalaganja FTP';
+$BL['be_security_row_protector_tests'] = 'Testne skripte';
+$BL['be_security_row_protector_filearchive'] = 'Arhiv datotek';
+$BL['be_security_row_root_rule'] = 'Konfiguracija strežnika v korenu';
+$BL['be_security_row_form_token_key'] = 'Skrivnost povezav obrazca';
+$BL['be_security_row_setup_dir'] = 'Mapa setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Manjka: %s';
+$BL['be_security_detail_not_writable'] = 'Ni zapisljivo: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Manjka ali ni zapisljivo: %s';
+$BL['be_security_detail_no_root'] = 'Koren shrambe ni nastavljen.';
+$BL['be_security_detail_mode_open'] = 'Način %s, pričakovano 0700.';
+$BL['be_security_detail_removed'] = 'Odstranjeno.';
+$BL['be_security_detail_leftover_one'] = '1 vnos je še v document root.';
+$BL['be_security_detail_leftover_many'] = '%d vnosov je še v document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 vnos je za datoteko zavrnitve; premaknite ga v zasebno shrambo.';
+$BL['be_security_detail_leftover_denied_many'] = '%d vnosov je za datoteko zavrnitve; premaknite jih v zasebno shrambo.';
+$BL['be_security_detail_empty_denied'] = 'Prazno in zavrnjeno; odstranite mapo.';
+$BL['be_security_detail_empty_open'] = 'Prazna mapa brez datoteke zavrnitve.';
+$BL['be_security_detail_no_deny_rule'] = 'Ni pravila zavrnitve v %s.';
+$BL['be_security_detail_downloads_open'] = 'Neposredni prenosi so omogočeni (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Neposredni prenosi so onemogočeni.';
+$BL['be_security_detail_root_ok'] = '%s zavrne zasebne poti.';
+$BL['be_security_detail_root_missing'] = 'Priložena konfiguracija strežnika s pravili zavrnitve ni bila najdena.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key je prazen; uporablja se db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Nastavljen je namenski form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ še obstaja; odstranite ali blokirajte.';

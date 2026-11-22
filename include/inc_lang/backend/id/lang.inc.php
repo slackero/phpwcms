@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = 'Markup HTML untuk komponen ini. Komp
 $BL['be_admin_mail_template']       = 'Templat Email';
 
 $BL['be_newsletter_nourl'] = 'Buletin tidak dikirim: URL situs belum dikonfigurasi atau tidak tepercaya.';
+
+// security check
+$BL['be_security_check'] = 'Pemeriksaan keamanan';
+$BL['be_security_intro'] = 'Memeriksa penyimpanan privat, direktori content lama, dan file penolakan per direktori. Pembaru melewati %1$s, %2$s, dan %3$s, sehingga file tersebut bisa hilang atau usang setelah pembaruan.';
+$BL['be_security_results'] = 'Temuan';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Peringatan';
+$BL['be_security_fail'] = 'Masalah';
+$BL['be_security_repair'] = 'Perbaiki temuan aman';
+$BL['be_security_repair_hint'] = 'Membuat direktori privat dan file penolakan yang hilang. Tidak pernah menghapus atau memindahkan data pengguna; temuan yang perlu penanganan manual tetap terdaftar.';
+$BL['be_security_fixed'] = 'temuan diperbaiki.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Akar penyimpanan privat';
+$BL['be_security_row_storage_dir'] = 'Privat: %s/';
+$BL['be_security_row_legacy_dir'] = 'Lama: %s/';
+$BL['be_security_row_protector_form'] = 'Direktori unggahan formulir';
+$BL['be_security_row_protector_cache'] = 'Direktori cache lama';
+$BL['be_security_row_protector_config'] = 'Direktori konfigurasi';
+$BL['be_security_row_protector_upload'] = 'Direktori unggahan FTP';
+$BL['be_security_row_protector_tests'] = 'Skrip uji';
+$BL['be_security_row_protector_filearchive'] = 'Arsip file';
+$BL['be_security_row_root_rule'] = 'Konfigurasi server akar';
+$BL['be_security_row_form_token_key'] = 'Rahasia tautan formulir';
+$BL['be_security_row_setup_dir'] = 'Direktori setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Hilang: %s';
+$BL['be_security_detail_not_writable'] = 'Tidak dapat ditulis: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Hilang atau tidak dapat ditulis: %s';
+$BL['be_security_detail_no_root'] = 'Akar penyimpanan belum dikonfigurasi.';
+$BL['be_security_detail_mode_open'] = 'Mode %s, diharapkan 0700.';
+$BL['be_security_detail_removed'] = 'Dihapus.';
+$BL['be_security_detail_leftover_one'] = '1 entri masih di document root.';
+$BL['be_security_detail_leftover_many'] = '%d entri masih di document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 entri berada di balik file penolakan; pindahkan ke penyimpanan privat.';
+$BL['be_security_detail_leftover_denied_many'] = '%d entri berada di balik file penolakan; pindahkan ke penyimpanan privat.';
+$BL['be_security_detail_empty_denied'] = 'Kosong dan ditolak; hapus direktori.';
+$BL['be_security_detail_empty_open'] = 'Direktori kosong tanpa file penolakan.';
+$BL['be_security_detail_no_deny_rule'] = 'Tidak ada aturan penolakan di %s.';
+$BL['be_security_detail_downloads_open'] = 'Unduhan langsung diaktifkan (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Unduhan langsung dinonaktifkan.';
+$BL['be_security_detail_root_ok'] = '%s menolak jalur privat.';
+$BL['be_security_detail_root_missing'] = 'Konfigurasi server dengan aturan penolakan tidak ditemukan.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key kosong; memakai db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'form_token_key khusus telah dikonfigurasi.';
+$BL['be_security_detail_setup_present'] = 'setup/ masih ada; hapus atau blokir.';

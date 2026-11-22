@@ -1779,3 +1779,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML označavanje za ovu komponentu.
 $BL['be_admin_mail_template']       = 'Šablon e-pošte';
 
 $BL['be_newsletter_nourl'] = 'Newsletter nije poslan: URL stranice nije konfigurisan ili nije pouzdan.';
+
+// security check
+$BL['be_security_check'] = 'Sigurnosna provjera';
+$BL['be_security_intro'] = 'Provjerava privatno skladište, stare content direktorije i datoteke za blokiranje po direktorijima. Ažuriranje preskače %1$s, %2$s i %3$s, pa te datoteke mogu nedostajati ili biti zastarjele nakon ažuriranja.';
+$BL['be_security_results'] = 'Nalazi';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Upozorenje';
+$BL['be_security_fail'] = 'Problem';
+$BL['be_security_repair'] = 'Popravi sigurne nalaze';
+$BL['be_security_repair_hint'] = 'Stvara nedostajuće privatne direktorije i datoteke za blokiranje. Nikada ne briše ni premješta korisničke podatke; nalazi koji zahtijevaju ručni rad ostaju na popisu.';
+$BL['be_security_fixed'] = 'nalaz(a) popravljeno.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Korijen privatnog skladišta';
+$BL['be_security_row_storage_dir'] = 'Privatno: %s/';
+$BL['be_security_row_legacy_dir'] = 'Staro: %s/';
+$BL['be_security_row_protector_form'] = 'Mapa za upload obrazaca';
+$BL['be_security_row_protector_cache'] = 'Stara mapa keša';
+$BL['be_security_row_protector_config'] = 'Mapa konfiguracije';
+$BL['be_security_row_protector_upload'] = 'Mapa FTP uploada';
+$BL['be_security_row_protector_tests'] = 'Testne skripte';
+$BL['be_security_row_protector_filearchive'] = 'Arhiva datoteka';
+$BL['be_security_row_root_rule'] = 'Konfiguracija servera u korijenu';
+$BL['be_security_row_form_token_key'] = 'Tajna linkova obrasca';
+$BL['be_security_row_setup_dir'] = 'Mapa setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Nedostaje: %s';
+$BL['be_security_detail_not_writable'] = 'Nije upisivo: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Nedostaje ili nije upisivo: %s';
+$BL['be_security_detail_no_root'] = 'Korijen skladišta nije konfigurisan.';
+$BL['be_security_detail_mode_open'] = 'Način %s, očekivano 0700.';
+$BL['be_security_detail_removed'] = 'Uklonjeno.';
+$BL['be_security_detail_leftover_one'] = '1 stavka je još u document rootu.';
+$BL['be_security_detail_leftover_many'] = '%d stavki je još u document rootu.';
+$BL['be_security_detail_leftover_denied_one'] = '1 stavka je iza datoteke zabrane; premjestite je u privatno skladište.';
+$BL['be_security_detail_leftover_denied_many'] = '%d stavki je iza datoteke zabrane; premjestite ih u privatno skladište.';
+$BL['be_security_detail_empty_denied'] = 'Prazno i zabranjeno; uklonite mapu.';
+$BL['be_security_detail_empty_open'] = 'Prazna mapa bez datoteke zabrane.';
+$BL['be_security_detail_no_deny_rule'] = 'Nema pravila zabrane u %s.';
+$BL['be_security_detail_downloads_open'] = 'Direktna preuzimanja su omogućena (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Direktna preuzimanja su onemogućena.';
+$BL['be_security_detail_root_ok'] = '%s zabranjuje privatne putanje.';
+$BL['be_security_detail_root_missing'] = 'Nije pronađena isporučena konfiguracija servera s pravilima zabrane.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key je prazan; koristi se db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Konfigurisan je namjenski form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ još postoji; uklonite ili blokirajte.';

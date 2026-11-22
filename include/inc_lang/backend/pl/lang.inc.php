@@ -1772,3 +1772,49 @@ $BL['be_admin_mail_component_html_note'] = 'Kod HTML dla tego komponentu. Jest o
 $BL['be_admin_mail_template']       = 'Szablon e-mail';
 
 $BL['be_newsletter_nourl'] = 'Newsletter nie został wysłany: adres URL witryny nie jest skonfigurowany lub nie jest zaufany.';
+
+// security check
+$BL['be_security_check'] = 'Kontrola bezpieczeństwa';
+$BL['be_security_intro'] = 'Sprawdza prywatny magazyn, stare katalogi content i pliki odmowy w każdym katalogu. Aktualizator pomija %1$s, %2$s i %3$s, więc te pliki mogą po aktualizacji brakować lub być nieaktualne.';
+$BL['be_security_results'] = 'Ustalenia';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Ostrzeżenie';
+$BL['be_security_fail'] = 'Problem';
+$BL['be_security_repair'] = 'Napraw bezpieczne ustalenia';
+$BL['be_security_repair_hint'] = 'Tworzy brakujące prywatne katalogi i pliki odmowy. Nigdy nie usuwa ani nie przenosi danych użytkownika; ustalenia wymagające pracy ręcznej pozostają na liście.';
+$BL['be_security_fixed'] = 'ustalenie(-a) naprawione.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Prywatny katalog magazynu';
+$BL['be_security_row_storage_dir'] = 'Prywatny: %s/';
+$BL['be_security_row_legacy_dir'] = 'Stary: %s/';
+$BL['be_security_row_protector_form'] = 'Katalog przesyłania formularzy';
+$BL['be_security_row_protector_cache'] = 'Stary katalog pamięci podręcznej';
+$BL['be_security_row_protector_config'] = 'Katalog konfiguracji';
+$BL['be_security_row_protector_upload'] = 'Katalog przesyłania FTP';
+$BL['be_security_row_protector_tests'] = 'Skrypty testowe';
+$BL['be_security_row_protector_filearchive'] = 'Archiwum plików';
+$BL['be_security_row_root_rule'] = 'Konfiguracja serwera w katalogu głównym';
+$BL['be_security_row_form_token_key'] = 'Sekret linków formularza';
+$BL['be_security_row_setup_dir'] = 'Katalog setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Brak: %s';
+$BL['be_security_detail_not_writable'] = 'Brak prawa zapisu: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Brak lub brak prawa zapisu: %s';
+$BL['be_security_detail_no_root'] = 'Nie skonfigurowano katalogu magazynu.';
+$BL['be_security_detail_mode_open'] = 'Tryb %s, oczekiwano 0700.';
+$BL['be_security_detail_removed'] = 'Usunięto.';
+$BL['be_security_detail_leftover_one'] = '1 wpis nadal znajduje się w document root.';
+$BL['be_security_detail_leftover_many'] = '%d wpisów nadal znajduje się w document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 wpis znajduje się za plikiem blokady; przenieś go do prywatnego magazynu.';
+$BL['be_security_detail_leftover_denied_many'] = '%d wpisów znajduje się za plikiem blokady; przenieś je do prywatnego magazynu.';
+$BL['be_security_detail_empty_denied'] = 'Pusty i zablokowany; usuń katalog.';
+$BL['be_security_detail_empty_open'] = 'Pusty katalog bez pliku blokady.';
+$BL['be_security_detail_no_deny_rule'] = 'Brak reguły blokady w %s.';
+$BL['be_security_detail_downloads_open'] = 'Bezpośrednie pobierania są włączone (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Bezpośrednie pobierania są wyłączone.';
+$BL['be_security_detail_root_ok'] = '%s blokuje prywatne ścieżki.';
+$BL['be_security_detail_root_missing'] = 'Nie znaleziono dołączonej konfiguracji serwera z regułami blokady.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key jest pusty; używane jest db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Skonfigurowano osobny form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ nadal istnieje; usuń lub zablokuj.';

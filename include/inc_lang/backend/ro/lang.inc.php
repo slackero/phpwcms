@@ -1799,3 +1799,49 @@ $BL['be_admin_mail_component_html_note'] = 'Marcaj HTML pentru această componen
 $BL['be_admin_mail_template']       = 'Șablon de e-mail';
 
 $BL['be_newsletter_nourl'] = 'Newsletterul nu a fost trimis: URL-ul site-ului nu este configurat sau nu este de încredere.';
+
+// security check
+$BL['be_security_check'] = 'Verificare de securitate';
+$BL['be_security_intro'] = 'Verifică stocarea privată, directoarele content vechi și fișierele de blocare din fiecare director. Actualizatorul omite %1$s, %2$s și %3$s, deci aceste fișiere pot lipsi sau pot fi învechite după actualizare.';
+$BL['be_security_results'] = 'Constatări';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Avertisment';
+$BL['be_security_fail'] = 'Problemă';
+$BL['be_security_repair'] = 'Repară constatările sigure';
+$BL['be_security_repair_hint'] = 'Creează directoarele private și fișierele de blocare lipsă. Nu șterge și nu mută niciodată datele utilizatorilor; constatările care necesită lucru manual rămân listate.';
+$BL['be_security_fixed'] = 'constatare/constatări reparate.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Rădăcina stocării private';
+$BL['be_security_row_storage_dir'] = 'Privat: %s/';
+$BL['be_security_row_legacy_dir'] = 'Vechi: %s/';
+$BL['be_security_row_protector_form'] = 'Director încărcări formular';
+$BL['be_security_row_protector_cache'] = 'Director cache vechi';
+$BL['be_security_row_protector_config'] = 'Director configurare';
+$BL['be_security_row_protector_upload'] = 'Director încărcare FTP';
+$BL['be_security_row_protector_tests'] = 'Scripturi de test';
+$BL['be_security_row_protector_filearchive'] = 'Arhiva fișierelor';
+$BL['be_security_row_root_rule'] = 'Configurație server în rădăcină';
+$BL['be_security_row_form_token_key'] = 'Secretul linkurilor de formular';
+$BL['be_security_row_setup_dir'] = 'Director setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Lipsește: %s';
+$BL['be_security_detail_not_writable'] = 'Nu se poate scrie: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Lipsește sau nu se poate scrie: %s';
+$BL['be_security_detail_no_root'] = 'Nu este configurată o rădăcină de stocare.';
+$BL['be_security_detail_mode_open'] = 'Mod %s, așteptat 0700.';
+$BL['be_security_detail_removed'] = 'Eliminat.';
+$BL['be_security_detail_leftover_one'] = '1 intrare rămâne în document root.';
+$BL['be_security_detail_leftover_many'] = '%d intrări rămân în document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 intrare rămâne în spatele unui fișier de blocare; mutați-o în stocarea privată.';
+$BL['be_security_detail_leftover_denied_many'] = '%d intrări rămân în spatele unui fișier de blocare; mutați-le în stocarea privată.';
+$BL['be_security_detail_empty_denied'] = 'Gol și blocat; eliminați directorul.';
+$BL['be_security_detail_empty_open'] = 'Director gol fără fișier de blocare.';
+$BL['be_security_detail_no_deny_rule'] = 'Nicio regulă de blocare în %s.';
+$BL['be_security_detail_downloads_open'] = 'Descărcările directe sunt activate (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Descărcările directe sunt dezactivate.';
+$BL['be_security_detail_root_ok'] = '%s blochează căile private.';
+$BL['be_security_detail_root_missing'] = 'Nu a fost găsită configurația serverului cu regulile de blocare.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key este gol; se folosește db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Este configurat un form_token_key dedicat.';
+$BL['be_security_detail_setup_present'] = 'setup/ este încă prezent; eliminați-l sau blocați-l.';

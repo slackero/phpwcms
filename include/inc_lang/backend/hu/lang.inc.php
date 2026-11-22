@@ -1810,3 +1810,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML jel&ouml;l&eacute;s ehhez a kom
 $BL['be_admin_mail_template']       = 'E-mail sablon';
 
 $BL['be_newsletter_nourl'] = 'A hírlevél nem lett elküldve: a webhely URL-je nincs beállítva vagy nem megbízható.';
+
+// security check
+$BL['be_security_check'] = 'Biztonsági ellenőrzés';
+$BL['be_security_intro'] = 'Ellenőrzi a privát tárolót, a régi content könyvtárakat és a könyvtárankénti tiltófájlokat. A frissítő kihagyja a %1$s, %2$s és %3$s mappákat, ezért ezek a fájlok frissítés után hiányozhatnak vagy elavultak lehetnek.';
+$BL['be_security_results'] = 'Megállapítások';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Figyelmeztetés';
+$BL['be_security_fail'] = 'Probléma';
+$BL['be_security_repair'] = 'Biztonságos megállapítások javítása';
+$BL['be_security_repair_hint'] = 'Létrehozza a hiányzó privát könyvtárakat és tiltófájlokat. Soha nem töröl vagy mozgat felhasználói adatot; a kézi munkát igénylő megállapítások a listán maradnak.';
+$BL['be_security_fixed'] = 'megállapítás javítva.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Privát tároló gyökér';
+$BL['be_security_row_storage_dir'] = 'Privát: %s/';
+$BL['be_security_row_legacy_dir'] = 'Régi: %s/';
+$BL['be_security_row_protector_form'] = 'Űrlap-feltöltési könyvtár';
+$BL['be_security_row_protector_cache'] = 'Régi gyorsítótár-könyvtár';
+$BL['be_security_row_protector_config'] = 'Konfigurációs könyvtár';
+$BL['be_security_row_protector_upload'] = 'FTP-feltöltési könyvtár';
+$BL['be_security_row_protector_tests'] = 'Teszt szkriptek';
+$BL['be_security_row_protector_filearchive'] = 'Fájlarchívum';
+$BL['be_security_row_root_rule'] = 'Szerverkonfiguráció a gyökérben';
+$BL['be_security_row_form_token_key'] = 'Űrlap-linkek titka';
+$BL['be_security_row_setup_dir'] = 'Setup könyvtár';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Hiányzik: %s';
+$BL['be_security_detail_not_writable'] = 'Nem írható: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Hiányzik vagy nem írható: %s';
+$BL['be_security_detail_no_root'] = 'Nincs beállított tároló gyökér.';
+$BL['be_security_detail_mode_open'] = 'Mód %s, várt 0700.';
+$BL['be_security_detail_removed'] = 'Eltávolítva.';
+$BL['be_security_detail_leftover_one'] = '1 bejegyzés még a document rootban van.';
+$BL['be_security_detail_leftover_many'] = '%d bejegyzés még a document rootban van.';
+$BL['be_security_detail_leftover_denied_one'] = '1 bejegyzés tiltófájl mögött van; helyezze át a privát tárolóba.';
+$BL['be_security_detail_leftover_denied_many'] = '%d bejegyzés tiltófájl mögött van; helyezze át őket a privát tárolóba.';
+$BL['be_security_detail_empty_denied'] = 'Üres és tiltott; távolítsa el a könyvtárat.';
+$BL['be_security_detail_empty_open'] = 'Üres könyvtár tiltófájl nélkül.';
+$BL['be_security_detail_no_deny_rule'] = 'Nincs tiltószabály itt: %s.';
+$BL['be_security_detail_downloads_open'] = 'A közvetlen letöltések engedélyezettek (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'A közvetlen letöltések tiltottak.';
+$BL['be_security_detail_root_ok'] = '%s tiltja a privát útvonalakat.';
+$BL['be_security_detail_root_missing'] = 'Nem található a mellékelt szerverkonfiguráció a tiltószabályokkal.';
+$BL['be_security_detail_token_fallback'] = 'A form_token_key üres; db_user + db_pass használatban.';
+$BL['be_security_detail_token_ok'] = 'Külön form_token_key van beállítva.';
+$BL['be_security_detail_setup_present'] = 'setup/ még létezik; távolítsa el vagy tiltsa le.';

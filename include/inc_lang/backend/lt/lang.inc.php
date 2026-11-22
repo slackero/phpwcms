@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = 'Šio komponento HTML žymėjimas. Ji
 $BL['be_admin_mail_template']       = 'El. pašto šablonas';
 
 $BL['be_newsletter_nourl'] = 'Naujienlaiškis neišsiųstas: svetainės URL nenustatytas arba nepatikimas.';
+
+// security check
+$BL['be_security_check'] = 'Saugumo patikra';
+$BL['be_security_intro'] = 'Tikrina privačią saugyklą, senus content katalogus ir kiekvieno katalogo draudimo failus. Atnaujinimas praleidžia %1$s, %2$s ir %3$s, todėl šie failai po atnaujinimo gali trūkti arba būti pasenę.';
+$BL['be_security_results'] = 'Radiniai';
+$BL['be_security_ok'] = 'Gerai';
+$BL['be_security_warn'] = 'Įspėjimas';
+$BL['be_security_fail'] = 'Problema';
+$BL['be_security_repair'] = 'Taisyti saugius radinius';
+$BL['be_security_repair_hint'] = 'Sukuria trūkstamus privačius katalogus ir draudimo failus. Niekada netrina ir neperkelia naudotojo duomenų; rankinio darbo reikalaujantys radiniai lieka sąraše.';
+$BL['be_security_fixed'] = 'radinys (-ių) pataisyta.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Privataus saugyklos šaknis';
+$BL['be_security_row_storage_dir'] = 'Privatu: %s/';
+$BL['be_security_row_legacy_dir'] = 'Sena: %s/';
+$BL['be_security_row_protector_form'] = 'Formos įkėlimų katalogas';
+$BL['be_security_row_protector_cache'] = 'Senas podėlio katalogas';
+$BL['be_security_row_protector_config'] = 'Konfigūracijos katalogas';
+$BL['be_security_row_protector_upload'] = 'FTP įkėlimų katalogas';
+$BL['be_security_row_protector_tests'] = 'Testų scenarijai';
+$BL['be_security_row_protector_filearchive'] = 'Failų archyvas';
+$BL['be_security_row_root_rule'] = 'Serverio konfigūracija šaknyje';
+$BL['be_security_row_form_token_key'] = 'Formos nuorodų paslaptis';
+$BL['be_security_row_setup_dir'] = 'setup katalogas';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Trūksta: %s';
+$BL['be_security_detail_not_writable'] = 'Nėra rašymo teisės: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Trūksta arba nėra rašymo teisės: %s';
+$BL['be_security_detail_no_root'] = 'Nenustatyta saugyklos šaknis.';
+$BL['be_security_detail_mode_open'] = 'Režimas %s, tikėtasi 0700.';
+$BL['be_security_detail_removed'] = 'Pašalinta.';
+$BL['be_security_detail_leftover_one'] = '1 įrašas liko document root.';
+$BL['be_security_detail_leftover_many'] = '%d įrašų liko document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 įrašas liko už draudimo failo; perkelkite jį į privačią saugyklą.';
+$BL['be_security_detail_leftover_denied_many'] = '%d įrašų liko už draudimo failo; perkelkite juos į privačią saugyklą.';
+$BL['be_security_detail_empty_denied'] = 'Tuščia ir uždrausta; pašalinkite katalogą.';
+$BL['be_security_detail_empty_open'] = 'Tuščias katalogas be draudimo failo.';
+$BL['be_security_detail_no_deny_rule'] = 'Nėra draudimo taisyklės %s.';
+$BL['be_security_detail_downloads_open'] = 'Tiesioginiai atsisiuntimai įjungti (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Tiesioginiai atsisiuntimai išjungti.';
+$BL['be_security_detail_root_ok'] = '%s draudžia privačius kelius.';
+$BL['be_security_detail_root_missing'] = 'Nerasta pateikta serverio konfigūracija su draudimo taisyklėmis.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key tuščias; naudojama db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Nustatytas atskiras form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ vis dar yra; pašalinkite arba užblokuokite.';

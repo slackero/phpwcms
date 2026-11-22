@@ -1799,3 +1799,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML-kóði fyrir þennan þátt. Ha
 $BL['be_admin_mail_template']       = 'Tölvupóstsniðmát';
 
 $BL['be_newsletter_nourl'] = 'Frétbréfið var ekki sent: slóð vefsvæðisins er ekki stillt eða ekki traust.';
+
+// security check
+$BL['be_security_check'] = 'Öryggisathugun';
+$BL['be_security_intro'] = 'Athugar einkageymsluna, gömlu content möppurnar og synjunarskrár hverrar möppu. Uppfærslan sleppir %1$s, %2$s og %3$s, svo þessar skrár geta vantað eða verið úreltar eftir uppfærslu.';
+$BL['be_security_results'] = 'Niðurstöður';
+$BL['be_security_ok'] = 'Í lagi';
+$BL['be_security_warn'] = 'Viðvörun';
+$BL['be_security_fail'] = 'Vandamál';
+$BL['be_security_repair'] = 'Laga öruggar niðurstöður';
+$BL['be_security_repair_hint'] = 'Býr til vantar einkamöppur og synjunarskrár. Eyðir eða færir aldrei notendagögn; niðurstöður sem þurfa handvirka vinnu halda sér á listanum.';
+$BL['be_security_fixed'] = 'niðurstaða lögð.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Rót einkageymslu';
+$BL['be_security_row_storage_dir'] = 'Einkasafn: %s/';
+$BL['be_security_row_legacy_dir'] = 'Gamalt: %s/';
+$BL['be_security_row_protector_form'] = 'Mappa fyrir innsendingar eyðublaða';
+$BL['be_security_row_protector_cache'] = 'Gömul skyndiminnismappa';
+$BL['be_security_row_protector_config'] = 'Stillingamappa';
+$BL['be_security_row_protector_upload'] = 'FTP-innsendingarmappa';
+$BL['be_security_row_protector_tests'] = 'Prófunarskriptur';
+$BL['be_security_row_protector_filearchive'] = 'Skráasafn';
+$BL['be_security_row_root_rule'] = 'Vefþjónastilling í rót';
+$BL['be_security_row_form_token_key'] = 'Leyndarmál eyðublaðstengla';
+$BL['be_security_row_setup_dir'] = 'setup-mappa';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Vantar: %s';
+$BL['be_security_detail_not_writable'] = 'Ekki skrifanlegt: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Vantar eða ekki skrifanlegt: %s';
+$BL['be_security_detail_no_root'] = 'Engin geymslurót er stillt.';
+$BL['be_security_detail_mode_open'] = 'Hamur %s, búist við 0700.';
+$BL['be_security_detail_removed'] = 'Fjarlægt.';
+$BL['be_security_detail_leftover_one'] = '1 færsla er enn í document root.';
+$BL['be_security_detail_leftover_many'] = '%d færslur eru enn í document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 færsla er bak við synjunarskrá; færðu hana í einkageymsluna.';
+$BL['be_security_detail_leftover_denied_many'] = '%d færslur eru bak við synjunarskrá; færðu þær í einkageymsluna.';
+$BL['be_security_detail_empty_denied'] = 'Tómt og synjað; fjarlægðu möppuna.';
+$BL['be_security_detail_empty_open'] = 'Tóm mappa án synjunarskrár.';
+$BL['be_security_detail_no_deny_rule'] = 'Engin synjunarregla í %s.';
+$BL['be_security_detail_downloads_open'] = 'Beinar niðurhal eru virk (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Beinar niðurhal eru óvirk.';
+$BL['be_security_detail_root_ok'] = '%s synjar einkaslóðunum.';
+$BL['be_security_detail_root_missing'] = 'Engin vefþjónastilling með synjunarreglunum fannst.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key er tómt; notar db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Sérstakt form_token_key er stillt.';
+$BL['be_security_detail_setup_present'] = 'setup/ er enn til; fjarlægðu eða lokaðu.';

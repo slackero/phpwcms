@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = 'Penanda HTML untuk komponen ini. Ia 
 $BL['be_admin_mail_template']       = 'Templat E-mel';
 
 $BL['be_newsletter_nourl'] = 'Surat berita tidak dihantar: URL laman tidak dikonfigurasikan atau tidak dipercayai.';
+
+// security check
+$BL['be_security_check'] = 'Semakan keselamatan';
+$BL['be_security_intro'] = 'Memeriksa storan peribadi, direktori content lama dan fail penafian setiap direktori. Pengemas kini melangkau %1$s, %2$s dan %3$s, jadi fail ini mungkin tiada atau lapuk selepas kemas kini.';
+$BL['be_security_results'] = 'Penemuan';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Amaran';
+$BL['be_security_fail'] = 'Masalah';
+$BL['be_security_repair'] = 'Baiki penemuan selamat';
+$BL['be_security_repair_hint'] = 'Mencipta direktori peribadi dan fail penafian yang tiada. Tidak pernah memadam atau memindahkan data pengguna; penemuan yang memerlukan kerja manual kekal disenaraikan.';
+$BL['be_security_fixed'] = 'penemuan dibaiki.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Akar storan peribadi';
+$BL['be_security_row_storage_dir'] = 'Peribadi: %s/';
+$BL['be_security_row_legacy_dir'] = 'Lama: %s/';
+$BL['be_security_row_protector_form'] = 'Direktori muat naik borang';
+$BL['be_security_row_protector_cache'] = 'Direktori cache lama';
+$BL['be_security_row_protector_config'] = 'Direktori konfigurasi';
+$BL['be_security_row_protector_upload'] = 'Direktori muat naik FTP';
+$BL['be_security_row_protector_tests'] = 'Skrip ujian';
+$BL['be_security_row_protector_filearchive'] = 'Arkib fail';
+$BL['be_security_row_root_rule'] = 'Konfigurasi pelayan akar';
+$BL['be_security_row_form_token_key'] = 'Rahsia pautan borang';
+$BL['be_security_row_setup_dir'] = 'Direktori setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Tiada: %s';
+$BL['be_security_detail_not_writable'] = 'Tidak boleh ditulis: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Tiada atau tidak boleh ditulis: %s';
+$BL['be_security_detail_no_root'] = 'Akar storan belum dikonfigurasikan.';
+$BL['be_security_detail_mode_open'] = 'Mod %s, dijangka 0700.';
+$BL['be_security_detail_removed'] = 'Dialih keluar.';
+$BL['be_security_detail_leftover_one'] = '1 entri masih dalam document root.';
+$BL['be_security_detail_leftover_many'] = '%d entri masih dalam document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 entri berada di belakang fail penafian; pindahkan ke storan peribadi.';
+$BL['be_security_detail_leftover_denied_many'] = '%d entri berada di belakang fail penafian; pindahkan ke storan peribadi.';
+$BL['be_security_detail_empty_denied'] = 'Kosong dan ditolak; buang direktori.';
+$BL['be_security_detail_empty_open'] = 'Direktori kosong tanpa fail penafian.';
+$BL['be_security_detail_no_deny_rule'] = 'Tiada peraturan penafian dalam %s.';
+$BL['be_security_detail_downloads_open'] = 'Muat turun terus diaktifkan (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Muat turun terus dinyahaktifkan.';
+$BL['be_security_detail_root_ok'] = '%s menafikan laluan peribadi.';
+$BL['be_security_detail_root_missing'] = 'Konfigurasi pelayan dengan peraturan penafian tidak ditemui.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key kosong; menggunakan db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'form_token_key khusus telah dikonfigurasikan.';
+$BL['be_security_detail_setup_present'] = 'setup/ masih ada; buang atau sekat.';

@@ -1809,3 +1809,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML-kod för denna komponent. Den b
 $BL['be_admin_mail_template']       = 'E-postmall';
 
 $BL['be_newsletter_nourl'] = 'Nyhetsbrevet skickades inte: webbplatsens URL är inte konfigurerad eller inte betrodd.';
+
+// security check
+$BL['be_security_check'] = 'Säkerhetskontroll';
+$BL['be_security_intro'] = 'Kontrollerar den privata lagringen, de gamla content-mapparna och deny-filerna i varje mapp. Uppdateringen hoppar över %1$s, %2$s och %3$s, så dessa filer kan saknas eller vara inaktuella efter en uppdatering.';
+$BL['be_security_results'] = 'Träffar';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Varning';
+$BL['be_security_fail'] = 'Problem';
+$BL['be_security_repair'] = 'Reparera säkra träffar';
+$BL['be_security_repair_hint'] = 'Skapar saknade privata mappar och deny-filer. Raderar eller flyttar aldrig användardata; träffar som kräver manuellt arbete finns kvar i listan.';
+$BL['be_security_fixed'] = 'träff(ar) reparerade.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Privat lagringsrot';
+$BL['be_security_row_storage_dir'] = 'Privat: %s/';
+$BL['be_security_row_legacy_dir'] = 'Gammal: %s/';
+$BL['be_security_row_protector_form'] = 'Mapp för formuläruppladdningar';
+$BL['be_security_row_protector_cache'] = 'Gammal cachemapp';
+$BL['be_security_row_protector_config'] = 'Konfigurationsmapp';
+$BL['be_security_row_protector_upload'] = 'FTP-uppladdningsmapp';
+$BL['be_security_row_protector_tests'] = 'Testskript';
+$BL['be_security_row_protector_filearchive'] = 'Filarkiv';
+$BL['be_security_row_root_rule'] = 'Serverkonfiguration i roten';
+$BL['be_security_row_form_token_key'] = 'Hemlighet för formulärlänkar';
+$BL['be_security_row_setup_dir'] = 'Setup-mapp';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Saknas: %s';
+$BL['be_security_detail_not_writable'] = 'Inte skrivbar: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Saknas eller inte skrivbar: %s';
+$BL['be_security_detail_no_root'] = 'Ingen lagringsrot är konfigurerad.';
+$BL['be_security_detail_mode_open'] = 'Läge %s, förväntat 0700.';
+$BL['be_security_detail_removed'] = 'Borttagen.';
+$BL['be_security_detail_leftover_one'] = '1 post finns kvar i document root.';
+$BL['be_security_detail_leftover_many'] = '%d poster finns kvar i document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 post ligger bakom en deny-fil; flytta den till privat lagring.';
+$BL['be_security_detail_leftover_denied_many'] = '%d poster ligger bakom en deny-fil; flytta dem till privat lagring.';
+$BL['be_security_detail_empty_denied'] = 'Tom och nekad; ta bort mappen.';
+$BL['be_security_detail_empty_open'] = 'Tom mapp utan deny-fil.';
+$BL['be_security_detail_no_deny_rule'] = 'Ingen deny-regel i %s.';
+$BL['be_security_detail_downloads_open'] = 'Direkta nedladdningar är aktiverade (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Direkta nedladdningar är inaktiverade.';
+$BL['be_security_detail_root_ok'] = '%s nekar de privata sökvägarna.';
+$BL['be_security_detail_root_missing'] = 'Ingen medföljande serverkonfiguration med deny-reglerna hittades.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key är tom; faller tillbaka på db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'En egen form_token_key är konfigurerad.';
+$BL['be_security_detail_setup_present'] = 'setup/ finns fortfarande; ta bort eller blockera den.';

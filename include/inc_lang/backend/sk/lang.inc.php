@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML k&oacute;d pre tento komponent.
 $BL['be_admin_mail_template']       = 'E-mailov&aacute; &scaron;abl&oacute;na';
 
 $BL['be_newsletter_nourl'] = 'Newsletter nebol odoslaný: URL stránky nie je nastavená alebo nie je dôveryhodná.';
+
+// security check
+$BL['be_security_check'] = 'Kontrola zabezpečenia';
+$BL['be_security_intro'] = 'Kontroluje súkromné úložisko, staré adresáre content a zakazovacie súbory v jednotlivých adresároch. Aktualizácia preskakuje %1$s, %2$s a %3$s, takže tieto súbory môžu po aktualizácii chýbať alebo byť zastarané.';
+$BL['be_security_results'] = 'Zistenia';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Upozornenie';
+$BL['be_security_fail'] = 'Problém';
+$BL['be_security_repair'] = 'Opraviť bezpečné zistenia';
+$BL['be_security_repair_hint'] = 'Vytvorí chýbajúce súkromné adresáre a zakazovacie súbory. Nikdy nemaže ani nepresúva používateľské údaje; zistenia vyžadujúce ručnú prácu zostávajú v zozname.';
+$BL['be_security_fixed'] = 'zistenie/zistení opravené.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Koreň súkromného úložiska';
+$BL['be_security_row_storage_dir'] = 'Súkromné: %s/';
+$BL['be_security_row_legacy_dir'] = 'Staré: %s/';
+$BL['be_security_row_protector_form'] = 'Adresár nahrávania formulárov';
+$BL['be_security_row_protector_cache'] = 'Starý adresár vyrovnávacej pamäte';
+$BL['be_security_row_protector_config'] = 'Adresár konfigurácie';
+$BL['be_security_row_protector_upload'] = 'Adresár nahrávania FTP';
+$BL['be_security_row_protector_tests'] = 'Testovacie skripty';
+$BL['be_security_row_protector_filearchive'] = 'Archív súborov';
+$BL['be_security_row_root_rule'] = 'Konfigurácia servera v koreni';
+$BL['be_security_row_form_token_key'] = 'Tajomstvo odkazov formulára';
+$BL['be_security_row_setup_dir'] = 'Adresár setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Chýba: %s';
+$BL['be_security_detail_not_writable'] = 'Nie je zapisovateľné: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Chýba alebo nie je zapisovateľné: %s';
+$BL['be_security_detail_no_root'] = 'Nie je nastavený koreň úložiska.';
+$BL['be_security_detail_mode_open'] = 'Režim %s, očakávané 0700.';
+$BL['be_security_detail_removed'] = 'Odstránené.';
+$BL['be_security_detail_leftover_one'] = '1 položka zostáva v document root.';
+$BL['be_security_detail_leftover_many'] = '%d položiek zostáva v document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 položka zostáva za súborom zákazu; presuňte ju do súkromného úložiska.';
+$BL['be_security_detail_leftover_denied_many'] = '%d položiek zostáva za súborom zákazu; presuňte ich do súkromného úložiska.';
+$BL['be_security_detail_empty_denied'] = 'Prázdne a zakázané; odstráňte adresár.';
+$BL['be_security_detail_empty_open'] = 'Prázdny adresár bez súboru zákazu.';
+$BL['be_security_detail_no_deny_rule'] = 'Žiadne pravidlo zákazu v %s.';
+$BL['be_security_detail_downloads_open'] = 'Priame sťahovania sú povolené (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Priame sťahovania sú zakázané.';
+$BL['be_security_detail_root_ok'] = '%s zakazuje súkromné cesty.';
+$BL['be_security_detail_root_missing'] = 'Nenašla sa dodávaná konfigurácia servera s pravidlami zákazu.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key je prázdny; používa sa db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Je nastavený samostatný form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ stále existuje; odstráňte alebo zablokujte.';

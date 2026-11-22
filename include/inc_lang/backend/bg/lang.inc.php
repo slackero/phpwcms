@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML код за този компо
 $BL['be_admin_mail_template']       = 'Шаблон за имейл';
 
 $BL['be_newsletter_nourl'] = 'Бюлетинът не е изпратен: URL адресът на сайта не е конфигуриран или не е надежден.';
+
+// security check
+$BL['be_security_check'] = 'Проверка за сигурност';
+$BL['be_security_intro'] = 'Проверява частното хранилище, старите директории content и файловете за отказ по директории. Обновяването пропуска %1$s, %2$s и %3$s, затова тези файлове може да липсват или да са остарели след обновяване.';
+$BL['be_security_results'] = 'Констатации';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Предупреждение';
+$BL['be_security_fail'] = 'Проблем';
+$BL['be_security_repair'] = 'Поправка на безопасните констатации';
+$BL['be_security_repair_hint'] = 'Създава липсващи частни директории и файлове за отказ. Никога не изтрива или премества потребителски данни; констатациите, изискващи ръчна работа, остават в списъка.';
+$BL['be_security_fixed'] = 'поправени констатации.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Корен на частното хранилище';
+$BL['be_security_row_storage_dir'] = 'Частно: %s/';
+$BL['be_security_row_legacy_dir'] = 'Старо: %s/';
+$BL['be_security_row_protector_form'] = 'Папка за качване на формуляри';
+$BL['be_security_row_protector_cache'] = 'Стара папка за кеш';
+$BL['be_security_row_protector_config'] = 'Папка за конфигурация';
+$BL['be_security_row_protector_upload'] = 'Папка за FTP качване';
+$BL['be_security_row_protector_tests'] = 'Тестови скриптове';
+$BL['be_security_row_protector_filearchive'] = 'Архив на файлове';
+$BL['be_security_row_root_rule'] = 'Конфигурация на сървъра в корена';
+$BL['be_security_row_form_token_key'] = 'Тайна за връзките на формуляра';
+$BL['be_security_row_setup_dir'] = 'Папка setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Липсва: %s';
+$BL['be_security_detail_not_writable'] = 'Няма права за запис: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Липсва или няма права за запис: %s';
+$BL['be_security_detail_no_root'] = 'Не е конфигуриран корен на хранилище.';
+$BL['be_security_detail_mode_open'] = 'Режим %s, очаква се 0700.';
+$BL['be_security_detail_removed'] = 'Премахнато.';
+$BL['be_security_detail_leftover_one'] = '1 запис остава в document root.';
+$BL['be_security_detail_leftover_many'] = '%d записа остават в document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 запис остава зад файл за забрана; преместете го в частното хранилище.';
+$BL['be_security_detail_leftover_denied_many'] = '%d записа остават зад файл за забрана; преместете ги в частното хранилище.';
+$BL['be_security_detail_empty_denied'] = 'Празно и забранено; премахнете папката.';
+$BL['be_security_detail_empty_open'] = 'Празна папка без файл за забрана.';
+$BL['be_security_detail_no_deny_rule'] = 'Няма правило за забрана в %s.';
+$BL['be_security_detail_downloads_open'] = 'Директните изтегляния са включени (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Директните изтегляния са изключени.';
+$BL['be_security_detail_root_ok'] = '%s забранява частните пътища.';
+$BL['be_security_detail_root_missing'] = 'Не е намерена доставена конфигурация на сървъра с правилата за забрана.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key е празен; използва се db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Конфигуриран е отделен form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ все още съществува; премахнете или блокирайте.';

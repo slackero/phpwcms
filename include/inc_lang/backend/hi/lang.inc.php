@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = 'इस घटक के लिए HT
 $BL['be_admin_mail_template']       = 'ईमेल टेम्पलेट';
 
 $BL['be_newsletter_nourl'] = 'न्यूज़लेटर नहीं भेजा गया: साइट URL कॉन्फ़िगर नहीं है या विश्वसनीय नहीं है।';
+
+// security check
+$BL['be_security_check'] = 'सुरक्षा जाँच';
+$BL['be_security_intro'] = 'निजी स्टोरेज, पुरानी content निर्देशिकाएँ और प्रत्येक निर्देशिका की deny फ़ाइलें जाँचता है। अपडेटर %1$s, %2$s और %3$s छोड़ देता है, इसलिए अपडेट के बाद ये फ़ाइलें अनुपस्थित या पुरानी हो सकती हैं।';
+$BL['be_security_results'] = 'निष्कर्ष';
+$BL['be_security_ok'] = 'ठीक है';
+$BL['be_security_warn'] = 'चेतावनी';
+$BL['be_security_fail'] = 'समस्या';
+$BL['be_security_repair'] = 'सुरक्षित निष्कर्ष ठीक करें';
+$BL['be_security_repair_hint'] = 'अनुपस्थित निजी निर्देशिकाएँ और deny फ़ाइलें बनाता है। उपयोगकर्ता डेटा कभी नहीं हटाता या ले जाता; मैन्युअल कार्य वाले निष्कर्ष सूची में रहते हैं।';
+$BL['be_security_fixed'] = 'निष्कर्ष ठीक किए गए।';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'निजी स्टोरेज रूट';
+$BL['be_security_row_storage_dir'] = 'निजी: %s/';
+$BL['be_security_row_legacy_dir'] = 'पुराना: %s/';
+$BL['be_security_row_protector_form'] = 'फ़ॉर्म अपलोड निर्देशिका';
+$BL['be_security_row_protector_cache'] = 'पुरानी कैश निर्देशिका';
+$BL['be_security_row_protector_config'] = 'कॉन्फ़िगरेशन निर्देशिका';
+$BL['be_security_row_protector_upload'] = 'FTP अपलोड निर्देशिका';
+$BL['be_security_row_protector_tests'] = 'परीक्षण स्क्रिप्ट';
+$BL['be_security_row_protector_filearchive'] = 'फ़ाइल संग्रह';
+$BL['be_security_row_root_rule'] = 'रूट सर्वर कॉन्फ़िगरेशन';
+$BL['be_security_row_form_token_key'] = 'फ़ॉर्म लिंक गुप्त कुंजी';
+$BL['be_security_row_setup_dir'] = 'setup निर्देशिका';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'अनुपस्थित: %s';
+$BL['be_security_detail_not_writable'] = 'लेखन योग्य नहीं: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'अनुपस्थित या लेखन योग्य नहीं: %s';
+$BL['be_security_detail_no_root'] = 'कोई स्टोरेज रूट कॉन्फ़िगर नहीं है।';
+$BL['be_security_detail_mode_open'] = 'मोड %s, अपेक्षित 0700।';
+$BL['be_security_detail_removed'] = 'हटाया गया।';
+$BL['be_security_detail_leftover_one'] = 'document root में 1 प्रविष्टि बची है।';
+$BL['be_security_detail_leftover_many'] = 'document root में %d प्रविष्टियाँ बची हैं।';
+$BL['be_security_detail_leftover_denied_one'] = '1 प्रविष्टि deny फ़ाइल के पीछे बची है; इसे निजी स्टोरेज में ले जाएँ।';
+$BL['be_security_detail_leftover_denied_many'] = '%d प्रविष्टियाँ deny फ़ाइल के पीछे बची हैं; इन्हें निजी स्टोरेज में ले जाएँ।';
+$BL['be_security_detail_empty_denied'] = 'खाली और अवरुद्ध; निर्देशिका हटाएँ।';
+$BL['be_security_detail_empty_open'] = 'deny फ़ाइल के बिना खाली निर्देशिका।';
+$BL['be_security_detail_no_deny_rule'] = '%s में कोई deny नियम नहीं।';
+$BL['be_security_detail_downloads_open'] = 'सीधे डाउनलोड सक्षम हैं (opt-in)।';
+$BL['be_security_detail_downloads_closed'] = 'सीधे डाउनलोड अक्षम हैं।';
+$BL['be_security_detail_root_ok'] = '%s निजी पथों को अवरुद्ध करता है।';
+$BL['be_security_detail_root_missing'] = 'deny नियमों वाला सर्वर कॉन्फ़िगरेशन नहीं मिला।';
+$BL['be_security_detail_token_fallback'] = 'form_token_key खाली है; db_user + db_pass उपयोग होता है।';
+$BL['be_security_detail_token_ok'] = 'समर्पित form_token_key कॉन्फ़िगर है।';
+$BL['be_security_detail_setup_present'] = 'setup/ अभी भी मौजूद है; हटाएँ या अवरुद्ध करें।';

@@ -1772,3 +1772,49 @@ $BL['be_admin_mail_component_html_note'] = 'Marcado HTML para este componente. S
 $BL['be_admin_mail_template']       = 'Plantilla de correo';
 
 $BL['be_newsletter_nourl'] = 'Boletín no enviado: la URL del sitio no está configurada o no es de confianza.';
+
+// security check
+$BL['be_security_check'] = 'Comprobación de seguridad';
+$BL['be_security_intro'] = 'Comprueba el almacenamiento privado, los directorios content antiguos y los archivos de denegación de cada directorio. El actualizador omite %1$s, %2$s y %3$s, así que estos archivos pueden faltar o quedar obsoletos tras una actualización.';
+$BL['be_security_results'] = 'Hallazgos';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Advertencia';
+$BL['be_security_fail'] = 'Problema';
+$BL['be_security_repair'] = 'Reparar los hallazgos seguros';
+$BL['be_security_repair_hint'] = 'Crea los directorios privados y los archivos de denegación que faltan. Nunca elimina ni mueve datos de usuario; los hallazgos que requieren trabajo manual siguen en la lista.';
+$BL['be_security_fixed'] = 'hallazgo(s) reparado(s).';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Raíz de almacenamiento privada';
+$BL['be_security_row_storage_dir'] = 'Privado: %s/';
+$BL['be_security_row_legacy_dir'] = 'Antiguo: %s/';
+$BL['be_security_row_protector_form'] = 'Directorio de subidas de formulario';
+$BL['be_security_row_protector_cache'] = 'Directorio de caché antiguo';
+$BL['be_security_row_protector_config'] = 'Directorio de configuración';
+$BL['be_security_row_protector_upload'] = 'Directorio de subida FTP';
+$BL['be_security_row_protector_tests'] = 'Scripts de prueba';
+$BL['be_security_row_protector_filearchive'] = 'Archivo de ficheros';
+$BL['be_security_row_root_rule'] = 'Configuración del servidor raíz';
+$BL['be_security_row_form_token_key'] = 'Secreto de enlaces de formulario';
+$BL['be_security_row_setup_dir'] = 'Directorio setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Falta: %s';
+$BL['be_security_detail_not_writable'] = 'No escribible: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Falta o no escribible: %s';
+$BL['be_security_detail_no_root'] = 'No hay raíz de almacenamiento configurada.';
+$BL['be_security_detail_mode_open'] = 'Modo %s, se esperaba 0700.';
+$BL['be_security_detail_removed'] = 'Eliminado.';
+$BL['be_security_detail_leftover_one'] = '1 entrada permanece en la raíz web.';
+$BL['be_security_detail_leftover_many'] = '%d entradas permanecen en la raíz web.';
+$BL['be_security_detail_leftover_denied_one'] = '1 entrada permanece tras un archivo de denegación; muévala al almacenamiento privado.';
+$BL['be_security_detail_leftover_denied_many'] = '%d entradas permanecen tras un archivo de denegación; muévalas al almacenamiento privado.';
+$BL['be_security_detail_empty_denied'] = 'Vacío y denegado; elimine el directorio.';
+$BL['be_security_detail_empty_open'] = 'Directorio vacío sin archivo de denegación.';
+$BL['be_security_detail_no_deny_rule'] = 'Sin regla de denegación en %s.';
+$BL['be_security_detail_downloads_open'] = 'Las descargas directas están activadas (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Las descargas directas están desactivadas.';
+$BL['be_security_detail_root_ok'] = '%s deniega las rutas privadas.';
+$BL['be_security_detail_root_missing'] = 'No se encontró configuración de servidor con las reglas de denegación.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key está vacío; se usa db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Hay un form_token_key dedicado configurado.';
+$BL['be_security_detail_setup_present'] = 'setup/ sigue presente; elimínelo o bloquéelo.';

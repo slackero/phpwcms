@@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Form Uploads Are Private:** uploads are stored in `<storage_path>/form/` with mode `0600` and served only through the signed controller `formfile.php?t=<token>`. Tokens use `$phpwcms['form_token_key']` (fallback `db_pass`), so links keep working from any IP but break when the database password changes. `folder=` is an optional subdirectory below the form storage; absolute paths and `..` are rejected. Links in mail sent before this change pointed at `content/form/` and no longer resolve.
 - **Default-Deny Web Server Configuration:** `.htaccess`, `_.htaccess`, `nginx.conf` and `web.config` deny `content/{tmp,cache,log,backup,form}`, internal `include/` directories, `upload/`, `tests/`, hidden files and sensitive extensions, and serve only an explicit public allowlist. Backups are no longer downloadable through `setup/upgrade.php?download=`; retrieve them over FTP/SSH.
 
+### Added
+- **Backend Security Check:** Admin → Security Check (`p=20`) scans the private storage tree, the legacy `content/` directories, the per-directory protectors and the root server configuration, and repairs the safe subset (creates missing private directories and deny files) without deleting user data. Needed because the updater's `SKIP_PATHS` skip `content/`, `upload/`, `filearchive/`, `include/config/` and `setup/`, so protectors there are never refreshed by an update.
+
 ### Changed
 - **Updater Paths:** the update engine and `setup/upgrade.php` keep backups and temporary files in `<storage_path>/backup/` and `<storage_path>/tmp/`, create them with `0700`/`0600`, and the upgrade form accepts a `storage_path` override. The unused `content/less/` directory is removed.
 

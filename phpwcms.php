@@ -470,6 +470,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
 
                 if (!empty($_SESSION['wcs_user_admin'])) {
                     $subnav .= subnavtext($BL['be_subnav_admin_update'] ?? 'System Update', 'phpwcms.php?do=admin&amp;p=18', $p, 18, 0);
+                    $subnav .= subnavtext($BL['be_security_check'] ?? 'Security Check', 'phpwcms.php?do=admin&amp;p=20', $p, 20, 0);
                     $subnav .= subnavtext('phpinfo()', 'phpwcms.php?do=admin&amp;p=15', $p, 15, 0);
                 }
                 echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_admin']) . '</li>' . LF . $subnav . "\n</ul></li>";
@@ -688,6 +689,12 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
             case 19: //Email templates
               if (has_admin_permission('admmailtpl') || !empty($_SESSION['wcs_user_admin'])) {
                   include PHPWCMS_ROOT.'/include/inc_tmpl/admin.mailtemplates.tmpl.php';
+              }
+              break;
+
+            case 20: //Security check
+              if (!empty($_SESSION['wcs_user_admin'])) {
+                  include PHPWCMS_ROOT.'/include/inc_tmpl/admin.security.tmpl.php';
               }
               break;
 

@@ -1772,3 +1772,49 @@ $BL['be_admin_mail_component_html_note'] = 'Osagai honen HTML kodea. Diseinu nag
 $BL['be_admin_mail_template']       = 'Posta-txantiloia';
 
 $BL['be_newsletter_nourl'] = 'Buletina ez da bidali: gunearen URLa ez dago konfiguratuta edo ez da fidagarria.';
+
+// security check
+$BL['be_security_check'] = 'Segurtasun-egiaztapena';
+$BL['be_security_intro'] = 'Egiaztatzen du biltegi pribatua, content direktorio zaharrak eta direktorio bakoitzeko ukapen-fitxategiak. Eguneratzaileak %1$s, %2$s eta %3$s saltatzen ditu, beraz fitxategi horiek falta edo zaharkituta egon daitezke eguneratu ondoren.';
+$BL['be_security_results'] = 'Emaitzak';
+$BL['be_security_ok'] = 'Ados';
+$BL['be_security_warn'] = 'Abisua';
+$BL['be_security_fail'] = 'Arazoa';
+$BL['be_security_repair'] = 'Konpondu emaitza seguruak';
+$BL['be_security_repair_hint'] = 'Falta diren direktorio pribatuak eta ukapen-fitxategiak sortzen ditu. Ez du inoiz erabiltzaileen daturik ezabatzen edo mugitzen; eskuzko lana behar duten emaitzak zerrendan geratzen dira.';
+$BL['be_security_fixed'] = 'emaitza konponduta.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Biltegi pribatuaren erroa';
+$BL['be_security_row_storage_dir'] = 'Pribatua: %s/';
+$BL['be_security_row_legacy_dir'] = 'Zaharra: %s/';
+$BL['be_security_row_protector_form'] = 'Inprimakiaren igoeren direktorioa';
+$BL['be_security_row_protector_cache'] = 'Cache direktorio zaharra';
+$BL['be_security_row_protector_config'] = 'Konfigurazio direktorioa';
+$BL['be_security_row_protector_upload'] = 'FTP igoeren direktorioa';
+$BL['be_security_row_protector_tests'] = 'Probako scriptak';
+$BL['be_security_row_protector_filearchive'] = 'Fitxategi artxiboa';
+$BL['be_security_row_root_rule'] = 'Erroko zerbitzariaren konfigurazioa';
+$BL['be_security_row_form_token_key'] = 'Inprimaki esteken sekretua';
+$BL['be_security_row_setup_dir'] = 'setup direktorioa';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Falta da: %s';
+$BL['be_security_detail_not_writable'] = 'Ezin da idatzi: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Falta da edo ezin da idatzi: %s';
+$BL['be_security_detail_no_root'] = 'Ez dago biltegi errorik konfiguratuta.';
+$BL['be_security_detail_mode_open'] = 'Modua %s, 0700 espero zen.';
+$BL['be_security_detail_removed'] = 'Kenduta.';
+$BL['be_security_detail_leftover_one'] = 'Sarrera 1 geratzen da document root-en.';
+$BL['be_security_detail_leftover_many'] = '%d sarrera geratzen dira document root-en.';
+$BL['be_security_detail_leftover_denied_one'] = 'Sarrera 1 deny fitxategi baten atzean dago; mugitu biltegi pribatura.';
+$BL['be_security_detail_leftover_denied_many'] = '%d sarrera deny fitxategi baten atzean daude; mugitu biltegi pribatura.';
+$BL['be_security_detail_empty_denied'] = 'Hutsa eta ukaturik; kendu direktorioa.';
+$BL['be_security_detail_empty_open'] = 'deny fitxategirik gabeko direktorio hutsa.';
+$BL['be_security_detail_no_deny_rule'] = 'Ez dago deny errorik %s(e)n.';
+$BL['be_security_detail_downloads_open'] = 'Deskarga zuzenak gaituta daude (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Deskarga zuzenak desgaituta daude.';
+$BL['be_security_detail_root_ok'] = '%s(e)k bide pribatuak ukatzen ditu.';
+$BL['be_security_detail_root_missing'] = 'Ez da deny arauak dituen zerbitzari konfiguraziorik aurkitu.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key hutsik dago; db_user + db_pass erabiltzen da.';
+$BL['be_security_detail_token_ok'] = 'Form_token_key dedikatu bat konfiguratuta dago.';
+$BL['be_security_detail_setup_present'] = 'setup/ oraindik badago; kendu edo blokeatu.';

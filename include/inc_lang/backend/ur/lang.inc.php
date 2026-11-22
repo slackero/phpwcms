@@ -1798,3 +1798,49 @@ $BL['be_admin_mail_component_html_note'] = 'اس جزو کے لیے HTML مار�
 $BL['be_admin_mail_template']       = 'ای میل ٹیمپلیٹ';
 
 $BL['be_newsletter_nourl'] = 'نیوز لیٹر نہیں بھیجا گیا: سائٹ کا URL ترتیب نہیں دیا گیا یا قابلِ اعتماد نہیں ہے۔';
+
+// security check
+$BL['be_security_check'] = 'سیکیورٹی جانچ';
+$BL['be_security_intro'] = 'نجی اسٹوریج، پرانی content ڈائریکٹریاں اور ہر ڈائریکٹری کی deny فائلیں جانچتا ہے۔ اپڈیٹر %1$s، %2$s اور %3$s کو چھوڑ دیتا ہے، اس لیے اپڈیٹ کے بعد یہ فائلیں غائب یا پرانی ہو سکتی ہیں۔';
+$BL['be_security_results'] = 'نتائج';
+$BL['be_security_ok'] = 'ٹھیک ہے';
+$BL['be_security_warn'] = 'انتباہ';
+$BL['be_security_fail'] = 'مسئلہ';
+$BL['be_security_repair'] = 'محفوظ نتائج درست کریں';
+$BL['be_security_repair_hint'] = 'غائب نجی ڈائریکٹریاں اور deny فائلیں بناتا ہے۔ صارف کا ڈیٹا کبھی حذف یا منتقل نہیں کرتا؛ دستی کام والے نتائج فہرست میں رہتے ہیں۔';
+$BL['be_security_fixed'] = 'نتائج درست کر دیے گئے۔';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'نجی اسٹوریج کی جڑ';
+$BL['be_security_row_storage_dir'] = 'نجی: %s/';
+$BL['be_security_row_legacy_dir'] = 'پرانا: %s/';
+$BL['be_security_row_protector_form'] = 'فارم اپلوڈ ڈائریکٹری';
+$BL['be_security_row_protector_cache'] = 'پرانی کیشے ڈائریکٹری';
+$BL['be_security_row_protector_config'] = 'کنفیگریشن ڈائریکٹری';
+$BL['be_security_row_protector_upload'] = 'FTP اپلوڈ ڈائریکٹری';
+$BL['be_security_row_protector_tests'] = 'ٹیسٹ اسکرپٹس';
+$BL['be_security_row_protector_filearchive'] = 'فائل آرکائیو';
+$BL['be_security_row_root_rule'] = 'روٹ سرور کنفیگریشن';
+$BL['be_security_row_form_token_key'] = 'فارم لنک سیکرٹ';
+$BL['be_security_row_setup_dir'] = 'setup ڈائریکٹری';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'غائب: %s';
+$BL['be_security_detail_not_writable'] = 'قابلِ تحریر نہیں: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'غائب یا قابلِ تحریر نہیں: %s';
+$BL['be_security_detail_no_root'] = 'اسٹوریج کی جڑ کنفیگر نہیں ہے۔';
+$BL['be_security_detail_mode_open'] = 'موڈ %s، متوقع 0700۔';
+$BL['be_security_detail_removed'] = 'ہٹا دیا گیا۔';
+$BL['be_security_detail_leftover_one'] = 'document root میں 1 اندراج باقی ہے۔';
+$BL['be_security_detail_leftover_many'] = 'document root میں %d اندراجات باقی ہیں۔';
+$BL['be_security_detail_leftover_denied_one'] = '1 اندراج deny فائل کے پیچھے باقی ہے؛ اسے نجی اسٹوریج میں منتقل کریں۔';
+$BL['be_security_detail_leftover_denied_many'] = '%d اندراجات deny فائل کے پیچھے باقی ہیں؛ انہیں نجی اسٹوریج میں منتقل کریں۔';
+$BL['be_security_detail_empty_denied'] = 'خالی اور مسدود؛ ڈائریکٹری ہٹائیں۔';
+$BL['be_security_detail_empty_open'] = 'deny فائل کے بغیر خالی ڈائریکٹری۔';
+$BL['be_security_detail_no_deny_rule'] = '%s میں کوئی deny اصول نہیں۔';
+$BL['be_security_detail_downloads_open'] = 'براہ راست ڈاؤن لوڈز فعال ہیں (opt-in)۔';
+$BL['be_security_detail_downloads_closed'] = 'براہ راست ڈاؤن لوڈز غیر فعال ہیں۔';
+$BL['be_security_detail_root_ok'] = '%s نجی راستوں کو مسدود کرتا ہے۔';
+$BL['be_security_detail_root_missing'] = 'deny اصولوں والی سرور کنفیگریشن نہیں ملی۔';
+$BL['be_security_detail_token_fallback'] = 'form_token_key خالی ہے؛ db_user + db_pass استعمال ہوتا ہے۔';
+$BL['be_security_detail_token_ok'] = 'مخصوص form_token_key کنفیگر ہے۔';
+$BL['be_security_detail_setup_present'] = 'setup/ اب بھی موجود ہے؛ ہٹائیں یا مسدود کریں۔';

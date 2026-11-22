@@ -1807,3 +1807,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML-розмітка цього к�
 $BL['be_admin_mail_template']       = 'Шаблон email';
 
 $BL['be_newsletter_nourl'] = 'Розсилку не надіслано: URL-адреса сайту не налаштована або не є довіреною.';
+
+// security check
+$BL['be_security_check'] = 'Перевірка безпеки';
+$BL['be_security_intro'] = 'Перевіряє приватне сховище, старі каталоги content і файли заборони в кожному каталозі. Оновлення пропускає %1$s, %2$s і %3$s, тому після оновлення ці файли можуть бути відсутні або застарілими.';
+$BL['be_security_results'] = 'Знахідки';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Попередження';
+$BL['be_security_fail'] = 'Проблема';
+$BL['be_security_repair'] = 'Виправити безпечні знахідки';
+$BL['be_security_repair_hint'] = 'Створює відсутні приватні каталоги та файли заборони. Ніколи не видаляє й не переміщує дані користувачів; знахідки, що потребують ручної роботи, залишаються у списку.';
+$BL['be_security_fixed'] = 'знахідок виправлено.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Корінь приватного сховища';
+$BL['be_security_row_storage_dir'] = 'Приватний: %s/';
+$BL['be_security_row_legacy_dir'] = 'Старий: %s/';
+$BL['be_security_row_protector_form'] = 'Каталог завантажень форм';
+$BL['be_security_row_protector_cache'] = 'Старий каталог кешу';
+$BL['be_security_row_protector_config'] = 'Каталог конфігурації';
+$BL['be_security_row_protector_upload'] = 'Каталог FTP-завантажень';
+$BL['be_security_row_protector_tests'] = 'Тестові скрипти';
+$BL['be_security_row_protector_filearchive'] = 'Архів файлів';
+$BL['be_security_row_root_rule'] = 'Конфігурація сервера в корені';
+$BL['be_security_row_form_token_key'] = 'Секрет посилань форм';
+$BL['be_security_row_setup_dir'] = 'Каталог setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Відсутній: %s';
+$BL['be_security_detail_not_writable'] = 'Немає доступу на запис: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Відсутній або немає доступу на запис: %s';
+$BL['be_security_detail_no_root'] = 'Корінь сховища не налаштований.';
+$BL['be_security_detail_mode_open'] = 'Режим %s, очікується 0700.';
+$BL['be_security_detail_removed'] = 'Видалено.';
+$BL['be_security_detail_leftover_one'] = '1 запис залишається в document root.';
+$BL['be_security_detail_leftover_many'] = 'Записів у document root: %d.';
+$BL['be_security_detail_leftover_denied_one'] = '1 запис залишається за файлом заборони; перемістіть його до приватного сховища.';
+$BL['be_security_detail_leftover_denied_many'] = 'Записів за файлом заборони: %d; перемістіть їх до приватного сховища.';
+$BL['be_security_detail_empty_denied'] = 'Порожньо й заборонено; видаліть каталог.';
+$BL['be_security_detail_empty_open'] = 'Порожній каталог без файлу заборони.';
+$BL['be_security_detail_no_deny_rule'] = 'Немає правила заборони в %s.';
+$BL['be_security_detail_downloads_open'] = 'Прямі завантаження ввімкнено (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Прямі завантаження вимкнено.';
+$BL['be_security_detail_root_ok'] = '%s забороняє приватні шляхи.';
+$BL['be_security_detail_root_missing'] = 'Не знайдено конфігурації сервера з правилами заборони.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key порожній; використовується db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Налаштовано окремий form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ досі наявний; видаліть або заблокуйте.';

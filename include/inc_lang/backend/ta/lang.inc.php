@@ -1818,3 +1818,49 @@ $BL['be_admin_mail_component_html_note'] = 'இந்தக் கூறுக�
 $BL['be_admin_mail_template']       = 'மின்னஞ்சல் வார்ப்புரு';
 
 $BL['be_newsletter_nourl'] = 'செய்திமடல் அனுப்பப்படவில்லை: தள URL அமைக்கப்படவில்லை அல்லது நம்பகமானதல்ல.';
+
+// security check
+$BL['be_security_check'] = 'பாதுகாப்பு சோதனை';
+$BL['be_security_intro'] = 'தனிப்பட்ட சேமிப்பகம், பழைய content கோப்பகங்கள் மற்றும் ஒவ்வொரு கோப்பகத்தின் deny கோப்புகளைச் சரிபார்க்கிறது. புதுப்பிப்பு %1$s, %2$s மற்றும் %3$s ஆகியவற்றைத் தவிர்க்கிறது, எனவே புதுப்பிப்புக்குப் பிறகு இந்தக் கோப்புகள் இல்லாமல் அல்லது பழையதாக இருக்கலாம்.';
+$BL['be_security_results'] = 'கண்டறிதல்கள்';
+$BL['be_security_ok'] = 'சரி';
+$BL['be_security_warn'] = 'எச்சரிக்கை';
+$BL['be_security_fail'] = 'சிக்கல்';
+$BL['be_security_repair'] = 'பாதுகாப்பான கண்டறிதல்களைச் சரிசெய்';
+$BL['be_security_repair_hint'] = 'இல்லாத தனிப்பட்ட கோப்பகங்களையும் deny கோப்புகளையும் உருவாக்குகிறது. பயனர் தரவை ஒருபோதும் நீக்கவோ நகர்த்தவோ செய்யாது; கைமுறை வேலை தேவைப்படும் கண்டறிதல்கள் பட்டியலில் இருக்கும்.';
+$BL['be_security_fixed'] = 'கண்டறிதல்கள் சரிசெய்யப்பட்டன.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'தனிப்பட்ட சேமிப்பு ரூட்';
+$BL['be_security_row_storage_dir'] = 'தனிப்பட்ட: %s/';
+$BL['be_security_row_legacy_dir'] = 'பழைய: %s/';
+$BL['be_security_row_protector_form'] = 'படிவ பதிவேற்ற கோப்பகம்';
+$BL['be_security_row_protector_cache'] = 'பழைய தற்காலிக சேமிப்பு கோப்பகம்';
+$BL['be_security_row_protector_config'] = 'கட்டமைப்பு கோப்பகம்';
+$BL['be_security_row_protector_upload'] = 'FTP பதிவேற்ற கோப்பகம்';
+$BL['be_security_row_protector_tests'] = 'சோதனை ஸ்கிரிப்ட்கள்';
+$BL['be_security_row_protector_filearchive'] = 'கோப்பு காப்பகம்';
+$BL['be_security_row_root_rule'] = 'ரூட் சேவையக கட்டமைப்பு';
+$BL['be_security_row_form_token_key'] = 'படிவ இணைப்பு ரகசியம்';
+$BL['be_security_row_setup_dir'] = 'setup கோப்பகம்';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'இல்லை: %s';
+$BL['be_security_detail_not_writable'] = 'எழுத முடியாது: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'இல்லை அல்லது எழுத முடியாது: %s';
+$BL['be_security_detail_no_root'] = 'சேமிப்பு ரூட் கட்டமைக்கப்படவில்லை.';
+$BL['be_security_detail_mode_open'] = 'பயன்முறை %s, எதிர்பார்ப்பு 0700.';
+$BL['be_security_detail_removed'] = 'நீக்கப்பட்டது.';
+$BL['be_security_detail_leftover_one'] = 'document root-இல் 1 உள்ளீடு உள்ளது.';
+$BL['be_security_detail_leftover_many'] = 'document root-இல் %d உள்ளீடுகள் உள்ளன.';
+$BL['be_security_detail_leftover_denied_one'] = '1 உள்ளீடு deny கோப்பின் பின்னால் உள்ளது; தனிப்பட்ட சேமிப்பிற்கு நகர்த்தவும்.';
+$BL['be_security_detail_leftover_denied_many'] = '%d உள்ளீடுகள் deny கோப்பின் பின்னால் உள்ளன; தனிப்பட்ட சேமிப்பிற்கு நகர்த்தவும்.';
+$BL['be_security_detail_empty_denied'] = 'காலியாகவும் தடுக்கப்பட்டதும்; கோப்பகத்தை நீக்கவும்.';
+$BL['be_security_detail_empty_open'] = 'deny கோப்பு இல்லாத காலி கோப்பகம்.';
+$BL['be_security_detail_no_deny_rule'] = '%s-இல் deny விதி இல்லை.';
+$BL['be_security_detail_downloads_open'] = 'நேரடி பதிவிறக்கங்கள் இயக்கத்தில் (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'நேரடி பதிவிறக்கங்கள் முடக்கப்பட்டுள்ளன.';
+$BL['be_security_detail_root_ok'] = '%s தனிப்பட்ட பாதைகளைத் தடுக்கிறது.';
+$BL['be_security_detail_root_missing'] = 'deny விதிகளுடன் சேவையக கட்டமைப்பு கிடைக்கவில்லை.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key காலி; db_user + db_pass பயன்படுத்தப்படுகிறது.';
+$BL['be_security_detail_token_ok'] = 'தனி form_token_key கட்டமைக்கப்பட்டுள்ளது.';
+$BL['be_security_detail_setup_present'] = 'setup/ இன்னும் உள்ளது; நீக்கவும் அல்லது தடுக்கவும்.';

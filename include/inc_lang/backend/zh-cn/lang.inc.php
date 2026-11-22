@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = '此组件的 HTML 标记。它通过
 $BL['be_admin_mail_template']       = '邮件模板';
 
 $BL['be_newsletter_nourl'] = '新闻简报未发送：网站 URL 未配置或不受信任。';
+
+// security check
+$BL['be_security_check'] = '安全检查';
+$BL['be_security_intro'] = '检查私有存储、旧 content 目录以及各目录的拒绝文件。更新程序会跳过 %1$s、%2$s 和 %3$s，因此更新后这些文件可能缺失或过期。';
+$BL['be_security_results'] = '检查结果';
+$BL['be_security_ok'] = '正常';
+$BL['be_security_warn'] = '警告';
+$BL['be_security_fail'] = '问题';
+$BL['be_security_repair'] = '修复安全项';
+$BL['be_security_repair_hint'] = '创建缺失的私有目录和拒绝文件。绝不删除或移动用户数据；需要手动处理的项会继续列出。';
+$BL['be_security_fixed'] = '已修复检查结果。';
+
+// security check rows
+$BL['be_security_row_storage_root'] = '私有存储根目录';
+$BL['be_security_row_storage_dir'] = '私有: %s/';
+$BL['be_security_row_legacy_dir'] = '旧: %s/';
+$BL['be_security_row_protector_form'] = '表单上传目录';
+$BL['be_security_row_protector_cache'] = '旧缓存目录';
+$BL['be_security_row_protector_config'] = '配置目录';
+$BL['be_security_row_protector_upload'] = 'FTP 上传目录';
+$BL['be_security_row_protector_tests'] = '测试脚本';
+$BL['be_security_row_protector_filearchive'] = '文件归档';
+$BL['be_security_row_root_rule'] = '根目录服务器配置';
+$BL['be_security_row_form_token_key'] = '表单链接密钥';
+$BL['be_security_row_setup_dir'] = 'setup 目录';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = '缺失: %s';
+$BL['be_security_detail_not_writable'] = '不可写: %s';
+$BL['be_security_detail_missing_or_unwritable'] = '缺失或不可写: %s';
+$BL['be_security_detail_no_root'] = '未配置存储根目录。';
+$BL['be_security_detail_mode_open'] = '模式 %s，应为 0700。';
+$BL['be_security_detail_removed'] = '已移除。';
+$BL['be_security_detail_leftover_one'] = 'document root 中仍有 1 项。';
+$BL['be_security_detail_leftover_many'] = 'document root 中仍有 %d 项。';
+$BL['be_security_detail_leftover_denied_one'] = '有 1 项位于拒绝文件之后；请移至私有存储。';
+$BL['be_security_detail_leftover_denied_many'] = '有 %d 项位于拒绝文件之后；请移至私有存储。';
+$BL['be_security_detail_empty_denied'] = '为空且已拒绝；请删除该目录。';
+$BL['be_security_detail_empty_open'] = '空目录且无拒绝文件。';
+$BL['be_security_detail_no_deny_rule'] = '%s 中没有拒绝规则。';
+$BL['be_security_detail_downloads_open'] = '直接下载已启用 (opt-in)。';
+$BL['be_security_detail_downloads_closed'] = '直接下载已禁用。';
+$BL['be_security_detail_root_ok'] = '%s 拒绝私有路径。';
+$BL['be_security_detail_root_missing'] = '未找到包含拒绝规则的随附服务器配置。';
+$BL['be_security_detail_token_fallback'] = 'form_token_key 为空；使用 db_user + db_pass。';
+$BL['be_security_detail_token_ok'] = '已配置专用 form_token_key。';
+$BL['be_security_detail_setup_present'] = 'setup/ 仍然存在；请删除或阻止。';

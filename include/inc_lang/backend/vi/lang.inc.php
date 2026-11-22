@@ -1865,3 +1865,49 @@ $BL['be_admin_mail_component_html_note'] = 'Mã đánh dấu HTML cho thành ph�
 $BL['be_admin_mail_template']       = 'Mẫu email';
 
 $BL['be_newsletter_nourl'] = 'Bản tin chưa được gửi: URL của trang web chưa được cấu hình hoặc không đáng tin cậy.';
+
+// security check
+$BL['be_security_check'] = 'Kiểm tra bảo mật';
+$BL['be_security_intro'] = 'Kiểm tra kho lưu trữ riêng, các thư mục content cũ và tệp chặn của từng thư mục. Trình cập nhật bỏ qua %1$s, %2$s và %3$s, nên các tệp này có thể thiếu hoặc lỗi thời sau khi cập nhật.';
+$BL['be_security_results'] = 'Kết quả';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Cảnh báo';
+$BL['be_security_fail'] = 'Sự cố';
+$BL['be_security_repair'] = 'Sửa các kết quả an toàn';
+$BL['be_security_repair_hint'] = 'Tạo thư mục riêng và tệp chặn còn thiếu. Không bao giờ xóa hoặc di chuyển dữ liệu người dùng; các kết quả cần xử lý thủ công vẫn được liệt kê.';
+$BL['be_security_fixed'] = 'đã sửa kết quả.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Gốc lưu trữ riêng';
+$BL['be_security_row_storage_dir'] = 'Riêng tư: %s/';
+$BL['be_security_row_legacy_dir'] = 'Cũ: %s/';
+$BL['be_security_row_protector_form'] = 'Thư mục tải biểu mẫu';
+$BL['be_security_row_protector_cache'] = 'Thư mục cache cũ';
+$BL['be_security_row_protector_config'] = 'Thư mục cấu hình';
+$BL['be_security_row_protector_upload'] = 'Thư mục tải FTP';
+$BL['be_security_row_protector_tests'] = 'Tập lệnh kiểm thử';
+$BL['be_security_row_protector_filearchive'] = 'Kho tệp';
+$BL['be_security_row_root_rule'] = 'Cấu hình máy chủ gốc';
+$BL['be_security_row_form_token_key'] = 'Bí mật liên kết biểu mẫu';
+$BL['be_security_row_setup_dir'] = 'Thư mục setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Thiếu: %s';
+$BL['be_security_detail_not_writable'] = 'Không ghi được: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Thiếu hoặc không ghi được: %s';
+$BL['be_security_detail_no_root'] = 'Chưa cấu hình gốc lưu trữ.';
+$BL['be_security_detail_mode_open'] = 'Chế độ %s, mong đợi 0700.';
+$BL['be_security_detail_removed'] = 'Đã xóa.';
+$BL['be_security_detail_leftover_one'] = '1 mục vẫn còn trong document root.';
+$BL['be_security_detail_leftover_many'] = '%d mục vẫn còn trong document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 mục nằm sau tệp chặn; hãy chuyển vào lưu trữ riêng.';
+$BL['be_security_detail_leftover_denied_many'] = '%d mục nằm sau tệp chặn; hãy chuyển vào lưu trữ riêng.';
+$BL['be_security_detail_empty_denied'] = 'Trống và bị chặn; hãy xóa thư mục.';
+$BL['be_security_detail_empty_open'] = 'Thư mục trống không có tệp chặn.';
+$BL['be_security_detail_no_deny_rule'] = 'Không có quy tắc chặn trong %s.';
+$BL['be_security_detail_downloads_open'] = 'Tải xuống trực tiếp đang bật (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Tải xuống trực tiếp đang tắt.';
+$BL['be_security_detail_root_ok'] = '%s chặn các đường dẫn riêng.';
+$BL['be_security_detail_root_missing'] = 'Không tìm thấy cấu hình máy chủ có quy tắc chặn.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key trống; dùng db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Đã cấu hình form_token_key riêng.';
+$BL['be_security_detail_setup_present'] = 'setup/ vẫn tồn tại; hãy xóa hoặc chặn.';

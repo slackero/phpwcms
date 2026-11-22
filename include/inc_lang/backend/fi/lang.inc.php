@@ -1803,3 +1803,49 @@ $BL['be_admin_mail_component_html_note'] = 'Tämän komponentin HTML-merkkaus. S
 $BL['be_admin_mail_template']       = 'Sähköpostipohja';
 
 $BL['be_newsletter_nourl'] = 'Uutiskirjettä ei lähetetty: sivuston URL-osoitetta ei ole määritetty tai se ei ole luotettava.';
+
+// security check
+$BL['be_security_check'] = 'Tietoturvatarkistus';
+$BL['be_security_intro'] = 'Tarkistaa yksityisen tallennustilan, vanhat content-hakemistot ja hakemistoko deny-tiedostot. Päivitys ohittaa hakemistot %1$s, %2$s ja %3$s, joten nämä tiedostot voivat puuttua tai olla vanhentuneita päivityksen jälkeen.';
+$BL['be_security_results'] = 'Löydökset';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Varoitus';
+$BL['be_security_fail'] = 'Ongelma';
+$BL['be_security_repair'] = 'Korjaa turvalliset löydökset';
+$BL['be_security_repair_hint'] = 'Luo puuttuvat yksityiset hakemistot ja deny-tiedostot. Ei koskaan poista tai siirrä käyttäjätietoja; manuaalista työtä vaativat löydökset jäävät listalle.';
+$BL['be_security_fixed'] = 'löydös(tä) korjattu.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Yksityinen tallennusjuuri';
+$BL['be_security_row_storage_dir'] = 'Yksityinen: %s/';
+$BL['be_security_row_legacy_dir'] = 'Vanha: %s/';
+$BL['be_security_row_protector_form'] = 'Lomakkeen latauskansio';
+$BL['be_security_row_protector_cache'] = 'Vanha välimuistikansio';
+$BL['be_security_row_protector_config'] = 'Asetuskansio';
+$BL['be_security_row_protector_upload'] = 'FTP-latauskansio';
+$BL['be_security_row_protector_tests'] = 'Testiskriptit';
+$BL['be_security_row_protector_filearchive'] = 'Tiedostoarkisto';
+$BL['be_security_row_root_rule'] = 'Palvelinasetukset juuressa';
+$BL['be_security_row_form_token_key'] = 'Lomakelinkkien salaisuus';
+$BL['be_security_row_setup_dir'] = 'Setup-kansio';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Puuttuu: %s';
+$BL['be_security_detail_not_writable'] = 'Ei kirjoitettavissa: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Puuttuu tai ei kirjoitettavissa: %s';
+$BL['be_security_detail_no_root'] = 'Tallennusjuurta ei ole määritetty.';
+$BL['be_security_detail_mode_open'] = 'Tila %s, odotettu 0700.';
+$BL['be_security_detail_removed'] = 'Poistettu.';
+$BL['be_security_detail_leftover_one'] = '1 merkintä on yhä document rootissa.';
+$BL['be_security_detail_leftover_many'] = '%d merkintää on yhä document rootissa.';
+$BL['be_security_detail_leftover_denied_one'] = '1 merkintä on deny-tiedoston takana; siirrä se yksityiseen tallennukseen.';
+$BL['be_security_detail_leftover_denied_many'] = '%d merkintää on deny-tiedoston takana; siirrä ne yksityiseen tallennukseen.';
+$BL['be_security_detail_empty_denied'] = 'Tyhjä ja estetty; poista kansio.';
+$BL['be_security_detail_empty_open'] = 'Tyhjä kansio ilman deny-tiedostoa.';
+$BL['be_security_detail_no_deny_rule'] = 'Ei deny-sääntöä tiedostossa %s.';
+$BL['be_security_detail_downloads_open'] = 'Suorat lataukset ovat käytössä (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Suorat lataukset on poistettu käytöstä.';
+$BL['be_security_detail_root_ok'] = '%s estää yksityiset polut.';
+$BL['be_security_detail_root_missing'] = 'Toimitettua palvelinasetusta deny-säännöillä ei löytynyt.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key on tyhjä; varalla db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Erillinen form_token_key on määritetty.';
+$BL['be_security_detail_setup_present'] = 'setup/ on yhä olemassa; poista tai estä se.';

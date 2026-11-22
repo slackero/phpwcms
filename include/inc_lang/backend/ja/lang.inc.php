@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = 'このコンポーネントのHTML�
 $BL['be_admin_mail_template']       = 'メールテンプレート';
 
 $BL['be_newsletter_nourl'] = 'ニュースレターは送信されませんでした：サイトURLが設定されていないか、信頼されていません。';
+
+// security check
+$BL['be_security_check'] = 'セキュリティチェック';
+$BL['be_security_intro'] = 'プライベートストレージ、旧 content ディレクトリ、各ディレクトリの拒否ファイルを確認します。アップデーターは %1$s、%2$s、%3$s をスキップするため、更新後にこれらのファイルが欠落または古いままになることがあります。';
+$BL['be_security_results'] = '検出結果';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = '警告';
+$BL['be_security_fail'] = '問題';
+$BL['be_security_repair'] = '安全な検出結果を修復';
+$BL['be_security_repair_hint'] = '不足しているプライベートディレクトリと拒否ファイルを作成します。ユーザーデータの削除や移動は行いません。手動対応が必要な検出結果は一覧に残ります。';
+$BL['be_security_fixed'] = '件の検出結果を修復しました。';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'プライベートストレージのルート';
+$BL['be_security_row_storage_dir'] = 'プライベート: %s/';
+$BL['be_security_row_legacy_dir'] = '旧: %s/';
+$BL['be_security_row_protector_form'] = 'フォームアップロードディレクトリ';
+$BL['be_security_row_protector_cache'] = '旧キャッシュディレクトリ';
+$BL['be_security_row_protector_config'] = '設定ディレクトリ';
+$BL['be_security_row_protector_upload'] = 'FTP アップロードディレクトリ';
+$BL['be_security_row_protector_tests'] = 'テストスクリプト';
+$BL['be_security_row_protector_filearchive'] = 'ファイルアーカイブ';
+$BL['be_security_row_root_rule'] = 'ルートのサーバー設定';
+$BL['be_security_row_form_token_key'] = 'フォームリンクの秘密鍵';
+$BL['be_security_row_setup_dir'] = 'setup ディレクトリ';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'ありません: %s';
+$BL['be_security_detail_not_writable'] = '書き込み不可: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'ありません、または書き込み不可: %s';
+$BL['be_security_detail_no_root'] = 'ストレージルートが設定されていません。';
+$BL['be_security_detail_mode_open'] = 'モード %s、0700 が必要です。';
+$BL['be_security_detail_removed'] = '削除済み。';
+$BL['be_security_detail_leftover_one'] = 'document root に 1 件残っています。';
+$BL['be_security_detail_leftover_many'] = 'document root に %d 件残っています。';
+$BL['be_security_detail_leftover_denied_one'] = '拒否ファイルの背後に 1 件残っています。プライベートストレージへ移動してください。';
+$BL['be_security_detail_leftover_denied_many'] = '拒否ファイルの背後に %d 件残っています。プライベートストレージへ移動してください。';
+$BL['be_security_detail_empty_denied'] = '空で拒否済みです。ディレクトリを削除してください。';
+$BL['be_security_detail_empty_open'] = '拒否ファイルのない空のディレクトリです。';
+$BL['be_security_detail_no_deny_rule'] = '%s に拒否ルールがありません。';
+$BL['be_security_detail_downloads_open'] = '直接ダウンロードが有効です (opt-in)。';
+$BL['be_security_detail_downloads_closed'] = '直接ダウンロードは無効です。';
+$BL['be_security_detail_root_ok'] = '%s はプライベートパスを拒否します。';
+$BL['be_security_detail_root_missing'] = '拒否ルールを含む同梱のサーバー設定が見つかりません。';
+$BL['be_security_detail_token_fallback'] = 'form_token_key が空です。db_user + db_pass を使用します。';
+$BL['be_security_detail_token_ok'] = '専用の form_token_key が設定されています。';
+$BL['be_security_detail_setup_present'] = 'setup/ が残っています。削除するかブロックしてください。';

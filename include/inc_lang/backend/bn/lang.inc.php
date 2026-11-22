@@ -1808,3 +1808,49 @@ $BL['be_admin_mail_component_html_note'] = 'এই উপাদানের জ�
 $BL['be_admin_mail_template']       = 'ইমেল টেমপ্লেট';
 
 $BL['be_newsletter_nourl'] = 'নিউজলেটার পাঠানো হয়নি: সাইটের URL কনফিগার করা নেই বা বিশ্বস্ত নয়।';
+
+// security check
+$BL['be_security_check'] = 'নিরাপত্তা পরীক্ষা';
+$BL['be_security_intro'] = 'ব্যক্তিগত স্টোরেজ, পুরোনো content ডিরেক্টরি এবং প্রতিটি ডিরেক্টরির deny ফাইল যাচাই করে। আপডেটার %1$s, %2$s এবং %3$s বাদ দেয়, তাই আপডেটের পরে এগুলো অনুপস্থিত বা পুরোনো থাকতে পারে।';
+$BL['be_security_results'] = 'ফলাফল';
+$BL['be_security_ok'] = 'ঠিক আছে';
+$BL['be_security_warn'] = 'সতর্কতা';
+$BL['be_security_fail'] = 'সমস্যা';
+$BL['be_security_repair'] = 'নিরাপদ ফলাফল মেরামত করুন';
+$BL['be_security_repair_hint'] = 'অনুপস্থিত ব্যক্তিগত ডিরেক্টরি ও deny ফাইল তৈরি করে। ব্যবহারকারীর ডেটা কখনো মুছে বা সরায় না; ম্যানুয়াল কাজ প্রয়োজন এমন ফলাফল তালিকায় থাকে।';
+$BL['be_security_fixed'] = 'ফলাফল মেরামত হয়েছে।';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'ব্যক্তিগত স্টোরেজ রুট';
+$BL['be_security_row_storage_dir'] = 'ব্যক্তিগত: %s/';
+$BL['be_security_row_legacy_dir'] = 'পুরোনো: %s/';
+$BL['be_security_row_protector_form'] = 'ফর্ম আপলোড ডিরেক্টরি';
+$BL['be_security_row_protector_cache'] = 'পুরোনো ক্যাশে ডিরেক্টরি';
+$BL['be_security_row_protector_config'] = 'কনফিগারেশন ডিরেক্টরি';
+$BL['be_security_row_protector_upload'] = 'FTP আপলোড ডিরেক্টরি';
+$BL['be_security_row_protector_tests'] = 'টেস্ট স্ক্রিপ্ট';
+$BL['be_security_row_protector_filearchive'] = 'ফাইল আর্কাইভ';
+$BL['be_security_row_root_rule'] = 'রুট সার্ভার কনফিগারেশন';
+$BL['be_security_row_form_token_key'] = 'ফর্ম লিংক সিক্রেট';
+$BL['be_security_row_setup_dir'] = 'setup ডিরেক্টরি';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'অনুপস্থিত: %s';
+$BL['be_security_detail_not_writable'] = 'লেখার যোগ্য নয়: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'অনুপস্থিত বা লেখার যোগ্য নয়: %s';
+$BL['be_security_detail_no_root'] = 'কোনো স্টোরেজ রুট কনফিগার করা নেই।';
+$BL['be_security_detail_mode_open'] = 'মোড %s, প্রত্যাশিত 0700।';
+$BL['be_security_detail_removed'] = 'সরানো হয়েছে।';
+$BL['be_security_detail_leftover_one'] = 'document root-এ ১টি এন্ট্রি আছে।';
+$BL['be_security_detail_leftover_many'] = 'document root-এ %dটি এন্ট্রি আছে।';
+$BL['be_security_detail_leftover_denied_one'] = '১টি এন্ট্রি deny ফাইলের পিছনে আছে; ব্যক্তিগত স্টোরেজে সরান।';
+$BL['be_security_detail_leftover_denied_many'] = '%dটি এন্ট্রি deny ফাইলের পিছনে আছে; ব্যক্তিগত স্টোরেজে সরান।';
+$BL['be_security_detail_empty_denied'] = 'খালি ও ব্লক করা; ডিরেক্টরি সরান।';
+$BL['be_security_detail_empty_open'] = 'deny ফাইল ছাড়া খালি ডিরেক্টরি।';
+$BL['be_security_detail_no_deny_rule'] = '%s-এ কোনো deny নিয়ম নেই।';
+$BL['be_security_detail_downloads_open'] = 'সরাসরি ডাউনলোড সক্রিয় (opt-in)।';
+$BL['be_security_detail_downloads_closed'] = 'সরাসরি ডাউনলোড নিষ্ক্রিয়।';
+$BL['be_security_detail_root_ok'] = '%s ব্যক্তিগত পথ ব্লক করে।';
+$BL['be_security_detail_root_missing'] = 'deny নিয়মসহ সার্ভার কনফিগারেশন পাওয়া যায়নি।';
+$BL['be_security_detail_token_fallback'] = 'form_token_key খালি; db_user + db_pass ব্যবহৃত হয়।';
+$BL['be_security_detail_token_ok'] = 'একটি নির্দিষ্ট form_token_key কনফিগার করা আছে।';
+$BL['be_security_detail_setup_present'] = 'setup/ এখনও আছে; সরান বা ব্লক করুন।';

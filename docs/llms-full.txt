@@ -870,6 +870,20 @@ Rollback restores the `files/` mirror of the chosen run, marks the run `rolled_b
 
 **Admin → phpinfo()** (`p=15`) embeds `phpinfo()` output as HTML under the backend header, reusing the generated CSS while overriding the default body styling. The navigation link shows only for super admins; the page itself requires any `adm` admin permission. Use it to verify PHP version, extensions (`intl`, `gd`, `imagick`, `curl`, ...), loaded INI values and environment variables on a live install — the same data the setup wizard checks, but read-only.
 
+## Security check
+
+**Admin → Security Check** (`p=20`, super admins only) scans the installed state, because the updater deliberately skips `content/`, `upload/`, `filearchive/`, `include/config/` and `setup/` (`phpwcms_update::SKIP_PATHS`). Those paths hold the per-directory `.htaccess` protectors, so an update cannot be relied on to create or refresh them.
+
+The check (`include/inc_lib/security-check.inc.php`) reports one row per finding with a status:
+
+- **OK** — nothing to do.
+- **Warning** — informational or an accepted trade-off: legacy empty directory left behind, `filearchive/` direct downloads enabled, empty `form_token_key` (links fall back to `db_user` + `db_pass`), `setup/` still present.
+- **Problem** — a path or file that must be fixed.
+
+Checked: the private storage root and its `tmp/`, `cache/`, `log/`, `backup/`, `form/` (mode and writability), the legacy `content/{tmp,cache,log,backup,form}` directories (must be gone, denied, or hold only unmoved entries behind a deny file), the protector files for form uploads, cache, `include/config`, `upload`, `tests` and `filearchive`, the root server configuration (`content/(tmp|cache|log|backup|form)` deny markers in `.htaccess`, `_.htaccess`, `nginx.conf` or `web.config`), the form link secret and the presence of `setup/`.
+
+*Repair safe findings* creates missing private directories with `0700` and writes the standard deny files (`0600`). It never deletes, moves or overwrites user entries — a legacy directory that still holds files stays listed as a problem with the count, so the administrator can move those files into `<storage_path>/` and remove the directory.
+
 ## Maintenance actions
 
 Both entries render for every member of the `adm` admin group in the sidebar. Execution is additionally checked per request:

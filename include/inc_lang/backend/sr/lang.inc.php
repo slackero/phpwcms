@@ -1778,3 +1778,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML označavanje za ovu komponentu.
 $BL['be_admin_mail_template']       = 'Šablon e-pošte';
 
 $BL['be_newsletter_nourl'] = 'Newsletter nije poslat: URL sajta nije konfigurisan ili nije pouzdan.';
+
+// security check
+$BL['be_security_check'] = 'Сигурносна провера';
+$BL['be_security_intro'] = 'Проверава приватно складиште, старе content директоријуме и датотеке забране по директоријумима. Ажурирање прескаче %1$s, %2$s и %3$s, па ови фајлови могу недостајати или бити застарели после ажурирања.';
+$BL['be_security_results'] = 'Налази';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Упозорење';
+$BL['be_security_fail'] = 'Проблем';
+$BL['be_security_repair'] = 'Поправи безбедне налазе';
+$BL['be_security_repair_hint'] = 'Ствара недостајуће приватне директоријуме и датотеке забране. Никада не брише нити премешта корисничке податке; налази који захтевају ручни рад остају на листи.';
+$BL['be_security_fixed'] = 'налаз(а) поправљено.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Корен приватног складишта';
+$BL['be_security_row_storage_dir'] = 'Приватно: %s/';
+$BL['be_security_row_legacy_dir'] = 'Старо: %s/';
+$BL['be_security_row_protector_form'] = 'Фасцикла за отпремање образаца';
+$BL['be_security_row_protector_cache'] = 'Стара фасцикла кеша';
+$BL['be_security_row_protector_config'] = 'Фасцикла конфигурације';
+$BL['be_security_row_protector_upload'] = 'Фасцикла FTP отпремања';
+$BL['be_security_row_protector_tests'] = 'Тест скрипте';
+$BL['be_security_row_protector_filearchive'] = 'Архива датотека';
+$BL['be_security_row_root_rule'] = 'Конфигурација сервера у корену';
+$BL['be_security_row_form_token_key'] = 'Тајна веза обрасца';
+$BL['be_security_row_setup_dir'] = 'Фасцикла setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Недостаје: %s';
+$BL['be_security_detail_not_writable'] = 'Није уписиво: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Недостаје или није уписиво: %s';
+$BL['be_security_detail_no_root'] = 'Корен складишта није конфигурисан.';
+$BL['be_security_detail_mode_open'] = 'Режим %s, очекивано 0700.';
+$BL['be_security_detail_removed'] = 'Уклоњено.';
+$BL['be_security_detail_leftover_one'] = '1 ставка је још у document root-у.';
+$BL['be_security_detail_leftover_many'] = '%d ставки је још у document root-у.';
+$BL['be_security_detail_leftover_denied_one'] = '1 ставка је иза датотеке забране; преместите је у приватно складиште.';
+$BL['be_security_detail_leftover_denied_many'] = '%d ставки је иза датотеке забране; преместите их у приватно складиште.';
+$BL['be_security_detail_empty_denied'] = 'Празно и забрањено; уклоните фасциклу.';
+$BL['be_security_detail_empty_open'] = 'Празна фасцикла без датотеке забране.';
+$BL['be_security_detail_no_deny_rule'] = 'Нема правила забране у %s.';
+$BL['be_security_detail_downloads_open'] = 'Директна преузимања су омогућена (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Директна преузимања су онемогућена.';
+$BL['be_security_detail_root_ok'] = '%s забрањује приватне путање.';
+$BL['be_security_detail_root_missing'] = 'Није пронађена испоручена конфигурација сервера са правилима забране.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key је празан; користи се db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Конфигурисан је наменски form_token_key.';
+$BL['be_security_detail_setup_present'] = 'setup/ још постоји; уклоните или блокирајте.';

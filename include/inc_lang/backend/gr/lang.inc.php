@@ -1789,3 +1789,49 @@ $BL['be_admin_mail_component_html_note'] = 'Σήμανση HTML για αυτό 
 $BL['be_admin_mail_template']       = 'Πρότυπο email';
 
 $BL['be_newsletter_nourl'] = 'Το ενημερωτικό δελτίο δεν στάλθηκε: η διεύθυνση URL του ιστότοπου δεν έχει ρυθμιστεί ή δεν είναι αξιόπιστη.';
+
+// security check
+$BL['be_security_check'] = 'Έλεγχος ασφαλείας';
+$BL['be_security_intro'] = 'Ελέγχει τον ιδιωτικό χώρο αποθήκευσης, τους παλιούς φακέλους content και τα αρχεία άρνησης κάθε φακέλου. Η ενημέρωση παραλείπει %1$s, %2$s και %3$s, οπότε αυτά τα αρχεία μπορεί να λείπουν ή να είναι παλιά μετά την ενημέρωση.';
+$BL['be_security_results'] = 'Ευρήματα';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Προειδοποίηση';
+$BL['be_security_fail'] = 'Πρόβλημα';
+$BL['be_security_repair'] = 'Επιδιόρθωση ασφαλών ευρημάτων';
+$BL['be_security_repair_hint'] = 'Δημιουργεί τους ιδιωτικούς φακέλους και τα αρχεία άρνησης που λείπουν. Δεν διαγράφει ποτέ δεδομένα χρήστη· τα ευρήματα που απαιτούν χειροκίνητη εργασία παραμένουν στη λίστα.';
+$BL['be_security_fixed'] = 'ευρήματα επιδιορθώθηκαν.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Ρίζα ιδιωτικού χώρου';
+$BL['be_security_row_storage_dir'] = 'Ιδιωτικό: %s/';
+$BL['be_security_row_legacy_dir'] = 'Παλιό: %s/';
+$BL['be_security_row_protector_form'] = 'Φάκελος αποστολών φόρμας';
+$BL['be_security_row_protector_cache'] = 'Παλιός φάκελος cache';
+$BL['be_security_row_protector_config'] = 'Φάκελος ρυθμίσεων';
+$BL['be_security_row_protector_upload'] = 'Φάκελος αποστολών FTP';
+$BL['be_security_row_protector_tests'] = 'Σενάρια δοκιμών';
+$BL['be_security_row_protector_filearchive'] = 'Αρχείο αρχείων';
+$BL['be_security_row_root_rule'] = 'Ρυθμίσεις διακομιστή στη ρίζα';
+$BL['be_security_row_form_token_key'] = 'Μυστικό συνδέσμων φόρμας';
+$BL['be_security_row_setup_dir'] = 'Φάκελος setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Λείπει: %s';
+$BL['be_security_detail_not_writable'] = 'Μη εγγράψιμο: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Λείπει ή μη εγγράψιμο: %s';
+$BL['be_security_detail_no_root'] = 'Δεν έχει ρυθμιστεί ρίζα χώρου.';
+$BL['be_security_detail_mode_open'] = 'Λειτουργία %s, αναμενόταν 0700.';
+$BL['be_security_detail_removed'] = 'Αφαιρέθηκε.';
+$BL['be_security_detail_leftover_one'] = '1 καταχώριση παραμένει στο document root.';
+$BL['be_security_detail_leftover_many'] = '%d καταχωρίσεις παραμένουν στο document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 καταχώριση παραμένει πίσω από αρχείο απαγόρευσης; μετακινήστε την στον ιδιωτικό χώρο.';
+$BL['be_security_detail_leftover_denied_many'] = '%d καταχωρίσεις παραμένουν πίσω από αρχείο απαγόρευσης; μετακινήστε τις στον ιδιωτικό χώρο.';
+$BL['be_security_detail_empty_denied'] = 'Κενό και απαγορευμένο; αφαιρέστε τον φάκελο.';
+$BL['be_security_detail_empty_open'] = 'Κενός φάκελος χωρίς αρχείο απαγόρευσης.';
+$BL['be_security_detail_no_deny_rule'] = 'Κανόνας απαγόρευσης δεν υπάρχει στο %s.';
+$BL['be_security_detail_downloads_open'] = 'Οι άμεσες λήψεις είναι ενεργές (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Οι άμεσες λήψεις είναι ανενεργές.';
+$BL['be_security_detail_root_ok'] = 'Το %s απαγορεύει τις ιδιωτικές διαδρομές.';
+$BL['be_security_detail_root_missing'] = 'Δεν βρέθηκε παρεχόμενη ρύθμιση διακομιστή με τους κανόνες απαγόρευσης.';
+$BL['be_security_detail_token_fallback'] = 'Το form_token_key είναι κενό; χρησιμοποιείται db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Έχει ρυθμιστεί ξεχωριστό form_token_key.';
+$BL['be_security_detail_setup_present'] = 'Το setup/ υπάρχει ακόμη; αφαιρέστε ή μπλοκάρετε.';

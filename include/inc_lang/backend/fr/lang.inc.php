@@ -1773,3 +1773,49 @@ $BL['be_admin_mail_component_html_note'] = 'Balisage HTML pour ce composant. Il 
 $BL['be_admin_mail_template']       = 'Modèle d’e-mail';
 
 $BL['be_newsletter_nourl'] = 'Newsletter non envoyée : l’URL du site n’est pas configurée ou n’est pas fiable.';
+
+// security check
+$BL['be_security_check'] = 'Contrôle de sécurité';
+$BL['be_security_intro'] = 'Vérifie l\'arborescence de stockage privé, les anciens répertoires content et les fichiers de refus de chaque répertoire. La mise à jour ignore %1$s, %2$s et %3$s, ces fichiers peuvent donc manquer ou être obsolètes après une mise à jour.';
+$BL['be_security_results'] = 'Constats';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Avertissement';
+$BL['be_security_fail'] = 'Problème';
+$BL['be_security_repair'] = 'Réparer les constats sûrs';
+$BL['be_security_repair_hint'] = 'Crée les répertoires privés et les fichiers de refus manquants. Ne supprime ni ne déplace jamais les données utilisateur ; les constats nécessitant une action manuelle restent listés.';
+$BL['be_security_fixed'] = 'constat(s) réparé(s).';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Racine de stockage privée';
+$BL['be_security_row_storage_dir'] = 'Privé : %s/';
+$BL['be_security_row_legacy_dir'] = 'Ancien : %s/';
+$BL['be_security_row_protector_form'] = 'Répertoire des envois de formulaire';
+$BL['be_security_row_protector_cache'] = 'Ancien répertoire de cache';
+$BL['be_security_row_protector_config'] = 'Répertoire de configuration';
+$BL['be_security_row_protector_upload'] = 'Répertoire d\'envoi FTP';
+$BL['be_security_row_protector_tests'] = 'Scripts de test';
+$BL['be_security_row_protector_filearchive'] = 'Archive de fichiers';
+$BL['be_security_row_root_rule'] = 'Configuration serveur à la racine';
+$BL['be_security_row_form_token_key'] = 'Secret des liens de formulaire';
+$BL['be_security_row_setup_dir'] = 'Répertoire setup';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Manquant : %s';
+$BL['be_security_detail_not_writable'] = 'Non inscriptible : %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Manquant ou non inscriptible : %s';
+$BL['be_security_detail_no_root'] = 'Aucune racine de stockage configurée.';
+$BL['be_security_detail_mode_open'] = 'Mode %s, 0700 attendu.';
+$BL['be_security_detail_removed'] = 'Supprimé.';
+$BL['be_security_detail_leftover_one'] = '1 entrée reste dans la racine web.';
+$BL['be_security_detail_leftover_many'] = '%d entrées restent dans la racine web.';
+$BL['be_security_detail_leftover_denied_one'] = '1 entrée reste derrière un fichier de refus ; déplacez-la vers le stockage privé.';
+$BL['be_security_detail_leftover_denied_many'] = '%d entrées restent derrière un fichier de refus ; déplacez-les vers le stockage privé.';
+$BL['be_security_detail_empty_denied'] = 'Vide et refusé ; supprimez le répertoire.';
+$BL['be_security_detail_empty_open'] = 'Répertoire vide sans fichier de refus.';
+$BL['be_security_detail_no_deny_rule'] = 'Aucune règle de refus dans %s.';
+$BL['be_security_detail_downloads_open'] = 'Les téléchargements directs sont activés (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Les téléchargements directs sont désactivés.';
+$BL['be_security_detail_root_ok'] = '%s refuse les chemins privés.';
+$BL['be_security_detail_root_missing'] = 'Aucune configuration serveur fournie avec les règles de refus trouvée.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key est vide ; repli sur db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Un form_token_key dédié est configuré.';
+$BL['be_security_detail_setup_present'] = 'setup/ est toujours présent ; supprimez-le ou bloquez-le.';

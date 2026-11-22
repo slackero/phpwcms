@@ -1770,3 +1770,49 @@ $BL['be_admin_mail_component_html_note'] = 'HTML markup for this component. It i
 $BL['be_admin_mail_template']       = 'Email Template';
 
 $BL['be_newsletter_nourl'] = 'Newsletter not sent: the site URL is not configured or not trusted.';
+
+// security check
+$BL['be_security_check'] = 'Security Check';
+$BL['be_security_intro'] = 'Verifies the private storage tree, the legacy content directories and the per-directory deny files. The updater skips %1$s, %2$s and %3$s, so an update can leave these files missing or stale.';
+$BL['be_security_results'] = 'Findings';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Warning';
+$BL['be_security_fail'] = 'Problem';
+$BL['be_security_repair'] = 'Repair safe findings';
+$BL['be_security_repair_hint'] = 'Creates missing private directories and deny files. Never deletes or moves user data; findings that need manual work stay listed.';
+$BL['be_security_fixed'] = 'finding(s) repaired.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Private storage root';
+$BL['be_security_row_storage_dir'] = 'Private %s/';
+$BL['be_security_row_legacy_dir'] = 'Legacy %s/';
+$BL['be_security_row_protector_form'] = 'Form upload directory';
+$BL['be_security_row_protector_cache'] = 'Legacy cache directory';
+$BL['be_security_row_protector_config'] = 'Configuration directory';
+$BL['be_security_row_protector_upload'] = 'FTP upload directory';
+$BL['be_security_row_protector_tests'] = 'Test scripts';
+$BL['be_security_row_protector_filearchive'] = 'File archive';
+$BL['be_security_row_root_rule'] = 'Root server configuration';
+$BL['be_security_row_form_token_key'] = 'Form link secret';
+$BL['be_security_row_setup_dir'] = 'Setup directory';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Missing: %s';
+$BL['be_security_detail_not_writable'] = 'Not writable: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Missing or not writable: %s';
+$BL['be_security_detail_no_root'] = 'No storage root is configured.';
+$BL['be_security_detail_mode_open'] = 'Mode %s, expected 0700.';
+$BL['be_security_detail_removed'] = 'Removed.';
+$BL['be_security_detail_leftover_one'] = '1 entry remains inside the document root.';
+$BL['be_security_detail_leftover_many'] = '%d entries remain inside the document root.';
+$BL['be_security_detail_leftover_denied_one'] = '1 entry remains behind a deny file; move it to the private storage.';
+$BL['be_security_detail_leftover_denied_many'] = '%d entries remain behind a deny file; move them to the private storage.';
+$BL['be_security_detail_empty_denied'] = 'Empty and denied; remove the directory.';
+$BL['be_security_detail_empty_open'] = 'Empty directory without a deny file.';
+$BL['be_security_detail_no_deny_rule'] = 'No deny rule in %s.';
+$BL['be_security_detail_downloads_open'] = 'Direct downloads are enabled (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Direct downloads are disabled.';
+$BL['be_security_detail_root_ok'] = '%s denies the private paths.';
+$BL['be_security_detail_root_missing'] = 'No shipped server configuration with the private-path deny rules was found.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key is empty; falls back to db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'A dedicated form_token_key is configured.';
+$BL['be_security_detail_setup_present'] = 'setup/ is still present; remove or block it.';

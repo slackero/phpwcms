@@ -1809,3 +1809,49 @@ $BL['be_admin_mail_component_html_note'] = 'Selle komponendi HTML-märgistus. Se
 $BL['be_admin_mail_template']       = 'E-kirja mall';
 
 $BL['be_newsletter_nourl'] = 'Uudiskiri jäi saatmata: saidi URL pole seadistatud või pole usaldusväärne.';
+
+// security check
+$BL['be_security_check'] = 'Turvakontroll';
+$BL['be_security_intro'] = 'Kontrollib privaatset salvestusruumi, vanu content-katalooge ja iga kataloogi keelufaile. Uuendaja jätab vahele %1$s, %2$s ja %3$s, seega võivad need failid pärast uuendust puududa või olla aegunud.';
+$BL['be_security_results'] = 'Leiud';
+$BL['be_security_ok'] = 'OK';
+$BL['be_security_warn'] = 'Hoiatus';
+$BL['be_security_fail'] = 'Probleem';
+$BL['be_security_repair'] = 'Paranda ohutud leiud';
+$BL['be_security_repair_hint'] = 'Loob puuduvad privaatsed kataloogid ja keelufailid. Ei kustuta ega liiguta kunagi kasutajaandmeid; käsitsi tööd vajavad leiud jäävad nimekirja.';
+$BL['be_security_fixed'] = 'leid(u) parandatud.';
+
+// security check rows
+$BL['be_security_row_storage_root'] = 'Privaatne salvestusjuur';
+$BL['be_security_row_storage_dir'] = 'Privaatne: %s/';
+$BL['be_security_row_legacy_dir'] = 'Vana: %s/';
+$BL['be_security_row_protector_form'] = 'Vormi üleslaadimiste kaust';
+$BL['be_security_row_protector_cache'] = 'Vana vahemälu kaust';
+$BL['be_security_row_protector_config'] = 'Konfiguratsioonikaust';
+$BL['be_security_row_protector_upload'] = 'FTP üleslaadimiste kaust';
+$BL['be_security_row_protector_tests'] = 'Testiskriptid';
+$BL['be_security_row_protector_filearchive'] = 'Failiarhiiv';
+$BL['be_security_row_root_rule'] = 'Serverikonfiguratsioon juurtes';
+$BL['be_security_row_form_token_key'] = 'Vormilinkide saladus';
+$BL['be_security_row_setup_dir'] = 'Setup kaust';
+$BL['be_security_detail_path'] = '%s';
+$BL['be_security_detail_missing'] = 'Puudub: %s';
+$BL['be_security_detail_not_writable'] = 'Ei ole kirjutatav: %s';
+$BL['be_security_detail_missing_or_unwritable'] = 'Puudub või ei ole kirjutatav: %s';
+$BL['be_security_detail_no_root'] = 'Salvestusjuurt ei ole seadistatud.';
+$BL['be_security_detail_mode_open'] = 'Režiim %s, oodatud 0700.';
+$BL['be_security_detail_removed'] = 'Eemaldatud.';
+$BL['be_security_detail_leftover_one'] = '1 kirje on veel document rootis.';
+$BL['be_security_detail_leftover_many'] = '%d kirjet on veel document rootis.';
+$BL['be_security_detail_leftover_denied_one'] = '1 kirje on deny-faili taga; liiguta see privaatsesse salvestusse.';
+$BL['be_security_detail_leftover_denied_many'] = '%d kirjet on deny-faili taga; liiguta need privaatsesse salvestusse.';
+$BL['be_security_detail_empty_denied'] = 'Tühi ja keelatud; eemalda kaust.';
+$BL['be_security_detail_empty_open'] = 'Tühi kaust ilma deny-failita.';
+$BL['be_security_detail_no_deny_rule'] = 'Deny-reegel puudub failis %s.';
+$BL['be_security_detail_downloads_open'] = 'Otsesed allalaadimised on lubatud (opt-in).';
+$BL['be_security_detail_downloads_closed'] = 'Otsesed allalaadimised on keelatud.';
+$BL['be_security_detail_root_ok'] = '%s keelab privaatsed teed.';
+$BL['be_security_detail_root_missing'] = 'Kaasasolevat serverikonfiguratsiooni deny-reeglitega ei leitud.';
+$BL['be_security_detail_token_fallback'] = 'form_token_key on tühi; kasutatakse db_user + db_pass.';
+$BL['be_security_detail_token_ok'] = 'Eraldi form_token_key on seadistatud.';
+$BL['be_security_detail_setup_present'] = 'setup/ on veel olemas; eemalda või blokeeri see.';
