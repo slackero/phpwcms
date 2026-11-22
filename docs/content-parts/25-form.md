@@ -107,7 +107,7 @@ A post matching `cpID<id>` runs field validation, then your custom validate func
 - Stored results: `phpwcms_formresult` rows `formresult_pid`, `formresult_ip`, `formresult_content` (serialized field values plus upload file URLs; double opt-in adds `hash`). Export by `exportformresult` and `exportformresultdetail` in `include/inc_act/act_export.php`.
 - Form tracking tokens: `phpwcms_formtracking` (`formtracking_hash` = MD5 of IP + salt + hour, `formtracking_ip`, `formtracking_sent`); see `getFormTrackingValue()` / `checkFormTrackingValue()` in `include/inc_lib/general.inc.php`. Not written in GDPR mode.
 - Uploads land in `<storage_path>/form/`, plus the optional `folder=` subdirectory. The directory is created with mode `0700`; files are written with `0600`.
-- Uploads are private: a link in the mail points at the signed controller `formfile.php?t=<token>`, not at a public file. The token is encrypted with `$phpwcms['form_token_key']` (falls back to `db_pass`, so changing the database password invalidates links in already-sent mail). Links mailed by versions before the private-storage split pointed at `content/form/` and no longer resolve.
+- Uploads are private: a link in the mail points at the signed controller `formfile.php?t=<token>`, not at a public file. The token is encrypted with `$phpwcms['form_token_key']` (falls back to `db_user` + `db_pass`, so changing the database user or password invalidates links in already-sent mail). Links mailed by versions before the private-storage split pointed at `content/form/` and no longer resolve.
 - Newsletter opt-ins are inserted into `phpwcms_address` like the newsletter CP does.
 
 ## Related

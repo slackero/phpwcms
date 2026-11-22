@@ -190,7 +190,7 @@ define('PHPWCMS_BACKUP', PHPWCMS_STORAGE_ROOT . 'backup/');
 define('PHPWCMS_FORM', PHPWCMS_STORAGE_ROOT . 'form/');
 define('PHPWCMS_LOGDIR', PHPWCMS_STORAGE_ROOT . 'log');
 $phpwcms['form_token_key'] = (string)($phpwcms['form_token_key'] ?? '');
-define('PHPWCMS_FORM_TOKEN_KEY', $phpwcms['form_token_key'] !== '' ? $phpwcms['form_token_key'] : (string)$phpwcms['db_pass']);
+define('PHPWCMS_FORM_TOKEN_KEY', $phpwcms['form_token_key'] !== '' ? $phpwcms['form_token_key'] : $phpwcms['db_user'] . "\0" . $phpwcms['db_pass']);
 if (!phpwcms_storage_ensure($phpwcms_storage_root, 0700)) {
     phpwcms_storage_require($phpwcms_storage_root);
 }

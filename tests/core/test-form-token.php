@@ -26,6 +26,11 @@ function extract_fn(string $source, string $name): void
     eval($match[0]);
 }
 
+check(
+    preg_match('/PHPWCMS_FORM_TOKEN_KEY.*?db_user.*?db_pass/s', $default) === 1,
+    'fallback token key combines db_user and db_pass'
+);
+
 foreach (['phpwcms_encrypt', 'phpwcms_decrypt'] as $name) {
     extract_fn($default, $name);
 }
