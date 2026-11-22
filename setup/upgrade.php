@@ -2144,24 +2144,30 @@ if (empty($phpwcms) && !empty($cmsgo) && is_array($cmsgo)) {
 }
 
 // Resolve the private storage root. default.inc.php is not loaded here, so the
-// updater resolves it itself; the upgrade form can override the path before
-// anything is written.
-$upgrade_storage_path = trim((string)(!$isCli && isset($_POST['storage_path']) ? $_POST['storage_path'] : ($phpwcms['storage_path'] ?? '')));
+// updater resolves it itself. The web form may override the path, but that
+// input is only trusted after authentication and must not create directories
+// on an unauthenticated request; CLI resolves before it prompts.
+$upgrade_storage_path = trim((string)($phpwcms['storage_path'] ?? ''));
 if ($upgrade_storage_path === '') {
     $upgrade_storage_path = '../phpwcms-storage';
 }
 $phpwcms['storage_path'] = $upgrade_storage_path;
 $upgrade_storage_root = upgrade_storage_path($upgrade_storage_path, $docRoot);
-$upgrade_storage_ready = upgrade_storage_ensure($upgrade_storage_root, 0700);
-if ($upgrade_storage_ready) {
-    foreach (['backup', 'tmp'] as $upgrade_storage_sub) {
-        if (!upgrade_storage_ensure($upgrade_storage_root . '/' . $upgrade_storage_sub, 0700)) {
-            $upgrade_storage_ready = false;
-            break;
+$upgrade_storage_ready = false;
+$upgrade_storage_error = '';
+
+if ($isCli) {
+    $upgrade_storage_ready = upgrade_storage_ensure($upgrade_storage_root, 0700);
+    if ($upgrade_storage_ready) {
+        foreach (['backup', 'tmp'] as $upgrade_storage_sub) {
+            if (!upgrade_storage_ensure($upgrade_storage_root . '/' . $upgrade_storage_sub, 0700)) {
+                $upgrade_storage_ready = false;
+                break;
+            }
         }
     }
+    $upgrade_storage_error = $upgrade_storage_ready ? '' : $upgrade_storage_root;
 }
-$upgrade_storage_error = $upgrade_storage_ready ? '' : $upgrade_storage_root;
 
 if (empty($phpwcms['db_table']) || empty($phpwcms['db_user'])) {
     $err = 'Invalid configuration in ' . $configFile;
@@ -2841,6 +2847,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $isAuthenticated = !empty($_SESSION['upgrade_authenticated']);
+
+// Honour the storage-path override only after login, and create the tree only
+// for an authenticated request.
+if (!$isCli && $isAuthenticated) {
+    if (isset($_POST['storage_path'])) {
+        $upgrade_storage_override = trim((string)$_POST['storage_path']);
+        if ($upgrade_storage_override !== '') {
+            $upgrade_storage_path = $upgrade_storage_override;
+            $phpwcms['storage_path'] = $upgrade_storage_override;
+            $upgrade_storage_root = upgrade_storage_path($upgrade_storage_override, $docRoot);
+        }
+    }
+    $upgrade_storage_ready = upgrade_storage_ensure($upgrade_storage_root, 0700);
+    if ($upgrade_storage_ready) {
+        foreach (['backup', 'tmp'] as $upgrade_storage_sub) {
+            if (!upgrade_storage_ensure($upgrade_storage_root . '/' . $upgrade_storage_sub, 0700)) {
+                $upgrade_storage_ready = false;
+                break;
+            }
+        }
+    }
+    $upgrade_storage_error = $upgrade_storage_ready ? '' : $upgrade_storage_root;
+}
+
 $releaseInfo = null;
 $isUpgradeAllowed = true;
 $versionError = '';

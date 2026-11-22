@@ -76,6 +76,20 @@ check(is_file($root . '/content/tmp/.htaccess'), 'leftover directory gets a deny
 check(phpwcms_revision_r565() === true, 'second run stays successful');
 check(is_file($storage . '/tmp/a.txt'), 'second run does not lose moved files');
 
+// cross-device storage root: rename() fails, the move must copy then unlink,
+// and a failed cleanup must never leave a duplicate copy behind
+$r565_source = (string)file_get_contents(__DIR__ . '/../../include/inc_lib/revision/r565.php');
+check(str_contains($r565_source, '@copy($source, $target)'), 'move falls back to copy+unlink across filesystems');
+
+@mkdir($base . '/xfer-src', 0700, true);
+file_put_contents($base . '/xfer-src/file.txt', 'XFER');
+@mkdir($base . '/xfer-dst', 0700, true);
+@chmod($base . '/xfer-src', 0555);
+$moved = phpwcms_revision_r565_move($base . '/xfer-src/file.txt', $base . '/xfer-dst/file.txt');
+@chmod($base . '/xfer-src', 0700);
+check($moved === false, 'move reports failure when the source cannot be removed');
+check(!file_exists($base . '/xfer-dst/file.txt'), 'failed move does not leave a duplicate copy');
+
 $isRoot = function_exists('posix_geteuid') && posix_geteuid() === 0;
 if (!$isRoot) {
     @chmod($storage, 0500);

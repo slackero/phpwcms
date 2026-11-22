@@ -37,22 +37,37 @@ $include_urlparts['corrected']	= $include_urlparts['host'].'/'.trim($phpwcms["ro
 
 $_PDF_page = str_replace($include_urlparts['falsepart'], $include_urlparts['corrected'], $_PDF_page);
 $_PDF_temp = md5($_print_settings['PDF_filename'].microtime()).'.html';
+$_PDF_html = PHPWCMS_TEMP.$_PDF_temp;
+$_PDF_file = PHPWCMS_TEMP.$_print_settings['PDF_filename'];
 
-// Output -> use file save and redirect
-if(write_textfile( PHPWCMS_CONTENT.'tmp/'.$_PDF_temp, $_PDF_page )) {
+if (function_exists('phpwcms_storage_ensure')) {
+    phpwcms_storage_ensure(PHPWCMS_TEMP, 0700);
+}
 
-		$cmd = $phpwcms['wkhtmltopdf_path'] . ' ' . escapeshellarg(PHPWCMS_URL.CONTENT_PATH.'tmp/'.$_PDF_temp) . ' ' . escapeshellarg(PHPWCMS_CONTENT.'tmp/'.$_print_settings['PDF_filename']);
+// Staging and output stay in private storage. Assets in the page are already
+// absolute URLs, so wkhtmltopdf can read the private local staging file.
+if(write_textfile($_PDF_html, $_PDF_page)) {
+
+		@chmod($_PDF_html, 0600);
+
+		$cmd = $phpwcms['wkhtmltopdf_path'] . ' --enable-local-file-access ' . escapeshellarg($_PDF_html) . ' ' . escapeshellarg($_PDF_file);
 
 		@exec($cmd, $output, $retval);
 
-		if(is_file(PHPWCMS_CONTENT.'tmp/'.$_print_settings['PDF_filename'])) {
+		if(is_file($_PDF_file)) {
 
-			// Set the file to 777
-			@chmod(PHPWCMS_CONTENT.'tmp/'.$_print_settings['PDF_filename'], 0666);
+			@chmod($_PDF_file, 0600);
+			@unlink($_PDF_html);
 
-			headerRedirect(PHPWCMS_URL.CONTENT_PATH.'tmp/'.$_print_settings['PDF_filename']);
+			header('Content-Type: application/pdf');
+			header("Content-Disposition: inline; filename*=UTF-8''" . rawurlencode(basename($_PDF_file)));
+			header('Content-Length: ' . filesize($_PDF_file));
+			header('Cache-Control: private, no-store');
+			readfile($_PDF_file);
+			exit();
 
 		}
 }
 
+@unlink($_PDF_html);
 headerRedirect(abs_url());

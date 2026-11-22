@@ -19,4 +19,6 @@ check(phpwcms_form_upload_dir('/etc') === '/srv/private/form/', 'absolute reject
 check(phpwcms_form_upload_dir('C:\\temp') === '/srv/private/form/', 'drive path rejected');
 check(phpwcms_form_upload_dir('a/../../b') === '/srv/private/form/', 'nested traversal rejected');
 check(phpwcms_form_upload_dir('a/./b') === '/srv/private/form/', 'dot segment rejected');
+check(phpwcms_form_upload_dir('content/form') === '/srv/private/form/', 'legacy default folder maps to the form root');
+check(phpwcms_form_upload_dir('content/form/invoices') === '/srv/private/form/content/form/invoices/', 'legacy prefix on a real subdirectory stays a subdirectory');
 exit($failures === 0 ? 0 : 1);

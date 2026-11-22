@@ -1894,6 +1894,17 @@ function phpwcms_form_upload_dir($folder = '') {
     }
 
     $folder = trim($folder, '/');
+
+    // Pre-split configs persisted the old public default (`folder=content/form`).
+    // It means the form root now, not a subdirectory below it.
+    $legacy_root = 'content/form';
+    if (defined('CONTENT_PATH')) {
+        $legacy_root = trim((string)CONTENT_PATH, '/') . '/form';
+    }
+    if ($folder === 'content/form' || ($legacy_root !== '' && strcasecmp($folder, $legacy_root) === 0)) {
+        return $base;
+    }
+
     foreach (explode('/', $folder) as $segment) {
         if ($segment === '' || $segment === '.' || $segment === '..') {
             return $base;

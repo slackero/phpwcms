@@ -22,9 +22,9 @@ if (!defined('FEUSER_LOGIN_STATUS')) {
     define('FEUSER_LOGIN_STATUS', 0);
 }
 
-// Caching logic using PHPWCMS_CONTENT to prevent DB/server overload
-$cache_dir = PHPWCMS_CONTENT . '/cache';
-$cache_file = $cache_dir . '/sitemap.cache.xml';
+// Caching logic using the private cache directory to prevent DB/server overload
+$cache_dir = PHPWCMS_CACHE;
+$cache_file = $cache_dir . 'sitemap.cache.xml';
 $cache_time = 12 * 3600; // 12 hours in seconds
 
 if (is_file($cache_file) && (time() - filemtime($cache_file) < $cache_time)) {
@@ -204,7 +204,7 @@ echo '</urlset>';
 
 // Save generated output to cache file
 $xml_output = ob_get_clean();
-if (!is_dir($cache_dir) && !mkdir($cache_dir, 0777, true) && !is_dir($cache_dir)) {
+if (!is_dir($cache_dir) && !mkdir($cache_dir, 0700, true) && !is_dir($cache_dir)) {
     throw new RuntimeException(sprintf('Directory "%s" was not created', $cache_dir));
 }
 @file_put_contents($cache_file, $xml_output);

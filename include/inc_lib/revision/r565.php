@@ -189,10 +189,23 @@ function phpwcms_revision_r565_move(string $source, string $target): bool
     if (file_exists($target)) {
         return false;
     }
-    if (!@rename($source, $target)) {
+    if (@rename($source, $target)) {
+        @chmod($target, 0600);
+
+        return true;
+    }
+
+    // cross-device move (storage root on another mount): copy, then remove.
+    // A failed removal must not leave a second copy behind.
+    if (!@copy($source, $target)) {
         return false;
     }
     @chmod($target, 0600);
+    if (!@unlink($source)) {
+        @unlink($target);
+
+        return false;
+    }
 
     return true;
 }

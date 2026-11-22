@@ -2871,7 +2871,7 @@ function include_url($url, $ignore_ssl=false) {
     if($url && $cache) {
 
         $cache_filename = md5($url).'-url'; // set cache file name
-        $cache_file     = PHPWCMS_CONTENT.'tmp/'.$cache_filename;   // set caching file
+        $cache_file     = PHPWCMS_TEMP.$cache_filename;   // set caching file
         $cache_status   = check_cache($cache_file, $cache); // ceck existence
 
         if($cache_status === 'VALID') {  // read cache

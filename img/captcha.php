@@ -9,7 +9,11 @@ $spaf_obj = new SPAF_FormValidator();
 
 // custom settings for phpwcms
 $spaf_obj->setLibDir(PHPWCMS_TEMPLATE.'inc_captcha/');
-$spaf_obj->work_dir	= PHPWCMS_ROOT.'/content/tmp/';
+// private storage; the tag file must survive the r565 migration
+if (function_exists('phpwcms_storage_ensure')) {
+    phpwcms_storage_ensure(PHPWCMS_TEMP, 0700);
+}
+$spaf_obj->work_dir	= PHPWCMS_TEMP;
 $spaf_obj->tag_ttl	= 5;
 $spaf_char_num		= empty($_GET['length']) ? false : intval($_GET['length']);
 
