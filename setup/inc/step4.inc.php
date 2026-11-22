@@ -16,6 +16,14 @@ if (!defined('PHPWCMS_SETUP')) {
 <h2 class="h4 text-primary fw-normal mb-3">6. Internal Paths &amp; Storage Settings</h2>
 <p class="text-muted">Ensure path values do NOT begin or end with a leading/trailing slash. Using default values is recommended for initial installation.</p>
 
+<?php if (!empty($err) && !empty($storage_err)): ?>
+    <div class="alert alert-danger mb-4">
+        <i class="fa fa-exclamation-triangle"></i> The private storage directory could not be created or is not writable:
+        <code><?php echo html_specialchars($storage_err) ?></code>.
+        Create it with mode 0700 for the PHP user, or set an absolute path that the PHP user can write to.
+    </div>
+<?php endif; ?>
+
 <form action="setup.php?step=4" method="post">
     <div class="card mb-4 border">
         <div class="card-header bg-light fw-bold">System Paths &amp; Directories</div>
@@ -59,6 +67,17 @@ if (!defined('PHPWCMS_SETUP')) {
                     <input name="ftp_path" type="text" class="form-control" id="ftp_path" value="<?php echo html_specialchars($phpwcms['ftp_path']) ?>" placeholder="upload" maxlength="100" />
                 </div>
                 <div class="col-sm-3 form-text text-muted small align-self-center">Default: <code>upload</code></div>
+            </div>
+
+            <div class="form-group row">
+                <label for="storage_path" class="col-sm-3 col-form-label fw-bold">Private Storage Directory</label>
+                <div class="col-sm-6">
+                    <input name="storage_path" type="text" class="form-control" id="storage_path" value="<?php echo html_specialchars($phpwcms['storage_path'] ?? '../phpwcms-storage') ?>" placeholder="../phpwcms-storage" maxlength="255" />
+                    <?php if (!empty($storage_err)): ?>
+                        <div class="form-text text-danger small">Could not create or write <code><?php echo html_specialchars($storage_err) ?></code>. Use an absolute path the PHP user can write to.</div>
+                    <?php endif; ?>
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Outside the document root, relative to PHPWCMS_ROOT or absolute</div>
             </div>
 
             <div class="form-group row mb-0">

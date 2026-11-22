@@ -31,16 +31,43 @@ $phpwcms['root'] = !empty($phpwcms['root']) ? '/' . trim($phpwcms['root'], '/') 
             'FTP Upload' => $phpwcms['root'] . '/' . $phpwcms['ftp_path'],
             'Frontend Content' => $phpwcms['root'] . '/' . $phpwcms['content_path'],
             'Frontend Images' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/images',
-            'Frontend Forms' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/form',
-            'Frontend Tmp' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/tmp',
             'Frontend RSS' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/rss',
             'Frontend Pages' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/pages'
         ];
 
+        // private storage sits outside the document root and keeps 0700 (or
+        // 0770 when the PHP user differs from the file owner)
+        if (!function_exists('phpwcms_storage_path')) {
+            require_once dirname(__DIR__, 2) . '/include/inc_lib/storage.inc.php';
+        }
+        $storage_root_display = phpwcms_storage_path(
+            (string)($phpwcms['storage_path'] ?? '../phpwcms-storage'),
+            dirname(__DIR__, 2) . $phpwcms['root']
+        );
+        $private_mode = 0700;
+        if (function_exists('posix_geteuid')) {
+            $setup_owner = @fileowner(dirname(__DIR__, 2));
+            if ($setup_owner !== false && $setup_owner !== posix_geteuid()) {
+                $private_mode = 0770;
+            }
+        }
+        $private_checks = [
+            'Private Storage' => $storage_root_display,
+            'Frontend Forms' => $storage_root_display . '/form',
+            'Frontend Tmp' => $storage_root_display . '/tmp',
+            'Frontend Cache' => $storage_root_display . '/cache',
+            'Private Log' => $storage_root_display . '/log',
+            'Private Backup' => $storage_root_display . '/backup'
+        ];
+
+        foreach ($private_checks as $label => $path) {
+            $dir_checks[$label] = $path;
+        }
+
         foreach ($dir_checks as $label => $path):
             $status = check_path_status($path);
             if ($status !== 2) {
-                $status = set_chmod($path, 0777, $status);
+                $status = set_chmod($path, in_array($path, $private_checks, true) ? $private_mode : 0777, $status);
             }
             $is_ok = ($status === 2 || $status === 1);
             ?>

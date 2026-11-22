@@ -185,6 +185,8 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['file_path'] = " . var_export((string)($val['file_path'] ?? 'filearchive'), true) . "; //default: 'filearchive'\n";
     $conf_file .= "\$phpwcms['templates'] = " . var_export((string)($val['templates'] ?? 'template'), true) . "; //default: 'template'\n";
     $conf_file .= "\$phpwcms['content_path'] = " . var_export((string)($val['content_path'] ?? 'content'), true) . "; //default: 'content'\n";
+    $conf_file .= "\$phpwcms['storage_path'] = " . var_export((string)($val['storage_path'] ?? '../phpwcms-storage'), true) . "; //private storage outside the document root, relative to PHPWCMS_ROOT or absolute\n";
+    $conf_file .= "\$phpwcms['form_token_key'] = " . var_export((string)($val['form_token_key'] ?? ''), true) . "; //secret for form upload links; empty falls back to db_pass\n";
     $conf_file .= "\$phpwcms['cimage_path'] = 'images';  //default: 'images'\n";
     $conf_file .= "\$phpwcms['cdn_image_url'] = " . var_export((string)($val['cdn_image_url'] ?? ''), true) . "; //default: ''\n";
     $conf_file .= "\$phpwcms['ftp_path'] = " . var_export((string)($val['ftp_path'] ?? 'upload'), true) . "; //default: 'upload'\n";

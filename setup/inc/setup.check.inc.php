@@ -466,6 +466,47 @@ if (isset($step)) {
         $phpwcms['content_path']   = ($phpwcms['content_path']) ?: 'content';
         $phpwcms['cimage_path']    = ($phpwcms['cimage_path']) ?: 'images';
         $phpwcms['ftp_path']       = ($phpwcms['ftp_path']) ?: 'upload';
+        $phpwcms['storage_path']   = trim(clean_slweg($_POST['storage_path'] ?? '')) ?: '../phpwcms-storage';
+
+        // private storage lives outside the document root; create it now and
+        // block the installer when it cannot be created or is not writable
+        $storage_err = '';
+        if ($paths_ok) {
+            if (!function_exists('phpwcms_storage_path')) {
+                require_once dirname(__DIR__, 2) . '/include/inc_lib/storage.inc.php';
+            }
+            $setup_doc_root = rtrim(str_replace('\\', '/', $phpwcms['DOC_ROOT']), '/');
+            if ($phpwcms['root'] !== '') {
+                $setup_doc_root .= '/' . $phpwcms['root'];
+            }
+            $setup_storage_root = phpwcms_storage_path($phpwcms['storage_path'], $setup_doc_root);
+            $storage_mode = 0700;
+            if (function_exists('posix_geteuid') && is_dir($setup_doc_root)) {
+                $setup_owner = @fileowner($setup_doc_root);
+                if ($setup_owner !== false && $setup_owner !== posix_geteuid()) {
+                    // PHP user differs from the file owner (mod_php): share the
+                    // directories with the owning group instead of denying it
+                    $storage_mode = 0770;
+                }
+            }
+            foreach ([
+                $setup_storage_root,
+                $setup_storage_root . '/tmp',
+                $setup_storage_root . '/cache',
+                $setup_storage_root . '/log',
+                $setup_storage_root . '/backup',
+                $setup_storage_root . '/form',
+            ] as $setup_dir) {
+                if (!phpwcms_storage_ensure($setup_dir, $storage_mode)) {
+                    $storage_err = $setup_dir;
+                    break;
+                }
+            }
+            if ($storage_err !== '') {
+                $paths_ok = false;
+                $err = 1;
+            }
+        }
 
         if($paths_ok) {
             write_conf_file($phpwcms);
