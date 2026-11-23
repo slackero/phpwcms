@@ -269,28 +269,10 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 $_SESSION['admin_set']  = false;
                 $sql_data               = false;
                 $db_sql                 = false;
-
-                $_brand_prefix = !empty($phpwcms['brand_table_prefix']) ? preg_replace('/[^a-zA-Z0-9_]/', '', $phpwcms['brand_table_prefix']) : 'phpwcms';
-                if ($_brand_prefix === '') {
-                    $_brand_prefix = 'phpwcms';
-                }
-                $_db_prepend = ($phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '') . $_brand_prefix . '_';
-                $check = _dbQuery("SHOW TABLES LIKE '" . $_db_prepend . "%'");
-
-                if ($check && count($check)) {
-                    $sql_data                      = false;
-                    $db_sql                        = false;
-                    $db_fine                       = true;
-                    $is_schema_ready               = true;
-                    $_SESSION['admin_set']         = true;
-                    $_SESSION['db_tables_created'] = true;
-                    echo '<div class="alert alert-success mb-0"><i class="fa fa-check-circle"></i> Initial phpwcms database tables created successfully.</div>';
-                } else {
-                    $_SESSION['admin_set']  = false;
-                    $sql_data               = false;
-                    $db_sql                 = false;
-                    echo '<div class="alert alert-danger mb-0">No phpwcms database tables found. Please check setup!<input type="hidden" name="db_sql_hidden" value="1" /></div>';
-                }
+                $db_fine                = false;
+                $is_schema_ready        = false;
+                unset($_SESSION['db_tables_created']);
+                echo '<div class="alert alert-danger mb-0">Initial phpwcms database tables could not be created completely. Fix the errors above and run setup again.<input type="hidden" name="db_sql_hidden" value="1" /></div>';
             } elseif ($is_schema_ready) {
                 if (!empty($_SESSION['db_no_create']) || !empty($db_no_create)) {
                     echo '<div class="alert alert-info mb-0"><i class="fa fa-info-circle"></i> Using existing phpwcms database tables.</div>';

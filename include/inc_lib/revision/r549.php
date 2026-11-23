@@ -22,9 +22,9 @@ function phpwcms_revision_r549()
     }
 
     $expansions = [
-        ['articlecat', 'acat_alias', 'VARCHAR(1000)'],
+        ['articlecat', 'acat_alias', 'VARCHAR(500)'],
         ['articlecat', 'acat_pagetitle', 'VARCHAR(2000)'],
-        ['article', 'article_alias', 'VARCHAR(1000)'],
+        ['article', 'article_alias', 'VARCHAR(500)'],
         ['article', 'article_pagetitle', 'VARCHAR(2000)'],
         ['article', 'article_menutitle', 'VARCHAR(2000)'],
         ['articlecontent', 'acontent_paginate_title', 'VARCHAR(2000)'],
@@ -36,6 +36,15 @@ function phpwcms_revision_r549()
         if (_dbColumnExists($table, $field)) {
             $col = _dbQuery('SHOW COLUMNS FROM `' . DB_PREPEND . $table . '` WHERE Field=' . _dbEscape($field));
             if (isset($col[0]['Type']) && strtolower($col[0]['Type']) !== strtolower($target_type)) {
+                // Never shrink a widened alias column here; the alias limit
+                // revision (r566) truncates duplicate-free and shrinks it.
+                if (
+                    $target_type === 'VARCHAR(500)'
+                    && preg_match('/^varchar\((\d+)\)$/', strtolower((string)$col[0]['Type']), $match)
+                    && (int)$match[1] >= 500
+                ) {
+                    continue;
+                }
                 if (!_dbQuery('ALTER TABLE `' . DB_PREPEND . $table . '` CHANGE `' . $field . '` `' . $field . '` ' . $target_type . " NOT NULL DEFAULT ''", 'ALTER')) {
                     $status = false;
                 }
