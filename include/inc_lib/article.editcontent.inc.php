@@ -252,8 +252,15 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
         if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) {
             $article["article_timeout"] = 0; //check if cache = Off
         }
+        // Editing never transfers ownership. Only an admin may select another
+        // owner; without that selection the stored owner is kept.
         if($_SESSION["wcs_user_admin"]) {
-            $article["article_uid"] = isset($_POST["article_uid"]) ? intval($_POST["article_uid"]) : $_SESSION["wcs_user_id"];
+            $article["article_uid"] = article_owner_on_save(
+                $article["article_id"],
+                $_POST["article_uid"] ?? 0,
+                $_SESSION["wcs_user_id"],
+                true
+            );
         }
         if(empty($article["article_uid"])) {
             $article["article_uid"] = $_SESSION["wcs_user_id"];
@@ -459,6 +466,9 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                         }
 
                 $sql .= " WHERE article_id=".$article["article_id"];
+                // Non-admins may only save articles they own. The GET read path
+                // filters by article_uid too, but a forged POST would skip it.
+                $sql .= article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
 
                 $result = _dbQuery($sql, 'UPDATE');
             }
@@ -494,6 +504,18 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
     if($article["acat_overwrite"] && is_file(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"])) {
         @include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"];
     }
+
+    // A user without article write permission gets a read-only form; the POST
+    // handlers below enforce the same ownership rule server-side. A forged POST
+    // must be judged by the stored owner, not by the session fallback.
+    $article_owner_uid = $article["article_uid"] ?? 0;
+    if(!empty($_POST['article_update']) && !empty($article['article_id'])) {
+        $stored_article = _dbGet('article', 'article_uid', 'article_id='.(int)$article['article_id'], '', '', 1);
+        if(isset($stored_article[0]['article_uid'])) {
+            $article_owner_uid = $stored_article[0]['article_uid'];
+        }
+    }
+    $article_writable = article_is_writable_by_current_user($article_owner_uid);
 
     // list mode
     if( (!isset($_GET["aktion"]) || !intval($_GET["aktion"])) && !isset($_GET['struct'])) {
@@ -618,7 +640,6 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             if(!isset($content["error"])) { //if no error
 
                 $SQL  = "acontent_aid               = '".$content["aid"]."', ";
-                $SQL .= "acontent_uid               = "._dbEscape($_SESSION["wcs_user_id"]).", ";
                 $SQL .= "acontent_title             = "._dbEscape($content["title"]).", ";
                 $SQL .= "acontent_subtitle          = "._dbEscape($content["subtitle"]).", ";
                 $SQL .= "acontent_type              = '".$content["type"]."', ";
@@ -661,10 +682,19 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                 // clean up SQL and remove ending ","
                 $SQL = trim(trim($SQL), ',');
 
-                if(!$content["id"]) { //if new content part should be created
+                // Non-admins may only add content parts to articles they own.
+                if(!$content["id"] && !has_article_edit_all_permission()
+                    && !article_owned_by_user($content["aid"], (int)$_SESSION["wcs_user_id"])) {
+                    set_status_message($BL['be_article_no_write_permission'], 'warning');
+                    $content["error"] = true;
+                }
 
-                    // use SET method for INSERT too
-                    $SQL  = "INSERT INTO ".DB_PREPEND."articlecontent SET acontent_created=NOW(), " . $SQL;
+                if(!$content["id"] && !isset($content["error"])) { //if new content part should be created
+
+                    // use SET method for INSERT too; the creating user owns the
+                    // new content part, an update never changes that owner
+                    $SQL  = "INSERT INTO ".DB_PREPEND."articlecontent SET acontent_created=NOW(), " .
+                             "acontent_uid="._dbEscape($_SESSION["wcs_user_id"]).", " . $SQL;
 
                     //insert data into DB and get content part ID
                     if(!$content["update_type"]) { //if content type wasn't changed
@@ -692,13 +722,15 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
 
                     }
 
-                } else { //if content part should be updated
+                } elseif($content["id"]) { //if content part should be updated
 
                     $SQL  = "UPDATE ".DB_PREPEND."articlecontent SET " . $SQL;
                     $SQL .= " WHERE acontent_id=".$content['id'];
                     if(empty($ctype_change_aid) || $ctype_change_aid != 'DO_CHANGE') {
                         $SQL .= " AND acontent_aid=".$content['aid'];
                     }
+                    // Only the owner of the article may write its content parts.
+                    $SQL .= articlecontent_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
                     $SQL .= $WHERE;
 
                     $result = _dbQuery($SQL, 'UPDATE');
@@ -711,6 +743,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                             $sql .= " acontent_module="._dbEscape($content["target_module"]);
                             $sql .= " WHERE acontent_id=".$content["id"];
                             $sql .= " AND acontent_aid=".$content["aid"];
+                            $sql .= articlecontent_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
                             $result = _dbQuery($sql, 'UPDATE');
                             $content["type"]   = $content["target_type"];
                             $content["module"] = $content["target_module"];

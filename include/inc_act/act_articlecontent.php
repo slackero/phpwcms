@@ -26,28 +26,31 @@ if(isset($_GET["do"])) {
         switch(intval($values[0])) {
             case 9: //delete article content part
                     $sql = "UPDATE ".DB_PREPEND."articlecontent SET acontent_trash=9".
-                           " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
-                           " AND acontent_aid=".intval($values[1]).
-                           " AND acontent_id=".intval($values[2]);
+                           " WHERE acontent_aid=".intval($values[1]).
+                           " AND acontent_id=".intval($values[2]).
+                           articlecontent_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
                     _dbQuery($sql, 'UPDATE');
                     break;
             case 1: //delete article
                     $sql = "UPDATE ".DB_PREPEND."article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."')".
-                           " WHERE (article_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
-                           " AND article_id=".intval($values[1]);
+                           " WHERE article_id=".intval($values[1]).
+                           article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
                     _dbQuery($sql, 'UPDATE');
                     $ref .= '&p=&s=&id=';
                     break;
             case 2: //make content visible/invisible
                     $sql = "UPDATE ".DB_PREPEND."articlecontent SET acontent_visible=".intval($values[3]).
-                           " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
-                           " AND acontent_aid=".intval($values[1]).
-                           " AND acontent_id=".intval($values[2]);
+                           " WHERE acontent_aid=".intval($values[1]).
+                           " AND acontent_id=".intval($values[2]).
+                           articlecontent_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
                     _dbQuery($sql, 'UPDATE');
                     break;
             case 3: //make article visible/invisible
+                    // Same owner gate as the other cases: a non-admin may only
+                    // change the visibility of articles they own.
                     $sql = "UPDATE ".DB_PREPEND."article SET article_aktiv=".intval($values[3]).
-                           " WHERE article_id=".intval($values[1]);
+                           " WHERE article_id=".intval($values[1]).
+                           article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
                     _dbQuery($sql, 'UPDATE');
                     break;
         }
@@ -68,7 +71,7 @@ if(isset($_GET['sort'])) {
             if($sort1 === $sort2) {
                 $sort2 = $sort1 + 10;
             }
-            $where_perm = empty($_SESSION['wcs_user_admin']) ? ' AND acontent_uid = ' . (int) $_SESSION['wcs_user_id'] : '';
+            $where_perm = articlecontent_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
             $sql = 'UPDATE ' . DB_PREPEND . 'articlecontent SET ' .
                    'acontent_sorting = CASE acontent_id WHEN ' . $id1 . ' THEN ' . $sort1 . ' WHEN ' . $id2 . ' THEN ' . $sort2 . ' END, ' .
                    'acontent_tstamp = acontent_tstamp ' .

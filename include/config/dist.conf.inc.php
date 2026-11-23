@@ -143,6 +143,7 @@ $phpwcms['base_href']            = true; // set the <base href=""> tag, use stri
 $phpwcms['cp_default']           = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr
 $phpwcms['js_in_body']           = 0; // add <script> direct before </body> instead inside of <head>
 $phpwcms['set_article_active']   = 1; // activate (1) or disable (0) article by default on create
+$phpwcms['article_ownership']    = 1; // limit backend article writes to the article owner; administrators and the `artall` usergroup are exempt, 0 restores shared editing for every backend user
 $phpwcms['set_category_active']  = 1; // activate (1) or disable (0) category/structure level by default on create
 $phpwcms['set_file_active']      = 1; // activate (1) or disable (0) files and folders by default on create
 $phpwcms['set_news_active']      = 1; // activate (1) or disable (0) news by default on create

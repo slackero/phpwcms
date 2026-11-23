@@ -23,6 +23,7 @@ $wcsnav['navspace1'] = '';
 
 // add usergroup names
 $groupnames = array(
+    'artall' => $BL['be_nav_articles'] . ' - ' . $BL['be_subnav_article_all'],
     'artcent' => $BL['be_nav_articles'] . ' - ' . $BL['be_subnav_article_center'],
     'artnew' => $BL['be_nav_articles'] . ' - ' . $BL['be_subnav_article_new'],
     'artstruc' => $BL['be_nav_articles'] . ' - ' . $BL['be_subnav_admin_sitestructure'],

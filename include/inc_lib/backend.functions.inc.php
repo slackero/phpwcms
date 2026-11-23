@@ -271,6 +271,112 @@ function getArticleReSorted($cat_id, $ordered_by) {
     return $article;
 }
 
+/**
+ * Article ownership is enforced by default. Setting
+ * $phpwcms['article_ownership'] = 0 restores the previous shared editing
+ * behavior, where every backend user may write every article.
+ */
+function article_ownership_enabled() {
+    return !isset($GLOBALS['phpwcms']['article_ownership']) || !empty($GLOBALS['phpwcms']['article_ownership']);
+}
+
+/**
+ * Editors in the `artall` usergroup share the main editor rights and may
+ * write every article, not only the ones they own. Administrators always may.
+ */
+function has_article_edit_all_permission() {
+    if(!article_ownership_enabled()) {
+        return true;
+    }
+    if(!empty($_SESSION['wcs_user_admin'])) {
+        return true;
+    }
+    return function_exists('has_admin_permission') && has_admin_permission('artall');
+}
+
+/**
+ * Whether the current user may submit the article form. Used to render the
+ * form read-only; the POST handlers enforce the same rule.
+ */
+function article_is_writable_by_current_user($article_uid) {
+    if(has_article_edit_all_permission()) {
+        return true;
+    }
+    $article_uid = (int) $article_uid;
+    $session_uid = (int) ($_SESSION['wcs_user_id'] ?? 0);
+    if($article_uid < 1 || $session_uid < 1) {
+        return false;
+    }
+    return $article_uid === $session_uid;
+}
+
+/**
+ * SQL restriction that limits an article write to articles owned by the user.
+ * Administrators are not restricted.
+ */
+function article_owner_restriction($user_id, $allows_all, $column = null) {
+    if($allows_all) {
+        return '';
+    }
+    if($column === null) {
+        $column = DB_PREPEND . 'article.article_uid';
+    }
+    return ' AND ' . $column . ' = ' . (int) $user_id;
+}
+
+/**
+ * SQL restriction that limits a content part write to content parts of
+ * articles owned by the user. Administrators are not restricted.
+ */
+function articlecontent_owner_restriction($user_id, $allows_all) {
+    if($allows_all) {
+        return '';
+    }
+    return ' AND ' . DB_PREPEND . 'articlecontent.acontent_aid IN (SELECT article_id FROM ' .
+           DB_PREPEND . 'article WHERE article_uid = ' . (int) $user_id . ')';
+}
+
+/**
+ * Resolve the article owner for a save. Editing never transfers ownership:
+ * unless an admin submits a different owner, an existing article keeps the
+ * owner stored in the database, a new article belongs to its creator.
+ */
+function article_owner_on_save($article_id, $posted_uid, $session_uid, $is_admin) {
+    $article_id  = (int) $article_id;
+    $posted_uid  = is_scalar($posted_uid) ? (int) $posted_uid : 0;
+    $session_uid = (int) $session_uid;
+    if($is_admin && $posted_uid > 0) {
+        return $posted_uid;
+    }
+    if($is_admin && $article_id > 0) {
+        $row = _dbGet('article', 'article_uid', 'article_id=' . $article_id, '', '', 1);
+        if(!empty($row[0]['article_uid'])) {
+            return (int) $row[0]['article_uid'];
+        }
+    }
+    return $session_uid;
+}
+
+/**
+ * Check whether the article exists and belongs to the user.
+ */
+function article_owned_by_user($article_id, $user_id) {
+    $article_id = (int) $article_id;
+    $user_id    = (int) $user_id;
+    if($article_id < 1 || $user_id < 1) {
+        return false;
+    }
+    $row = _dbGet(
+        'article',
+        'article_id',
+        'article_id=' . $article_id . ' AND article_deleted=0 AND article_uid=' . $user_id,
+        '',
+        '',
+        1
+    );
+    return !empty($row[0]['article_id']);
+}
+
 function phpwcmsversionCheck() {
     global $phpwcms;
     global $BL;

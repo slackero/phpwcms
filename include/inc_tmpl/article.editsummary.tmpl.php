@@ -31,14 +31,17 @@ $langstr = '';
 
 ?>
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id'] ?>" method="post" name="article" id="article" required>
+<?php if(empty($article_writable)) { ?>
+<script>document.getElementById('article').addEventListener('submit', function (event) { event.preventDefault(); });</script>
+<?php } ?>
 <div class="row align-items-center">
   <div class="col col-sm-auto text-center text-sm-start">
     <h1><?php echo $BL['be_article_title1'] ?></h1>
   </div>
   <div class="col-12 col-sm text-center text-sm-end mb-3">
     <div class="form-group align-items-center">
-      <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
-      <button name="Submit" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+      <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"<?php echo empty($article_writable) ? ' disabled aria-disabled="true"' : ''; ?>><i class="fa-solid fa-rotate"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
+      <button name="Submit" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"<?php echo empty($article_writable) ? ' disabled aria-disabled="true"' : ''; ?>><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
       <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelEdit();"><i class="fa-solid fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></button>
     </div>
   </div>
@@ -864,8 +867,8 @@ $langstr = '';
 </div>
 
 <div class="form-group align-items-center mt-4">
-  <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa-solid fa-rotate"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
-  <button name="Submit" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+  <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"<?php echo empty($article_writable) ? ' disabled aria-disabled="true"' : ''; ?>><i class="fa-solid fa-rotate"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
+  <button name="Submit" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"<?php echo empty($article_writable) ? ' disabled aria-disabled="true"' : ''; ?>><i class="fa-solid fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
   <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelEdit();"><i class="fa-solid fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></button>
 </div>
 

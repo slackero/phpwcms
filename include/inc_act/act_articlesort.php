@@ -36,7 +36,7 @@ if (is_string($sort_data) && $sort_data !== '') {
     }
 
     if (!empty($ids)) {
-        $where_perm = empty($_SESSION['wcs_user_admin']) ? ' AND acontent_uid = ' . (int) $_SESSION['wcs_user_id'] : '';
+        $where_perm = articlecontent_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
         $sql = 'UPDATE ' . DB_PREPEND . 'articlecontent SET ' .
                'acontent_sorting = CASE acontent_id ' . implode(' ', $cases) . ' END, ' .
                'acontent_tstamp = acontent_tstamp ' .

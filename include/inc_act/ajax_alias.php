@@ -103,6 +103,7 @@ if($action === 'update') {
     $sql_alias .= " article_alias = '".aporeplace($article_alias)."', ";
     $sql_alias .= " article_description = '".aporeplace($article_description)."' ";
     $sql_alias .= " WHERE article_id = ".$article_id;
+    $sql_alias .= article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
     _dbQuery($sql_alias, 'UPDATE');
 
     echo '<div class="btn btn-sm '.(empty($article_alias) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';

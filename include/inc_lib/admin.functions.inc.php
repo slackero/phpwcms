@@ -225,7 +225,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= '<div class="struct-row-label text-nowrap">' . LF;
 
         $acontent_count = get_article_content_count($article[$akey]["article_id"]);
-        if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
+        if(article_is_writable_by_current_user($article[$akey]["article_uid"])) {
             $a .= ($acontent_count) ? '<a href="phpwcms.php?do=articles&amp;opena=' . rawurlencode($article[$akey]["article_id"] . ':' . ((!empty($_SESSION["structure"]["article"][$article[$akey]["article_id"]])) ? 0 : 1)) . '#article_' . $article[$akey]["article_id"] . '">' : '';
             $a .= '<i class="fa-solid fa-caret-' . (($acontent_count) ? ((!empty($_SESSION["structure"]["article"][ $article[$akey]["article_id"] ])) ? 'down' : 'right') : 'right');
             $a .= ' fa-fw" aria-hidden="true"></i>' . (($acontent_count) ? '</a>' : '');
@@ -273,8 +273,10 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 
         $a .= '<div class="btn-group btn-group-sm btn-group-outer" role="group" aria-label="group'.$article[$akey]["article_id"].'">';
         //edit article
-        if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
+        if(article_is_writable_by_current_user($article[$akey]["article_uid"])) {
           $a .= '<a class="btn btn-sm btn-blue" role="button" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$article[$akey]["article_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
+        } else {
+          $a .= '<span class="btn btn-sm btn-blue disabled" role="button" aria-disabled="true" data-bs-toggle="tooltip" title="'.$BL['be_func_struct_edit'].' ['.$at.']"><i class="fa-solid fa-pencil-alt fa-fw"></i></span>';
         }
         $a .= '<div class="btn-group btn-group-sm" role="group">';
         $a .= '<a class="btn btn-sm btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownAcontentLink'.$article[$akey]["article_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -296,13 +298,19 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
           $a .= '<a class="dropdown-item" href="include/inc_act/act_structure.php?do=4%7C'.$article[$akey]["article_id"] . '%7C' . $article[$akey]['sort_down'] . '%7C'.$article[$akey+1]["article_id"] . '%7C' . $article[$akey]['article_sort'].'"><i class="fa-solid fa-caret-down fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_sort_down'].'</a>';
         }
         //delete article
-        if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
+        if(article_is_writable_by_current_user($article[$akey]["article_uid"])) {
           $a .= '<a class="dropdown-item confirm-link" href="include/inc_act/act_articlecontent.php?do=1,'.$article[$akey]["article_id"].'"';
           $a .= " data-confirm-type=\"danger\" data-confirm-action=\"".html($GLOBALS['BL']['modal_delete'])."\" data-confirm=\"".html($GLOBALS['BL']['be_func_struct_del_jsmsg']." [".$at."]")."\">";
           $a .= '<i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].'</a>';
+        } else {
+          $a .= '<span class="dropdown-item disabled" aria-disabled="true"><i class="fa-regular fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].'</span>';
         }
         $a .= '</div></div>';
-        $a .= '<button id="abtnarticle' . $article[$akey]["article_id"] . '" class="btn fa btn-sm visible ' . ($article[$akey]["article_aktiv"] == 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $article[$akey]["article_id"] . '" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" data-bs-toggle="tooltip" title="' . $BL['be_fprivfunc_cactivefile'] . '"><i class="fa-solid ' . ($article[$akey]["article_aktiv"] == 0 ? 'fa-eye-slash' : 'fa-eye') . ' fa-fw" aria-hidden="true"></i></button>';
+        if(article_is_writable_by_current_user($article[$akey]["article_uid"])) {
+          $a .= '<button id="abtnarticle' . $article[$akey]["article_id"] . '" class="btn fa btn-sm visible ' . ($article[$akey]["article_aktiv"] == 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $article[$akey]["article_id"] . '" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" data-bs-toggle="tooltip" title="' . $BL['be_fprivfunc_cactivefile'] . '"><i class="fa-solid ' . ($article[$akey]["article_aktiv"] == 0 ? 'fa-eye-slash' : 'fa-eye') . ' fa-fw" aria-hidden="true"></i></button>';
+        } else {
+          $a .= '<span class="btn fa btn-sm visible btn-secondary disabled" role="button" aria-disabled="true" data-bs-toggle="tooltip" title="' . $BL['be_fprivfunc_cactivefile'] . '"><i class="fa-solid ' . ($article[$akey]["article_aktiv"] == 0 ? 'fa-eye-slash' : 'fa-eye') . ' fa-fw" aria-hidden="true"></i></span>';
+        }
         $a .= '</div>' . LF . '</div>' . LF . '</div>' . LF;
         echo $a;
 
@@ -326,7 +334,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             }
         }
 
-        if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
+        if(article_is_writable_by_current_user($article[$akey]["article_uid"])) {
             if(isset($_SESSION["structure"]["article"][$article[$akey]["article_id"]]) && $_SESSION["structure"]["article"][$article[$akey]["article_id"]]) {
                 struct_articlecontentlist($article, $akey, $copy_article_content, $cut_article_content, $counter, $sbutton_string);
             }
@@ -451,10 +459,8 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             }
 
             $a .= '<div class="btn-group btn-group-sm btn-group-outer" role="group" aria-label="group'.$article_content["acontent_id"].'">';
-            //edit content part
-            if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-              $a .= '<a class="btn btn-sm btn-blue" role="button" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article[$akey]["article_id"].'&amp;acid='.$article_content["acontent_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
-            }
+            //edit content part; the whole list renders only for writable articles
+            $a .= '<a class="btn btn-sm btn-blue" role="button" data-bs-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_edit'].' ['.$at.']" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article[$akey]["article_id"].'&amp;acid='.$article_content["acontent_id"].'"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
             $a .= '<div class="btn-group btn-group-sm" role="group">';
             $a .= '<a class="btn btn-sm btn-blue darken dropdown-toggle" role="button" href="#" id="dropdownAcontentLink'.$article_content["acontent_id"].'" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
 

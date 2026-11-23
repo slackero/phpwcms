@@ -136,6 +136,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
     }
 
     ?>>
+<script>window.phpwcmsArticleWritable = <?php echo empty($article_writable) ? 'false' : 'true'; ?>;<?php if(empty($article_writable)) { ?>document.getElementById('articlecontent').addEventListener('submit', function (event) { event.preventDefault(); });<?php } ?></script>
 
 <input type="hidden" name="ctype_module" value="<?php echo html($content["module"]) ?>" />
 <div class="card">
@@ -230,6 +231,10 @@ $(function() {
 	const $select = $("#target_ctype");
 	const prevIndex = $select.attr("data-prev-index");
 	$select.on("change", function(e) {
+		if (window.phpwcmsArticleWritable === false) {
+			$(this).prop("selectedIndex", prevIndex);
+			return false;
+		}
 		const $this = $(this);
 		bsConfirmWarning("' . js_singlequote($BL['be_func_switch_contentpart']) . '", function() {
 			$this.closest("form").submit();
@@ -442,6 +447,9 @@ if ($content['cp_setting_mode']):
             }
 
             function checkCp(form) {
+                if (window.phpwcmsArticleWritable === false) {
+                    return false;
+                }
                 const ctab = document.getElementById('ctab');
                 const ctab_title = document.getElementById('ctab_title');
                 const ctab_number = document.getElementById('ctab_number');
@@ -565,8 +573,8 @@ if (!empty($content["id"])) {
 ob_start();
 
 ?>
-    <button name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo html($sendbutton); ?>"><i class="fa-solid fa-rotate"></i> <?php echo html($sendbutton); ?></button>
-    <button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo html($BL['be_article_cnt_button3']); ?>"><i class="fa-solid fa-check"></i> <?php echo html($BL['be_article_cnt_button3']); ?></button>
+    <button name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo html($sendbutton); ?>"<?php echo empty($article_writable) ? ' disabled aria-disabled="true"' : ''; ?>><i class="fa-solid fa-rotate"></i> <?php echo html($sendbutton); ?></button>
+    <button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="<?php echo html($BL['be_article_cnt_button3']); ?>"<?php echo empty($article_writable) ? ' disabled aria-disabled="true"' : ''; ?>><i class="fa-solid fa-check"></i> <?php echo html($BL['be_article_cnt_button3']); ?></button>
     <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ms-3" onclick="return cancelContentEdit();"><i class="fa-solid fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel']); ?></button>
     <?php echo $buttonAction; ?>
 <?php

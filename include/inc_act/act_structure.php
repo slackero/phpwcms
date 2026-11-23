@@ -382,9 +382,25 @@ if($action) {
 
                 get_struct_del_id($do[1]);
 
+                // Never trash a tree that contains articles the user may not
+                // write: the structure level would disappear while its foreign
+                // articles stay behind.
+                if(count($article_del) && !has_article_edit_all_permission()) {
+                    $foreign_articles = _dbQuery(
+                        'SELECT article_id FROM '.DB_PREPEND.'article WHERE article_id IN ('.implode(',', $article_del).')' .
+                        ' AND article_uid != '.(int)$_SESSION['wcs_user_id'].' LIMIT 1'
+                    );
+                    if(!empty($foreign_articles[0]['article_id'])) {
+                        set_status_message($BL['be_fprivfunc_notrash'], 'warning');
+                        $article_del = array();
+                        $struct_del  = array();
+                    }
+                }
+
                 // create SQL query to set articles deleted
                 if(count($article_del)) {
-                    $sql = "UPDATE ".DB_PREPEND."article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."') WHERE article_id IN (".implode(',', $article_del).")";
+                    $sql = "UPDATE ".DB_PREPEND."article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."') WHERE article_id IN (".implode(',', $article_del).")".
+                           article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
                     _dbQuery($sql, 'UPDATE');
                 }
 
@@ -405,7 +421,8 @@ if($action) {
         $do[2] = intval($do[2]); //paste level ID
         if($do[1]) { // && $do[2] = 0 for Root
             $new_sort = getArticleSortValue($do[2]);
-            $sql =  "UPDATE ".DB_PREPEND."article SET article_cid=".$do[2].", article_sort=".$new_sort." WHERE article_id=".$do[1];
+            $sql =  "UPDATE ".DB_PREPEND."article SET article_cid=".$do[2].", article_sort=".$new_sort." WHERE article_id=".$do[1].
+                    article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
             _dbQuery($sql, 'UPDATE');
         }
 
@@ -420,7 +437,8 @@ if($action) {
             $sql = 'UPDATE ' . DB_PREPEND . 'article SET ' .
                    'article_sort = CASE article_id WHEN ' . $do[1] . ' THEN ' . $do[2] . ' WHEN ' . $do[3] . ' THEN ' . $do[4] . ' END, ' .
                    'article_tstamp = article_tstamp ' .
-                   'WHERE article_id IN (' . $do[1] . ', ' . $do[3] . ')';
+                   'WHERE article_id IN (' . $do[1] . ', ' . $do[3] . ')' .
+                   article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
             _dbQuery($sql, 'UPDATE');
         }
 
