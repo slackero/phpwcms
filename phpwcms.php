@@ -324,7 +324,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
                 </div>
             </form>
         </li>
-        <?php if (in_array($_SESSION['wcs_user_id'], $grouparray['profile'])) {
+        <?php // every logged-in user can manage their own account
           $active = ($do === 'profile') ? ' active' : '';
           if (!empty($_SESSION['wcs_user_admin'])) {
               $user_menu_icon = 'fa-solid fa-user-shield';
@@ -336,7 +336,7 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
               $user_menu_icon = 'fa-solid fa-user-cog';
           }
           echo '<li class="nav-item' . $active . '"><a class="nav-link" href="phpwcms.php?do=profile"><i class="' . $user_menu_icon . ' fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';
-      } ?>
+      ?>
         <li class="nav-item"><a class="nav-link" href="phpwcms.php?do=logout" target="_top"><i class="fa-solid fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
         <li class="nav-item dropdown theme-switcher">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
