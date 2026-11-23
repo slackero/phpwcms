@@ -24,7 +24,7 @@ function phpwcms_revision_r544() {
 
     if(isset($result[0]['Type']) && str_starts_with(strtolower($result[0]['Type']), 'int')) {
 
-        if($result = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_calendar` CHANGE `calendar_refid` `calendar_refid` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER')) {
+        if($result = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_calendar` CHANGE `calendar_refid` `calendar_refid` VARCHAR(500) NOT NULL DEFAULT ''", 'ALTER')) {
 
             _dbUpdate('phpwcms_calendar', array('calendar_refid' => ''), "calendar_refid='0'");
 

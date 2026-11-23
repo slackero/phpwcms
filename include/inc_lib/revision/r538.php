@@ -29,10 +29,16 @@ function phpwcms_revision_r538() {
 	}
 
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecat` WHERE Field='acat_alias'");
-	if(isset($result[0]['Type']) && !str_contains($result[0]['Type'], '255')) {
-		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
-		if(!$update) {
-			$status = false;
+	if(isset($result[0]['Type'])) {
+		$acat_alias_type = strtolower((string)$result[0]['Type']);
+		// Only narrow varchar columns below 255 are widened here; 255 and
+		// wider columns are normalised by the alias limit revision (r567)
+		// after its duplicate-free truncation
+		if(preg_match('/^varchar\((\d+)\)$/', $acat_alias_type, $match) && (int)$match[1] < 255) {
+			$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+			if(!$update) {
+				$status = false;
+			}
 		}
 	}
 
