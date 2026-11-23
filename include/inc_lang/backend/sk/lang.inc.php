@@ -833,6 +833,7 @@ $BL['be_action_deleted']           = 'Záznam zmazaný';
 $BL['be_action_status']            = 'Stav aktualizovaný';
 $BL['be_data_select_failed']       = 'Výber dát zlyhal';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias je príliš dlhý. Maximum je %d znakov.';
 $BL['be_url_value']                = 'Hodnota URL';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'predvolený dátum';

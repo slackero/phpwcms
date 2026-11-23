@@ -281,6 +281,7 @@ $BE['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jq
 $BE['HEADER']['alias_slash_var'] = ' <script>
    const aliasAllowSlashes=' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . ';
    const aliasUtf8=' . (PHPWCMS_ALIAS_UTF8 ? 'true' : 'false') . ';
+   const aliasMaxLength=' . PHPWCMS_ALIAS_MAXLEN . ';
   </script>';
 $BE['HEADER']['phpwcms-lang.js'] = getJavaScriptTranslations();
 $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.min.js');

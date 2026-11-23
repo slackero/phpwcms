@@ -725,6 +725,7 @@ $BL['be_action_deleted']           = 'Post borttagen';
 $BL['be_action_status']            = 'Status uppdaterad';
 $BL['be_data_select_failed']       = 'Kunde inte hämta data';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias är för långt. Högst %d tecken.';
 $BL['be_url_value']                = 'URL-värde';
 $BL['default_date_format']         = 'Y-m-d';
 $BL['default_date']                = 'standarddatum';

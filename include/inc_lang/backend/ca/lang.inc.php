@@ -866,6 +866,7 @@ $BL['be_action_deleted']           = 'Registre suprimit';
 $BL['be_action_status']            = 'Estat actualitzat';
 $BL['be_data_select_failed']       = 'La selecció de dades ha fallat';
 $BL['be_alias']                    = 'Àlies';
+$BL['be_alias_err_too_long']       = 'L’àlies és massa llarg. El màxim és de %d caràcters.';
 $BL['be_url_value']                = 'Valor URL';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'data predeterminada';

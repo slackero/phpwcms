@@ -868,6 +868,7 @@ $BL['be_action_deleted']           = 'Rekord törölve';
 $BL['be_action_status']            = 'Állapot frissítve';
 $BL['be_data_select_failed']       = 'Az adatok lekérése sikertelen';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Az alias túl hosszú. Legfeljebb %d karakter lehet.';
 $BL['be_url_value']                = 'URL érték';
 $BL['default_date_format']         = 'Y.m.d';
 $BL['default_date']                = 'alapértelmezett dátum';

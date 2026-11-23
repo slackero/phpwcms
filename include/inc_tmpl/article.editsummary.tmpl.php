@@ -96,7 +96,7 @@ $langstr = '';
         <label for="article_alias" class="col-sm-2 col-form-label text-sm-end"><?php echo $BL['be_article_urlalias'] ?></label>
         <div class="col-sm-10">
           <div class="input-group input-group-sm">
-            <input name="article_alias" type="text" class="form-control" id="article_alias" value="<?php echo html($article['article_alias']) ?>" maxlength="1000"<?php if (empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true);"<?php endif; ?> onchange="this.value=create_alias(this.value);" />
+            <input name="article_alias" type="text" class="form-control" id="article_alias" value="<?php echo html($article['article_alias']) ?>" maxlength="<?php echo PHPWCMS_ALIAS_MAXLEN ?>"<?php if (empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true);"<?php endif; ?> onchange="this.value=create_alias(this.value);" />
             
               <button type="button" id="btn_generate_alias" onclick="return set_article_alias();" class="btn btn-outline-light btn-alias-action" data-bs-toggle="tooltip" title=""><?php echo $BL['be_article_urlalias'] ?></button>
               <button type="button" id="parent_alias" class="btn btn-outline-light btn-alias-action" data-bs-toggle="tooltip" title=""><?php echo $BL['be_parental_alias'] ?></button>

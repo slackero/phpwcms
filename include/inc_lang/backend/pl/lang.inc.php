@@ -1095,6 +1095,7 @@ $BL['be_action_deleted']           = 'Wybrany zestaw danych maj&#261;cy ID {ID} 
 $BL['be_action_status']            = 'Stan wybranego zestawu danych maj&#261;cego ID {ID} zosta&#322; zmieniony.';
 $BL['be_data_select_failed']       = 'Dost&#281;p do wybranych danych nie powi&oacute;d&#322; si&#281;. Prosz&#281; potwierdzi&#263; sw&oacute;j wyb&oacute;r.';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias jest za długi. Maksymalnie %d znaków.';
 $BL['be_url_value']                = 'Tytu&#322; URL';
 $BL['default_date_format']         = 'TT.MM.JJJJ';
 $BL['default_date_delimiter']      = '.';

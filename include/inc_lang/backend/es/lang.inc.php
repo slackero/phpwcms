@@ -733,6 +733,7 @@ $BL['be_admin_usr_ifsection1']     = 'Backend';
 $BL['be_admin_usr_ifsection2']     = 'Frontend y backend';
 $BL['be_admin_usr_issection']      = 'Secci&oacute;n de inicio de sesi&oacute;n';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'El alias es demasiado largo. El máximo es %d caracteres.';
 $BL['be_alias_ID']                 = 'ID de alias';
 $BL['be_alias_articleID']          = 'ID del alias';
 $BL['be_alias_useAll']             = 'Utilizar los datos de cabecera de este art&iacute;culo';

@@ -912,6 +912,7 @@ $BL['be_action_deleted']           = 'Tietue poistettu';
 $BL['be_action_status']            = 'Tila päivitetty';
 $BL['be_data_select_failed']       = 'Tietojen valinta epäonnistui';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias on liian pitkä. Enintään %d merkkiä.';
 $BL['be_url_value']                = 'URL-arvo';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'oletuspäivämäärä';

@@ -1140,6 +1140,7 @@ $BL['be_action_deleted']           = 'Oznaceni set podataka sa ID {ID} je obrisa
 $BL['be_action_status']            = 'Status oznacenog seta podataka sa ID {ID} je izmjenjen.';
 $BL['be_data_select_failed']       = 'Pristup oznacenom setu podataka nije uspio. Molimo provjerite vasu selekciju.';
 $BL['be_alias']                    = 'Alijas';
+$BL['be_alias_err_too_long']       = 'Alias je predugačak. Maksimalno %d znakova.';
 $BL['be_url_value']                = 'Naslov URL-a';
 $BL['default_date_format']         = 'DD/MM/YYYY';
 $BL['default_date']                = 'd/m/Y';

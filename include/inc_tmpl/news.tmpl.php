@@ -400,7 +400,7 @@ if($news->data['cnt_id']) {
   <div class="form-group align-items-center row g-2">
     <label for="cnt_alias" class="col-sm-2 col-form-label text-end"><a id="cnt_alias_click" class="underline text-blue"><?php echo $BL['be_alias'] ?></a></label>
     <div class="col">
-      <input name="cnt_alias" class="form-control form-control-sm" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" placeholder="<?php echo $BL['be_alias'] ?>" maxlength="200" type="text" required>
+      <input name="cnt_alias" class="form-control form-control-sm" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" placeholder="<?php echo $BL['be_alias'] ?>" maxlength="<?php echo PHPWCMS_ALIAS_MAXLEN ?>" type="text" required>
     </div>
   </div>
 

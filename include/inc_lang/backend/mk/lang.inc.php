@@ -1158,6 +1158,7 @@ $BL['be_action_deleted']           = 'Записът е изтрит';
 $BL['be_action_status']            = 'Статусът е обновен';
 $BL['be_data_select_failed']       = 'Неуспешен избор на данни';
 $BL['be_alias']                    = 'Псевдоним';
+$BL['be_alias_err_too_long']       = 'Алијасот е предолг. Максимум %d знаци.';
 $BL['be_url_value']                = 'URL стойност';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'дата по подразбиране';

@@ -142,6 +142,9 @@ if (empty($phpwcms['rewrite_url'])) {
 define('PHPWCMS_REWRITE_EXT', $phpwcms['rewrite_ext'] ?? '.html');
 define('PHPWCMS_ALIAS_WSLASH', !empty($phpwcms['alias_allow_slash']));
 define('PHPWCMS_ALIAS_UTF8', !(empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHARSET !== 'utf-8'));
+// maximum character length of an alias; keeps the percent-encoded URL path/GET key
+// below common request line and query string limits (worst case 170 * 4 bytes * 3)
+define('PHPWCMS_ALIAS_MAXLEN', max(1, min(500, (int)($phpwcms['alias_maxlength'] ?? 170))));
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT . '/include/inc_lib/mimetype.inc.php';

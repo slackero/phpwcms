@@ -816,6 +816,7 @@ $BL['be_action_deleted']           = 'Запись удалена';
 $BL['be_action_status']            = 'Статус обновлен';
 $BL['be_data_select_failed']       = 'Ошибка выборки данных';
 $BL['be_alias']                    = 'Псевдоним';
+$BL['be_alias_err_too_long']       = 'Псевдонім занадто довгий. Максимум %d символів.';
 $BL['be_url_value']                = 'Значение URL';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'дата по умолчанию';

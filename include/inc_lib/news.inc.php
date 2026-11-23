@@ -49,6 +49,7 @@ class phpwcmsNews {
     public $BL = [];
     public $phpwcms = [];
     public $filter = '';
+    public $alias_too_long = false;
     public $filter_page = '';
     public $filter_lang = '';
     public $filter_keyword = '';
@@ -556,6 +557,11 @@ class phpwcmsNews {
             $post       = $this->getPostData();
             $post_error = false;
 
+            if(!empty($this->alias_too_long)) {
+                $post_error = true;
+                set_status_message(sprintf($this->BL['be_alias_err_too_long'], PHPWCMS_ALIAS_MAXLEN), 'warning');
+            }
+
             if(!empty($_POST['cnt_duplicate'])) {
                 $this->newsId           = 0;
                 $duplicate              = 1;
@@ -770,7 +776,12 @@ class phpwcmsNews {
         if(empty($this->phpwcms['allow_empty_alias']) && $post['cnt_alias'] == '') {
             $post['cnt_alias'] = empty($post['cnt_title']) ? $post['cnt_name'] : $post['cnt_title'];
         }
-        $post['cnt_alias']          = proof_alias($this->newsId, $post['cnt_alias'], 'CONTENT');
+        $this->alias_too_long       = phpwcms_alias_too_long(phpwcms_alias_sanitize($post['cnt_alias'], 'CONTENT'));
+        if($this->alias_too_long) {
+            $post['cnt_alias']      = phpwcms_alias_sanitize($post['cnt_alias'], 'CONTENT');
+        } else {
+            $post['cnt_alias']      = proof_alias($this->newsId, $post['cnt_alias'], 'CONTENT');
+        }
 
         $post['cnt_subtitle']       = isset($_POST['cnt_subtitle']) ? clean_slweg($_POST['cnt_subtitle']) : '';
         $post['cnt_editor']         = isset($_POST['cnt_editor']) ? clean_slweg($_POST['cnt_editor']) : '';

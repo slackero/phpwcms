@@ -1176,6 +1176,7 @@ $BL['be_action_deleted']           = 'ID {ID} の選択されたデータセッ�
 $BL['be_action_status']            = 'ID {ID} の選択されたデータセットのステータスが変更されました。';
 $BL['be_data_select_failed']       = '選択されたデータへのアクセスに失敗しました。選択内容をご確認ください。';
 $BL['be_alias']                    = 'エイリアス';
+$BL['be_alias_err_too_long']       = 'エイリアスが長すぎます。最大 %d 文字です。';
 $BL['be_url_value']                = 'URL タイトル';
 $BL['default_date_format']         = 'YYYY/MM/DD';
 $BL['default_date']                = 'd/m/Y';

@@ -1186,6 +1186,7 @@ $BL['be_action_deleted']           = '{ID} ID கொண்ட தேர்ந்
 $BL['be_action_status']            = '{ID} ID கொண்ட தேர்ந்தெடுக்கப்பட்ட தரவுத்தொகுப்பின் நிலை மாற்றப்பட்டது.';
 $BL['be_data_select_failed']       = 'தேர்ந்தெடுக்கப்பட்ட தரவை அணுகுவது தோல்வியடைந்தது. உங்கள் தேர்வைச் சரிபார்க்கவும்.';
 $BL['be_alias']                    = 'மாற்றுப்பெயர் (Alias)';
+$BL['be_alias_err_too_long']       = 'மாற்றுப்பெயர் மிக நீளமானது. அதிகபட்சம் %d எழுத்துகள்.';
 $BL['be_url_value']                = 'URL தலைப்பு';
 $BL['default_date_format']         = 'DD/MM/YYYY';
 $BL['default_date']                = 'd/m/Y';

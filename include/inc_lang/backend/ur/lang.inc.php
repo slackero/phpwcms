@@ -1158,6 +1158,7 @@ $BL['be_action_deleted']           = 'تم حذف السجل';
 $BL['be_action_status']            = 'تم تحديث الحالة';
 $BL['be_data_select_failed']       = 'فشل تحديد البيانات';
 $BL['be_alias']                    = 'الاسم المستعار';
+$BL['be_alias_err_too_long']       = 'عرف بہت لمبا ہے۔ زیادہ سے زیادہ %d حروف۔';
 $BL['be_url_value']                = 'قيمة URL';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'التاريخ الافتراضي';

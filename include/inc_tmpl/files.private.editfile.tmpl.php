@@ -145,10 +145,16 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
     }
 
     if ($file_alias != '') {
-        $file_alias = proof_file_alias($file_id, $file_alias, $file_name);
+        $file_alias_input = phpwcms_alias_sanitize($file_alias, 'FILE');
+        if (phpwcms_alias_too_long($file_alias_input)) {
+            $file_error["alias"] = 1;
+            $file_alias = $file_alias_input;
+        } else {
+            $file_alias = proof_file_alias($file_id, $file_alias, $file_name);
+        }
     }
     //if alias has changed lets deleted existing content images
-    if ($file_alias != $file_alias_old && $file_alias_old != '') {
+    if (empty($file_error["alias"]) && $file_alias != $file_alias_old && $file_alias_old != '') {
       $files = glob(PHPWCMS_ROOT.'/content/images/*-'.$file_alias_old.'.'.$file_ext);
       foreach ($files as $file) {
          unlink($file);
@@ -369,7 +375,10 @@ if($ja) {
   <div class="form-group row g-2 align-items-center">
     <label for="file_alias" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_alias'] ?></label>
     <div class="col">
-      <input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias" value="<?php echo html($file_alias) ?>" maxlength="230" onfocus="set_file_alias(true);" onchange="this.value=create_alias(this.value, null, null, false);document.getElementById('file_alias_changed').value='changed';"><input name="file_alias_changed" type="hidden" id="file_alias_changed" value="" /><input name="file_alias_old" type="hidden" id="file_alias_old" value="<?php echo $file_alias ?>" />
+      <input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias" value="<?php echo html($file_alias) ?>" maxlength="<?php echo PHPWCMS_ALIAS_MAXLEN ?>" onfocus="set_file_alias(true);" onchange="this.value=create_alias(this.value, null, null, false);document.getElementById('file_alias_changed').value='changed';"><input name="file_alias_changed" type="hidden" id="file_alias_changed" value="" /><input name="file_alias_old" type="hidden" id="file_alias_old" value="<?php echo $file_alias ?>" />
+      <?php if(isset($file_error["alias"])) { ?>
+      <div class="text-danger small mt-1"><?php echo sprintf($BL['be_alias_err_too_long'], PHPWCMS_ALIAS_MAXLEN) ?></div>
+      <?php } ?>
     </div>
   </div>
 

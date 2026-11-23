@@ -677,6 +677,37 @@ function get_backend_theme() {
 }
 
 /**
+ * Sanitize an alias value without truncating it.
+ *
+ * Empty fallbacks are handled by proof_alias(), so an empty result here means
+ * the submitted value was empty or contained no usable characters.
+ */
+function phpwcms_alias_sanitize($alias, $mode = 'CATEGORY') {
+    $allow_slash = $mode !== 'FILE' && PHPWCMS_ALIAS_WSLASH;
+    $alias       = uri_sanitize(clean_slweg((string)$alias), $allow_slash);
+
+    return \voku\helper\UTF8::strtolower($alias);
+}
+
+/**
+ * Check a sanitized alias against PHPWCMS_ALIAS_MAXLEN.
+ */
+function phpwcms_alias_too_long($alias) {
+    return \voku\helper\UTF8::strlen((string)$alias) > PHPWCMS_ALIAS_MAXLEN;
+}
+
+/**
+ * Truncate an alias to PHPWCMS_ALIAS_MAXLEN characters while keeping the
+ * given suffix intact, so uniqueness suffixes never overflow the limit.
+ */
+function phpwcms_alias_limit($alias, $suffix = '') {
+    $suffix = (string)$suffix;
+    $length = PHPWCMS_ALIAS_MAXLEN - \voku\helper\UTF8::strlen($suffix);
+
+    return \voku\helper\UTF8::substr((string)$alias, 0, max(0, $length)) . $suffix;
+}
+
+/**
  * Helper to compute next available alias from a set of existing alias names
  */
 function _get_unique_alias_candidate($alias, $existing_aliases = [], $pad_length = 0, $check_file = false) {
@@ -692,7 +723,7 @@ function _get_unique_alias_candidate($alias, $existing_aliases = [], $pad_length
 
     do {
         $suffix = $pad ? sprintf('%0' . $pad . 'd', $counter) : (string)$counter;
-        $candidate = $base_alias . '-' . $suffix;
+        $candidate = phpwcms_alias_limit($base_alias, '-' . $suffix);
         $counter++;
     } while (
         isset($existing_aliases[$candidate]) ||
@@ -711,8 +742,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
     $current_id = (string)$current_id;
 
     $allow_slash = !($mode === 'FILE') && PHPWCMS_ALIAS_WSLASH;
-    $alias       = uri_sanitize(clean_slweg($alias), $allow_slash);
-    $alias       = \voku\helper\UTF8::strtolower($alias);
+    $alias       = phpwcms_alias_sanitize($alias, $mode);
 
     $reserved = [
         'print',
@@ -755,8 +785,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
             $alias = $fallback_name !== '' ? cut_ext($fallback_name) : cut_ext($_POST['file_name'] ?? '');
         }
 
-        $alias = uri_sanitize(clean_slweg($alias), $allow_slash);
-        $alias = \voku\helper\UTF8::strtolower($alias);
+        $alias = phpwcms_alias_sanitize($alias, $mode);
 
         if($alias === '') {
             if ($mode === 'FILE') {
@@ -790,12 +819,12 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
 
             if($alias_proof_suffix_count) {
                 $alias_sections[0] .= $alias_proof_suffix;
-                $alias = implode('/', $alias_sections);
+                $alias = phpwcms_alias_limit(implode('/', $alias_sections));
             }
         }
     }
 
-    $alias = \voku\helper\UTF8::substr($alias, 0, 230);
+    $alias = phpwcms_alias_limit($alias);
 
     if($allow_slash) {
         $alias = trim($alias, '/');
@@ -812,7 +841,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
         }
 
         if($alias_proof_suffix_count) {
-            $alias .= $alias_proof_suffix;
+            $alias = phpwcms_alias_limit($alias, $alias_proof_suffix);
         }
     }
 
@@ -823,11 +852,11 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
 
     if($alias === '' || in_array($alias, $reserved) || ($alias === 'index' && $current_id !== 'index') ) {
         if ($mode === 'FILE') {
-            $alias .= '-' . ($current_id ? (int)$current_id : 'file');
+            $alias = phpwcms_alias_limit($alias, '-' . ($current_id ? (int)$current_id : 'file'));
         } elseif ($mode === 'CONTENT') {
-            $alias .= date('_Ymd');
+            $alias = phpwcms_alias_limit($alias, date('_Ymd'));
         } else {
-            $alias .= '-view';
+            $alias = phpwcms_alias_limit($alias, '-view');
         }
     }
 

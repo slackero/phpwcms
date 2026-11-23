@@ -1141,6 +1141,7 @@ $BL['be_action_deleted']           = 'De geselecteerde dataset met ID {ID} is ve
 $BL['be_action_status']            = 'De status van de geselecteerde dataset met ID {ID} is gewijzigd.';
 $BL['be_data_select_failed']       = 'Toegang tot de geselecteerde gegevens is mislukt. Controleer uw selectie.';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias is te lang. Maximaal %d tekens.';
 $BL['be_url_value']                = 'URL-titel';
 $BL['default_date_format']         = 'DD-MM-YYYY';
 $BL['default_date']                = 'd-m-Y';

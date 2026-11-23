@@ -548,6 +548,13 @@ function create_alias(str, encoding, ucfirst, allowSlashes) {
         const c = str.charAt(0);
         str = c.toUpperCase() + str.slice(1);
     }
+    if (typeof aliasMaxLength !== 'undefined' && aliasMaxLength > 0) {
+        const chars = Array.from(str);
+        if (chars.length > aliasMaxLength) {
+            str = chars.slice(0, aliasMaxLength).join('');
+            str = str.replace(/[\-_.\/]+$/, '');
+        }
+    }
     return str;
 }
 

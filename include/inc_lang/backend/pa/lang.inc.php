@@ -1176,6 +1176,7 @@ $BL['be_action_deleted']           = 'ID {ID} ਵਾਲਾ ਚੁਣਿਆ ਗ�
 $BL['be_action_status']            = 'ID {ID} ਵਾਲੇ ਚੁਣੇ ਗਏ ਡਾਟਾਸੈੱਟ ਦੀ ਸਥਿਤੀ ਬਦਲੀ ਗਈ ਸੀ।';
 $BL['be_data_select_failed']       = 'ਚੁਣੇ ਗਏ ਡਾਟਾ ਤੱਕ ਪਹੁੰਚ ਅਸਫ਼ਲ ਰਹੀ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਚੋਣ ਦੀ ਜਾਂਚ ਕਰੋ।';
 $BL['be_alias']                    = 'ਉਪਨਾਮ';
+$BL['be_alias_err_too_long']       = 'ਉਪਨਾਮ ਬਹੁਤ ਲੰਮਾ ਹੈ। ਵੱਧ ਤੋਂ ਵੱਧ %d ਅੱਖਰ।';
 $BL['be_url_value']                = 'URL ਸਿਰਲੇਖ';
 $BL['default_date_format']         = 'DD/MM/YYYY';
 $BL['default_date']                = 'd/m/Y';

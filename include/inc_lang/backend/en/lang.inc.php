@@ -1140,6 +1140,7 @@ $BL['be_action_deleted']           = 'The selected dataset having ID {ID} was de
 $BL['be_action_status']            = 'The status of the selected dataset having ID {ID} was changed.';
 $BL['be_data_select_failed']       = 'Accessing the selected data has failed. Please proof your selection.';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias is too long. Maximum is %d characters.';
 $BL['be_url_value']                = 'URL title';
 $BL['default_date_format']         = 'DD/MM/YYYY';
 $BL['default_date']                = 'd/m/Y';

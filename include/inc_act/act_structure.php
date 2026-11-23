@@ -12,12 +12,24 @@
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 $phpwcms = array('SESSION_START' => true);
+global $BL;
 
 require_once '../config/conf.inc.php';
 require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+
+$user_lang = !empty($_SESSION['wcs_user_lang']) ? strtolower(substr($_SESSION['wcs_user_lang'], 0, 2)) : 'en';
+if (!preg_match('/^[a-z]{2}$/', $user_lang)) {
+    $user_lang = 'en';
+}
+require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
+$cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/'.$user_lang.'/lang.inc.php';
+if (is_file($cust_lang)) {
+    include $cust_lang;
+}
+
 checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
@@ -29,6 +41,14 @@ if(empty($_SESSION['REFERER_URL'])) {
 }
 
 if(has_admin_permission('artstruc')) { // Only for admin users
+
+    if(isset($_POST["acat_alias"])) {
+        $acat_alias_input = phpwcms_alias_sanitize($_POST["acat_alias"], 'CATEGORY');
+        if(phpwcms_alias_too_long($acat_alias_input)) {
+            set_status_message(sprintf($BL['be_alias_err_too_long'], PHPWCMS_ALIAS_MAXLEN), 'warning');
+            headerRedirect($ref);
+        }
+    }
 
     if(isset($_POST["acat_access"]) && is_array($_POST["acat_access"]) && count($_POST["acat_access"])) {
 

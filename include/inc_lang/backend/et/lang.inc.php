@@ -867,6 +867,7 @@ $BL['be_action_deleted']           = 'Kirje kustutatud';
 $BL['be_action_status']            = 'Olek uuendatud';
 $BL['be_data_select_failed']       = 'Andmete valimine ebaõnnestus';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias on liiga pikk. Maksimaalne on %d tähemärki.';
 $BL['be_url_value']                = 'URL väärtus';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'vaikekuupäev';

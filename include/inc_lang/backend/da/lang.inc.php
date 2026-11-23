@@ -725,6 +725,7 @@ $BL['be_action_deleted']           = 'Post slettet';
 $BL['be_action_status']            = 'Status opdateret';
 $BL['be_data_select_failed']       = 'Valg af data mislykkedes';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias er for langt. Maksimum er %d tegn.';
 $BL['be_url_value']                = 'URL-værdi';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'standarddato';

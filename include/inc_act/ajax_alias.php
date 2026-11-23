@@ -53,7 +53,7 @@ if($action === 'form' && $article_id) {
     echo '<div class="form-group row g-2"><label class="col-sm-3 col-form-label text-end fw-bold" for="article_description'.$article_id.'">'.$BL['be_cnt_description'] .':</label><div class="col-sm-9">'.LF;
     echo '<textarea name="article_description" rows="3" class="form-control form-control-sm field-sizing-content field-sizing-content-3" id="article_description'.$article_id.'">'.html_specialchars($content['current_article'][0]['article_description']).'</textarea></div></div>'.LF;
     echo '<div class="form-group row g-2 align-items-center"><label class="col-sm-3 col-form-label text-end fw-bold" for="article_alias'.$article_id.'">'.$BL['be_article_urlalias'] .':</label><div class="col-sm-9">'.LF;
-    echo '<input name="article_alias" type="text" class="form-control form-control-sm" id="article_alias'. $article_id.'" value="'.html_specialchars($content['current_article'][0]['article_alias']).'" maxlength="230" onfocus="set_article_alias(true);" onchange="this.value=create_alias(this.value);" /></div></div>'.LF;
+    echo '<input name="article_alias" type="text" class="form-control form-control-sm" id="article_alias'. $article_id.'" value="'.html_specialchars($content['current_article'][0]['article_alias']).'" maxlength="'.PHPWCMS_ALIAS_MAXLEN.'" onfocus="set_article_alias(true);" onchange="this.value=create_alias(this.value);" /></div></div>'.LF;
     echo '<div class="form-group row g-2 align-items-center">'.LF;
     echo '<div class="col-sm-3"></div>'.LF;
     echo '<div class="col">'.LF;
@@ -76,7 +76,7 @@ if($action === 'form' && $acat_id) {
         echo '<div class="form-group row g-2 align-items-center"><span class="col-sm-3 col-form-label text-end fw-bold">'.$BL['be_article_akeywords'] .'</span><div class="col-sm-9">'. html_specialchars($content['current_articlecat'][0]['acat_keywords']).'</div></div>'.LF;
     }
     echo '<div class="form-group row g-2 align-items-center"><label class="col-sm-3 col-form-label text-end fw-bold" for="acat_alias'.$acat_id.'">'.$BL['be_admin_struct_alias'] .'</label>'.LF;
-    echo '<div class="col-sm-9"><input name="acat_alias" type="text" class="form-control form-control-sm" id="acat_alias'. $acat_id.'" value="'.html_specialchars($content['current_articlecat'][0]['acat_alias']).'" maxlength="230" onfocus="set_article_alias(true,' . "'struct'" . ');" onchange="this.value=create_alias(this.value);" /></div></div>'.LF;
+    echo '<div class="col-sm-9"><input name="acat_alias" type="text" class="form-control form-control-sm" id="acat_alias'. $acat_id.'" value="'.html_specialchars($content['current_articlecat'][0]['acat_alias']).'" maxlength="'.PHPWCMS_ALIAS_MAXLEN.'" onfocus="set_article_alias(true,' . "'struct'" . ');" onchange="this.value=create_alias(this.value);" /></div></div>'.LF;
 
     echo '<div class="form-group row g-2 align-items-center"><label class="col-sm-3 col-form-label text-end fw-bold" for="acat_pagetitle'.$acat_id.'">'.$BL['be_admin_page_pagetitle'] .'</label>'.LF;
     echo '<div class="col-sm-9"><input name="template" type="hidden" id="template'.$acat_id.'" value="'.$content['current_articlecat'][0]['acat_template'].'">'.LF;
@@ -92,6 +92,11 @@ if($action === 'form' && $acat_id) {
 }
 
 if($action === 'update') {
+    if(phpwcms_alias_too_long(phpwcms_alias_sanitize($_REQUEST['article_alias'] ?? '', 'ARTICLE'))) {
+        echo '<div class="p-2 text-danger">'.sprintf($BL['be_alias_err_too_long'], PHPWCMS_ALIAS_MAXLEN).'</div>';
+        exit;
+    }
+
     $article_alias = proof_alias($article_id, $alias, 'ARTICLE');
 
     $sql_alias = "UPDATE ".DB_PREPEND."article SET ";
@@ -109,6 +114,11 @@ if($action === 'update') {
 }
 
 if($action === 'updatecat') {
+    if(phpwcms_alias_too_long(phpwcms_alias_sanitize($_REQUEST['acat_alias'] ?? '', 'CATEGORY'))) {
+        echo '<div class="p-2 text-danger">'.sprintf($BL['be_alias_err_too_long'], PHPWCMS_ALIAS_MAXLEN).'</div>';
+        exit;
+    }
+
     $acat_alias = proof_alias($acat_id, $acatalias, 'CATEGORY');
 
     $sql_alias = "UPDATE ".DB_PREPEND."articlecat SET ";

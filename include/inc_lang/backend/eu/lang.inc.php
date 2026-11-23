@@ -1140,6 +1140,7 @@ $BL['be_action_deleted']           = 'El conjunto de datos seleccionado con ID {
 $BL['be_action_status']            = 'El estado del conjunto de datos seleccionado con ID {ID} fue cambiado.';
 $BL['be_data_select_failed']       = 'El acceso a los datos seleccionados ha fallado. Por favor, compruebe su selecci&oacute;n.';
 $BL['be_alias']                    = 'Aliasa';
+$BL['be_alias_err_too_long']       = 'Aliasa luzeegia da. Gehienez %d karaktere.';
 $BL['be_url_value']                = 'T&iacute;tulo de URL';
 $BL['default_date_format']         = 'DD/MM/YYYY';
 $BL['default_date']                = 'd/m/Y';

@@ -1176,6 +1176,7 @@ $BL['be_action_deleted']           = '{ID} ID বিশিষ্ট নির্
 $BL['be_action_status']            = '{ID} ID বিশিষ্ট নির্বাচিত ডেটাসেটের স্থিতি পরিবর্তন করা হয়েছে।';
 $BL['be_data_select_failed']       = 'নির্বাচিত ডেটা অ্যাক্সেস করতে ব্যর্থ হয়েছে। অনুগ্রহ করে আপনার নির্বাচন যাচাই করুন।';
 $BL['be_alias']                    = 'উপনাম (Alias)';
+$BL['be_alias_err_too_long']       = 'উপনামটি খুব দীর্ঘ। সর্বোচ্চ %d অক্ষর।';
 $BL['be_url_value']                = 'URL শিরোনাম';
 $BL['default_date_format']         = 'DD/MM/YYYY';
 $BL['default_date']                = 'd/m/Y';

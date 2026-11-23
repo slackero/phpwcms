@@ -186,7 +186,7 @@ if ($acat_id === 'index' || $acat_id === 0) {
   <div class="form-group align-items-center row g-2">
       <label for="" class="col-sm-2 col-form-label text-end"><?php echo $BL['be_admin_struct_alias']; ?></label>
       <div class="col-sm-4">
-          <input name="acat_alias" class="form-control form-control-sm" id="acat_alias" value="<?php echo html($acat_alias) ?>" size="50" maxlength="1000" type="text" <?php
+          <input name="acat_alias" class="form-control form-control-sm" id="acat_alias" value="<?php echo html($acat_alias) ?>" size="50" maxlength="<?php echo PHPWCMS_ALIAS_MAXLEN ?>" type="text" <?php
                 if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true, 'struct');"<?php endif; ?> onchange="this.value=create_alias(this.value);" />
       </div>
       <div class="col">

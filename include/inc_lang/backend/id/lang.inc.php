@@ -1176,6 +1176,7 @@ $BL['be_action_deleted']           = 'Kumpulan data yang dipilih dengan ID {ID} 
 $BL['be_action_status']            = 'Status kumpulan data yang dipilih dengan ID {ID} telah diubah.';
 $BL['be_data_select_failed']       = 'Mengakses data yang dipilih gagal. Silakan periksa pilihan Anda.';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias terlalu panjang. Maksimal %d karakter.';
 $BL['be_url_value']                = 'Judul URL';
 $BL['default_date_format']         = 'DD/MM/YYYY';
 $BL['default_date']                = 'd/m/Y';

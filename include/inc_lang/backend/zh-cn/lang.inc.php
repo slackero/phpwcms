@@ -1176,6 +1176,7 @@ $BL['be_action_deleted']           = 'ID 为 {ID} 的所选数据集已被删除
 $BL['be_action_status']            = 'ID 为 {ID} 的所选数据集状态已更改。';
 $BL['be_data_select_failed']       = '访问所选数据失败。请检查您的选择。';
 $BL['be_alias']                    = '别名';
+$BL['be_alias_err_too_long']       = '别名太长。最多 %d 个字符。';
 $BL['be_url_value']                = 'URL 标题';
 $BL['default_date_format']         = 'YYYY-MM-DD';
 $BL['default_date']                = 'd/m/Y';

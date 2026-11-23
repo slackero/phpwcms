@@ -207,7 +207,13 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
 
         $article["article_catid"] = intval($_POST["article_cid"]);
         $article["article_title"] = clean_slweg($_POST["article_title"], 2000);
-        $article["article_alias"] = proof_alias($article["article_id"], $_POST["article_alias"], 'ARTICLE');
+        $article_alias_input = phpwcms_alias_sanitize($_POST["article_alias"] ?? '', 'ARTICLE');
+        if(phpwcms_alias_too_long($article_alias_input)) {
+            $article_err[] = sprintf($BL['be_alias_err_too_long'], PHPWCMS_ALIAS_MAXLEN);
+            $article["article_alias"] = $article_alias_input;
+        } else {
+            $article["article_alias"] = proof_alias($article["article_id"], $_POST["article_alias"] ?? '', 'ARTICLE');
+        }
         $article["article_subtitle"] = clean_slweg($_POST["article_subtitle"], 2000);
         $article["article_menutitle"] = clean_slweg($_POST["article_menutitle"], 2000);
         $article["article_description"] = clean_slweg($_POST["article_description"]);

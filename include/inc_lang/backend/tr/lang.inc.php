@@ -1109,6 +1109,7 @@ $BL['be_action_deleted']           = 'Kayıt silindi';
 $BL['be_action_status']            = 'Durum güncellendi';
 $BL['be_data_select_failed']       = 'Veri seçimi başarısız oldu';
 $BL['be_alias']                    = 'Takma ad';
+$BL['be_alias_err_too_long']       = 'Takma ad çok uzun. En fazla %d karakter.';
 $BL['be_url_value']                = 'URL değeri';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'varsayılan tarih';

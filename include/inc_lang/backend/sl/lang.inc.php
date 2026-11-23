@@ -1074,6 +1074,7 @@ $BL['be_action_deleted']           = 'Izbrani podatki (ID {ID}) so bili izbrisan
 $BL['be_action_status']            = 'Status izbranih podatkov (ID {ID}) so bili spremenjeni.';
 $BL['be_data_select_failed']       = 'Dostop do izbranih podatkov ni mogoč. Preverite vašo izbiro.';
 $BL['be_alias']                    = 'Vzdevek';
+$BL['be_alias_err_too_long']       = 'Alias je predolg. Največ %d znakov.';
 $BL['be_url_value']                = 'URL naslov';
 $BL['default_date_format']         = 'DD.MM.YYYY';
 $BL['default_date']                = 'd.m.Y';

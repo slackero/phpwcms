@@ -1132,6 +1132,7 @@ $BL['be_action_deleted']           = 'Der von Ihnen gew&auml;hlte Datensatz mit 
 $BL['be_action_status']            = 'Der Status des zuletzt gew&auml;hlten Datensatzes mit der ID {ID} wurde ge&auml;ndert.';
 $BL['be_data_select_failed']       = 'Auf die gew&auml;hlten Daten konnte nicht erfolgreich zugegriffen werden.';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Alias ist zu lang. Maximal %d Zeichen.';
 $BL['be_url_value']                = 'URL-Bezeichnung';
 $BL['default_date_format']         = 'TT.MM.JJJJ';
 $BL['default_date_delimiter']      = '.';

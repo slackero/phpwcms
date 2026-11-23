@@ -990,6 +990,7 @@ $BL['be_action_deleted']           = 'Đã xóa bản ghi';
 $BL['be_action_status']            = 'Đã cập nhật trạng thái';
 $BL['be_data_select_failed']       = 'Chọn dữ liệu thất bại';
 $BL['be_alias']                    = 'Bí danh';
+$BL['be_alias_err_too_long']       = 'Bí danh quá dài. Tối đa %d ký tự.';
 $BL['be_url_value']                = 'Giá trị URL';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'ngày mặc định';

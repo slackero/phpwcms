@@ -833,6 +833,7 @@ $BL['be_action_deleted']           = 'Registo eliminado';
 $BL['be_action_status']            = 'Estado atualizado';
 $BL['be_data_select_failed']       = 'Falha na seleção de dados';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'O alias é demasiado longo. Máximo de %d caracteres.';
 $BL['be_url_value']                = 'Valor do URL';
 $BL['default_date_format']         = 'd-m-Y';
 $BL['default_date']                = 'data padrão';

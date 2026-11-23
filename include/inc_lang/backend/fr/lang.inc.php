@@ -1186,6 +1186,7 @@ $BL['be_action_deleted']           = 'Enregistrement supprim&eacute;';
 $BL['be_action_status']            = 'Statut mis &agrave; jour';
 $BL['be_data_select_failed']       = 'La s&eacute;lection des donn&eacute;es a &eacute;chou&eacute;';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'L’alias est trop long. Maximum %d caractères.';
 $BL['be_url_value']                = 'Valeur de l’URL';
 $BL['default_date_format']         = 'd/m/Y';
 $BL['default_date']                = 'Date par d&eacute;faut';

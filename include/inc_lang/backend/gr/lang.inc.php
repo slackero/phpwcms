@@ -971,6 +971,7 @@ $BL['be_action_deleted']           = 'Η εγγραφή διαγράφηκε';
 $BL['be_action_status']            = 'Η κατάσταση ενημερώθηκε';
 $BL['be_data_select_failed']       = 'Η επιλογή δεδομένων απέτυχε';
 $BL['be_alias']                    = 'Ψευδώνυμο';
+$BL['be_alias_err_too_long']       = 'Το ψευδώνυμο είναι πολύ μεγάλο. Το μέγιστο είναι %d χαρακτήρες.';
 $BL['be_url_value']                = 'Τιμή URL';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'προεπιλεγμένη ημερομηνία';

@@ -1141,6 +1141,7 @@ $BL['be_action_deleted']           = 'Il set di dati selezionato con ID {ID} &eg
 $BL['be_action_status']            = 'Lo stato del set di dati selezionato con ID {ID} &egrave; stato modificato.';
 $BL['be_data_select_failed']       = 'L’accesso ai dati selezionati &egrave; fallito. Verifica la tua selezione.';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'L’alias è troppo lungo. Il massimo è %d caratteri.';
 $BL['be_url_value']                = 'Titolo URL';
 $BL['default_date_format']         = 'GG/MM/AAAA';
 $BL['default_date']                = 'd/m/Y';

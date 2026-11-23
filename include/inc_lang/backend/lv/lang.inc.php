@@ -1158,6 +1158,7 @@ $BL['be_action_deleted']           = 'Įrašas ištrintas';
 $BL['be_action_status']            = 'Būsena atnaujinta';
 $BL['be_data_select_failed']       = 'Duomenų pasirinkimas nepavyko';
 $BL['be_alias']                    = 'Pseudonimas';
+$BL['be_alias_err_too_long']       = 'Aizstājvārds ir pārāk garš. Maksimālais ir %d rakstzīmes.';
 $BL['be_url_value']                = 'URL reikšmė';
 $BL['default_date_format']         = 'Y-m-d';
 $BL['default_date']                = 'numatytoji data';

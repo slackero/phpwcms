@@ -1176,6 +1176,7 @@ $BL['be_action_deleted']           = 'ID {ID} वाला चयनित ड�
 $BL['be_action_status']            = 'ID {ID} वाले चयनित डेटासेट की स्थिति बदल दी गई थी।';
 $BL['be_data_select_failed']       = 'चयनित डेटा तक पहुँचने में विफल रहा। कृपया अपने चयन की जाँच करें।';
 $BL['be_alias']                    = 'उपनाम (Alias)';
+$BL['be_alias_err_too_long']       = 'उपनाम बहुत लंबा है। अधिकतम %d वर्ण।';
 $BL['be_url_value']                = 'URL शीर्षक';
 $BL['default_date_format']         = 'DD/MM/YYYY';
 $BL['default_date']                = 'd/m/Y';

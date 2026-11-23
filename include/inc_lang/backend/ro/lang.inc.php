@@ -975,6 +975,7 @@ $BL['be_action_deleted']           = 'Înregistrare ștearsă';
 $BL['be_action_status']            = 'Stare actualizată';
 $BL['be_data_select_failed']       = 'Selectarea datelor a eșuat';
 $BL['be_alias']                    = 'Alias';
+$BL['be_alias_err_too_long']       = 'Aliasul este prea lung. Maxim %d caractere.';
 $BL['be_url_value']                = 'Valoare URL';
 $BL['default_date_format']         = 'd.m.Y';
 $BL['default_date']                = 'dată implicită';
