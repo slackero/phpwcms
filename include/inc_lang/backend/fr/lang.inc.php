@@ -1776,7 +1776,7 @@ $BL['be_newsletter_nourl'] = 'Newsletter non envoyée : l’URL du site n’est 
 
 // security check
 $BL['be_security_check'] = 'Contrôle de sécurité';
-$BL['be_security_intro'] = 'Vérifie l\'arborescence de stockage privé, les anciens répertoires content et les fichiers de refus de chaque répertoire. La mise à jour ignore %1$s, %2$s et %3$s, ces fichiers peuvent donc manquer ou être obsolètes après une mise à jour.';
+$BL['be_security_intro'] = 'Vérifie l’arborescence de stockage privé, les anciens répertoires content et les fichiers de refus de chaque répertoire. La mise à jour ignore %1$s, %2$s et %3$s, ces fichiers peuvent donc manquer ou être obsolètes après une mise à jour.';
 $BL['be_security_results'] = 'Constats';
 $BL['be_security_ok'] = 'OK';
 $BL['be_security_warn'] = 'Avertissement';
@@ -1792,7 +1792,7 @@ $BL['be_security_row_legacy_dir'] = 'Ancien : %s/';
 $BL['be_security_row_protector_form'] = 'Répertoire des envois de formulaire';
 $BL['be_security_row_protector_cache'] = 'Ancien répertoire de cache';
 $BL['be_security_row_protector_config'] = 'Répertoire de configuration';
-$BL['be_security_row_protector_upload'] = 'Répertoire d\'envoi FTP';
+$BL['be_security_row_protector_upload'] = 'Répertoire d’envoi FTP';
 $BL['be_security_row_protector_tests'] = 'Scripts de test';
 $BL['be_security_row_protector_filearchive'] = 'Archive de fichiers';
 $BL['be_security_row_root_rule'] = 'Configuration serveur à la racine';

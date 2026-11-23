@@ -1775,7 +1775,7 @@ $BL['be_newsletter_nourl'] = 'Newsletter non inviata: l’URL del sito non è co
 
 // security check
 $BL['be_security_check'] = 'Controllo di sicurezza';
-$BL['be_security_intro'] = 'Verifica l\'archivio privato, le vecchie directory content e i file di blocco di ogni directory. L\'aggiornamento salta %1$s, %2$s e %3$s, quindi questi file possono mancare o essere obsoleti dopo un aggiornamento.';
+$BL['be_security_intro'] = 'Verifica l’archivio privato, le vecchie directory content e i file di blocco di ogni directory. L’aggiornamento salta %1$s, %2$s e %3$s, quindi questi file possono mancare o essere obsoleti dopo un aggiornamento.';
 $BL['be_security_results'] = 'Risultanze';
 $BL['be_security_ok'] = 'OK';
 $BL['be_security_warn'] = 'Avviso';
@@ -1806,8 +1806,8 @@ $BL['be_security_detail_mode_open'] = 'Modalità %s, attesa 0700.';
 $BL['be_security_detail_removed'] = 'Rimosso.';
 $BL['be_security_detail_leftover_one'] = '1 voce resta nella document root.';
 $BL['be_security_detail_leftover_many'] = '%d voci restano nella document root.';
-$BL['be_security_detail_leftover_denied_one'] = '1 voce resta dietro un file di blocco; spostala nell\'archivio privato.';
-$BL['be_security_detail_leftover_denied_many'] = '%d voci restano dietro un file di blocco; spostale nell\'archivio privato.';
+$BL['be_security_detail_leftover_denied_one'] = '1 voce resta dietro un file di blocco; spostala nell’archivio privato.';
+$BL['be_security_detail_leftover_denied_many'] = '%d voci restano dietro un file di blocco; spostale nell’archivio privato.';
 $BL['be_security_detail_empty_denied'] = 'Vuota e bloccata; rimuovi la directory.';
 $BL['be_security_detail_empty_open'] = 'Directory vuota senza file di blocco.';
 $BL['be_security_detail_no_deny_rule'] = 'Nessuna regola di blocco in %s.';
