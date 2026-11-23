@@ -29,6 +29,17 @@ const UPGRADE_REPO    = 'slackero/phpwcms';
 const MIN_PHP_VERSION = '8.4.0';
 const MIN_INSTALLED_REVISION = 401;
 
+/**
+ * Same HTML escaping semantics as the core wrapper and setup/inc/setup.func.inc.php:
+ * UTF-8, ENT_SUBSTITUTE for invalid sequences, no double encoding of entities,
+ * backslash escaped. The updater runs before the core files are loaded, so it
+ * cannot call html_specialchars() from there.
+ */
+function upgrade_html_specialchars($value): string
+{
+    return str_replace('\\', '&#92;', htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false));
+}
+
 function phpwcms_logo_svg(int $height = 30): string
 {
     return '<svg xmlns="http://www.w3.org/2000/svg" height="' . $height . '" viewBox="0 0 415 115" class="align-middle" role="img" aria-label="phpwcms">'
@@ -401,8 +412,8 @@ if (version_compare(PHP_VERSION, MIN_PHP_VERSION, '<')) {
         echo '<span class="me-3">' . phpwcms_logo_svg(28) . '</span>';
         echo '<h4 class="m-0 text-white font-weight-bold">PHP Version Incompatible</h4>';
         echo '</div></div>';
-        echo '<div class="upgrade-body"><p>phpwcms requires <strong>PHP ' . htmlspecialchars(MIN_PHP_VERSION) . '</strong> or higher.</p>';
-        echo '<p>Your server is currently running PHP <code>' . htmlspecialchars(PHP_VERSION) . '</code>.</p>';
+        echo '<div class="upgrade-body"><p>phpwcms requires <strong>PHP ' . upgrade_html_specialchars(MIN_PHP_VERSION) . '</strong> or higher.</p>';
+        echo '<p>Your server is currently running PHP <code>' . upgrade_html_specialchars(PHP_VERSION) . '</code>.</p>';
         echo '<p class="mb-0">Please upgrade your PHP environment before running the updater.</p></div></div></body></html>';
     }
     exit(1);
@@ -466,7 +477,7 @@ if ($missingExtensions) {
         echo '<h4 class="m-0 text-white font-weight-bold">Missing PHP Extensions</h4>';
         echo '</div></div>';
         echo '<div class="upgrade-body"><p>The upgrade process requires the following PHP extensions to be installed and enabled:</p>';
-        echo '<p><code>' . htmlspecialchars(implode(', ', $missingExtensions)) . '</code></p>';
+        echo '<p><code>' . upgrade_html_specialchars(implode(', ', $missingExtensions)) . '</code></p>';
         echo '<p class="mb-0">Please enable the missing extensions in your PHP configuration before running the updater. The upgrade has not been started, no files were changed.</p></div></div></body></html>';
     }
     exit(1);
@@ -2123,7 +2134,7 @@ if (empty($phpwcms) && !empty($cmsgo) && is_array($cmsgo)) {
     if (migrate_cmsgo_config($configFile, $docRoot)) {
         $cmsgoMigrationNotice = 'Your legacy cmsGo! configuration file was migrated to the current '
             . 'phpwcms format automatically. The original file was preserved as '
-            . '<code>' . htmlspecialchars(basename($cmsgoBackupFile)) . '</code> in the same directory.';
+            . '<code>' . upgrade_html_specialchars(basename($cmsgoBackupFile)) . '</code> in the same directory.';
         if ($isCli) {
             cli_print("Legacy cmsgo config migrated to phpwcms format in $configFile\n", 'green');
             if (is_file($cmsgoBackupFile)) {
@@ -2181,7 +2192,7 @@ if (empty($phpwcms['db_table']) || empty($phpwcms['db_user'])) {
     echo '<title>Configuration Error</title><style>' . upgrade_css() . '</style></head><body>';
     echo '<div class="upgrade-card upgrade-card-sm"><div class="upgrade-header danger d-flex align-items-center justify-content-between">';
     echo '<div class="d-flex align-items-center"><span class="me-3">' . phpwcms_logo_svg(28) . '</span><h4 class="m-0 text-white font-weight-bold">Configuration Error</h4></div></div>';
-    echo '<div class="upgrade-body"><p class="mb-0">' . htmlspecialchars($err) . '</p></div></div></body></html>';
+    echo '<div class="upgrade-body"><p class="mb-0">' . upgrade_html_specialchars($err) . '</p></div></div></body></html>';
     exit(1);
 }
 
@@ -2733,7 +2744,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $wl_hint_table = get_upgrade_user_table($mysqli, $dbPrepend);
                 if ($wl_hint_table !== $dbPrepend . 'user' && $wl_hint_table !== $dbPrepend . 'phpwcms_user') {
                     $wl_hint_prefix = rtrim(substr($wl_hint_table, 0, -strlen('_user')), '_');
-                    $error .= ' Note: user accounts were found in "' . htmlspecialchars($wl_hint_table) . '" — this looks like a whitelabel installation. Set $phpwcms[\'brand_table_prefix\'] to \'' . htmlspecialchars($wl_hint_prefix) . '\' in conf.inc.php.';
+                    $error .= ' Note: user accounts were found in "' . upgrade_html_specialchars($wl_hint_table) . '" — this looks like a whitelabel installation. Set $phpwcms[\'brand_table_prefix\'] to \'' . upgrade_html_specialchars($wl_hint_prefix) . '\' in conf.inc.php.';
                 }
             }
         }
@@ -2829,7 +2840,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $dbPrepend = (!empty($phpwcms['db_prepend']) ? rtrim((string)$phpwcms['db_prepend'], '_') . '_' : '') . $_brand_prefix . '_';
                     $notice = 'Whitelabel license settings saved successfully.';
                 } else {
-                    $wl_save_error = 'Could not write to ' . htmlspecialchars($configFile) . '. Check file permissions.';
+                    $wl_save_error = 'Could not write to ' . upgrade_html_specialchars($configFile) . '. Check file permissions.';
                 }
             } else {
                 $wl_save_error = 'Could not read configuration file.';
@@ -2837,7 +2848,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($wl_save_error === '') {
             // Only report the writability problem when no earlier error
             // (invalid license key) already set a more specific message.
-            $wl_save_error = 'Configuration file is not writable: ' . htmlspecialchars((string)$configFile);
+            $wl_save_error = 'Configuration file is not writable: ' . upgrade_html_specialchars((string)$configFile);
         }
 
         if ($wl_save_error !== '') {
@@ -2849,8 +2860,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $isAuthenticated = !empty($_SESSION['upgrade_authenticated']);
 
 // Honour the storage-path override only after login, and create the tree only
-// for an authenticated request.
-if (!$isCli && $isAuthenticated) {
+// for an authenticated request. The CLI branch above always exits, so only
+// browser requests reach this point.
+if ($isAuthenticated) {
     if (isset($_POST['storage_path'])) {
         $upgrade_storage_override = trim((string)$_POST['storage_path']);
         if ($upgrade_storage_override !== '') {
@@ -2907,7 +2919,7 @@ if ($isAuthenticated) {
                 $dbPrepend = $web_db_part . $web_brand . '_';
                 $prepend_check = detect_actual_db_prepend($mysqli, $dbPrepend);
                 if (!$prepend_check['mismatch']) {
-                    $notice = 'Detected table prefix "' . htmlspecialchars($dbPrepend) . '" — $phpwcms[\'brand_table_prefix\'] was set to \'' . htmlspecialchars($web_brand) . '\' in conf.inc.php to preserve the existing tables.';
+                    $notice = 'Detected table prefix "' . upgrade_html_specialchars($dbPrepend) . '" — $phpwcms[\'brand_table_prefix\'] was set to \'' . upgrade_html_specialchars($web_brand) . '\' in conf.inc.php to preserve the existing tables.';
                 }
             }
         }
@@ -2954,10 +2966,10 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
         </div>
         <?php if ($isAuthenticated): ?>
             <div class="text-end small">
-                Logged in as <strong><?= htmlspecialchars($_SESSION['upgrade_user'] ?? 'Admin') ?></strong>
+                Logged in as <strong><?= upgrade_html_specialchars($_SESSION['upgrade_user'] ?? 'Admin') ?></strong>
                 <form method="post" class="d-inline ms-2">
                     <input type="hidden" name="action" value="logout">
-                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['upgrade_csrf_token']) ?>">
+                    <input type="hidden" name="csrf_token" value="<?= upgrade_html_specialchars($_SESSION['upgrade_csrf_token']) ?>">
                     <button type="submit" class="btn btn-sm btn-outline-light py-0">Logout</button>
                 </form>
             </div>
@@ -2966,17 +2978,17 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
 
     <div class="upgrade-body">
         <?php if (!empty($error)): ?>
-            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <div class="alert alert-danger"><?= upgrade_html_specialchars($error) ?></div>
         <?php endif; ?>
 
         <?php if (!$isAuthenticated): ?>
             <?php if (!empty($_SESSION['upgrade_2fa_pending'])): ?>
                 <h5 class="mb-3">Two-Factor Authentication</h5>
-                <p class="text-muted">Two-Factor Authentication is active for account <strong><?= htmlspecialchars($_SESSION['upgrade_2fa_pending']['usr_name'] ?: $_SESSION['upgrade_2fa_pending']['usr_login']) ?></strong>. Enter your 6-digit authenticator code or a backup recovery code to complete login.</p>
+                <p class="text-muted">Two-Factor Authentication is active for account <strong><?= upgrade_html_specialchars($_SESSION['upgrade_2fa_pending']['usr_name'] ?: $_SESSION['upgrade_2fa_pending']['usr_login']) ?></strong>. Enter your 6-digit authenticator code or a backup recovery code to complete login.</p>
 
                 <form method="post">
                     <input type="hidden" name="action" value="verify_2fa">
-                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['upgrade_csrf_token']) ?>">
+                    <input type="hidden" name="csrf_token" value="<?= upgrade_html_specialchars($_SESSION['upgrade_csrf_token']) ?>">
                     <div class="mb-3">
                         <label class="form-label" for="two-factor-code">Authentication Code / Backup Code</label>
                         <input type="text" name="two_factor_code" class="form-control" id="two-factor-code" required autofocus autocomplete="one-time-code" placeholder="6-digit code or backup code">
@@ -2987,7 +2999,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                 </form>
                 <form method="post" class="mt-3">
                     <input type="hidden" name="action" value="cancel_2fa">
-                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['upgrade_csrf_token']) ?>">
+                    <input type="hidden" name="csrf_token" value="<?= upgrade_html_specialchars($_SESSION['upgrade_csrf_token']) ?>">
                     <button type="submit" class="btn btn-sm btn-link text-decoration-none px-0 text-muted">&larr; Back to login</button>
                 </form>
             <?php else: ?>
@@ -2996,7 +3008,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
 
                 <form method="post">
                     <input type="hidden" name="action" value="login">
-                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['upgrade_csrf_token']) ?>">
+                    <input type="hidden" name="csrf_token" value="<?= upgrade_html_specialchars($_SESSION['upgrade_csrf_token']) ?>">
                     <div class="mb-3">
                         <label class="form-label" for="admin-username">Admin Username</label>
                         <input type="text" name="username" class="form-control" id="admin-username" required autofocus autocomplete="username">
@@ -3043,7 +3055,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
             <?php endif; ?>
 
             <?php if (!empty($notice)): ?>
-                <div class="alert alert-success mb-4"><?= htmlspecialchars($notice) ?></div>
+                <div class="alert alert-success mb-4"><?= upgrade_html_specialchars($notice) ?></div>
             <?php endif; ?>
 
             <?php if ($releaseInfo === false): ?>
@@ -3054,10 +3066,10 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                 <div class="d-flex justify-content-between align-items-center p-3 mb-4 rounded bg-light border">
                     <div>
                         <div class="text-muted small">Target Release Available</div>
-                        <h4 class="mb-0 text-primary">v<?= htmlspecialchars($releaseInfo['version']) ?> (<?= htmlspecialchars($releaseInfo['tag']) ?>)</h4>
+                        <h4 class="mb-0 text-primary">v<?= upgrade_html_specialchars($releaseInfo['version']) ?> (<?= upgrade_html_specialchars($releaseInfo['tag']) ?>)</h4>
                         <div class="text-muted small">
-                            Installed version: <strong><?= htmlspecialchars($installedVersion) ?></strong><?= $installedRevision > 0 ? ' <span class="badge text-bg-secondary">r' . $installedRevision . '</span>' : '' ?>
-                            &bull; Published: <?= htmlspecialchars(substr($releaseInfo['published'], 0, 10)) ?>
+                            Installed version: <strong><?= upgrade_html_specialchars($installedVersion) ?></strong><?= $installedRevision > 0 ? ' <span class="badge text-bg-secondary">r' . $installedRevision . '</span>' : '' ?>
+                            &bull; Published: <?= upgrade_html_specialchars(substr($releaseInfo['published'], 0, 10)) ?>
                         </div>
                     </div>
                     <div>
@@ -3098,16 +3110,16 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                         <?php
                                         $wl_info = [];
                                         if (!empty($wl_current_payload['licensee'])) {
-                                            $wl_info[] = 'Licensee: <strong>' . htmlspecialchars($wl_current_payload['licensee']) . '</strong>';
+                                            $wl_info[] = 'Licensee: <strong>' . upgrade_html_specialchars($wl_current_payload['licensee']) . '</strong>';
                                         }
                                         if (!empty($wl_current_payload['domain'])) {
-                                            $wl_info[] = 'Domain: <strong>' . htmlspecialchars($wl_current_payload['domain']) . '</strong>';
+                                            $wl_info[] = 'Domain: <strong>' . upgrade_html_specialchars($wl_current_payload['domain']) . '</strong>';
                                         }
                                         if (!empty($wl_current_payload['valid_until']) && (int)$wl_current_payload['valid_until'] > 0) {
                                             $wl_info[] = 'Expires: <strong>' . date('Y-m-d', (int)$wl_current_payload['valid_until']) . '</strong>';
                                         }
                                         if (!empty($wl_current_payload['brand_table_prefix'])) {
-                                            $wl_info[] = 'Prefix: <strong>' . htmlspecialchars($wl_current_payload['brand_table_prefix']) . '</strong>';
+                                            $wl_info[] = 'Prefix: <strong>' . upgrade_html_specialchars($wl_current_payload['brand_table_prefix']) . '</strong>';
                                         }
                                         if ($wl_info) {
                                             echo ' &mdash; ' . implode(' &bull; ', $wl_info);
@@ -3121,22 +3133,22 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
 
                             <form method="post">
                                 <input type="hidden" name="action" value="save_whitelabel">
-                                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['upgrade_csrf_token']) ?>">
+                                <input type="hidden" name="csrf_token" value="<?= upgrade_html_specialchars($_SESSION['upgrade_csrf_token']) ?>">
 
                                 <div class="mb-3">
                                     <label class="form-label fw-bold" for="wl-key">License Key</label>
-                                    <textarea name="whitelabel_key" id="wl-key" class="form-control" style="font-family:var(--font-mono);font-size:0.82em;" rows="3" placeholder="Paste your signed whitelabel license key here &hellip;"><?= htmlspecialchars($wl_current_key) ?></textarea>
+                                    <textarea name="whitelabel_key" id="wl-key" class="form-control" style="font-family:var(--font-mono);font-size:0.82em;" rows="3" placeholder="Paste your signed whitelabel license key here &hellip;"><?= upgrade_html_specialchars($wl_current_key) ?></textarea>
                                     <div class="text-muted small mt-1">Leave empty to clear the license and revert to the standard open-source mode.</div>
                                 </div>
 
                                 <?php if ($wl_current_payload !== false): ?>
                                 <div class="mb-3">
                                     <label class="form-label fw-bold" for="wl-prefix">Brand Table Prefix</label>
-                                    <input type="text" name="brand_table_prefix" id="wl-prefix" class="form-control" value="<?= htmlspecialchars($wl_prefix_display) ?>" placeholder="phpwcms" maxlength="64" pattern="[a-zA-Z0-9_]*" style="max-width:280px;">
+                                    <input type="text" name="brand_table_prefix" id="wl-prefix" class="form-control" value="<?= upgrade_html_specialchars($wl_prefix_display) ?>" placeholder="phpwcms" maxlength="64" pattern="[a-zA-Z0-9_]*" style="max-width:280px;">
                                     <div class="text-muted small mt-1">
                                         Replaces <code>phpwcms</code> in all DB table names. Only <code>a-z A-Z 0-9 _</code> allowed.
                                         <?php if (!empty($wl_current_payload['brand_table_prefix']) && $wl_current_payload['brand_table_prefix'] !== 'phpwcms'): ?>
-                                            License suggests: <code><?= htmlspecialchars($wl_current_payload['brand_table_prefix']) ?></code>
+                                            License suggests: <code><?= upgrade_html_specialchars($wl_current_payload['brand_table_prefix']) ?></code>
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -3162,17 +3174,17 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                         <table style="border-collapse:collapse;width:100%;max-width:500px;" class="mb-3">
                             <tr>
                                 <td class="text-muted small" style="padding:3px 8px 3px 0;white-space:nowrap;">Expected prefix <small>(from conf.inc.php)</small></td>
-                                <td><code><?= htmlspecialchars($prepend_check['expected']) ?></code></td>
+                                <td><code><?= upgrade_html_specialchars($prepend_check['expected']) ?></code></td>
                             </tr>
                             <tr>
                                 <td class="text-muted small" style="padding:3px 8px 3px 0;white-space:nowrap;">Detected prefix <small>(from DB tables)</small></td>
-                                <td><code class="text-danger"><?= htmlspecialchars((string)$prepend_check['detected']) ?></code></td>
+                                <td><code class="text-danger"><?= upgrade_html_specialchars((string)$prepend_check['detected']) ?></code></td>
                             </tr>
                         </table>
                         <p class="mb-1 fw-bold">To resolve:</p>
                         <ol class="mb-0 small ps-3">
                             <li>If this is a <strong>whitelabel installation</strong>: enter a valid whitelabel license key with a matching <code>brand_table_prefix</code> in the card above and save.</li>
-                            <li>If this is a <strong>standard installation</strong> with a custom prefix: manually set <code>$phpwcms['brand_table_prefix']</code> in <code>conf.inc.php</code> to <code><?= htmlspecialchars(rtrim((string)$prepend_check['detected'], '_')) ?></code>.</li>
+                            <li>If this is a <strong>standard installation</strong> with a custom prefix: manually set <code>$phpwcms['brand_table_prefix']</code> in <code>conf.inc.php</code> to <code><?= upgrade_html_specialchars(rtrim((string)$prepend_check['detected'], '_')) ?></code>.</li>
                         </ol>
                     </div>
                 </div>
@@ -3180,7 +3192,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
 
                 <?php if (!$isUpgradeAllowed): ?>
                     <div class="alert <?= $isRevisionTooOld ? 'alert-danger' : 'alert-warning' ?>">
-                        <strong>Upgrade Not Permitted:</strong> <?= htmlspecialchars($versionError) ?>
+                        <strong>Upgrade Not Permitted:</strong> <?= upgrade_html_specialchars($versionError) ?>
                     </div>
                     <p class="text-muted">
                         <?php if ($isRevisionTooOld): ?>
@@ -3195,7 +3207,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                 <?php elseif (isset($_POST['execute_upgrade'])): ?>
                     <?php if ($upgrade_storage_error !== ''): ?>
                         <div class="alert alert-danger">
-                            The private storage directory <code><?= htmlspecialchars($upgrade_storage_error) ?></code>
+                            The private storage directory <code><?= upgrade_html_specialchars($upgrade_storage_error) ?></code>
                             could not be created or is not writable. Create it with mode 0700 for the PHP user,
                             or enter an absolute path below that the PHP user can write to.
                             <div class="mt-2"><a href="upgrade.php" class="alert-link">Back to the upgrade form</a></div>
@@ -3218,7 +3230,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                         <?php
                         ob_implicit_flush(true);
                         $logWeb = static function ($msg) {
-                            echo htmlspecialchars($msg) . "<br>\n";
+                            echo upgrade_html_specialchars($msg) . "<br>\n";
                             if (ob_get_level() > 0) {
                                 ob_flush();
                             }
@@ -3306,7 +3318,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                     <div class="mt-4 d-flex justify-content-end align-items-center">
                         <form method="post" class="d-inline">
                             <input type="hidden" name="action" value="logout">
-                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['upgrade_csrf_token']) ?>">
+                            <input type="hidden" name="csrf_token" value="<?= upgrade_html_specialchars($_SESSION['upgrade_csrf_token']) ?>">
                             <a href="../login.php" class="btn btn-success">Go to Backend Login</a>
                         </form>
                     </div>
@@ -3318,7 +3330,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                         <div class="alert alert-info border-info mb-4">
                             <h5 class="alert-heading font-weight-bold mb-1">ℹ️ Same Version Reinstall Notice</h5>
                             <p class="mb-0">
-                                The target release (<strong>v<?= htmlspecialchars($releaseInfo['version']) ?></strong>) matches your currently installed version. You can proceed to reinstall and overwrite files to refresh or repair your installation.
+                                The target release (<strong>v<?= upgrade_html_specialchars($releaseInfo['version']) ?></strong>) matches your currently installed version. You can proceed to reinstall and overwrite files to refresh or repair your installation.
                             </p>
                         </div>
                     <?php endif; ?>
@@ -3327,7 +3339,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                         <div class="alert alert-warning border-warning mb-4">
                             <h5 class="alert-heading font-weight-bold mb-1">⚠️ Legacy Release Package Notice (&lt; 2.0.0)</h5>
                             <p class="mb-2">
-                                The target release (<strong>v<?= htmlspecialchars($releaseInfo['version']) ?></strong>) was released prior to phpwcms 2.0.0 and does not contain an update manifest (<code>.update-manifest</code>) with SHA-256 checksums.
+                                The target release (<strong>v<?= upgrade_html_specialchars($releaseInfo['version']) ?></strong>) was released prior to phpwcms 2.0.0 and does not contain an update manifest (<code>.update-manifest</code>) with SHA-256 checksums.
                             </p>
                             <p class="mb-1 small font-weight-bold">Consequences &amp; Risks:</p>
                             <ul class="mb-2 small ps-3">
@@ -3340,7 +3352,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                     <?php endif; ?>
 
                     <form method="post">
-                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['upgrade_csrf_token']) ?>">
+                        <input type="hidden" name="csrf_token" value="<?= upgrade_html_specialchars($_SESSION['upgrade_csrf_token']) ?>">
                         <input type="hidden" name="execute_upgrade" value="1">
 
                         <div class="card mb-3 border">
@@ -3366,7 +3378,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="checkSameVersion" name="confirm_same_version" value="1">
                                         <label class="form-check-label text-danger fw-bold" for="checkSameVersion">
-                                            Confirm overwrite of the same version (phpwcms v<?= htmlspecialchars($releaseInfo['version']) ?>)
+                                            Confirm overwrite of the same version (phpwcms v<?= upgrade_html_specialchars($releaseInfo['version']) ?>)
                                         </label>
                                         <div class="text-muted small mt-1">
                                             Target release matches your currently installed version.
@@ -3400,7 +3412,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="checkFileArchive" name="include_filearchive" value="1">
                                         <label class="form-check-label" for="checkFileArchive">
-                                            Include file archive folder (<code>/<?= htmlspecialchars($realFileArchive) ?></code>)<br>
+                                            Include file archive folder (<code>/<?= upgrade_html_specialchars($realFileArchive) ?></code>)<br>
                                             <span class="text-muted small">
                                                 Check this only if you want uploaded media in the backup zip.
                                                 Uncheck to keep backup fast and compact.
@@ -3409,7 +3421,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                     </div>
                                     <div class="text-muted small mt-2">
                                         * Rebuildable cache files, temporary assets, and cached thumbnails in
-                                        <code>/<?= htmlspecialchars($realContentPath) ?></code>
+                                        <code>/<?= upgrade_html_specialchars($realContentPath) ?></code>
                                         are automatically excluded from the backup to preserve disk space.
                                     </div>
                                 </div>
@@ -3417,7 +3429,7 @@ $realContentPath = $phpwcms['content_path'] ?? 'content';
                                 <div class="mt-3">
                                     <label class="form-label fw-bold" for="upgradeStoragePath">Private storage directory</label>
                                     <input type="text" class="form-control" id="upgradeStoragePath" name="storage_path"
-                                           value="<?= htmlspecialchars($upgrade_storage_path) ?>" placeholder="../phpwcms-storage">
+                                           value="<?= upgrade_html_specialchars($upgrade_storage_path) ?>" placeholder="../phpwcms-storage">
                                     <div class="form-text">
                                         Outside the document root, relative to the installation root or absolute.
                                         Backups and temporary files are written here.
