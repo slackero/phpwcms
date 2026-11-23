@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Ziņojumi';
 $BL['be_nav_chat']                 = 'Tērzēšana';
 $BL['be_nav_profile']              = 'Profils';
 $BL['be_nav_admin']                = 'Administrēšana';
+$BL['be_nav_design']               = 'Dizains';
+$BL['be_nav_system']               = 'Sistēma';
 $BL['be_nav_discuss']              = 'Diskusijas';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Sistēmas atjauninājums';

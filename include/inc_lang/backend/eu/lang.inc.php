@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Mezuak';
 $BL['be_nav_chat']                 = 'Txata';
 $BL['be_nav_profile']              = 'Profila';
 $BL['be_nav_admin']                = 'Kudeaketa';
+$BL['be_nav_design']               = 'Diseinua';
+$BL['be_nav_system']               = 'Sistema';
 $BL['be_nav_discuss']              = 'Eztabaida';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Sistemaren eguneraketa';

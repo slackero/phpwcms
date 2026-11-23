@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'پیغامات';
 $BL['be_nav_chat']                 = 'چیٹ';
 $BL['be_nav_profile']              = 'پروفائل';
 $BL['be_nav_admin']                = 'انتظامیہ';
+$BL['be_nav_design']               = 'ڈیزائن';
+$BL['be_nav_system']               = 'نظام';
 $BL['be_nav_discuss']              = 'بحث';
 // Self-update
 $BL['be_subnav_admin_update']       = 'سسٹم اپ ڈیٹ';

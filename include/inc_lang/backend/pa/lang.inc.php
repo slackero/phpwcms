@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'ਸੁਨੇਹੇ';
 $BL['be_nav_chat']                 = 'ਗੱਲਬਾਤ';
 $BL['be_nav_profile']              = 'ਪ੍ਰੋਫਾਈਲ';
 $BL['be_nav_admin']                = 'ਪ੍ਰਬੰਧਨ';
+$BL['be_nav_design']               = 'ਡਿਜ਼ਾਈਨ';
+$BL['be_nav_system']               = 'ਸਿਸਟਮ';
 $BL['be_nav_discuss']              = 'ਚਰਚਾ';
 // Self-update
 $BL['be_subnav_admin_update']       = 'ਸਿਸਟਮ ਅੱਪਡੇਟ';

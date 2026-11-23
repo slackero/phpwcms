@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Μηνύματα';
 $BL['be_nav_chat']                 = 'Συνομιλία';
 $BL['be_nav_profile']              = 'Προφίλ';
 $BL['be_nav_admin']                = 'Διαχείριση';
+$BL['be_nav_design']               = 'Σχεδίαση';
+$BL['be_nav_system']               = 'Σύστημα';
 $BL['be_nav_discuss']              = 'Συζήτηση';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Ενημέρωση συστήματος';

@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Wiadomo&sacute;ci';
 $BL['be_nav_chat']                 = 'Czat';
 $BL['be_nav_profile']              = 'Profil';
 $BL['be_nav_admin']                = 'Administracja';
+$BL['be_nav_design']               = 'Wygląd';
+$BL['be_nav_system']               = 'System';
 $BL['be_nav_discuss']              = 'Dyskusja';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Aktualizacja systemu';

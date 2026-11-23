@@ -33,7 +33,9 @@ The sidebar shows an item only when the user has the matching permission. Permis
 | Files | `fa-folder-open` | `filecent`; sub-items additionally `fileaction`, `fileupload` | File center, File actions, Multiple file upload |
 | Modules | `fa-puzzle-piece` | `enable_backend_module` config plus `module` group; per-module `group_modkey` groups | one entry per module |
 | Communication | `fa-envelope` | `enable_backend_newsletter` config plus `nl`; sub-items additionally `nlabo`, `nllist`, `nlrecip` | Newsletter subscriptions, Newsletter, Newsletter subscribers |
-| Admin | `fa-cog` | `adm`; sub-items per page (`admlayout`, `admtempl`, `admuser`, `admugroup`, `admialias`, `admfilecat`, `admalias`, `admlink`, …) | Page layout, Templates, User administration, User groups, and so on |
+| Design | `fa-palette` | `admlayout`, `admtempl` or `admcustomcpt` (super admins pass) | Page layout (`p=8`), Templates (`p=11`), Template translations (`p=17`), Custom content parts (`p=16`) |
+| Admin | `fa-cog` | `adm`; sub-items per page (`admuser`, `admugroup`, `admialias`, `admfilecat`, `admalias`, `admlink`, …) | User administration, User groups, Image aliases, File categories, Aliases, Links & redirects |
+| System | `fa-server` | super admin only | Flush image cache, move deleted files, System Update (`p=18`), Security Check (`p=20`), phpinfo (`p=15`) |
 
 Below the Admin menu, users with any admin permission also find two maintenance actions: *Flush image cache* (AJAX call to `include/inc_act/ajax_connector.php`) and *Move deleted files* (`include/inc_act/act_file.php?movedeletedfiles=…`). Super admins additionally get *System update* and `phpinfo()`.
 

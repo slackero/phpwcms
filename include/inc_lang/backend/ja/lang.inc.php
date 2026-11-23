@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'メッセージ';
 $BL['be_nav_chat']                 = 'チャット';
 $BL['be_nav_profile']              = 'プロフィール';
 $BL['be_nav_admin']                = '管理設定';
+$BL['be_nav_design']               = 'デザイン';
+$BL['be_nav_system']               = 'システム';
 $BL['be_nav_discuss']              = 'フォーラム';
 // Self-update
 $BL['be_subnav_admin_update']       = 'システム更新';

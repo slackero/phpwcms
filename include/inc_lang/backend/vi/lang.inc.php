@@ -67,6 +67,8 @@ $BL['be_nav_messages']             = 'Tin nh&#7855;n';
 $BL['be_nav_chat']                 = 'Tr&ograve; chuy&#7879;n';
 $BL['be_nav_profile']              = 'H&#7891; s&#417;';
 $BL['be_nav_admin']                = 'Qu&#7843;n tr&#7883;';
+$BL['be_nav_design']               = 'Thiết kế';
+$BL['be_nav_system']               = 'Hệ thống';
 $BL['be_nav_discuss']              = 'Th&#7843;o lu&#7853;n';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Cập nhật hệ thống';

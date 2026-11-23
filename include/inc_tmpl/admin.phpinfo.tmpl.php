@@ -30,18 +30,13 @@ if (preg_match('/<body>(.*?)<\/body>/s', $phpinfo_raw, $matches)) {
 }
 ?>
 
-<div class="row align-items-center">
-  <div class="col col-sm-auto text-center text-sm-start">
-    <h1>phpinfo()</h1>
-  </div>
-</div>
-
 <style>
 .phpinfo-wrapper {
     font-family: sans-serif;
     color: #333;
     overflow-x: auto;
     font-size: 1.1rem;
+    margin-top: -1.1rem;
 }
 .phpinfo-wrapper td, .phpinfo-wrapper th {
     font-size: 0.95rem !important;
@@ -51,6 +46,8 @@ if (preg_match('/<body>(.*?)<\/body>/s', $phpinfo_raw, $matches)) {
 }
 .phpinfo-wrapper h2 {
     font-size: 1.6rem !important;
+    margin-bottom: -.5rem;
+    font-weight: bold;
 }
 .phpinfo-wrapper {
     <?php echo $style; ?>
@@ -60,7 +57,7 @@ if (preg_match('/<body>(.*?)<\/body>/s', $phpinfo_raw, $matches)) {
     background-color: transparent;
 }
 .phpinfo-wrapper a:link {
-    color: #000099;
+    color: var(--pw-link-color);
     text-decoration: none;
     background-color: transparent;
 }

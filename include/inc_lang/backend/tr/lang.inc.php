@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Mesajlar';
 $BL['be_nav_chat']                 = 'Sohbet';
 $BL['be_nav_profile']              = 'Profil';
 $BL['be_nav_admin']                = 'Y&ouml;netici';
+$BL['be_nav_design']               = 'Tasarım';
+$BL['be_nav_system']               = 'Sistem';
 $BL['be_nav_discuss']              = 'Tart&imath;şma';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Sistem Güncellemesi';

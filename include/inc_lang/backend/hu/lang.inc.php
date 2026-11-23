@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = '&Uuml;zenetek';
 $BL['be_nav_chat']                 = 'Chat';
 $BL['be_nav_profile']              = 'Profil';
 $BL['be_nav_admin']                = 'Adminisztr&aacute;ci&oacute;';
+$BL['be_nav_design']               = 'Design';
+$BL['be_nav_system']               = 'Rendszer';
 $BL['be_nav_discuss']              = 'F&oacute;rum';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Rendszerfrissítés';

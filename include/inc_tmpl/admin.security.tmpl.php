@@ -61,7 +61,7 @@ $security_status_label = array(
 
 <div class="row align-items-center mb-3">
   <div class="col">
-    <h1 class="h4 text-primary fw-normal m-0"><?php echo html($BL['be_security_check'] ?? 'Security Check'); ?></h1>
+    <h1 class="h3 mb-0 text-gray-800"><i class="fa-solid fa-shield-alt"></i> <?php echo html($BL['be_security_check'] ?? 'Security Check'); ?></h1>
   </div>
 </div>
 

@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = '&Zcaron;inut&eogon;s';
 $BL['be_nav_chat']                 = 'Pokalbiai';
 $BL['be_nav_profile']              = 'Profilis';
 $BL['be_nav_admin']                = 'Administravimas';
+$BL['be_nav_design']               = 'Dizainas';
+$BL['be_nav_system']               = 'Sistema';
 $BL['be_nav_discuss']              = 'Diskusijos';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Sistemos atnaujinimas';

@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'إدارة رسائل الموقع';
 $BL['be_nav_chat']                 = 'إدارة المحادثة';
 $BL['be_nav_profile']              = 'البيانات الشخصية';
 $BL['be_nav_admin']                = 'إدارة الموقع';
+$BL['be_nav_design']               = 'التصميم';
+$BL['be_nav_system']               = 'النظام';
 $BL['be_nav_discuss']              = 'مناقشات';
 // Self-update
 $BL['be_subnav_admin_update']       = 'تحديث النظام';

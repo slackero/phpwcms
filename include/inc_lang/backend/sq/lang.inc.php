@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Mesazhet';
 $BL['be_nav_chat']                 = 'Biseda';
 $BL['be_nav_profile']              = 'Profili';
 $BL['be_nav_admin']                = 'Administrimi';
+$BL['be_nav_design']               = 'Dizajni';
+$BL['be_nav_system']               = 'Sistemi';
 $BL['be_nav_discuss']              = 'Diskutimi';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Përditësimi i sistemit';

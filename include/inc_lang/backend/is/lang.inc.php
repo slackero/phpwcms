@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Skilaboð';
 $BL['be_nav_chat']                 = 'Spjall';
 $BL['be_nav_profile']              = 'Prófíll';
 $BL['be_nav_admin']                = 'Stjórnun';
+$BL['be_nav_design']               = 'Hönnun';
+$BL['be_nav_system']               = 'Kerfi';
 $BL['be_nav_discuss']              = 'Umræður';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Kerfisuppfærsla';

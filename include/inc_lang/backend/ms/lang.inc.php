@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Mesej';
 $BL['be_nav_chat']                 = 'Sembang';
 $BL['be_nav_profile']              = 'Profil';
 $BL['be_nav_admin']                = 'Pentadbiran';
+$BL['be_nav_design']               = 'Reka bentuk';
+$BL['be_nav_system']               = 'Sistem';
 $BL['be_nav_discuss']              = 'Diskusi';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Kemas kini Sistem';

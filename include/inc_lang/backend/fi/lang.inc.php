@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Viestit';
 $BL['be_nav_chat']                 = 'Keskustelu';
 $BL['be_nav_profile']              = 'Profiili';
 $BL['be_nav_admin']                = 'Yll&auml;pito';
+$BL['be_nav_design']               = 'Design';
+$BL['be_nav_system']               = 'Järjestelmä';
 $BL['be_nav_discuss']              = 'Keskustelualue';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Järjestelmän päivitys';

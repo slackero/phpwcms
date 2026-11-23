@@ -63,6 +63,8 @@ $BL['be_nav_messages']             = 'செய்திகள்';
 $BL['be_nav_chat']                 = 'அரட்டை';
 $BL['be_nav_profile']              = 'சுயவிவரம்';
 $BL['be_nav_admin']                = 'நிர்வாகம்';
+$BL['be_nav_design']               = 'வடிவமைப்பு';
+$BL['be_nav_system']               = 'அமைப்பு';
 $BL['be_nav_discuss']              = 'விவாதம்';
 // Self-update
 $BL['be_subnav_admin_update']       = 'கணினி புதுப்பிப்பு';

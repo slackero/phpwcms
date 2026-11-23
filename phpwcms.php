@@ -427,21 +427,37 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
                 echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_messages']) . '</li>' . LF . $subnav . "\n</ul></li>";
             }
 
-            if (in_array($_SESSION['wcs_user_id'], $grouparray['adm'])) {
-
-                $active = ($do === 'admin' && $p != 6) ? ' active' : '';
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_admin']) . '"><i class="fa-solid fa-cog fa-fw"></i> <span class="nav-label">' . $BL['be_nav_admin'] . '</span> <span class="arrow fa-solid fa-angle-down"></span></a>';
-                $subnav = '';
+            // theme and design
+            $design_pages = array(8, 11, 16, 17);
+            $system_pages = array(15, 18, 20);
+            $can_design = !empty($_SESSION['wcs_user_admin'])
+                || in_array($_SESSION['wcs_user_id'], $grouparray['admlayout'])
+                || in_array($_SESSION['wcs_user_id'], $grouparray['admtempl'])
+                || has_admin_permission('admcustomcpt');
+            if ($can_design) {
+                $design_subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['admlayout'])) {
-                    $subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], 'phpwcms.php?do=admin&amp;p=8', $p, 8, 0);
+                    $design_subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], 'phpwcms.php?do=admin&amp;p=8', $p, 8, 0);
                 }
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['admtempl'])) {
-                    $subnav .= subnavtext($BL['be_subnav_admin_templates'], 'phpwcms.php?do=admin&amp;p=11', $p, 11, 0);
-                    $subnav .= subnavtext($BL['be_admin_template_lang'] ?? 'Template Translations', 'phpwcms.php?do=admin&amp;p=17', $p, 17, 0);
+                    $design_subnav .= subnavtext($BL['be_subnav_admin_templates'], 'phpwcms.php?do=admin&amp;p=11', $p, 11, 0);
+                    $design_subnav .= subnavtext($BL['be_admin_template_lang'] ?? 'Template Translations', 'phpwcms.php?do=admin&amp;p=17', $p, 17, 0);
                 }
-                if (has_admin_permission('admcustomcpt') || !empty($_SESSION['wcs_user_admin'])) {
-                    $subnav .= subnavtext($BL['be_admin_custom_cpt'] ?? 'Custom Content Parts', 'phpwcms.php?do=admin&amp;p=16', $p, 16, 0);
+                if (has_admin_permission('admcustomcpt')) {
+                    $design_subnav .= subnavtext($BL['be_admin_custom_cpt'] ?? 'Custom Content Parts', 'phpwcms.php?do=admin&amp;p=16', $p, 16, 0);
                 }
+                if ($design_subnav !== '') {
+                    $active = ($do === 'admin' && in_array($p, $design_pages)) ? ' active' : '';
+                    echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_design']) . '"><i class="fa-solid fa-palette fa-fw"></i> <span class="nav-label">' . $BL['be_nav_design'] . '</span> <span class="arrow fa-solid fa-angle-down"></span></a>';
+                    echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_design']) . '</li>' . $design_subnav . "\n</ul></li>";
+                }
+            }
+
+            if (in_array($_SESSION['wcs_user_id'], $grouparray['adm'])) {
+
+                $active = ($do === 'admin' && $p != 6 && !in_array($p, $design_pages) && !in_array($p, $system_pages)) ? ' active' : '';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_admin']) . '"><i class="fa-solid fa-cog fa-fw"></i> <span class="nav-label">' . $BL['be_nav_admin'] . '</span> <span class="arrow fa-solid fa-angle-down"></span></a>';
+                $subnav = '';
                 if (has_admin_permission('admmailtpl') || !empty($_SESSION['wcs_user_admin'])) {
                     $subnav .= subnavtext($BL['be_admin_mail_templates'] ?? 'Email Templates', 'phpwcms.php?do=admin&amp;p=19', $p, 19, 0);
                 }
@@ -464,17 +480,23 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
                     $subnav .= subnavtext($BL['be_link'] . ' &amp; ' . $BL['be_redirect'], 'phpwcms.php?do=admin&amp;p=14', $p, 14, 0);
                 }
 
-                // @phpstan-ignore-next-line
-                $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'data-confirm-type="warning" data-confirm-action="' . html($BL['modal_flush']) . '" onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\', \'' . js_singlequote($BL['be_flush_image_cache_confirm']) . '\', \'' . js_singlequote($BL['be_flush_image_cache_success']) . '\');" ');
-                // @phpstan-ignore-next-line
-                $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'class="confirm-link" data-confirm-type="primary" data-confirm-action="' . html($BL['modal_move']) . '" data-confirm="' . html($BL['be_cnt_move_deleted_msg']) . '" ');
-
-                if (!empty($_SESSION['wcs_user_admin'])) {
-                    $subnav .= subnavtext($BL['be_subnav_admin_update'] ?? 'System Update', 'phpwcms.php?do=admin&amp;p=18', $p, 18, 0);
-                    $subnav .= subnavtext($BL['be_security_check'] ?? 'Security Check', 'phpwcms.php?do=admin&amp;p=20', $p, 20, 0);
-                    $subnav .= subnavtext('phpinfo()', 'phpwcms.php?do=admin&amp;p=15', $p, 15, 0);
-                }
                 echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_admin']) . '</li>' . LF . $subnav . "\n</ul></li>";
+            }
+
+            // superadmin-only maintenance
+            if (!empty($_SESSION['wcs_user_admin'])) {
+                $system_subnav = '';
+                // @phpstan-ignore-next-line
+                $system_subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'data-confirm-type="warning" data-confirm-action="' . html($BL['modal_flush']) . '" onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\', \'' . js_singlequote($BL['be_flush_image_cache_confirm']) . '\', \'' . js_singlequote($BL['be_flush_image_cache_success']) . '\');" ');
+                // @phpstan-ignore-next-line
+                $system_subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'class="confirm-link" data-confirm-type="primary" data-confirm-action="' . html($BL['modal_move']) . '" data-confirm="' . html($BL['be_cnt_move_deleted_msg']) . '" ');
+                $system_subnav .= subnavtext($BL['be_subnav_admin_update'] ?? 'System Update', 'phpwcms.php?do=admin&amp;p=18', $p, 18, 0);
+                $system_subnav .= subnavtext($BL['be_security_check'] ?? 'Security Check', 'phpwcms.php?do=admin&amp;p=20', $p, 20, 0);
+                $system_subnav .= subnavtext('phpinfo()', 'phpwcms.php?do=admin&amp;p=15', $p, 15, 0);
+
+                $active = ($do === 'admin' && in_array($p, $system_pages)) ? ' active' : '';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_system']) . '"><i class="fa-solid fa-server fa-fw"></i> <span class="nav-label">' . $BL['be_nav_system'] . '</span> <span class="arrow fa-solid fa-angle-down"></span></a>';
+                echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_system']) . '</li>' . LF . $system_subnav . "\n</ul></li>";
             }
           ?>
           </ul>
@@ -666,7 +688,9 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.mi
               break;
 
             case 15: //Display phpinfo inline
-              include PHPWCMS_ROOT.'/include/inc_tmpl/admin.phpinfo.tmpl.php';
+              if (!empty($_SESSION['wcs_user_admin'])) {
+                  include PHPWCMS_ROOT.'/include/inc_tmpl/admin.phpinfo.tmpl.php';
+              }
               break;
 
             case 16: //Manage custom content parts

@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = '消息';
 $BL['be_nav_chat']                 = '聊天';
 $BL['be_nav_profile']              = '个人资料';
 $BL['be_nav_admin']                = '系统管理';
+$BL['be_nav_design']               = '设计';
+$BL['be_nav_system']               = '系统';
 $BL['be_nav_discuss']              = '讨论';
 // Self-update
 $BL['be_subnav_admin_update']       = '系统更新';

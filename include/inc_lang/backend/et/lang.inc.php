@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'S&otilde;numid';
 $BL['be_nav_chat']                 = 'Vestlus';
 $BL['be_nav_profile']              = 'Profiil';
 $BL['be_nav_admin']                = 'Administratsioon';
+$BL['be_nav_design']               = 'Disain';
+$BL['be_nav_system']               = 'Süsteem';
 $BL['be_nav_discuss']              = 'Arutelu';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Süsteemi uuendus';

@@ -53,6 +53,8 @@ $BL['be_nav_messages']             = 'Sporo&ccaron;ila';
 $BL['be_nav_chat']                 = 'Klepet';
 $BL['be_nav_profile']              = 'Profil';
 $BL['be_nav_admin']                = 'Skrbništvo';
+$BL['be_nav_design']               = 'Oblikovanje';
+$BL['be_nav_system']               = 'Sistem';
 $BL['be_nav_discuss']              = 'Razprava';
 // Self-update
 $BL['be_subnav_admin_update']       = 'Posodobitev sistema';
