@@ -55,6 +55,7 @@ A second set of groups lives in `phpwcms_sysvalue` keyed as SYSGROUP entries wit
 
 | Sysgroup key | Grants |
 | ------------ | ------ |
+| `artall` | Articles: write every article, not only the ones the user owns (main editor rights) |
 | `admlayout` | Admin → Page layout |
 | `admtempl` | Admin → Templates, Template translations |
 | `admcustomcpt` | Admin → Custom content parts |
@@ -67,6 +68,12 @@ A second set of groups lives in `phpwcms_sysvalue` keyed as SYSGROUP entries wit
 | `admlink` | Admin → Links & redirects |
 
 Super admins (`usr_admin`) additionally get System update and phpinfo. The check runs through `has_admin_permission($key)`.
+
+`profile` is a legacy SYSGROUP. The profile page is available to every logged-in backend user and no longer checks membership.
+
+### Article ownership
+
+Backend users below administrator may write only articles they own (`article_uid`). The rule covers article saves, content parts, visibility, aliases and the structure move/sort/delete actions. Admins bypass it; members of `artall` get the same rights over every article. Editing never transfers ownership. `$phpwcms['article_ownership'] = 0` restores shared editing for every backend user. See [Articles](../backend/03-articles.md#ownership). Revision `r567` creates the `artall` group and seeds it with the current administrators.
 
 ### Module groups
 

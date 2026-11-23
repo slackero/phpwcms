@@ -12,7 +12,17 @@ An [article](../general/concepts.md#the-content-hierarchy) is edited in two view
 - the **basis information** form (`aktion=1`) for metadata, summary and list images, and
 - the **content part stack** (`aktion` unset), which also opens the content part editor with `aktion=2&acid=<cp_id>`.
 
-Non-admin users see and edit only articles they own (`article_uid` = their account ID); copying an article reassigns ownership to the copying user.
+## Ownership
+
+Every article stores an owner (`article_uid`) and a free-text author (`article_username`); the two are independent. Ownership drives write access:
+
+- Non-admin users may write only articles they own. The read path and every write path enforce it: article save, content-part insert/update, content-part move and type change, article and content-part visibility, content-part trash/sort, the alias editor, and the structure move/sort/delete actions.
+- Editing never transfers ownership. A content part keeps its creator (`acontent_uid` is written on insert only), and an admin save without choosing a different owner keeps the stored article owner.
+- Administrators bypass the check. The `artall` usergroup grants the same main-editor rights to selected users; revision `r567` seeds it with the current administrators.
+- `$phpwcms['article_ownership'] = 0` disables the checks and restores shared editing for every backend user. A missing key means enabled.
+- Actions the user may not perform render as disabled icons without a link, and the article and content-part forms render read-only (submit buttons disabled, scripted submits blocked).
+
+Copying an article or a structure level assigns the copy to the copying user.
 
 ## Basis information form
 
@@ -75,7 +85,7 @@ Two independent images each combine a file picker (`filebrowser.php?opt=0`), siz
 | [More…] link (`article_morelink`) | checkbox | 1 | Shows the more link under the summary in listings. |
 | No teaser (`article_noteaser`) | checkbox | 0 | Excludes the article from teasers. |
 | Paginate articles (`article_paginate`) | checkbox | 0 | Splits content parts into paginated subsections. |
-| Article owner (`article_uid`) | select | current user | Settable by admins only; non-admin saves keep their own ownership. |
+| Article owner (`article_uid`) | select | current user | Settable by admins only. Editing never transfers ownership, and an admin save without a selected owner keeps the stored owner. |
 | Cache off + Cache timeout (`article_cacheoff`, `article_timeout`) | switch + select | Default | Per-article frontend cache timeout; same value list as the struct form. |
 | Sitemap (`article_nositemap`) | checkbox | on by default only as level default | Include the article in the sitemap. |
 | No search (`article_nosearch`) | checkbox | off | Excludes from backend/frontend search. |
@@ -99,7 +109,7 @@ The stack view shows article metadata (alias, category, keywords, flags, dates, 
 | Move to another article | Cut/copy in one article → paste arrow on the target article row in the structure tree | `do=7` (move, reindexes both stacks) / `do=8` (copy) in `act_structure.php`. |
 | Sort | Drag with the grip handle, or chevron up/down links | Drag posts the complete new order to `act_articlesort.php`; arrows swap neighbor values via `act_articlecontent.php?sort=` and never cross block boundaries. |
 | Show/hide | Eye icon | Toggles `acontent_visible` (also on the dashboard's content part list). |
-| Delete | Trash icon | Sets `acontent_trash = 9` after a confirmation dialog. Ownership: a part is deletable/toggleable by its owner or an admin. |
+| Delete | Trash icon | Sets `acontent_trash = 9` after a confirmation dialog. Ownership: deletable and toggleable by the article owner, an admin, or a member of the `artall` group. |
 | Preview | Button above the header | Opens the article in the frontend with the `phpwcms-preview` flag in a dedicated window. |
 
 Each row shows the content part label, ID badge, last edit date, the block-paginate page number when pagination is on, and a per-type summary rendered by `include/inc_tmpl/content/cnt<N>.list.inc.php`.

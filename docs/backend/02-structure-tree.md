@@ -29,6 +29,8 @@ Every level row offers a pencil edit button, a **More actions** drop-down, and a
 
 The level name is a live preview link (`phpwcms-preview`) opening the level in the frontend; the folder icon carries a tooltip with level ID, alias, sort value and assigned template.
 
+Article-related actions follow article ownership: moving an article, sorting articles, and deleting a level that contains foreign articles are limited to the article owner, administrators and the `artall` group. Deleting a level whose tree holds an article owned by somebody else is refused as a whole, so the structure never disappears while foreign articles stay behind. See [Articles](03-articles.md#ownership).
+
 ## Level fields
 
 > Source: `include/inc_tmpl/admin.structform.tmpl.php`, `include/inc_act/act_structure.php` (column mapping to `phpwcms_articlecat`)

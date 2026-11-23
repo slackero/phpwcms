@@ -157,6 +157,7 @@ See [SEO settings](../administration/seo-settings.md) for rendering details.
 | `enable_deprecated` | bool | `false` | Re-enable functionality phpwcms marked deprecated. |
 | `recipient_count` | int | `0` | Legacy, read nowhere in 2.x. |
 | `set_article_active` | bool | `1` | Articles are active (`1`) or disabled (`0`) by default when created. |
+| `article_ownership` | bool | `1` | Restrict backend article, content part and visibility writes to the article owner. Administrators and members of the `artall` usergroup always pass; `0` restores shared editing for every backend user. See [Articles](../backend/03-articles.md#ownership). |
 | `set_category_active` | bool | `1` | Structure levels default to active on create. |
 | `set_file_active` | bool | `1` | Files and folders default to active on create. |
 | `set_news_active` | bool | `1` | News entries default to active on create. |

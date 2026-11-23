@@ -7,7 +7,7 @@ sidebar_position: 6
 
 > Source: `include/inc_tmpl/profile.account.tmpl.php`, `include/inc_lib/profile.updateaccount.inc.php`, `phpwcms.php` (do=profile dispatch)
 
-The profile page (`phpwcms.php?do=profile`) is reached from the user icon in the header; it shows only when the user belongs to the `profile` SYSGROUP. Super admins are seeded into every SYSGROUP when the group does not exist yet, but can be removed from the group afterwards — in that case the header link disappears. The page exists in two variants: backend accounts and frontend accounts render the same form — the icon differs (`fa-user-shield` for admins, `fa-user-check` for frontend users, `fa-user` / `fa-user-cog` in between).
+The profile page (`phpwcms.php?do=profile`) is reached from the user icon in the header and is available to every logged-in backend user; it is not gated by a usergroup. The legacy `profile` SYSGROUP still exists in the database but no longer controls access. The page exists in two variants: backend accounts and frontend accounts render the same form — the icon differs (`fa-user-shield` for admins, `fa-user-check` for frontend users, `fa-user` / `fa-user-cog` in between).
 
 Saving requires the account not to be the `guest` login; changed values are written to `phpwcms_user` and mirrored into the session.
 

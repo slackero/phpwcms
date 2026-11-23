@@ -264,15 +264,18 @@ Confirm the [system requirements](../requirements/index.md) first — PHP 8.4+, 
 1. **Download and extract** a phpwcms release archive (releases ship `include/vendor/` prebuilt, so no Composer step is needed) into the web server document root. Installing from Git instead requires `composer install --no-dev --optimize-autoloader` under PHP 8.4.
 2. **Configure the web server**: use the shipped templates — rename `_.htaccess` to `.htaccess` for Apache (the setup wizard offers to do this), adapt `nginx.conf` or `web.config`. Rewritten URLs need `mod_rewrite`/matching server rules; see [SEO settings](../administration/seo-settings.md).
 3. **Set write permissions** for the web server user on:
-   - `content/` and its subfolders (`content/images/`, `<storage_path>/tmp/`, `<storage_path>/cache/`, `<storage_path>/form/`, `content/rss/`, `content/pages/`)
+   - `content/images/`, `content/rss/` and `content/pages/` (public assets)
+   - `<storage_path>` (default `../phpwcms-storage`, outside the document root) and its `tmp/`, `cache/`, `log/`, `backup/` and `form/` subfolders — the wizard creates the tree with mode `0700`
    - `filearchive/` and `upload/`
-   - `include/config/`
+   - `include/config/` (the wizard writes `conf.inc.php` and seeds the installation config files from `dist.*`)
    - `template/` (and `template/template_lang/`)
    - `setup/setup.conf.inc.php` (the wizard's working config, chmod 666 if needed)
 4. **Run the setup wizard**: open `https://your-domain.com/setup/` in the browser — see [Setup wizard](setup-wizard.md) for the seven steps including database creation, admin account and SMTP settings.
 5. **Finalize and harden** as below.
 
-Ownership should stay with the user the web server runs as (or a shared group) so the wizard can write `include/config/conf.inc.php`, `.htaccess` and the content directories.
+Ownership should stay with the user the web server runs as (or a shared group) so the wizard can write `include/config/conf.inc.php`, its installation config files, `.htaccess` and the content directories. When the PHP user differs from the owner (`mod_php` with `www-data`), the wizard creates private storage with `0770`/`0660` for the shared group.
+
+The wizard writes `$phpwcms['storage_path']` and `$phpwcms['form_token_key']`. If the parent of the document root is not writable, enter an absolute path for the private storage in step 6 (Internal Paths & Storage Settings); the wizard blocks the install when the tree cannot be created or is not writable. Private storage never falls back into `content/`.
 
 ## Post-install hardening
 
@@ -424,7 +427,7 @@ Always back up the database and files before updating, and confirm the host runs
 1. **Database dump** — complete, not the pre-update engine dump alone (`mysqldump --single-transaction <db> | gzip > backup.sql.gz` or phpMyAdmin "quick export" as gzip).
 2. **Files** — at minimum `include/config/conf.inc.php`, `template/`, `filearchive/`, `content/images/`, `<storage_path>/tmp/` (session/scratch), plus the current directory listing (`ls -laR > filelist.txt`) to prove what you had.
 
-Store the backup off the web server — the built-in dumps land under `<storage_path>/backup/` on the same hosting and die with it if the update or the server fails. Downloads, uploads, or `rsync` to a second host all count; a snapshot on the same disk is last resort only. Never start an update with unverified backups.
+Store the backup off the web server — the built-in dumps land under `<storage_path>/backup/` on the same hosting and die with it if the update or the server fails. Private storage is outside the document root and has no web endpoint: the old `setup/upgrade.php?download=` links are gone, so pull backups over FTP/SSH. Downloads, uploads, or `rsync` to a second host all count; a snapshot on the same disk is last resort only. Never start an update with unverified backups.
 
 ## In-app system update
 
@@ -437,7 +440,7 @@ Store the backup off the web server — the built-in dumps land under `<storage_
 5. Applies the plan under a maintenance flag (auto-expiring after 15 minutes, clearable in the panel) and writes the new `.update-manifest`.
 6. Runs pending database revisions inline, records the run (status, file count, backup path, error) in `phpwcms_update_log`.
 
-The built-in dump is a convenience for rollback, not your backup: it lives under `<storage_path>/backup/` on the same server. Export the database separately and pull `<storage_path>/backup/` off the host before you update. Private storage has no web endpoint: the old `setup/upgrade.php?download=` links are gone, so retrieve backups over FTP/SSH.
+The built-in dump is a convenience for rollback, not your backup: it lives under `<storage_path>/backup/` on the same server. Export the database separately and pull `<storage_path>/backup/` off the host before you update.
 
 Updates are blocked when a newer release would install on a half-migrated schema — run pending revisions first (a backend login triggers `phpwcms_revision_check()`). Rollback restores the pre-update file mirror per run. Older installs (2.0.0 or less) must use the standalone script or manual path.
 
@@ -463,15 +466,15 @@ Behavior:
 
 - Requires PHP 8.4+ and an installed revision of `r401` or newer (the revision tracking was introduced in r401); upgrades from phpwcms 1.x without a manifest need the `--allow-unverified` flag.
 - Authentication uses your admin backend credentials, including Two-Factor (TOTP or backup codes) when enabled; database migrations are gated behind that login.
-- Detects the actual database table prefix (including whitelabel/`cmsgo` brand prefixes) and repairs missing whitelabel config lines in `conf.inc.php` when needed (`conf.inc.cmsgo-backup.php` keeps the original). The first update to a release with private storage runs revision `r565`, which moves `content/{tmp,cache,log,backup,form}` into `<storage_path>/` and leaves a deny file behind when an entry could not be moved.
+- Detects the actual database table prefix (including whitelabel/`cmsgo` brand prefixes) and repairs missing whitelabel config lines in `conf.inc.php` when needed (`conf.inc.cmsgo-backup.php` keeps the original). The first update to a release with private storage runs revision `r565`, which moves `content/{tmp,cache,log,backup,form}` into `<storage_path>/` and leaves a deny file behind when an entry could not be moved. Form links in mail sent before the update pointed at `content/form/` and stop working.
 - Dumps the database and builds a files zip below `<storage_path>/backup/<timestamp>/` (excluding `content/images/`, `<storage_path>/tmp/`, `<storage_path>/cache/`, `content/rss/`, `<storage_path>/backup/` itself and `.git*` from the archive), then applies the release zip with the same preserved-paths rules as the in-app engine.
 - Runs `phpwcms_revision_check()` up to the staged release revision, bringing the schema to r561 at the time of writing.
 - CLI options: `--reinstall` or `--force` (overwrite the currently installed version again), `--allow-unverified` (upgrade legacy packages without a manifest).
 
 ## Manual upgrade
 
-1. Back up the database **and** the protected files (`conf.inc.php`, `template/`, `filearchive/`, `content/images/`, `<storage_path>/tmp/`) and store both copies off the web server — nothing in this path does it for you.
-2. Extract the new release over the document root, **never overwriting** `include/config/conf.inc.php` and never deleting content in `filearchive/`, `content/images/` or `template/`.
+1. Back up the database **and** the protected files (`conf.inc.php`, the installation-owned config files `conf.indexpage.inc.php`, `conf.template_default.inc.php`, `feeds.ini.php`, `sitemap.custom.ini`, `sitemap.custom.php`, `iptc.inc.php`, `template/`, `filearchive/`, `content/images/`, `<storage_path>/tmp/`) and store both copies off the web server — nothing in this path does it for you.
+2. Extract the new release over the document root, **never overwriting** `include/config/conf.inc.php` or the six installation-owned config files listed above, and never deleting content in `filearchive/`, `content/images/` or `template/`.
 3. Run the database migration: log into the backend once (runs pending revisions) or run `php setup/upgrade.php`; the revision chain detects outdated revisions automatically.
 4. Empty `<storage_path>/tmp/` and `<storage_path>/cache/` so new templates and assets take effect, and flush the image cache when image handling changed ([Admin panel](../administration/admin-panel.md)).
 5. Open **Admin → Security Check** (`phpwcms.php?do=admin&p=20`) after the update and run *Repair safe findings*: the updater skips `content/`, `upload/`, `filearchive/` and `include/config/`, so per-directory protector files and legacy directories are never refreshed by the update itself.
@@ -682,6 +685,7 @@ See [SEO settings](../administration/seo-settings.md) for rendering details.
 | `enable_deprecated` | bool | `false` | Re-enable functionality phpwcms marked deprecated. |
 | `recipient_count` | int | `0` | Legacy, read nowhere in 2.x. |
 | `set_article_active` | bool | `1` | Articles are active (`1`) or disabled (`0`) by default when created. |
+| `article_ownership` | bool | `1` | Restrict backend article, content part and visibility writes to the article owner. Administrators and members of the `artall` usergroup always pass; `0` restores shared editing for every backend user. See [Articles](../backend/03-articles.md#ownership). |
 | `set_category_active` | bool | `1` | Structure levels default to active on create. |
 | `set_file_active` | bool | `1` | Files and folders default to active on create. |
 | `set_news_active` | bool | `1` | News entries default to active on create. |
@@ -867,7 +871,7 @@ Before touching any file, the engine writes a run directory `<storage_path>/back
 | `files/` | Mirror of every file the run will modify or delete, in document-root-relative paths. |
 | `changed-files.txt` | Per-run report of added/modified/deleted files with sha256 hashes. |
 
-The run directory gets a generated `.htaccess` (`Require all denied` / `Deny from all`). It lives outside the document root and has no web endpoint: retrieve backups over FTP/SSH. Free disk space below 10 MB aborts the update during preflight.
+The run directory gets a generated `.htaccess` (`Require all denied` / `Deny from all`). Free disk space below 10 MB aborts the update during preflight.
 
 ### Maintenance mode and rollback
 
@@ -967,6 +971,7 @@ A second set of groups lives in `phpwcms_sysvalue` keyed as SYSGROUP entries wit
 
 | Sysgroup key | Grants |
 | ------------ | ------ |
+| `artall` | Articles: write every article, not only the ones the user owns (main editor rights) |
 | `admlayout` | Admin → Page layout |
 | `admtempl` | Admin → Templates, Template translations |
 | `admcustomcpt` | Admin → Custom content parts |
@@ -979,6 +984,12 @@ A second set of groups lives in `phpwcms_sysvalue` keyed as SYSGROUP entries wit
 | `admlink` | Admin → Links & redirects |
 
 Super admins (`usr_admin`) additionally get System update and phpinfo. The check runs through `has_admin_permission($key)`.
+
+`profile` is a legacy SYSGROUP. The profile page is available to every logged-in backend user and no longer checks membership.
+
+### Article ownership
+
+Backend users below administrator may write only articles they own (`article_uid`). The rule covers article saves, content parts, visibility, aliases and the structure move/sort/delete actions. Admins bypass it; members of `artall` get the same rights over every article. Editing never transfers ownership. `$phpwcms['article_ownership'] = 0` restores shared editing for every backend user. See [Articles](../backend/03-articles.md#ownership). Revision `r567` creates the `artall` group and seeds it with the current administrators.
 
 ### Module groups
 
@@ -1435,7 +1446,9 @@ The sidebar shows an item only when the user has the matching permission. Permis
 
 Below the Admin menu, users with any admin permission also find two maintenance actions: *Flush image cache* (AJAX call to `include/inc_act/ajax_connector.php`) and *Move deleted files* (`include/inc_act/act_file.php?movedeletedfiles=…`). Super admins additionally get *System update* and `phpinfo()`.
 
-The header holds the per-user items instead: the account menu opens the [Profile](06-profile.md) page (visible when the user is member of the `profile` group or is an admin, with different icons for super admin, frontend user and backend user), and *Logout* ends the session.
+The header holds the per-user items instead: the account menu opens the [Profile](06-profile.md) page (visible to every logged-in user, with different icons for super admin, frontend user and backend user), and *Logout* ends the session.
+
+Article, content-part, visibility, alias and structure writes additionally follow article ownership: a non-admin may only change articles they own unless they are in the `artall` usergroup or `$phpwcms['article_ownership']` is `0`. Actions the user cannot perform render as disabled icons without a link. See [Articles](03-articles.md#ownership) and [Users and usergroups](../administration/users-usergroups.md#article-ownership).
 
 ## Dashboard
 
@@ -1532,6 +1545,8 @@ Every level row offers a pencil edit button, a **More actions** drop-down, and a
 
 The level name is a live preview link (`phpwcms-preview`) opening the level in the frontend; the folder icon carries a tooltip with level ID, alias, sort value and assigned template.
 
+Article-related actions follow article ownership: moving an article, sorting articles, and deleting a level that contains foreign articles are limited to the article owner, administrators and the `artall` group. Deleting a level whose tree holds an article owned by somebody else is refused as a whole, so the structure never disappears while foreign articles stay behind. See [Articles](03-articles.md#ownership).
+
 ## Level fields
 
 > Source: `include/inc_tmpl/admin.structform.tmpl.php`, `include/inc_act/act_structure.php` (column mapping to `phpwcms_articlecat`)
@@ -1577,6 +1592,8 @@ New levels inherit `acat_topcount`, `acat_order` and `acat_cntpart` from the ind
 
 ### The index page (level 0)
 
+Level 0 is stored as the regular `articlecat` row with `acat_id = 0`; category listings and the article browser exclude that row.
+
 The form opened with `struct=index` edits the index page — name, alternative title, alias, infotext, keywords, page title, template, listing/pagination defaults, order and every switch listed above. Saving writes the `articlecat` row with `acat_id = 0` and rewrites `include/config/conf.indexpage.inc.php` as a readable mirror, so keep that file writable for the mirror to stay current; once the row exists it is the source of truth. Language links and the sort value input are absent from this form.
 
 ---
@@ -1592,7 +1609,17 @@ An [article](../general/concepts.md#the-content-hierarchy) is edited in two view
 - the **basis information** form (`aktion=1`) for metadata, summary and list images, and
 - the **content part stack** (`aktion` unset), which also opens the content part editor with `aktion=2&acid=<cp_id>`.
 
-Non-admin users see and edit only articles they own (`article_uid` = their account ID); copying an article reassigns ownership to the copying user.
+## Ownership
+
+Every article stores an owner (`article_uid`) and a free-text author (`article_username`); the two are independent. Ownership drives write access:
+
+- Non-admin users may write only articles they own. The read path and every write path enforce it: article save, content-part insert/update, content-part move and type change, article and content-part visibility, content-part trash/sort, the alias editor, and the structure move/sort/delete actions.
+- Editing never transfers ownership. A content part keeps its creator (`acontent_uid` is written on insert only), and an admin save without choosing a different owner keeps the stored article owner.
+- Administrators bypass the check. The `artall` usergroup grants the same main-editor rights to selected users; revision `r567` seeds it with the current administrators.
+- `$phpwcms['article_ownership'] = 0` disables the checks and restores shared editing for every backend user. A missing key means enabled.
+- Actions the user may not perform render as disabled icons without a link, and the article and content-part forms render read-only (submit buttons disabled, scripted submits blocked).
+
+Copying an article or a structure level assigns the copy to the copying user.
 
 ## Basis information form
 
@@ -1655,7 +1682,7 @@ Two independent images each combine a file picker (`filebrowser.php?opt=0`), siz
 | [More…] link (`article_morelink`) | checkbox | 1 | Shows the more link under the summary in listings. |
 | No teaser (`article_noteaser`) | checkbox | 0 | Excludes the article from teasers. |
 | Paginate articles (`article_paginate`) | checkbox | 0 | Splits content parts into paginated subsections. |
-| Article owner (`article_uid`) | select | current user | Settable by admins only; non-admin saves keep their own ownership. |
+| Article owner (`article_uid`) | select | current user | Settable by admins only. Editing never transfers ownership, and an admin save without a selected owner keeps the stored owner. |
 | Cache off + Cache timeout (`article_cacheoff`, `article_timeout`) | switch + select | Default | Per-article frontend cache timeout; same value list as the struct form. |
 | Sitemap (`article_nositemap`) | checkbox | on by default only as level default | Include the article in the sitemap. |
 | No search (`article_nosearch`) | checkbox | off | Excludes from backend/frontend search. |
@@ -1679,7 +1706,7 @@ The stack view shows article metadata (alias, category, keywords, flags, dates, 
 | Move to another article | Cut/copy in one article → paste arrow on the target article row in the structure tree | `do=7` (move, reindexes both stacks) / `do=8` (copy) in `act_structure.php`. |
 | Sort | Drag with the grip handle, or chevron up/down links | Drag posts the complete new order to `act_articlesort.php`; arrows swap neighbor values via `act_articlecontent.php?sort=` and never cross block boundaries. |
 | Show/hide | Eye icon | Toggles `acontent_visible` (also on the dashboard's content part list). |
-| Delete | Trash icon | Sets `acontent_trash = 9` after a confirmation dialog. Ownership: a part is deletable/toggleable by its owner or an admin. |
+| Delete | Trash icon | Sets `acontent_trash = 9` after a confirmation dialog. Ownership: deletable and toggleable by the article owner, an admin, or a member of the `artall` group. |
 | Preview | Button above the header | Opens the article in the frontend with the `phpwcms-preview` flag in a dedicated window. |
 
 Each row shows the content part label, ID badge, last edit date, the block-paginate page number when pagination is on, and a per-type summary rendered by `include/inc_tmpl/content/cnt<N>.list.inc.php`.
@@ -1839,7 +1866,7 @@ There is no backend view collecting frontend form submissions. The formmail [con
 
 > Source: `include/inc_tmpl/profile.account.tmpl.php`, `include/inc_lib/profile.updateaccount.inc.php`, `phpwcms.php` (do=profile dispatch)
 
-The profile page (`phpwcms.php?do=profile`) is reached from the user icon in the header; it shows only when the user belongs to the `profile` SYSGROUP. Super admins are seeded into every SYSGROUP when the group does not exist yet, but can be removed from the group afterwards — in that case the header link disappears. The page exists in two variants: backend accounts and frontend accounts render the same form — the icon differs (`fa-user-shield` for admins, `fa-user-check` for frontend users, `fa-user` / `fa-user-cog` in between).
+The profile page (`phpwcms.php?do=profile`) is reached from the user icon in the header and is available to every logged-in backend user; it is not gated by a usergroup. The legacy `profile` SYSGROUP still exists in the database but no longer controls access. The page exists in two variants: backend accounts and frontend accounts render the same form — the icon differs (`fa-user-shield` for admins, `fa-user-check` for frontend users, `fa-user` / `fa-user-cog` in between).
 
 Saving requires the account not to be the `guest` login; changed values are written to `phpwcms_user` and mirrored into the session.
 
@@ -3741,13 +3768,13 @@ Libraries a template's markup or settings pull in. Everything under `template/li
 | `bootstrap5/` | Bootstrap CSS and bundle JS | `<!-- JS: … -->`/`<!-- CSS: … -->` comments or htmlhead markup |
 | `bootstrap-icons/` | Icon font CSS plus fonts | template markup |
 | `cookieconsent2/` | Silktide consent scripts and themes | Template setting *Cookie consent v2* — the theme field names a CSS file in this directory, loaded with CDN fallback to cdnjs 1.0.10 | 
-| `cookieconsent3/` | orestbida `CookieConsent.run()` assets, components CSS and `lang/<lang>.json` translations | Template setting *Cookie consent v3*; CDN variant pulls jsdelivr 3.1.0 |
+| `cookieconsent3/` | orestbida `CookieConsent.run()` assets, components CSS and `lang/<lang>.json` translations | Template setting *Cookie consent v3*; CDN variant pulls jsdelivr 3.3.0 |
 | `glightbox/` | Lightbox | `initGlightbox()` (article summary and image lightboxes), options via `$phpwcms['glightbox_options']` |
 | `jquery/` | One minified jQuery per version, 1.3.2 through 4.0.0 plus migrate builds and `plugin/` | Selected by the template's JS library setting |
 | `jquery/plugin/` | Standalone jQuery plugins: cycle, dimensions, easing, fancybox, mousewheel, switchClass, zebra_accordion | `<!-- JS: <name> -->` for any `jquery.<name>.js` file |
 | `simplegmaps/` | Google Maps wrapper | Content part templates load it via a `<!-- JS:{TEMPLATE}lib/simplegmaps/simplegmaps.min.js -->` comment, e.g. `template/inc_cntpart/tabs/simplegmaps.tmpl` |
 | `splide/` | Slider | Content part templates reference it through `<!-- CSS: template/lib/splide/splide.min.css -->` and `<!-- JS: template/lib/splide/splide.min.js -->`, e.g. `template/inc_cntpart/images/Splide-Slider-Single-Image.tmpl` |
-| `video-js/` | video.js player | `initVideoJs()` for multimedia content parts; falls back to the CDN `vjs.zencdn.net/8.24.0/` unless `template/lib/video-js/video.min.js` exists or `$phpwcms['video-js']` sets a path |
+| `video-js/` | video.js player | `initVideoJs()` for multimedia content parts; falls back to the CDN `vjs.zencdn.net/8.24.2/` unless `template/lib/video-js/video.min.js` exists or `$phpwcms['video-js']` sets a path |
 
 ## include/inc_js/
 
@@ -4997,7 +5024,7 @@ The leading tag collects `id="video-js-fmp<cp id>"`, class `video-js <skin> vjs-
 | WebM | `video/webm` | `audio/webm` |
 | Ogg | `video/ogg` | `audio/ogg` |
 
-Video.js loads locally from `template/lib/video-js/video.min.js`, else from the `vjs.zencdn.net/8.24.0` CDN (`initVideoJs()`); the init script registers the instance in `videoJsInstances`, applies markers, volume and deep links, and honors the `js_in_body` config for head vs. body placement. A URL parameter `?fmp=<cp id>-<seconds>` (or `-m<marker number>`) seeks the matching player instance and scrolls to it.
+Video.js loads locally from `template/lib/video-js/video.min.js`, else from the `vjs.zencdn.net/8.24.2` CDN (`initVideoJs()`); the init script registers the instance in `videoJsInstances`, applies markers, volume and deep links, and honors the `js_in_body` config for head vs. body placement. A URL parameter `?fmp=<cp id>-<seconds>` (or `-m<marker number>`) seeks the matching player instance and scrolls to it.
 
 ### Flash fallback
 

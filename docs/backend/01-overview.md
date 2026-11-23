@@ -37,7 +37,9 @@ The sidebar shows an item only when the user has the matching permission. Permis
 
 Below the Admin menu, users with any admin permission also find two maintenance actions: *Flush image cache* (AJAX call to `include/inc_act/ajax_connector.php`) and *Move deleted files* (`include/inc_act/act_file.php?movedeletedfiles=…`). Super admins additionally get *System update* and `phpinfo()`.
 
-The header holds the per-user items instead: the account menu opens the [Profile](06-profile.md) page (visible when the user is member of the `profile` group or is an admin, with different icons for super admin, frontend user and backend user), and *Logout* ends the session.
+The header holds the per-user items instead: the account menu opens the [Profile](06-profile.md) page (visible to every logged-in user, with different icons for super admin, frontend user and backend user), and *Logout* ends the session.
+
+Article, content-part, visibility, alias and structure writes additionally follow article ownership: a non-admin may only change articles they own unless they are in the `artall` usergroup or `$phpwcms['article_ownership']` is `0`. Actions the user cannot perform render as disabled icons without a link. See [Articles](03-articles.md#ownership) and [Users and usergroups](../administration/users-usergroups.md#article-ownership).
 
 ## Dashboard
 

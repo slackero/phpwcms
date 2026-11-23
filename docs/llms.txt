@@ -20,7 +20,7 @@
 
 - [Fresh installation](docs/installation/fresh-install.md): Download, directory permissions, setup wizard run and hardening after installation.
 - [Setup wizard](docs/installation/setup-wizard.md): The browser based installation wizard flow, checks, written configuration and re-run behavior.
-- [Docker installation](docs/installation/docker.md): The bundled docker-compose development stack with PHP, MariaDB, phpMyAdmin and Mailpit.
+- [Docker installation](docs/installation/docker.md): The bundled docker-compose development stack with Apache, PHP-FPM, nginx, MariaDB, phpMyAdmin and Mailpit.
 - [Updating](docs/installation/updating.md): In-app system update, standalone upgrade script, manual archive upgrade and 1.x migration.
 - [Configuration file](docs/installation/config-file.md): Every include/config/conf.inc.php key with type, default and effect.
 
