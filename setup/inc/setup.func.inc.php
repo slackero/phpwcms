@@ -371,15 +371,10 @@ function write_conf_file($val) {
 }
 
 function html_specialchars($h = '') {
-    //used to replace the htmlspecialchars original php function
-    //not compatible with many internation chars like turkish, polish
-    $h = preg_replace('/&(?!#[0-9]+;)/s', '&amp;', $h);
-    $h = str_replace('<', '&lt;', $h);
-    $h = str_replace('>', '&gt;', $h);
-    $h = str_replace('"', '&quot;', $h);
-    $h = str_replace("'", '&#039;', $h);
-    $h = str_replace("\\", '&#92;', $h);
-    return $h;
+    // Same semantics as the core wrapper: UTF-8, ENT_SUBSTITUTE for invalid
+    // sequences, no double encoding of existing entities, backslash escaped.
+    $h = htmlspecialchars((string)$h, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
+    return str_replace('\\', '&#92;', $h);
 }
 
 function errorWarning($warning = '') {
