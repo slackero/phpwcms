@@ -413,17 +413,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.10.7",
-            "version_normalized": "2.10.7.0",
+            "version": "2.10.8",
+            "version_normalized": "2.10.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "8eb53e906fd60c67038d22f1f1cab420ed58b8be"
+                "reference": "681e662a40c805c567f52d603b64d55282ea356c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/8eb53e906fd60c67038d22f1f1cab420ed58b8be",
-                "reference": "8eb53e906fd60c67038d22f1f1cab420ed58b8be",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/681e662a40c805c567f52d603b64d55282ea356c",
+                "reference": "681e662a40c805c567f52d603b64d55282ea356c",
                 "shasum": ""
             },
             "require": {
@@ -457,8 +457,7 @@
             "suggest": {
                 "symfony/yaml": "v2.3+ required if using the Front Matter extension"
             },
-            "time": "2026-10-31T13:35:37+00:00",
-            "published-time": "2026-10-31T13:35:57+00:00",
+            "time": "2026-11-24T15:44:47+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -869,17 +868,17 @@
         },
         {
             "name": "netcarver/textile",
-            "version": "v4.1.7",
-            "version_normalized": "4.1.7.0",
+            "version": "v4.1.9",
+            "version_normalized": "4.1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/textile/php-textile.git",
-                "reference": "a231b33457acd00e8607c9d32be3ba28a11d4a56"
+                "reference": "6e23a83d26e7b238066b446f882db880e9193b94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/textile/php-textile/zipball/a231b33457acd00e8607c9d32be3ba28a11d4a56",
-                "reference": "a231b33457acd00e8607c9d32be3ba28a11d4a56",
+                "url": "https://api.github.com/repos/textile/php-textile/zipball/6e23a83d26e7b238066b446f882db880e9193b94",
+                "reference": "6e23a83d26e7b238066b446f882db880e9193b94",
                 "shasum": ""
             },
             "require": {
@@ -892,8 +891,7 @@
                 "squizlabs/php_codesniffer": "3.*",
                 "symfony/yaml": "^5.4.40"
             },
-            "time": "2026-11-02T17:52:29+00:00",
-            "published-time": "2026-11-02T17:53:12+00:00",
+            "time": "2026-11-13T13:41:39+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1186,7 +1184,6 @@
                 "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
             },
             "time": "2026-11-07T15:15:17+00:00",
-            "published-time": "2026-11-07T15:16:54+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1230,17 +1227,17 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.30.8",
-            "version_normalized": "1.30.8.0",
+            "version": "1.30.9",
+            "version_normalized": "1.30.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "8cbf46b81d25f5e8af8b5710b841ec0462c63421"
+                "reference": "8046fafd702b3a5b92f6e2adcee9c30d6426ea65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/8cbf46b81d25f5e8af8b5710b841ec0462c63421",
-                "reference": "8cbf46b81d25f5e8af8b5710b841ec0462c63421",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/8046fafd702b3a5b92f6e2adcee9c30d6426ea65",
+                "reference": "8046fafd702b3a5b92f6e2adcee9c30d6426ea65",
                 "shasum": ""
             },
             "require": {
@@ -1286,8 +1283,7 @@
                 "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
                 "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer"
             },
-            "time": "2026-11-08T05:56:37+00:00",
-            "published-time": "2026-11-08T06:02:25+00:00",
+            "time": "2026-11-22T15:50:25+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1336,7 +1332,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.30.8"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.30.9"
             },
             "install-path": "../phpoffice/phpspreadsheet"
         },
@@ -1510,12 +1506,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplepie/simplepie.git",
-                "reference": "9a648760e4c2472c30281d02f9c7a6ffa840bfe7"
+                "reference": "631a17f873fb915cb002f3baeaad2401532e5b59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/9a648760e4c2472c30281d02f9c7a6ffa840bfe7",
-                "reference": "9a648760e4c2472c30281d02f9c7a6ffa840bfe7",
+                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/631a17f873fb915cb002f3baeaad2401532e5b59",
+                "reference": "631a17f873fb915cb002f3baeaad2401532e5b59",
                 "shasum": ""
             },
             "require": {
@@ -1541,8 +1537,7 @@
                 "ext-mbstring": "",
                 "mf2/mf2": "Microformat module that allows for parsing HTML for microformats"
             },
-            "time": "2026-11-02T21:58:02+00:00",
-            "published-time": "2026-11-02T22:01:16+00:00",
+            "time": "2026-11-09T13:07:44+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
@@ -1685,7 +1680,6 @@
                 "ext-mbstring": "For best performance"
             },
             "time": "2026-10-28T09:35:49+00:00",
-            "published-time": "2026-10-28T10:07:45+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
