@@ -24,7 +24,7 @@ if (empty($_GET['apikey']) || $action !== 'exportformresult') {
     validate_csrf_tokens();
 } else {
     // API key must be an alphanumeric 16-char token before it touches the database
-    $apikey = isset($_GET['apikey']) ? (string)$_GET['apikey'] : '';
+    $apikey = isset($_GET['apikey']) && is_string($_GET['apikey']) ? $_GET['apikey'] : '';
     if (!preg_match('/^[a-zA-Z0-9]{16}$/', $apikey)) {
         $apikey = '';
     } else {
@@ -36,13 +36,13 @@ if (empty($_GET['apikey']) || $action !== 'exportformresult') {
             'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0'
         );
         $stored_apikey = '';
-        if (!empty($form[0]['acontent_id']) && (int)$form[0]['acontent_id'] === $fid) {
+        if (is_array($form) && !empty($form[0]['acontent_id']) && (int)$form[0]['acontent_id'] === $fid) {
             $form_data = @unserialize($form[0]['acontent_form'], ['allowed_classes' => false]);
-            if (is_array($form_data) && !empty($form_data['direct_download']) && isset($form_data['direct_download_apikey'])) {
+            if (is_array($form_data) && !empty($form_data['direct_download']) && isset($form_data['direct_download_apikey']) && is_scalar($form_data['direct_download_apikey'])) {
                 $stored_apikey = (string)$form_data['direct_download_apikey'];
             }
         }
-        if ($stored_apikey === '' || !hash_equals($stored_apikey, $apikey)) {
+        if (!hash_equals($stored_apikey, $apikey)) {
             $apikey = '';
         }
     }
