@@ -283,7 +283,7 @@ The wizard's final step displays the required warning itself: **delete or secure
 
 - Remove the whole `/setup/` directory, or block access to it at the web server level. Re-adding it later only for upgrades is the documented workflow — `setup/upgrade.php` is downloaded separately per [Updating](updating.md).
 - If automated writing of `include/config/conf.inc.php` failed during setup, the wizard links `setup/get_conf_file.php`, which downloads `conf.inc.php` as an attachment; place it into `include/config/conf.inc.php`. Downloading the file once appends `$NO_ACCESS = true;` to `setup/setup.conf.inc.php`, which blocks further wizard access until the line is removed.
-- Verify `include/config/conf.inc.php` is not served as plain text — the `_.htaccess` and shipped server configs block `include/` and dot-prefixed files.
+- Verify `include/config/conf.inc.php` is not served as plain text — the `_.htaccess` and shipped server configs block `include/` and dot-prefixed files, with these browser-facing exceptions only: `include/inc_act/` (action endpoints), `include/inc_ext/ckeditor/`, `include/inc_module/*/template/` plus `api.shop.php`, `include/vendor/tinymce/`, `include/vendor/mklkj/tinymce-i18n/` and `include/inc_tmpl/content/cnt51.open.php`. Keep those rules in place; dropping them either exposes internals or breaks the editor and the backend actions.
 - Check `<storage_path>/cache/`, `<storage_path>/backup/` (created later by the updater with a deny-all `.htaccess`) and `filearchive/` listing behavior; deny direct directory listing for storage folders.
 - Log into `login.php` with the admin account created in the wizard and change defaults as needed: [Users and usergroups](../administration/users-usergroups.md), [Cache and performance](../administration/cache-performance.md).
 - Keep `template/` and `content/` under your own backup routine; the built-in [update engine](updating.md#in-app-system-update) backs up only on updates.
@@ -401,7 +401,7 @@ The Dockerfile builds the web container with:
 
 ## Web server path tests
 
-`tests/web/path-protection.sh` starts the stack and probes both servers (Apache `8080`, nginx `8082`): private paths must answer 403/404, public assets 200, `/` must not be 404, and `formfile.php?t=invalid` must reach PHP (`File not found.`). Teardown uses `docker compose down` without `-v`, so the volumes survive. See the script and its README for `APACHE_URL`/`NGINX_URL` overrides.
+`tests/web/path-protection.sh` starts the stack and probes both servers (Apache `8080`, nginx `8082`): private paths must answer 403/404, public assets 200, browser-invoked endpoints (`include/inc_act/`, the `cnt51` popup, the shop API) must reach PHP — a 403, 404 or 5xx fails — `/` must not be 404, and `formfile.php?t=invalid` must reach PHP (`File not found.`). Teardown uses `docker compose down` without `-v`, so the volumes survive. See the script and its README for `APACHE_URL`/`NGINX_URL` overrides.
 
 ## Mail testing with Mailpit
 
@@ -3835,7 +3835,7 @@ The backend WYSIWYG editors load per `$phpwcms['wysiwyg_editor']` from `include/
 | 1 | CKEditor (legacy) | `include/inc_ext/ckeditor/` (CKEditor 4.22.1 LTS line), configs in `template/config/ckeditor/` |
 | 2 | TinyMCE 8 | `include/vendor/tinymce/tinymce/`, translations from `include/vendor/mklkj/tinymce-i18n/langs/` |
 
-They are backend-only; frontend pages never include them. The legacy swfobject loader (`initSwfObject()`) still exists for old multimedia content parts and looks for `template/lib/swfobject/swfobject.js`.
+They are backend-only; frontend pages never include them. The shipped server rules keep `include/inc_ext/` and `include/vendor/` private and except exactly these two asset paths, so both editors load straight from their package directories. Remove or narrow an exception and the editor silently falls back to a plain textarea. The legacy swfobject loader (`initSwfObject()`) still exists for old multimedia content parts and looks for `template/lib/swfobject/swfobject.js`.
 
 ## Related
 

@@ -81,7 +81,7 @@ The backend WYSIWYG editors load per `$phpwcms['wysiwyg_editor']` from `include/
 | 1 | CKEditor (legacy) | `include/inc_ext/ckeditor/` (CKEditor 4.22.1 LTS line), configs in `template/config/ckeditor/` |
 | 2 | TinyMCE 8 | `include/vendor/tinymce/tinymce/`, translations from `include/vendor/mklkj/tinymce-i18n/langs/` |
 
-They are backend-only; frontend pages never include them. The legacy swfobject loader (`initSwfObject()`) still exists for old multimedia content parts and looks for `template/lib/swfobject/swfobject.js`.
+They are backend-only; frontend pages never include them. The shipped server rules keep `include/inc_ext/` and `include/vendor/` private and except exactly these two asset paths, so both editors load straight from their package directories. Remove or narrow an exception and the editor silently falls back to a plain textarea. The legacy swfobject loader (`initSwfObject()`) still exists for old multimedia content parts and looks for `template/lib/swfobject/swfobject.js`.
 
 ## Related
 

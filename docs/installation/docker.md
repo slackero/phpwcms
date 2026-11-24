@@ -52,7 +52,7 @@ The Dockerfile builds the web container with:
 
 ## Web server path tests
 
-`tests/web/path-protection.sh` starts the stack and probes both servers (Apache `8080`, nginx `8082`): private paths must answer 403/404, public assets 200, `/` must not be 404, and `formfile.php?t=invalid` must reach PHP (`File not found.`). Teardown uses `docker compose down` without `-v`, so the volumes survive. See the script and its README for `APACHE_URL`/`NGINX_URL` overrides.
+`tests/web/path-protection.sh` starts the stack and probes both servers (Apache `8080`, nginx `8082`): private paths must answer 403/404, public assets 200, browser-invoked endpoints (`include/inc_act/`, the `cnt51` popup, the shop API) must reach PHP — a 403, 404 or 5xx fails — `/` must not be 404, and `formfile.php?t=invalid` must reach PHP (`File not found.`). Teardown uses `docker compose down` without `-v`, so the volumes survive. See the script and its README for `APACHE_URL`/`NGINX_URL` overrides.
 
 ## Mail testing with Mailpit
 
