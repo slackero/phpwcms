@@ -617,6 +617,32 @@ function js_singlequote($t = '') {
     return str_replace(array("\\", "&#92;", "'", '"'), array("\\\\", "\\\\", '&#39;', '&quot;'), $t);
 }
 
+/**
+ * Escape a value for a single-quoted JavaScript string inside an HTML
+ * attribute.
+ *
+ * The HTML parser decodes character references before JavaScript runs, so an
+ * entity such as &#39; cannot protect the string delimiter. Escape backslash,
+ * quote and line breaks at JavaScript level, then HTML-encode the result for
+ * the attribute.
+ *
+ * @param string $value
+ *
+ * @return string
+ */
+function js_inline_string($value) {
+    $value = str_replace(
+        array('\\', "'", "\r", "\n"),
+        array('\\\\', "\\'", '\\r', '\\n'),
+        (string) $value
+    );
+
+    // Double encode: a literal entity such as &#39; contains no raw quote, so
+    // escaping alone would leave it to be decoded back into a quote by the
+    // HTML parser before the handler runs.
+    return html($value, true);
+}
+
 function get_tmpl_files($dir = '', $ext = '', $sort = true) {
     //browse a dir and return all template files
     $c = '\.html|\.htm|\.php|\.inc|\.tmpl';
@@ -1885,6 +1911,38 @@ function path_is_within($path, $root) {
         return false;
     }
     return $path === $root || str_starts_with($path, $root . '/');
+}
+
+/**
+ * Resolve an image directory requested relative to PHPWCMS_ROOT.
+ *
+ * The raw value is resolved first and accepted only when the real path stays
+ * inside the root. This rejects `..` escapes and symlinks that leave the
+ * installation, so a public image endpoint cannot enumerate files outside the
+ * document root.
+ *
+ * @param mixed  $imgdir Relative directory, as sent in a request
+ * @param string $root   Root directory to contain the result; defaults to PHPWCMS_ROOT
+ *
+ * @return string Absolute directory with trailing slash, or '' when rejected
+ */
+function phpwcms_image_dir_path($imgdir, $root = '') {
+    if (!is_string($imgdir) || trim($imgdir) === '') {
+        return '';
+    }
+
+    $root = $root !== '' ? $root : PHPWCMS_ROOT;
+    $root = realpath($root);
+    if ($root === false) {
+        return '';
+    }
+
+    $path = realpath($root . '/' . ltrim(str_replace('\\', '/', trim($imgdir)), '/'));
+    if ($path === false || !is_dir($path) || !path_is_within($path, $root)) {
+        return '';
+    }
+
+    return rtrim(str_replace('\\', '/', $path), '/') . '/';
 }
 
 function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename = 0, $maxsize = 0) {

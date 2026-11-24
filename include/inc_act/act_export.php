@@ -58,6 +58,45 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
+/**
+ * Whether the requester may export the results of a form.
+ *
+ * A backend session and CSRF token only prove who the request belongs to;
+ * they do not authorize the requested form. The form has to belong to an
+ * article the user owns or the user has to be an administrator. A validated
+ * direct-download API key authorizes its form on its own.
+ *
+ * @param int    $fid    Content part id of the form
+ * @param string $apikey Validated API key, empty for a session export
+ *
+ * @return bool
+ */
+function form_export_is_allowed($fid, $apikey) {
+    if ($apikey !== '' || !empty($_SESSION['wcs_user_admin'])) {
+        return true;
+    }
+
+    $fid  = intval($fid);
+    $form = _dbGet(
+        'phpwcms_articlecontent',
+        'acontent_id',
+        'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_aid IN ('
+        . 'SELECT article_id FROM ' . DB_PREPEND . 'phpwcms_article WHERE article_uid=' . intval($_SESSION['wcs_user_id']) . ')'
+    );
+
+    return !empty($form[0]['acontent_id']) && intval($form[0]['acontent_id']) === $fid;
+}
+
+if (
+    $fid
+    && in_array($action, array('exportformresult', 'exportformresultdetail'), true)
+    && !form_export_is_allowed($fid, $apikey)
+) {
+    echo '<html><body><h1>403 Forbidden</h1></body></html>';
+    headerRedirect('', 403, false);
+    die();
+}
+
 // export form results
 if ($action === 'exportformresult' && $fid) {
 
