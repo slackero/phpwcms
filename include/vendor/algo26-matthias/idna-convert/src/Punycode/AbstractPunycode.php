@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\Punycode;
 
+use Algo26\IdnaConvert\Exception\InvalidCharacterException;
 use Algo26\IdnaConvert\TranscodeUnicode\ByteLengthTrait;
-use Algo26\IdnaConvert\TranscodeUnicode\TranscodeUnicode;
+use Algo26\IdnaConvert\TranscodeUnicode\Ucs4Codec;
 
 abstract class AbstractPunycode
 {
@@ -21,21 +22,21 @@ abstract class AbstractPunycode
     public const INITIAL_BIAS = 72;
     public const INITIAL_N = 0x80;
 
+    /** @var list<int>|null */
     protected static ?array $prefixAsArray = null;
     protected static int $prefixLength;
 
-    protected TranscodeUnicode $unicodeTransCoder;
+    protected Ucs4Codec $ucs4Codec;
 
+    /**
+     * @throws InvalidCharacterException
+     */
     public function __construct()
     {
-        $this->unicodeTransCoder = new TranscodeUnicode();
+        $this->ucs4Codec = new Ucs4Codec();
 
         if (self::$prefixAsArray === null) {
-            self::$prefixAsArray = $this->unicodeTransCoder->convert(
-                self::PUNYCODE_PREFIX,
-                $this->unicodeTransCoder::FORMAT_UTF8,
-                $this->unicodeTransCoder::FORMAT_UCS4_ARRAY
-            );
+            self::$prefixAsArray = $this->ucs4Codec->decode(self::PUNYCODE_PREFIX);
             self::$prefixLength = $this->getByteLength(self::PUNYCODE_PREFIX);
         }
     }

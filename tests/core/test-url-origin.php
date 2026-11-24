@@ -68,7 +68,11 @@ $cases = [
     'port out of range'             => [run(['HTTP_HOST' => 'example.test:99999', 'SERVER_NAME' => 'fallback.test'], []), 'http://fallback.test'],
 ];
 
-// setup-only helpers, extracted from the same file
+// setup-only helpers, extracted from the same file. The IDN conversion needs
+// the shipped Composer autoloader, otherwise the helper returns its input.
+if (is_file(__DIR__ . '/../../include/vendor/autoload.php')) {
+    require_once __DIR__ . '/../../include/vendor/autoload.php';
+}
 $setup_source = file_get_contents(__DIR__ . '/../../setup/inc/setup.func.inc.php');
 foreach (['setup_site_url_to_idn', 'setup_resolve_site_url', 'setup_site_url_is_valid'] as $name) {
     extract_fn($setup_source, $name);
@@ -89,7 +93,12 @@ $site_cases = [
     'invalid credentials'       => [setup_site_url_is_valid('https://user:pass@example.test/'), false],
     'invalid query'             => [setup_site_url_is_valid('https://example.test/?a=1'), false],
     'invalid fragment'          => [setup_site_url_is_valid('https://example.test/#x'), false],
-];
+] + (class_exists('\Algo26\IdnaConvert\ToIdn') ? [
+    'idn host converted'        => [setup_site_url_to_idn('https://münchen.test'), 'https://xn--mnchen-3ya.test'],
+    'idn host kept with port'   => [setup_site_url_to_idn('https://münchen.test:8080/cms'), 'https://xn--mnchen-3ya.test:8080/cms'],
+    'ascii host untouched'      => [setup_site_url_to_idn('https://example.test'), 'https://example.test'],
+    'invalid idn host returned' => [setup_site_url_to_idn('https://münchen.test.'), 'https://münchen.test.'],
+] : []);
 
 $failed = 0;
 foreach ($site_cases as $label => [$actual, $expected]) {

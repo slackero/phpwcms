@@ -13,6 +13,11 @@ class CaseFolding
         $this->caseFoldingData = new CaseFoldingData();
     }
 
+    /**
+     * @param list<int> $inputArray
+     *
+     * @return list<int>
+     */
     public function apply(array $inputArray, int $idnaVersion): array
     {
         if ($idnaVersion === 2003) {

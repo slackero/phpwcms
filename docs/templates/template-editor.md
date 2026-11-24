@@ -62,7 +62,7 @@ The error block understands the `[404]…[/404]` and `[404_ELSE]…[/404_ELSE]` 
 | Field | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 | htmlhead | textarea | empty | Markup emitted into `<head>` verbatim (metas, links, scripts) |
-| JavaScript library | select | first of `$phpwcms['js_lib_default']` | Wrapper from `include/inc_front/lib/js.<name>.inc.php`; invalid values fall back to the `jquery-3.7-migrate-1` wrapper |
+| JavaScript library | select | first of `$phpwcms['js_lib_default']` | Wrapper from `include/inc_front/lib/js.<name>.inc.php`; invalid values fall back to the `jquery-3.8-migrate` wrapper |
 | Load library permanently | checkbox | off | `jslibload` — calls `initJSLib()` on every page |
 | Use CDN | checkbox | on | `googleapi`/`use_cdn` — sets `PHPWCMS_USE_CDN` |
 | onload | text | empty | Comma semicolon list of JS calls merged into the DomReady block |

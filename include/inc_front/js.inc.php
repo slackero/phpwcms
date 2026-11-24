@@ -35,13 +35,30 @@ $block['jslib'] = preg_replace('/[^a-z0-9-.]/', '', $block['jslib']);
 // set if CDN can be used
 define('PHPWCMS_USE_CDN', !empty($block['use_cdn']) || !empty($block['googleapi']));
 
-// Check if the selected JavaScript library exists
-if (!is_file(PHPWCMS_ROOT . '/include/inc_front/lib/js.' . $block['jslib'] . '.inc.php')) {
-    // Set fallback to latest jQuery migrate
-    $block['jslib'] = 'jquery-3.7-migrate-1';
+// Check if the selected JavaScript library exists; try the current jQuery
+// line in order so a partial or pruned installation still gets a library.
+$jslib_file = PHPWCMS_ROOT . '/include/inc_front/lib/js.' . $block['jslib'] . '.inc.php';
+if (!is_file($jslib_file)) {
+    foreach (['jquery-3.8-migrate', 'jquery-3.8', 'jquery-3.7'] as $jslib_fallback) {
+        $jslib_fallback_file = PHPWCMS_ROOT . '/include/inc_front/lib/js.' . $jslib_fallback . '.inc.php';
+        if (is_file($jslib_fallback_file)) {
+            $block['jslib'] = $jslib_fallback;
+            $jslib_file = $jslib_fallback_file;
+            break;
+        }
+    }
 }
 // include the related JavaScript library wrapper
-@include PHPWCMS_ROOT . '/include/inc_front/lib/js.' . $block['jslib'] . '.inc.php';
+if (is_file($jslib_file)) {
+    include $jslib_file;
+}
+// Without any wrapper the shared helpers and a no-op loader are still needed.
+if (!function_exists('initJSLib')) {
+    require_once PHPWCMS_ROOT . '/include/inc_front/lib/js.jquery.default.php';
+    function initJSLib() {
+        return true;
+    }
+}
 
 // check if selected JavaScript should be loaded permanently
 if(!empty($block['jslibload'])) {

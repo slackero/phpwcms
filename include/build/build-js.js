@@ -1,3 +1,8 @@
+// jQuery is pinned through npm aliases: `jquery37` (3.7.1), `jquery38` (3.8.x)
+// and `jquery41` (4.1.x). Use the aliases here, never `require('jquery')`, so
+// backend and frontend copies stay on their intended lines. jQuery 3.5.1,
+// 3.6.4 and 4.0.0 in template/lib/jquery/ are frozen snapshots with no npm
+// source; they are not rebuilt.
 const fs = require('fs');
 const path = require('path');
 const terser = require('terser');
@@ -25,8 +30,16 @@ async function buildJs() {
         { src: '../../node_modules/dropzone/dist/min/dropzone.min.js', dest: 'inc_js/dropzone.min.js' },
         { src: '../../node_modules/flatpickr/dist/flatpickr.min.js', dest: 'inc_js/flatpickr.min.js' },
         { src: '../../node_modules/dayjs/dayjs.min.js', dest: 'inc_js/dayjs.min.js' },
-        { src: '../../node_modules/jquery/dist/jquery.min.js', dest: 'inc_js/jquery/jquery-3.7.1.min.js' },
-        { src: '../../node_modules/jquery/dist/jquery.min.js', dest: '../template/lib/jquery/jquery-3.7.1.min.js' },
+        // Backend ships jQuery 3.8; the frontend offers 3.7.1, 3.8.0 and 4.1.0.
+        // Older lines (1.x, 2.x, 3.0-3.4) are EOL and carry the XSS advisories,
+        // so they are not shipped any more.
+        { src: '../../node_modules/jquery38/dist/jquery.min.js', dest: 'inc_js/jquery/jquery-3.8.0.min.js' },
+        { src: '../../node_modules/jquery37/dist/jquery.min.js', dest: '../template/lib/jquery/jquery-3.7.1.min.js' },
+        { src: '../../node_modules/jquery37/dist/jquery.slim.min.js', dest: '../template/lib/jquery/jquery-3.7.1.slim.min.js' },
+        { src: '../../node_modules/jquery38/dist/jquery.min.js', dest: '../template/lib/jquery/jquery-3.8.0.min.js' },
+        { src: '../../node_modules/jquery38/dist/jquery.slim.min.js', dest: '../template/lib/jquery/jquery-3.8.0.slim.min.js' },
+        { src: '../../node_modules/jquery41/dist/jquery.min.js', dest: '../template/lib/jquery/jquery-4.1.0.min.js' },
+        { src: '../../node_modules/jquery41/dist/jquery.slim.min.js', dest: '../template/lib/jquery/jquery-4.1.0.slim.min.js' },
         { src: '../../node_modules/video.js/dist/video.min.js', dest: '../template/lib/video-js/video.min.js' },
         { src: '../../node_modules/glightbox/dist/js/glightbox.min.js', dest: '../template/lib/glightbox/glightbox.min.js' },
         { src: '../../node_modules/vanilla-cookieconsent/dist/cookieconsent.umd.js', dest: '../template/lib/cookieconsent3/cookieconsent.umd.js' },

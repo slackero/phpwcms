@@ -13,7 +13,7 @@ class FromUtf8 implements EncodingHelperInterface
         string $sourceString,
         ?string $encoding = self::DEFAULT_ENCODING,
         ?bool $safeMode = false
-    ): string {
+    ): string|false {
         $safe = ($safeMode) ? $sourceString : false;
 
         $this->encoding = 'ISO-8859-1';
@@ -77,14 +77,14 @@ class FromUtf8 implements EncodingHelperInterface
 
         if (function_exists('iconv')) {
             $converted = @iconv('UTF-8', $this->encoding, $string);
-            if (false !== $converted) {
+            if (is_string($converted)) {
                 return $converted;
             }
         }
 
         if (function_exists('libiconv')) {
             $converted = @libiconv('UTF-8', $this->encoding, $string);
-            if (false !== $converted) {
+            if (is_string($converted)) {
                 return $converted;
             }
         }

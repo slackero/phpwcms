@@ -12,11 +12,10 @@ abstract class AbstractIdnaConvert
 
     public function convertEmailAddress(string $emailAddress): string
     {
-        if (!str_contains($emailAddress, '@')) {
+        $separatorPosition = strrpos($emailAddress, '@');
+        if ($separatorPosition === false) {
             throw new InvalidArgumentException('The given string does not look like an email address', 206);
         }
-
-        $separatorPosition = strrpos($emailAddress, '@');
 
         return sprintf(
             '%s@%s',
@@ -78,10 +77,8 @@ abstract class AbstractIdnaConvert
         $hostAndPort = substr($authority, $hostOffset);
 
         if (str_starts_with($hostAndPort, '[')) {
-            $closingBracket = strpos($hostAndPort, ']');
-            $host = $closingBracket === false
-                ? ''
-                : substr($hostAndPort, 0, $closingBracket + 1);
+            // The caller only needs to recognize an IP literal; parse_url() already validated its syntax.
+            $host = $hostAndPort;
         } else {
             $portSeparator = strrpos($hostAndPort, ':');
             $host = $portSeparator === false
@@ -98,15 +95,11 @@ abstract class AbstractIdnaConvert
 
     private function encodeNonAsciiBytes(string $url): string
     {
-        if (preg_match('~[\\x80-\\xFF]~', $url) !== 1) {
-            return $url;
-        }
-
         $encoded = '';
         $length = strlen($url);
         for ($offset = 0; $offset < $length; ++$offset) {
             $byte = ord($url[$offset]);
-            $encoded .= $byte > 0x7F
+            $encoded .= ($byte & 0x80) !== 0
                 ? sprintf('%%%02X', $byte)
                 : $url[$offset];
         }

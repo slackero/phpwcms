@@ -1,0 +1,28 @@
+{
+    source: {
+        directories: [
+            "src"
+        ],
+        excludes: [
+            // Generated Unicode tables are verified by functional tests instead.
+            "NamePrep/CaseFoldingData.php",
+            "NamePrep/IdnaData2008.php",
+            "NamePrep/NamePrepData2003.php",
+            "NamePrep/NamePrepData2008.php",
+            "NamePrep/NormalizationData2003.php",
+            "NamePrep/NormalizationData2008.php"
+        ]
+    },
+    // The complete test suite takes well below one second. Five seconds leaves
+    // ample CI headroom while terminating deliberately broken loop mutants early.
+    timeout: 5,
+    threads: "max",
+    testFramework: "phpunit",
+    phpUnit: {
+        configDir: ".",
+        customPath: "vendor/bin/phpunit"
+    },
+    mutators: {
+        "@default": true
+    }
+}

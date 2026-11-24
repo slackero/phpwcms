@@ -2,12 +2,20 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" beStrictAboutOutputDuringTests="true" cacheDirectory=".phpunit.cache" requireCoverageMetadata="true" beStrictAboutCoverageMetadata="true">
   <coverage/>
   <testsuite name="default">
-    <directory suffix="Test.php">tests</directory>
-    <exclude>tests/smoke</exclude>
+    <directory suffix="Test.php">tests/integration</directory>
+    <directory suffix="Test.php">tests/unit</directory>
   </testsuite>
   <source>
     <include>
       <directory suffix=".php">src</directory>
     </include>
+    <exclude>
+      <file>src/NamePrep/CaseFoldingData.php</file>
+      <file>src/NamePrep/IdnaData2008.php</file>
+      <file>src/NamePrep/NamePrepData2003.php</file>
+      <file>src/NamePrep/NamePrepData2008.php</file>
+      <file>src/NamePrep/NormalizationData2003.php</file>
+      <file>src/NamePrep/NormalizationData2008.php</file>
+    </exclude>
   </source>
 </phpunit>

@@ -2,6 +2,7 @@
 !.gitkeep
 .phpunit.result.cache
 .phpunit.cache/
+/infection.json5
 /composer.lock
 /vendor
 /tests/smoke/consumer/composer.lock

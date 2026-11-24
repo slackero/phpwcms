@@ -1,5 +1,59 @@
 # Upgrading from previous versions
 
+## 5.0.0
+
+Unicode normalization now uses dedicated generated tables. IDNA 2003 labels use Unicode 3.2 and NFKC as
+required by RFC 3491; IDNA 2008 labels use Unicode 18.0 and NFC. Both paths include recursive decomposition,
+canonical ordering, composition exclusions, and algorithmic Hangul normalization. Consequently, labels that
+previously retained decomposed sequences can now produce their canonical composed representation.
+
+IDNA 2008 input is now processed with the Unicode 18.0 UTS #46 non-transitional compatibility mapping and
+then validated against IDNA2008, including ContextJ, ContextO, and bidirectional-label rules. This preserves
+`ß` and final sigma instead of applying IDNA 2003 case folding, and rejects symbols that are not valid IDNA2008
+code points. For example, `daẞ.example` now becomes `xn--da-hia.example`.
+
+IDNA validity checks are stricter. Empty labels, labels beginning with a Unicode mark, invalid IDNA2003
+bidirectional text, leading or trailing hyphens, hyphens in positions three and four, and labels that map to
+an empty value are rejected. Existing canonical A-labels such as `xn--mller-kva` are accepted idempotently;
+invalid or non-canonical A-labels are rejected.
+
+`ToIdn::__construct()` accepts two additional flags after `useStd3AsciiRules`: `checkHyphens` and
+`verifyDnsLength`. Both default to `true`. DNS length validation enforces the 63-byte label and 253-byte
+domain limits and rejects an empty root label. Pass `false` as the fourth argument only when the caller is
+deliberately processing a domain fragment or performs DNS length validation elsewhere.
+
+IDNA2003 now applies prohibited-output and bidirectional checks after mapping and Unicode 3.2 NFKC, as
+required by Nameprep. Inputs that previously produced invalid output, such as U+037A mapping to an ASCII
+space, now throw `InvalidCharacterException`.
+
+Unicode-derived tables are reproducibly generated and covered by the Unicode License v3 in `UNICODE-LICENSE`.
+
+Native parameter and return types were added to public APIs. Custom implementations of the supplied
+interfaces and subclasses overriding these methods must update their signatures accordingly.
+
+**BC break — UCS-4 arrays:** When converting from `ucs4array` to another encoding with the default
+`safeMode: false`, `TranscodeUnicode::convert()` now requires a zero-based, consecutive list of integer
+Unicode scalar values. `ToPunycode::convert()` also enforces this requirement. For example, `[4 => 97]`
+previously converted to `"a"` through the transcoder but now throws `InvalidArgumentException` (code 308).
+Use `array_values($codePoints)` to reindex existing arrays without changing their order. Non-integer
+elements are rejected with code 308; surrogate code points and values outside U+0000–U+10FFFF are rejected
+with `InvalidCharacterException` (code 305). Converting between identical encodings still returns the
+input unchanged and is not a validation operation.
+
+**BC break — Punycode subclasses:** The protected `AbstractPunycode::$unicodeTransCoder` property has
+been removed. Subclasses using it must either own a `TranscodeUnicode` instance or migrate UTF-8/UCS-4
+conversion to the protected `$ucs4Codec`: use `$this->ucs4Codec->decode($utf8)` for a code-point list and
+`$this->ucs4Codec->encode($codePoints)` for UTF-8. Other encoding conversions still require
+`TranscodeUnicode`.
+
+**BC break — Punycode interface implementations:** `PunycodeInterface::__construct()` now declares
+`bool $checkHyphens = true` and `?bool $checkBidi = null` after `?bool $useStd3AsciiRules = false`.
+Custom implementations must add compatible parameters, even if they do not use these options; otherwise
+PHP rejects the class declaration. Existing calls with the original two arguments remain valid.
+
+The abandoned `jakeasmith/http_build_url` package is no longer required. URL conversion now replaces
+only the host in the original URL, preserving the spelling and encoding of all other components.
+
 ## 4.2.0
 
 The extra dependency to ext/intl, accidentally introduced with v 4.1 is no longer required.
@@ -108,7 +162,3 @@ As of version 0.6.4 the class per default allows the German ligature ß to be en
 **ATTENTION:** As of version 0.6.0 this class is written in the OOP style of PHP 5. 
 Since PHP 4 is no longer actively maintained, you should switch to PHP 5 as quickly as possible.
 We expect no compatibility issues with the upcoming ~~PHP 6~~ PHP 7 as well.
-
-
-
-

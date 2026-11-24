@@ -111,7 +111,7 @@ The frontend collects styles and scripts from four sources, all rendered into th
 3. **`<!-- JS: … -->` / `<!-- CSS: … -->` comments** — anywhere in the page markup; registered via `renderHeadJS()`/`renderHeadCSS()`, detailed in [assets and libs](assets-and-libs.md).
 4. **`$block['custom_htmlhead']`** — array entries appended by renderers and frontend scripts (metas, scripts, links). Scripts without the `head_` key prefix can be moved above the closing body tag by `js_in_body`.
 
-The JavaScript library itself is chosen per template (`template_jslib`); the wrapper file `include/inc_front/lib/js.<lib>.inc.php` then registers the actual `<script>` tags. When no valid library is selected, the fallback `jquery-3.7-migrate-1` wrapper applies. `$block['jslibload']` loads the library on every page, `$block['googleapi']` allows CDN URLs (`PHPWCMS_USE_CDN`), and `$block['frontendjs']` always loads `template/inc_js/frontend.js`.
+The JavaScript library itself is chosen per template (`template_jslib`); the wrapper file `include/inc_front/lib/js.<lib>.inc.php` then registers the actual `<script>` tags. When no valid library is selected, the fallback `jquery-3.8-migrate` wrapper applies. `$block['jslibload']` loads the library on every page, `$block['googleapi']` allows CDN URLs (`PHPWCMS_USE_CDN`), and `$block['frontendjs']` always loads `template/inc_js/frontend.js`.
 
 ## Related
 

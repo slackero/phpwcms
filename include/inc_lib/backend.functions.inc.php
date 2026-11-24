@@ -1266,7 +1266,7 @@ function initAceEditor() {
 function initJQuery() {
 
     // add jQuery at first position and keep the key
-    $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js')) + $GLOBALS['BE']['HEADER'];
+    $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.8.0.min.js')) + $GLOBALS['BE']['HEADER'];
 }
 
 /**

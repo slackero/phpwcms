@@ -8,7 +8,9 @@ interface PunycodeInterface
 {
     public function __construct(
         ?int $idnVersion = null,
-        ?bool $useStd3AsciiRules = false
+        ?bool $useStd3AsciiRules = false,
+        bool $checkHyphens = true,
+        ?bool $checkBidi = null,
     );
 
     public function getPunycodePrefix(): string;

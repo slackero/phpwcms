@@ -757,7 +757,7 @@ $reason_types = array(
 	<link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
 	<?php echo get_brand_custom_css(); ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-	<script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
+	<script src="include/inc_js/jquery/jquery-3.8.0.min.js"></script>
 	<script src="include/inc_js/bootstrap.bundle.min.js"></script>
 	<?php echo getJavaScriptTranslations(); ?>
 	<script src="include/inc_js/phpwcms.min.js"></script>

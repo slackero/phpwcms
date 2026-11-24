@@ -1,7 +1,7 @@
 {
     "name": "algo26-matthias/idna-convert",
     "description": "A library for encoding and decoding internationalized domain names",
-    "license": "LGPL-2.1+",
+    "license": "LGPL-2.1-or-later",
     "keywords": ["PHP","IDN","IDNA"],
     "homepage": "https://github.com/algo26-matthias/idna-convert",
     "authors": [

@@ -18,7 +18,7 @@ Libraries a template's markup or settings pull in. Everything under `template/li
 | `cookieconsent2/` | Silktide consent scripts and themes | Template setting *Cookie consent v2* — the theme field names a CSS file in this directory, loaded with CDN fallback to cdnjs 1.0.10 | 
 | `cookieconsent3/` | orestbida `CookieConsent.run()` assets, components CSS and `lang/<lang>.json` translations | Template setting *Cookie consent v3*; CDN variant pulls jsdelivr 3.3.0 |
 | `glightbox/` | Lightbox | `initGlightbox()` (article summary and image lightboxes), options via `$phpwcms['glightbox_options']` |
-| `jquery/` | One minified jQuery per version, 1.3.2 through 4.0.0 plus migrate builds and `plugin/` | Selected by the template's JS library setting |
+| `jquery/` | One minified jQuery per version, 1.3.2 through 4.1.0 plus migrate builds and `plugin/` | Selected by the template's JS library setting |
 | `jquery/plugin/` | Standalone jQuery plugins: cycle, dimensions, easing, fancybox, mousewheel, switchClass, zebra_accordion | `<!-- JS: <name> -->` for any `jquery.<name>.js` file |
 | `simplegmaps/` | Google Maps wrapper | Content part templates load it via a `<!-- JS:{TEMPLATE}lib/simplegmaps/simplegmaps.min.js -->` comment, e.g. `template/inc_cntpart/tabs/simplegmaps.tmpl` |
 | `splide/` | Slider | Content part templates reference it through `<!-- CSS: template/lib/splide/splide.min.css -->` and `<!-- JS: template/lib/splide/splide.min.js -->`, e.g. `template/inc_cntpart/images/Splide-Slider-Single-Image.tmpl` |
@@ -34,7 +34,7 @@ Core frontend scripts served from the include tree:
 | `bootstrap.bundle.min.js` | Backend-side copy of the Bootstrap bundle |
 | `dropzone.min.js`, `exif.min.js`, `flatpickr.min.css/.js` | Upload and date picker assets for backend forms |
 | `dayjs.min.js` + `dayjs-locale/` | Date handling in the backend |
-| `jquery/jquery-3.7.1.min.js` | Backend jQuery |
+| `jquery/jquery-3.8.0.min.js` | Backend jQuery (frontend keeps `template/lib/jquery/jquery-3.7.1.min.js` and gains 3.8.0/4.1.0) |
 | `ace/` | Ace code editor used by the template and code editors in the backend |
 
 `template/inc_js/` is the template-side counterpart: `frontend.js` (loaded by `initFrontendJS()`, the template *frontend.js* switch or the legacy `frontend.js` detection) and `imagezoom.js` for the click-zoom image popup.
@@ -58,15 +58,15 @@ All entries land in the shared array `$block['custom_htmlhead']` keyed by MD5, s
 
 ## JS library wrappers
 
-The template's JS library setting selects one wrapper file, loaded as `include/inc_front/lib/js.` + name + `.inc.php`. `$phpwcms['js_lib_default']` merged in `default.inc.php` defines jQuery 1.4 through 4.0, each with `-migrate`, `-migrate-1` and `-slim` variants; `$phpwcms['js_lib_deprecated']` extends the list when deprecated rendering is on. `js.jquery.inc.php` (a legacy alias) and `js.jquery.default.php` (shared plugin/loader functions, e.g. `initJSPlugin()` and the `initSlimbox()` alias for `initGlightbox()`) are included by every wrapper.
+The template's JS library setting selects one wrapper file, loaded as `include/inc_front/lib/js.` + name + `.inc.php`. `$phpwcms['js_lib_default']` merged in `default.inc.php` defines jQuery 1.4 through 4.1.0, each with `-migrate`, `-migrate-1` and `-slim` variants; `$phpwcms['js_lib_deprecated']` extends the list when deprecated rendering is on. `js.jquery.inc.php` (a legacy alias) and `js.jquery.default.php` (shared plugin/loader functions, e.g. `initJSPlugin()` and the `initSlimbox()` alias for `initGlightbox()`) are included by every wrapper.
 
-An invalid library name falls back to the `jquery-3.7-migrate-1` wrapper. `PHPWCMS_USE_CDN` (template checkbox plus `$block['jslib']` wrapper) switches local copies to jquery.com/googleapis URLs.
+An invalid library name falls back to the `jquery-3.8-migrate` wrapper. `PHPWCMS_USE_CDN` (template checkbox plus `$block['jslib']` wrapper) switches local copies to jquery.com/googleapis URLs.
 
 ## Build managed files
 
 `npm run build` (scripts `build:css`, `build:js` in `package.json`) regenerates shipped third party assets from `node_modules`:
 
-- `include/build/build-js.js` — terser-minifies `include/inc_js/phpwcms.js`, copies Bootstrap bundle, Dropzone, Flatpickr, dayjs, jQuery 3.7.1, video.js, GLightbox and vanilla-cookieconsent into their destinations, syncs the Ace editor subset into `include/inc_js/ace/` and applies patched minification to the legacy cookieconsent2 script.
+- `include/build/build-js.js` — terser-minifies `include/inc_js/phpwcms.js`, copies Bootstrap bundle, Dropzone, Flatpickr, dayjs, jQuery 3.7.1, 3.8.0 and 4.1.0 (backend 3.8.0), video.js, GLightbox and vanilla-cookieconsent into their destinations, syncs the Ace editor subset into `include/inc_js/ace/` and applies patched minification to the legacy cookieconsent2 script.
 - `include/build/build-css.js` — copies Bootstrap, Bootstrap Icons, Dropzone, Flatpickr, Tom Select, Font Awesome solid, video.js, GLightbox and cookieconsent3 CSS.
 
 Destinations include both `include/inc_js/` (backend) and `template/lib/` (frontend). Do not hand-edit these copies — edit the npm dependency set and rebuild. `cookieconsent2/cookieconsent.min.js` is pinned by the build script rather than synced from a current node_modules package.

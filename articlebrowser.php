@@ -132,7 +132,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
         }
     </style>
 
-    <script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
+    <script src="include/inc_js/jquery/jquery-3.8.0.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/phpwcms.min.js"></script>
     <script src="include/inc_js/bootstrap.bundle.min.js"></script>

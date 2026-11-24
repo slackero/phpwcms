@@ -3,6 +3,20 @@ services:
     container_name: idna-convert-test
     build:
       context: .
-    command: ash -c "composer install && phpunit --display-notices --display-warnings"
+    command: >-
+      ash -c "composer install
+      && php -d pcov.enabled=0 vendor/bin/phpunit
+      --display-notices --display-warnings"
+    volumes:
+    - ./:/app
+
+  idna-convert-infection:
+    build:
+      context: .
+    command: >-
+      ash -c "composer install
+      && infection --configuration=infection.json5.dist
+      --only-covering-test-cases --min-msi=90 --min-covered-msi=90
+      --max-timeouts=40 --no-progress --no-interaction"
     volumes:
     - ./:/app

@@ -140,7 +140,7 @@
       // Year
       '%C' => function ($timestamp) {
         // Century (-1): 19 for 20th century
-        return floor($timestamp->format('Y') / 100);
+        return sprintf('%02d', intdiv((int) $timestamp->format('Y'), 100));
       },
       '%g' => function ($timestamp) {
         return substr($timestamp->format('o'), -2);

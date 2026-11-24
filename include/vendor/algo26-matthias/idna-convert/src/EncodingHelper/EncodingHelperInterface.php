@@ -10,5 +10,5 @@ interface EncodingHelperInterface
         string $sourceString,
         string $encoding = 'ISO-8859-1',
         bool $safeMode = false
-    );
+    ): string|false;
 }

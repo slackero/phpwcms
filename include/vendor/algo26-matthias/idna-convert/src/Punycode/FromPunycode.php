@@ -5,23 +5,29 @@ declare(strict_types=1);
 namespace Algo26\IdnaConvert\Punycode;
 
 use Algo26\IdnaConvert\Exception\InvalidCharacterException;
+use Algo26\IdnaConvert\Validation\PunycodeValidator;
 use OutOfBoundsException;
 
 class FromPunycode extends AbstractPunycode implements PunycodeInterface
 {
+    private PunycodeValidator $validator;
+
     public function __construct(
         ?int $idnVersion = null,
-        ?bool $useStd3AsciiRules = false
+        ?bool $useStd3AsciiRules = false,
+        bool $checkHyphens = true,
+        ?bool $checkBidi = null,
     ) {
+        $this->validator = new PunycodeValidator();
         parent::__construct();
     }
 
     /**
      * @throws InvalidCharacterException
      */
-    public function convert(string $encoded)
+    public function convert(string $encoded): string|false
     {
-        if (!$this->isValidPunycodeString($encoded)) {
+        if (!$this->validator->hasPayload($encoded)) {
             return false;
         }
 
@@ -89,50 +95,26 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
             $isFirst = false;
             $char += (int) ($currentIndex / ($decodedLength + 1));
             $currentIndex %= ($decodedLength + 1);
-            if ($decodedLength > 0) {
-                // Make room for the decoded char
-                for ($i = $decodedLength; $i > $currentIndex; $i--) {
-                    $decoded[$i] = $decoded[($i - 1)];
-                }
-            }
-            $decoded[$currentIndex++] = $char;
+            array_splice($decoded, $currentIndex, 0, [$char]);
+            ++$currentIndex;
         }
 
-        return $this->unicodeTransCoder->convert(
-            $decoded,
-            $this->unicodeTransCoder::FORMAT_UCS4_ARRAY,
-            $this->unicodeTransCoder::FORMAT_UTF8
-        );
-    }
-
-    private function isValidPunycodeString($encoded): bool
-    {
-        // Check for existence of the prefix
-        if (!str_starts_with($encoded, self::PUNYCODE_PREFIX)) {
-            return false;
-        }
-
-        // If nothing is left after the prefix, it is hopeless
-        if (strlen(trim($encoded)) <= strlen(self::PUNYCODE_PREFIX)) {
-            return false;
-        }
-
-        return true;
+        return $this->ucs4Codec->encode($decoded);
     }
 
     private function decodeDigit(string $codePoint): int
     {
         $codeAsInt = ord($codePoint);
 
-        if ($codeAsInt - 48 < 10) {
+        if (48 <= $codeAsInt && $codeAsInt <= 57) {
             return $codeAsInt - 22;
         }
 
-        if ($codeAsInt - 65 < 26) {
+        if (65 <= $codeAsInt && $codeAsInt <= 90) {
             return $codeAsInt - 65;
         }
 
-        if ($codeAsInt - 97 < 26) {
+        if (97 <= $codeAsInt && $codeAsInt <= 122) {
             return $codeAsInt - 97;
         }
 

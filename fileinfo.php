@@ -87,7 +87,7 @@ if($file_id) {
     <meta name="robots" content="noindex, nofollow" />
     <?php echo get_theme_boot_script(); ?>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css" />
-    <script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
+    <script src="include/inc_js/jquery/jquery-3.8.0.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/phpwcms.min.js"></script>
     <script>

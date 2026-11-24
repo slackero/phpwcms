@@ -276,7 +276,7 @@ header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
     </script>
 <?php
 
-$BE['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js');
+$BE['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.8.0.min.js');
 $BE['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/Sortable.min.js');
 $BE['HEADER']['alias_slash_var'] = ' <script>
    const aliasAllowSlashes=' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . ';

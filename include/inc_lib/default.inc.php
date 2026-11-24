@@ -301,9 +301,15 @@ $phpwcms['DOCTYPE_LANG'] = empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_l
 
 $phpwcms['js_lib_default'] = [
     'jQuery' => '-',
+        'jquery-4.1' => 'jQuery 4.1.0',
+        'jquery-4.1-migrate' => 'jQuery 4.1.0 + Migrate 4.0.2',
+        'jquery-4.1-slim' => 'jQuery Slim 4.1.0',
         'jquery-4.0' => 'jQuery 4.0.0',
         'jquery-4.0-migrate' => 'jQuery 4.0.0 + Migrate 4.0.2',
         'jquery-4.0-slim' => 'jQuery Slim 4.0.0',
+        'jquery-3.8' => 'jQuery 3.8.0',
+        'jquery-3.8-migrate' => 'jQuery 3.8.0 + Migrate 3.6.0',
+        'jquery-3.8-slim' => 'jQuery Slim 3.8.0',
         'jquery-3.7' => 'jQuery 3.7.1',
         'jquery-3.7-migrate' => 'jQuery 3.7.1 + Migrate 3.6.0',
         'jquery-3.7-migrate-1' => 'jQuery 3.7.1 + Migrate 1.4.1 + 3.6.0',
