@@ -23,18 +23,26 @@ if (empty($_GET['apikey']) || $action !== 'exportformresult') {
     checkLogin();
     validate_csrf_tokens();
 } else {
-    $apikey = clean_slweg($_GET['apikey']);
-    if (strlen($apikey) !== 16) {
+    // API key must be an alphanumeric 16-char token before it touches the database
+    $apikey = is_string($_GET['apikey']) ? $_GET['apikey'] : '';
+    if (!preg_match('/^[a-zA-Z0-9]{16}$/', $apikey)) {
         $apikey = '';
     } else {
-        $where_apikey = _dbEscape('direct_download_apikey";s:16:"' . $apikey . '"', true, '%', '%');
-        $where_allow = _dbEscape('direct_download";i:1', true, '%', '%');
+        // fetch the form by id and compare the stored key in PHP —
+        // never match user input via SQL LIKE (wildcard injection bypass)
         $form = _dbGet(
             'phpwcms_articlecontent',
             'acontent_id, acontent_form',
-            'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0 AND acontent_form LIKE ' . $where_allow . ' AND acontent_form LIKE ' . $where_apikey
+            'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0'
         );
-        if (empty($form[0]['acontent_id']) || intval($form[0]['acontent_id']) !== $fid) {
+        $stored_apikey = '';
+        if (is_array($form) && !empty($form[0]['acontent_id']) && intval($form[0]['acontent_id']) === $fid) {
+            $form_data = @unserialize($form[0]['acontent_form'], array('allowed_classes' => false));
+            if (is_array($form_data) && !empty($form_data['direct_download']) && isset($form_data['direct_download_apikey']) && is_scalar($form_data['direct_download_apikey'])) {
+                $stored_apikey = (string)$form_data['direct_download_apikey'];
+            }
+        }
+        if (!hash_equals($stored_apikey, $apikey)) {
             $apikey = '';
         }
     }
