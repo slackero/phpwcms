@@ -6,6 +6,22 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased][unreleased]
 
+## [2.10.8] - 2026-11-24
+
+### Changed
+- `max_delimiters_per_line` now counts each delimiter character instead of each run of delimiters, so `**` counts as 2 and a run of 50 underscores counts as 50; if you set a low limit, you may need to raise it
+- Attribute lists longer than 8192 bytes are no longer parsed by `AttributesExtension`
+- In an unquoted attribute value, a `}` now ends the attribute list unless another `}` follows in the same value; for example, `{a={1,2} #b}` now sets `a="{1,2"` and leaves ` #b}` as text. Quote values that contain `}`. Adjacent unquoted lists such as `{a=b}{c=d}` are now parsed as two lists instead of one
+- Malformed attribute lists such as `{a=ba=b}` and `{.a =b}` are now left as text; previously they were partially parsed and the rest silently dropped
+
+### Fixed
+- Fixed `max_delimiters_per_line` not limiting long runs of delimiters, allowing a single pair of very long `_` or `*` runs to produce deeply-nested emphasis that takes quadratic time to render, which could be abused to cause a denial of service (GHSA-h4px-59g8-q37c)
+- Fixed the `AttributesExtension` backtracking excessively when a paragraph or line contains many `{` that don't form a valid attribute list, which could be abused to cause a denial of service (GHSA-8q9g-2c37-97xp)
+- Fixed a line such as `[foo]: /url [bar]: /other` being parsed as a link reference definition for `bar` instead of a paragraph (#1174)
+- Fixed `AttributesExtension` throwing an error or rendering `class="1"` when given `class=true`; `class=true` and `id=true` now set the literal value `true` instead of a boolean attribute
+- Fixed `AttributesExtension` dropping attributes written with a space before `=` (`{x =true}`), and keeping the quotes in a value written with a space after `=` (`{x= "a b"}`)
+- Fixed `HeadingPermalinkExtension` throwing a `TypeError` when `apply_id_to_heading` is enabled and a heading's existing `id` attribute is not a string; an empty or non-string `id` is now replaced with the generated slug
+
 ## [2.10.7] - 2026-10-31
 
 ### Fixed
@@ -884,7 +900,8 @@ No changes were introduced since the previous release.
     - Alternative 1: Use `CommonMarkConverter` or `GithubFlavoredMarkdownConverter` if you don't need to customize the environment
     - Alternative 2: Instantiate a new `Environment` and add the necessary extensions yourself
 
-[unreleased]: https://github.com/thephpleague/commonmark/compare/2.10.7...HEAD
+[unreleased]: https://github.com/thephpleague/commonmark/compare/2.10.8...HEAD
+[2.10.8]: https://github.com/thephpleague/commonmark/compare/2.10.7...2.10.8
 [2.10.7]: https://github.com/thephpleague/commonmark/compare/2.10.6...2.10.7
 [2.10.6]: https://github.com/thephpleague/commonmark/compare/2.10.5...2.10.6
 [2.10.5]: https://github.com/thephpleague/commonmark/compare/2.10.4...2.10.5

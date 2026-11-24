@@ -3,7 +3,7 @@
         "vendor-dir": "include/vendor",
         "preferred-install": "dist",
         "platform": {
-            "php": "8.2.35"
+            "php": "8.2.0"
         }
     },
     "require": {
@@ -41,7 +41,6 @@
         "ext-curl": "*"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
         "phpstan/phpstan": "^2.3"
     },
     "scripts": {
