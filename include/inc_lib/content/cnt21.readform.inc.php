@@ -20,6 +20,24 @@ if (!defined('PHPWCMS_ROOT')) {
 // Content Type Page/ext. Content
 $content['page_file']['source'] = intval($_POST['cpage_source']);
 
+/**
+ * Whether a manually entered page address may be fetched.
+ *
+ * Content part 21 imports an external page. Only HTTP(S) is fetched; local
+ * stream wrappers such as file:// or php:// would turn the renderer into a
+ * reader for arbitrary files on the server.
+ *
+ * @param string $url
+ *
+ * @return bool
+ */
+function cnt21_external_url_allowed($url) {
+    $url    = (string) $url;
+    $scheme = strtolower((string) parse_url($url, PHP_URL_SCHEME));
+
+    return in_array($scheme, array('http', 'https'), true) && filter_var($url, FILTER_VALIDATE_URL) !== false;
+}
+
 if (!$content['page_file']['source']) {
 
 	$content['page_file']['pfile'] = isset($_POST['cpage_file']) ? clean_slweg($_POST['cpage_file']) : '';
@@ -36,17 +54,11 @@ if (!$content['page_file']['source']) {
 
 	$content['page_file']['pfile'] = clean_slweg($_POST['cpage_custom']);
 
-	if (!is_file($content['page_file']['pfile'])) {
-        $content['page_file']['pfile'] = filter_var($content['page_file']['pfile'], FILTER_SANITIZE_URL);
-        if (filter_var($content['page_file']['pfile'], FILTER_VALIDATE_URL)) {
-            list($content['page_file']['checkurl']) = explode('?', $content['page_file']['pfile']);
-            if (empty($content['page_file']['checkurl']) || !file_get_contents($content['page_file']['checkurl'])) {
-                $content['page_file']['pfile'] = '';
-            }
-            unset($content['page_file']['checkurl']);
-        } else {
-            $content['page_file']['pfile'] = '';
-        }
+	// The renderer fetches the page when the article is displayed. Probing it
+	// here as well would send a second request to an author supplied address
+	// from the backend.
+	if (!cnt21_external_url_allowed($content['page_file']['pfile'])) {
+		$content['page_file']['pfile'] = '';
 	}
 
 }

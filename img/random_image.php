@@ -13,22 +13,16 @@ $phpwcms = array();
 require_once '../include/config/conf.inc.php';
 require_once '../include/inc_lib/default.inc.php';
 
-//Random Pic send to browser
-$imgpath = trim($_GET["imgdir"]);
-$imgArray = array();
-
-
+// Random image sent to the browser
 $root_path = PHPWCMS_ROOT;
 if(!$root_path) {
 	$root_path = preg_replace('/(.*)([\/|\\\].(.*)){2}/', '$1', $_SERVER['PATH_TRANSLATED']);
 }
 
-if($imgpath) {
+$imgpath = phpwcms_image_dir_path(isset($_GET["imgdir"]) ? $_GET["imgdir"] : '', $root_path);
+$imgArray = array();
 
-	$imgpath = str_replace("\\", "/", $root_path."/".$imgpath."/");
-	$imgpath = str_replace("//", "/", $imgpath );
-	$imgpath = str_replace("../", "/", $imgpath );
-	$imgpath = str_replace("//", "/", $imgpath );
+if($imgpath) {
 
 	if(is_dir($imgpath)) {
 		$handle = opendir( $imgpath );

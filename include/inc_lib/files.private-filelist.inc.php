@@ -46,9 +46,9 @@ if(isset($file_result[0]['f_id'])) {
         echo "<td width=\"13\" class=\"msglist\">";
         echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" ";
         echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-        echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
+        echo '&lt;br&gt;Name: '.js_inline_string($file_row["f_name"]);
         if($file_row["f_copyright"]) {
-            echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
+            echo '&lt;br&gt;&copy;: '.js_inline_string($file_row["f_copyright"]);
         }
         echo '\');" onmouseout="UnTip()" alt=""';
         echo " /></td>\n";
