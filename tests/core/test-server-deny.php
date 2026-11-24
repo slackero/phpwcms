@@ -27,7 +27,14 @@ $configs = [
 
 $rules = [
     'private content storage' => 'content/(tmp|cache|log|backup',
-    'internal include directories' => 'include/(config|vendor|inc_act|inc_front|inc_help|inc_lang|inc_lib|inc_module|inc_tmpl)',
+    'internal include directories' => 'include/(config',
+    'inc_front directory' => '|inc_front',
+    'inc_help directory' => '|inc_help',
+    'inc_lang directory' => '|inc_lang',
+    'inc_lib directory' => '|inc_lib',
+    'inc_tmpl except the cnt51 popup' => 'inc_tmpl/(?!content/cnt51\.open\.php$)',
+    'inc_module stays filtered around the shop API' => 'api\.shop\.php',
+    'vendor except TinyMCE' => 'include/vendor/(?!tinymce/|mklkj/tinymce-i18n/)',
     'include/inc_ext except ckeditor' => 'include/inc_ext',
     'upload directory' => 'upload',
     'tests directory' => 'tests',
@@ -45,6 +52,41 @@ check(str_contains($configs['nginx.conf'], 'sql|log|bak|dist'), 'nginx denies se
 check(str_contains($configs['.htaccess'], 'sql|log|bak|dist'), '.htaccess denies sensitive extensions');
 check(str_contains($configs['web.config'], 'fileExtension=".sql"'), 'web.config denies sensitive extensions');
 check(!preg_match('#location\s+~\s+\^/content/\(tmp#', $configs['nginx.conf']), 'nginx patterns stay unanchored');
+check(str_contains($configs['.htaccess'], 'include/build'), '.htaccess blocks build scripts');
+check(str_contains($configs['_.htaccess'], 'include/build'), '_.htaccess blocks build scripts');
+check(str_contains($configs['nginx.conf'], 'include/build'), 'nginx blocks build scripts');
+preg_match('#<rule name="Block private paths".*?</rule>#s', $configs['web.config'], $web_private_rule);
+check(str_contains($web_private_rule[0] ?? '', '|build'), 'web.config blocks build scripts');
+
+// include/inc_act holds browser-invoked action endpoints and must stay reachable.
+check(!preg_match('#^RedirectMatch\s+404\s+.*inc_act#m', $configs['.htaccess']), '.htaccess does not block include/inc_act');
+check(!preg_match('#^RedirectMatch\s+404\s+.*inc_act#m', $configs['_.htaccess']), '_.htaccess does not block include/inc_act');
+check(!preg_match('#location\s+~[^{]*inc_act[^{]*\{#', $configs['nginx.conf']), 'nginx does not block include/inc_act');
+preg_match('#<rule name="Block private paths".*?</rule>#s', $configs['web.config'], $private_rule);
+check(!str_contains($private_rule[0] ?? '', 'inc_act'), 'web.config does not block include/inc_act');
+check(str_contains($configs['web.config'], '|inc_act)'), 'web.config allows include/inc_act');
+
+// PHP execution rules must not blanket-deny include/.
+check(
+    !preg_match('#location\s+~\s+/\(content\|include\|#', $configs['nginx.conf']),
+    'nginx PHP rule no longer blocks all of include/'
+);
+preg_match('#<rule name="Block PHP in private directories".*?</rule>#s', $configs['web.config'], $php_rule);
+check($php_rule !== [], 'web.config PHP deny rule exists');
+check(
+    !preg_match('#\^include/\.\*#', $php_rule[0] ?? ''),
+    'web.config PHP rule no longer blocks all of include/'
+);
+
+// PHP must not execute from a module template directory either.
+check(
+    str_contains($configs['.htaccess'], '/include/inc_module/(?!.*/api\.shop\.php$).*\.php$'),
+    '.htaccess denies PHP in include/inc_module'
+);
+check(
+    str_contains($configs['nginx.conf'], '/include/inc_module/(?!.*/api\.shop\.php$).*\.php$'),
+    'nginx denies PHP in include/inc_module'
+);
 check(str_contains($configs['web.config'], 'Allow root PHP entry points'), 'web.config allows root PHP entry scripts (includes formfile.php)');
 check(str_contains($configs['web.config'], 'url="^[^/]+\\.php$"'), 'web.config root PHP rule matches root-level .php files');
 
@@ -52,7 +94,6 @@ $private_dirs = [
     'content/form',
     'content/cache',
     'include/config',
-    'include/vendor',
     'upload',
     'filearchive',
     'tests',
@@ -62,6 +103,22 @@ foreach ($private_dirs as $dir) {
     check($source !== '', "$dir/.htaccess exists");
     check(stripos($source, 'deny') !== false, "$dir/.htaccess denies access");
 }
+
+// A per-directory Require/If file inside vendor is not used: <If> needs
+// AllowOverride All and answers 500 on stricter hosts. The root rules carry
+// the vendor deny, with the TinyMCE exception.
+$vendor_htaccess = read_or_empty($root . '/include/vendor/.htaccess');
+check(!str_contains($vendor_htaccess, '<If '), 'include/vendor/.htaccess has no AllowOverride-dependent <If>');
+
+$editor = read_or_empty($root . '/include/inc_lib/wysiwyg.editor.inc.php');
+check(
+    str_contains($editor, 'include/vendor/tinymce/tinymce/tinymce.min.js'),
+    'TinyMCE editor script loads from the allowed vendor path'
+);
+check(
+    str_contains($editor, 'include/vendor/mklkj/tinymce-i18n/langs/'),
+    'TinyMCE language files load from the allowed vendor path'
+);
 
 check(!is_dir($root . '/content/less'), 'unused content/less is removed');
 

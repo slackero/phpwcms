@@ -8,7 +8,17 @@ RedirectMatch 404 /(composer\.(json|lock)|package(-lock)?\.json|Dockerfile|docke
 # are blocked separately. Patterns are not anchored to the document root, so
 # they also apply to installations in a subfolder.
 RedirectMatch 404 /content/(tmp|cache|log|backup|form)/
-RedirectMatch 404 /include/(config|vendor|inc_act|inc_front|inc_help|inc_lang|inc_lib|inc_module|inc_tmpl)/
+RedirectMatch 404 /include/(config|inc_front|inc_help|inc_lang|inc_lib)/
+# include/inc_act hosts the browser-invoked action endpoints, so it stays
+# reachable. include/inc_tmpl opens one popup only; include/inc_module serves
+# its template assets and the shop API only.
+RedirectMatch 404 /include/inc_tmpl/(?!content/cnt51\.open\.php$)
+RedirectMatch 404 /include/inc_module/(?!.*/api\.shop\.php$).*\.php$
+RedirectMatch 404 /include/inc_module/(?!.*/template/)(?!.*/api\.shop\.php$)
+RedirectMatch 404 /include/build(?:/|$)
+# Vendor stays private except TinyMCE and its language packs, which the
+# browser loads as editor assets straight from the vendor directory.
+RedirectMatch 404 /include/vendor/(?!tinymce/|mklkj/tinymce-i18n/)
 RedirectMatch 404 /include/inc_ext/(?!ckeditor/)
 RedirectMatch 404 /upload/
 RedirectMatch 404 /tests/

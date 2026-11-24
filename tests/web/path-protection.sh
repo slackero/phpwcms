@@ -16,10 +16,17 @@ FIXTURES=(
     content/images/probe.txt
     include/config/probe.txt
     include/vendor/probe.txt
+    include/vendor/tinymce/tinymce/probe.js
+    include/vendor/mklkj/tinymce-i18n/langs/probe.js
     include/inc_lib/probe.php
     include/inc_css/probe.css
     include/inc_ext/ckeditor/probe.txt
     include/inc_act/probe.php
+    include/inc_module/probe.php
+    include/inc_module/mod_ads/template/probe.js
+    include/inc_module/mod_ads/template/probe.php
+    include/inc_tmpl/probe.php
+    include/build/probe.js
     tests/probe.txt
     upload/probe.txt
     filearchive/probe.txt
@@ -36,7 +43,10 @@ DENY=(
     include/config/probe.txt
     include/vendor/probe.txt
     include/inc_lib/probe.php
-    include/inc_act/probe.php
+    include/inc_module/probe.php
+    include/inc_module/mod_ads/template/probe.php
+    include/inc_tmpl/probe.php
+    include/build/probe.js
     tests/probe.txt
     upload/probe.txt
     filearchive/probe.txt
@@ -49,8 +59,17 @@ ALLOW=(
     content/images/probe.txt
     include/inc_css/probe.css
     include/inc_ext/ckeditor/probe.txt
+    include/inc_module/mod_ads/template/probe.js
+    include/vendor/tinymce/tinymce/probe.js
+    include/vendor/mklkj/tinymce-i18n/langs/probe.js
     template/probe.txt
     img/probe.txt
+)
+# Must reach the application (any status except a server-side deny)
+REACH=(
+    include/inc_act/probe.php
+    include/inc_tmpl/content/cnt51.open.php
+    include/inc_module/mod_shop/api.shop.php
 )
 
 CREATED=()
@@ -99,6 +118,17 @@ for base in "$APACHE_URL" "$NGINX_URL"; do
     done
     for path in "${ALLOW[@]}"; do
         check "$base" "$path" 200
+    done
+
+    # Browser-invoked endpoints must reach PHP, never the server deny rules.
+    for path in "${REACH[@]}"; do
+        code=$(curl -s -o /dev/null -w '%{http_code}' --path-as-is "$base/$path")
+        if [ "$code" = "403" ] || [ "$code" = "404" ] || [ "$code" -ge 500 ]; then
+            printf 'FAIL %-40s %s endpoint blocked or crashed (%s)\n' "$path" "$base" "$code"
+            failures=$((failures + 1))
+        else
+            printf 'OK   %-40s %s %s\n' "$path" "$base" "$code"
+        fi
     done
 
     # The document root must not be answered with 404 by the deny rule.

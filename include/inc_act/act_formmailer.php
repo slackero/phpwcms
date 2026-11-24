@@ -16,7 +16,7 @@ $url = $phpwcms["site"];
 $url = str_replace('http://', '', $url);
 $url = str_replace('https://', '', $url);
 $url = preg_replace('/\/$/', '', $url);
-$ref = $_SERVER['HTTP_REFERER'];
+$ref = $_SERVER['HTTP_REFERER'] ?? '';
 $ref = str_replace('http://', '', $ref);
 $ref = str_replace('https://', '', $ref);
 if( strpos($ref, $url) === false) {
