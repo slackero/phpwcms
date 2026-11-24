@@ -58,6 +58,49 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
+/**
+ * Whether the requester may export the results of a form.
+ *
+ * A backend session and CSRF token only prove who the request belongs to;
+ * they do not authorize the requested form. The form has to belong to an
+ * article the user may edit, the same rule the form editor applies. The
+ * direct-download API key is already validated against the form above and
+ * authorizes that form on its own.
+ *
+ * @param int    $fid    Content part id of the form
+ * @param string $apikey Validated API key, empty for a session export
+ *
+ * @return bool
+ */
+function form_export_is_allowed($fid, $apikey) {
+    if ($apikey !== '') {
+        return true;
+    }
+    if (has_article_edit_all_permission()) {
+        return true;
+    }
+
+    $fid  = (int) $fid;
+    $form = _dbGet(
+        'articlecontent',
+        'acontent_id',
+        'acontent_id=' . $fid . ' AND acontent_type=23' .
+        articlecontent_owner_restriction((int) $_SESSION['wcs_user_id'], false)
+    );
+
+    return !empty($form[0]['acontent_id']) && (int) $form[0]['acontent_id'] === $fid;
+}
+
+if (
+    $fid
+    && in_array($action, ['exportformresult', 'exportformresultdetail'], true)
+    && !form_export_is_allowed($fid, $apikey)
+) {
+    echo '<html><body><h1>403 Forbidden</h1></body></html>';
+    headerRedirect('', 403, false);
+    die();
+}
+
 // export form results
 if ($action === 'exportformresult' && $fid) {
     $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date  FROM " . DB_PREPEND . 'formresult WHERE formresult_pid=' . $fid);

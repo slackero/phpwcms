@@ -1653,6 +1653,58 @@ function html_specialchars($string = '', $quote_mode = ENT_QUOTES, $charset = PH
 }
 
 /**
+ * Check that a resolved path is the given root directory or inside it.
+ * Compares on path separator boundaries, so a sibling directory sharing
+ * the same prefix (e.g. /var/www/site-evil for root /var/www/site) is
+ * not treated as contained.
+ *
+ * @param string $path
+ * @param string $root
+ *
+ * @return bool
+ */
+function path_is_within($path, $root) {
+    $path = rtrim(str_replace('\\', '/', (string) $path), '/');
+    $root = rtrim(str_replace('\\', '/', (string) $root), '/');
+    if ($path === '' || $root === '') {
+        return false;
+    }
+    return $path === $root || str_starts_with($path, $root . '/');
+}
+
+/**
+ * Resolve an image directory requested relative to PHPWCMS_ROOT.
+ *
+ * The raw value is not sanitized with string replacements; it is resolved
+ * first and accepted only when the real path stays inside the root. This
+ * rejects `..` escapes and symlinks that leave the installation, so a public
+ * image endpoint cannot enumerate files outside the document root.
+ *
+ * @param mixed  $imgdir Relative directory, as sent in a request
+ * @param string $root   Root directory to contain the result; defaults to PHPWCMS_ROOT
+ *
+ * @return string Absolute directory with trailing slash, or '' when rejected
+ */
+function phpwcms_image_dir_path($imgdir, $root = '') {
+    if (!is_string($imgdir) || trim($imgdir) === '') {
+        return '';
+    }
+
+    $root = $root !== '' ? $root : PHPWCMS_ROOT;
+    $root = realpath($root);
+    if ($root === false) {
+        return '';
+    }
+
+    $path = realpath($root . '/' . ltrim(str_replace('\\', '/', trim($imgdir)), '/'));
+    if ($path === false || !is_dir($path) || !path_is_within($path, $root)) {
+        return '';
+    }
+
+    return rtrim(str_replace('\\', '/', $path), '/') . '/';
+}
+
+/**
  * Return login.php
  */
 function get_login_file() {

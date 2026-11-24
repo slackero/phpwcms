@@ -52,10 +52,13 @@ if(isset($file_result[0]['f_id'])) {
         echo "<td width=30>";
         echo "<span class=\"admin-slist \" data-bs-toggle=\"tooltip\" data-bs-html=\"true\" ";
 
+        // The tooltip renders its title as HTML. User supplied values are
+        // escaped with double encoding, otherwise an entity such as
+        // &lt;img onerror=...&gt; survives html() and becomes markup again.
         echo 'title="ID: '.$file_row["f_id"].' <br>Sort: . '.$file_row["f_sort"];
-        echo '<br>Name: '.html($file_row["f_name"]);
+        echo '<br>Name: '.html($file_row["f_name"], true);
         if($file_row["f_copyright"]) {
-            echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
+            echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"], true);
         }
         echo '">';
         echo "<i class=\"fa-solid fa-".extimg($file_row["f_ext"])."\"";

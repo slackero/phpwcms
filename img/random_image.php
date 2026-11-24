@@ -12,13 +12,11 @@ $phpwcms = [];
 require_once '../include/config/conf.inc.php';
 require_once '../include/inc_lib/default.inc.php';
 
-//Random Pic send to browser
-$imgpath = trim($_GET['imgdir']);
+// Random image sent to the browser
+$imgpath = phpwcms_image_dir_path($_GET['imgdir'] ?? '');
 $imgArray = [];
 
 if($imgpath) {
-    $imgpath = str_replace(["\\", '//', '../', '//'], '/', PHPWCMS_ROOT . '/' . $imgpath . '/');
-
 	if(is_dir($imgpath)) {
 		$handle = opendir( $imgpath );
 		while($file = readdir( $handle )) {

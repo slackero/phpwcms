@@ -639,6 +639,40 @@ function is_user_in_group($user_id, $group_syskey)
 }
 
 /**
+ * Check if a user holds a backend module permission.
+ *
+ * Module permissions are stored in the same grant table but identified by
+ * group_modkey (the module name) instead of group_syskey. phpwcms.php uses
+ * the same rows to build its $modulearray gate.
+ *
+ * @access public
+ * @param int $user_id The unique user ID.
+ * @param string $module_key The module name.
+ * @return bool True if the user is granted the module, false otherwise.
+ */
+function is_user_in_module_group($user_id, $module_key)
+{
+    static $module_cache = [];
+
+    $user_id = (int)$user_id;
+    if (!$user_id || $module_key === '') {
+        return false;
+    }
+
+    if (!isset($module_cache[$module_key])) {
+        $sql = 'SELECT group_member FROM ' . DB_PREPEND . 'usergroup WHERE group_modkey = ' . _dbEscape($module_key) . ' AND group_active = 1 AND group_trash = 0 LIMIT 1';
+        $result = _dbQuery($sql);
+        if (isset($result[0]['group_member']) && trim($result[0]['group_member']) !== '') {
+            $module_cache[$module_key] = sanitize_int_array($result[0]['group_member']);
+        } else {
+            $module_cache[$module_key] = [];
+        }
+    }
+
+    return in_array($user_id, $module_cache[$module_key], true);
+}
+
+/**
  * Check if the current user has permission for a specific admin action.
  * Super-administrators bypass this check and are always authorized.
  *

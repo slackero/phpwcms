@@ -165,9 +165,12 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                     echo '<tr'.$row_class.">\n";
                     echo "<td width=30>";
-                    echo '<i class="fa-solid fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                    // Double encoding keeps entities in user supplied values
+                    // inert: the tooltip renders its title as HTML, so a
+                    // single encoded &lt;img onerror=...&gt; would execute.
+                    echo '<i class="fa-solid fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"], true);
                     if($file_row["f_copyright"]) {
-                        echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
+                        echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"], true);
                     }
                     echo '"></i>'.LF;
                     echo '</td>'.LF;
