@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-phpwcms-legacy',
-        'version' => 'dev-phpwcms-legacy',
-        'reference' => '0d26a56f9f32a4ffd544276a63e3f441a4273438',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'dc06a17b900e29f8b8f608b4d17279e7740b5763',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-phpwcms-legacy',
-            'version' => 'dev-phpwcms-legacy',
-            'reference' => '0d26a56f9f32a4ffd544276a63e3f441a4273438',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'dc06a17b900e29f8b8f608b4d17279e7740b5763',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -83,9 +83,9 @@
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(
-            'pretty_version' => '2.10.7',
-            'version' => '2.10.7.0',
-            'reference' => '8eb53e906fd60c67038d22f1f1cab420ed58b8be',
+            'pretty_version' => '2.10.9',
+            'version' => '2.10.9.0',
+            'reference' => 'ab5ff8c80fd69abaeb4d57d7711d389248f219e4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/commonmark',
             'aliases' => array(),
@@ -182,9 +182,9 @@
             'dev_requirement' => false,
         ),
         'phpoffice/phpspreadsheet' => array(
-            'pretty_version' => '1.30.8',
-            'version' => '1.30.8.0',
-            'reference' => '8cbf46b81d25f5e8af8b5710b841ec0462c63421',
+            'pretty_version' => '1.30.9',
+            'version' => '1.30.9.0',
+            'reference' => '8046fafd702b3a5b92f6e2adcee9c30d6426ea65',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoffice/phpspreadsheet',
             'aliases' => array(),

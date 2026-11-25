@@ -345,13 +345,264 @@ function generic_string($length, $i = 0) {
         default:
             $chars = $p[0] . $p[2] . $p[1];
     }
-    mt_srand(intval(microtime(true) * 1000000));
     $count = strlen($chars) - 1;
     for ($i = 0; $i < $length; $i++) {
-        $gen_string .= substr($chars, mt_rand(0, $count), 1);
+        $gen_string .= substr($chars, random_int(0, $count), 1);
     }
 
     return $gen_string;
+}
+
+/**
+ * Storage group for the active password reset token of one account.
+ *
+ * Tokens live in phpwcms_sysvalue, so recovery needs no schema change. The
+ * group is derived from the account, which keeps one active token per account
+ * and allows the previous token to be dropped when a new one is issued.
+ *
+ * @param string $scope 'userdetail' or 'user'
+ * @param int    $id    Account id in that scope
+ *
+ * @return string Group name, or '' for an invalid scope or id
+ */
+function phpwcms_password_reset_group($scope, $id) {
+    $scope = preg_replace('/[^a-z_]/', '', strtolower((string)$scope));
+    $id = (int)$id;
+    if ($scope === '' || $id < 1) {
+        return '';
+    }
+
+    return 'felogin_reset_' . $scope . '_' . $id;
+}
+
+/**
+ * Issue a single-use password reset token for an account.
+ *
+ * The token itself is never stored, only its SHA-256 hash. Issuing a new
+ * token drops the previous one, so a reminder request invalidates older
+ * links. Tokens expire after one hour by default.
+ *
+ * @param string $scope 'userdetail' or 'user'
+ * @param int    $id    Account id in that scope
+ * @param int    $ttl   Lifetime in seconds
+ *
+ * @return string|false Token, or false when it could not be stored
+ */
+function phpwcms_password_reset_token_create($scope, $id, $ttl = 3600) {
+    $group = phpwcms_password_reset_group($scope, $id);
+    if ($group === '') {
+        return false;
+    }
+
+    $now = time();
+
+    // Drop the account's previous token, plus tokens and rate buckets that
+    // expired long ago, so the sysvalue table does not grow forever.
+    _dbQuery('DELETE FROM ' . DB_PREPEND . 'sysvalue WHERE sysvalue_group=' . _dbEscape($group), 'DELETE');
+    _dbQuery(
+        'DELETE FROM ' . DB_PREPEND . "sysvalue WHERE sysvalue_group LIKE 'felogin\\_reset\\_%' AND sysvalue_lastchange<" . ($now - 86400),
+        'DELETE'
+    );
+    _dbQuery(
+        'DELETE FROM ' . DB_PREPEND . "sysvalue WHERE sysvalue_group='felogin_rate' AND sysvalue_lastchange<" . ($now - 86400),
+        'DELETE'
+    );
+
+    try {
+        $token = bin2hex(random_bytes(32));
+    } catch (Exception $e) {
+        return false;
+    }
+
+    $stored = _dbInsertOrUpdate('sysvalue', array(
+        'sysvalue_key' => 'felogin_reset_' . hash('sha256', $token),
+        'sysvalue_group' => $group,
+        'sysvalue_lastchange' => time(),
+        'sysvalue_status' => 1,
+        'sysvalue_vartype' => 'string',
+        'sysvalue_value' => json_encode(array(
+            'scope' => preg_replace('/[^a-z_]/', '', strtolower((string)$scope)),
+            'id' => (int)$id,
+            'expires' => time() + max(60, (int)$ttl),
+        )),
+    ));
+
+    return $stored ? $token : false;
+}
+
+/**
+ * Read a password reset token without consuming it.
+ *
+ * @param mixed $token Token from the reset link
+ *
+ * @return array|false Scope, account id and expiry, or false when invalid
+ */
+function phpwcms_password_reset_token_lookup($token) {
+    if (!is_string($token) || !preg_match('/^[a-f0-9]{64}$/', $token)) {
+        return false;
+    }
+
+    $rows = _dbGet(
+        'sysvalue',
+        'sysvalue_value',
+        'sysvalue_key=' . _dbEscape('felogin_reset_' . hash('sha256', $token)) . ' AND sysvalue_status=1'
+    );
+    if (empty($rows[0]['sysvalue_value'])) {
+        return false;
+    }
+
+    $data = json_decode($rows[0]['sysvalue_value'], true);
+    if (!is_array($data) || empty($data['scope']) || empty($data['id']) || empty($data['expires'])) {
+        return false;
+    }
+    if ((int)$data['expires'] < time()) {
+        phpwcms_password_reset_token_forget($token);
+
+        return false;
+    }
+
+    return $data;
+}
+
+/**
+ * Consume a password reset token.
+ *
+ * The row is deleted before the caller changes the password, so a replayed
+ * request cannot reset the account twice.
+ *
+ * @param mixed $token Token from the submitted form
+ *
+ * @return array|false Scope and account id, or false when invalid
+ */
+function phpwcms_password_reset_token_consume($token) {
+    $data = phpwcms_password_reset_token_lookup($token);
+    if ($data === false) {
+        return false;
+    }
+
+    // The row delete is the single-use gate: only the request whose DELETE
+    // removed the row may change the password. Two parallel submissions see
+    // AFFECTED_ROWS=1 once and 0 for the loser.
+    $result = _dbQuery(
+        'DELETE FROM ' . DB_PREPEND . 'sysvalue WHERE sysvalue_key=' . _dbEscape('felogin_reset_' . hash('sha256', $token)),
+        'DELETE'
+    );
+    if (empty($result['AFFECTED_ROWS'])) {
+        return false;
+    }
+
+    return $data;
+}
+
+/**
+ * Put a consumed token back when the password could not be saved.
+ *
+ * Without this a database error would leave the account without a working
+ * reset link until a new reminder is requested.
+ *
+ * @param string $token Token that was consumed
+ * @param array  $data  Scope, account id and expiry from the consumed row
+ *
+ * @return bool
+ */
+function phpwcms_password_reset_token_restore($token, $data) {
+    if (!is_string($token) || !preg_match('/^[a-f0-9]{64}$/', $token) || !is_array($data)) {
+        return false;
+    }
+    if (empty($data['scope']) || empty($data['id']) || empty($data['expires']) || (int)$data['expires'] < time()) {
+        return false;
+    }
+
+    $group = phpwcms_password_reset_group($data['scope'], $data['id']);
+    if ($group === '') {
+        return false;
+    }
+
+    return (bool)_dbInsertOrUpdate('sysvalue', array(
+        'sysvalue_key' => 'felogin_reset_' . hash('sha256', $token),
+        'sysvalue_group' => $group,
+        'sysvalue_lastchange' => time(),
+        'sysvalue_status' => 1,
+        'sysvalue_vartype' => 'string',
+        'sysvalue_value' => json_encode(array(
+            'scope' => preg_replace('/[^a-z_]/', '', strtolower((string)$data['scope'])),
+            'id' => (int)$data['id'],
+            'expires' => (int)$data['expires'],
+        )),
+    ));
+}
+
+/**
+ * Build the reset link used in the reminder mail.
+ *
+ * The link is sent as plain text, so the query string must use the raw `&`
+ * separator. rel_url()'s default htmlspecialchars format would turn it into
+ * `&amp;` and the mail client would pass `amp;token` as the parameter name.
+ *
+ * @param string $token    Token from phpwcms_password_reset_token_create()
+ * @param string $site_url Mail site URL prefix, already validated
+ *
+ * @return string
+ */
+function phpwcms_password_reset_url($token, $site_url = '') {
+    $token = (string)$token;
+    if (!preg_match('/^[a-f0-9]{64}$/', $token)) {
+        return '';
+    }
+
+    return (string)$site_url . rel_url(
+        array('profile_reminder' => '1', 'token' => $token),
+        array('profile_manage', 'profile_register', 'feLogout'),
+        '',
+        ''
+    );
+}
+
+/**
+ * Drop a password reset token row.
+ *
+ * @param string $token
+ *
+ * @return void
+ */
+function phpwcms_password_reset_token_forget($token) {
+    if (!is_string($token) || !preg_match('/^[a-f0-9]{64}$/', $token)) {
+        return;
+    }
+
+    _dbQuery('DELETE FROM ' . DB_PREPEND . 'sysvalue WHERE sysvalue_key=' . _dbEscape('felogin_reset_' . hash('sha256', $token)), 'DELETE');
+}
+
+/**
+ * Throttle anonymous password recovery requests.
+ *
+ * The timestamp of the last request is stored per bucket, so a bot cannot
+ * flood the reminder mail or the reset form without changing its identity.
+ *
+ * @param string $bucket  Request origin, for example IP and action
+ * @param int    $seconds Minimum interval
+ *
+ * @return bool True when the caller must be throttled
+ */
+function phpwcms_password_reset_rate_limited($bucket, $seconds = 60) {
+    $key = 'felogin_rate_' . hash('sha256', (string)$bucket);
+    $now = time();
+    $rows = _dbGet('sysvalue', 'sysvalue_value', 'sysvalue_key=' . _dbEscape($key));
+
+    if (!empty($rows[0]['sysvalue_value']) && (int)$rows[0]['sysvalue_value'] > $now - max(1, (int)$seconds)) {
+        return true;
+    }
+
+    _dbInsertOrUpdate('sysvalue', array(
+        'sysvalue_key' => $key,
+        'sysvalue_group' => 'felogin_rate',
+        'sysvalue_lastchange' => $now,
+        'sysvalue_status' => 1,
+        'sysvalue_vartype' => 'int',
+        'sysvalue_value' => $now,
+    ));
+
+    return false;
 }
 
 function genlogname() {
@@ -620,6 +871,32 @@ function get_list_of_file_keywords() {
 function js_singlequote($t = '') {
     // make singe quotes js compatible
     return str_replace(array("\\", "&#92;", "'", '"'), array("\\\\", "\\\\", '&#39;', '&quot;'), $t);
+}
+
+/**
+ * Escape a value for a single-quoted JavaScript string inside an HTML
+ * attribute.
+ *
+ * The HTML parser decodes character references before JavaScript runs, so an
+ * entity such as &#39; cannot protect the string delimiter. Escape backslash,
+ * quote and line breaks at JavaScript level, then HTML-encode the result for
+ * the attribute.
+ *
+ * @param string $value
+ *
+ * @return string
+ */
+function js_inline_string($value) {
+    $value = str_replace(
+        array('\\', "'", "\r", "\n"),
+        array('\\\\', "\\'", '\\r', '\\n'),
+        (string) $value
+    );
+
+    // Double encode: a literal entity such as &#39; contains no raw quote, so
+    // escaping alone would leave it to be decoded back into a quote by the
+    // HTML parser before the handler runs.
+    return html($value, true);
 }
 
 function get_tmpl_files($dir = '', $ext = '', $sort = true) {
@@ -1689,28 +1966,116 @@ function form_upload_filename($filename) {
 }
 
 /**
- * Check the extension of the name an upload is stored as.
+ * Load the shared upload extension lists once per request.
  *
- * The extension has to be checked after sanitize_filename(), because the
+ * @return array{executable: string[], disallowed: string[]}
+ */
+function form_upload_extension_lists() {
+    /** @var array{executable: string[], disallowed: string[]}|null $lists */
+    static $lists = null;
+
+    if ($lists === null) {
+        // Plain require on purpose: require_once returns true on the second
+        // include and would hand back a bool instead of the lists. The closure
+        // keeps the file's own variables out of this scope.
+        $lists = (static function () {
+            return require PHPWCMS_ROOT . '/include/inc_lib/upload-extensions.inc.php';
+        })();
+    }
+
+    return $lists;
+}
+
+/**
+ * Extensions a web server executes or reads as configuration.
+ *
+ * Hard-coded on purpose: these must be rejected even when an installation
+ * adds them to allowed_upload_ext or to a form upload allow rule. Keep this
+ * set free of formats an editor may legitimately serve (html, svg, xml, js,
+ * css) — those stay governed by the allowlist.
+ *
+ * @return string[]
+ */
+function form_upload_executable_extensions() {
+    return form_upload_extension_lists()['executable'];
+}
+
+/**
+ * Extensions an upload must never carry.
+ *
+ * Shared by the frontend form upload check and by the backend upload name
+ * sanitizer, so both use the same list. Always contains the hard-coded
+ * server-executed set from form_upload_executable_extensions().
+ *
+ * @return string[]
+ */
+function form_upload_disallowed_extensions() {
+    $lists = form_upload_extension_lists();
+
+    return $lists['disallowed'];
+}
+
+/**
+ * Check every dot-separated extension of the name an upload is stored as.
+ *
+ * The extensions have to be checked after sanitize_filename(), because the
  * sanitizer can remove a trailing dot and expose a dangerous extension the
- * raw multipart name hid from the check.
+ * raw multipart name hid from the check. Checking every segment after the
+ * first dot also blocks multi-extension names such as notes.php.5 that
+ * Apache mod_mime can still map to a handler under AddHandler/AddType.
  *
  * @param string $filename
  *
  * @return bool
  */
 function form_upload_extension_disallowed($filename) {
-    $disallowed_ext = array(
-        'php', 'php2', 'php3', 'php4', 'php5', 'php6', 'php7', 'php8', 'php9',
-        'phtml', 'pht', 'phar', 'phps', 'inc',
-        'asp', 'aspx', 'cfm', 'cgi', 'pl', 'py', 'sh', 'bash',
-        'exe', 'com', 'bat', 'cmd', 'msi', 'bin', 'dll', 'vbs', 'wsf', 'scr',
-        'app', 'jar', 'java', 'js',
-        'htaccess', 'htpasswd', 'ini', 'env', 'conf', 'bak', 'sql',
-        'shtml', 'shtm'
-    );
+    $disallowed_ext = form_upload_disallowed_extensions();
 
-    return in_array(which_ext($filename), $disallowed_ext, true);
+    $segments = explode('.', strtolower($filename));
+    array_shift($segments);
+
+    foreach ($segments as $segment) {
+        if (in_array($segment, $disallowed_ext, true)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Build the name an upload is stored as together with its extension.
+ *
+ * Trailing dots are dropped, because which_ext() cannot see an extension
+ * behind them and some servers strip them before matching a handler.
+ * A dot-separated segment that names a handler extension is joined to the
+ * preceding segment with an underscore, so notes.php.5 is stored as
+ * notes_php.5 and mod_mime cannot map the embedded .php. The final
+ * extension itself is only checked by the caller, which keeps ordinary
+ * backend formats such as page.html or data.de.json uploadable.
+ *
+ * @param string $filename
+ *
+ * @return array{0: string, 1: string, 2: string} sanitized name, extension, stored name
+ */
+function upload_stored_name($filename) {
+    $filename = rtrim(sanitize_filename($filename), '. ');
+    $extension = which_ext($filename);
+
+    if ($extension === '') {
+        return array($filename, '', $filename);
+    }
+
+    $disallowed_ext = form_upload_disallowed_extensions();
+    $segments = explode('.', $filename);
+    array_pop($segments);
+    $stored = (string) array_shift($segments);
+
+    foreach ($segments as $segment) {
+        $stored .= (in_array(strtolower($segment), $disallowed_ext, true) ? '_' : '.') . $segment;
+    }
+
+    return array($filename, $extension, $stored . '.' . $extension);
 }
 
 /**
@@ -1767,6 +2132,150 @@ function path_is_within($path, $root) {
     return $path === $root || strncmp($path, $root . '/', strlen($root) + 1) === 0;
 }
 
+/**
+ * Resolve an image directory requested relative to PHPWCMS_ROOT.
+ *
+ * The raw value is resolved first and accepted only when the real path stays
+ * inside the root. This rejects `..` escapes and symlinks that leave the
+ * installation, so a public image endpoint cannot enumerate files outside the
+ * document root.
+ *
+ * @param mixed  $imgdir Relative directory, as sent in a request
+ * @param string $root   Root directory to contain the result; defaults to PHPWCMS_ROOT
+ *
+ * @return string Absolute directory with trailing slash, or '' when rejected
+ */
+function phpwcms_image_dir_path($imgdir, $root = '') {
+    if (!is_string($imgdir) || trim($imgdir) === '') {
+        return '';
+    }
+
+    $root = $root !== '' ? $root : PHPWCMS_ROOT;
+    $root = realpath($root);
+    if ($root === false) {
+        return '';
+    }
+
+    $path = realpath($root . '/' . ltrim(str_replace('\\', '/', trim($imgdir)), '/'));
+    if ($path === false || !is_dir($path) || !path_is_within($path, $root)) {
+        return '';
+    }
+
+    return rtrim(str_replace('\\', '/', $path), '/') . '/';
+}
+
+/**
+ * Check whether a resolved directory is inside the private file archive.
+ *
+ * Files below the archive are served by phpwcms file records only; an
+ * endpoint that reads the filesystem directly must apply the same visibility
+ * rules for such a directory.
+ *
+ * @param mixed $dir Absolute directory path
+ *
+ * @return bool
+ */
+function phpwcms_image_dir_is_archive($dir) {
+    if (!defined('PHPWCMS_STORAGE') || !is_string($dir) || $dir === '') {
+        return false;
+    }
+
+    $archive = realpath(PHPWCMS_STORAGE);
+    $dir = realpath($dir);
+    if ($archive === false || $dir === false) {
+        return false;
+    }
+
+    return path_is_within($dir, $archive);
+}
+
+/**
+ * Keep only archive image names that have a matching file record.
+ *
+ * The archive stores files as `<f_hash>.<f_ext>`. This helper only matches
+ * names against the rows it is given; visibility is the caller's job. Pass
+ * rows limited by phpwcms_archive_visibility_sql() so a private image record
+ * never reaches a public endpoint.
+ *
+ * @param array $files   File names read from the directory
+ * @param array $records Rows with at least `f_hash` and `f_ext`
+ *
+ * @return array
+ */
+function phpwcms_archive_files_matching_records($files, $records) {
+    $allowed = array();
+    foreach ($records as $record) {
+        if (empty($record['f_hash']) || !is_string($record['f_hash'])) {
+            continue;
+        }
+        $name = $record['f_hash'];
+        if (!empty($record['f_ext']) && is_string($record['f_ext'])) {
+            $name .= '.' . $record['f_ext'];
+        }
+        $allowed[strtolower($name)] = true;
+    }
+
+    $public = array();
+    foreach ($files as $file) {
+        if (is_string($file) && isset($allowed[strtolower($file)])) {
+            $public[] = $file;
+        }
+    }
+
+    return $public;
+}
+
+/**
+ * Visibility clause for archive file records.
+ *
+ * Mirrors _getFileInfo(): the record must be active, not trashed and public,
+ * and an anonymous caller must not receive a record marked for logged-in
+ * frontend users.
+ *
+ * @param bool $anonymous
+ *
+ * @return string SQL fragment, without a leading AND
+ */
+function phpwcms_archive_visibility_sql($anonymous = true) {
+    $sql = 'f_aktiv=1 AND f_trash=0 AND f_public=1';
+    if ($anonymous) {
+        $sql .= ' AND f_granted=0';
+    }
+
+    return $sql;
+}
+
+/**
+ * Resolve a template name below a template directory.
+ *
+ * The name is treated as an untrusted relative value: absolute paths, stream
+ * wrappers, `..` components and symlinks that leave the directory are
+ * rejected. The returned path is the canonical file path inside `$directory`.
+ *
+ * @param string $directory Absolute template directory
+ * @param mixed  $name      Stored template name, relative to the directory
+ *
+ * @return string Canonical file path, or '' when the name is not contained
+ */
+function phpwcms_template_file_path($directory, $name) {
+    $directory = realpath((string)$directory);
+    if ($directory === false || !is_dir($directory)) {
+        return '';
+    }
+
+    $name = str_replace('\\', '/', (string)$name);
+    if ($name === '' || strpos($name, "\0") !== false || substr($name, 0, 1) === '/' || preg_match('#^[A-Za-z]:#', $name)) {
+        return '';
+    }
+
+    $file = realpath($directory . '/' . $name);
+    if ($file === false || !is_file($file) || !path_is_within($file, $directory)) {
+        return '';
+    }
+
+    return str_replace('\\', '/', $file);
+}
+
 function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename = 0, $maxsize = 0) {
     // imgtype can be all exif_imagetype supported by your PHP install
     // see http://www.php.net/exif_imagetype
@@ -1788,13 +2297,11 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
 
         return $file_status;
     }
-    $file_status['name'] = sanitize_filename($_FILES[$file]['name']);
-    $file_status['ext'] = which_ext($file_status['name']);
+    list($file_status['name'], $file_status['ext'], $file_status['rename']) = upload_stored_name($_FILES[$file]['name']);
     $file_status['tmp_name'] = $_FILES[$file]['tmp_name'];
     $file_status['size'] = $_FILES[$file]['size'];
     $file_status['type'] = empty($_FILES[$file]['type']) || !is_mimetype_format($_FILES[$file]['type']) ? get_mimetype_by_extension($file_status['ext']) : $_FILES[$file]['type'];
     $file_status['path'] = $target;
-    $file_status['rename'] = $file_status['name'];
     $file_status['maxsize'] = empty($file_status['maxsize']) ? $GLOBALS['phpwcms']['file_maxsize'] : $file_status['maxsize'];
     if (intval($file_status['size']) > $file_status['maxsize']) {
         $file_status['error'] = 'File is too large';
@@ -1808,12 +2315,6 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
 
         return $file_status;
     }
-    if (!@_mkdir($target)) {
-        $file_status['error'] = 'The target directory "' . $target . '" can not be found or generated';
-        $file_status['error_num'] = 412;
-
-        return $file_status;
-    }
     if ($_FILES[$file]['error']) {
         $file_status['error'] = $_FILES[$file]['error'];
         $file_status['error_num'] = 409;
@@ -1823,10 +2324,22 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
     if(is_string($GLOBALS['phpwcms']['allowed_upload_ext'])) {
         $GLOBALS['phpwcms']['allowed_upload_ext'] = convertStringToArray(strtolower($GLOBALS['phpwcms']['allowed_upload_ext']));
     }
-    if (empty($file_status['ext']) || !in_array($file_status['ext'], $GLOBALS['phpwcms']['allowed_upload_ext'])) {
+    // The executable set is checked first and never consults configuration,
+    // so adding such an extension to allowed_upload_ext does not enable it.
+    if (
+        in_array($file_status['ext'], form_upload_executable_extensions(), true)
+        || empty($file_status['ext'])
+        || !in_array($file_status['ext'], $GLOBALS['phpwcms']['allowed_upload_ext'], true)
+    ) {
         $file_status['error'] = 'The file with extension *.' . $file_status['ext'] . ' is not allowed or invalid for uploading';
         $file_status['error_num'] = 415;
         @unlink($_FILES[$file]['tmp_name']);
+
+        return $file_status;
+    }
+    if (!@_mkdir($target)) {
+        $file_status['error'] = 'The target directory "' . $target . '" can not be found or generated';
+        $file_status['error_num'] = 412;
 
         return $file_status;
     }

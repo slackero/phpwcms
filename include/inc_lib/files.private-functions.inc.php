@@ -164,9 +164,9 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo "<td width=\"13\" class=\"msglist\">";
                     echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" ";
                     echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-                    echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
+                    echo '&lt;br&gt;Name: '.js_inline_string($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
-                        echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
+                        echo '&lt;br&gt;&copy;: '.js_inline_string($file_row["f_copyright"]);
                     }
                     echo '\');" onmouseout="UnTip()" alt=""';
                     echo " /></td>\n";
@@ -236,9 +236,9 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID, $phpwcms) {
                                 echo $file_row["edit"];
                                 echo '<img src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].' ';
                                 echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-                                echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
+                                echo '&lt;br&gt;Name: '.js_inline_string($file_row["f_name"]);
                                 if($file_row["f_copyright"]) {
-                                    echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
+                                    echo '&lt;br&gt;&copy;: '.js_inline_string($file_row["f_copyright"]);
                                 }
                                 echo '\');" onmouseout="UnTip()" alt=""';
                                 echo " /></a></td>\n";
@@ -256,9 +256,9 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID, $phpwcms) {
                             echo $file_row["edit"];
                             echo '<img src="' . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-width:'.$phpwcms["img_list_width"].'px;height:auto;" ';
                             echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-                            echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
+                            echo '&lt;br&gt;Name: '.js_inline_string($file_row["f_name"]);
                             if($file_row["f_copyright"]) {
-                                echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
+                                echo '&lt;br&gt;&copy;: '.js_inline_string($file_row["f_copyright"]);
                             }
                             echo '\');" onmouseout="UnTip()" alt=""';
                             echo " /></a></td>\n";

@@ -2664,6 +2664,12 @@ function include_url($url, $ignore_ssl=false) {
     $url            = $url[0];
     $cache_status   = 'MISSING';
 
+    // Fetch HTTP(S) pages only. Local stream wrappers such as file:// or
+    // php:// would turn this helper into a reader for arbitrary files.
+    if (!in_array(strtolower((string) parse_url($url, PHP_URL_SCHEME)), array('http', 'https'), true)) {
+        return '';
+    }
+
     if($url && $cache) {
 
         $cache_filename = md5($url).'-url'; // set cache file name

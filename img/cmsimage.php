@@ -16,6 +16,56 @@ require_once $root.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 
+/**
+ * Whether the request carries a logged-in frontend user session.
+ *
+ * Mirrors _getFeUserLoginStatus() without loading the frontend library: the
+ * session key stored at login must exist and must not be injectable by GET or
+ * POST.
+ *
+ * @return bool
+ */
+function cmsimage_feuser_logged_in() {
+    if(defined('FEUSER_LOGIN_STATUS')) {
+        $logged_in = (bool) FEUSER_LOGIN_STATUS;
+    } else {
+        $session_key = session_id();
+        $logged_in   = $session_key !== ''
+            && !empty($_SESSION[$session_key])
+            && !isset($_GET[$session_key])
+            && !isset($_POST[$session_key]);
+    }
+
+    // Same cache headers as _getFeUserLoginStatus(): a user specific image
+    // must not be stored by a shared cache.
+    if($logged_in && function_exists('headerAvoidPageCaching')) {
+        headerAvoidPageCaching();
+    }
+
+    return $logged_in;
+}
+
+/**
+ * Visibility clause for the file lookup.
+ *
+ * A file marked as visible for logged-in frontend users only (`f_granted=1`)
+ * must not be served anonymously, even when its record is public. The shared
+ * _getFileInfo() lookup applies the same rule.
+ *
+ * @return string SQL clause
+ */
+function cmsimage_file_public_clause() {
+    $clause = empty($_SESSION["wcs_user_id"])
+        ? 'f_public=1'
+        : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
+
+    if(!cmsimage_feuser_logged_in()) {
+        $clause .= ' AND f_granted=0';
+    }
+
+    return $clause;
+}
+
 // get segments: cmsimage.php/WIDTH[[[[xHEIGHT]xCROP]xQUALITY]xGS]/[[HASH|ID].EXT]
 // ...xGS will convert image to GrayScale
 $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PHP_SELF'];
@@ -126,7 +176,7 @@ if(isset($data[1])) {
 
             $phpwcms['SESSION_START'] = true;
             require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
-            $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
+            $file_public = cmsimage_file_public_clause();
 
             require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
@@ -157,7 +207,7 @@ if(isset($data[1])) {
 
             $phpwcms['SESSION_START'] = true;
             require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
-            $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
+            $file_public = cmsimage_file_public_clause();
 
             require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 

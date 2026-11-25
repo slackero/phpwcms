@@ -726,7 +726,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
         }
     }
 
-    $alias = substr($alias, 0, 230);
+    $alias = mb_substr($alias, 0, 230, PHPWCMS_CHARSET);
 
     if(PHPWCMS_ALIAS_WSLASH) {
         $alias = trim($alias, '/');

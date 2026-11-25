@@ -1,3 +1,22 @@
+# Avoid accessing hidden files, IDE settings, system and development files
+RedirectMatch 404 /\.(?!well-known)
+RedirectMatch 404 /(composer\.(json|lock)|package(-lock)?\.json|Dockerfile|docker-compose\.ya?ml|Makefile|phpstan\.neon(\.default)?|stacklit\.json)$
+
+# Block web access to private storage, internal paths and upload folders.
+# Content form uploads stay readable when linked by a form (attachment=0);
+# directory listing and script execution there are blocked separately.
+# Patterns are not anchored to the document root, so they also apply to
+# installations in a subfolder.
+RedirectMatch 404 /content/(tmp|cache|log|backup)/
+RedirectMatch 404 /include/(config|vendor|inc_act|inc_front|inc_help|inc_lang|inc_lib|inc_module|inc_tmpl)/
+RedirectMatch 404 /include/inc_ext/(?!ckeditor/)
+# upload/ is private. filearchive/ is controlled by its own .htaccess,
+# which also toggles the direct-download option of file list content parts.
+RedirectMatch 404 /upload/
+RedirectMatch 404 /tests/
+RedirectMatch 404 /(CHANGELOG|README|DEPENDENCIES|SECURITY|CODE_OF_CONDUCT|ANTIGRAVITY|CLAUDE)\.md$
+RedirectMatch 404 \.(sql|log|bak|dist)$
+
 # PHP: These settings are recommend - check phpinfo() before try these
 #   register_globals ON
 #   php_flag magic_quotes_gpc Off
