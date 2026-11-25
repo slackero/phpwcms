@@ -27,6 +27,7 @@ $content['aId_CpPage']          = 0; // set default content part pagination page
 $content['CpTrigger']           = []; // array to hold content part trigger functions
 $content['404error']            = ['status' => false, 'id' => '', 'aid' => '', 'alias' => ''];
 $content['set_canonical']       = false;
+$content['canonical_structure'] = false;
 $content['overwrite_canonical'] = '';
 $content['cptab']               = []; // array to hold content part based tabs
 $content['images']              = [];
@@ -682,6 +683,9 @@ if(!$aktion[4]) {
             }
             $aktion[4] = 1; // this needs to be set to 1 for showing the article
 
+            // the article is shown implicitly, the structure URL stays canonical
+            $content['canonical_structure'] = true;
+
             // enable canonical <link> tag
             $content['set_canonical'] = true;
 
@@ -715,8 +719,6 @@ if(!$aktion[4]) {
 // Force 301 Redirect to structure alias
 if($content['set_canonical'] && !empty($phpwcms['force301_2struct']) && !$content['aId_CpPage'] && empty($content['struct'][ $aktion[0] ]['acat_disable301']) && !empty($content['struct'][ $aktion[0] ]['acat_alias']) && (!defined('PHPWCMS_ALIAS') || PHPWCMS_ALIAS != $content['struct'][ $aktion[0] ]['acat_alias'])) {
     headerRedirect(abs_url([], [], $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
-} elseif(count($_getVar) > 1) {
-    $content['set_canonical'] = false;
 }
 
 // Include depricated functionality if needed
@@ -763,7 +765,8 @@ if($aktion[1]) {
 
 }
 
-// Force overwritten canonical link
+// Structure level canonical override (acat_canonical); the final URL is resolved
+// once after content rendering, see canonical resolution below
 if(!empty($content['struct'][ $content['cat_id'] ]['acat_canonical'])) {
     $content['overwrite_canonical'] = $content['struct'][ $content['cat_id'] ]['acat_canonical'];
 }
@@ -773,17 +776,13 @@ if($content['overwrite_canonical']) {
     $_test_canonical_schema = substr($content['overwrite_canonical'], 0, 4);
 
     if($_test_canonical_schema !== 'http') {
-        $content['overwrite_canonical'] = ltrim('/');
+        $content['overwrite_canonical'] = ltrim($content['overwrite_canonical'], '/');
         if($_test_canonical_schema === '{SIT') {
             $content['overwrite_canonical'] = str_replace('{SITE}', PHPWCMS_URL, $content['overwrite_canonical']);
         } else {
             $content['overwrite_canonical'] = PHPWCMS_URL . $content['overwrite_canonical'];
         }
     }
-
-    $block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . html($content['overwrite_canonical']) . '"'.HTML_TAG_CLOSE;
-
-    $content['set_canonical'] = false;
 
 }
 
@@ -1203,6 +1202,86 @@ if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_key
     }
 }
 
+// Resolve the canonical URL once, after content parts, modules and frontend
+// render scripts have run. <link rel="canonical"> and og:url both use this
+// value, so the two signals cannot diverge.
+$content['canonical_url'] = '';
+
+// an empty structure alias marks the site root; abs_url() would keep the first
+// GET var in that case, so the root URL is built directly
+$_canonical_url = static function (string $alias): string {
+    if ($alias !== '') {
+        return abs_url([], true, $alias, 'rawurlencode');
+    }
+    // drop every GET var, so a legacy root request keeps the bare site root
+    return abs_url([], array_keys($GLOBALS['_getVar'] ?? []));
+};
+
+if(empty($phpwcms['canonical_off']) && empty($content['404error']['status'])) {
+
+    if(!empty($content['overwrite_canonical'])) {
+
+        // structure (acat_canonical) or article (article_canonical) override
+        $content['canonical_url'] = $content['overwrite_canonical'];
+
+    } elseif(!empty($content['opengraph']['url'])) {
+
+        // module supplied URL, e.g. shop detail page
+        $content['canonical_url'] = $content['opengraph']['url'];
+
+    } elseif(!empty($content['aId_CpPage'])) {
+
+        // content part pagination: every page is a document of its own
+        $content['canonical_url'] = abs_url([], [], 'aid='.(int)$content['article_id'].'-'.(int)$content['aId_CpPage'], 'rawurlencode');
+
+    } elseif(!$content['list_mode'] && !empty($content['article_id']) && empty($content['canonical_structure'])) {
+
+        // direct article view: the article alias is canonical, unless the
+        // article is the only one of its structure — then the structure URL is
+        $_canonical_alias = get_structurelevel_single_article_alias($content['cat_id']);
+        if($_canonical_alias === '' && ($content['struct'][ $content['cat_id'] ]['acat_articlecount'] ?? 0) === 1) {
+            // single article structure without alias is the site root
+            $content['canonical_url'] = $_canonical_url('');
+        } else {
+            if($_canonical_alias === '') {
+                $_canonical_alias = defined('PHPWCMS_ALIAS') && PHPWCMS_ALIAS !== '' ? PHPWCMS_ALIAS : 'aid='.(int)$content['article_id'];
+            }
+            $content['canonical_url'] = $_canonical_url($_canonical_alias);
+        }
+
+    } else {
+
+        // structure view (listing or implicitly shown article) and every other
+        // renderable page: the structure alias is canonical, never the request
+        // URL, so id=, /index/… and index.php forms collapse onto one URL
+        if($alias === '' && empty($GLOBALS['_getVar'])) {
+
+            // the site root is its own canonical URL
+            $content['canonical_url'] = $_canonical_url('');
+
+        } else {
+
+            $_canonical_alias = $content['struct'][ $content['cat_id'] ]['acat_alias'] ?? '';
+            if($_canonical_alias === '') {
+                // structure without alias keeps the legacy id= form, not the root
+                $_canonical_alias = 'id='.(int)$content['cat_id'];
+            }
+            $content['canonical_url'] = $_canonical_url($_canonical_alias);
+
+        }
+
+    }
+
+    $block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="'.html($content['canonical_url']).'"'.HTML_TAG_CLOSE;
+
+} elseif(!empty($content['404error']['status'])) {
+
+    // 404 responses must not be indexed
+    set_meta('robots', 'noindex,follow');
+    header('X-Robots-Tag: noindex, follow');
+
+}
+
 // Built-in Open Graph and Social Sharing (Twitter/X Cards) rendering
 if($content['opengraph']['render'] && !empty($content['opengraph']['support'])) {
 
@@ -1212,9 +1291,11 @@ if($content['opengraph']['render'] && !empty($content['opengraph']['support'])) 
 
     $og_type  = !empty($content['opengraph']['type']) ? $content['opengraph']['type'] : 'website';
     $og_title = sanitize_replacement_tags($content['opengraph']['title']);
-    $og_url   = empty($content['opengraph']['url'])
-        ? abs_url([], ['phpwcms_output_action', 'print', 'phpwcms-preview', 'unsubscribe', 'subscribe'])
-        : $content['opengraph']['url'];
+    $og_url   = !empty($content['canonical_url'])
+        ? $content['canonical_url']
+        : (empty($content['opengraph']['url'])
+            ? abs_url([], ['phpwcms_output_action', 'print', 'phpwcms-preview', 'unsubscribe', 'subscribe'])
+            : $content['opengraph']['url']);
 
     set_meta('og:type', $og_type, 'property');
     set_meta('og:title', $og_title, 'property');

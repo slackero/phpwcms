@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Fixed
+- **Canonical Links:** `<link rel="canonical">` was written only by the article renderer, so structure and listing views — category lists, glossary, catalog, guestbook, search and old `id=` URLs — carried none, while `og:url` was built from the request URL and could name a different URL than the canonical. The canonical URL is now resolved once after content parts and modules have rendered and is used for both tags: a structure or article override (`acat_canonical`, `article_canonical`) wins, then a module supplied `$content['opengraph']['url']` (shop detail page), then content part pagination, then the article alias or the structure alias. A structure that shows its only article implicitly keeps the structure URL, the bare site root stays its own canonical URL, and a structure without alias keeps its `id=` URL, so language-prefixed and slash aliases resolve unchanged. A relative `acat_canonical` no longer collapses to the site root (`ltrim('/')` trimmed a literal instead of the value). 404 responses carry `robots` `noindex` and `X-Robots-Tag: noindex, follow`, and generated URLs no longer follow the request host casing.
+
 ## [2.0.0-beta.7] – 2026/11/25
 
 ### Security

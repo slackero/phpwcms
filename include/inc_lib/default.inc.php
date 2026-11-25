@@ -2014,7 +2014,8 @@ function phpwcms_validate_url_host($host) {
         }
     }
 
-    return $host;
+    // host names are case-insensitive, lower case keeps generated URLs stable
+    return strtolower($host);
 }
 
 function get_url_origin($use_forwarded_host = false, $set_protocol = true) {

@@ -849,32 +849,6 @@ if(!defined('PHPWCMS_ALIAS') && $content['article_alias']) {
     define('PHPWCMS_ALIAS', $content['article_alias']);
 }
 
-// set canonical <link> in page <head> section to avoid lower SEO ranking
-// see: http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html
-if($content['overwrite_canonical']) {
-
-    $content['set_canonical'] = false;
-
-} elseif(empty($phpwcms['canonical_off'])) {
-
-    $_tempAlias = defined('PHPWCMS_ALIAS') && PHPWCMS_ALIAS !== '' ? PHPWCMS_ALIAS : 'aid='.$content['article_id'];
-
-    if($content['set_canonical'] && empty($phpwcms['force301_2struct'])) {
-
-        // check against page or set canonical only for single article in this category
-        $content['set_canonical'] = $content['aId_CpPage'] ? 'aid='.$content['article_id'].'-'.$content['aId_CpPage'] : get_structurelevel_single_article_alias($content['cat_id']);
-        $content['set_canonical'] = abs_url(array(), true, $content['set_canonical'] ?: $_tempAlias, 'rawurlencode');
-
-    } else {
-
-        $content['set_canonical'] = abs_url(array(), true, $_tempAlias, 'rawurlencode');
-
-    }
-
-    $block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . $content['set_canonical'] . '"'.HTML_TAG_CLOSE;
-
-}
-
 // Set robots meta tag if noindex or nofollow
 $_article_meta_robots = array();
 if(!empty($row['article_meta']['noindex'])) {
