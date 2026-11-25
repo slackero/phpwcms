@@ -127,5 +127,4 @@
 - [Addresses](docs/modules/09-addresses.md): Manages address and contact records with geocoding and renders a frontend address locator.
 - [SEO Log](docs/modules/10-seolog.md): Backend module listing search engine referrer hits collected on the frontend.
 - [Statistics](docs/modules/11-statistic.md): Backend dashboards over article status, downloads, newsletter subscriptions, guestbook entries, polls, logins and SEO log data.
-- [phpwcms modules](docs/modules/12-module-manager.md): Informational backend panel presenting available phpwcms modules.
 - [Glossary](docs/modules/13-glossary.md): Keywords highlighted as abbr tooltips on the frontend and managed in the backend.

@@ -6799,7 +6799,6 @@ Content parts of type 30 whose module no longer exists are skipped silently on t
 | Addresses | `phpwcms_addresses` | 1 (BE only) | No | render |
 | SEO log | `seo_log` | 1 (BE only) | No | — |
 | Statistics | `statistics` | 1 (BE only) | No | — |
-| Module promo | `modulpromo` | 1 (BE only) | No | — |
 | Glossary | `glossary` | 0 (BE+FE) | Yes | render, search |
 
 The newsletter is no module but part of the core with its own backend menu and the subscription content part type 12 — see [Newsletter (core)](06-newsletter.md).
@@ -6819,7 +6818,6 @@ The newsletter is no module but part of the core with its own backend menu and t
 | [Addresses](09-addresses.md) | phpwcms_addresses | Address records with geocoding, frontend address locator |
 | [SEO log](10-seolog.md) | seo_log | Search engine referrer logging |
 | [Statistics](11-statistic.md) | statistics | Backend dashboards over article, file, newsletter and log data |
-| [Module manager](12-module-manager.md) | modulpromo | Informational module promo panel |
 | [Glossary](13-glossary.md) | glossary | Keywords highlighted as abbr tooltips, backend glossary management |
 
 ## Related
@@ -7840,36 +7838,6 @@ The module registers no configuration keys. Backend access follows the module gr
 - [Modules overview](index.md) — architecture and activation
 - [SEO log](10-seolog.md) — the module dedicated to the `phpwcms_log_seo` listing
 - [Newsletter (core)](06-newsletter.md) — subscriptions and address data
-
----
-
-<!-- docs/modules/12-module-manager.md -->
-
-# phpwcms modules
-
-> Source: `include/inc_module/mod_modules/`
-
-This entry presents available phpwcms modules. It is purely informational — no install, uninstall or configuration actions, no database access. Module registration (`module.default.php`): `$_module_name = 'modulpromo'`, `$_module_type = 1` — backend only, no content part, no frontend hooks.
-
-## Backend
-
-Available to usergroups with the module enabled. Backend URLs use the registered internal name, not the directory name: `phpwcms.php?do=modules&module=modulpromo`.
-
-`backend.listing.php` renders one intro line and three static cards. Card headers and texts come from `include/inc_module/mod_modules/lang/en.lang.php`; no card contains a link:
-
-- "phpwcms shop module" — "…enables you to set up a simple online store." Covered by [Shop](01-shop.md) and its sub-pages.
-- "phpwcms calendar module" — "…enables you to build a feature-rich calendar." Covered by [Calendar](05-calendar.md).
-- "phpwcms user management module" — "…allows managing user data such as customers or association members."
-
-Installed modules are not listed here; the panel promotes capabilities. Actual module availability and access live in discovery and the module groups — see [Modules overview](index.md).
-
-## Configuration
-
-None. The panel has no settings and no own tables.
-
-## Related
-
-- [Modules overview](index.md) — module architecture and per-module reference pages
 
 ---
 

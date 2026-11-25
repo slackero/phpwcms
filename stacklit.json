@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-11-07T06:05:35Z",
+  "schema_version": 1,
   "stacklit_version": "dev",
-  "merkle_hash": "9f09779cd0779694817a3074b09440b7771046c5efef814b3599cbf9d33be1d4",
+  "merkle_hash": "00e01103fde13c59049c84125b27bf55a6ff756ab10e10f9a484c1a1a7f938cb",
   "project": {
     "name": "phpwcms-dev",
     "root": ".",
@@ -12,25 +12,45 @@
   "tech": {
     "primary_language": "php",
     "languages": {
+      "dockerfile": {
+        "files": 2,
+        "lines": 114
+      },
       "javascript": {
-        "files": 488,
-        "lines": 18944
+        "files": 492,
+        "lines": 18959
+      },
+      "json": {
+        "files": 59,
+        "lines": 3478
+      },
+      "make": {
+        "files": 1,
+        "lines": 106
       },
       "php": {
-        "files": 1172,
-        "lines": 236841
+        "files": 1169,
+        "lines": 246520
       },
-      "python": {
+      "powershell": {
         "files": 1,
-        "lines": 368
+        "lines": 101
+      },
+      "shell": {
+        "files": 2,
+        "lines": 221
       },
       "sql": {
         "files": 2,
-        "lines": 1518
+        "lines": 1519
       },
       "typescript": {
         "files": 2,
         "lines": 44
+      },
+      "yaml": {
+        "files": 2,
+        "lines": 97
       }
     },
     "frameworks": [
@@ -39,31 +59,31 @@
   },
   "structure": {
     "entrypoints": null,
-    "total_files": 1665,
-    "total_lines": 257715
+    "total_files": 1732,
+    "total_lines": 271159
   },
   "modules": {
+    ".github/codeql": {
+      "purpose": "Codeql",
+      "language": "yaml",
+      "files": 1,
+      "lines": 10,
+      "file_list": [
+        "codeql-config.yml"
+      ],
+      "exports": [
+        "name",
+        "paths-ignore"
+      ],
+      "activity": "low"
+    },
     ".phpstan": {
       "purpose": ".phpstan",
       "language": "php",
       "files": 1,
-      "lines": 99,
+      "lines": 100,
       "file_list": [
         "phpstan-bootstrap.php"
-      ],
-      "activity": "low"
-    },
-    ".superpowers/sdd/2026-09-01-self-update": {
-      "purpose": "2026-09-01-self-update",
-      "language": "python",
-      "files": 1,
-      "lines": 368,
-      "file_list": [
-        "insert_lang.py"
-      ],
-      "exports": [
-        "build_block(vals)",
-        "insert_after_discuss(path, block)"
       ],
       "activity": "low"
     },
@@ -76,35 +96,45 @@
         "gen-llms.php",
         "linkcheck.php"
       ],
+      "exports": [
+        "frontmatter(string $file)"
+      ],
       "activity": "low"
     },
     "img": {
       "purpose": "Img",
       "language": "php",
       "files": 5,
-      "lines": 669,
+      "lines": 756,
       "file_list": [
-        "blank.php",
-        "captcha.php",
         "cmsimage.php",
         "mapimage.php",
+        "blank.php",
+        "captcha.php",
         "random_image.php"
+      ],
+      "exports": [
+        "cmsimage_feuser_logged_in()",
+        "cmsimage_file_public_clause()",
+        "hex2rgb( $hex )"
       ],
       "activity": "low"
     },
     "include/config": {
       "purpose": "Configuration management",
       "language": "php",
-      "files": 7,
-      "lines": 1804,
+      "files": 6,
+      "lines": 1547,
       "file_list": [
-        "conf.indexpage.inc.php",
-        "conf.template_default.inc.php",
-        "custom_settings.php",
+        "dist.sitemap.custom.php",
         "dist.conf.inc.php",
-        "dist.iptc.inc.php",
-        "feeds.ini.php",
-        "sitemap.custom.php"
+        "dist.conf.indexpage.inc.php",
+        "dist.conf.template_default.inc.php",
+        "dist.feeds.ini.php",
+        "dist.iptc.inc.php"
+      ],
+      "exports": [
+        "phpwcms_getCustomSitemap(\u0026$struct)"
       ],
       "activity": "low"
     },
@@ -112,15 +142,18 @@
       "purpose": "Inc Act",
       "language": "php",
       "files": 23,
-      "lines": 3983,
+      "lines": 4237,
       "file_list": [
+        "act_structure.php",
+        "act_formmailer.php",
+        "act_sendnewsletter.php",
+        "ajax_changer.php",
+        "act_export.php",
         "act_articlecontent.php",
         "act_articlesort.php",
         "act_download.php",
-        "act_export.php",
         "act_file.php",
         "act_filecat.php",
-        "act_formmailer.php",
         "act_frontendsetup.php",
         "act_ftptakeover.php",
         "act_guestbook.php",
@@ -128,12 +161,24 @@
         "act_multiupload-list.php",
         "act_multiupload.php",
         "act_schedule.php",
-        "act_sendnewsletter.php",
-        "act_structure.php",
         "act_user.php",
         "act_usergroup.php",
         "ajax_alias.php",
-        "ajax_changer.php"
+        "ajax_connector.php",
+        "ajax_imagealias.php",
+        "ajax_template.php"
+      ],
+      "exports": [
+        "get_struct_del_id($s_id=0)",
+        "copy_article_to_level($do)",
+        "copy_level_to_level($do)",
+        "set_correct_ordersort()",
+        "formmailer_rate_limit($max = 10, $window = 60)",
+        "phpwcms_form_encode($in_str, $charset)",
+        "build_email_text($text, $value, $isHtml = false)",
+        "updateSentDate($id=0)",
+        "ajax_toggle_rules()",
+        "ajax_toggle_restriction($rule, $user_id)"
       ],
       "activity": "low"
     },
@@ -143,28 +188,44 @@
       "files": 3,
       "lines": 1421,
       "file_list": [
-        "SPAF_FormValidator.class.php",
         "htmlfilter.php",
-        "php_calendar.php"
+        "php_calendar.php",
+        "SPAF_FormValidator.class.php"
       ],
       "exports": [
-        "SPAF_FormValidator"
+        "htmlfilter_debug($message)",
+        "tagprint($tagname, $attary, $tagtype)",
+        "casenormalize(\u0026$val)",
+        "skipspace($body, $offset)",
+        "findnxstr($body, $offset, $needle)",
+        "findnxreg($body, $offset, $reg)",
+        "getnxtag($body, $offset)",
+        "deent(\u0026$attvalue, $regex, $hex=false)",
+        "defang(\u0026$attvalue)",
+        "unspace(\u0026$attvalue)"
       ],
       "type_defs": {
-        "SPAF_FormValidator": "function __construct (); function setLibDir (string $dir) void; function tagUser () bool; function getUserTag (); function validRequest (mixed $req) bool; function getRandomString (int $chars = 5) string; function streamImage () bool; function setImageFormat (string $file) void; function destroy () bool; function launchGC () bool; function writeFile (string $file, string $content) int|false"
+        "SPAF_FormValidator": "function __construct(); function setLibDir(string $dir): void; function tagUser(): bool; function getUserTag(): ?string; function validRequest(mixed $req): bool; function getRandomString(int $chars = 5): string; function streamImage(): bool; function setImageFormat(string $file): void; function destroy(): bool; function launchGC(): bool; function writeFile(string $file, string $content): int|false"
       },
       "activity": "low"
     },
     "include/inc_ext/ckeditor": {
       "purpose": "Ckeditor",
       "language": "javascript",
-      "files": 4,
-      "lines": 1831,
+      "files": 5,
+      "lines": 1847,
       "file_list": [
+        "bender-runner.config.json",
         "build-config.js",
         "ckeditor.js",
         "config.js",
         "styles.js"
+      ],
+      "exports": [
+        "bender",
+        "server",
+        "paths",
+        "browsers"
       ],
       "activity": "low"
     },
@@ -203,36 +264,316 @@
         "en.js",
         "eo.js",
         "es-mx.js",
-        "es.js"
+        "es.js",
+        "et.js",
+        "eu.js",
+        "fa.js",
+        "fi.js",
+        "fo.js",
+        "fr-ca.js",
+        "fr.js",
+        "gl.js",
+        "gu.js",
+        "he.js"
       ],
       "activity": "low"
     },
-    "include/inc_ext/ckeditor/plugins": {
-      "purpose": "Plugins",
+    "include/inc_ext/ckeditor/plugins/a11yhelp/dialogs": {
+      "purpose": "Dialogs",
       "language": "javascript",
-      "files": 156,
-      "lines": 1978,
+      "files": 1,
+      "lines": 10,
       "file_list": [
-        "a11yhelp.js",
-        "about.js",
+        "a11yhelp.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/a11yhelp/dialogs/lang": {
+      "purpose": "Lang",
+      "language": "javascript",
+      "files": 64,
+      "lines": 755,
+      "file_list": [
         "af.js",
-        "af.js",
-        "anchor.js",
-        "ar.js",
         "ar.js",
         "az.js",
-        "az.js",
         "bg.js",
-        "bg.js",
+        "ca.js",
+        "cs.js",
+        "cy.js",
+        "da.js",
+        "de-ch.js",
+        "de.js",
+        "el.js",
+        "en-au.js",
+        "en-gb.js",
+        "en.js",
+        "eo.js",
+        "es-mx.js",
+        "es.js",
+        "et.js",
+        "eu.js",
+        "fa.js",
+        "fi.js",
+        "fo.js",
+        "fr-ca.js",
+        "fr.js",
+        "gl.js",
+        "gu.js",
+        "he.js",
+        "hi.js",
+        "hr.js",
+        "hu.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/about": {
+      "purpose": "About",
+      "language": "javascript",
+      "files": 1,
+      "lines": 8,
+      "file_list": [
+        "about.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/clipboard": {
+      "purpose": "Clipboard",
+      "language": "javascript",
+      "files": 1,
+      "lines": 11,
+      "file_list": [
+        "paste.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/colordialog": {
+      "purpose": "Colordialog",
+      "language": "javascript",
+      "files": 1,
+      "lines": 14,
+      "file_list": [
+        "colordialog.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/dialog": {
+      "purpose": "Dialog",
+      "language": "javascript",
+      "files": 1,
+      "lines": 4,
+      "file_list": [
+        "dialogDefinition.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/div": {
+      "purpose": "Div",
+      "language": "javascript",
+      "files": 1,
+      "lines": 10,
+      "file_list": [
+        "div.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/find": {
+      "purpose": "Find",
+      "language": "javascript",
+      "files": 1,
+      "lines": 26,
+      "file_list": [
+        "find.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/forms": {
+      "purpose": "Forms",
+      "language": "javascript",
+      "files": 8,
+      "lines": 82,
+      "file_list": [
         "button.js",
-        "ca.js",
-        "ca.js",
         "checkbox.js",
-        "colordialog.js",
+        "form.js",
+        "hiddenfield.js",
+        "radio.js",
+        "select.js",
+        "textarea.js",
+        "textfield.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/iframe": {
+      "purpose": "Iframe",
+      "language": "javascript",
+      "files": 1,
+      "lines": 11,
+      "file_list": [
+        "iframe.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/image": {
+      "purpose": "Image",
+      "language": "javascript",
+      "files": 1,
+      "lines": 44,
+      "file_list": [
+        "image.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/image2": {
+      "purpose": "Image2",
+      "language": "javascript",
+      "files": 1,
+      "lines": 15,
+      "file_list": [
+        "image2.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/link": {
+      "purpose": "Link",
+      "language": "javascript",
+      "files": 2,
+      "lines": 39,
+      "file_list": [
+        "anchor.js",
+        "link.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/liststyle": {
+      "purpose": "Liststyle",
+      "language": "javascript",
+      "files": 1,
+      "lines": 10,
+      "file_list": [
+        "liststyle.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/pastefromword": {
+      "purpose": "Pastefromword",
+      "language": "javascript",
+      "files": 1,
+      "lines": 43,
+      "file_list": [
+        "default.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/pastetools": {
+      "purpose": "Pastetools",
+      "language": "javascript",
+      "files": 2,
+      "lines": 36,
+      "file_list": [
         "common.js",
+        "image.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/scayt": {
+      "purpose": "Scayt",
+      "language": "javascript",
+      "files": 1,
+      "lines": 32,
+      "file_list": [
+        "options.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/smiley": {
+      "purpose": "Smiley",
+      "language": "javascript",
+      "files": 1,
+      "lines": 11,
+      "file_list": [
+        "smiley.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/specialchar/dialogs": {
+      "purpose": "Dialogs",
+      "language": "javascript",
+      "files": 1,
+      "lines": 14,
+      "file_list": [
+        "specialchar.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/specialchar/dialogs/lang": {
+      "purpose": "Lang",
+      "language": "javascript",
+      "files": 60,
+      "lines": 741,
+      "file_list": [
+        "af.js",
+        "ar.js",
+        "az.js",
+        "bg.js",
+        "ca.js",
         "cs.js",
-        "cs.js",
-        "cy.js"
+        "cy.js",
+        "da.js",
+        "de-ch.js",
+        "de.js",
+        "el.js",
+        "en-au.js",
+        "en-ca.js",
+        "en-gb.js",
+        "en.js",
+        "eo.js",
+        "es-mx.js",
+        "es.js",
+        "et.js",
+        "eu.js",
+        "fa.js",
+        "fi.js",
+        "fr-ca.js",
+        "fr.js",
+        "gl.js",
+        "he.js",
+        "hr.js",
+        "hu.js",
+        "id.js",
+        "it.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/table": {
+      "purpose": "Table",
+      "language": "javascript",
+      "files": 1,
+      "lines": 22,
+      "file_list": [
+        "table.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/tabletools": {
+      "purpose": "Tabletools",
+      "language": "javascript",
+      "files": 1,
+      "lines": 18,
+      "file_list": [
+        "tableCell.js"
+      ],
+      "activity": "low"
+    },
+    "include/inc_ext/ckeditor/plugins/templates": {
+      "purpose": "Templates",
+      "language": "javascript",
+      "files": 3,
+      "lines": 22,
+      "file_list": [
+        "default.js",
+        "templatedefinition.js",
+        "templates.js"
       ],
       "activity": "low"
     },
@@ -240,18 +581,30 @@
       "purpose": "Inc Front",
       "language": "php",
       "files": 10,
-      "lines": 10630,
+      "lines": 10697,
       "file_list": [
+        "ext.func.inc.php",
+        "deprecated.inc.php",
+        "js.inc.php",
         "calendar.func.inc.php",
+        "img.func.inc.php",
         "cnt.lang.inc.php",
         "content.article.inc.php",
         "content.func.inc.php",
-        "deprecated.inc.php",
-        "ext.func.inc.php",
         "front.func.inc.php",
-        "img.func.inc.php",
-        "js.inc.php",
         "pdf.inc.php"
+      ],
+      "exports": [
+        "showPollImage($image, $zoom = 0)",
+        "utf2html($str)",
+        "is_date($PASSED, $TXT_DATE_FORMAT='Y-m-d')",
+        "is_float_ex($pNum)",
+        "showSelectedContent($param='', $cpsql=null, $listmode=false)",
+        "getContentPartSpacer($space_before=0, $space_after=0)",
+        "getContentPartTopLink($param=0)",
+        "getContentPartAlias($crow)",
+        "get_article_data($article_id, $limit=0, $sort='', $where='', $not=array())",
+        "convert2html($matches)"
       ],
       "activity": "low"
     },
@@ -259,7 +612,7 @@
       "purpose": "Content",
       "language": "php",
       "files": 37,
-      "lines": 11954,
+      "lines": 12250,
       "file_list": [
         "cnt0.article.inc.php",
         "cnt1.article.inc.php",
@@ -280,7 +633,17 @@
         "cnt24.article.inc.php",
         "cnt25.article.inc.php",
         "cnt26.article.inc.php",
-        "cnt27.article.inc.php"
+        "cnt27.article.inc.php",
+        "cnt28.article.inc.php",
+        "cnt29.article.inc.php",
+        "cnt3.article.inc.php",
+        "cnt31.article.inc.php",
+        "cnt32.article.inc.php",
+        "cnt33.article.inc.php",
+        "cnt4.article.inc.php",
+        "cnt5.article.inc.php",
+        "cnt50.article.inc.php",
+        "cnt51.article.inc.php"
       ],
       "activity": "low"
     },
@@ -288,14 +651,21 @@
       "purpose": "Cnt Functions",
       "language": "php",
       "files": 3,
-      "lines": 431,
+      "lines": 430,
       "file_list": [
         "cnt13.func.inc.php",
-        "cnt18.func.inc.php",
-        "cnt23.func.inc.php"
+        "cnt23.func.inc.php",
+        "cnt18.func.inc.php"
       ],
       "exports": [
-        "search_News"
+        "get_SearchForStructureID($search_at)",
+        "search_buildMenuPathStructure($start_id=0, $counter=0, $pre = '')",
+        "search_News",
+        "clean_search_text($string='')",
+        "getFieldErrorClass($field_class, $error_class)",
+        "block_comment_spam($POST_val, $field_names=NULL)",
+        "linksleeve_comment_check($content)",
+        "guestbook_pages($matches)"
       ],
       "type_defs": {
         "search_News": "search_News"
@@ -305,9 +675,10 @@
     "include/inc_front/lib": {
       "purpose": "Shared library code",
       "language": "php",
-      "files": 49,
-      "lines": 1539,
+      "files": 55,
+      "lines": 1717,
       "file_list": [
+        "js.jquery.default.php",
         "js.jquery-1.10-migrate.inc.php",
         "js.jquery-1.10.inc.php",
         "js.jquery-1.11-migrate.inc.php",
@@ -327,7 +698,25 @@
         "js.jquery-2.1.inc.php",
         "js.jquery-2.2-migrate.inc.php",
         "js.jquery-2.2.inc.php",
-        "js.jquery-3.0-migrate-1.inc.php"
+        "js.jquery-3.0-migrate-1.inc.php",
+        "js.jquery-3.0-migrate.inc.php",
+        "js.jquery-3.0.inc.php",
+        "js.jquery-3.1-migrate-1.inc.php",
+        "js.jquery-3.1-migrate.inc.php",
+        "js.jquery-3.1.inc.php",
+        "js.jquery-3.2-migrate-1.inc.php",
+        "js.jquery-3.2-migrate.inc.php",
+        "js.jquery-3.2.inc.php",
+        "js.jquery-3.3-migrate-1.inc.php"
+      ],
+      "exports": [
+        "initGlightbox()",
+        "initSlimbox()",
+        "init_frontend_edit_js()",
+        "jsOnDomReady($js='', $return=false, $prefix=' ')",
+        "jsOnUnLoad($js='', $return=false, $prefix=' ')",
+        "initJSPlugin($plugin='')",
+        "initJSLib()"
       ],
       "activity": "low"
     },
@@ -335,7 +724,7 @@
       "purpose": "Inc Js",
       "language": "javascript",
       "files": 7,
-      "lines": 1796,
+      "lines": 1803,
       "file_list": [
         "bootstrap.bundle.min.js",
         "dayjs.min.js",
@@ -372,7 +761,17 @@
         "mode-php.js",
         "mode-plain_text.js",
         "mode-scss.js",
-        "mode-sh.js"
+        "mode-sh.js",
+        "mode-sql.js",
+        "mode-svg.js",
+        "mode-text.js",
+        "mode-textile.js",
+        "mode-xml.js",
+        "mode-yaml.js",
+        "theme-chrome.js",
+        "theme-dracula.js",
+        "theme-github.js",
+        "theme-github_dark.js"
       ],
       "activity": "low"
     },
@@ -401,7 +800,17 @@
         "bn.js",
         "bo.js",
         "br.js",
-        "bs.js"
+        "bs.js",
+        "ca.js",
+        "cs.js",
+        "cv.js",
+        "cy.js",
+        "da.js",
+        "de-at.js",
+        "de-ch.js",
+        "de.js",
+        "dv.js",
+        "el.js"
       ],
       "activity": "low"
     },
@@ -412,7 +821,7 @@
       "lines": 458,
       "file_list": [
         "Sortable.min.js",
-        "jquery-3.7.1.min.js",
+        "jquery-3.8.0.min.js",
         "tom-select.complete.min.js"
       ],
       "activity": "low"
@@ -425,93 +834,93 @@
       "file_list": [
         "code.lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/ar": {
       "purpose": "Ar",
       "language": "php",
       "files": 1,
-      "lines": 1798,
+      "lines": 1851,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/bg": {
       "purpose": "Bg",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/bn": {
       "purpose": "Bn",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/bs": {
       "purpose": "Bs",
       "language": "php",
       "files": 1,
-      "lines": 1779,
+      "lines": 1832,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/ca": {
       "purpose": "Ca",
       "language": "php",
       "files": 1,
-      "lines": 1810,
+      "lines": 1863,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/cs": {
       "purpose": "Cs",
       "language": "php",
       "files": 1,
-      "lines": 1791,
+      "lines": 1844,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/da": {
       "purpose": "Da",
       "language": "php",
       "files": 1,
-      "lines": 1809,
+      "lines": 1862,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/de": {
       "purpose": "De",
       "language": "php",
       "files": 1,
-      "lines": 1771,
+      "lines": 1824,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/de-at": {
       "purpose": "De-at",
       "language": "php",
       "files": 1,
-      "lines": 1773,
+      "lines": 1826,
       "file_list": [
         "lang.inc.php"
       ],
@@ -521,27 +930,27 @@
       "purpose": "De-ch",
       "language": "php",
       "files": 1,
-      "lines": 1773,
+      "lines": 1826,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/en": {
       "purpose": "En",
       "language": "php",
       "files": 1,
-      "lines": 1770,
+      "lines": 1823,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/es": {
       "purpose": "Es",
       "language": "php",
       "files": 1,
-      "lines": 1772,
+      "lines": 1825,
       "file_list": [
         "lang.inc.php"
       ],
@@ -551,17 +960,17 @@
       "purpose": "Et",
       "language": "php",
       "files": 1,
-      "lines": 1809,
+      "lines": 1862,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/eu": {
       "purpose": "Eu",
       "language": "php",
       "files": 1,
-      "lines": 1772,
+      "lines": 1825,
       "file_list": [
         "lang.inc.php"
       ],
@@ -571,27 +980,27 @@
       "purpose": "Fi",
       "language": "php",
       "files": 1,
-      "lines": 1803,
+      "lines": 1856,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/fr": {
       "purpose": "Fr",
       "language": "php",
       "files": 1,
-      "lines": 1773,
+      "lines": 1826,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/gl": {
       "purpose": "Gl",
       "language": "php",
       "files": 1,
-      "lines": 1797,
+      "lines": 1850,
       "file_list": [
         "lang.inc.php"
       ],
@@ -601,17 +1010,17 @@
       "purpose": "Gr",
       "language": "php",
       "files": 1,
-      "lines": 1789,
+      "lines": 1842,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/hi": {
       "purpose": "Hi",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
@@ -621,7 +1030,7 @@
       "purpose": "Hr",
       "language": "php",
       "files": 1,
-      "lines": 1778,
+      "lines": 1831,
       "file_list": [
         "lang.inc.php"
       ],
@@ -631,7 +1040,7 @@
       "purpose": "Hu",
       "language": "php",
       "files": 1,
-      "lines": 1810,
+      "lines": 1863,
       "file_list": [
         "lang.inc.php"
       ],
@@ -641,7 +1050,7 @@
       "purpose": "Id",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
@@ -651,7 +1060,7 @@
       "purpose": "Is",
       "language": "php",
       "files": 1,
-      "lines": 1799,
+      "lines": 1852,
       "file_list": [
         "lang.inc.php"
       ],
@@ -661,7 +1070,7 @@
       "purpose": "It",
       "language": "php",
       "files": 1,
-      "lines": 1772,
+      "lines": 1825,
       "file_list": [
         "lang.inc.php"
       ],
@@ -671,7 +1080,7 @@
       "purpose": "Ja",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
@@ -681,17 +1090,17 @@
       "purpose": "Lt",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/lv": {
       "purpose": "Lv",
       "language": "php",
       "files": 1,
-      "lines": 1798,
+      "lines": 1851,
       "file_list": [
         "lang.inc.php"
       ],
@@ -701,7 +1110,7 @@
       "purpose": "Mk",
       "language": "php",
       "files": 1,
-      "lines": 1798,
+      "lines": 1851,
       "file_list": [
         "lang.inc.php"
       ],
@@ -711,7 +1120,7 @@
       "purpose": "Ms",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
@@ -721,7 +1130,7 @@
       "purpose": "Nl",
       "language": "php",
       "files": 1,
-      "lines": 1772,
+      "lines": 1825,
       "file_list": [
         "lang.inc.php"
       ],
@@ -731,7 +1140,7 @@
       "purpose": "No",
       "language": "php",
       "files": 1,
-      "lines": 1800,
+      "lines": 1853,
       "file_list": [
         "lang.inc.php"
       ],
@@ -741,7 +1150,7 @@
       "purpose": "Pa",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
@@ -751,7 +1160,7 @@
       "purpose": "Pl",
       "language": "php",
       "files": 1,
-      "lines": 1772,
+      "lines": 1825,
       "file_list": [
         "lang.inc.php"
       ],
@@ -761,7 +1170,7 @@
       "purpose": "Pt",
       "language": "php",
       "files": 1,
-      "lines": 1807,
+      "lines": 1860,
       "file_list": [
         "lang.inc.php"
       ],
@@ -771,7 +1180,7 @@
       "purpose": "Ro",
       "language": "php",
       "files": 1,
-      "lines": 1799,
+      "lines": 1852,
       "file_list": [
         "lang.inc.php"
       ],
@@ -781,7 +1190,7 @@
       "purpose": "Ru",
       "language": "php",
       "files": 1,
-      "lines": 1807,
+      "lines": 1860,
       "file_list": [
         "lang.inc.php"
       ],
@@ -791,7 +1200,7 @@
       "purpose": "Sk",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
@@ -801,17 +1210,17 @@
       "purpose": "Sl",
       "language": "php",
       "files": 1,
-      "lines": 1782,
+      "lines": 1835,
       "file_list": [
         "lang.inc.php"
       ],
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lang/backend/sq": {
       "purpose": "Sq",
       "language": "php",
       "files": 1,
-      "lines": 1772,
+      "lines": 1825,
       "file_list": [
         "lang.inc.php"
       ],
@@ -821,7 +1230,7 @@
       "purpose": "Sr",
       "language": "php",
       "files": 1,
-      "lines": 1778,
+      "lines": 1831,
       "file_list": [
         "lang.inc.php"
       ],
@@ -831,7 +1240,7 @@
       "purpose": "Sv",
       "language": "php",
       "files": 1,
-      "lines": 1809,
+      "lines": 1862,
       "file_list": [
         "lang.inc.php"
       ],
@@ -841,7 +1250,7 @@
       "purpose": "Ta",
       "language": "php",
       "files": 1,
-      "lines": 1818,
+      "lines": 1871,
       "file_list": [
         "lang.inc.php"
       ],
@@ -851,7 +1260,7 @@
       "purpose": "Tr",
       "language": "php",
       "files": 1,
-      "lines": 1781,
+      "lines": 1834,
       "file_list": [
         "lang.inc.php"
       ],
@@ -861,7 +1270,7 @@
       "purpose": "Ua",
       "language": "php",
       "files": 1,
-      "lines": 1807,
+      "lines": 1860,
       "file_list": [
         "lang.inc.php"
       ],
@@ -871,7 +1280,7 @@
       "purpose": "Ur",
       "language": "php",
       "files": 1,
-      "lines": 1798,
+      "lines": 1851,
       "file_list": [
         "lang.inc.php"
       ],
@@ -881,7 +1290,7 @@
       "purpose": "Vi",
       "language": "php",
       "files": 1,
-      "lines": 1865,
+      "lines": 1918,
       "file_list": [
         "lang.inc.php"
       ],
@@ -891,7 +1300,7 @@
       "purpose": "Zh-cn",
       "language": "php",
       "files": 1,
-      "lines": 1808,
+      "lines": 1861,
       "file_list": [
         "lang.inc.php"
       ],
@@ -922,7 +1331,64 @@
         "gl.date.lang.php",
         "gr.date.lang.php",
         "hi.date.lang.php",
-        "hr.date.lang.php"
+        "hr.date.lang.php",
+        "hu.date.lang.php",
+        "id.date.lang.php",
+        "is.date.lang.php",
+        "it.date.lang.php",
+        "ja.date.lang.php",
+        "lt.date.lang.php",
+        "lv.date.lang.php",
+        "mk.date.lang.php",
+        "nl.date.lang.php",
+        "no.date.lang.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/email": {
+      "purpose": "Email",
+      "language": "json",
+      "files": 26,
+      "lines": 1352,
+      "file_list": [
+        "ar.json",
+        "ca.json",
+        "da.json",
+        "de.json",
+        "en.json",
+        "es.json",
+        "et.json",
+        "fi.json",
+        "fr.json",
+        "hi.json",
+        "id.json",
+        "it.json",
+        "ja.json",
+        "lt.json",
+        "lv.json",
+        "ms.json",
+        "nl.json",
+        "no.json",
+        "pl.json",
+        "pt.json",
+        "ru.json",
+        "sv.json",
+        "tr.json",
+        "ua.json",
+        "vi.json",
+        "zh-cn.json"
+      ],
+      "exports": [
+        "password_reset",
+        "new_user",
+        "edit_user",
+        "account_deactivated",
+        "password_changed",
+        "user_email_changed",
+        "account_locked",
+        "mail_layout",
+        "mail_header",
+        "mail_footer"
       ],
       "activity": "low"
     },
@@ -956,47 +1422,64 @@
     "include/inc_lib": {
       "purpose": "Inc Lib",
       "language": "php",
-      "files": 50,
-      "lines": 20690,
+      "files": 54,
+      "lines": 22803,
       "file_list": [
-        "admin.functions.inc.php",
-        "admin.structure.inc.php",
-        "article.contenttype.inc.php",
-        "article.editcontent.inc.php",
-        "article.functions.inc.php",
-        "article.readform.inc.php",
-        "autolink.inc.php",
+        "general.inc.php",
         "backend.functions.inc.php",
-        "charset_helper.inc.php",
-        "checklogin.inc.php",
-        "checkmessage.inc.php",
-        "contentpart.functions.php",
-        "custom_fields.inc.php",
         "dbcon.inc.php",
-        "default.backend.inc.php",
-        "default.inc.php",
-        "files.private-delfilelist.inc.php",
-        "files.private-filelist.inc.php",
+        "helper.session.php",
+        "custom_fields.inc.php",
+        "whitelabel.inc.php",
+        "files.private-usage.inc.php",
+        "imagick.convert.inc.php",
+        "admin.functions.inc.php",
+        "helper.inc.php",
+        "security-check.inc.php",
+        "helper.mail.php",
+        "mimetype.inc.php",
+        "article.functions.inc.php",
+        "files.public-functions.inc.php",
+        "functions.file.inc.php",
+        "lib.keywords.inc.php",
+        "storage.inc.php",
+        "charset_helper.inc.php",
+        "contentpart.functions.php",
         "files.private-functions.inc.php",
-        "files.private-usage.inc.php"
+        "pixelpoints.functions.inc.php",
+        "user.config.inc.php",
+        "autolink.inc.php",
+        "helper.image.php",
+        "imagegallery.inc.php",
+        "news.inc.php",
+        "structure.inc.php",
+        "admin.structure.inc.php",
+        "article.contenttype.inc.php"
       ],
       "exports": [
-        "Phpwcms_Image_lib",
-        "phpwcmsImageGallery",
-        "phpwcmsNews"
+        "str_empty($string)",
+        "slweg($text = '', $maxlen = 0, $trim = true)",
+        "sanitize_form_redirect($target = '')",
+        "clean_slweg($text = '', $maxlen = 0, $trim = true)",
+        "phpwcms_strip_tags($string = '', $allowable_tags = null)",
+        "getpostvar($formvar, $string_laenge = 0)",
+        "html_despecialchars($h = '')",
+        "list_country($default = '', $lang = '', $prepend = [])",
+        "getCountry($lang = '', $get = 'COUNTRY_ARRAY')",
+        "list_profession($c)"
       ],
       "type_defs": {
-        "Phpwcms_Image_lib": "function __construct ($props = []); function clear (); function initialize ($props = []); function resize (); function crop_centered_resize (); function crop (); function rotate (); function image_process_gd ($action = 'resize'); function image_process_imagemagick ($action = 'resize'); function image_process_imagick ($action = 'resize'); function image_process_netpbm ($action = 'resize'); function image_rotate_gd (); function image_mirror_gd (); function watermark (); function overlay_watermark (); function text_watermark (); function image_create_gd ($path = '', $image_type = ''); function is_animated_webp ($file = ''); function extract_first_webp_frame ($file = ''); function gd_fix_orientation (\u0026$im, $imagename); function image_save_gd ($resource); function image_display_gd ($resource); function image_reproportion (); function get_image_properties ($path = '', $return = false); function size_calculator ($vals); function explode_name ($source_image, $ext_only = false); function gd_loaded (); function gd_version (); function set_error ($msg); function display_errors ($open = '\u003cp\u003e', $close = '\u003c/p\u003e', $wrap_open = '', $wr...",
+        "Phpwcms_Image_lib": "function __construct($props = []); function clear(); function initialize($props = []); function resize(); function crop_centered_resize(); function crop(); function rotate(); function image_process_gd($action = 'resize'); function image_process_imagemagick($action = 'resize'); function image_process_imagick($action = 'resize'); function image_process_netpbm($action = 'resize'); function image_rotate_gd(); function image_mirror_gd(); function watermark(); function overlay_watermark(); function text_watermark(); function image_create_gd($path = '', $image_type = ''); function is_animated_webp($file = ''); function extract_first_webp_frame($file = ''); function gd_fix_orientation(\u0026$im, $imagename); function image_save_gd($resource); function image_display_gd($resource); function image_reproportion(); function get_image_properties($path = '', $return = false); function size_calculator($vals); function explode_name($source_image, $ext_only = false); function gd_loaded(); function gd_version(); function set_error($msg); function display_errors($open = '\u003cp\u003e', $close = '\u003c/p\u003e', $wrap_open = '', $wrap_close = '')",
         "phpwcmsImageGallery": "phpwcmsImageGallery",
-        "phpwcmsNews": "function formAction (); function getNews (); function countAll (); function getPagination (); function setQueryDefaults (); function filter (); function getNewsCategories (); function getNewsLanguages (); function listBackend (); function getFiles ($mode='backend'); function edit (); function getPostData ()"
+        "phpwcmsNews": "function formAction(); function getNews(); function countAll(); function getPagination(); function setQueryDefaults(); function filter(); function getNewsCategories(); function getNewsLanguages(); function listBackend(); function getFiles($mode='backend'); function edit(); function getPostData()"
       },
-      "activity": "high"
+      "activity": "low"
     },
     "include/inc_lib/classes": {
       "purpose": "Classes",
       "language": "php",
       "files": 5,
-      "lines": 1360,
+      "lines": 1423,
       "file_list": [
         "PhpwcmsMailer.php",
         "PhpwcmsTwoFactor.php",
@@ -1005,18 +1488,18 @@
         "class.svg-reader.php"
       ],
       "exports": [
-        "IPTC",
         "PhpwcmsMailer",
         "PhpwcmsTwoFactor",
-        "SVGMetadataExtractor",
-        "phpwcmsRecaptcha"
+        "IPTC",
+        "phpwcmsRecaptcha",
+        "SVGMetadataExtractor"
       ],
       "type_defs": {
         "IPTC": "IPTC",
-        "PhpwcmsMailer": "function __construct (array $config = [], ?bool $exceptions = null); function preSend ()",
-        "PhpwcmsTwoFactor": "function getInstance () Google2FA; function generateSecret (int $length = 32) string; function getCode (string $secret, ?int $timeSlice = null) string; function verifyCode (string $secret, string $code, int $discrepancy = 1, ?int...; function getOtpAuthUrl (string $label, string $secret, string $issuer = 'phpw...; function generateBackupCodes (int $count = 8) array; function hashBackupCodes (array $plainCodes) array; function verifyAndConsumeBackupCode (array \u0026$hashedCodes, string $submittedCo...; function getQrCodeSvg (string $text, int $size = 200) string",
-        "SVGMetadataExtractor": "function getMetadata ($filename, $sanitize = true); function scaleSVGUnit ($length, $viewportSize = 512)",
-        "phpwcmsRecaptcha": "function __construct ($sitekey=null, $secretkey=null); function get_site_key (); function get_secret_key (); function get_callback (); function verify_response ($recaptcha); function get_api_src ($lang=null, $script_tag=false); function get_onsubmit_function ($uniquekey='', $formid='', $script=true)"
+        "PhpwcmsMailer": "function __construct(array $config = [], ?bool $exceptions = null); function preSend()",
+        "PhpwcmsTwoFactor": "function getInstance(): Google2FA; function generateSecret(int $length = 32): string; function getCode(string $secret, ?int $timeSlice = null): string; function verifyCode(string $secret, string $code, int $discrepancy = 1, ?int $currentTime = null)...; function getOtpAuthUrl(string $label, string $secret, string $issuer = 'phpwcms'): string; function generateBackupCodes(int $count = 8): array; function hashBackupCodes(array $plainCodes): array; function verifyAndConsumeBackupCode(array \u0026$hashedCodes, string $submittedCode): bool; function getQrCodeSvg(string $text, int $size = 200): string",
+        "SVGMetadataExtractor": "function getMetadata($filename, $sanitize = true); function scaleSVGUnit($length, $viewportSize = 512)",
+        "phpwcmsRecaptcha": "function __construct($sitekey=null, $secretkey=null); function get_site_key(); function get_secret_key(); function get_callback(); function verify_response($recaptcha); function get_api_src($lang=null, $script_tag=false); function get_onsubmit_function($uniquekey='', $formid='', $script=true)"
       },
       "activity": "low"
     },
@@ -1024,8 +1507,9 @@
       "purpose": "Content",
       "language": "php",
       "files": 111,
-      "lines": 5096,
+      "lines": 5105,
       "file_list": [
+        "cnt21.readform.inc.php",
         "cnt0.readform.inc.php",
         "cnt0.sql.inc.php",
         "cnt0.takeval.inc.php",
@@ -1045,16 +1529,34 @@
         "cnt12.sql.inc.php",
         "cnt12.takeval.inc.php",
         "cnt13.readform.inc.php",
-        "cnt13.sql.inc.php"
+        "cnt13.sql.inc.php",
+        "cnt13.takeval.inc.php",
+        "cnt14.readform.inc.php",
+        "cnt14.sql.inc.php",
+        "cnt14.takeval.inc.php",
+        "cnt15.readform.inc.php",
+        "cnt15.sql.inc.php",
+        "cnt15.takeval.inc.php",
+        "cnt16.readform.inc.php",
+        "cnt16.sql.inc.php"
+      ],
+      "exports": [
+        "cnt21_external_url_allowed($url)"
       ],
       "activity": "low"
     },
     "include/inc_lib/revision": {
       "purpose": "Revision",
       "language": "php",
-      "files": 46,
-      "lines": 3271,
+      "files": 52,
+      "lines": 4503,
       "file_list": [
+        "r566.php",
+        "r563.php",
+        "r564.php",
+        "r565.php",
+        "r554.php",
+        "r562.php",
         "r401.php",
         "r402.php",
         "r403.php",
@@ -1074,7 +1576,23 @@
         "r533.php",
         "r534.php",
         "r535.php",
-        "r536.php"
+        "r536.php",
+        "r537.php",
+        "r538.php",
+        "r539.php",
+        "r540.php"
+      ],
+      "exports": [
+        "r566_column_type($table, $field)",
+        "r566_alias_bucket($namespace, $prefix)",
+        "r566_unique_alias($alias, $namespace, $maxlen)",
+        "r566_log_alias($table, $id, $old, $new)",
+        "r566_revision_message($message)",
+        "r566_calendar_index_prefix($max_prefix = 768)",
+        "r566_calendar_index_trim($new_length)",
+        "phpwcms_revision_r566()",
+        "phpwcms_revision_r563()",
+        "phpwcms_revision_r563_protect($dir)"
       ],
       "activity": "low"
     },
@@ -1082,17 +1600,26 @@
       "purpose": "Update",
       "language": "php",
       "files": 3,
-      "lines": 1043,
+      "lines": 1047,
       "file_list": [
         "update.api.php",
         "update.backup.php",
         "update.php"
       ],
       "exports": [
-        "phpwcms_update"
+        "phpwcms_update_normalize_tag(string $tag)",
+        "phpwcms_update_http_get_once(string $url)",
+        "phpwcms_update_is_allowed_host(string $host)",
+        "phpwcms_update_http_get(string $url, bool $restrictHosts = false)",
+        "phpwcms_update_fetch_latest_release()",
+        "phpwcms_update_http_probe(string $url)",
+        "phpwcms_update_resolve_redirects(string $url, bool $restrictHosts)",
+        "phpwcms_update_download_asset(string $zipUrl, string $targetPath)",
+        "phpwcms_update_db_dump(string $gzPath)",
+        "phpwcms_update_backup_files(array $files, string $backupDir)"
       ],
       "type_defs": {
-        "phpwcms_update": "function __construct (int $userId, string $zipPath = ''); function isSkipped (string $rel) bool; function isNewer (string $version) bool; function check () array|false; function run (string $expectedTag) array; function rollback (int $updateId) array; function clearMaintenance () void; function maintenanceActive () bool"
+        "phpwcms_update": "function __construct(int $userId, string $zipPath = ''); function isSkipped(string $rel): bool; function isNewer(string $version): bool; function check(): array|false; function run(string $expectedTag): array; function rollback(int $updateId): array; function clearMaintenance(): void; function maintenanceActive(): bool"
       },
       "activity": "low"
     },
@@ -1117,10 +1644,14 @@
       "files": 4,
       "lines": 902,
       "file_list": [
+        "search.addresses.php",
         "conf.inc.php",
         "functions.inc.php",
-        "processing.inc.php",
-        "search.addresses.php"
+        "processing.inc.php"
+      ],
+      "exports": [
+        "sanitize_phone_number($text)",
+        "get_phone_link($number, $type='tel')"
       ],
       "activity": "low"
     },
@@ -1149,7 +1680,17 @@
         "gl.lang.php",
         "gr.lang.php",
         "hi.lang.php",
-        "hr.lang.php"
+        "hr.lang.php",
+        "hu.lang.php",
+        "id.lang.php",
+        "is.lang.php",
+        "it.lang.php",
+        "ja.lang.php",
+        "lt.lang.php",
+        "lv.lang.php",
+        "mk.lang.php",
+        "nl.lang.php",
+        "no.lang.php"
       ],
       "activity": "low"
     },
@@ -1186,13 +1727,13 @@
       "files": 14,
       "lines": 1394,
       "file_list": [
-        "ads.fe_init.inc.php",
         "ads.fe_render.inc.php",
-        "ads_fe_init.inc.php",
         "ads_fe_render.inc.php",
         "ads_frontend.inc.php",
-        "ads_frontend_init.inc.php",
         "ads_frontend_render.inc.php",
+        "ads.fe_init.inc.php",
+        "ads_fe_init.inc.php",
+        "ads_frontend_init.inc.php",
         "listing.adplace.inc.php",
         "listing.campaign.inc.php",
         "listing.summary.inc.php",
@@ -1200,6 +1741,9 @@
         "processing.campaign.inc.php",
         "processing.datetime.inc.php",
         "processing.inc.php"
+      ],
+      "exports": [
+        "renderAds($match)"
       ],
       "activity": "low"
     },
@@ -1228,7 +1772,17 @@
         "gl.lang.php",
         "gr.lang.php",
         "hi.lang.php",
-        "hr.lang.php"
+        "hr.lang.php",
+        "hu.lang.php",
+        "id.lang.php",
+        "is.lang.php",
+        "it.lang.php",
+        "ja.lang.php",
+        "lt.lang.php",
+        "lv.lang.php",
+        "mk.lang.php",
+        "nl.lang.php",
+        "no.lang.php"
       ],
       "activity": "low"
     },
@@ -1269,10 +1823,11 @@
         "processing.inc.php"
       ],
       "exports": [
-        "phpwcmsCalendar"
+        "phpwcmsCalendar",
+        "returnDayNameArray()"
       ],
       "type_defs": {
-        "phpwcmsCalendar": "function __construct (); function dbReset (); function defaultTemplate (); function setCalendarImage (\u0026$calendar_item); function parse (\u0026 $string); function resetCalendarLink (); function get_calendar_range_type ($calendar_range); function render (); function parse_match ($match=''); function getDate ($s=null, $e=null, $o='', $l='', $g='', $w=''); function getNonLocationWhere (); function getFirstCalendarDate (); function getLastCalendarDate (); function getCalendarPlaces (); function getDateSelect ($name='', $year_min_max=null, $day=null, $month=null,...; function renderDateImage ($date, $template)"
+        "phpwcmsCalendar": "function __construct(); function dbReset(); function defaultTemplate(); function setCalendarImage(\u0026$calendar_item); function parse(\u0026 $string); function resetCalendarLink(); function get_calendar_range_type($calendar_range); function render(); function parse_match($match=''); function getDate($s=null, $e=null, $o='', $l='', $g='', $w=''); function getNonLocationWhere(); function getFirstCalendarDate(); function getLastCalendarDate(); function getCalendarPlaces(); function getDateSelect($name='', $year_min_max=null, $day=null, $month=null, $year=null); function renderDateImage($date, $template)"
       },
       "activity": "low"
     },
@@ -1301,7 +1856,17 @@
         "gl.lang.php",
         "gr.lang.php",
         "hi.lang.php",
-        "hr.lang.php"
+        "hr.lang.php",
+        "hu.lang.php",
+        "id.lang.php",
+        "is.lang.php",
+        "it.lang.php",
+        "ja.lang.php",
+        "lt.lang.php",
+        "lv.lang.php",
+        "mk.lang.php",
+        "ms.lang.php",
+        "nl.lang.php"
       ],
       "activity": "low"
     },
@@ -1309,7 +1874,7 @@
       "purpose": "Mod Feedimport",
       "language": "php",
       "files": 5,
-      "lines": 978,
+      "lines": 983,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1327,6 +1892,14 @@
       "file_list": [
         "functions.inc.php",
         "processing.inc.php"
+      ],
+      "exports": [
+        "decformat($num=0)",
+        "clean_preformatted_number($number=0, $auto=true)",
+        "feedimport_article_templates($tmpl='')",
+        "is_feed_available($url, $timeout = 30)",
+        "feedimport_article_authors()",
+        "feedimport_filestorage_dirlist($pid=0, $prefix='+', $userID=null, $counter=0)"
       ],
       "activity": "low"
     },
@@ -1355,7 +1928,17 @@
         "gl.lang.php",
         "gr.lang.php",
         "hi.lang.php",
-        "hr.lang.php"
+        "hr.lang.php",
+        "hu.lang.php",
+        "id.lang.php",
+        "is.lang.php",
+        "it.lang.php",
+        "ja.lang.php",
+        "lt.lang.php",
+        "lv.lang.php",
+        "mk.lang.php",
+        "nl.lang.php",
+        "no.lang.php"
       ],
       "activity": "low"
     },
@@ -1378,7 +1961,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 7,
-      "lines": 585,
+      "lines": 591,
       "file_list": [
         "cnt.article.php",
         "cnt.form.php",
@@ -1415,7 +1998,17 @@
         "gl.lang.php",
         "gr.lang.php",
         "hi.lang.php",
-        "hr.lang.php"
+        "hr.lang.php",
+        "hu.lang.php",
+        "id.lang.php",
+        "is.lang.php",
+        "it.lang.php",
+        "ja.lang.php",
+        "lt.lang.php",
+        "lv.lang.php",
+        "mk.lang.php",
+        "nl.lang.php",
+        "no.lang.php"
       ],
       "activity": "low"
     },
@@ -1426,47 +2019,6 @@
       "lines": 31,
       "file_list": [
         "jquery.glossary.js"
-      ],
-      "activity": "low"
-    },
-    "include/inc_module/mod_modules": {
-      "purpose": "Mod Modules",
-      "language": "php",
-      "files": 3,
-      "lines": 107,
-      "file_list": [
-        "backend.default.php",
-        "backend.listing.php",
-        "module.default.php"
-      ],
-      "activity": "low"
-    },
-    "include/inc_module/mod_modules/lang": {
-      "purpose": "Lang",
-      "language": "php",
-      "files": 46,
-      "lines": 598,
-      "file_list": [
-        "ar.lang.php",
-        "bg.lang.php",
-        "bn.lang.php",
-        "bs.lang.php",
-        "ca.lang.php",
-        "cs.lang.php",
-        "da.lang.php",
-        "de-at.lang.php",
-        "de-ch.lang.php",
-        "de.lang.php",
-        "en.lang.php",
-        "es.lang.php",
-        "et.lang.php",
-        "eu.lang.php",
-        "fi.lang.php",
-        "fr.lang.php",
-        "gl.lang.php",
-        "gr.lang.php",
-        "hi.lang.php",
-        "hr.lang.php"
       ],
       "activity": "low"
     },
@@ -1507,7 +2059,17 @@
         "gl.lang.php",
         "gr.lang.php",
         "hi.lang.php",
-        "hr.lang.php"
+        "hr.lang.php",
+        "hu.lang.php",
+        "id.lang.php",
+        "is.lang.php",
+        "it.lang.php",
+        "ja.lang.php",
+        "lt.lang.php",
+        "lv.lang.php",
+        "mk.lang.php",
+        "nl.lang.php",
+        "no.lang.php"
       ],
       "activity": "low"
     },
@@ -1517,12 +2079,22 @@
       "files": 6,
       "lines": 2453,
       "file_list": [
+        "frontend.init.php",
         "api.shop.php",
         "backend.default.php",
-        "frontend.init.php",
         "frontend.render.php",
         "frontend.search.php",
         "module.default.php"
+      ],
+      "exports": [
+        "is_cart_filled()",
+        "get_cart_data()",
+        "shop_image_tag($img=array(), $counter=0, $title='')",
+        "get_shop_category_name($id=0, $subid=0)",
+        "get_payment_options()",
+        "get_category_products($selected_product_cat, $shop_detail_id, $shop_cat_selec...",
+        "shop_files($data=array())",
+        "get_shop_option_value_config()"
       ],
       "activity": "low"
     },
@@ -1530,8 +2102,11 @@
       "purpose": "Inc",
       "language": "php",
       "files": 26,
-      "lines": 4549,
+      "lines": 4544,
       "file_list": [
+        "functions.backend.inc.php",
+        "frontend.search.inc.php",
+        "functions.global.inc.php",
         "cart.items.inc.php",
         "cart.parse.inc.php",
         "cnt.article.php",
@@ -1544,17 +2119,25 @@
         "edit.preferences.inc.php",
         "edit.products.inc.php",
         "footer.inc.php",
-        "frontend.search.inc.php",
-        "functions.backend.inc.php",
-        "functions.global.inc.php",
         "listing.categories.inc.php",
         "listing.default.inc.php",
         "listing.orders.inc.php",
         "listing.products.inc.php",
-        "processing.categories.inc.php"
+        "processing.categories.inc.php",
+        "processing.orders.inc.php",
+        "processing.preferences.inc.php",
+        "processing.products.inc.php",
+        "shipping.parse.inc.php",
+        "show.orders.inc.php",
+        "tabs.inc.php"
       ],
       "exports": [
-        "ModuleShopSearch"
+        "shop_url($get='', $type='htmlentities')",
+        "roundAll($a)",
+        "order_status($is='', $status='')",
+        "get_shop_option_value_config()",
+        "ModuleShopSearch",
+        "get_shop_option_value($option)"
       ],
       "type_defs": {
         "ModuleShopSearch": "ModuleShopSearch"
@@ -1586,7 +2169,17 @@
         "gl.lang.php",
         "gr.lang.php",
         "hi.lang.php",
-        "hr.lang.php"
+        "hr.lang.php",
+        "hu.lang.php",
+        "id.lang.php",
+        "is.lang.php",
+        "it.lang.php",
+        "ja.lang.php",
+        "lt.lang.php",
+        "lv.lang.php",
+        "mk.lang.php",
+        "nl.lang.php",
+        "no.lang.php"
       ],
       "activity": "low"
     },
@@ -1607,6 +2200,7 @@
       "files": 9,
       "lines": 1060,
       "file_list": [
+        "statistic.functions.inc.php",
         "listing.downloads.inc.php",
         "listing.guestbook.inc.php",
         "listing.overview.inc.php",
@@ -1614,8 +2208,11 @@
         "listing.seo.inc.php",
         "listing.subscriptions.inc.php",
         "listing.user.inc.php",
-        "statistic.functions.inc.php",
         "tabs.inc.php"
+      ],
+      "exports": [
+        "statistic_url($get='', $type='htmlentities')",
+        "roundAll($a)"
       ],
       "activity": "low"
     },
@@ -1644,16 +2241,27 @@
         "gl.lang.php",
         "gr.lang.php",
         "hi.lang.php",
-        "hr.lang.php"
+        "hr.lang.php",
+        "hu.lang.php",
+        "id.lang.php",
+        "is.lang.php",
+        "it.lang.php",
+        "ja.lang.php",
+        "lt.lang.php",
+        "lv.lang.php",
+        "mk.lang.php",
+        "nl.lang.php",
+        "no.lang.php"
       ],
       "activity": "low"
     },
     "include/inc_tmpl": {
       "purpose": "Inc Tmpl",
       "language": "php",
-      "files": 49,
-      "lines": 17707,
+      "files": 50,
+      "lines": 17859,
       "file_list": [
+        "admin.update.tmpl.php",
         "about.tmpl.php",
         "admin.aliaslist.tmpl.php",
         "admin.custom_cpt.tmpl.php",
@@ -1668,12 +2276,24 @@
         "admin.pagelayout.tmpl.php",
         "admin.phpinfo.tmpl.php",
         "admin.redirect.tmpl.php",
+        "admin.security.tmpl.php",
         "admin.structform.tmpl.php",
         "admin.structlist.tmpl.php",
         "admin.templatelang.tmpl.php",
         "admin.templates.tmpl.php",
-        "admin.update.tmpl.php",
-        "article.editsummary.tmpl.php"
+        "article.editsummary.tmpl.php",
+        "article.structlist.tmpl.php",
+        "articlecontent.edit.tmpl.php",
+        "articlecontent.list.tmpl.php",
+        "be_start.tmpl.php",
+        "files.abschluss.tmpl.php",
+        "files.actions.tmpl.php",
+        "files.ftptakeover.tmpl.php",
+        "files.private.editdir.tmpl.php",
+        "files.private.editfile.tmpl.php"
+      ],
+      "exports": [
+        "be_update_markdown(string $text)"
       ],
       "activity": "low"
     },
@@ -1683,6 +2303,8 @@
       "files": 75,
       "lines": 11885,
       "file_list": [
+        "cnt21.inc.php",
+        "cnt51.map.php",
         "cnt0.inc.php",
         "cnt0.list.inc.php",
         "cnt1.inc.php",
@@ -1702,7 +2324,19 @@
         "cnt15.inc.php",
         "cnt15.list.inc.php",
         "cnt16.inc.php",
-        "cnt16.list.inc.php"
+        "cnt16.list.inc.php",
+        "cnt18.inc.php",
+        "cnt18.list.inc.php",
+        "cnt19.inc.php",
+        "cnt19.list.inc.php",
+        "cnt2.inc.php",
+        "cnt2.list.inc.php",
+        "cnt21.list.inc.php",
+        "cnt22.inc.php"
+      ],
+      "exports": [
+        "browse_pages_dir($dir)",
+        "hex2rgb($hex)"
       ],
       "activity": "low"
     },
@@ -1719,9 +2353,10 @@
     "phpwcms-extended/phpwcms-fancyBox/template/lib": {
       "purpose": "Shared library code",
       "language": "javascript",
-      "files": 9,
-      "lines": 4752,
+      "files": 10,
+      "lines": 4799,
       "file_list": [
+        "package.json",
         "jquery.fancybox-buttons.js",
         "jquery.fancybox-media.js",
         "jquery.fancybox-thumbs.js",
@@ -1732,28 +2367,70 @@
         "jquery.touchSwipe.js",
         "jquery.touchSwipe.min.js"
       ],
+      "exports": [
+        "name",
+        "title",
+        "description",
+        "keywords",
+        "licenses",
+        "version",
+        "repository",
+        "dependencies",
+        "devDependencies",
+        "engines"
+      ],
       "activity": "low"
     },
     "root": {
       "purpose": "Root package",
       "language": "php",
-      "files": 14,
-      "lines": 4822,
+      "files": 21,
+      "lines": 5414,
       "file_list": [
+        "Makefile",
+        "package.json",
         "articlebrowser.php",
+        "composer.json",
+        "filebrowser.php",
+        "feeds.php",
+        "Dockerfile",
+        "Dockerfile.fpm",
+        "docker-compose.yml",
+        "login.php",
         "dbdown.php",
         "download.php",
-        "feeds.php",
-        "filebrowser.php",
         "fileinfo.php",
+        "formfile.php",
         "image_resized.php",
         "image_zoom.php",
         "index.php",
-        "login.php",
         "phpwcms.php",
         "rss.php",
         "sitemap.php",
         "verify.php"
+      ],
+      "exports": [
+        "all: help",
+        "help",
+        "sync",
+        "minify-sync: minify sync",
+        "changed-archive",
+        "css-minify",
+        "css-minify-dev",
+        "js-minify",
+        "minify",
+        "phpstan-analyse"
+      ],
+      "activity": "low"
+    },
+    "scripts": {
+      "purpose": "Scripts",
+      "language": "powershell",
+      "files": 2,
+      "lines": 167,
+      "file_list": [
+        "changed-archive.ps1",
+        "changed-archive.sh"
       ],
       "activity": "low"
     },
@@ -1761,7 +2438,7 @@
       "purpose": "Setup",
       "language": "php",
       "files": 4,
-      "lines": 3684,
+      "lines": 3916,
       "file_list": [
         "get_conf_file.php",
         "index.php",
@@ -1774,7 +2451,7 @@
       "purpose": "Default Sql",
       "language": "sql",
       "files": 2,
-      "lines": 1518,
+      "lines": 1519,
       "file_list": [
         "phpwcms_init.sql",
         "phpwcms_inserts.sql"
@@ -1784,9 +2461,10 @@
     "setup/inc": {
       "purpose": "Inc",
       "language": "php",
-      "files": 9,
-      "lines": 3169,
+      "files": 10,
+      "lines": 3637,
       "file_list": [
+        "session.inc.php",
         "setup.check.inc.php",
         "setup.func.inc.php",
         "step0.inc.php",
@@ -1796,6 +2474,12 @@
         "step4.inc.php",
         "step5.inc.php",
         "step6.inc.php"
+      ],
+      "exports": [
+        "setup_session_root($dir)",
+        "setup_session_cookie_path($scriptName)",
+        "setup_request_is_https()",
+        "setup_start_session($root)"
       ],
       "activity": "low"
     },
@@ -1848,12 +2532,18 @@
       "files": 6,
       "lines": 450,
       "file_list": [
-        "domaincheck.php",
-        "felogin.init.php",
-        "inject_body_id.php",
         "lang.init.php",
-        "lang_redirect.php",
-        "trigger_test.php"
+        "felogin.init.php",
+        "trigger_test.php",
+        "domaincheck.php",
+        "inject_body_id.php",
+        "lang_redirect.php"
+      ],
+      "exports": [
+        "match_alias_language()",
+        "search_opposite_alias($alias='')",
+        "cleandblsquote($string)",
+        "CP_CreateDate($text, $data)"
       ],
       "activity": "low"
     },
@@ -1863,11 +2553,12 @@
       "files": 20,
       "lines": 1620,
       "file_list": [
+        "makeEmailSpamSave.php",
+        "fe_user.php",
         "breadcrumb.php",
         "calendar.php",
         "customPageTitle.php",
         "email_subject.php",
-        "fe_user.php",
         "felogin.render.php",
         "gallery.php",
         "grouped-accordion.php",
@@ -1877,12 +2568,16 @@
         "lang_replace.php",
         "list_form_entries.php",
         "logged_in.php",
-        "makeEmailSpamSave.php",
         "memory_usage.php",
         "menuStructure.php",
         "switchCSS.php",
         "switchFontSize.php",
         "vgwort.php"
+      ],
+      "exports": [
+        "replaceEmailAddress($str)",
+        "rewriteEmailText($part)",
+        "is_fe_error($field='')"
       ],
       "activity": "low"
     },
@@ -1937,6 +2632,48 @@
       ],
       "activity": "low"
     },
+    "template/lib/cookieconsent3/lang": {
+      "purpose": "Lang",
+      "language": "json",
+      "files": 29,
+      "lines": 1975,
+      "file_list": [
+        "ar.json",
+        "bg.json",
+        "bs.json",
+        "ca.json",
+        "cs.json",
+        "da.json",
+        "de-ch.json",
+        "de.json",
+        "el.json",
+        "en.json",
+        "es.json",
+        "et.json",
+        "fi.json",
+        "fr.json",
+        "gr.json",
+        "hu.json",
+        "it.json",
+        "lt.json",
+        "nl.json",
+        "no.json",
+        "pl.json",
+        "pt.json",
+        "ro.json",
+        "ru.json",
+        "sk.json",
+        "sl.json",
+        "sv.json",
+        "tr.json",
+        "vi.json"
+      ],
+      "exports": [
+        "consentModal",
+        "preferencesModal"
+      ],
+      "activity": "low"
+    },
     "template/lib/glightbox": {
       "purpose": "Glightbox",
       "language": "javascript",
@@ -1950,8 +2687,8 @@
     "template/lib/jquery": {
       "purpose": "Jquery",
       "language": "javascript",
-      "files": 28,
-      "lines": 283,
+      "files": 32,
+      "lines": 291,
       "file_list": [
         "jquery-1.10.2.min.js",
         "jquery-1.11.3.min.js",
@@ -1972,7 +2709,17 @@
         "jquery-3.3.1.min.js",
         "jquery-3.4.1.min.js",
         "jquery-3.5.1.min.js",
-        "jquery-3.6.4.min.js"
+        "jquery-3.6.4.min.js",
+        "jquery-3.7.1.min.js",
+        "jquery-3.7.1.slim.min.js",
+        "jquery-3.8.0.min.js",
+        "jquery-3.8.0.slim.min.js",
+        "jquery-4.0.0.min.js",
+        "jquery-4.0.0.slim.min.js",
+        "jquery-4.1.0.min.js",
+        "jquery-4.1.0.slim.min.js",
+        "jquery-migrate-1.2.1.min.js",
+        "jquery-migrate-1.4.1.min.js"
       ],
       "activity": "low"
     },
@@ -2029,8 +2776,8 @@
     "edges": null,
     "entrypoints": null,
     "most_depended": [
+      ".github/codeql",
       ".phpstan",
-      ".superpowers/sdd/2026-09-01-self-update",
       "docs/_authoring",
       "img",
       "include/config",
@@ -2041,8 +2788,8 @@
       "include/inc_ext/ckeditor/lang"
     ],
     "isolated": [
+      ".github/codeql",
       ".phpstan",
-      ".superpowers/sdd/2026-09-01-self-update",
       "docs/_authoring",
       "img",
       "include/config",
@@ -2051,7 +2798,29 @@
       "include/inc_ext/ckeditor",
       "include/inc_ext/ckeditor/adapters",
       "include/inc_ext/ckeditor/lang",
-      "include/inc_ext/ckeditor/plugins",
+      "include/inc_ext/ckeditor/plugins/a11yhelp/dialogs",
+      "include/inc_ext/ckeditor/plugins/a11yhelp/dialogs/lang",
+      "include/inc_ext/ckeditor/plugins/about",
+      "include/inc_ext/ckeditor/plugins/clipboard",
+      "include/inc_ext/ckeditor/plugins/colordialog",
+      "include/inc_ext/ckeditor/plugins/dialog",
+      "include/inc_ext/ckeditor/plugins/div",
+      "include/inc_ext/ckeditor/plugins/find",
+      "include/inc_ext/ckeditor/plugins/forms",
+      "include/inc_ext/ckeditor/plugins/iframe",
+      "include/inc_ext/ckeditor/plugins/image",
+      "include/inc_ext/ckeditor/plugins/image2",
+      "include/inc_ext/ckeditor/plugins/link",
+      "include/inc_ext/ckeditor/plugins/liststyle",
+      "include/inc_ext/ckeditor/plugins/pastefromword",
+      "include/inc_ext/ckeditor/plugins/pastetools",
+      "include/inc_ext/ckeditor/plugins/scayt",
+      "include/inc_ext/ckeditor/plugins/smiley",
+      "include/inc_ext/ckeditor/plugins/specialchar/dialogs",
+      "include/inc_ext/ckeditor/plugins/specialchar/dialogs/lang",
+      "include/inc_ext/ckeditor/plugins/table",
+      "include/inc_ext/ckeditor/plugins/tabletools",
+      "include/inc_ext/ckeditor/plugins/templates",
       "include/inc_front",
       "include/inc_front/content",
       "include/inc_front/content/cnt_functions",
@@ -2109,6 +2878,7 @@
       "include/inc_lang/backend/vi",
       "include/inc_lang/backend/zh-cn",
       "include/inc_lang/date",
+      "include/inc_lang/email",
       "include/inc_lang/formmailer",
       "include/inc_lang/image",
       "include/inc_lib",
@@ -2134,8 +2904,6 @@
       "include/inc_module/mod_glossary/inc",
       "include/inc_module/mod_glossary/lang",
       "include/inc_module/mod_glossary/template",
-      "include/inc_module/mod_modules",
-      "include/inc_module/mod_modules/lang",
       "include/inc_module/mod_seolog",
       "include/inc_module/mod_seolog/lang",
       "include/inc_module/mod_shop",
@@ -2149,6 +2917,7 @@
       "phpwcms-extended/phpwcms-fancyBox/template/inc_script",
       "phpwcms-extended/phpwcms-fancyBox/template/lib",
       "root",
+      "scripts",
       "setup",
       "setup/default_sql",
       "setup/inc",
@@ -2163,6 +2932,7 @@
       "template/lib/cookieconsent2",
       "template/lib/cookieconsent3",
       "template/lib/cookieconsent3/core",
+      "template/lib/cookieconsent3/lang",
       "template/lib/glightbox",
       "template/lib/jquery",
       "template/lib/jquery/plugin",
@@ -2171,114 +2941,7 @@
       "template/lib/video-js"
     ]
   },
-  "git": {
-    "hot_files": [
-      {
-        "path": "include/inc_css/phpwcms.css",
-        "commits_90d": 45
-      },
-      {
-        "path": "include/inc_css/backend.min.css",
-        "commits_90d": 44
-      },
-      {
-        "path": "include/inc_lang/backend/de/lang.inc.php",
-        "commits_90d": 33
-      },
-      {
-        "path": "include/inc_lib/general.inc.php",
-        "commits_90d": 33
-      },
-      {
-        "path": "include/inc_lang/backend/en/lang.inc.php",
-        "commits_90d": 32
-      },
-      {
-        "path": "phpwcms.php",
-        "commits_90d": 32
-      },
-      {
-        "path": "include/inc_lang/backend/ar/lang.inc.php",
-        "commits_90d": 26
-      },
-      {
-        "path": "include/inc_lang/backend/gr/lang.inc.php",
-        "commits_90d": 26
-      },
-      {
-        "path": "include/inc_lang/backend/bg/lang.inc.php",
-        "commits_90d": 25
-      },
-      {
-        "path": "include/inc_lang/backend/bs/lang.inc.php",
-        "commits_90d": 25
-      },
-      {
-        "path": "include/inc_lang/backend/ca/lang.inc.php",
-        "commits_90d": 25
-      },
-      {
-        "path": "include/inc_lang/backend/de-ch/lang.inc.php",
-        "commits_90d": 25
-      },
-      {
-        "path": "include/inc_lang/backend/et/lang.inc.php",
-        "commits_90d": 25
-      },
-      {
-        "path": "include/inc_lang/backend/fi/lang.inc.php",
-        "commits_90d": 25
-      },
-      {
-        "path": "include/inc_lang/backend/fr/lang.inc.php",
-        "commits_90d": 25
-      },
-      {
-        "path": "include/inc_lang/backend/lt/lang.inc.php",
-        "commits_90d": 25
-      },
-      {
-        "path": "include/inc_lang/backend/sl/lang.inc.php",
-        "commits_90d": 25
-      },
-      {
-        "path": "include/inc_lang/backend/bn/lang.inc.php",
-        "commits_90d": 24
-      },
-      {
-        "path": "include/inc_lang/backend/cs/lang.inc.php",
-        "commits_90d": 24
-      },
-      {
-        "path": "include/inc_lang/backend/da/lang.inc.php",
-        "commits_90d": 24
-      }
-    ],
-    "recent": [
-      "include/inc_lib/general.inc.php",
-      "composer.json",
-      "include/inc_tmpl/about.tmpl.php",
-      "include/vendor/composer/autoload_files.php",
-      "include/vendor/composer/autoload_psr4.php",
-      "include/vendor/composer/autoload_static.php",
-      "include/vendor/composer/installed.json",
-      "include/vendor/composer/installed.php",
-      "include/vendor/voku/anti-xss/CHANGELOG.md",
-      "include/vendor/voku/anti-xss/LICENSE"
-    ],
-    "stable": [
-      ".dockerignore",
-      ".htaccess",
-      ".mcp.json",
-      "SECURITY.md",
-      "SPONSORS.md",
-      "_.htaccess",
-      "ai.txt",
-      "bin/get-oauth-token.php",
-      "content/form/.htaccess",
-      "dbdown.php"
-    ]
-  },
+  "git": {},
   "hints": {
     "test_command": "npm test",
     "env_vars": [
@@ -2307,5 +2970,211 @@
       ".github/"
     ]
   },
-  "architecture": {}
+  "architecture": {},
+  "scan": {
+    "lightweight": [
+      "include/inc_ext/ckeditor/ckeditor.js (large)",
+      "include/inc_ext/ckeditor/lang/af.js (minified)",
+      "include/inc_ext/ckeditor/lang/ar.js (minified)",
+      "include/inc_ext/ckeditor/lang/az.js (minified)",
+      "include/inc_ext/ckeditor/lang/bg.js (minified)",
+      "include/inc_ext/ckeditor/lang/bn.js (minified)",
+      "include/inc_ext/ckeditor/lang/bs.js (minified)",
+      "include/inc_ext/ckeditor/lang/ca.js (minified)",
+      "include/inc_ext/ckeditor/lang/cs.js (minified)",
+      "include/inc_ext/ckeditor/lang/cy.js (minified)",
+      "include/inc_ext/ckeditor/lang/da.js (minified)",
+      "include/inc_ext/ckeditor/lang/de-ch.js (minified)",
+      "include/inc_ext/ckeditor/lang/de.js (minified)",
+      "include/inc_ext/ckeditor/lang/el.js (minified)",
+      "include/inc_ext/ckeditor/lang/en-au.js (minified)",
+      "include/inc_ext/ckeditor/lang/en-ca.js (minified)",
+      "include/inc_ext/ckeditor/lang/en-gb.js (minified)",
+      "include/inc_ext/ckeditor/lang/en.js (minified)",
+      "include/inc_ext/ckeditor/lang/eo.js (minified)",
+      "include/inc_ext/ckeditor/lang/es-mx.js (minified)",
+      "include/inc_ext/ckeditor/lang/es.js (minified)",
+      "include/inc_ext/ckeditor/lang/et.js (minified)",
+      "include/inc_ext/ckeditor/lang/eu.js (minified)",
+      "include/inc_ext/ckeditor/lang/fa.js (minified)",
+      "include/inc_ext/ckeditor/lang/fi.js (minified)",
+      "include/inc_ext/ckeditor/lang/fo.js (minified)",
+      "include/inc_ext/ckeditor/lang/fr-ca.js (minified)",
+      "include/inc_ext/ckeditor/lang/fr.js (minified)",
+      "include/inc_ext/ckeditor/lang/gl.js (minified)",
+      "include/inc_ext/ckeditor/lang/gu.js (minified)",
+      "include/inc_ext/ckeditor/lang/he.js (minified)",
+      "include/inc_ext/ckeditor/lang/hi.js (minified)",
+      "include/inc_ext/ckeditor/lang/hr.js (minified)",
+      "include/inc_ext/ckeditor/lang/hu.js (minified)",
+      "include/inc_ext/ckeditor/lang/id.js (minified)",
+      "include/inc_ext/ckeditor/lang/is.js (minified)",
+      "include/inc_ext/ckeditor/lang/it.js (minified)",
+      "include/inc_ext/ckeditor/lang/ja.js (minified)",
+      "include/inc_ext/ckeditor/lang/ka.js (minified)",
+      "include/inc_ext/ckeditor/lang/km.js (minified)",
+      "include/inc_ext/ckeditor/lang/ko.js (minified)",
+      "include/inc_ext/ckeditor/lang/ku.js (minified)",
+      "include/inc_ext/ckeditor/lang/lt.js (minified)",
+      "include/inc_ext/ckeditor/lang/lv.js (minified)",
+      "include/inc_ext/ckeditor/lang/mk.js (minified)",
+      "include/inc_ext/ckeditor/lang/mn.js (minified)",
+      "include/inc_ext/ckeditor/lang/ms.js (minified)",
+      "include/inc_ext/ckeditor/lang/nb.js (minified)",
+      "include/inc_ext/ckeditor/lang/nl.js (minified)",
+      "include/inc_ext/ckeditor/lang/no.js (minified)",
+      "include/inc_ext/ckeditor/lang/oc.js (minified)",
+      "include/inc_ext/ckeditor/lang/pl.js (minified)",
+      "include/inc_ext/ckeditor/lang/pt-br.js (minified)",
+      "include/inc_ext/ckeditor/lang/pt.js (minified)",
+      "include/inc_ext/ckeditor/lang/ro.js (minified)",
+      "include/inc_ext/ckeditor/lang/ru.js (minified)",
+      "include/inc_ext/ckeditor/lang/si.js (minified)",
+      "include/inc_ext/ckeditor/lang/sk.js (minified)",
+      "include/inc_ext/ckeditor/lang/sl.js (minified)",
+      "include/inc_ext/ckeditor/lang/sq.js (minified)",
+      "include/inc_ext/ckeditor/lang/sr-latn.js (minified)",
+      "include/inc_ext/ckeditor/lang/sr.js (minified)",
+      "include/inc_ext/ckeditor/lang/sv.js (minified)",
+      "include/inc_ext/ckeditor/lang/th.js (minified)",
+      "include/inc_ext/ckeditor/lang/tr.js (minified)",
+      "include/inc_ext/ckeditor/lang/tt.js (minified)",
+      "include/inc_ext/ckeditor/lang/ug.js (minified)",
+      "include/inc_ext/ckeditor/lang/uk.js (minified)",
+      "include/inc_ext/ckeditor/lang/vi.js (minified)",
+      "include/inc_ext/ckeditor/lang/zh-cn.js (minified)",
+      "include/inc_ext/ckeditor/lang/zh.js (minified)",
+      "include/inc_front/content/cnt23.article.inc.php (large)",
+      "include/inc_front/front.func.inc.php (large)",
+      "include/inc_js/ace/ace.js (large)",
+      "include/inc_js/ace/ext-beautify.js (minified)",
+      "include/inc_js/ace/ext-emmet.js (minified)",
+      "include/inc_js/ace/ext-language_tools.js (minified)",
+      "include/inc_js/ace/ext-searchbox.js (minified)",
+      "include/inc_js/ace/ext-settings_menu.js (minified)",
+      "include/inc_js/ace/mode-apache_conf.js (minified)",
+      "include/inc_js/ace/mode-css.js (minified)",
+      "include/inc_js/ace/mode-html.js (minified)",
+      "include/inc_js/ace/mode-ini.js (minified)",
+      "include/inc_js/ace/mode-javascript.js (minified)",
+      "include/inc_js/ace/mode-json.js (minified)",
+      "include/inc_js/ace/mode-less.js (minified)",
+      "include/inc_js/ace/mode-markdown.js (minified)",
+      "include/inc_js/ace/mode-mysql.js (minified)",
+      "include/inc_js/ace/mode-pgsql.js (minified)",
+      "include/inc_js/ace/mode-php.js (large)",
+      "include/inc_js/ace/mode-scss.js (minified)",
+      "include/inc_js/ace/mode-sh.js (minified)",
+      "include/inc_js/ace/mode-sql.js (minified)",
+      "include/inc_js/ace/mode-svg.js (minified)",
+      "include/inc_js/ace/mode-textile.js (minified)",
+      "include/inc_js/ace/mode-xml.js (minified)",
+      "include/inc_js/ace/mode-yaml.js (minified)",
+      "include/inc_js/ace/theme-chrome.js (minified)",
+      "include/inc_js/ace/theme-dracula.js (minified)",
+      "include/inc_js/ace/theme-github.js (minified)",
+      "include/inc_js/ace/theme-github_dark.js (minified)",
+      "include/inc_js/ace/theme-monokai.js (minified)",
+      "include/inc_js/ace/theme-one_dark.js (minified)",
+      "include/inc_js/ace/theme-tomorrow_night.js (minified)",
+      "include/inc_js/ace/worker-base.js (minified)",
+      "include/inc_js/ace/worker-css.js (large)",
+      "include/inc_js/ace/worker-html.js (minified)",
+      "include/inc_js/ace/worker-javascript.js (large)",
+      "include/inc_js/ace/worker-json.js (minified)",
+      "include/inc_js/ace/worker-php.js (large)",
+      "include/inc_js/ace/worker-xml.js (large)",
+      "include/inc_js/ace/worker-yaml.js (minified)",
+      "include/inc_js/bootstrap.bundle.min.js (generated)",
+      "include/inc_js/dayjs-locale/be.js (minified)",
+      "include/inc_js/dayjs-locale/bn-bd.js (minified)",
+      "include/inc_js/dayjs-locale/bn.js (minified)",
+      "include/inc_js/dayjs-locale/bo.js (minified)",
+      "include/inc_js/dayjs-locale/ru.js (minified)",
+      "include/inc_js/dayjs-locale/sr-cyrl.js (minified)",
+      "include/inc_js/dayjs-locale/ta.js (minified)",
+      "include/inc_js/dayjs-locale/uk.js (minified)",
+      "include/inc_js/dayjs.min.js (generated)",
+      "include/inc_js/dropzone.min.js (generated)",
+      "include/inc_js/exif.min.js (generated)",
+      "include/inc_js/flatpickr.min.js (generated)",
+      "include/inc_js/jquery/Sortable.min.js (generated)",
+      "include/inc_js/jquery/jquery-3.8.0.min.js (generated)",
+      "include/inc_js/jquery/tom-select.complete.min.js (generated)",
+      "include/inc_js/phpwcms.min.js (generated)",
+      "include/inc_lang/backend/ar/lang.inc.php (large)",
+      "include/inc_lang/backend/bg/lang.inc.php (large)",
+      "include/inc_lang/backend/bn/lang.inc.php (large)",
+      "include/inc_lang/backend/es/lang.inc.php (large)",
+      "include/inc_lang/backend/eu/lang.inc.php (large)",
+      "include/inc_lang/backend/fr/lang.inc.php (large)",
+      "include/inc_lang/backend/gr/lang.inc.php (large)",
+      "include/inc_lang/backend/hi/lang.inc.php (large)",
+      "include/inc_lang/backend/id/lang.inc.php (timeout)",
+      "include/inc_lang/backend/ja/lang.inc.php (large)",
+      "include/inc_lang/backend/mk/lang.inc.php (large)",
+      "include/inc_lang/backend/ms/lang.inc.php (timeout)",
+      "include/inc_lang/backend/pa/lang.inc.php (large)",
+      "include/inc_lang/backend/pl/lang.inc.php (large)",
+      "include/inc_lang/backend/ru/lang.inc.php (large)",
+      "include/inc_lang/backend/ta/lang.inc.php (large)",
+      "include/inc_lang/backend/ua/lang.inc.php (large)",
+      "include/inc_lang/backend/ur/lang.inc.php (large)",
+      "include/inc_lang/backend/vi/lang.inc.php (large)",
+      "include/inc_lang/backend/zh-cn/lang.inc.php (timeout)",
+      "include/inc_lib/default.inc.php (timeout)",
+      "include/inc_lib/revision/r557.php (timeout)",
+      "include/inc_tmpl/about.tmpl.php (timeout)",
+      "phpwcms-extended/phpwcms-fancyBox/template/lib/fancybox/jquery.fancybox.pack.js (minified)",
+      "phpwcms-extended/phpwcms-fancyBox/template/lib/touchswipe/jquery.touchSwipe.min.js (generated)",
+      "setup/default_sql/phpwcms_inserts.sql (large)",
+      "setup/inc/setup.func.inc.php (timeout)",
+      "setup/upgrade.php (large)",
+      "template/inc_script/felogin/felogin.ini.php (generated)",
+      "template/lib/bootstrap5/bootstrap.bundle.min.js (generated)",
+      "template/lib/cookieconsent2/cookieconsent.min.js (generated)",
+      "template/lib/cookieconsent3/cookieconsent.umd.js (minified)",
+      "template/lib/cookieconsent3/core/cookieconsent-core.umd.js (minified)",
+      "template/lib/glightbox/glightbox.min.js (generated)",
+      "template/lib/jquery/jquery-1.10.2.min.js (generated)",
+      "template/lib/jquery/jquery-1.11.3.min.js (generated)",
+      "template/lib/jquery/jquery-1.12.4.min.js (generated)",
+      "template/lib/jquery/jquery-1.3.2.min.js (generated)",
+      "template/lib/jquery/jquery-1.4.4.min.js (generated)",
+      "template/lib/jquery/jquery-1.5.2.min.js (generated)",
+      "template/lib/jquery/jquery-1.6.4.min.js (generated)",
+      "template/lib/jquery/jquery-1.7.2.min.js (generated)",
+      "template/lib/jquery/jquery-1.8.3.min.js (generated)",
+      "template/lib/jquery/jquery-1.9.1.min.js (generated)",
+      "template/lib/jquery/jquery-2.0.3.min.js (generated)",
+      "template/lib/jquery/jquery-2.1.4.min.js (generated)",
+      "template/lib/jquery/jquery-2.2.4.min.js (generated)",
+      "template/lib/jquery/jquery-3.0.0.min.js (generated)",
+      "template/lib/jquery/jquery-3.1.1.min.js (generated)",
+      "template/lib/jquery/jquery-3.2.1.min.js (generated)",
+      "template/lib/jquery/jquery-3.3.1.min.js (generated)",
+      "template/lib/jquery/jquery-3.4.1.min.js (generated)",
+      "template/lib/jquery/jquery-3.5.1.min.js (generated)",
+      "template/lib/jquery/jquery-3.6.4.min.js (generated)",
+      "template/lib/jquery/jquery-3.7.1.min.js (generated)",
+      "template/lib/jquery/jquery-3.7.1.slim.min.js (generated)",
+      "template/lib/jquery/jquery-3.8.0.min.js (generated)",
+      "template/lib/jquery/jquery-3.8.0.slim.min.js (generated)",
+      "template/lib/jquery/jquery-4.0.0.min.js (generated)",
+      "template/lib/jquery/jquery-4.0.0.slim.min.js (generated)",
+      "template/lib/jquery/jquery-4.1.0.min.js (generated)",
+      "template/lib/jquery/jquery-4.1.0.slim.min.js (generated)",
+      "template/lib/jquery/jquery-migrate-1.2.1.min.js (generated)",
+      "template/lib/jquery/jquery-migrate-1.4.1.min.js (generated)",
+      "template/lib/jquery/jquery-migrate-3.6.0.min.js (generated)",
+      "template/lib/jquery/jquery-migrate-4.0.2.min.js (generated)",
+      "template/lib/jquery/plugin/jquery.dimensions.min.js (generated)",
+      "template/lib/jquery/plugin/jquery.easing.min.js (generated)",
+      "template/lib/jquery/plugin/jquery.mousewheel.min.js (generated)",
+      "template/lib/jquery/plugin/jquery.zebra_accordion.min.js (generated)",
+      "template/lib/simplegmaps/simplegmaps.min.js (generated)",
+      "template/lib/splide/splide.min.js (generated)",
+      "template/lib/video-js/video.min.js (large)"
+    ]
+  }
 }

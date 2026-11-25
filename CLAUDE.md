@@ -112,8 +112,6 @@ modules:
   include/inc_module/mod_glossar  inc
   include/inc_module/mod_glossar  lang
   include/inc_module/mod_glossar  template
-  include/inc_module/mod_modules  mod modules
-  include/inc_module/mod_modules  lang
   include/inc_module/mod_seolog   mod seolog
   include/inc_module/mod_seolog/  lang
   include/inc_module/mod_shop     mod shop

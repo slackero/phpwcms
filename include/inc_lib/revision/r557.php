@@ -102,7 +102,6 @@ function phpwcms_revision_r557() {
         'glossary'       => 'Glossary',
         'feedimport'     => 'Feed to Article',
         'shop'           => 'Shop / Products',
-        'modulpromo'     => 'phpwcms Modules',
     ];
 
     foreach ($modgroups as $modkey => $group_name) {

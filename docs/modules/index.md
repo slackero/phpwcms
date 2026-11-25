@@ -77,7 +77,6 @@ Content parts of type 30 whose module no longer exists are skipped silently on t
 | Addresses | `phpwcms_addresses` | 1 (BE only) | No | render |
 | SEO log | `seo_log` | 1 (BE only) | No | — |
 | Statistics | `statistics` | 1 (BE only) | No | — |
-| Module promo | `modulpromo` | 1 (BE only) | No | — |
 | Glossary | `glossary` | 0 (BE+FE) | Yes | render, search |
 
 The newsletter is no module but part of the core with its own backend menu and the subscription content part type 12 — see [Newsletter (core)](06-newsletter.md).
@@ -97,7 +96,6 @@ The newsletter is no module but part of the core with its own backend menu and t
 | [Addresses](09-addresses.md) | phpwcms_addresses | Address records with geocoding, frontend address locator |
 | [SEO log](10-seolog.md) | seo_log | Search engine referrer logging |
 | [Statistics](11-statistic.md) | statistics | Backend dashboards over article, file, newsletter and log data |
-| [Module manager](12-module-manager.md) | modulpromo | Informational module promo panel |
 | [Glossary](13-glossary.md) | glossary | Keywords highlighted as abbr tooltips, backend glossary management |
 
 ## Related

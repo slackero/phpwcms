@@ -3592,18 +3592,6 @@ parameters:
 		-
 			message: '#^Variable \$module might not be defined\.$#'
 			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_module/mod_modules/backend.default.php
-
-		-
-			message: '#^Variable \$phpwcms might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_module/mod_modules/backend.default.php
-
-		-
-			message: '#^Variable \$module might not be defined\.$#'
-			identifier: variable.undefined
 			count: 4
 			path: ../include/inc_module/mod_seolog/backend.default.php
 
