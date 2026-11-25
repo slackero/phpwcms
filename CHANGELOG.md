@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.12.8] - 2026-11-18
+## [1.12.9] - 2026-11-25
 
 ### Security
 - **Password Reminder Tokens:** Content Part 28 replaced the account password during an anonymous reminder request and mailed the new value. The reminder now issues a single-use token, stores only its SHA-256 hash in `sysvalue`, expires it after one hour, and drops any older token for the account. The password changes only after the token is submitted with a new password (minimum 8 characters, entered twice); a used or expired token is rejected. Reminder and reset requests are rate limited per IP. Shipped templates use the new `{RESET_URL}` placeholder and no longer contain a password. A reset does not terminate other active frontend or backend sessions; those have to be logged out separately.
@@ -28,6 +28,11 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - **jQuery 3.8:** the backend loads jQuery 3.8.0, and the frontend library set gains jQuery 3.8 (Migrate 3.6.0) and 4.1 (Migrate 4.0.2) in plain, migrate and slim variants. Existing versions stay selectable.
+
+## [1.12.8] - 2026-11-18
+
+### Security
+- **Form Upload Extension Check:** the public Form upload validated `which_ext()` of the raw multipart name but stored `sanitize_filename()` of it, so a name such as `marker.php.` had no extension for the deny list, and the cleaning removed the trailing dot, storing it as `<time>_marker.php` under `content/form/`. The PHP opening tag scan read only the first 8192 bytes, and the folder's `.htaccess` is inert when the web server runs with `AllowOverride None` (the stock Debian Apache default). The extension check and both accept/exclude regexps now run against the stored file name, so the trailing-dot name is denied as `.php`. The deny list also covers `php2`, `php6`, `php9`, `shtml` and `shtm`, the PHP opening tag scan reads the whole file in chunks instead of the first 8192 bytes, and the stored name carries a random component so it is no longer derivable from the response time. Revision `r563` quarantines existing uploads with an executable extension: it moves them, renamed with a `.quarantine` suffix, from `content/form` into `content/tmp/.form-upload-quarantine/<timestamp>/` and reports the list, so an administrator can review and restore them instead of losing them to a silent delete.
 
 ## [1.12.7] - 2026-11-15
 
