@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [2.0.0-beta.6] – 2026/11/25
 
 ### Security
 - **Random Image Archive Visibility:** `img/random_image.php` served any image found in a directory below the private file archive, ignoring the file record. Files in the archive are now filtered through the same public, active, non-trashed and anonymous `f_granted=0` rule as `_getFileInfo()`, so an unregistered or private image is never returned. Directories outside the archive keep working. A request that already carries a logged-in frontend session may also receive granted images and is sent with no-cache headers. The useless `mt_srand()` call is gone.

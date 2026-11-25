@@ -6,8 +6,8 @@
   </picture>
 </a>
 
-[![Release](https://img.shields.io/badge/release-2.0.0--beta.5-orange.svg?style=flat-edge)](https://github.com/slackero/phpwcms/releases)
-[![Revision](https://img.shields.io/badge/revision-r563-informational.svg?style=flat-edge)](CHANGELOG.md)
+[![Release](https://img.shields.io/badge/release-2.0.0--beta.6-orange.svg?style=flat-edge)](https://github.com/slackero/phpwcms/releases)
+[![Revision](https://img.shields.io/badge/revision-r567-informational.svg?style=flat-edge)](CHANGELOG.md)
 [![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.4-8892BF.svg?style=flat-edge)](https://php.net)
 [![Database](https://img.shields.io/badge/MySQL-%3E%3D%205.5%20(MariaDB%20rec)-blue.svg?style=flat-edge)](https://mysql.com)
 [![Maintainer](https://img.shields.io/badge/Maintained%20by-Oliver%20Georgi-informational.svg?style=flat-edge)](https://www.phpwcms.org)
@@ -15,7 +15,7 @@
 
 **phpwcms** is an exceptionally flexible, fast, robust, and developer-friendly web-based Content Management System (CMS) and CMS Framework. Crafted for speed, customizable architectures, and ease of use, phpwcms empowers developers to build and manage highly-tailored digital experiences under PHP and MySQL/MariaDB.
 
-Current development state: **2.0.0-beta.5** (database revision `r563`), PHP 8.4+.
+Current development state: **2.0.0-beta.6** (database revision `r567`), PHP 8.4+.
 
 Created and lovingly maintained by [Oliver Georgi](https://www.phpwcms.org).
 
