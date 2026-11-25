@@ -1,9 +1,9 @@
 # Rules
-- Always use `/Applications/MAMP/bin/php/php8.2.32/bin/php` instead of `php` or `php8` for all CLI commands in this project.
+- Always use the MAMP PHP command matching the active branch instead of `php` or `php8` for all CLI commands: `php84` (`v2-dev`), `php82` (`v1.10-dev` / `master`), or `php74` (`v1.9-dev` / `phpwcms-legacy`). These are executables symlinked in `~/.local/bin` and work in any shell, interactive or not.
 - Always use double quotes for HTML tag attributes.
 - Always use single quotes for PHP strings unless variable interpolation is required.
-- NEVER use `--delete` with `rsync` when syncing to the web server. Existing files in `/filearchive/`, `content/images/`, and `content/tmp/` on the web server must NEVER be deleted. Copying and overwriting with new repository files is allowed.
-- Always run `/Applications/MAMP/bin/php/php8.2.32/bin/php -l` to check syntax on PHP files without requiring permission.
+- NEVER use `--delete` with `rsync` when syncing to the web server (`make sync` / `make minify-sync`, only on `v2*` branches). Existing files in `/filearchive/`, `content/images/`, and `content/tmp/` on the web server must NEVER be deleted. Copying and overwriting with new repository files is allowed.
+- Always run `<mamp-php-alias> -l` (e.g. `php84 -l`) to check syntax on PHP files without requiring permission.
 - When a translation string in a PHP single-quoted lang file contains an apostrophe or single quote (e.g. French `d'images`, `l'accès`), use the typographic apostrophe character ’ (U+2019) instead of an escaped backslash-quote `\'`. This prevents over-escaping and keeps the source clean. Example: `$BL['key'] = 'galerie d’images';` — correct. `$BL['key'] = 'galerie d\'images';` — avoid.
 - When a translation string in a PHP lang file wraps a word in double quotes (e.g. German `"Anmerkung"`), use the typographic double quote character based on language rules (e.g. German `„Anmerkung“`) instead. Ensure that attributes in html tags are preserved. Example: `$BL['key'] = 'Meine <div title="Anmerkung">„Anmerkung“</div> hier.';` — correct. `$BL['key'] = 'Meine <div title="Anmerkung">"Anmerkung"</div> hier.';` — avoid.
 - Never duplicate English (`en`) strings untranslated into another language file. In phpwcms, `en` is always loaded first as the default language and then overloaded by the active translated language; untranslated English duplicates prevent clean fallback and clutter translations.
