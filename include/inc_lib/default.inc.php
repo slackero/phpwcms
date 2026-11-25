@@ -1705,6 +1705,118 @@ function phpwcms_image_dir_path($imgdir, $root = '') {
 }
 
 /**
+ * Check whether a resolved directory is inside the private file archive.
+ *
+ * Files below the archive are served by phpwcms file records only; an
+ * endpoint that reads the filesystem directly must apply the same visibility
+ * rules for such a directory.
+ *
+ * @param mixed $dir Absolute directory path
+ *
+ * @return bool
+ */
+function phpwcms_image_dir_is_archive($dir) {
+    if (!defined('PHPWCMS_STORAGE') || !is_string($dir) || $dir === '') {
+        return false;
+    }
+
+    $archive = realpath(PHPWCMS_STORAGE);
+    $dir = realpath($dir);
+    if ($archive === false || $dir === false) {
+        return false;
+    }
+
+    return path_is_within($dir, $archive);
+}
+
+/**
+ * Keep only archive image names that have a matching file record.
+ *
+ * The archive stores files as `<f_hash>.<f_ext>`. This helper only matches
+ * names against the rows it is given; visibility is the caller's job. Pass
+ * rows limited by phpwcms_archive_visibility_sql() so a private image record
+ * never reaches a public endpoint.
+ *
+ * @param string[] $files   File names read from the directory
+ * @param array[]  $records Rows with at least `f_hash` and `f_ext`
+ *
+ * @return string[]
+ */
+function phpwcms_archive_files_matching_records(array $files, array $records) {
+    $allowed = [];
+    foreach ($records as $record) {
+        if (empty($record['f_hash']) || !is_string($record['f_hash'])) {
+            continue;
+        }
+        $name = $record['f_hash'];
+        if (!empty($record['f_ext']) && is_string($record['f_ext'])) {
+            $name .= '.' . $record['f_ext'];
+        }
+        $allowed[strtolower($name)] = true;
+    }
+
+    $public = [];
+    foreach ($files as $file) {
+        if (is_string($file) && isset($allowed[strtolower($file)])) {
+            $public[] = $file;
+        }
+    }
+
+    return $public;
+}
+
+/**
+ * Visibility clause for archive file records.
+ *
+ * Mirrors _getFileInfo(): the record must be active, not trashed and public,
+ * and an anonymous caller must not receive a record marked for logged-in
+ * frontend users.
+ *
+ * @param bool $anonymous
+ *
+ * @return string SQL fragment, without a leading AND
+ */
+function phpwcms_archive_visibility_sql($anonymous = true) {
+    $sql = 'f_aktiv=1 AND f_trash=0 AND f_public=1';
+    if ($anonymous) {
+        $sql .= ' AND f_granted=0';
+    }
+
+    return $sql;
+}
+
+/**
+ * Resolve a template name below a template directory.
+ *
+ * The name is treated as an untrusted relative value: absolute paths, stream
+ * wrappers, `..` components and symlinks that leave the directory are
+ * rejected. The returned path is the canonical file path inside `$directory`.
+ *
+ * @param string $directory Absolute template directory
+ * @param mixed  $name      Stored template name, relative to the directory
+ *
+ * @return string Canonical file path, or '' when the name is not contained
+ */
+function phpwcms_template_file_path($directory, $name) {
+    $directory = realpath((string)$directory);
+    if ($directory === false || !is_dir($directory)) {
+        return '';
+    }
+
+    $name = str_replace('\\', '/', (string)$name);
+    if ($name === '' || str_contains($name, "\0") || str_starts_with($name, '/') || preg_match('#^[A-Za-z]:#', $name)) {
+        return '';
+    }
+
+    $file = realpath($directory . '/' . $name);
+    if ($file === false || !is_file($file) || !path_is_within($file, $directory)) {
+        return '';
+    }
+
+    return str_replace('\\', '/', $file);
+}
+
+/**
  * Return login.php
  */
 function get_login_file() {

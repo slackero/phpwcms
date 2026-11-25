@@ -324,7 +324,6 @@ function generic_string($length, $i = 0) {
         6 => $p[2],
         default => $p[0] . $p[2] . $p[1],
     };
-    mt_srand((int)(microtime(true) * 1000000));
     $count = strlen($chars) - 1;
     for ($x = 0; $x < $length; $x++) {
         $gen_string .= $chars[random_int(0, $count)];
