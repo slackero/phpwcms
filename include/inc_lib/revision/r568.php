@@ -12,7 +12,7 @@
 /**
  * Return the column type of a table field, empty string when unknown.
  */
-function r567_column_type($table, $field)
+function r568_column_type($table, $field)
 {
     $result = _dbQuery(
         'SHOW COLUMNS FROM `' . DB_PREPEND . 'phpwcms_' . $table . '` WHERE Field=' . _dbEscape($field)
@@ -27,7 +27,7 @@ function r567_column_type($table, $field)
  *
  * @return array<string,bool>|null null when the query failed
  */
-function r567_alias_bucket($prefix)
+function r568_alias_bucket($prefix)
 {
     $like = _dbEscape(addcslashes($prefix, '%_'), true, '', '%');
 
@@ -57,14 +57,14 @@ function r567_alias_bucket($prefix)
  *
  * @return string|false
  */
-function r567_unique_alias($alias, $maxlen)
+function r568_unique_alias($alias, $maxlen)
 {
     $alias = (string)$alias;
     if (mb_strlen($alias, PHPWCMS_CHARSET) <= $maxlen) {
         return $alias;
     }
 
-    $bucket = r567_alias_bucket(
+    $bucket = r568_alias_bucket(
         mb_substr($alias, 0, max(1, $maxlen - 7), PHPWCMS_CHARSET)
     );
     if ($bucket === null) {
@@ -88,7 +88,7 @@ function r567_unique_alias($alias, $maxlen)
  * Append the old -> new alias mapping to the migration log. Best effort: the
  * log must not block the migration.
  */
-function r567_log_alias($table, $id, $old, $new)
+function r568_log_alias($table, $id, $old, $new)
 {
     $line = date('Y-m-d H:i:s') . "\t" . $table . "\t" . (int)$id . "\t" . $old . "\t" . $new . "\n";
 
@@ -114,9 +114,9 @@ function r567_log_alias($table, $id, $old, $new)
  * $max_prefix, so neither a later utf8mb4 conversion nor a column shrink can
  * exceed the key length limit.
  */
-function r567_calendar_index_prefix($max_prefix = 768)
+function r568_calendar_index_prefix($max_prefix = 768)
 {
-    $type = r567_column_type('calendar', 'calendar_refid');
+    $type = r568_column_type('calendar', 'calendar_refid');
     if (!preg_match('/^varchar\((\d+)\)$/', $type, $match)) {
         return false;
     }
@@ -155,7 +155,7 @@ function r567_calendar_index_prefix($max_prefix = 768)
  * Prepare the index for shrinking calendar_refid to $new_length. A full index
  * survives the shrink, only a prefix longer than the new column has to go.
  */
-function r567_calendar_index_trim($new_length)
+function r568_calendar_index_trim($new_length)
 {
     $index = _dbQuery("SHOW INDEX FROM `" . DB_PREPEND . "phpwcms_calendar` WHERE Key_name='calendar_refid'");
     if (!is_array($index)) {
@@ -164,7 +164,7 @@ function r567_calendar_index_trim($new_length)
 
     foreach ($index as $row) {
         if (!empty($row['Sub_part']) && (int)$row['Sub_part'] > $new_length) {
-            return r567_calendar_index_prefix($new_length);
+            return r568_calendar_index_prefix($new_length);
         }
     }
 
@@ -173,7 +173,7 @@ function r567_calendar_index_trim($new_length)
 
 
 // Revision 567 Update Check
-function phpwcms_revision_r567()
+function phpwcms_revision_r568()
 {
     $status = true;
     $maxlen = 500;
@@ -200,14 +200,14 @@ function phpwcms_revision_r567()
         }
 
         foreach ($rows as $row) {
-            $candidate = r567_unique_alias($row['alias'], $maxlen);
+            $candidate = r568_unique_alias($row['alias'], $maxlen);
 
             if ($candidate === false) {
                 $status = false;
                 continue;
             }
 
-            r567_log_alias($table, $row['id'], $row['alias'], $candidate);
+            r568_log_alias($table, $row['id'], $row['alias'], $candidate);
 
             // Compare the old value too: a concurrently saved alias must not
             // be overwritten by the migration
@@ -235,7 +235,7 @@ function phpwcms_revision_r567()
     // 2. Normalise the alias columns to VARCHAR(500): shrink the wide ones
     //    once the data fits, widen the 255 columns
     foreach (array(array('article', 'article_alias'), array('articlecat', 'acat_alias')) as $meta) {
-        $type = r567_column_type($meta[0], $meta[1]);
+        $type = r568_column_type($meta[0], $meta[1]);
         if ($type === '') {
             $GLOBALS['phpwcms']['revision_return'] = 'Could not read the type of ' . $meta[0] . '.' . $meta[1];
             $status = false;
@@ -254,7 +254,7 @@ function phpwcms_revision_r567()
 
     // 3. calendar_refid: shrink to 500 when all values fit, otherwise keep the
     //    column and rebuild the index as a prefix so utf8mb4 stays possible
-    $refid_type = r567_column_type('calendar', 'calendar_refid');
+    $refid_type = r568_column_type('calendar', 'calendar_refid');
     if ($refid_type === '') {
         $status = false;
     } elseif (preg_match('/^varchar\((\d+)\)$/', $refid_type, $match) && (int)$match[1] > 500) {
@@ -264,7 +264,7 @@ function phpwcms_revision_r567()
         $max_length = isset($max[0]['maxlen']) ? (int)$max[0]['maxlen'] : 0;
 
         if ($max_length <= 500) {
-            if (!r567_calendar_index_trim(500)) {
+            if (!r568_calendar_index_trim(500)) {
                 $status = false;
             } elseif (!_dbQuery(
                 'ALTER TABLE `' . DB_PREPEND . 'phpwcms_calendar`'
@@ -273,7 +273,7 @@ function phpwcms_revision_r567()
             )) {
                 $status = false;
             }
-        } elseif (!r567_calendar_index_prefix()) {
+        } elseif (!r568_calendar_index_prefix()) {
             $status = false;
         }
     }
