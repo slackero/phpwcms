@@ -868,17 +868,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.10.8",
-            "version_normalized": "2.10.8.0",
+            "version": "2.10.9",
+            "version_normalized": "2.10.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "681e662a40c805c567f52d603b64d55282ea356c"
+                "reference": "ab5ff8c80fd69abaeb4d57d7711d389248f219e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/681e662a40c805c567f52d603b64d55282ea356c",
-                "reference": "681e662a40c805c567f52d603b64d55282ea356c",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/ab5ff8c80fd69abaeb4d57d7711d389248f219e4",
+                "reference": "ab5ff8c80fd69abaeb4d57d7711d389248f219e4",
                 "shasum": ""
             },
             "require": {
@@ -912,7 +912,7 @@
             "suggest": {
                 "symfony/yaml": "v2.3+ required if using the Front Matter extension"
             },
-            "time": "2026-11-24T15:44:47+00:00",
+            "time": "2026-11-25T20:08:31+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -3213,20 +3213,20 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "8.10.2",
-            "version_normalized": "8.10.2.0",
+            "version": "8.11.0",
+            "version_normalized": "8.11.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "62d608aac401d450ab586dbd946bf0caead3434f"
+                "reference": "c3b7b02cbf7bde14582c5e41eb0a82112ca52269"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/62d608aac401d450ab586dbd946bf0caead3434f",
-                "reference": "62d608aac401d450ab586dbd946bf0caead3434f",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/c3b7b02cbf7bde14582c5e41eb0a82112ca52269",
+                "reference": "c3b7b02cbf7bde14582c5e41eb0a82112ca52269",
                 "shasum": ""
             },
-            "time": "2026-11-11T01:29:57+00:00",
+            "time": "2026-11-25T00:21:58+00:00",
             "type": "component",
             "extra": {
                 "component": {
@@ -3269,7 +3269,7 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/8.10.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/8.11.0"
             },
             "install-path": "../tinymce/tinymce"
         },

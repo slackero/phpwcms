@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [2.0.0-beta.7] – 2026/11/25
+
+### Security
+- **CommonMark HTML and Autolink Parsing:** `league/commonmark` is updated to 2.10.9. A real HTML tag that follows a backslash-escaped `<` or a code span is no longer rendered as text, and a GFM URL autolink that hits a PCRE backtracking or recursion limit is left as text together with any later URL autolinks in the same paragraph. Attribute names are converted to lowercase so `{Title=a title=b}` merges into `title="b"`, and `attributes/allow` matches entries case-insensitively. Closes GHSA-jj45-w5cj-2hc8.
+
+### Changed
+- **Dependencies:** TinyMCE is updated to 8.11.0. Dialogs opened inline from the toolbar stay at the top of the window, the caret can be placed and content removed around accordions, `editor.insertContent` keeps inline formatting when the selection covers the whole block, and Table Properties no longer drops cell spacing, border width or caption when fields are hidden through `table_appearance_options`.
 
 ## [2.0.0-beta.6] – 2026/11/25
 
