@@ -93,6 +93,21 @@
       $result = strftime('%C', '20220306 13:02:03');
       $this->assertEquals('20', $result, '%C: Two digit representation of the century (year divided by 100, truncated to an integer)');
 
+      $result = strftime('%C', new DateTime('0001-01-01 00:00:00'));
+      $this->assertEquals('00', $result, '%C: Two digit representation of the century, padded with a leading zero');
+
+      $result = strftime('%C', new DateTime('0999-12-31 00:00:00'));
+      $this->assertEquals('09', $result, '%C: Two digit representation of the century, padded with a leading zero');
+
+      $result = strftime('%C', new DateTime('1000-01-01 00:00:00'));
+      $this->assertEquals('10', $result, '%C: Two digit representation of the century (year divided by 100, truncated to an integer)');
+
+      $result = strftime('%-C', new DateTime('0999-12-31 00:00:00'));
+      $this->assertEquals('9', $result, '%-C: Century without the leading zero');
+
+      $result = strftime('%_C', new DateTime('0999-12-31 00:00:00'));
+      $this->assertEquals(' 9', $result, '%_C: Century padded with a leading space');
+
       $result = strftime('%g', '20220306 13:02:03');
       $this->assertEquals('22', $result, '%g: Two digit representation of the year going by ISO-8601:1988 standards (see %V)');
 

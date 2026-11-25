@@ -227,6 +227,15 @@ if(!$ftp["error"]) {
                 echo $file . ' (' . html($file_error['upload']) . ')<br />';
                 continue;
             }
+
+            // Never copy a server-executed file into the web-served file
+            // storage, even when allowed_upload_ext contains its extension.
+            if (in_array($file_ext, form_upload_executable_extensions(), true)) {
+                $file_error['upload'] = 'Invalid file extension: ' . $file;
+                echo $file . ' (' . html($file_error['upload']) . ')<br />';
+                continue;
+            }
+
             $file_name      = sanitize_filename($ftp["filename"][$key]);
             $file_hash      = md5( $file_name . microtime() );
             $file_check     = getimagesize($file_path, $file_image_info);

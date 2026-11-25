@@ -24,18 +24,26 @@ if (empty($_GET['apikey']) || $action !== 'exportformresult') {
     checkLogin();
     validate_csrf_tokens();
 } else {
-    $apikey = clean_slweg($_GET['apikey']);
-    if (strlen($apikey) !== 16) {
+    // API key must be an alphanumeric 16-char token before it touches the database
+    $apikey = is_string($_GET['apikey']) ? $_GET['apikey'] : '';
+    if (!preg_match('/^[a-zA-Z0-9]{16}$/', $apikey)) {
         $apikey = '';
     } else {
-        $where_apikey = _dbEscape('direct_download_apikey";s:16:"' . $apikey . '"', true, '%', '%');
-        $where_allow = _dbEscape('direct_download";i:1', true, '%', '%');
+        // fetch the form by id and compare the stored key in PHP —
+        // never match user input via SQL LIKE (wildcard injection bypass)
         $form = _dbGet(
             'phpwcms_articlecontent',
             'acontent_id, acontent_form',
-            'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0 AND acontent_form LIKE ' . $where_allow . ' AND acontent_form LIKE ' . $where_apikey
+            'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0'
         );
-        if (empty($form[0]['acontent_id']) || intval($form[0]['acontent_id']) !== $fid) {
+        $stored_apikey = '';
+        if (is_array($form) && !empty($form[0]['acontent_id']) && intval($form[0]['acontent_id']) === $fid) {
+            $form_data = @unserialize($form[0]['acontent_form'], ['allowed_classes' => false]);
+            if (is_array($form_data) && !empty($form_data['direct_download']) && isset($form_data['direct_download_apikey']) && is_scalar($form_data['direct_download_apikey'])) {
+                $stored_apikey = (string)$form_data['direct_download_apikey'];
+            }
+        }
+        if (!hash_equals($stored_apikey, $apikey)) {
             $apikey = '';
         }
     }
@@ -49,6 +57,45 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+/**
+ * Whether the requester may export the results of a form.
+ *
+ * A backend session and CSRF token only prove who the request belongs to;
+ * they do not authorize the requested form. The form has to belong to an
+ * article the user owns or the user has to be an administrator. A validated
+ * direct-download API key authorizes its form on its own.
+ *
+ * @param int    $fid    Content part id of the form
+ * @param string $apikey Validated API key, empty for a session export
+ *
+ * @return bool
+ */
+function form_export_is_allowed($fid, $apikey) {
+    if ($apikey !== '' || !empty($_SESSION['wcs_user_admin'])) {
+        return true;
+    }
+
+    $fid  = intval($fid);
+    $form = _dbGet(
+        'phpwcms_articlecontent',
+        'acontent_id',
+        'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_aid IN ('
+        . 'SELECT article_id FROM ' . DB_PREPEND . 'phpwcms_article WHERE article_uid=' . intval($_SESSION['wcs_user_id']) . ')'
+    );
+
+    return !empty($form[0]['acontent_id']) && intval($form[0]['acontent_id']) === $fid;
+}
+
+if (
+    $fid
+    && in_array($action, array('exportformresult', 'exportformresultdetail'), true)
+    && !form_export_is_allowed($fid, $apikey)
+) {
+    echo '<html><body><h1>403 Forbidden</h1></body></html>';
+    headerRedirect('', 403, false);
+    die();
+}
 
 // export form results
 if ($action === 'exportformresult' && $fid) {

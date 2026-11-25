@@ -49,7 +49,8 @@ if(isset($_GET["do"])) {
                     break;
             case 3: //make article visible/invisible
                     $sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_aktiv=".intval($values[3]).
-                           " WHERE article_id=".intval($values[1]);
+                           " WHERE (article_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
+                           " AND article_id=".intval($values[1]);
                     _dbQuery($sql, 'UPDATE');
                     break;
 

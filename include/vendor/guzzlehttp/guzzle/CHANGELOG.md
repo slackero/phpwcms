@@ -3,6 +3,74 @@
 Please refer to [UPGRADING](UPGRADING.md) guide for upgrading to a major version.
 
 
+## 7.17.0 - 2026-11-22
+
+### Changed
+
+- Adjusted `guzzlehttp/promises` version constraint to `^2.6.2`
+- Adjusted `guzzlehttp/psr7` version constraint to `^2.13.6`
+- Remove every case variant when the cURL handlers remove a request header
+- Reject third-party URIs whose string form is malformed or names another origin
+- Reject request header names that are not HTTP tokens in the built-in handlers
+- Redact proxy credentials that libcurl cuts off in cURL errors
+- Redact raw `CURLOPT_PRE_PROXY` credentials in cURL errors
+- Redact proxy credentials that libcurl names as the proxy host in cURL errors
+- Redact proxy passwords that begin with a raw `/`, `?` or `#` in cURL errors
+- Decode percent-encoded proxy credentials in the stream handler
+- Remove deprecation for the raw cURL `CURLOPT_SSL_OPTIONS` option on libcurl 7.83.1 or newer
+
+### Fixed
+
+- Stop cURL multi handler waits looping forever after its destructor has run
+
+
+## 7.16.5 - 2026-11-20
+
+### Security
+
+- Reject proxy credentials with percent-encoded control characters in the cURL handlers (GHSA-q8h8-pjjq-cq2h)
+- Reject malformed proxy URLs that older libcurl silently skips or misreads (GHSA-q8h8-pjjq-cq2h)
+
+
+## 7.16.4 - 2026-11-20
+
+### Fixed
+
+- Reject hosts longer than 4096 bytes when `idn_conversion` is enabled
+- Fix `idn_conversion` failures escaping as `IntlException` or a PSR-7 exception
+- Redact proxy credentials in cURL errors when the proxy scheme has a plus sign
+
+### Changed
+
+- Adjusted `guzzlehttp/promises` version constraint to `^2.6.1`
+- Adjusted `guzzlehttp/psr7` version constraint to `^2.13.5`
+
+
+## 7.16.3 - 2026-11-17
+
+### Security
+
+- Exclude URI fragments from stream handler request targets (GHSA-gqx6-m769-3x35)
+- Reject bracketed request URI hosts that are not IP literals (GHSA-hpvq-6rrx-pc47)
+
+### Changed
+
+- Adjusted `guzzlehttp/psr7` version constraint to `^2.13.4`
+
+
+## 7.16.2 - 2026-11-17
+
+### Fixed
+
+- Cancel cURL multi transfers whose synchronous wait throws instead of leaving them running
+- Reject CR, LF, and NUL in request header fields in the built-in handlers
+- Reject CR, LF, and NUL in request methods in the built-in handlers
+
+### Changed
+
+- Adjusted `guzzlehttp/psr7` version constraint to `^2.13.3`
+
+
 ## 7.16.1 - 2026-10-25
 
 ### Fixed

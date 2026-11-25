@@ -71,6 +71,103 @@ To support all features, the following PHP modules must be enabled in your envir
 
 ---
 
+## Web Server Hardening 🔒
+
+The shipped server configurations deny HTTP access to every path that must not
+be reachable. Only public assets are served:
+
+* `template/`, `img/`, `picture/`
+* `content/form/`, `content/images/`, `content/rss/`, `content/pages/`,
+  `content/marketing/`
+* `include/inc_css/`, `include/inc_js/`, `include/inc_ext/ckeditor/`
+* `setup/` (remove the folder after installation)
+* PHP entry scripts in the document root
+
+Everything else is refused: `content/tmp`, `content/cache`, `content/log`,
+`content/backup`, `include/config`, `include/vendor`, the internal `include`
+directories, `upload/`, `filearchive/`, `tests/`, hidden files, SQL/log/backup
+files and development files.
+
+| Server | Configuration | Behaviour |
+|:---|:---|:---|
+| Apache | `.htaccess` and `_.htaccess` (keep both in sync), plus `.htaccess` files inside private directories | `404` for blocked paths; per-directory `Deny` files return `403` |
+| nginx | `nginx.conf` | `404`; the file must be included **before** the PHP location, otherwise a `.php` request is handled by PHP first |
+| IIS | `web.config` | `404`; uses a default-deny allowlist and request filtering |
+
+Notes:
+
+* `.htaccess` is ignored by nginx and IIS, and is inert on Apache with
+  `AllowOverride None`. On such hosts only the nginx/IIS configuration or a
+  server-level Apache snippet protects the paths.
+* `content/form` stays readable on purpose: forms with `attachment=0` link the
+  uploaded file. Directory listing is prevented by `index.html`, and PHP
+  execution is denied.
+* `filearchive` is private by default. To enable the direct-download option of
+  file list content parts: on Apache remove or edit `filearchive/.htaccess`
+  (the content part checks it for `deny`); on nginx remove the
+  `location ~ /filearchive` block and add `filearchive` to the allowlist; on
+  IIS add `filearchive` to the `Allow public paths` rule. Files are then
+  reachable directly instead of through `download.php` only.
+
+### Renamed default folders
+
+`content`, `upload`, `filearchive` and `template` are configurable in
+`include/config/conf.inc.php`:
+
+```php
+$phpwcms['content_path'] = 'content';
+$phpwcms['ftp_path']     = 'upload';
+$phpwcms['file_path']    = 'filearchive';
+$phpwcms['templates']    = 'template';
+```
+
+If you rename one of them:
+
+1. Update the configuration value.
+2. Update the server rules. Apache patterns are not anchored, but they still
+   match the literal names; nginx and IIS use explicit allowlists. For a renamed
+   `content`, replace the name in the `content/...` patterns of `nginx.conf`
+   and in `Allow public paths` of `web.config`. The same applies to `upload`,
+   `filearchive` and `template`.
+3. Keep the per-directory `.htaccess` files inside the private folders; on
+   Apache they travel with a renamed directory and keep protecting it.
+4. Verify with `curl`, for example `curl -I https://example.com/<new-name>/tmp/`
+   must not return `200`.
+
+---
+
+## Docker Test Environment 🐳
+
+A Docker setup is included for testing the web server configurations:
+
+```bash
+docker compose up -d --build
+```
+
+| Service | URL / port | Note |
+|:---|:---|:---|
+| Apache + PHP | http://localhost:8090 | `.htaccess` enabled via `AllowOverride All` |
+| nginx + PHP-FPM | http://localhost:8092 | loads `nginx.conf` before the PHP location |
+| phpMyAdmin | http://localhost:8091 | database `phpwcms` |
+| Mailpit | http://localhost:8036 | SMTP on port 1036 |
+| MariaDB | `localhost:3317` | user `phpwcms`, password `phpwcmspassword` |
+
+The installer is at http://localhost:8090/setup/ or http://localhost:8092/setup/.
+
+Run the path protection test:
+
+```bash
+tests/web/path-protection.sh
+```
+
+It starts the stack, places probe files in every protected and public path,
+checks the HTTP status on Apache and nginx, and removes the probes afterwards.
+
+The PHP 8.2 images are multi-arch. IIS cannot run in Docker on macOS/Linux;
+its configuration is validated as XML only.
+
+---
+
 ## Developer Workflow 🛠️
 
 A native `Makefile` is provided to streamline development, static analysis, and code quality tasks:

@@ -29,9 +29,9 @@ function phpwcms_revision_r549() {
         if(!$alter) {
             $status = false;
         } else {
-            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER');
+            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(500) NOT NULL DEFAULT ''", 'ALTER');
             _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` CHANGE `acat_pagetitle` `acat_pagetitle` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
-            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_alias` `article_alias` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER');
+            _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_alias` `article_alias` VARCHAR(500) NOT NULL DEFAULT ''", 'ALTER');
             _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_pagetitle` `article_pagetitle` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
             _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_menutitle` `article_menutitle` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
             _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecontent` CHANGE `acontent_paginate_title` `acontent_paginate_title` VARCHAR(2000) NOT NULL DEFAULT ''", 'ALTER');
