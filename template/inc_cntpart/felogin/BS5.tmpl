@@ -149,6 +149,38 @@ cookie_expire	= 7776000
 </div>
 <!--REMINDER_SUCCESS_END//-->
 
+<!--REMINDER_RESET_START//-->
+<div class="card shadow-sm border-0 mb-4" style="max-width: 440px;">
+    <div class="card-body p-4">
+        <h4 class="card-title h5 mb-3">@@Choose a new password@@</h4>
+        {RESET_ERROR}
+        <form action="{FORM_TARGET}" method="post">
+            <input type="hidden" name="feResetToken" value="{RESET_TOKEN}" />
+            <div class="mb-3">
+                <label class="form-label" for="feResetPassword">@@New password@@</label>
+                <input class="form-control" type="password" id="feResetPassword" name="feResetPassword" required="required" autocomplete="new-password" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="feResetPassword2">@@Repeat password@@</label>
+                <input class="form-control" type="password" id="feResetPassword2" name="feResetPassword2" required="required" autocomplete="new-password" />
+            </div>
+            <button class="btn btn-primary" type="submit">@@Reset password@@</button>
+        </form>
+    </div>
+</div>
+<!--REMINDER_RESET_END//-->
+
+<!--REMINDER_RESET_SUCCESS_START//-->
+<div class="card shadow-sm border-0 mb-4" style="max-width: 440px;">
+    <div class="card-body p-4 text-center">
+        <div class="display-6 text-success mb-2"><i class="bi bi-check-circle"></i></div>
+        <h4 class="card-title h5 mb-2">@@Password changed@@</h4>
+        <p class="text-muted small mb-4">@@Your password has been changed. You can log in now.@@</p>
+        <a href="{LOGIN_URL}" class="btn btn-outline-primary btn-sm"><i class="bi bi-box-arrow-in-right me-1"></i>@@Back to login@@</a>
+    </div>
+</div>
+<!--REMINDER_RESET_SUCCESS_END//-->
+
 <!--REMINDER_EMAIL_START//-->
 [SUBJECT]
 @@Your account reminder@@
@@ -165,10 +197,10 @@ cookie_expire	= 7776000
 [PASSWORD_EMAIL]
 @@You have requested this reminder email.@@
 
-@@We have reset your password:@@ {PASSWORD}
+@@Open this link to choose a new password. The link is valid for one hour and can be used once:@@
 
-@@Please change it after your first login.@@
+{RESET_URL}
 
-{LOGIN_URL}
+@@If you did not request this, ignore this message. Your password is unchanged.@@
 [/PASSWORD_EMAIL]
 <!--REMINDER_EMAIL_END//-->

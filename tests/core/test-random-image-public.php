@@ -88,7 +88,8 @@ check(
 
 $script = file_get_contents($root . '/img/random_image.php');
 check(str_contains($script, 'phpwcms_image_dir_is_archive('), 'endpoint applies the archive boundary');
-check(str_contains($script, 'phpwcms_archive_visibility_sql(true)'), 'archive lookup uses the shared visibility clause');
+check(str_contains($script, 'phpwcms_archive_visibility_sql(!$feuser_logged_in)'), 'archive lookup uses the shared visibility clause and the frontend session state');
+check(str_contains($script, 'helper.session.php'), 'endpoint reads an existing frontend session for granted images');
 check(!str_contains($script, 'mt_srand'), 'endpoint does not reseed the PRNG from the request time');
 
 if ($failures) {

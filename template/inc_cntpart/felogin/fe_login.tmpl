@@ -136,6 +136,24 @@ cookie_expire	= 7776000
 <!--REMINDER_SUCCESS_END//-->
 
 
+<!--REMINDER_RESET_START//-->
+	<h3>@@Choose a new password@@</h3>
+	{RESET_ERROR}
+	<form action="{FORM_TARGET}" method="post">
+		<input type="hidden" name="feResetToken" value="{RESET_TOKEN}" />
+		<p><label>@@New password@@<br /><input type="password" name="feResetPassword" required="required" autocomplete="new-password" /></label></p>
+		<p><label>@@Repeat password@@<br /><input type="password" name="feResetPassword2" required="required" autocomplete="new-password" /></label></p>
+		<p><button type="submit">@@Reset password@@</button></p>
+	</form>
+<!--REMINDER_RESET_END//-->
+
+<!--REMINDER_RESET_SUCCESS_START//-->
+	<h3>@@Password changed@@</h3>
+	<p>@@Your password has been changed. You can log in now.@@</p>
+	<p><a href="{LOGIN_URL}">@@Login@@</a></p>
+<!--REMINDER_RESET_SUCCESS_END//-->
+
+
 <!--REMINDER_EMAIL_START//-->
 [SUBJECT]
 	@@Your account reminder@@
@@ -153,11 +171,11 @@ cookie_expire	= 7776000
 [PASSWORD_EMAIL]
 @@You have requested this reminder email.@@
 
-@@We have reset your password:@@ {PASSWORD}
+@@Open this link to choose a new password. The link is valid for one hour and can be used once:@@
 
-@@Please change it after your first login.@@
+{RESET_URL}
 
-{LOGIN_URL}
+@@If you did not request this, ignore this message. Your password is unchanged.@@
 
 [/PASSWORD_EMAIL]
 <!--REMINDER_EMAIL_END//-->
