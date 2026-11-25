@@ -4,7 +4,7 @@
 # the Options override in .htaccess.
 
 # Deny access to all PHP variants, CGI, scripts, executables, and sensitive files
-<FilesMatch "(?i)\.(php[0-9]?|phtml|pht|phar|phps|inc|cgi|pl|py|sh|bash|exe|com|bat|cmd|msi|bin|dll|vbs|wsf|scr|htaccess|htpasswd|ini|env|conf|bak|sql)$">
+<FilesMatch "(?i)^(?!index\.html$).*\.(php[0-9]?|phtml|pht|phar|phps|inc|cgi|pl|py|sh|bash|exe|com|bat|cmd|msi|bin|dll|vbs|wsf|scr|htaccess|htpasswd|ini|env|conf|bak|sql|html?|xhtml?|xht|mhtml|mht|svgz?|xml|xsl|xslt|js|mjs|cjs|swf)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>

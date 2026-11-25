@@ -32,6 +32,27 @@ if($imgpath) {
 		}
 		closedir( $handle );
 	}
+
+	// The archive is private; only files with a public record may be served.
+	// This endpoint has no frontend session, so a granted image (f_granted=1)
+	// is never selected here; use download.php or a session-aware renderer.
+	if($imgArray && phpwcms_image_dir_is_archive($imgpath)) {
+		require_once '../include/inc_lib/dbcon.inc.php';
+		$hashes = array();
+		foreach($imgArray as $imgfile) {
+			$hash = pathinfo($imgfile, PATHINFO_FILENAME);
+			if($hash !== '') {
+				$hashes[$hash] = _dbEscape($hash);
+			}
+		}
+		$records = array();
+		if($hashes) {
+			$sql  = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'file WHERE f_hash IN ('.implode(',', $hashes).') ';
+			$sql .= 'AND '.phpwcms_archive_visibility_sql(true);
+			$records = _dbQuery($sql);
+		}
+		$imgArray = phpwcms_archive_files_matching_records($imgArray, $records ? $records : array());
+	}
 }
 
 $file = dirname(__FILE__)."/leer.gif";

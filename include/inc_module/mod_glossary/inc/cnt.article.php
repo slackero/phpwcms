@@ -24,23 +24,22 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $content['glossary'] = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
+$glossary_template_dir = $phpwcms['modules'][$crow["acontent_module"]]['path'].'template/';
+$glossary_template_file = !empty($content['glossary']['glossary_template'])
+    ? phpwcms_template_file_path($glossary_template_dir, $content['glossary']['glossary_template'])
+    : '';
+
 // check for template and load default in case of error
-if(empty($content['glossary']['glossary_template'])) {
+if($glossary_template_file === '') {
 
     // load default template
-    $content['glossary']['glossary_template'] = file_get_contents($phpwcms['modules'][$crow["acontent_module"]]['path'].'template/default/default.tmpl');
-
-} elseif(file_exists($phpwcms['modules'][$crow["acontent_module"]]['path'].'template/'.$content['glossary']['glossary_template'])) {
-
-    // load custom template
-    $content['glossary']['glossary_template'] = file_get_contents($phpwcms['modules'][$crow["acontent_module"]]['path'].'template/'.$content['glossary']['glossary_template']);
-
-} else {
-
-    // again load default template
-    $content['glossary']['glossary_template'] = file_get_contents($phpwcms['modules'][$crow["acontent_module"]]['path'].'template/default/default.tmpl');
+    $glossary_template_file = phpwcms_template_file_path($glossary_template_dir, 'default/default.tmpl');
 
 }
+
+$content['glossary']['glossary_template'] = $glossary_template_file !== ''
+    ? file_get_contents($glossary_template_file)
+    : '';
 
 $content['glossary']['where'] = '';
 
