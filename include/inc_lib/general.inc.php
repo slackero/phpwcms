@@ -353,6 +353,258 @@ function generic_string($length, $i = 0) {
     return $gen_string;
 }
 
+/**
+ * Storage group for the active password reset token of one account.
+ *
+ * Tokens live in phpwcms_sysvalue, so recovery needs no schema change. The
+ * group is derived from the account, which keeps one active token per account
+ * and allows the previous token to be dropped when a new one is issued.
+ *
+ * @param string $scope 'userdetail' or 'user'
+ * @param int    $id    Account id in that scope
+ *
+ * @return string Group name, or '' for an invalid scope or id
+ */
+function phpwcms_password_reset_group($scope, $id) {
+    $scope = preg_replace('/[^a-z_]/', '', strtolower((string)$scope));
+    $id = (int)$id;
+    if ($scope === '' || $id < 1) {
+        return '';
+    }
+
+    return 'felogin_reset_' . $scope . '_' . $id;
+}
+
+/**
+ * Issue a single-use password reset token for an account.
+ *
+ * The token itself is never stored, only its SHA-256 hash. Issuing a new
+ * token drops the previous one, so a reminder request invalidates older
+ * links. Tokens expire after one hour by default.
+ *
+ * @param string $scope 'userdetail' or 'user'
+ * @param int    $id    Account id in that scope
+ * @param int    $ttl   Lifetime in seconds
+ *
+ * @return string|false Token, or false when it could not be stored
+ */
+function phpwcms_password_reset_token_create($scope, $id, $ttl = 3600) {
+    $group = phpwcms_password_reset_group($scope, $id);
+    if ($group === '') {
+        return false;
+    }
+
+    $now = time();
+
+    // Drop the account's previous token, plus tokens and rate buckets that
+    // expired long ago, so the sysvalue table does not grow forever.
+    _dbQuery('DELETE FROM ' . DB_PREPEND . 'sysvalue WHERE sysvalue_group=' . _dbEscape($group), 'DELETE');
+    _dbQuery(
+        'DELETE FROM ' . DB_PREPEND . "sysvalue WHERE sysvalue_group LIKE 'felogin\\_reset\\_%' AND sysvalue_lastchange<" . ($now - 86400),
+        'DELETE'
+    );
+    _dbQuery(
+        'DELETE FROM ' . DB_PREPEND . "sysvalue WHERE sysvalue_group='felogin_rate' AND sysvalue_lastchange<" . ($now - 86400),
+        'DELETE'
+    );
+
+    try {
+        $token = bin2hex(random_bytes(32));
+    } catch (Exception $e) {
+        return false;
+    }
+
+    $stored = _dbInsertOrUpdate('sysvalue', array(
+        'sysvalue_key' => 'felogin_reset_' . hash('sha256', $token),
+        'sysvalue_group' => $group,
+        'sysvalue_lastchange' => time(),
+        'sysvalue_status' => 1,
+        'sysvalue_vartype' => 'string',
+        'sysvalue_value' => json_encode(array(
+            'scope' => preg_replace('/[^a-z_]/', '', strtolower((string)$scope)),
+            'id' => (int)$id,
+            'expires' => time() + max(60, (int)$ttl),
+        )),
+    ));
+
+    return $stored ? $token : false;
+}
+
+/**
+ * Read a password reset token without consuming it.
+ *
+ * @param mixed $token Token from the reset link
+ *
+ * @return array|false Scope, account id and expiry, or false when invalid
+ */
+function phpwcms_password_reset_token_lookup($token) {
+    if (!is_string($token) || !preg_match('/^[a-f0-9]{64}$/', $token)) {
+        return false;
+    }
+
+    $rows = _dbGet(
+        'sysvalue',
+        'sysvalue_value',
+        'sysvalue_key=' . _dbEscape('felogin_reset_' . hash('sha256', $token)) . ' AND sysvalue_status=1'
+    );
+    if (empty($rows[0]['sysvalue_value'])) {
+        return false;
+    }
+
+    $data = json_decode($rows[0]['sysvalue_value'], true);
+    if (!is_array($data) || empty($data['scope']) || empty($data['id']) || empty($data['expires'])) {
+        return false;
+    }
+    if ((int)$data['expires'] < time()) {
+        phpwcms_password_reset_token_forget($token);
+
+        return false;
+    }
+
+    return $data;
+}
+
+/**
+ * Consume a password reset token.
+ *
+ * The row is deleted before the caller changes the password, so a replayed
+ * request cannot reset the account twice.
+ *
+ * @param mixed $token Token from the submitted form
+ *
+ * @return array|false Scope and account id, or false when invalid
+ */
+function phpwcms_password_reset_token_consume($token) {
+    $data = phpwcms_password_reset_token_lookup($token);
+    if ($data === false) {
+        return false;
+    }
+
+    // The row delete is the single-use gate: only the request whose DELETE
+    // removed the row may change the password. Two parallel submissions see
+    // AFFECTED_ROWS=1 once and 0 for the loser.
+    $result = _dbQuery(
+        'DELETE FROM ' . DB_PREPEND . 'sysvalue WHERE sysvalue_key=' . _dbEscape('felogin_reset_' . hash('sha256', $token)),
+        'DELETE'
+    );
+    if (empty($result['AFFECTED_ROWS'])) {
+        return false;
+    }
+
+    return $data;
+}
+
+/**
+ * Put a consumed token back when the password could not be saved.
+ *
+ * Without this a database error would leave the account without a working
+ * reset link until a new reminder is requested.
+ *
+ * @param string $token Token that was consumed
+ * @param array  $data  Scope, account id and expiry from the consumed row
+ *
+ * @return bool
+ */
+function phpwcms_password_reset_token_restore($token, $data) {
+    if (!is_string($token) || !preg_match('/^[a-f0-9]{64}$/', $token) || !is_array($data)) {
+        return false;
+    }
+    if (empty($data['scope']) || empty($data['id']) || empty($data['expires']) || (int)$data['expires'] < time()) {
+        return false;
+    }
+
+    $group = phpwcms_password_reset_group($data['scope'], $data['id']);
+    if ($group === '') {
+        return false;
+    }
+
+    return (bool)_dbInsertOrUpdate('sysvalue', array(
+        'sysvalue_key' => 'felogin_reset_' . hash('sha256', $token),
+        'sysvalue_group' => $group,
+        'sysvalue_lastchange' => time(),
+        'sysvalue_status' => 1,
+        'sysvalue_vartype' => 'string',
+        'sysvalue_value' => json_encode(array(
+            'scope' => preg_replace('/[^a-z_]/', '', strtolower((string)$data['scope'])),
+            'id' => (int)$data['id'],
+            'expires' => (int)$data['expires'],
+        )),
+    ));
+}
+
+/**
+ * Build the reset link used in the reminder mail.
+ *
+ * The link is sent as plain text, so the query string must use the raw `&`
+ * separator. rel_url()'s default htmlspecialchars format would turn it into
+ * `&amp;` and the mail client would pass `amp;token` as the parameter name.
+ *
+ * @param string $token    Token from phpwcms_password_reset_token_create()
+ * @param string $site_url Mail site URL prefix, already validated
+ *
+ * @return string
+ */
+function phpwcms_password_reset_url($token, $site_url = '') {
+    $token = (string)$token;
+    if (!preg_match('/^[a-f0-9]{64}$/', $token)) {
+        return '';
+    }
+
+    return (string)$site_url . rel_url(
+        array('profile_reminder' => '1', 'token' => $token),
+        array('profile_manage', 'profile_register', 'feLogout'),
+        '',
+        ''
+    );
+}
+
+/**
+ * Drop a password reset token row.
+ *
+ * @param string $token
+ *
+ * @return void
+ */
+function phpwcms_password_reset_token_forget($token) {
+    if (!is_string($token) || !preg_match('/^[a-f0-9]{64}$/', $token)) {
+        return;
+    }
+
+    _dbQuery('DELETE FROM ' . DB_PREPEND . 'sysvalue WHERE sysvalue_key=' . _dbEscape('felogin_reset_' . hash('sha256', $token)), 'DELETE');
+}
+
+/**
+ * Throttle anonymous password recovery requests.
+ *
+ * The timestamp of the last request is stored per bucket, so a bot cannot
+ * flood the reminder mail or the reset form without changing its identity.
+ *
+ * @param string $bucket  Request origin, for example IP and action
+ * @param int    $seconds Minimum interval
+ *
+ * @return bool True when the caller must be throttled
+ */
+function phpwcms_password_reset_rate_limited($bucket, $seconds = 60) {
+    $key = 'felogin_rate_' . hash('sha256', (string)$bucket);
+    $now = time();
+    $rows = _dbGet('sysvalue', 'sysvalue_value', 'sysvalue_key=' . _dbEscape($key));
+
+    if (!empty($rows[0]['sysvalue_value']) && (int)$rows[0]['sysvalue_value'] > $now - max(1, (int)$seconds)) {
+        return true;
+    }
+
+    _dbInsertOrUpdate('sysvalue', array(
+        'sysvalue_key' => $key,
+        'sysvalue_group' => 'felogin_rate',
+        'sysvalue_lastchange' => $now,
+        'sysvalue_status' => 1,
+        'sysvalue_vartype' => 'int',
+        'sysvalue_value' => $now,
+    ));
+
+    return false;
+}
+
 function genlogname() {
     $usercount = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . "phpwcms_user WHERE usr_login LIKE 'user%'", 'COUNT');
     $usercount = $usercount ? $usercount + 1 : 1;
