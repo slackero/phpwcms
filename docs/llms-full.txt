@@ -270,7 +270,7 @@ Confirm the [system requirements](../requirements/index.md) first — PHP 8.4+, 
    - `include/config/` (the wizard writes `conf.inc.php` and seeds the installation config files from `dist.*`)
    - `template/` (and `template/template_lang/`)
    - `setup/setup.conf.inc.php` (the wizard's working config, chmod 666 if needed)
-4. **Run the setup wizard**: open `https://your-domain.com/setup/` in the browser — see [Setup wizard](setup-wizard.md) for the seven steps including database creation, admin account and SMTP settings.
+4. **Run the setup wizard**: open `https://your-domain.com/setup/` in the browser — see [Setup wizard](setup-wizard.md) for the seven steps including database creation, admin account and SMTP settings. Reach the wizard over direct HTTPS: the setup cookie gets the `Secure` flag only when PHP itself sees the HTTPS request. Behind a TLS-terminating proxy, terminate TLS in PHP (or accept a setup session cookie without `Secure`).
 5. **Finalize and harden** as below.
 
 Ownership should stay with the user the web server runs as (or a shared group) so the wizard can write `include/config/conf.inc.php`, its installation config files, `.htaccess` and the content directories. When the PHP user differs from the owner (`mod_php` with `www-data`), the wizard creates private storage with `0770`/`0660` for the shared group.
@@ -446,7 +446,7 @@ Updates are blocked when a newer release would install on a half-migrated schema
 
 ## Standalone upgrade script
 
-`setup/upgrade.php` is a self-contained CLI and browser updater that runs independently of the main application (own DB connection, pure-PHP dump, ZipArchive). Download it into an existing installation:
+`setup/upgrade.php` is a self-contained CLI and browser updater that runs independently of the main application (own DB connection, pure-PHP dump, ZipArchive). Its browser session uses an installation-specific cookie; the `Secure` flag is set only when PHP sees the HTTPS request directly, so run it over direct HTTPS or terminate TLS in PHP. Download it into an existing installation:
 
 ```bash
 mkdir -p setup && curl -fsSL -o setup/upgrade.php \
@@ -750,6 +750,7 @@ See [Cache and performance](../administration/cache-performance.md) for behavior
 | `BOTS` | array | googlebot, msnbot, bingbot, ... | User agents that never start sessions. |
 | `session.cookie_httponly.off` | bool | `false` | `true` makes the session cookie JavaScript-accessible. |
 | `session.cookie_samesite` | string | `'Lax'` | Cookie SameSite: `None`, `Lax` or `Strict`. |
+| `session_name` | string | `''` | PHP session cookie name. Empty derives `PHPSESSID` plus a hash of the database name and prefix, so several phpwcms installations on one host (different paths or ports) keep separate backend sessions. Moving the installation directory keeps the cookie; renaming the database changes it and logs users in once again. Set a fixed name to keep a custom cookie. |
 | `login_autocomplete` | bool | `true` | Allows the browser to store/autofill backend credentials. |
 | `enable_GDPR` | bool | `true` | Anonymize IPs and other GDPR handling inside phpwcms logging. |
 | `usergroup_support` | bool | `false` | Experimental group feature switch. |

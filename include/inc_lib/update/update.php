@@ -12,6 +12,9 @@ require_once __DIR__ . '/update.backup.php';
 
 class phpwcms_update
 {
+    // setup/ is applied by the standalone upgrader or a full release, not by
+    // the backend updater: it holds setup.conf.inc.php with local credentials
+    // and the running upgrade script must not replace itself mid-run.
     public const SKIP_PATHS = ['include/config/', 'filearchive/', 'content/', 'upload/', 'setup/'];
     public const SKIP_FILES = ['.htaccess', 'robots.txt', '.update-manifest'];
     public const MAINTENANCE_FLAG = 'update/maintenance.flag';

@@ -128,9 +128,67 @@ if (empty($phpwcms['root'])) {
     $phpwcms['root'] .= '/';
 }
 
+/**
+ * Session cookie name for one installation.
+ *
+ * The default PHP name is the same for every phpwcms installation on a host,
+ * and cookies ignore the port, so two installations at different ports or
+ * neighbouring paths replace each other's session on every request. The seed
+ * is stable across a directory move; a configured name wins.
+ *
+ * @param string $configured Value from $phpwcms['session_name']
+ * @param string $seed       Installation identity, normally database and prefix
+ *
+ * @return string Valid cookie name
+ */
+function phpwcms_session_name($configured = '', $seed = '') {
+    $configured = preg_replace('/[^A-Za-z0-9_-]/', '', (string)$configured);
+    if ($configured !== '') {
+        return $configured;
+    }
+
+    return 'PHPSESSID' . substr(md5((string)$seed), 0, 10);
+}
+
+/**
+ * Apply the installation session cookie name.
+ *
+ * Must run before any session_start(). When a session is already active with
+ * another name (session.auto_start=1 or a library started it first), the name
+ * cannot be changed; report the misconfiguration once per session instead.
+ *
+ * @param string $configured Value from $phpwcms['session_name']
+ * @param string $seed       Installation identity
+ *
+ * @return void
+ */
+function phpwcms_init_session_name($configured = '', $seed = '') {
+    define('PHPWCMS_SESSION_NAME', phpwcms_session_name($configured, $seed));
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_name(PHPWCMS_SESSION_NAME);
+    } elseif (session_status() === PHP_SESSION_ACTIVE && session_name() !== PHPWCMS_SESSION_NAME && empty($_SESSION['phpwcms_session_name_warned'])) {
+        $_SESSION['phpwcms_session_name_warned'] = true;
+        error_log('phpwcms: session was started before phpwcms initialized it (cookie name "' . session_name() . '"); other installations on this host may share the session. Set session.auto_start=0 and make sure no library starts the session earlier');
+    }
+}
+
 define('PHPWCMS_ROOT', $phpwcms['DOC_ROOT']);
 define('PHPWCMS_FILES', $phpwcms['file_path'] . '/');
 define('PHPWCMS_BASEPATH', '/' . $phpwcms['root']);
+// Per-installation session cookie name. Installations on the same host (for
+// example different ports or neighbouring directories) share the default
+// PHPSESSID cookie, so one backend login overwrites the other. The database
+// name and prefix identify the installation independently of its directory;
+// set $phpwcms['session_name'] to keep a custom name.
+$phpwcms_session_seed = trim((string)($phpwcms['db_table'] ?? '') . '|' . (string)($phpwcms['db_prepend'] ?? ''));
+if ($phpwcms_session_seed === '|') {
+    $phpwcms_session_seed = PHPWCMS_ROOT;
+    // A missing db_table/db_prepend usually means a broken configuration;
+    // the path-based fallback changes when the installation is moved.
+    error_log('phpwcms: db_table and db_prepend are empty; deriving the session cookie name from the installation directory');
+}
+phpwcms_init_session_name($phpwcms['session_name'] ?? '', $phpwcms_session_seed);
 define('PHPWCMS_USER_KEY', md5(getRemoteIP() . $phpwcms['DOC_ROOT'] . $phpwcms['db_pass']));
 if (empty($phpwcms['rewrite_url'])) {
     define('PHPWCMS_REWRITE', false);
@@ -1049,6 +1107,9 @@ function headerRedirect($target = '', $type = 0, $session_close = true) {
 }
 
 function _initSession() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_name(PHPWCMS_SESSION_NAME);
+    }
     $GLOBALS['phpwcms']['session_cookie_params'] = session_get_cookie_params();
     $GLOBALS['phpwcms']['session_cookie_params']['httponly'] = empty($GLOBALS['phpwcms']['session.cookie_httponly.off']);
     $GLOBALS['phpwcms']['session_cookie_params']['domain'] = $GLOBALS['phpwcms']['parse_url']['host'];
@@ -1062,6 +1123,19 @@ function _initSession() {
         $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = 'Lax';
     }
     @session_set_cookie_params($GLOBALS['phpwcms']['session_cookie_params']);
+
+    // Drop the shared PHPSESSID cookie older versions set for this
+    // installation, so the browser stops sending an unused session id.
+    if (PHPWCMS_SESSION_NAME !== 'PHPSESSID' && !empty($_COOKIE['PHPSESSID']) && !headers_sent()) {
+        setcookie('PHPSESSID', '', [
+            'expires' => time() - 3600,
+            'path' => $GLOBALS['phpwcms']['session_cookie_params']['path'],
+            'domain' => $GLOBALS['phpwcms']['session_cookie_params']['domain'],
+            'secure' => (bool)$GLOBALS['phpwcms']['session_cookie_params']['secure'],
+            'httponly' => (bool)$GLOBALS['phpwcms']['session_cookie_params']['httponly'],
+            'samesite' => $GLOBALS['phpwcms']['session_cookie_params']['samesite'],
+        ]);
+    }
 
     if (!session_id()) {
         session_start();

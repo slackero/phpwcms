@@ -9,7 +9,9 @@
  *
  **/
 
-session_start();
+defined('PHPWCMS_SETUP_SESSION') || define('PHPWCMS_SETUP_SESSION', true);
+require_once __DIR__ . '/inc/session.inc.php';
+setup_start_session(dirname(__DIR__));
 
 $phpwcms = array();
 

@@ -324,6 +324,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`\n";
     $conf_file .= "\$phpwcms['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript\n";
     $conf_file .= "\$phpwcms['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported\n";
+    $conf_file .= "\$phpwcms['session_name'] = ''; // Empty derives a per-installation session cookie name (database name + prefix); set it to keep a custom name\n";
     $conf_file .= "\$phpwcms['enable_backend_newsletter'] = true; // Enable newsletter menu item in the backend\n";
     $conf_file .= "\$phpwcms['enable_backend_module'] = true; // Enable module menu item in the backend\n";
     $conf_file .= "\$phpwcms['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted\n";

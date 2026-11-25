@@ -222,6 +222,7 @@ See [Cache and performance](../administration/cache-performance.md) for behavior
 | `BOTS` | array | googlebot, msnbot, bingbot, ... | User agents that never start sessions. |
 | `session.cookie_httponly.off` | bool | `false` | `true` makes the session cookie JavaScript-accessible. |
 | `session.cookie_samesite` | string | `'Lax'` | Cookie SameSite: `None`, `Lax` or `Strict`. |
+| `session_name` | string | `''` | PHP session cookie name. Empty derives `PHPSESSID` plus a hash of the database name and prefix, so several phpwcms installations on one host (different paths or ports) keep separate backend sessions. Moving the installation directory keeps the cookie; renaming the database changes it and logs users in once again. Set a fixed name to keep a custom cookie. |
 | `login_autocomplete` | bool | `true` | Allows the browser to store/autofill backend credentials. |
 | `enable_GDPR` | bool | `true` | Anonymize IPs and other GDPR handling inside phpwcms logging. |
 | `usergroup_support` | bool | `false` | Experimental group feature switch. |

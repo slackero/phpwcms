@@ -34,7 +34,7 @@ Updates are blocked when a newer release would install on a half-migrated schema
 
 ## Standalone upgrade script
 
-`setup/upgrade.php` is a self-contained CLI and browser updater that runs independently of the main application (own DB connection, pure-PHP dump, ZipArchive). Download it into an existing installation:
+`setup/upgrade.php` is a self-contained CLI and browser updater that runs independently of the main application (own DB connection, pure-PHP dump, ZipArchive). Its browser session uses an installation-specific cookie; the `Secure` flag is set only when PHP sees the HTTPS request directly, so run it over direct HTTPS or terminate TLS in PHP. Download it into an existing installation:
 
 ```bash
 mkdir -p setup && curl -fsSL -o setup/upgrade.php \

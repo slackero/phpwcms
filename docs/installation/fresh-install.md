@@ -21,7 +21,7 @@ Confirm the [system requirements](../requirements/index.md) first — PHP 8.4+, 
    - `include/config/` (the wizard writes `conf.inc.php` and seeds the installation config files from `dist.*`)
    - `template/` (and `template/template_lang/`)
    - `setup/setup.conf.inc.php` (the wizard's working config, chmod 666 if needed)
-4. **Run the setup wizard**: open `https://your-domain.com/setup/` in the browser — see [Setup wizard](setup-wizard.md) for the seven steps including database creation, admin account and SMTP settings.
+4. **Run the setup wizard**: open `https://your-domain.com/setup/` in the browser — see [Setup wizard](setup-wizard.md) for the seven steps including database creation, admin account and SMTP settings. Reach the wizard over direct HTTPS: the setup cookie gets the `Secure` flag only when PHP itself sees the HTTPS request. Behind a TLS-terminating proxy, terminate TLS in PHP (or accept a setup session cookie without `Secure`).
 5. **Finalize and harden** as below.
 
 Ownership should stay with the user the web server runs as (or a shared group) so the wizard can write `include/config/conf.inc.php`, its installation config files, `.htaccess` and the content directories. When the PHP user differs from the owner (`mod_php` with `www-data`), the wizard creates private storage with `0770`/`0660` for the shared group.

@@ -485,11 +485,8 @@ if ($missingExtensions) {
 
 // Determine document root and setup directory
 $scriptDir = __DIR__;
-if (basename($scriptDir) === 'setup') {
-    $docRoot = dirname($scriptDir);
-} else {
-    $docRoot = realpath($scriptDir) ?: $scriptDir;
-}
+$docRootCandidate = basename($scriptDir) === 'setup' ? dirname($scriptDir) : $scriptDir;
+$docRoot = realpath($docRootCandidate) ?: $docRootCandidate;
 
 // Locate config file
 $configFile = null;
@@ -507,13 +504,14 @@ foreach ($configCandidates as $candidate) {
 
 $isCli = PHP_SAPI === 'cli';
 
+defined('PHPWCMS_SETUP_SESSION') || define('PHPWCMS_SETUP_SESSION', true);
+require_once __DIR__ . '/inc/session.inc.php';
+
 // Start session for browser mode
 if (!$isCli) {
-    if (session_status() === PHP_SESSION_NONE) {
-        @ini_set('session.cookie_httponly', '1');
-        @ini_set('session.cookie_samesite', 'Strict');
-        session_start();
-    }
+    // Separate from other installations; the configured name applies only
+    // after setup has a database.
+    setup_start_session($docRoot);
     if (empty($_SESSION['upgrade_csrf_token'])) {
         $_SESSION['upgrade_csrf_token'] = bin2hex(random_bytes(24));
     }
