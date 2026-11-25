@@ -125,15 +125,14 @@ if (!defined('PHPWCMS_ROOT')) {
 			</div>
 
 			<?php if(!empty($plugin['data']['adplace_id'])): ?>
-				<div class="form-group row align-items-center">
+				<div class="form-group row">
 					<label for="banner_rt" class="col-sm-2 col-form-label text-sm-end fw-bold"><?php echo $BLM['ad_template_code'] ?></label>
 					<div class="col-sm-10">
-						<div class="input-group input-group-sm" style="max-width: 250px;">
-							<input type="text" name="banner_rt" id="banner_rt" value="{ADS_<?php echo $plugin['data']['adplace_id'] ?>}" class="form-control text-center fw-bold" readonly onfocus="this.select();" onclick="this.select();" />
-							
-								<span class="input-group-text"><?php echo $BLM['ad_template_code_info'] ?></span>
-							
+						<div class="input-group input-group-sm" style="max-width: 320px;">
+							<input type="text" name="banner_rt" id="banner_rt" value="{ADS_<?php echo $plugin['data']['adplace_id'] ?>}" class="form-control text-center fw-bold" readonly />
+							<button type="button" class="btn btn-light" onclick="copyToClipboard(document.getElementById('banner_rt').value);return false;" title="<?php echo $BL['copy_to_clipboard']; ?>" aria-label="<?php echo $BL['copy_to_clipboard']; ?>"><i class="fa-solid fa-copy"></i></button>
 						</div>
+						<div class="form-text"><?php echo $BLM['ad_template_code_info'] ?></div>
 					</div>
 				</div>
 			<?php endif; ?>
