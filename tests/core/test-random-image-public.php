@@ -88,7 +88,8 @@ check(
 
 $script = file_get_contents($root . '/img/random_image.php');
 check(str_contains($script, 'phpwcms_image_dir_is_archive('), 'endpoint applies the archive boundary');
-check(str_contains($script, 'phpwcms_archive_visibility_sql(true)'), 'archive lookup uses the shared visibility clause');
+check(str_contains($script, 'phpwcms_archive_visibility_sql(!$feuser_logged_in)'), 'archive lookup uses the shared visibility clause and the frontend session state');
+check(str_contains($script, 'helper.session.php'), 'endpoint reads an existing frontend session for granted images');
 
 $general = file_get_contents($root . '/include/inc_lib/general.inc.php');
 check(!str_contains($general, 'mt_srand(intval(microtime(true) * 1000000))'), 'password generator is not seeded from the request time');

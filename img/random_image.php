@@ -34,10 +34,24 @@ if($imgpath) {
 		closedir( $handle );
 	}
 
-	// The archive is private; only files with a public record may be served.
-	// This endpoint has no frontend session, so a granted image (f_granted=1)
-	// is never selected here; use download.php or a session-aware renderer.
+	// The archive is private; only files with a visible record may be served.
+	// A logged-in frontend user may also receive granted images. The session
+	// is read only when the request already carries one, so anonymous image
+	// requests stay cacheable and cookie-free.
 	if($imgArray && phpwcms_image_dir_is_archive($imgpath)) {
+		$feuser_logged_in = false;
+		if(!empty($_COOKIE[session_name()])) {
+			$phpwcms['SESSION_START'] = true;
+			require_once $base_dir . '/include/inc_lib/helper.session.php';
+			$session_key = session_id();
+			$feuser_logged_in = $session_key !== ''
+				&& !empty($_SESSION[$session_key])
+				&& !isset($_GET[$session_key])
+				&& !isset($_POST[$session_key]);
+			if($feuser_logged_in && function_exists('headerAvoidPageCaching')) {
+				headerAvoidPageCaching();
+			}
+		}
 		require_once $base_dir . '/include/inc_lib/dbcon.inc.php';
 		$hashes = array();
 		foreach($imgArray as $imgfile) {
@@ -49,7 +63,7 @@ if($imgpath) {
 		$records = array();
 		if($hashes) {
 			$sql  = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'file WHERE f_hash IN ('.implode(',', $hashes).') ';
-			$sql .= 'AND '.phpwcms_archive_visibility_sql(true);
+			$sql .= 'AND '.phpwcms_archive_visibility_sql(!$feuser_logged_in);
 			$records = _dbQuery($sql);
 		}
 		$imgArray = phpwcms_archive_files_matching_records($imgArray, $records ? $records : array());

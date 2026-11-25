@@ -50,6 +50,8 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
     $_loginData['reminder']         = get_tmpl_section('REMINDER_FORM', $_loginData['template']);
     $_loginData['reminder_success'] = get_tmpl_section('REMINDER_SUCCESS', $_loginData['template']);
     $_loginData['reminder_email']   = get_tmpl_section('REMINDER_EMAIL', $_loginData['template']);
+    $_loginData['reset']            = get_tmpl_section('REMINDER_RESET', $_loginData['template']);
+    $_loginData['reset_success']    = get_tmpl_section('REMINDER_RESET_SUCCESS', $_loginData['template']);
 
 
     $_loginData['session_key']  = session_id();
@@ -60,6 +62,8 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
     $_loginData['password']     = '';
     $_loginData['remember']     = 0;
     $_loginData['remind_data']  = '';
+    $_loginData['reset_error']  = '';
+    $_loginData['reset_done']   = false;
 
     $_loginData['felogin_profile_registration'] = empty($_loginData['felogin_profile_registration']) ? 0 : 1;
     $_loginData['felogin_profile_manage']       = empty($_loginData['felogin_profile_manage']) ? 0 : 1;
@@ -111,6 +115,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
         // could otherwise poison the login URL sent to the account owner.
         $mail_site_url = phpwcms_mail_site_url();
         $reminder_allowed = $mail_site_url !== '';
+        $reminder_throttled = $reminder_allowed && phpwcms_password_reset_rate_limited('reminder:' . getRemoteIP(), 60);
 
         if(!$reminder_allowed) {
             // tell the visitor that this is a configuration problem
@@ -143,7 +148,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
         }
 
         // otherwise check login and send password
-        if($reminder_allowed && $_loginData['remind_data'] && empty($_loginData['remind_login'])) {
+        if($reminder_allowed && !$reminder_throttled && $_loginData['remind_data'] && empty($_loginData['remind_login'])) {
 
             if($_loginData['validate_db']['userdetail']) {
                 $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."phpwcms_userdetail WHERE ";
@@ -155,9 +160,13 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
                 $result = _dbQuery($sql);
 
                 if(isset($result[0])) {
-                    $result[0]['PASSWORD'] = generic_string(8);
-                    _dbUpdate('phpwcms_userdetail', array('detail_password'=>md5($result[0]['PASSWORD'])), 'WHERE detail_id='.$result[0]['detail_id']);
-                    $_loginData['remind_password'] = $result[0];
+                    // A reminder must not change the password. Issue a single
+                    // use token and let the owner choose a new password.
+                    $reset_token = phpwcms_password_reset_token_create('userdetail', $result[0]['detail_id']);
+                    if($reset_token !== false) {
+                        $result[0]['RESET_URL'] = phpwcms_password_reset_url($reset_token, $mail_site_url);
+                        $_loginData['remind_reset'] = $result[0];
+                    }
                 }
             }
 
@@ -172,14 +181,16 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
                 $result = _dbQuery($sql);
 
                 if(isset($result[0])) {
-                    $result[0]['PASSWORD'] = generic_string(8);
-                    _dbUpdate('phpwcms_user', array('usr_pass'=>md5($result[0]['PASSWORD'])), 'WHERE usr_id='.$result[0]['usr_id']);
-                    $_loginData['remind_password'] = $result[0];
+                    $reset_token = phpwcms_password_reset_token_create('user', $result[0]['usr_id']);
+                    if($reset_token !== false) {
+                        $result[0]['RESET_URL'] = phpwcms_password_reset_url($reset_token, $mail_site_url);
+                        $_loginData['remind_reset'] = $result[0];
+                    }
                 }
             }
         }
 
-        if($reminder_allowed && (isset($_loginData['remind_password']) || isset($_loginData['remind_login']))) {
+        if($reminder_allowed && !$reminder_throttled && (isset($_loginData['remind_reset']) || isset($_loginData['remind_login']))) {
 
             $_loginData['reminder'] = $_loginData['reminder_success'];
 
@@ -187,11 +198,14 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 
             $_loginData['reminder_email'] = str_replace('{LOGIN_URL}', $mail_site_url . $_loginData['LOGIN_URL'], $_loginData['reminder_email']);
 
-            if(isset($_loginData['remind_password'])) {
+            if(isset($_loginData['remind_reset'])) {
 
-                $_loginData['reminder_email']   = str_replace('{LOGIN}', $_loginData['remind_password']['LOGIN'], $_loginData['reminder_email']);
-                $_loginData['reminder_email']   = str_replace('{PASSWORD}', $_loginData['remind_password']['PASSWORD'], $_loginData['reminder_email']);
-                $_loginData['reminder_to']      = $_loginData['remind_password']['EMAIL'];
+                $_loginData['reminder_email']   = str_replace('{LOGIN}', $_loginData['remind_reset']['LOGIN'], $_loginData['reminder_email']);
+                $_loginData['reminder_email']   = str_replace('{RESET_URL}', $_loginData['remind_reset']['RESET_URL'], $_loginData['reminder_email']);
+                // never mail a password; keep a custom template without a
+                // {RESET_URL} placeholder from printing an empty value
+                $_loginData['reminder_email']   = str_replace('{PASSWORD}', '', $_loginData['reminder_email']);
+                $_loginData['reminder_to']      = $_loginData['remind_reset']['EMAIL'];
 
                 $_loginData['reminder_email_body'] = returnTagContent( $_loginData['reminder_email'], 'PASSWORD_EMAIL' );
             } else {
@@ -232,13 +246,59 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 
         }
 
+    } elseif(isset($_POST['feResetToken'])) {
+
+        if(!headers_sent()) {
+            header('Referrer-Policy: same-origin');
+        }
+        $_loginData['reset_token'] = is_string($_POST['feResetToken']) ? trim($_POST['feResetToken']) : '';
+        $reset_password  = isset($_POST['feResetPassword']) ? (string)$_POST['feResetPassword'] : '';
+        $reset_password2 = isset($_POST['feResetPassword2']) ? (string)$_POST['feResetPassword2'] : '';
+        $reset_data = false;
+
+        if(phpwcms_password_reset_rate_limited('reset:' . getRemoteIP(), 30)) {
+            $_loginData['reset_error'] = 'Too many attempts. Please wait a moment.';
+        } else {
+            $reset_data = phpwcms_password_reset_token_lookup($_loginData['reset_token']);
+            if($reset_data === false) {
+                $_loginData['reset_error'] = 'The reset link is invalid or has expired.';
+            } elseif(strlen($reset_password) < 8) {
+                $_loginData['reset_error'] = 'The password must have at least 8 characters.';
+            } elseif($reset_password !== $reset_password2) {
+                $_loginData['reset_error'] = 'The passwords do not match.';
+            } else {
+                $reset_data = phpwcms_password_reset_token_consume($_loginData['reset_token']);
+                if($reset_data === false) {
+                    $_loginData['reset_error'] = 'The reset link is invalid or has expired.';
+                } elseif($reset_data['scope'] === 'userdetail') {
+                    $password_saved = _dbUpdate('phpwcms_userdetail', array('detail_password' => md5($reset_password)), 'WHERE detail_id=' . (int)$reset_data['id']);
+                    if($password_saved) {
+                        $_loginData['reset_done'] = true;
+                    } else {
+                        phpwcms_password_reset_token_restore($_loginData['reset_token'], $reset_data);
+                        $_loginData['reset_error'] = 'The password could not be saved. Please try again.';
+                    }
+                } else {
+                    $password_saved = _dbUpdate('phpwcms_user', array('usr_pass' => md5($reset_password)), 'WHERE usr_id=' . (int)$reset_data['id']);
+                    if($password_saved) {
+                        $_loginData['reset_done'] = true;
+                    } else {
+                        phpwcms_password_reset_token_restore($_loginData['reset_token'], $reset_data);
+                        $_loginData['reset_error'] = 'The password could not be saved. Please try again.';
+                    }
+                }
+            }
+        }
+
     }
 
     // register profile default
     $_loginData['get_profile_register'] = 'create';
     $_loginData['get_profile_manage']   = 'edit';
 
-    if(_getFeUserLoginStatus()) {
+    // A reset link or submission must render even for a logged-in visitor
+    // (the link may be opened in a browser that still has a session).
+    if(_getFeUserLoginStatus() && !isset($_POST['feResetToken']) && !(isset($_getVar['profile_reminder']) && isset($_getVar['token']))) {
 
         // proof if "former" redirect URL is known and redirect
         if(!empty($_SESSION['LOGIN_REDIRECT'])) {
@@ -271,6 +331,46 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
         $_loginData['get_profile_register'] = strval($_getVar['profile_register']);
 
         $_loginData['template'] = $_loginData['register'];
+
+    } elseif(isset($_POST['feResetToken'])) {
+
+        if(!empty($_loginData['reset_done'])) {
+            $_loginData['template'] = trim($_loginData['reset_success']) !== ''
+                ? $_loginData['reset_success']
+                : '<p>@@Your password has been changed.@@</p>';
+        } else {
+            $_loginData['template'] = trim($_loginData['reset']) !== ''
+                ? $_loginData['reset']
+                : '<form action="{FORM_TARGET}" method="post"><input type="hidden" name="feResetToken" value="{RESET_TOKEN}" /><p><label>@@New password@@ <input type="password" name="feResetPassword" required="required" /></label></p><p><label>@@Repeat password@@ <input type="password" name="feResetPassword2" required="required" /></label></p><p><button type="submit">@@Reset password@@</button></p></form>';
+            $has_reset_error_placeholder = strpos($_loginData['template'], '{RESET_ERROR}') !== false;
+            $_loginData['template'] = str_replace(
+                array('{RESET_TOKEN}', '{RESET_ERROR}'),
+                array(html($_loginData['reset_token']), html($_loginData['reset_error'])),
+                $_loginData['template']
+            );
+            if($_loginData['reset_error'] !== '' && !$has_reset_error_placeholder) {
+                $_loginData['template'] = '<p class="alert alert-danger">' . html($_loginData['reset_error']) . '</p>' . $_loginData['template'];
+            }
+        }
+
+    } elseif(isset($_getVar['profile_reminder']) && isset($_getVar['token'])) {
+
+        if(!headers_sent()) {
+            header('Referrer-Policy: same-origin');
+        }
+        $_loginData['reset_token'] = is_string($_getVar['token']) ? trim($_getVar['token']) : '';
+        if(phpwcms_password_reset_token_lookup($_loginData['reset_token']) === false) {
+            $_loginData['template'] = '<p>@@The reset link is invalid or has expired.@@</p>';
+        } else {
+            $_loginData['template'] = trim($_loginData['reset']) !== ''
+                ? $_loginData['reset']
+                : '<form action="{FORM_TARGET}" method="post"><input type="hidden" name="feResetToken" value="{RESET_TOKEN}" /><p><label>@@New password@@ <input type="password" name="feResetPassword" required="required" /></label></p><p><label>@@Repeat password@@ <input type="password" name="feResetPassword2" required="required" /></label></p><p><button type="submit">@@Reset password@@</button></p></form>';
+            $_loginData['template'] = str_replace(
+                array('{RESET_TOKEN}', '{RESET_ERROR}'),
+                array(html($_loginData['reset_token']), ''),
+                $_loginData['template']
+            );
+        }
 
     } elseif(isset($_POST['feReminder']) || isset($_getVar['profile_reminder'])) {
 
