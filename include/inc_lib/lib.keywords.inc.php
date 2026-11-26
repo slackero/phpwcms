@@ -50,7 +50,7 @@ function backend_list_keywords() {
 			$list .= '					<tr>' . LF;
 			$list .= '						<td class="text-center"><input type="checkbox" class="keyword-checkbox" value="1" name="check[' . $value['keyword_id'] . ']" id="check_' . $value['keyword_id'] . '" /></td>' . LF;
 			$list .= '						<td><span class="badge bg-light border">' . $value['keyword_id'] . '</span></td>' . LF;
-			$list .= '						<td><a href="#" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\'); return false;" class="fw-bold text-dark">' . html($value['keyword_name']) . '</a></td>' . LF;
+			$list .= '						<td><a href="#" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\'); return false;" class="fw-bold text-body">' . html($value['keyword_name']) . '</a></td>' . LF;
 			$list .= '						<td class="text-end text-nowrap">' . LF;
 			$list .= '							<button type="button" class="btn btn-sm btn-blue py-0 px-1 me-1" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\');" title="Edit"><i class="fa-solid fa-pencil-alt"></i></button>' . LF;
 			$list .= '							<button type="button" class="btn btn-sm btn-danger py-0 px-1" onclick="if(confirm(\'' . ($GLOBALS['BL']['be_cnt_delete_confirm'] ?? 'Delete keyword?') . '\')) keyword_submit_action(this, ' . $value['keyword_id'] . ', \'delete_single\');" title="Delete"><i class="fa-regular fa-trash-alt"></i></button>' . LF;

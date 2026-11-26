@@ -210,7 +210,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						$row['listname'] = trim($row["detail_company"] . ', ' . trim($row["detail_firstname"] . ' ' . $row["detail_lastname"]), ', ');
 						echo '<tr>';
 						echo '<td class="text-center"><i class="fa-solid fa-address-card text-muted"></i></td>';
-						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="text-dark fw-bold">' . html($row['listname']) . '</a></td>';
+						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="text-body fw-bold">' . html($row['listname']) . '</a></td>';
 						echo '<td>' . html($row["detail_city"] . ($row["detail_zip"] ? ', ' . $row["detail_zip"] : '')) . '</td>';
 						echo '<td>' . html($row["detail_country"]) . '</td>';
 						echo '<td>' . (intval($row["detail_int2"]) ? $row["detail_int2"] : '') . '</td>';

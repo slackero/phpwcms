@@ -36,7 +36,7 @@ if (!defined('PHPWCMS_ROOT')) {
 						$url = parse_url($row['cnt_text'], PHP_URL_HOST);
 						echo '<tr>';
 						echo '<td class="text-center"><i class="fa-solid fa-rss text-muted"></i></td>';
-						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="text-dark fw-bold">' . html($row['cnt_name']) . '</a></td>';
+						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="text-body fw-bold">' . html($row['cnt_name']) . '</a></td>';
 						echo '<td>' . html($url) . '</td>';
 						echo '<td class="text-end text-nowrap">';
 						echo '<div class="btn-group btn-group-sm" role="group" aria-label="feed-actions-' . $row["cnt_id"] . '">';

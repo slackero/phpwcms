@@ -77,7 +77,7 @@ $(function() {
         <div class="col">
           <div class="d-flex align-items-center flex-wrap">
             <h4 class="mb-0 fw-bold me-2">
-              <a class="text-dark" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id']; ?>" title="<?php echo $BL['be_article_cnt_ledit']; ?>"><?php echo html($article['article_title']); ?></a>
+              <a class="text-body" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id']; ?>" title="<?php echo $BL['be_article_cnt_ledit']; ?>"><?php echo html($article['article_title']); ?></a>
             </h4>
             <span class="badge bg-secondary fw-normal">AID: <?php echo $article['article_id']; ?></span>
             <?php if(!empty($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) > 0): ?>
@@ -387,7 +387,7 @@ $(function() {
                           $sbutton[$key]["top"] = "<a class=\"btn btn-xs btn-light py-0 px-1\" href=\"include/inc_act/act_articlecontent.php?sort=".
                           $sbutton[$key]["id"].":".$sbutton[$key-1]["sort"]."|".
                           $sbutton[$key-1]["id"].":".$sbutton[$key]["sort"].
-                          "\" data-bs-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_up']."\"><i class=\"fa-solid fa-chevron-up fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
+                          "\" data-bs-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_up']."\"><i class=\"fa-solid fa-chevron-up fa-fw text-body\" aria-hidden=\"true\"></i></a>";
                       }
                       if($key == $sc) {
                           // if this is the last content part in list
@@ -399,7 +399,7 @@ $(function() {
                           $sbutton[$key]["bottom"] = "<a class=\"btn btn-xs btn-light py-0 px-1\" href=\"include/inc_act/act_articlecontent.php?sort=".
                           $sbutton[$key]["id"].":".$sbutton[$key+1]["sort"]."|".
                           $sbutton[$key+1]["id"].":".$sbutton[$key]["sort"].
-                          "\" data-bs-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_down']."\"><i class=\"fa-solid fa-chevron-down fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
+                          "\" data-bs-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_down']."\"><i class=\"fa-solid fa-chevron-down fa-fw text-body\" aria-hidden=\"true\"></i></a>";
                       }
                       $sbutton_string[$sbutton[$key]["id"]] = '<div class="btn-group btn-group-sm" role="group">' . $sbutton[$key]["top"] . $sbutton[$key]["bottom"] . '</div>';
               }

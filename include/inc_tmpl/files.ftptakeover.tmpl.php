@@ -348,7 +348,7 @@ $(function () {
                 '<div class="dz-icon-placeholder"><i class="fa-solid fa-file"></i></div>' +
             '</div>' +
             '<div class="overflow-hidden" style="min-width: 0;">' +
-                '<div class="fw-bold text-truncate text-dark" data-dz-name></div>' +
+                '<div class="fw-bold text-truncate text-body" data-dz-name></div>' +
                 '<div class="small text-muted d-flex align-items-center">' +
                     '<span data-dz-size class="me-2"></span>' +
                 '</div>' +
