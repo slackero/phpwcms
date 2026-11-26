@@ -93,8 +93,8 @@ if($_SESSION["wcs_user"] != "guest") { // Check for guest account
         $sql .= ", usr_lang="._dbEscape($new_language);
         $sql .= ", usr_wysiwyg=".$new_wysiwyg;
         $sql .= " , usr_vars="._dbEscape(serialize($user_var));
-        $sql .= " WHERE usr_id=".$_SESSION["wcs_user_id"];
-        $sql .= " AND usr_login='".$_SESSION["wcs_user"]."' LIMIT 1";
+        $sql .= " WHERE usr_id=".(int)$_SESSION["wcs_user_id"];
+        $sql .= " LIMIT 1";
 
         $result = _dbQuery($sql, 'UPDATE');
 

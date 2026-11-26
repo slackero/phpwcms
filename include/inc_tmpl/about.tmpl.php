@@ -163,8 +163,8 @@ if (!defined('PHPWCMS_ROOT')) {
         <a href="https://github.com/mtibben/html2text/blob/master/LICENSE.md" target="_blank" rel="noopener noreferrer">GPL-2.0 License</a>
     </li>
     <li>
-        <strong>Htmlfilter</strong>,
-        Copyright &copy; 2002&ndash;2005 Duke University / <a href="https://github.com/mricon" target="_blank" rel="noopener noreferrer">Konstantin Riabitsev</a>,
+        <a href="http://htmlpurifier.org/" target="_blank" rel="noopener noreferrer"><strong>HTMLPurifier</strong></a>,
+        Copyright &copy; Edward Z. Yang,
         <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html" target="_blank" rel="noopener noreferrer">GNU LGPL</a>
     </li>
     <li>

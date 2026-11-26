@@ -29,7 +29,7 @@ File paths are normalized and must resolve inside `content/pages/` (`path_is_wit
 - Manual/URL mode (`source = 1`): runs `include_url()` in `include/inc_front/front.func.inc.php`:
   - Fetches the URL via `file_get_contents`; a trailing `CACHE=<seconds>` fragment caches the fetched markup in `<storage_path>/tmp/` for that many seconds.
   - Charset detection from the meta tag; the body converts into the installation charset.
-  - Content between `<body>` and `</body>` is extracted; PHP delimiters are neutralized; relative `href`/`src`/`action` attributes become absolute URLs; output is sanitized (`htmlfilter_sanitize`).
+  - Content between `<body>` and `</body>` is extracted; PHP delimiters are neutralized; relative `href`/`src`/`action` attributes become absolute URLs; output is sanitized against an allowlist (`phpwcms_purify_html`, HTMLPurifier) — scripts, styles, event handlers, unknown elements and unsafe URLs are removed, `data-*` attributes are dropped, and all IDs are prefixed `ext-` so the included page cannot override the layout's own IDs.
 - File mode (`source = 0`): the stored path is read from disk relative to the installation root — or executed through `include_ext_php()` when `phpwcms['enable_inline_php']` is on, so local PHP can generate the output. The result is emitted as: body inner markup when a full HTML document with `<body>`; the markup as-is when it looks like HTML; otherwise HTML-escaped plain text.
 - Remote URLs are only honored when `allow_remote_URL` is enabled in `conf.inc.php` (checked inside `include_ext_php`; `include_url()` itself fetches regardless — the save-time validation gates entry).
 

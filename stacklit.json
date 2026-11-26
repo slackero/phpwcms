@@ -3,7 +3,7 @@
   "version": "1",
   "schema_version": 1,
   "stacklit_version": "dev",
-  "merkle_hash": "00e01103fde13c59049c84125b27bf55a6ff756ab10e10f9a484c1a1a7f938cb",
+  "merkle_hash": "26136c95e909127dc476a9f4326dfc7e10713781f4660f3ece76c77a80c05894",
   "project": {
     "name": "phpwcms-dev",
     "root": ".",
@@ -29,8 +29,8 @@
         "lines": 106
       },
       "php": {
-        "files": 1169,
-        "lines": 246520
+        "files": 1172,
+        "lines": 245892
       },
       "powershell": {
         "files": 1,
@@ -59,8 +59,8 @@
   },
   "structure": {
     "entrypoints": null,
-    "total_files": 1732,
-    "total_lines": 271159
+    "total_files": 1735,
+    "total_lines": 270531
   },
   "modules": {
     ".github/codeql": {
@@ -185,24 +185,16 @@
     "include/inc_ext": {
       "purpose": "Inc Ext",
       "language": "php",
-      "files": 3,
-      "lines": 1421,
+      "files": 2,
+      "lines": 406,
       "file_list": [
-        "htmlfilter.php",
         "php_calendar.php",
         "SPAF_FormValidator.class.php"
       ],
       "exports": [
-        "htmlfilter_debug($message)",
-        "tagprint($tagname, $attary, $tagtype)",
-        "casenormalize(\u0026$val)",
-        "skipspace($body, $offset)",
-        "findnxstr($body, $offset, $needle)",
-        "findnxreg($body, $offset, $reg)",
-        "getnxtag($body, $offset)",
-        "deent(\u0026$attvalue, $regex, $hex=false)",
-        "defang(\u0026$attvalue)",
-        "unspace(\u0026$attvalue)"
+        "generate_calendar($param = [])",
+        "tzdelta($iTime = 0)",
+        "SPAF_FormValidator"
       ],
       "type_defs": {
         "SPAF_FormValidator": "function __construct(); function setLibDir(string $dir): void; function tagUser(): bool; function getUserTag(): ?string; function validRequest(mixed $req): bool; function getRandomString(int $chars = 5): string; function streamImage(): bool; function setImageFormat(string $file): void; function destroy(): bool; function launchGC(): bool; function writeFile(string $file, string $content): int|false"
@@ -581,7 +573,7 @@
       "purpose": "Inc Front",
       "language": "php",
       "files": 10,
-      "lines": 10697,
+      "lines": 10752,
       "file_list": [
         "ext.func.inc.php",
         "deprecated.inc.php",
@@ -1423,7 +1415,7 @@
       "purpose": "Inc Lib",
       "language": "php",
       "files": 54,
-      "lines": 22803,
+      "lines": 22829,
       "file_list": [
         "general.inc.php",
         "backend.functions.inc.php",
@@ -1708,7 +1700,7 @@
       "purpose": "Mod Ads",
       "language": "php",
       "files": 8,
-      "lines": 1146,
+      "lines": 1145,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1874,7 +1866,7 @@
       "purpose": "Mod Feedimport",
       "language": "php",
       "files": 5,
-      "lines": 983,
+      "lines": 992,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",

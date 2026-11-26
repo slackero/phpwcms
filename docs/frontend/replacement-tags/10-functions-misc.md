@@ -60,7 +60,7 @@ The `text` parameter is the link text (`UP`, `NEXT`, `PREV` when empty). When no
 
 > Source: `content.func.inc.php` regex `/\{URL:(.*?)\}/i`, `front.func.inc.php` `include_url()`
 
-Includes an external HTML page — but only the part between `<body>` and `</body>`. Relative `href` / `src` / `action` attributes become absolute, scripts and styles are filtered (`htmlfilter_sanitize`), the charset converts to the installation charset, and PHP markers are HTML escaped before insertion.
+Includes an external HTML page — but only the part between `<body>` and `</body>`. Relative `href` / `src` / `action` attributes become absolute, the markup is filtered against an allowlist (`phpwcms_purify_html`, HTMLPurifier) that removes scripts, styles, event handlers, unknown elements and unsafe URLs, prefixes all `id` values with `ext-` so they cannot override the layout's own IDs, and allows `target` (`_blank`, `_self`, `_parent`, `_top`); other attributes such as `data-*` are dropped, the charset converts to the installation charset, and PHP markers are HTML escaped before insertion.
 
 ```
 {URL:https://example.com/news.html CACHE=3600}

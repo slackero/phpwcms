@@ -15,138 +15,161 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-phpwcms-dev | php | 128 modules | 257,715 lines | Docker
+phpwcms-dev | php | 151 modules | 270,531 lines | Docker
 test: npm test | env: "1026, "8026, "8081, MP_MAX_MESSAGES, MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_ROOT_PASSWORD, MYSQL_USER, PMA_HOST, PMA_PORT, container_name, db, db_data, depends_on, image, mailpit, phpmyadmin, ports, restart, volumes
 
 modules:
-  .phpstan                        .phpstan
-  .superpowers/sdd/2026-09-01-se  2026-09-01-self-update
-  docs/_authoring                 authoring
-  img                             img
-  include/config                  configuration management
-  include/inc_act                 inc act
-  include/inc_ext                 inc ext
-  include/inc_ext/ckeditor        ckeditor
-  include/inc_ext/ckeditor/adapt  adapters
-  include/inc_ext/ckeditor/lang   lang
-  include/inc_ext/ckeditor/plugi  plugins
-  include/inc_front               inc front
-  include/inc_front/content       content
-  include/inc_front/content/cnt_  cnt functions
-  include/inc_front/lib           shared library code
-  include/inc_js                  inc js
-  include/inc_js/ace              ace
-  include/inc_js/dayjs-locale     dayjs-locale
-  include/inc_js/jquery           jquery
-  include/inc_lang                inc lang
-  include/inc_lang/backend/ar     ar
-  include/inc_lang/backend/bg     bg
-  include/inc_lang/backend/bn     bn
-  include/inc_lang/backend/bs     bs
-  include/inc_lang/backend/ca     ca
-  include/inc_lang/backend/cs     cs
-  include/inc_lang/backend/da     da
-  include/inc_lang/backend/de     de
-  include/inc_lang/backend/de-at  de-at
-  include/inc_lang/backend/de-ch  de-ch
-  include/inc_lang/backend/en     en
-  include/inc_lang/backend/es     es
-  include/inc_lang/backend/et     et
-  include/inc_lang/backend/eu     eu
-  include/inc_lang/backend/fi     fi
-  include/inc_lang/backend/fr     fr
-  include/inc_lang/backend/gl     gl
-  include/inc_lang/backend/gr     gr
-  include/inc_lang/backend/hi     hi
-  include/inc_lang/backend/hr     hr
-  include/inc_lang/backend/hu     hu
-  include/inc_lang/backend/id     id
-  include/inc_lang/backend/is     is
-  include/inc_lang/backend/it     it
-  include/inc_lang/backend/ja     ja
-  include/inc_lang/backend/lt     lt
-  include/inc_lang/backend/lv     lv
-  include/inc_lang/backend/mk     mk
-  include/inc_lang/backend/ms     ms
-  include/inc_lang/backend/nl     nl
-  include/inc_lang/backend/no     no
-  include/inc_lang/backend/pa     pa
-  include/inc_lang/backend/pl     pl
-  include/inc_lang/backend/pt     pt
-  include/inc_lang/backend/ro     ro
-  include/inc_lang/backend/ru     ru
-  include/inc_lang/backend/sk     sk
-  include/inc_lang/backend/sl     sl
-  include/inc_lang/backend/sq     sq
-  include/inc_lang/backend/sr     sr
-  include/inc_lang/backend/sv     sv
-  include/inc_lang/backend/ta     ta
-  include/inc_lang/backend/tr     tr
-  include/inc_lang/backend/ua     ua
-  include/inc_lang/backend/ur     ur
-  include/inc_lang/backend/vi     vi
-  include/inc_lang/backend/zh-cn  zh-cn
-  include/inc_lang/date           date
-  include/inc_lang/formmailer     formmailer
-  include/inc_lang/image          image
-  include/inc_lib                 inc lib
-  include/inc_lib/classes         classes
-  include/inc_lib/content         content
-  include/inc_lib/revision        revision
-  include/inc_lib/update          update
-  include/inc_module/mod_address  mod addresses
-  include/inc_module/mod_address  inc
-  include/inc_module/mod_address  lang
-  include/inc_module/mod_address  template
-  include/inc_module/mod_ads      mod ads
-  include/inc_module/mod_ads/inc  inc
-  include/inc_module/mod_ads/lan  lang
-  include/inc_module/mod_ads/tem  template
-  include/inc_module/mod_calenda  mod calendar
-  include/inc_module/mod_calenda  inc
-  include/inc_module/mod_calenda  lang
-  include/inc_module/mod_feedimp  mod feedimport
-  include/inc_module/mod_feedimp  inc
-  include/inc_module/mod_feedimp  lang
-  include/inc_module/mod_glossar  mod glossary
-  include/inc_module/mod_glossar  inc
-  include/inc_module/mod_glossar  lang
-  include/inc_module/mod_glossar  template
-  include/inc_module/mod_seolog   mod seolog
-  include/inc_module/mod_seolog/  lang
-  include/inc_module/mod_shop     mod shop
-  include/inc_module/mod_shop/in  inc
-  include/inc_module/mod_shop/la  lang
-  include/inc_module/mod_statist  mod statistic
-  include/inc_module/mod_statist  inc
-  include/inc_module/mod_statist  lang
-  include/inc_tmpl                inc tmpl
-  include/inc_tmpl/content        content
-  phpwcms-extended/phpwcms-fancy  inc script
-  phpwcms-extended/phpwcms-fancy  shared library code
-  root                            root package
-  setup                           setup
-  setup/default_sql               default sql
-  setup/inc                       inc
-  template/config/ckeditor        ckeditor
-  template/inc_default            inc default
-  template/inc_js                 inc js
-  template/inc_script/felogin     felogin
-  template/inc_script/frontend_i  disabled
-  template/inc_script/frontend_r  disabled
-  template/inc_settings/template  template default
-  template/lib/bootstrap5         bootstrap5
-  template/lib/cookieconsent2     cookieconsent2
-  template/lib/cookieconsent3     cookieconsent3
-  template/lib/cookieconsent3/co  core
-  template/lib/glightbox          glightbox
-  template/lib/jquery             jquery
-  template/lib/jquery/plugin      plugin
-  template/lib/simplegmaps        simplegmaps
-  template/lib/splide             splide
-  template/lib/video-js           video-js
-
-hot: include/inc_css/phpwcms.css (45 commits/90d), include/inc_css/backend.min.css (44 commits/90d), include/inc_lang/backend/de/lang.inc.php (33 commits/90d)
+  .github/codeql
+  .phpstan
+  docs/_authoring  authoring
+  img
+  include/config  configuration management
+  include/inc_act  inc act
+  include/inc_ext  inc ext
+  include/inc_ext/ckeditor
+  include/inc_ext/ckeditor/adapters
+  include/inc_ext/ckeditor/lang
+  include/inc_ext/ckeditor/plugins/a11yhelp/dialogs
+  include/inc_ext/ckeditor/plugins/a11yhelp/dialogs/lang
+  include/inc_ext/ckeditor/plugins/about
+  include/inc_ext/ckeditor/plugins/clipboard
+  include/inc_ext/ckeditor/plugins/colordialog
+  include/inc_ext/ckeditor/plugins/dialog
+  include/inc_ext/ckeditor/plugins/div
+  include/inc_ext/ckeditor/plugins/find
+  include/inc_ext/ckeditor/plugins/forms
+  include/inc_ext/ckeditor/plugins/iframe
+  include/inc_ext/ckeditor/plugins/image
+  include/inc_ext/ckeditor/plugins/image2
+  include/inc_ext/ckeditor/plugins/link
+  include/inc_ext/ckeditor/plugins/liststyle
+  include/inc_ext/ckeditor/plugins/pastefromword
+  include/inc_ext/ckeditor/plugins/pastetools
+  include/inc_ext/ckeditor/plugins/scayt
+  include/inc_ext/ckeditor/plugins/smiley
+  include/inc_ext/ckeditor/plugins/specialchar/dialogs
+  include/inc_ext/ckeditor/plugins/specialchar/dialogs/lang
+  include/inc_ext/ckeditor/plugins/table
+  include/inc_ext/ckeditor/plugins/tabletools
+  include/inc_ext/ckeditor/plugins/templates
+  include/inc_front  inc front
+  include/inc_front/content
+  include/inc_front/content/cnt_functions  cnt functions
+  include/inc_front/lib  shared library code
+  include/inc_js  inc js
+  include/inc_js/ace
+  include/inc_js/dayjs-locale
+  include/inc_js/jquery
+  include/inc_lang  inc lang
+  include/inc_lang/backend/ar
+  include/inc_lang/backend/bg
+  include/inc_lang/backend/bn
+  include/inc_lang/backend/bs
+  include/inc_lang/backend/ca
+  include/inc_lang/backend/cs
+  include/inc_lang/backend/da
+  include/inc_lang/backend/de
+  include/inc_lang/backend/de-at
+  include/inc_lang/backend/de-ch
+  include/inc_lang/backend/en
+  include/inc_lang/backend/es
+  include/inc_lang/backend/et
+  include/inc_lang/backend/eu
+  include/inc_lang/backend/fi
+  include/inc_lang/backend/fr
+  include/inc_lang/backend/gl
+  include/inc_lang/backend/gr
+  include/inc_lang/backend/hi
+  include/inc_lang/backend/hr
+  include/inc_lang/backend/hu
+  include/inc_lang/backend/id
+  include/inc_lang/backend/is
+  include/inc_lang/backend/it
+  include/inc_lang/backend/ja
+  include/inc_lang/backend/lt
+  include/inc_lang/backend/lv
+  include/inc_lang/backend/mk
+  include/inc_lang/backend/ms
+  include/inc_lang/backend/nl
+  include/inc_lang/backend/no
+  include/inc_lang/backend/pa
+  include/inc_lang/backend/pl
+  include/inc_lang/backend/pt
+  include/inc_lang/backend/ro
+  include/inc_lang/backend/ru
+  include/inc_lang/backend/sk
+  include/inc_lang/backend/sl
+  include/inc_lang/backend/sq
+  include/inc_lang/backend/sr
+  include/inc_lang/backend/sv
+  include/inc_lang/backend/ta
+  include/inc_lang/backend/tr
+  include/inc_lang/backend/ua
+  include/inc_lang/backend/ur
+  include/inc_lang/backend/vi
+  include/inc_lang/backend/zh-cn
+  include/inc_lang/date
+  include/inc_lang/email
+  include/inc_lang/formmailer
+  include/inc_lang/image
+  include/inc_lib  inc lib
+  include/inc_lib/classes
+  include/inc_lib/content
+  include/inc_lib/revision
+  include/inc_lib/update
+  include/inc_module/mod_addresses  mod addresses
+  include/inc_module/mod_addresses/inc
+  include/inc_module/mod_addresses/lang
+  include/inc_module/mod_addresses/template
+  include/inc_module/mod_ads  mod ads
+  include/inc_module/mod_ads/inc
+  include/inc_module/mod_ads/lang
+  include/inc_module/mod_ads/template
+  include/inc_module/mod_calendar  mod calendar
+  include/inc_module/mod_calendar/inc
+  include/inc_module/mod_calendar/lang
+  include/inc_module/mod_feedimport  mod feedimport
+  include/inc_module/mod_feedimport/inc
+  include/inc_module/mod_feedimport/lang
+  include/inc_module/mod_glossary  mod glossary
+  include/inc_module/mod_glossary/inc
+  include/inc_module/mod_glossary/lang
+  include/inc_module/mod_glossary/template
+  include/inc_module/mod_seolog  mod seolog
+  include/inc_module/mod_seolog/lang
+  include/inc_module/mod_shop  mod shop
+  include/inc_module/mod_shop/inc
+  include/inc_module/mod_shop/lang
+  include/inc_module/mod_statistic  mod statistic
+  include/inc_module/mod_statistic/inc
+  include/inc_module/mod_statistic/lang
+  include/inc_tmpl  inc tmpl
+  include/inc_tmpl/content
+  phpwcms-extended/phpwcms-fancyBox/template/inc_script  inc script
+  phpwcms-extended/phpwcms-fancyBox/template/lib  shared library code
+  root  root package
+  scripts
+  setup
+  setup/default_sql  default sql
+  setup/inc
+  template/config/ckeditor
+  template/inc_default  inc default
+  template/inc_js  inc js
+  template/inc_script/felogin
+  template/inc_script/frontend_init/disabled
+  template/inc_script/frontend_render/disabled
+  template/inc_settings/template_default  template default
+  template/lib/bootstrap5
+  template/lib/cookieconsent2
+  template/lib/cookieconsent3
+  template/lib/cookieconsent3/core
+  template/lib/cookieconsent3/lang
+  template/lib/glightbox
+  template/lib/jquery
+  template/lib/jquery/plugin
+  template/lib/simplegmaps
+  template/lib/splide
+  template/lib/video-js
 do-not-touch: .github/
 ```
 # end stacklit map
