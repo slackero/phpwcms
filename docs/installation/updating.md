@@ -6,7 +6,7 @@ sidebar_position: 4
 
 # Updating
 
-> Source: `include/inc_lib/update/update.php`, `update.api.php`, `update.backup.php`, `include/inc_tmpl/admin.update.tmpl.php`, `setup/upgrade.php`, `include/inc_lib/revision/` (`r401.php`–`r561.php`, `revision.php`), `README.md` (Upgrading), `CHANGELOG.md`
+> Source: `include/inc_lib/update/update.php`, `update.api.php`, `update.backup.php`, `include/inc_tmpl/admin.update.tmpl.php`, `setup/upgrade.php`, `include/inc_lib/revision/` (`r401.php`–`r567.php`, `revision.php`), `README.md` (Upgrading), `CHANGELOG.md`
 
 Always back up the database and files before updating, and confirm the host runs PHP 8.4+. Three paths cover every situation; all of them run the same database revision chain afterward.
 
@@ -56,7 +56,7 @@ Behavior:
 - Authentication uses your admin backend credentials, including Two-Factor (TOTP or backup codes) when enabled; database migrations are gated behind that login.
 - Detects the actual database table prefix (including whitelabel/`cmsgo` brand prefixes) and repairs missing whitelabel config lines in `conf.inc.php` when needed (`conf.inc.cmsgo-backup.php` keeps the original). The first update to a release with private storage runs revision `r565`, which moves `content/{tmp,cache,log,backup,form}` into `<storage_path>/` and leaves a deny file behind when an entry could not be moved. Form links in mail sent before the update pointed at `content/form/` and stop working.
 - Dumps the database and builds a files zip below `<storage_path>/backup/<timestamp>/` (excluding `content/images/`, `<storage_path>/tmp/`, `<storage_path>/cache/`, `content/rss/`, `<storage_path>/backup/` itself and `.git*` from the archive), then applies the release zip with the same preserved-paths rules as the in-app engine.
-- Runs `phpwcms_revision_check()` up to the staged release revision, bringing the schema to r561 at the time of writing.
+- Runs `phpwcms_revision_check()` up to the staged release revision, bringing the schema to r567 at the time of writing.
 - CLI options: `--reinstall` or `--force` (overwrite the currently installed version again), `--allow-unverified` (upgrade legacy packages without a manifest).
 
 ## Manual upgrade
@@ -67,9 +67,15 @@ Behavior:
 4. Empty `<storage_path>/tmp/` and `<storage_path>/cache/` so new templates and assets take effect, and flush the image cache when image handling changed ([Admin panel](../administration/admin-panel.md)).
 5. Open **Admin → Security Check** (`phpwcms.php?do=admin&p=20`) after the update and run *Repair safe findings*: the updater skips `content/`, `upload/`, `filearchive/` and `include/config/`, so per-directory protector files and legacy directories are never refreshed by the update itself.
 
+### Incremental archive
+
+Every release also attaches `phpwcms-<tag>-changes-from-<previous-tag>.zip`. It contains every file that changed since the previous release, taken from the release tag itself, plus `DELETE-THESE.txt` listing the files removed in that release. Extract it over the document root to apply the release without replacing unchanged files; the same rules as above apply — keep `include/config/conf.inc.php` and the installation-owned config files, and do not delete content in `filearchive/`, `content/images/` or `template/`.
+
+The archive is for manual updates only. The in-app engine and `setup/upgrade.php` require a full release package with a complete `.update-manifest`; a changed-files archive has no such manifest and uploads of it are rejected.
+
 ## Database revision mechanism
 
-`include/inc_lib/revision/revision.php` defines `PHPWCMS_REVISION`; the chain `r401.php` … `r561.php` contains the schema and data migrations since the revision tracking was introduced (r401). `phpwcms_revision_check()` compares the installed revision and runs each missing revision script in order, recording failures. The in-app updater refuses new runs until a failed migration is resolved; backend login or `setup/upgrade.php` retries the chain.
+`include/inc_lib/revision/revision.php` defines `PHPWCMS_REVISION`; the chain `r401.php` … `r567.php` contains the schema and data migrations since the revision tracking was introduced (r401). `phpwcms_revision_check()` compares the installed revision and runs each missing revision script in order, recording failures. The in-app updater refuses new runs until a failed migration is resolved; backend login or `setup/upgrade.php` retries the chain.
 
 Database revisions are one-way transformations. If a revision fails half-applied, restore the database **and** files from your pre-update backup (see the backup rule at the top), then retry with the cause fixed.
 

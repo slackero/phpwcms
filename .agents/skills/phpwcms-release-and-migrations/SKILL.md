@@ -42,4 +42,14 @@ Use this skill when adding database revision scripts (`rNNN.php`), running `comp
 - Engine skip lists (never in manifest, never overwritten):
   - `SKIP_PATHS`: `include/config/`, `filearchive/`, `content/`, `upload/`, `setup/`
   - `SKIP_FILES`: `.htaccess`, `robots.txt`, `.update-manifest`
+- Incremental asset: every release also gets `phpwcms-<tag>-changes-from-<previous-tag>.zip`, built from the tag (never the working tree) with every added/modified file plus `DELETE-THESE.txt` listing removed paths:
+
+  ```bash
+  while IFS= read -r f; do mkdir -p "$stage/$(dirname "$f")"; git show "$tag:$f" > "$stage/$f"; done \
+      < <(git diff --name-only --diff-filter=ACMR "$prev" "$tag")
+  git diff --name-only --diff-filter=D "$prev" "$tag" > "$stage/DELETE-THESE.txt"
+  (cd "$stage" && zip -qr "$out" .)
+  ```
+
+  Upload it with `gh release upload` and describe it in the notes. It is a manual-update archive, not an engine package: `buildPlan()` treats every file missing from the new manifest as deleted, so never feed a diff manifest to the updater.
 - GitHub release upload note: `gh release upload` renames leading-dot files (`.update-manifest` becomes `default.update-manifest`), so upload standalone manifests under an explicit name like `phpwcms-<tag>.update-manifest`.

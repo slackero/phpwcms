@@ -213,7 +213,7 @@ The standalone upgrade script can update existing installations from the command
   ```bash
   php setup/upgrade.php
   ```
-  *(Prompts for admin authentication, creates backups, applies file updates, and executes database revisions r401–r561).*
+  *(Prompts for admin authentication, creates backups, applies file updates, and executes database revisions r401–r567).*
 
   Supported CLI options:
   * `--reinstall` (or `--force`): Reinstall and overwrite the currently installed version.
@@ -230,6 +230,8 @@ The standalone upgrade script can update existing installations from the command
    * **DO NOT delete** existing files in `filearchive/`, `content/images/`, or `template/`.
 3. **Run Migrations**: Run the database migration script via CLI (`php setup/upgrade.php`) or log in to the backend (`phpwcms.php`). The system will detect outdated revisions and run pending database updates automatically.
 4. **Clear Cache**: Empty `<storage_path>/tmp/` and `<storage_path>/cache/` to ensure new templates and assets take immediate effect.
+
+Each release also attaches `phpwcms-<tag>-changes-from-<previous-tag>.zip` with only the files that changed since the previous release, plus `DELETE-THESE.txt` listing removed files. Extract it over the document root for an incremental manual update; the same "do not overwrite" rules apply. The archive is not a substitute release for the updater, which needs a full package with a complete `.update-manifest`.
 
 ### Method 4: Local-First Upgrade on a New Table Prefix (Safest for Production)
 
