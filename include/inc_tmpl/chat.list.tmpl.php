@@ -59,7 +59,7 @@ require_once(PHPWCMS_ROOT."/include/inc_lib/autolink.inc.php");
 
             $chatclass = ($row['chat_uid'] == $_SESSION['wcs_user_id']) ? ' class="chat"' : '';
 
-            echo "<tr valign='top'><td align='right'".$chatclass.">".$row["chat_name"].":&nbsp;</td>";
+            echo "<tr valign='top'><td align='right'".$chatclass.">".html($row["chat_name"]).":&nbsp;</td>";
             echo "<td width='90%'".$chatclass.">".auto_link(html($row["chat_text"]))."</td></tr>";
 
         } //Chatlisting Ende

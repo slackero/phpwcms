@@ -2672,7 +2672,9 @@ function include_url($url, $ignore_ssl=false) {
 
     if($url && $cache) {
 
-        $cache_filename = md5($url).'-url'; // set cache file name
+        // the name carries the sanitizer generation: pages cached before the
+        // HTMLPurifier switch hold unprefixed IDs and are refetched once
+        $cache_filename = md5($url).'-url-sanitized'; // set cache file name
         $cache_file     = PHPWCMS_CONTENT.'tmp/'.$cache_filename;   // set caching file
         $cache_status   = check_cache($cache_file, $cache); // ceck existence
 
@@ -2730,7 +2732,9 @@ function include_url($url, $ignore_ssl=false) {
 
             $k = str_replace(array('<?', '?>', '<%', '%>'), array('&lt;?', '?&gt;', '&lt;&#37;', '&#37;&gt;'), $k);
             $k = preg_replace_callback('/(href|src|action)=[\'|"]{0,1}(.*?)[\'|"]{0,1}( .*?){0,1}>/i', 'make_absoluteURL', $k);
-            $k = htmlfilter_sanitize( trim($k) , array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
+            // allowlist the included page before it is cached and rendered;
+            // prefix its IDs so they cannot override the layout's own
+            $k = phpwcms_purify_html(trim($k), 'ext-');
 
             if($charset != false) {
                 $k = makeCharsetConversion($k, $charset, PHPWCMS_CHARSET, 1);

@@ -19,6 +19,26 @@ if (!defined('PHPWCMS_ROOT')) {
 // Module/Plug-in Feed to Article import default settings
 // Init used to import feed to articles
 
+/**
+ * Reduce imported feed markup to escaped plain text.
+ *
+ * Used when the HTML allowlist rejects the whole item. Element bodies that
+ * are not article text are dropped, including unpaired opening tags which
+ * swallow everything after them.
+ *
+ * @param mixed $html
+ * @return string
+ */
+if (!function_exists('feedimport_html_to_plain_text')) {
+	function feedimport_html_to_plain_text($html) {
+		$html = (string)$html;
+		$html = preg_replace('#<(script|style|iframe|noscript|object|template)\b[^>]*>.*?</\1\s*>#is', '', $html);
+		$html = preg_replace('#<(script|style|iframe|noscript|object|template)\b.*$#is', '', $html);
+
+		return plaintext_htmlencode(strip_tags($html));
+	}
+}
+
 if(!empty($_getVar['feedimport'])) {
 
 	// catch the Feed to be imported to article
@@ -161,6 +181,20 @@ if(!empty($_getVar['feedimport'])) {
 						'/<.+?[^>]*>'.preg_quote($rssvalue->get_title(), '/').'<\/.+?>/',
 						'/<.+?[^>]*>'.preg_quote(html_entities($article_title), '/').'<\/.+?>/'
 					), '', $article_content);
+				}
+
+				// feed markup is untrusted and ends up as article summary and
+				// Content Part 14 HTML; allowlist it before it is stored
+				$article_summary = (string)$article_summary;
+				$article_content = (string)$article_content;
+
+				if($article_summary !== '') {
+					$article_summary = phpwcms_purify_html($article_summary, 'feed-summary-');
+				}
+				if($article_content !== '') {
+					$purified_content = phpwcms_purify_html($article_content, 'feed-content-');
+					// the allowlist removed everything: keep the item readable
+					$article_content = $purified_content !== '' ? $purified_content : feedimport_html_to_plain_text($article_content);
 				}
 
 				$article_categories = $rssvalue->get_categories();
