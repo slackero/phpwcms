@@ -46,7 +46,7 @@ if(!isset($_GET["s"])) {
 
             echo '<a href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
             echo 'title="delete pagelayout: '.html($row["pagelayout_name"]);
-            echo '" style="margin-left:3px" onclick="return confirm(\''.$BL['be_cnt_delete'].': '.js_singlequote(html($row["pagelayout_name"])).'?  \')">';
+            echo '" style="margin-left:3px" onclick="return confirm(\''.js_inline_string($BL['be_cnt_delete'].': '.$row["pagelayout_name"].'?  ').'\')">';
             echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 
             echo "</td>\n</tr>\n";

@@ -625,7 +625,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <?php endif; ?>
 
 	function deleteTab(e) {
-		if(confirm('<?php echo $BL['be_tab_delete_js'] ?>')) {
+		if(confirm('<?php echo js_string($BL['be_tab_delete_js']) ?>')) {
 			<?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
 			$(e).getElements('textarea').each(function(el) {
 				var tid = el.getProperty('id');

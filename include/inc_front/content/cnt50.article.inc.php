@@ -208,7 +208,7 @@ if($content['reference']['ref_count']) {
 					$content['reference']['ref_list'] .= "','','".$over_image['src']."',1);";
 				}
 				// make single quotes js compatible
-				$content['reference']['x7'] = js_singlequote($content['reference']['caption_list'][$captkey]);
+				$content['reference']['x7'] = js_inline_string($content['reference']['caption_list'][$captkey]);
 				// check if layer for caption available
 				if($content['reference']['x8'] && $content['reference']['caption_list'][$captkey]) {
 					$content['reference']['ref_list'] .= "addText('refcaptid".$crow['acontent_id']."','";

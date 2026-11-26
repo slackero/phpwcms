@@ -1482,7 +1482,7 @@ function correct_charset($text='', $js=false) {
         $text = mb_convert_encoding($text, PHPWCMS_CHARSET);
     }
     if($js) {
-        $text = str_replace("'", "\'", $text);
+        $text = js_string($text);
     }
     return $text;
 }

@@ -80,7 +80,7 @@ $a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt="" />';
 
 $a .= "</td>\n";
 $a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
-$a .= '<td class="dir" width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
+$a .= '<td class="dir" width="97%"><strong>'.html($an)."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
 echo '<td width="77" class="nowrap">';

@@ -101,8 +101,8 @@ if (!defined('PHPWCMS_ROOT')) {
         <a href="https://github.com/mtibben/html2text/blob/master/LICENSE.md" target="_blank">MIT License</a>
     </li>
     <li>
-        <a href="http://linux.duke.edu/projects/mini/htmlfilter/" target="_blank"><strong>Htmlfilter</strong></a>,
-        Copyright &copy; 2002-2005 Duke University/<a href="http://www.mricon.com/">Konstantin Riabitsev</a>,
+        <a href="http://htmlpurifier.org/" target="_blank"><strong>HTMLPurifier</strong></a>,
+        Copyright &copy; Edward Z. Yang,
         <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank"> GNU LGPL</a>
     </li>
     <li>

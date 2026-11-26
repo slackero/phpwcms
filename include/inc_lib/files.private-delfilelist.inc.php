@@ -24,9 +24,16 @@ if(isset($file_result[0]['f_id'])) {
 
     $file_durchlauf = 0;
 
+    // the language templates carry the line break as a literal \n
+    $confirm_restore_template = str_replace('\n', "\n", $BL['be_ftrash_restore']);
+    $confirm_delete_template  = str_replace('\n', "\n", $BL['be_ftrash_delete']);
+
     foreach($file_result as $file_row) {
 
         $filename = html($file_row["f_name"]);
+
+        $confirm_restore = js_inline_string(str_replace('{VAL}', $file_row["f_name"], $confirm_restore_template));
+        $confirm_delete  = js_inline_string(str_replace('{VAL}', $file_row["f_name"], $confirm_delete_template));
 
         if(!$file_durchlauf) {
             echo "<tr bgcolor=\"#F5F8F9\"><td colspan=2><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
@@ -46,13 +53,13 @@ if(isset($file_result[0]['f_id'])) {
 
         echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"]."|0".
              "\" title=\"".$BL['be_ftrash_undo'].": ".$filename."\" onclick=\"return confirm('".
-             str_replace('{VAL}', $filename, $BL['be_ftrash_restore'])."');\">".
+             $confirm_restore."');\">".
              "<img src=\"img/button/cancel_trash_13x13.gif\" border=\"0\"></a>";
         echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">";
 
         echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"]."|9".
              "\" title=\"".$BL['be_ftrash_delfinal'].": ".$filename."\" onclick=\"return confirm('".
-             str_replace('{VAL}', $filename, $BL['be_ftrash_delete'])."');\">".
+             $confirm_delete."');\">".
              "<img src=\"img/button/trash_13x13_1.gif\" border=\"0\"></a>";
         echo "<img src=\"img/leer.gif\" width=\"2\" height=\"1\">";
         echo "</td>\n";

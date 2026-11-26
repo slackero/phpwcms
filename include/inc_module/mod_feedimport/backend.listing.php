@@ -52,7 +52,7 @@ foreach($data as $row) {
 
 	echo '<a href="'.MODULE_HREF.'&amp;delete='.$row["cnt_id"];
 	echo '" title="' . $BL['be_cnt_delete'] .': '.html($row['cnt_name']).'"';
-	echo ' onclick="return confirm(\''.js_singlequote($BLM['delete_entry'] . ' ' . $row['cnt_name']).'\');">';
+	echo ' onclick="return confirm(\''.js_inline_string($BLM['delete_entry'] . ' ' . $row['cnt_name']).'\');">';
 	echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 
 	echo "</td>\n</tr>\n";

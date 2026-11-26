@@ -395,8 +395,8 @@ foreach($data as $row) {
 	echo '<img src="img/button/aktiv_12x13_'.$row["address_verified"].'.gif" border="0" alt=""></a>';
 
 	echo '<a href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;del='.$row["address_id"];
-	echo '" title="delete: '.$row["address_email"].'"';
-	echo ' onclick="return confirm(\'Delete subscriber '.js_singlequote($row["address_email"]).'\');">';
+	echo '" title="delete: '.html($row["address_email"]).'"';
+	echo ' onclick="return confirm(\'Delete subscriber '.js_inline_string($row["address_email"]).'\');">';
 	echo '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>';
 
 	echo "</td>\n</tr>\n";

@@ -205,7 +205,7 @@ if(isset($data[0]['cat_id'])) {
 
         echo '<tr';
         if($row_count % 2) echo ' bgcolor="#F3F5F8"';
-        if(!$row['cat_pid']) echo " onmouseover=\"Tip('" . $BL['be_admin_page_category'] . " ID: <b>" .$row["cat_id"]. "</b><br />".$BL['be_cnt_sorting'].": <b>".$row["cat_sort"]."</b>');\"";
+        if(!$row['cat_pid']) echo " onmouseover=\"Tip('" . js_tooltip_string($BL['be_admin_page_category']) . " ID: <b>" .intval($row["cat_id"]). "</b><br />".js_tooltip_string($BL['be_cnt_sorting']).": <b>".intval($row["cat_sort"])."</b>');\"";
         echo '>'.LF;
 
         echo '<td width="25" style="padding:2px 3px 2px 4px;">';
@@ -230,7 +230,7 @@ if(isset($data[0]['cat_id'])) {
 
             echo '<a href="'.$_controller_link.'&amp;delete='.$row["cat_id"];
             echo '" title="delete: '.html_specialchars($row['cat_name']).'"';
-            echo ' onclick="return confirm(\''.$BLM['delete_entry'].js_singlequote($row['cat_name']).'\');">';
+            echo ' onclick="return confirm(\''.js_inline_string($BLM['delete_entry'].$row['cat_name']).'\');">';
             echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 
         echo '</td>'.LF;
