@@ -20,7 +20,6 @@ if (PHPWCMS_CHARSET === 'utf-8') {
     require_once PHPWCMS_ROOT . '/include/inc_lib/lib.php_special_entities.php';
 }
 require_once PHPWCMS_ROOT . '/include/inc_lib/charset_helper.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_ext/htmlfilter.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/classes/PhpwcmsMailer.php';
 
@@ -1338,6 +1337,13 @@ function cleanUpForEmailHeader($text = '') {
     return trim($text);
 }
 
+/**
+ * Cut a string by words or characters.
+ *
+ * $sanitize is a legacy flag: when not null the result is passed through
+ * phpwcms_purify_html(). No shipped caller sets it, but templates and
+ * modules may.
+ */
 function getCleanSubString($cutString = '', $maxLength = 0, $moreChar = '', $cutMode = 'char', $sanitize = null) {
     // used to cut a string by words or chars
     if (empty($maxLength) || $maxLength < 0) {
@@ -1370,7 +1376,7 @@ function getCleanSubString($cutString = '', $maxLength = 0, $moreChar = '', $cut
         }
     }
     if ($sanitize !== null && $cutString) {
-        $cutString = htmlfilter_sanitize($cutString, array(), array(), array('img', 'br', 'hr', 'input'), true);
+        $cutString = phpwcms_purify_html($cutString);
     }
 
     return $cutString;
@@ -2657,6 +2663,74 @@ function xss_clean($val) {
     }
 
     return $val;
+}
+
+/**
+ * Sanitize untrusted HTML against an allowlist using HTMLPurifier.
+ *
+ * Use this for markup that has to be kept as markup (imported feeds,
+ * included external pages, teasers). Event handlers, script-capable
+ * elements and unsafe URL schemes are removed.
+ *
+ * Pass $id_prefix for markup that is inserted into a full page (imported
+ * feeds, included external pages): their IDs are prefixed so they cannot
+ * override the layout's own IDs and CSS.
+ *
+ * @param mixed  $html
+ * @param string $id_prefix Prefix for every ID in the sanitized markup
+ * @return string
+ */
+function phpwcms_purify_html($html, $id_prefix = '') {
+    $html = (string)$html;
+    if ($html === '') {
+        return '';
+    }
+
+    static $purifiers = array();
+    $id_prefix = (string)$id_prefix;
+    if (!isset($purifiers[$id_prefix])) {
+        $config = \HTMLPurifier_Config::createDefault();
+        // included pages and imported feeds rely on in-page anchors and
+        // new-tab links; keep IDs free of names that scripts resolve globally
+        $config->set('Attr.EnableID', true);
+        // case-insensitive: IDBlacklist itself matches names exactly
+        $config->set('Attr.IDBlacklistRegexp', '/^(?:alert|all|cookie|defaultstatus|document|event|forms|frames|history|location|name|origin|parent|self|status|top|window)$/i');
+        $config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
+        if ($id_prefix !== '') {
+            $config->set('Attr.IDPrefix', $id_prefix);
+        }
+        $cache_dir = PHPWCMS_ROOT . '/content/tmp/htmlpurifier';
+        if (!is_dir($cache_dir)) {
+            @mkdir($cache_dir, 0755, true);
+        }
+        if (is_dir($cache_dir) && is_writable($cache_dir)) {
+            if (!is_file($cache_dir . '/index.html')) {
+                @file_put_contents($cache_dir . '/index.html', '');
+            }
+            if (!is_file($cache_dir . '/.htaccess')) {
+                @file_put_contents($cache_dir . '/.htaccess', "Require all denied\n");
+            }
+            $config->set('Cache.SerializerPath', $cache_dir);
+        } else {
+            $config->set('Cache.DefinitionImpl', null);
+        }
+        $purifiers[$id_prefix] = new \HTMLPurifier($config);
+    }
+
+    $html = $purifiers[$id_prefix]->purify($html);
+
+    if ($id_prefix !== '') {
+        // IDPrefix renames ids but not the fragment links pointing at them
+        $html = preg_replace_callback(
+            '/href=(["\'])#([^"\']+)\1/i',
+            static function (array $match) use ($id_prefix) {
+                return 'href=' . $match[1] . '#' . $id_prefix . $match[2] . $match[1];
+            },
+            $html
+        );
+    }
+
+    return $html;
 }
 
 function sanitize_multiple_emails($string) {
