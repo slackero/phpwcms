@@ -858,9 +858,81 @@ function get_list_of_file_keywords() {
     return count($file_key) ? $file_key : false;
 }
 
+/**
+ * Legacy helper, kept for backward compatibility.
+ *
+ * It HTML-encodes the quotes, which is wrong inside inline JavaScript: the
+ * HTML parser decodes character references before the handler is compiled, so
+ * &#39; becomes a raw delimiter again. Do not use it in new code.
+ *
+ * @deprecated Use js_inline_string() inside HTML attributes and js_string()
+ *             inside <script> blocks.
+ */
 function js_singlequote($t = '') {
     // make singe quotes js compatible
     return str_replace(["\\", '&#92;', "'", '"'], ["\\\\", "\\\\", '&#39;', '&quot;'], (string)$t);
+}
+
+/**
+ * Escape a value for a JavaScript string literal inside a <script> block.
+ *
+ * Quotes and backslashes are escaped with a JavaScript backslash, line
+ * terminators become \r, \n, U+2028 and U+2029, and `<`/`>` become `\x3C`/`\x3E`
+ * so a value can never close an enclosing script element or open another tag.
+ * The result is raw JavaScript source, not HTML: do not HTML-encode it.
+ *
+ * @param string $value
+ *
+ * @return string
+ */
+function js_string($value) {
+    return str_replace(
+        ['\\', "'", '"', "\t", "\r", "\n", '<', '>', "\xE2\x80\xA8", "\xE2\x80\xA9"],
+        ['\\\\', "\\'", '\\"', '\\t', '\\r', '\\n', '\\x3C', '\\x3E', '\\u2028', '\\u2029'],
+        (string)$value
+    );
+}
+
+/**
+ * Escape a value for a JavaScript string literal inside an HTML attribute,
+ * such as onclick="return confirm('...')".
+ *
+ * @param string $value
+ *
+ * @return string
+ */
+function js_inline_string($value) {
+    return html(js_string($value), true);
+}
+
+/**
+ * Escape a value that is already HTML-encoded, such as a URL built by rel_url()
+ * with its default htmlspecialchars format.
+ *
+ * @param string $value
+ *
+ * @return string
+ */
+function js_inline_string_encoded($value) {
+    return js_inline_string(html_entity_decode((string)$value, ENT_QUOTES, PHPWCMS_CHARSET));
+}
+
+/**
+ * Escape a plain-text value for a Tip() tooltip.
+ *
+ * Tip() assigns its argument to innerHTML, so the value must stay HTML-encoded
+ * after the JavaScript string and the attribute have both been decoded. One
+ * HTML layer is added here, js_inline_string() adds the JavaScript and
+ * attribute layers. Plain text belongs here. When the tooltip text must
+ * contain markup, for example the line breaks from nl2br(), build that string
+ * first and pass it to js_inline_string() instead.
+ *
+ * @param string $value
+ *
+ * @return string
+ */
+function js_tooltip_string($value) {
+    return js_inline_string(html($value));
 }
 
 function get_tmpl_files($dir = '', $ext = '', $sort = true) {

@@ -631,7 +631,7 @@ function addNewTab(pos) {
 <?php endif; ?>
 
   function deleteTab(id) {
-    bsConfirmDanger('<?php echo js_singlequote($BL['be_tab_delete_js']) ?>', function() {
+    bsConfirmDanger('<?php echo js_string($BL['be_tab_delete_js']) ?>', function() {
       <?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
       $("#" + id).find('textarea').each(function() {
         var tid = $(this).attr('id');
@@ -645,7 +645,7 @@ function addNewTab(pos) {
     return false;
   }
   function toggleTabsTemplate(e) {
-    bsConfirmWarning('<?php echo js_singlequote(correct_charset($BL['be_tab_template_toggle_warning'], true)) ?>', function() {
+    bsConfirmWarning('<?php echo correct_charset($BL['be_tab_template_toggle_warning'], true) ?>', function() {
       e.form.submit();
     });
     return false;

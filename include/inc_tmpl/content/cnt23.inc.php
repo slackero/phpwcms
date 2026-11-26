@@ -70,11 +70,11 @@ function initMathSpam(idx) {
     const el = document.getElementById("cform_field_value_" + idx);
     if (el) {
         el.value = "+ = ' .
-        js_singlequote($BL['be_cnt_field']['summing']) . '\n- = ' .
-        js_singlequote($BL['be_cnt_field']['subtract']) . '\n* = ' .
-        js_singlequote($BL['be_cnt_field']['multiply']) . '\n: = ' .
-        js_singlequote($BL['be_cnt_field']['divide']) . '\ncalc = ' .
-        js_singlequote($BL['be_cnt_field']['calculation']) . '";
+        js_string($BL['be_cnt_field']['summing']) . '\n- = ' .
+        js_string($BL['be_cnt_field']['subtract']) . '\n* = ' .
+        js_string($BL['be_cnt_field']['multiply']) . '\n: = ' .
+        js_string($BL['be_cnt_field']['divide']) . '\ncalc = ' .
+        js_string($BL['be_cnt_field']['calculation']) . '";
     }
 }
 
@@ -137,8 +137,8 @@ $(function() {
         $newLi.find("input[name^=\'cform_field_name\']").focus();
     });
 
-    var confirmMsgTmpl = \'' . js_singlequote(decode_entities($BL['be_admin_custom_cpt_delete_field_confirm'] ?? 'Really delete field "%s"?')) . '\';
-    var confirmMsgSimple = \'' . js_singlequote(decode_entities($BL['be_admin_custom_cpt_delete_field_confirm_simple'] ?? 'Really delete this field?')) . '\';
+    var confirmMsgTmpl = \'' . js_string(decode_entities($BL['be_admin_custom_cpt_delete_field_confirm'] ?? 'Really delete field "%s"?')) . '\';
+    var confirmMsgSimple = \'' . js_string(decode_entities($BL['be_admin_custom_cpt_delete_field_confirm_simple'] ?? 'Really delete this field?')) . '\';
 
     function getFieldConfirmMsg($container) {
         var name = ($container.find("input[name^=\'cform_field_name\']").val() || "").trim();

@@ -68,6 +68,72 @@ check(
     'file center list double encodes name and copyright in the tooltip'
 );
 
+// --- article list and structure list -------------------------------------
+
+$admin = file_get_contents($root . '/include/inc_lib/admin.functions.inc.php');
+check(substr_count($admin, 'html($info, true)') === 3, 'all three HTML tooltips double encode their markup');
+check(str_contains($admin, 'html($article_content[\'acontent_title\'])') || str_contains($admin, 'html($article_content["acontent_title"])'), 'content-part title is encoded inside the tooltip');
+check(str_contains($admin, 'nl2br(html($article_content["acontent_comment"]))'), 'content-part comment is encoded inside the tooltip');
+check(!str_contains($admin, 'js_singlequote('), 'article list no longer uses the entity-based js_singlequote');
+check(preg_match('/data-confirm="[^"]*html\(/', $admin) === 1, 'confirm messages are HTML encoded for the attribute');
+
+// --- confirm and tooltip handling in JavaScript --------------------------
+
+$js = file_get_contents($root . '/include/inc_js/phpwcms.js');
+check(str_contains($js, 'function formatConfirmMessage('), 'confirm messages are escaped at render time');
+check(str_contains($js, ".html(formatConfirmMessage(message))"), 'confirm modal uses the escaped message');
+check(!str_contains($js, 'sanitize: false'), 'tooltip and popover sanitizing is enabled');
+check(str_contains($js, 'sanitize: true'), 'tooltip and popover sanitizing is enabled');
+check(str_contains($js, 'allowList: tooltipMarkupAllowList'), 'tooltips use the backend allowList');
+check(str_contains($js, 'inlineMarkupAllowList'), 'allowList is defined');
+check(str_contains($js, 'delete tooltipMarkupAllowList.a'), 'tooltips cannot render links');
+check(str_contains($js, 'popoverMarkupAllowList'), 'popovers keep the link allowList');
+check(!str_contains($js, 'replace(/\\\\n/g'), 'confirm messages only convert real newlines');
+
+
+// --- escaping helpers ----------------------------------------------------
+
+$lib = file_get_contents($root . '/include/inc_lib/general.inc.php');
+extract_fn($lib, 'js_string');
+extract_fn($lib, 'js_inline_string');
+extract_fn($lib, 'js_tooltip_string');
+
+check(js_string("</script><img src=x onerror=alert(1)>") === '\\x3C/script\\x3E\\x3Cimg src=x onerror=alert(1)\\x3E', 'script end tag is neutralised');
+check(js_string("a'b\"c\\d") === "a\\'b\\\"c\\\\d", 'quotes and backslash are JavaScript escaped');
+
+$payload = "x');alert(1);//";
+$decoded = html_entity_decode(js_inline_string($payload), ENT_QUOTES | ENT_HTML5, PHPWCMS_CHARSET);
+check(str_contains($decoded, "\\'"), 'attribute handler quote is backslash escaped after decode');
+check(!str_contains($decoded, "x');"), 'attribute handler cannot be closed');
+
+// --- remaining tooltip and structure escaping ---------------------------
+
+check(strpos($admin, '$an = html($an);') !== false, 'listmode_edits escapes the category name it receives');
+$structlist = file_get_contents($root . '/include/inc_tmpl/article.structlist.tmpl.php');
+check(strpos($structlist, 'html($info, true)') !== false, 'the index tooltip in the article list double encodes its markup');
+check(strpos($structlist, '. html($an) .') !== false, 'the index name is escaped before it is printed');
+$adminstruct = file_get_contents($root . '/include/inc_tmpl/admin.structlist.tmpl.php');
+check(strpos($adminstruct, 'js_tooltip_string($indexpage["acat_alias"])') !== false, 'the admin index tooltip escapes the alias for Tip()');
+
+$tip = html_entity_decode(js_tooltip_string('<img src=x onerror=alert(1)>'), ENT_QUOTES, PHPWCMS_CHARSET);
+check(strpos($tip, '&lt;img') !== false, 'Tip() receives markup as text');
+check(strpos($tip, '<img') === false, 'Tip() cannot execute markup from a value');
+check(strpos($js, "img: ['src'") === false, 'tooltips no longer load images from their content');
+
+// --- repository-wide guard ----------------------------------------------
+
+$offenders = [];
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root . '/include', FilesystemIterator::SKIP_DOTS));
+foreach ($iterator as $file) {
+    if ($file->getExtension() !== 'php' || $file->getPathname() === $root . '/include/inc_lib/general.inc.php') {
+        continue;
+    }
+    if (str_contains(file_get_contents($file->getPathname()), 'js_singlequote(')) {
+        $offenders[] = substr($file->getPathname(), strlen($root) + 1);
+    }
+}
+check($offenders === [], 'no output path uses js_singlequote(): ' . implode(', ', $offenders));
+
 if ($failures) {
     echo "\n$failures check(s) failed\n";
     exit(1);

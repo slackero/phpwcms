@@ -202,7 +202,7 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
             <?php elseif ($revisionsPending): ?>
               <div class="alert alert-warning py-2 mb-0"><i class="fa-solid fa-triangle-exclamation"></i> <?php echo html($BL['be_update_revision_pending'] ?? 'Database migrations are pending or failed — run them (backend login) before updating.'); ?></div>
             <?php else: ?>
-            <form method="post" action="phpwcms.php?do=admin&amp;p=18" onsubmit="return confirm('<?php echo js_singlequote($BL['be_update_confirm'] ?? 'The system creates a database backup, then replaces its own files. Continue?'); ?>');">
+            <form method="post" action="phpwcms.php?do=admin&amp;p=18" onsubmit="return confirm('<?php echo js_inline_string($BL['be_update_confirm'] ?? 'The system creates a database backup, then replaces its own files. Continue?'); ?>');">
               <input type="hidden" name="csrftoken" value="<?php echo html(get_token_get_value()); ?>">
               <input type="hidden" name="update_tag" value="<?php echo html($updateCheck['tag']); ?>">
               <button type="submit" name="update_run" value="1" class="btn btn-blue"><i class="fa-solid fa-download"></i> <?php echo $BL['be_update_run'] ?? 'Backup &amp; update now'; ?></button>
@@ -281,7 +281,7 @@ $maintenanceActive = phpwcms_update::maintenanceActive();
 </div>
 <script>
 function bsConfirmRollback(form) {
-    bsConfirmDanger('<?php echo js_singlequote($BL['be_update_rollback'] ?? 'Restore previous version'); ?>', function() {
+    bsConfirmDanger('<?php echo js_string($BL['be_update_rollback'] ?? 'Restore previous version'); ?>', function() {
         form.submit();
     });
     return false;

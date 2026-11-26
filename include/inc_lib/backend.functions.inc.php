@@ -1636,7 +1636,7 @@ function correct_charset($text='', $js=false) {
         $text = makeCharsetConversion($text, 'utf-8', PHPWCMS_CHARSET);
     }
     if($js) {
-        $text = js_singlequote($text);
+        $text = js_string($text);
     }
     return $text;
 }

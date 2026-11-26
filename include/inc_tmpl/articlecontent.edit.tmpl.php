@@ -39,9 +39,9 @@ if(empty($content['article']['acat_id'])) { // Root structure
     function cancelContentEdit() {
         var returnUrl = 'phpwcms.php?' + CSRF_GET_TOKEN + '&do=articles&p=2&s=1&id=<?php echo $content["aid"] ?><?php echo !empty($content["id"]) ? "#" . $content["id"] : "" ?>';
         if ($('#articlecontent').serialize() !== initialContentFormData) {
-            bsConfirmWarning('<?php echo js_singlequote($BL['be_dialog_warn_nosave']); ?>', function() {
+            bsConfirmWarning('<?php echo js_string($BL['be_dialog_warn_nosave']); ?>', function() {
                 location.href = returnUrl;
-            }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>');
+            }, '<?php echo js_string($BL['be_yes']); ?>', '<?php echo js_string($BL['be_no']); ?>');
         } else {
             location.href = returnUrl;
         }
@@ -236,9 +236,9 @@ $(function() {
 			return false;
 		}
 		const $this = $(this);
-		bsConfirmWarning("' . js_singlequote($BL['be_func_switch_contentpart']) . '", function() {
+		bsConfirmWarning("' . js_string($BL['be_func_switch_contentpart']) . '", function() {
 			$this.closest("form").submit();
-		}, "' . js_singlequote($BL['be_yes']) . '", "' . js_singlequote($BL['be_no']) . '");
+		}, "' . js_string($BL['be_yes']) . '", "' . js_string($BL['be_no']) . '");
 
 		$("#bootstrapConfirmModal").one("hidden.bs.modal", function() {
 			setTimeout(function() {
@@ -433,7 +433,7 @@ if ($content['cp_setting_mode']):
 
                 if(block !== "CONTENT") {
                     if(paginate.value !== "0" && loadblock === false) {
-                        bsConfirmWarning('<?php echo js_singlequote($BL['be_cnt_subsection_warning']) ?>', function() {
+                        bsConfirmWarning('<?php echo js_string($BL['be_cnt_subsection_warning']) ?>', function() {
                             paginate.disabled = true;
                         }, null, null, function() {
                             obj.selectedIndex = 0;
@@ -455,7 +455,7 @@ if ($content['cp_setting_mode']):
                 const ctab_number = document.getElementById('ctab_number');
 
                 if(ctab.selectedIndex > 0 && ctab_title.value === '' && ctab_number.value === '') {
-                    bsConfirmWarning('<?php echo js_singlequote(makeCharsetConversion($BL['confirm_cp_tab_warning'], 'utf-8', PHPWCMS_CHARSET)) ?>', function() {
+                    bsConfirmWarning('<?php echo js_string(makeCharsetConversion($BL['confirm_cp_tab_warning'], 'utf-8', PHPWCMS_CHARSET)) ?>', function() {
                         form.submit();
                     });
                     return false;

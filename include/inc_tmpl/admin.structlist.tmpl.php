@@ -53,18 +53,18 @@ echo '<td class="text-nowrap">';
 echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&amp;p=6&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."#struct_0\">" : "";
 echo '<i class="fa-regular fa-'.(($child_count) ? (empty($_SESSION["structure"][0]) ? "plus-square" : "minus-square") : "square").' fa-fw text-muted" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 echo '<i class="fa-regular fa-file text-muted mx-1" title="ID:0" ';
-echo 'onmouseover="Tip(\'ID: <b>0</b><br>', $BL['be_alias'], ': ', html($indexpage["acat_alias"]);
+echo 'onmouseover="Tip(\'ID: <b>0</b><br>', js_tooltip_string($BL['be_alias']), ': ', js_tooltip_string($indexpage["acat_alias"]);
 if(isset($struct_template[0]['template_name'])) {
-	echo '<br>', $BL['be_admin_struct_template'], ': ';
-	echo html($struct_template[0]["template_name"]);
+	echo '<br>', js_tooltip_string($BL['be_admin_struct_template']), ': ';
+	echo js_tooltip_string($struct_template[0]["template_name"]);
 	if($struct_template[0]["template_default"]) {
-		echo ' (', $BL['be_admin_tmpl_default'], ')';
+		echo ' (', js_tooltip_string($BL['be_admin_tmpl_default']), ')';
 	}
 }
-echo '<br>'.$BL['be_onepage_id'].': '.(empty($indexpage["acat_onepage"]) ? $BL['be_no'] : $BL['be_yes']);
+echo '<br>'.js_tooltip_string($BL['be_onepage_id']).': '.(empty($indexpage["acat_onepage"]) ? js_tooltip_string($BL['be_no']) : js_tooltip_string($BL['be_yes']));
 echo '\');" onmouseout="UnTip()">';
 echo "</td><td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>";
-echo '<td class="dir" width="97%"><strong>'.$indexpage['acat_name']."</strong></td></tr></table></td>";
+echo '<td class="dir" width="97%"><strong>'.html($indexpage['acat_name'])."</strong></td></tr></table></td>";
 echo '<td class="text-nowrap" style="width: 99px;">';
 
 $struct[0]["acat_id"]     = 0;

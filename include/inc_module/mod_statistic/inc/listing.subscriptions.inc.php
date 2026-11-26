@@ -139,7 +139,7 @@ $_controller_link =  statistic_url('controller=subscriptions');
             echo '    <td class="text-end p-1 align-middle text-nowrap">';
           }
 
-          echo '      <a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$data["log_id"].'" title="delete: '.html_specialchars($data["log_msg"]).'" data-confirm-type="danger" data-confirm-action="'.$BLM['log_delete_entry'].'" data-confirm="'.$BLM['log_delete_entry'].' '.js_singlequote($data["log_msg"]).'"><i class="fa-solid fa-trash-alt"></i></a>';
+          echo '      <a class="btn btn-sm btn-danger ms-1" href="'.$_controller_link.'&amp;delete='.$data["log_id"].'" title="delete: '.html_specialchars($data["log_msg"]).'" data-confirm-type="danger" data-confirm-action="'.$BLM['log_delete_entry'].'" data-confirm="'.$BLM['log_delete_entry'].' '.html($data["log_msg"]).'"><i class="fa-solid fa-trash-alt"></i></a>';
 
           if (stristr($data["log_msg"], '::')) {
             $email_array = explode('::', $data["log_msg"]);

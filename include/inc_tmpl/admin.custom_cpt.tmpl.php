@@ -467,11 +467,11 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
             const legend = fLegendInput ? fLegendInput.value.trim() : '';
             const fieldName = legend ? (key ? `${legend} [${key}]` : legend) : (key ? `[${key}]` : '');
 
-            let confirmMsg = '<?php echo js_singlequote($BL['be_admin_custom_cpt_delete_field_confirm'] ?? 'Really delete field "%s"?'); ?>';
+            let confirmMsg = '<?php echo js_string($BL['be_admin_custom_cpt_delete_field_confirm'] ?? 'Really delete field "%s"?'); ?>';
             if (fieldName) {
                 confirmMsg = confirmMsg.replace('%s', fieldName);
             } else {
-                confirmMsg = '<?php echo js_singlequote($BL['be_admin_custom_cpt_delete_field_confirm_simple'] ?? 'Really delete this field?'); ?>';
+                confirmMsg = '<?php echo js_string($BL['be_admin_custom_cpt_delete_field_confirm_simple'] ?? 'Really delete this field?'); ?>';
             }
 
             if (typeof bsConfirmDanger === 'function') {
@@ -522,12 +522,12 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
 
         const existingCptKeys = <?php echo json_encode($other_keys); ?>;
         const reservedFieldKeys = <?php echo json_encode(get_custom_cpt_reserved_field_keys()); ?>;
-        const reservedFieldErrorMsg = '<?php echo js_singlequote($BL['be_admin_custom_cpt_err_reserved_field_key_simple'] ?? 'Reserved standard tag name (e.g. TITLE, SUBTITLE, TEXT, etc.).'); ?>';
+        const reservedFieldErrorMsg = '<?php echo js_string($BL['be_admin_custom_cpt_err_reserved_field_key_simple'] ?? 'Reserved standard tag name (e.g. TITLE, SUBTITLE, TEXT, etc.).'); ?>';
         const keyInput = document.getElementById('cpt_key');
         const titleInput = document.getElementById('cpt_title');
         const modeSelect = document.getElementById('cpt_mode');
         const keyFeedback = document.getElementById('cptKeyFeedback');
-        const duplicateErrorMsg = '<?php echo js_singlequote($BL['be_admin_custom_cpt_err_duplicate_key_simple'] ?? 'This identifier key is already in use by another Custom Content Part.'); ?>';
+        const duplicateErrorMsg = '<?php echo js_string($BL['be_admin_custom_cpt_err_duplicate_key_simple'] ?? 'This identifier key is already in use by another Custom Content Part.'); ?>';
 
         function validateFieldRowKey(input) {
             if (!input) return true;

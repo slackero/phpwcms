@@ -40,6 +40,19 @@ function swapImage(...args) {
     }
 }
 
+function escapeHtmlText(value) {
+    return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function formatConfirmMessage(message) {
+    return escapeHtmlText(message).replace(/\r?\n/g, '<br>');
+}
+
 function bsConfirm(confirmType, message, callback, customConfirmText, customCancelText, cancelCallback) {
     if (window.parent && window.parent !== window && typeof window.parent.bsConfirm === 'function') {
         window.parent.bsConfirm(confirmType, message, callback, customConfirmText, customCancelText, cancelCallback);
@@ -125,8 +138,7 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
         .addClass(btnClass)
         .text(confirmText);
 
-    const formattedMsg = (message || '').replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
-    $modal.find('.confirm-message').html(formattedMsg);
+    $modal.find('.confirm-message').html(formatConfirmMessage(message));
 
     const bsModalInstance = (typeof bootstrap !== 'undefined' && bootstrap.Modal)
         ? bootstrap.Modal.getOrCreateInstance($modal[0])
@@ -310,8 +322,7 @@ function bsAlert(message, callback) {
         });
     }
 
-    const formattedMsg = (message || '').replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
-    $modal.find('.confirm-message').html(formattedMsg);
+    $modal.find('.confirm-message').html(formatConfirmMessage(message));
 
     const bsModalInstance = (typeof bootstrap !== 'undefined' && bootstrap.Modal)
         ? bootstrap.Modal.getOrCreateInstance($modal[0])
@@ -812,6 +823,50 @@ $(function () {
         }
     });
 
+    // Tooltip and popover content is inserted as HTML. Bootstrap's default
+    // allowList has no table tags, so the backend tooltips extend it; every
+    // value is still sanitized, which strips event handlers and unsafe URLs.
+    const bootstrapDefaults = (typeof bootstrap !== 'undefined' && bootstrap.Tooltip && bootstrap.Tooltip.Default)
+        ? bootstrap.Tooltip.Default.allowList
+        : {};
+    const inlineMarkupAllowList = Object.assign({}, bootstrapDefaults, {
+        table: ['class'],
+        thead: [],
+        tbody: [],
+        tfoot: [],
+        tr: ['class'],
+        th: ['colspan', 'rowspan', 'class'],
+        td: ['colspan', 'rowspan', 'class'],
+        caption: [],
+        colgroup: [],
+        col: ['span'],
+        br: [],
+        small: [],
+        dl: [],
+        dt: [],
+        dd: [],
+        hr: [],
+        u: [],
+        s: [],
+        sub: [],
+        sup: [],
+        pre: [],
+        code: [],
+        p: ['class'],
+        div: ['class'],
+        span: ['class'],
+        i: ['class', 'aria-hidden'],
+        b: [],
+        strong: [],
+        em: []
+    });
+    // A tooltip never needs a link; the popover above the file list does.
+    const tooltipMarkupAllowList = Object.assign({}, inlineMarkupAllowList);
+    delete tooltipMarkupAllowList.a;
+    const popoverMarkupAllowList = Object.assign({}, inlineMarkupAllowList, {
+        a: ['target', 'href', 'title', 'rel']
+    });
+
     if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
         document.querySelectorAll('[data-bs-toggle="tooltip"], [data-toggle="tooltip"]').forEach(function (el) {
             bootstrap.Tooltip.getOrCreateInstance(el, {
@@ -821,7 +876,8 @@ $(function () {
                     hide: 50
                 },
                 container: 'body',
-                sanitize: false
+                sanitize: true,
+                allowList: tooltipMarkupAllowList
             });
         });
     } else if (typeof $.fn.tooltip === 'function') {
@@ -833,7 +889,8 @@ $(function () {
                 hide: 50
             },
             container: 'body',
-            sanitize: false
+            sanitize: true,
+            allowList: tooltipMarkupAllowList
         });
     }
 
@@ -847,7 +904,9 @@ $(function () {
         (root || document).querySelectorAll('[data-bs-toggle="popover"]').forEach(function (el) {
             bootstrap.Popover.getOrCreateInstance(el, {
                 html: true,
-                container: 'body'
+                container: 'body',
+                sanitize: true,
+                allowList: popoverMarkupAllowList
             });
         });
     }
@@ -888,7 +947,7 @@ $(function () {
         const modaltitle = $this.attr('alt') || $this.attr('title') || '';
 
         $iframe.attr({'src': src, 'height': '100%', 'width': '100%'});
-        $modalHeader.html(modaltitle);
+        $modalHeader.text(modaltitle);
     });
 
     $('#browserModal').on('hidden.bs.modal', function () {

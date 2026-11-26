@@ -261,11 +261,11 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
       const numEl = el.querySelector('h5');
       const entryNum = numEl ? numEl.textContent.trim() : '';
 
-      let confirmMsg = '<?php echo js_singlequote($BL['be_admin_custom_cpt_delete_entry_confirm'] ?? 'Really remove entry %s?'); ?>';
+      let confirmMsg = '<?php echo js_string($BL['be_admin_custom_cpt_delete_entry_confirm'] ?? 'Really remove entry %s?'); ?>';
       if (entryNum) {
           confirmMsg = confirmMsg.replace('%s', entryNum);
       } else {
-          confirmMsg = '<?php echo js_singlequote($BL['be_admin_custom_cpt_delete_entry_confirm_simple'] ?? 'Really remove this entry?'); ?>';
+          confirmMsg = '<?php echo js_string($BL['be_admin_custom_cpt_delete_entry_confirm_simple'] ?? 'Really remove this entry?'); ?>';
       }
 
       if (typeof bsConfirmDanger === 'function') {

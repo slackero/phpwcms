@@ -64,7 +64,7 @@ if(!function_exists('get_mediaplayer_stream')) {
             $file['fmp_file'] .= '&type='.urlencode($file['f_type']);
 
             if(BROWSER_OS == 'iOS') {
-                $file['fmp_file'] .= '&ios=/'.$file['f_name'];
+                $file['fmp_file'] .= '&ios=/'.rawurlencode($file['f_name']);
             }
 
             return $file['fmp_file'];

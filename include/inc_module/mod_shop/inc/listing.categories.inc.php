@@ -190,7 +190,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
                 echo '" data-type="shop" data-table="categories" data-field="cat_status" data-fieldid="cat_id" aria-disabled="true" data-bs-toggle="tooltip" title="';
                 echo $BL['be_tooltip_visibility'] . '"><i class="fa-solid ' . ((int)$row['cat_status'] === 0 ? 'fa-eye-slash' : 'fa-eye') . ' fa-fw" aria-hidden="true"></i></button>';
                 echo '</div>';
-                echo '<a class="btn btn-sm btn-danger ms-1" href="' . $_controller_link . '&amp;delete=' . $row['cat_id'] . '" title="delete: ' . html_specialchars($row['cat_name']) . '" data-confirm-type="danger" data-confirm-action="' . $BLM['delete_entry'] . '" data-confirm="' . $BLM['delete_entry'] . js_singlequote($row['cat_name']) . '">';
+                echo '<a class="btn btn-sm btn-danger ms-1" href="' . $_controller_link . '&amp;delete=' . $row['cat_id'] . '" title="delete: ' . html_specialchars($row['cat_name']) . '" data-confirm-type="danger" data-confirm-action="' . $BLM['delete_entry'] . '" data-confirm="' . $BLM['delete_entry'] . html($row['cat_name']) . '">';
                 echo '<i class="fa-regular fa-trash-alt"></i></a>';
                 echo '</td>' . LF;
                 echo '</tr>' . LF;

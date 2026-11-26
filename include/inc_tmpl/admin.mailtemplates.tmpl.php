@@ -444,7 +444,7 @@ $current_flag_img = get_language_flag_img($current_lang, 'me-1');
                             <div class="row g-2">
                                 <?php foreach ($curr_def['placeholders'] as $ph => $ph_desc): ?>
                                     <div class="col-md-6">
-                                        <a href="#" class="badge bg-secondary font-monospace text-decoration-none me-1" onclick="insertPlaceholder('<?php echo js_singlequote($ph); ?>'); return false;" title="<?php echo html($BL['be_admin_custom_cpt_copy'] ?? 'Insert'); ?>">
+                                        <a href="#" class="badge bg-secondary font-monospace text-decoration-none me-1" onclick="insertPlaceholder('<?php echo js_inline_string($ph); ?>'); return false;" title="<?php echo html($BL['be_admin_custom_cpt_copy'] ?? 'Insert'); ?>">
                                             <?php echo html($ph); ?>
                                         </a>
                                         <span class="text-muted"><?php echo html($ph_desc); ?></span>

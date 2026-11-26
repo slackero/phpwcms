@@ -807,7 +807,7 @@ if($news['template']) {
                                     $ivalue['tmpl'] = str_replace('{IMAGE_HASH}', $ivalue['f_hash'], $news['tmpl_gallery_item']);
                                     $ivalue['tmpl'] = str_replace('{IMAGE_EXT}', $ivalue['f_ext'], $ivalue['tmpl']);
                                     $ivalue['tmpl'] = str_replace('{IMAGE_ID}', $ivalue['f_id'], $ivalue['tmpl']);
-                                    $ivalue['tmpl'] = str_replace('{IMAGE_NAME}', $ivalue['f_name'], $ivalue['tmpl']);
+                                    $ivalue['tmpl'] = str_replace('{IMAGE_NAME}', html($ivalue['f_name']), $ivalue['tmpl']);
 
                                     $ivalue['tmpl'] = render_cnt_template($ivalue['tmpl'], 'CAPTION', empty($value['gallery_captions'][$ikey]['caption']) ? '' : html($value['gallery_captions'][$ikey]['caption']));
                                     $ivalue['tmpl'] = render_cnt_template($ivalue['tmpl'], 'COPYRIGHT', empty($value['gallery_captions'][$ikey]['copyright']) ? '' : html($value['gallery_captions'][$ikey]['copyright']));

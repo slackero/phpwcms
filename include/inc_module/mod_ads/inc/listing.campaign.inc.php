@@ -204,14 +204,14 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 
 						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;edit=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa-solid fa-pencil-alt fa-fw"></i></a>';
 
-						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;duplicate=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-blue" title="' . $BLM['duplicate_title'] . '" data-confirm-type="info" data-confirm-action="' . $BLM['duplicate_title'] . '" data-confirm="' . js_singlequote($BLM['duplicate_campaign']) . '\n' . js_singlequote($BLM['campaign_title']) . ':\n' . js_singlequote($row["adcampaign_title"]) . '">';
+						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;duplicate=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-blue" title="' . $BLM['duplicate_title'] . '" data-confirm-type="info" data-confirm-action="' . $BLM['duplicate_title'] . '" data-confirm="' . html($BLM['duplicate_campaign']) . "\n" . html($BLM['campaign_title']) . ":\n" . html($row["adcampaign_title"]) . '">';
 						echo '<i class="fa-solid fa-copy fa-fw"></i></a>';
 
 						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;editid=' . $row["adcampaign_id"] . '&amp;verify=' . (($row["adcampaign_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["adcampaign_status"]) ? 'btn-success' : 'btn-warning') . '" title="Toggle Status">';
 						echo '<i class="fas ' . (($row["adcampaign_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
 						echo '</div>';
 
-						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;delete=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adcampaign_title"]) . '" data-confirm-type="danger" data-confirm-action="' . $BLM['delete_entry'] . '" data-confirm="' . js_singlequote($BLM['delete_entry']) . ' ' . js_singlequote($BLM['campaign_title'] . ': ' . $row["adcampaign_title"]) . '">';
+						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;delete=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adcampaign_title"]) . '" data-confirm-type="danger" data-confirm-action="' . $BLM['delete_entry'] . '" data-confirm="' . html($BLM['delete_entry']) . ' ' . html($BLM['campaign_title'] . ': ' . $row["adcampaign_title"]) . '">';
 						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';

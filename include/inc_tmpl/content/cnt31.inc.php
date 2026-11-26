@@ -707,7 +707,7 @@ function setIdName(field, file_id, file_name) {
 function deleteImageData(image_number, e) {
     var imageNameField = $('#cimage_name_' + image_number);
     var imageName = imageNameField.val();
-    bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (imageName ? '\n[' + imageName + ']' : ''), function() {
+    bsConfirmDanger('<?php echo js_string($BL['be_image_delete_js']); ?>' + (imageName ? '\n[' + imageName + ']' : ''), function() {
         imageNameField.val('');
         $('#cimage_id_' + image_number).val('0');
 
@@ -720,7 +720,7 @@ function deleteImageData(image_number, e) {
         if (img_num_parts[1]) {
             updatePreviewImage(img_num_parts[1]);
         }
-    }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>');
+    }, '<?php echo js_string($BL['be_yes']); ?>', '<?php echo js_string($BL['be_no']); ?>');
     e.blur();
     return false;
 }
@@ -989,10 +989,10 @@ function setImgActive(button, id) {
 }
 
 function deleteImgElement(id) {
-    bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']) ?>', function() {
+    bsConfirmDanger('<?php echo js_string($BL['be_image_delete_js']) ?>', function() {
         $("#" + id).remove();
         updateImageSort();
-    }, '<?php echo js_singlequote($BL['be_yes']) ?>', '<?php echo js_singlequote($BL['be_no']) ?>');
+    }, '<?php echo js_string($BL['be_yes']) ?>', '<?php echo js_string($BL['be_no']) ?>');
     return false;
 }
 

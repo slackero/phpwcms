@@ -72,10 +72,10 @@ $a .= '<i class="fa-solid fa-caret-' . ($child_count ? (empty($_SESSION["structu
 $a .= ' fa-fw" aria-hidden="true"></i>' . (($child_count) ? '</a>' : '');
 
 $info  = '<table class="text-start"><tr><td>ID:</td><td><b>0</b></td></tr>';
-$info .= '<tr><td>ALIAS:</td><td>' . $indexpage["acat_alias"] . '</td></tr></table>';
+$info .= '<tr><td>ALIAS:</td><td>' . html($indexpage["acat_alias"]) . '</td></tr></table>';
 
-$a .= '<i class="fa-solid fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="' . html($info) . '"></i>';
-$a .= '<strong class="ms-1">' . $an . '</strong></div>' . LF;
+$a .= '<i class="fa-solid fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="' . html($info, true) . '"></i>';
+$a .= '<strong class="ms-1">' . html($an) . '</strong></div>' . LF;
 
 $a .= '<div class="struct-row-actions text-nowrap text-end">';
 

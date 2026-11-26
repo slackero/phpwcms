@@ -240,7 +240,7 @@ if(count($custom_cnt_fields_hidden)) {
 if(count($cnt_fieldgroups)): ?>
 <script>
 function toggleTabsTemplate(e) {
-  bsConfirmWarning('<?php echo js_singlequote(correct_charset($BL['be_tab_template_toggle_warning'], true)) ?>', function() {
+  bsConfirmWarning('<?php echo correct_charset($BL['be_tab_template_toggle_warning'], true) ?>', function() {
     e.form.submit();
   });
   return false;

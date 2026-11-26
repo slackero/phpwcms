@@ -48,7 +48,7 @@ if (!defined('PHPWCMS_ROOT')) {
 						echo '</div>';
 						
 						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["cnt_id"] . '" class="btn btn-sm btn-danger ms-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row['cnt_name']) . '"';
-						echo ' onclick="event.stopPropagation(); return confirm(\'' . js_singlequote($BLM['delete_entry'] . ' ' . $row['cnt_name']) . '\');">';
+						echo ' onclick="event.stopPropagation(); return confirm(\'' . js_inline_string($BLM['delete_entry'] . ' ' . $row['cnt_name']) . '\');">';
 						echo '<i class="fa-regular fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';

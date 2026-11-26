@@ -87,7 +87,7 @@ if(isset($result[0]['article_id'])) {
 
                 if(!empty($alinkmenu['morelink'])) {
 
-                    $alinkmenu['sum']  .= '<a href="' . rel_url(array(), array(), setGetArticleAid($row)) . '" title="'.$row['article_title'].'">';
+                    $alinkmenu['sum']  .= '<a href="' . rel_url(array(), array(), setGetArticleAid($row)) . '" title="'.html($row['article_title']).'">';
                     $alinkmenu['sum']  .= $alinkmenu['morelink'] . '</a>';
 
                 }
@@ -114,7 +114,7 @@ if(isset($result[0]['article_id'])) {
 
             $alinkmenu['link'] .= "<tr>\n\t<td valign=\"top\"".$tempRowSpan." class=\"nowrap\">".$template_default["article"]["link_article_sign"]."</td>\n\t";
             $alinkmenu['link'] .= '<td'.$alinkmenu['active_class'].'>'.$alinkmenu['titlewrap'][0].'<a href="index.php?'.setGetArticleAid($row).'" ';
-            $alinkmenu['link'] .= get_class_attrib($template_default["article"]["link_article_class"]).' title="'.$row['article_title'].'">';
+            $alinkmenu['link'] .= get_class_attrib($template_default["article"]["link_article_class"]).' title="'.html($row['article_title']).'">';
             $alinkmenu['link'] .= $row['article_menutitle'].'</a>'.$alinkmenu['titlewrap'][1]."</td>\n</tr>\n";
             $alinkmenu['link'] .= $alinkmenu['sum'];
 
@@ -128,7 +128,7 @@ if(isset($result[0]['article_id'])) {
 
             $alinkmenu['link'] .= ' <'.$alinkmenu['ul_tag'][ $alinkmenu['ul'] ][1];
             $alinkmenu['link'] .= $alinkmenu['active_class'].'>'.$alinkmenu['titlewrap'][0];
-            $alinkmenu['link'] .= '<a href="index.php?'.setGetArticleAid($row).'" title="'.$row['article_title'].'">';
+            $alinkmenu['link'] .= '<a href="index.php?'.setGetArticleAid($row).'" title="'.html($row['article_title']).'">';
             $alinkmenu['link'] .= $row['article_menutitle'];
             $alinkmenu['link'] .= '</a>'.$alinkmenu['titlewrap'][1];
 
