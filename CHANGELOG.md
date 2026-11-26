@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [2.0.0-beta.8] - 2026-11-26
 
 ### Security
 - **Stored script in the article structure list:** an article or content-part title saved by a backend user below administrator ran in an administrator's session when the structure list was opened and a tooltip was shown or a delete action was confirmed. The confirm flow had moved the values into `data-confirm`, which `bsConfirm()` inserted with `.html()`, and the HTML tooltips used `sanitize: false`, so one encoding layer was decoded by the attribute parser and the value was parsed as markup by the second. Confirm messages are now escaped as text in `bsConfirm()` before the newlines are turned into `<br>`, tooltips and popovers sanitize with an allowList that keeps the table markup the backend uses, and the tooltip values are encoded per value with the whole block emitted through `html($info, true)`. Structure and article aliases, content-part title, subtitle and comment are encoded as well, the content-part `$at` string is encoded where it is built, and the remaining `Tip()` handler in the index row now uses `js_tooltip_string()` so its content is text. `js_singlequote()` is deprecated: `js_string()` now escapes values for `<script>` blocks (including `</script>`, U+2028 and U+2029) and `js_inline_string()` for inline handlers, and every call site was converted. A regression test in `tests/core/test-tooltip-escaping.php` checks the helpers, the three tooltips and the repository-wide guard.
