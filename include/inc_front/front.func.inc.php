@@ -779,9 +779,9 @@ function build_levels($struct, $level, $temp_tree, $act_cat_id, $nav_table_struc
             if($nav_table_struct["js_over_effects"]) {
 
                 if($redirect['target'] != ' target="_blank"') {
-                    $js .= " onclick=\"location.href='".js_singlequote($link)."';return false;\"";
+                    $js .= " onclick=\"location.href='".js_inline_string_encoded($link)."';return false;\"";
                 } else {
-                    $js .= " onclick=\"window.open('".js_singlequote($link)."', 'phpwcmnewwin');return false;\"";
+                    $js .= " onclick=\"window.open('".js_inline_string_encoded($link)."', 'phpwcmnewwin');return false;\"";
                 }
 
                 $js_act = $js;

@@ -150,7 +150,7 @@ initJsCalendar();
             echo $content['article']['acat_struct'], '&amp;cat=', $content['article']['acat_id'];
         }
 
-        ?>" onclick="return confirm('<?php echo $BL['be_dialog_warn_nosave'];
+        ?>" onclick="return confirm('<?php echo js_inline_string($BL['be_dialog_warn_nosave']);
         ?>');"><?php echo $BL['be_article_cat'];
 
         ?><img src="img/symbole/redirect.gif" alt="" border="0" style="margin:0 0 0 2px;position:relative;top:1px;" /></a>:&nbsp;</td>
@@ -162,11 +162,11 @@ initJsCalendar();
         <td align="right" class="chatlist nowrap" nowrap="nowrap"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php
 
         echo $content["aid"];
-        ?>" onclick="return confirm('<?php echo $BL['be_dialog_warn_nosave'];
+        ?>" onclick="return confirm('<?php echo js_inline_string($BL['be_dialog_warn_nosave']);
         ?>');"><?php echo $BL['be_article_atitle'];
 
         ?><img src="img/symbole/redirect.gif" alt="" border="0" style="margin:0 0 0 2px;position:relative;top:1px;" /></a>:&nbsp;</td>
-        <td onclick="showEditArticleID(this);" onmouseover="this.ttOffsetY=0;Tip('<?php echo $BL['be_change_articleID'].'<br />'.$BL['be_cnt_default'].': '.$content["aid"] ?>')" class="linkcursor"><strong><?php echo html($content["article"]['article_title']) ?></strong></td>
+        <td onclick="showEditArticleID(this);" onmouseover="this.ttOffsetY=0;Tip('<?php echo js_tooltip_string($BL['be_change_articleID'].'<br />'.$BL['be_cnt_default'].': '.$content["aid"]) ?>')" class="linkcursor"><strong><?php echo html($content["article"]['article_title']) ?></strong></td>
     </tr>
 
 
@@ -195,7 +195,7 @@ initJsCalendar();
             <td><select name="target_ctype" id="target_ctype" onchange="if(confirm('<?php
 
     // echo Message for JS dialog
-    echo $BL['be_func_switch_contentpart'];
+    echo js_inline_string($BL['be_func_switch_contentpart']);
 
     // Menü mit Content Typen erstellen
     // build select box options and remember the "old" value for javascript
@@ -454,7 +454,7 @@ if($content['cp_setting_mode']):
                                 ctab_number = document.getElementById('ctab_number');
 
                             if(ctab.selectedIndex > 0 && ctab_title.value === '' && ctab_number.value === '') {
-                                return confirm('<?php echo PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : mb_convert_encoding($BL['confirm_cp_tab_warning'], PHPWCMS_CHARSET); ?>');
+                                return confirm('<?php echo js_string(PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : mb_convert_encoding($BL['confirm_cp_tab_warning'], PHPWCMS_CHARSET)); ?>');
                             }
 
                             return true;

@@ -73,7 +73,7 @@ $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/i
                 echo $BL['modules']['usergroup']['be_admin_group_edit'].": ".html($grouplist["group_name"])
             ?>"></a><a href="<?php echo $phpwcms['modules']['usergroup']['dir']; ?>include/inc_act/act_usergroup.php?del=<?php
                 echo urlencode($grouplist["group_id"].":".$grouplist["group_name"]);
-            ?>" onclick="return confirm('Delete group <?php echo js_singlequote($grouplist["group_name"]) ?>');"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0" title="<?php
+            ?>" onclick="return confirm('Delete group <?php echo js_inline_string($grouplist["group_name"]) ?>');"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0" title="<?php
                 echo $BL['modules']['usergroup']['be_admin_group_ldel']." ".html($grouplist["group_login"])
             ?>"></a></td>
         </tr>

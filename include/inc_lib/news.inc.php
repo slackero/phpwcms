@@ -436,7 +436,7 @@ class phpwcmsNews {
 
                     '<a href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;status=9'.
                     '" title="'.$this->BL['be_delete_dataset'].' '.html($news['cnt_name']).'" onclick="return confirm(\''.
-                    $this->BL['be_delete_dataset'].' \n'.js_singlequote($news['cnt_name']).'\');">'.
+                    js_inline_string($this->BL['be_delete_dataset']).' \n'.js_inline_string($news['cnt_name']).'\');">'.
                     '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>
 
                 </td>';

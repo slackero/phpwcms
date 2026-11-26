@@ -232,7 +232,7 @@ if($data) {
 
             echo '<a href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
             echo '" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';
-            echo ' onclick="return confirm(\''.$BLM['delete_product'].js_singlequote($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'\');">';
+            echo ' onclick="return confirm(\''.js_inline_string($BLM['delete_product'].$row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'\');">';
             echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 
         echo '</td>'.LF;

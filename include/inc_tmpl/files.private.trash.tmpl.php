@@ -34,7 +34,7 @@ if($count_user_files) {
         <td width="519" class="msglist">&nbsp;<strong><?php
 
         echo "<a href=\"include/inc_act/act_file.php?trash=0|9".
-             "\" title=\"".$BL['be_ftrash_delall']."\" onclick=\"return confirm('". str_replace("\n", "\\n", $BL['be_ftrash_delall'])."');\">".
+             "\" title=\"".$BL['be_ftrash_delall']."\" onclick=\"return confirm('". js_inline_string(str_replace('\n', "\n", $BL['be_ftrash_delall']))."');\">".
              $BL['be_ftrash_delallfiles']."</a>";
 
         ?></strong></td>

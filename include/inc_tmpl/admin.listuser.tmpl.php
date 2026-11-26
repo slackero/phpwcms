@@ -234,7 +234,7 @@ if($_userInfo['pages_total'] > 1) {
             if(!$userlist["usr_aktiv"]) echo "in";
             ?>aktiv_mini.gif" alt="" width="14" height="15" border="0"></a><a href="<?php echo $goto ?>"><img src="img/button/edit.gif" alt="" width="24" height="15" border="0" title="<?php echo $BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]) ?>"></a><a href="include/inc_act/act_user.php?del=<?php
           echo urlencode($userlist["usr_id"].":".$userlist["usr_email"]);
-          ?>" onclick="return confirm('Delete user <?php echo js_singlequote($userlist["usr_name"]) ?>');"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0" title="<?php echo $BL['be_admin_usr_ldel']." ".html($userlist["usr_login"]) ?>"></a></td>
+          ?>" onclick="return confirm('Delete user <?php echo js_inline_string($userlist["usr_name"]) ?>');"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0" title="<?php echo $BL['be_admin_usr_ldel']." ".html($userlist["usr_login"]) ?>"></a></td>
         </tr>
         <?php
             $zaehler++;
