@@ -202,7 +202,7 @@ if($_newsletter['pages_total'] > 1) {
 			// delete
 			echo '<a href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"];
 			echo '" title="delete: '.html($row["newsletter_subject"]);
-			echo '" onclick="return confirm(\'Delete newsletter: '.js_singlequote(html($row["newsletter_subject"])).'\');">';
+			echo '" onclick="return confirm(\'Delete newsletter: '.js_inline_string($row["newsletter_subject"]).'\');">';
 			echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="Delete" /></a>';
 
 			echo "</td>\n</tr>\n";

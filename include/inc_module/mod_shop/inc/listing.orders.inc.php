@@ -75,7 +75,7 @@ if($data) {
         echo '<td width="5%" align="right" class="button_td nowrap">';
 
         echo '<a href="'.$_controller_link.'&amp;delete='.$row["order_id"].'" title="'.$BL['be_cnt_delete'].': '.html($row['order_number']).'"';
-        echo ' onclick="return confirm(\''.$BLM['delete_order'].js_singlequote($row['order_number']).'\');">';
+        echo ' onclick="return confirm(\''.js_inline_string($BLM['delete_order'].$row['order_number']).'\');">';
         echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 
         echo '</td>'.LF;

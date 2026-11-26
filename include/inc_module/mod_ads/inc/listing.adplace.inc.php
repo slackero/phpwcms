@@ -69,7 +69,7 @@ foreach($data as $row) {
 	} else {
 		echo '<a href="'.MODULE_HREF.'&amp;adplace=1&amp;delete='.$row["adplace_id"];
 		echo '" title="delete: '.html($row["adplace_title"]).'"';
-		echo ' onclick="return confirm(\''.$BLM['delete_adplace'].js_singlequote($row["adplace_title"]).'\');">';
+		echo ' onclick="return confirm(\''.js_inline_string($BLM['delete_adplace'].$row["adplace_title"]).'\');">';
 		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 	}
 

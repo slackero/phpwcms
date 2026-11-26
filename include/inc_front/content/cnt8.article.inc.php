@@ -589,7 +589,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                             $row['article_image']['img'] .= ' data-detail-id="'.$row['article_image']['id'].'" data-detail-hash="'.$row['article_image']['hash'].'"';
                             $row['article_image']['img'] .= ' alt="'.($row['article_image']['caption'][1] ? $row['article_image']['caption'][1] : $row['article_image']['name']).'"';
                             if($row['article_image']['caption'][3]) {
-                                $row['article_image']['img'] .= ' title="'.$row['article_image']['caption'][3].'"';
+                                $row['article_image']['img'] .= ' title="'.html($row['article_image']['caption'][3]).'"';
                             }
                             $row['article_image']['img'] .= ' />';
 

@@ -216,7 +216,7 @@ if($data) {
 
 		echo '<a href="'.GLOSSARY_HREF.'&amp;delete='.$row["glossary_id"];
 		echo '" title="delete: '.html($row["glossary_title"]).'"';
-		echo ' onclick="return confirm(\''.$BLM['delete_entry'].' '.js_singlequote($row["glossary_title"]).'\');">';
+		echo ' onclick="return confirm(\''.js_inline_string($BLM['delete_entry'].' '.$row["glossary_title"]).'\');">';
 		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>';
 
 		echo "</td>\n</tr>\n";

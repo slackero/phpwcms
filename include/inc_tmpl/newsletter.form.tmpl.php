@@ -171,9 +171,9 @@ if (!defined('PHPWCMS_ROOT')) {
                 $value2 = array('title'=>'', 'description'=>'');
             }
 
-            $tmpldata['js'][] = '  nltemplate["'.$value.'"] = new Array();';
-            $tmpldata['js'][] = '  nltemplate["'.$value.'"]["title"] = "'.js_singlequote($value2['title']).'";';
-            $tmpldata['js'][] = '  nltemplate["'.$value.'"]["description"] = "'.js_singlequote($value2['description']).'";';
+            $tmpldata['js'][] = '  nltemplate["'.js_string($value).'"] = new Array();';
+            $tmpldata['js'][] = '  nltemplate["'.js_string($value).'"]["title"] = "'.js_string($value2['title']).'";';
+            $tmpldata['js'][] = '  nltemplate["'.js_string($value).'"]["description"] = "'.js_string($value2['description']).'";';
 
             $value2 = '';
             // set preview image
@@ -185,7 +185,7 @@ if (!defined('PHPWCMS_ROOT')) {
                 $value2 = 'preview.png';
             }
             if($value2) {
-                $tmpldata['js'][] = '  nltemplate["'.$value.'"]["imgsrc"] = "'.js_singlequote(TEMPLATE_PATH.'inc_newsletter/'.$value.'/'.$value2).'";';
+                $tmpldata['js'][] = '  nltemplate["'.js_string($value).'"]["imgsrc"] = "'.js_string(TEMPLATE_PATH.'inc_newsletter/'.$value.'/'.$value2).'";';
             }
 
             $i++;

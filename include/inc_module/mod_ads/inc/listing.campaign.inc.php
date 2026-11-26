@@ -211,7 +211,7 @@ if($data) {
 		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
 
 		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;duplicate='.$row["adcampaign_id"].'" ';
-		echo 'title="'.$BLM['duplicate_title'].'" onclick="return confirm(\''.js_singlequote($BLM['duplicate_campaign']).' \n'.js_singlequote($BLM['campaign_title'].': '.html('"'.$row["adcampaign_title"].'"')).'\');"';
+		echo 'title="'.$BLM['duplicate_title'].'" onclick="return confirm(\''.js_inline_string($BLM['duplicate_campaign']).' \n'.js_inline_string($BLM['campaign_title'].': "'.$row["adcampaign_title"].'"').'\');"';
 		echo '><img src="img/button/copy_13x13.gif" border="0" alt="" /></a>';
 
 		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;editid='.$row["adcampaign_id"].'&amp;verify=';
@@ -220,7 +220,7 @@ if($data) {
 
 		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;delete='.$row["adcampaign_id"];
 		echo '" title="delete: '.html($row["adcampaign_title"]).'"';
-		echo ' onclick="return confirm(\''.$BLM['delete_entry'].js_singlequote($row["adcampaign_title"]).'\');">';
+		echo ' onclick="return confirm(\''.js_inline_string($BLM['delete_entry'].$row["adcampaign_title"]).'\');">';
 		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>';
 
 		echo "</td>\n</tr>\n";

@@ -1466,7 +1466,7 @@ function correct_charset($text='', $js=false) {
         $text = utf8_decode($text);
     }
     if($js) {
-        $text = str_replace("'", "\'", $text);
+        $text = js_string($text);
     }
     return $text;
 }
