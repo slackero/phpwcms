@@ -389,7 +389,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 			<input type="hidden" name="rid" value="<?php echo $data['rid'] ?>" />
 		</td>
 		<td align="right">
-			<?php if($rid): ?><input type="submit" class="button" name="delete_<?php echo md5($rid) ?>" value="<?php echo $BL['be_cnt_delete'] ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');" /><?php endif; ?>&nbsp;&nbsp;
+			<?php if($rid): ?><input type="submit" class="button" name="delete_<?php echo md5($rid) ?>" value="<?php echo $BL['be_cnt_delete'] ?>" onclick="return confirm('<?php echo js_inline_string($BL['be_delete_dataset'].' [ID:'.intval($rid).'] ') ?>');" /><?php endif; ?>&nbsp;&nbsp;
 		</td>
 	</tr>
 

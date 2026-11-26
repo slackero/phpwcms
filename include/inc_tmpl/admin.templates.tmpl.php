@@ -112,7 +112,7 @@ if(isset($result[0]['template_id'])) {
 
         echo '<a href="include/inc_act/act_frontendsetup.php?do=2|'.$row["template_id"].'" ';
         echo 'title="'.$BL['be_cnt_delete'].': '.html($row["template_name"]).'" ';
-        echo 'onclick="return confirm(\''.js_singlequote($BL['be_cnt_delete'].': '.html($row["template_name"])).'\');">';
+        echo 'onclick="return confirm(\''.js_inline_string($BL['be_cnt_delete'].': '.$row["template_name"]).'\');">';
         echo '<img src="img/button/del_11x11.gif" width="11" height="11" border="0"></a>';
         echo '<img src="img/leer.gif" width="2" height="1">'."</td>\n</tr>\n";
 
@@ -286,7 +286,7 @@ if(isset($result[0]['template_id'])) {
 ?>
 <script type="text/javascript">
     function doPageLayoutChange() {
-        if(confirm('<?php echo $BL['be_admin_template_jswarning'] ?>')) {
+        if(confirm('<?php echo js_string($BL['be_admin_template_jswarning']) ?>')) {
             document.blocks.submit();
             return true;
         }

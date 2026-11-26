@@ -298,7 +298,7 @@ if(isset($_GET['open'])) {
                     echo "<img src=\"img/button/active_11x11_".$row["fcat_aktiv"].".gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 
                     echo "<a href=\"include/inc_act/act_filecat.php?do=8,".$row["fcat_id"]."\" title =\"".$BL['be_admin_fcat_delcat']."\" ";
-                    echo "onclick=\"return confirm('".$BL['be_admin_fcat_delcatmsg']."\\n[".html($row["fcat_name"])."] ');\">";
+                    echo "onclick=\"return confirm('".js_inline_string($BL['be_admin_fcat_delcatmsg'])." \\n[".js_inline_string($row["fcat_name"])."] ');\">";
                     echo "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 
                     echo "</td>\n</tr>\n";
@@ -324,7 +324,7 @@ if(isset($_GET['open'])) {
                                 echo "<img src=\"img/button/active_11x11_".$krow['fkey_aktiv'].".gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 
                                 echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow['fkey_id'].",".($krow['fkey_cid'])."\" title =\"".$BL['be_admin_fcat_delkey']."\" ";
-                                echo "onclick=\"return confirm('".$BL['be_admin_fcat_delmsg']."\\n[".html($krow['fkey_name'])."] ');\">";
+                                echo "onclick=\"return confirm('".js_inline_string($BL['be_admin_fcat_delmsg'])." \\n[".js_inline_string($krow['fkey_name'])."] ');\">";
                                 echo "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
                                 echo "</td>\n</tr>\n";
                             }

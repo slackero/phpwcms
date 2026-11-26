@@ -44,7 +44,7 @@ $buttonAction .= '</tr></table>';
             <img src="img/famfamfam/lang/<?php echo ($lang = strtolower(empty($article["article_lang"]) ? $phpwcms['default_lang'] : $article["article_lang"])); ?>.png" title="<?php echo get_language_name($lang) ?>" style="margin-right:4px;" />
         <?php endif; ?></td>
         <td width="453" class="dir"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><strong><?php echo html($article["article_title"]) ?></strong></a>&nbsp;[AID:<?php echo $article["article_id"] ?>]</td>
-        <td width="62" align="right" class="h13" style="padding-right:1px"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><img src="img/button/edit_22x13.gif" alt="<?php echo $BL['be_article_cnt_ledit'] ?>" width="22" height="13" border="0" /></a><a href="include/inc_act/act_articlecontent.php?do=<?php echo "3,".$article["article_id"].",0,".switch_on_off($article["article_aktiv"]) ?>" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"><img src="img/button/visible_12x13_<?php echo $article["article_aktiv"] ?>.gif" alt="" width="12" height="13" border="0" /></a><a href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" title="<?php echo $BL['be_article_cnt_ldel'] ?>" onclick="return confirm('<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html($article["article_title"]); ?>  \n ');"><img src="img/button/trash_13x13_1.gif" alt="" width="13" height="13" border="0" /></a></td>
+        <td width="62" align="right" class="h13" style="padding-right:1px"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><img src="img/button/edit_22x13.gif" alt="<?php echo $BL['be_article_cnt_ledit'] ?>" width="22" height="13" border="0" /></a><a href="include/inc_act/act_articlecontent.php?do=<?php echo "3,".$article["article_id"].",0,".switch_on_off($article["article_aktiv"]) ?>" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"><img src="img/button/visible_12x13_<?php echo $article["article_aktiv"] ?>.gif" alt="" width="12" height="13" border="0" /></a><a href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" title="<?php echo $BL['be_article_cnt_ldel'] ?>" onclick="return confirm('<?php echo js_inline_string($BL['be_article_cnt_ldeljs']).'\n'.js_inline_string($article["article_title"]); ?>  \n ');"><img src="img/button/trash_13x13_1.gif" alt="" width="13" height="13" border="0" /></a></td>
     </tr>
     <tr bgcolor="#F3F5F8"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
     </tr>
@@ -510,7 +510,7 @@ if(!$temp_count) {
                 // duplicate content part
                 echo '<a href="include/inc_act/act_structure.php?do=8%7C'.$row["acontent_id"].'%7C'.$article["article_id"].'%7C'.($row["acontent_sorting"]+5).'" ';
                 echo 'title="'.$BL['be_func_content_copy'].' [ID:'.$row["acontent_id"].']" ';
-                echo 'onclick="return confirm(\''.js_singlequote($BL['be_func_content_copy']).': \n'.js_singlequote($cntpart_title.' [ID:'.$row["acontent_id"].']').'\');">';
+                echo 'onclick="return confirm(\''.js_inline_string($BL['be_func_content_copy']).': \n'.js_inline_string($cntpart_title.' [ID:'.$row["acontent_id"].']').'\');">';
                 echo '<img src="img/button/copy_13x13.gif" border="0" alt="" width="13" height="13" /></a>';
 
               ?><a href="include/inc_act/act_articlecontent.php?do=<?php
@@ -522,7 +522,7 @@ if(!$temp_count) {
               ?>.gif" alt="" width="12" height="13" border="0" /></a><a href="include/inc_act/act_articlecontent.php?do=<?php
               echo "9,".$article["article_id"].",".$row["acontent_id"]
               ?>" title="<?php echo $BL['be_article_cnt_delpart'] ?>" onclick="return confirm('<?php
-              echo $BL['be_article_cnt_delpartjs'] ?> \n[ID: <?php echo $row["acontent_id"]
+              echo js_inline_string($BL['be_article_cnt_delpartjs']) ?> \n[ID: <?php echo intval($row["acontent_id"])
               ?>]\n ');"><img src="img/button/trash_13x13_1.gif" alt="" width="13" height="13" border="0" /></a></td>
             </tr>
 

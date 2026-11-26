@@ -46,9 +46,9 @@ if(isset($file_result[0]['f_id'])) {
         echo "<td width=\"13\" class=\"msglist\">";
         echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" ";
         echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-        echo '&lt;br&gt;Name: '.js_inline_string($file_row["f_name"]);
+        echo '&lt;br&gt;Name: '.js_tooltip_string($file_row["f_name"]);
         if($file_row["f_copyright"]) {
-            echo '&lt;br&gt;&copy;: '.js_inline_string($file_row["f_copyright"]);
+            echo '&lt;br&gt;&copy;: '.js_tooltip_string($file_row["f_copyright"]);
         }
         echo '\');" onmouseout="UnTip()" alt=""';
         echo " /></td>\n";
@@ -82,8 +82,8 @@ if(isset($file_result[0]['f_id'])) {
         if($file_row["f_uid"] === intval($_SESSION["wcs_user_id"]) || !empty($_SESSION["wcs_user_admin"])) {
             //if user is owner then delete button is active
             echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"].'%7C'."1".
-             "\" title=\"".$BL['be_fprivfunc_movetrash'].": ".$filename."\" onclick=\"return confirm('".$BL['be_fprivfunc_jsmovetrash1'].
-             "\\n[".$filename."]  \\n".$BL['be_fprivfunc_jsmovetrash2']."');\">".
+             "\" title=\"".$BL['be_fprivfunc_movetrash'].": ".$filename."\" onclick=\"return confirm('".
+             js_inline_string($BL['be_fprivfunc_jsmovetrash1']."\n[".$file_row["f_name"]."]  \n".$BL['be_fprivfunc_jsmovetrash2'])."');\">".
              "<img src=\"img/button/trash_13x13_1.gif\" border=\"0\"></a>";
         } else {
             echo "<img src=\"img/button/trash_13x13_0.gif\" border=\"0\">";

@@ -20,7 +20,6 @@ if (PHPWCMS_CHARSET === 'utf-8') {
     require_once PHPWCMS_ROOT . '/include/inc_lib/lib.php_special_entities.php';
 }
 require_once PHPWCMS_ROOT . '/include/inc_lib/charset_helper.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_ext/htmlfilter.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.inc.php';
 
 function str_empty($string) {
@@ -868,14 +867,44 @@ function get_list_of_file_keywords() {
     return count($file_key) ? $file_key : false;
 }
 
+/**
+ * Legacy helper, kept for backward compatibility.
+ *
+ * It HTML-encodes the quotes, which is wrong inside inline JavaScript: the
+ * HTML parser decodes character references before the handler is compiled, so
+ * &#39; becomes a raw delimiter again. Do not use it in new code.
+ *
+ * @deprecated Use js_inline_string() inside HTML attributes and js_string()
+ *             inside <script> blocks.
+ */
 function js_singlequote($t = '') {
     // make singe quotes js compatible
     return str_replace(array("\\", "&#92;", "'", '"'), array("\\\\", "\\\\", '&#39;', '&quot;'), $t);
 }
 
 /**
- * Escape a value for a single-quoted JavaScript string inside an HTML
- * attribute.
+ * Escape a value for a JavaScript string literal inside a <script> block.
+ *
+ * Quotes and backslashes are escaped with a JavaScript backslash, line
+ * terminators become \r, \n, U+2028 and U+2029, and `<`/`>` become `\x3C`/`\x3E`
+ * so a value can never close an enclosing script element or open another tag.
+ * The result is raw JavaScript source, not HTML: do not HTML-encode it.
+ *
+ * @param string $value
+ *
+ * @return string
+ */
+function js_string($value) {
+    return str_replace(
+        ['\\', "'", '"', "\t", "\r", "\n", '<', '>', "\xE2\x80\xA8", "\xE2\x80\xA9"],
+        ['\\\\', "\\'", '\\"', '\\t', '\\r', '\\n', '\\x3C', '\\x3E', '\\u2028', '\\u2029'],
+        (string)$value
+    );
+}
+
+/**
+ * Escape a value for a JavaScript string literal inside an HTML attribute,
+ * such as onclick="return confirm('...')".
  *
  * The HTML parser decodes character references before JavaScript runs, so an
  * entity such as &#39; cannot protect the string delimiter. Escape backslash,
@@ -887,16 +916,45 @@ function js_singlequote($t = '') {
  * @return string
  */
 function js_inline_string($value) {
-    $value = str_replace(
-        array('\\', "'", "\r", "\n"),
-        array('\\\\', "\\'", '\\r', '\\n'),
-        (string) $value
-    );
-
     // Double encode: a literal entity such as &#39; contains no raw quote, so
     // escaping alone would leave it to be decoded back into a quote by the
     // HTML parser before the handler runs.
-    return html($value, true);
+    return html(js_string($value), true);
+}
+
+/**
+ * Escape a value that is already HTML-encoded, such as a URL built by rel_url()
+ * with its default htmlspecialchars format.
+ *
+ * The entities are decoded first, so the value is displayed and used as
+ * intended, then escaped exactly like js_inline_string(). Decoding first also
+ * means a literal entity inside the value cannot smuggle a delimiter through
+ * the HTML parser.
+ *
+ * @param string $value
+ *
+ * @return string
+ */
+function js_inline_string_encoded($value) {
+    return js_inline_string(html_entity_decode((string) $value, ENT_QUOTES, PHPWCMS_CHARSET));
+}
+
+/**
+ * Escape a plain-text value for a Tip() tooltip.
+ *
+ * Tip() assigns its argument to innerHTML, so the value must stay HTML-encoded
+ * after the JavaScript string and the attribute have both been decoded. One
+ * HTML layer is added here, js_inline_string() adds the JavaScript and
+ * attribute layers. Plain text belongs here. When the tooltip text must
+ * contain markup, for example the line breaks from nl2br(), build that string
+ * first and pass it to js_inline_string() instead.
+ *
+ * @param string $value
+ *
+ * @return string
+ */
+function js_tooltip_string($value) {
+    return js_inline_string(html($value));
 }
 
 function get_tmpl_files($dir = '', $ext = '', $sort = true) {
@@ -1301,6 +1359,13 @@ function cleanUpForEmailHeader($text = '') {
     return trim($text);
 }
 
+/**
+ * Cut a string by words or characters.
+ *
+ * $sanitize is a legacy flag: when not null the result is passed through
+ * phpwcms_purify_html(). No shipped caller sets it, but templates and
+ * modules may.
+ */
 function getCleanSubString($cutString = '', $maxLength = 0, $moreChar = '', $cutMode = 'char', $sanitize = null) {
     // used to cut a string by words or chars
     if (empty($maxLength) || $maxLength < 0) {
@@ -1333,7 +1398,7 @@ function getCleanSubString($cutString = '', $maxLength = 0, $moreChar = '', $cut
         }
     }
     if ($sanitize !== null && $cutString) {
-        $cutString = htmlfilter_sanitize($cutString, array(), array(), array('img', 'br', 'hr', 'input'), true);
+        $cutString = phpwcms_purify_html($cutString);
     }
 
     return $cutString;
@@ -2625,6 +2690,74 @@ function xss_clean($val) {
     }
 
     return $val;
+}
+
+/**
+ * Sanitize untrusted HTML against an allowlist using HTMLPurifier.
+ *
+ * Use this for markup that has to be kept as markup (imported feeds,
+ * included external pages, teasers). Event handlers, script-capable
+ * elements and unsafe URL schemes are removed.
+ *
+ * Pass $id_prefix for markup that is inserted into a full page (imported
+ * feeds, included external pages): their IDs are prefixed so they cannot
+ * override the layout's own IDs and CSS.
+ *
+ * @param mixed  $html
+ * @param string $id_prefix Prefix for every ID in the sanitized markup
+ * @return string
+ */
+function phpwcms_purify_html($html, $id_prefix = '') {
+    $html = (string)$html;
+    if ($html === '') {
+        return '';
+    }
+
+    static $purifiers = array();
+    $id_prefix = (string)$id_prefix;
+    if (!isset($purifiers[$id_prefix])) {
+        $config = \HTMLPurifier_Config::createDefault();
+        // included pages and imported feeds rely on in-page anchors and
+        // new-tab links; keep IDs free of names that scripts resolve globally
+        $config->set('Attr.EnableID', true);
+        // case-insensitive: IDBlacklist itself matches names exactly
+        $config->set('Attr.IDBlacklistRegexp', '/^(?:alert|all|cookie|defaultstatus|document|event|forms|frames|history|location|name|origin|parent|self|status|top|window)$/i');
+        $config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
+        if ($id_prefix !== '') {
+            $config->set('Attr.IDPrefix', $id_prefix);
+        }
+        $cache_dir = PHPWCMS_ROOT . '/content/tmp/htmlpurifier';
+        if (!is_dir($cache_dir)) {
+            @mkdir($cache_dir, 0755, true);
+        }
+        if (is_dir($cache_dir) && is_writable($cache_dir)) {
+            if (!is_file($cache_dir . '/index.html')) {
+                @file_put_contents($cache_dir . '/index.html', '');
+            }
+            if (!is_file($cache_dir . '/.htaccess')) {
+                @file_put_contents($cache_dir . '/.htaccess', "Require all denied\n");
+            }
+            $config->set('Cache.SerializerPath', $cache_dir);
+        } else {
+            $config->set('Cache.DefinitionImpl', null);
+        }
+        $purifiers[$id_prefix] = new \HTMLPurifier($config);
+    }
+
+    $html = $purifiers[$id_prefix]->purify($html);
+
+    if ($id_prefix !== '') {
+        // IDPrefix renames ids but not the fragment links pointing at them
+        $html = preg_replace_callback(
+            '/href=(["\'])#([^"\']+)\1/i',
+            static function (array $match) use ($id_prefix) {
+                return 'href=' . $match[1] . '#' . $id_prefix . $match[2] . $match[1];
+            },
+            $html
+        );
+    }
+
+    return $html;
 }
 
 function sanitize_multiple_emails($string) {

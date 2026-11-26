@@ -402,8 +402,8 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
             echo '>' . $_entry['link '] . '</a>';
 
             echo '<a href="'.MODULE_HREF.'&amp;delete='.$_entry['date']['calendar_id'].'" class="calendarDateDel"';
-            echo ' title="'.$BLM['delete'].': '. $_entry['link '] .'"';
-            echo ' onclick="return confirm(\''.$BLM['delete_entry'].' \n'.js_singlequote($_entry['date']['calendar_title']).'\');">';
+            echo ' title="'.html($BLM['delete'].': '.$_entry['date']['calendar_title']).'"';
+            echo ' onclick="return confirm(\''.js_inline_string($BLM['delete_entry']).' \n'.js_inline_string($_entry['date']['calendar_title']).'\');">';
             echo '<img src="img/button/del_9x9.gif" alt="" border="0" /></a>';
 
             /*

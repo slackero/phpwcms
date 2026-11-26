@@ -57,18 +57,18 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= ".gif\" width=\"11\" height=\"15\" ";
 
     $info  = 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
-    $info .= $BL['be_alias'].': '.html($struct[$key]["acat_alias"]).'<br />';
-    $info .= $BL['be_cnt_sortvalue'].': '.$struct[$key]["acat_sort"];
-    $info .= '<br>'.$BL['be_admin_struct_template'].': ';
+    $info .= js_tooltip_string($BL['be_alias']).': '.js_tooltip_string($struct[$key]["acat_alias"]).'<br />';
+    $info .= js_tooltip_string($BL['be_cnt_sortvalue']).': '.$struct[$key]["acat_sort"];
+    $info .= '<br>'.js_tooltip_string($BL['be_admin_struct_template']).': ';
     if(empty($struct[$key]['template_trash'])) {
-        $info .= html($struct[$key]["template_name"]);
+        $info .= js_tooltip_string($struct[$key]["template_name"]);
         if($struct[$key]["template_default"]) {
-            $info .= ' ('.$BL['be_admin_tmpl_default'].')';
+            $info .= ' ('.js_tooltip_string($BL['be_admin_tmpl_default']).')';
         }
     } else {
-        $info .= $BL['be_admin_tmpl_default'];
+        $info .= js_tooltip_string($BL['be_admin_tmpl_default']);
     }
-    $info .= '<br>'.$BL['be_onepage_id'].': '.($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']);
+    $info .= '<br>'.js_tooltip_string($BL['be_onepage_id']).': '.($struct[$key]["acat_onepage"] ? js_tooltip_string($BL['be_yes']) : js_tooltip_string($BL['be_no']));
 
     $a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt=""';
 
@@ -79,7 +79,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= '" target="_blank" title="'.$BL['be_func_struct_preview'].': '.$an.'">';
 	$a .= $an . '</a></strong></td></tr></table></td><td class="nowrap" nowrap="nowrap">';
 
-    $a .= listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
+    $a .= listmode_edits($listmode, $struct, $key, $struct[$key]["acat_name"], $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
 
     $a .= "</td>\n</tr>\n";
     echo $a;
@@ -259,23 +259,23 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= "<img src=\"img/symbole/text_1.gif\" width=\"11\" height=\"15\" ";
 
         $info  = '<table cellspacing=0 cellpadding=1 border=0>';
-        $info .= '<tr><td>'.$BL['be_func_struct_articleID'].':</td><td><b>'.$article[$akey]["article_id"].'</b></td></tr>';
+        $info .= '<tr><td>'.js_tooltip_string($BL['be_func_struct_articleID']).':</td><td><b>'.$article[$akey]["article_id"].'</b></td></tr>';
         if(!empty($article[$akey]["article_alias"])) {
-            $info .= '<tr><td>ALIAS:</td><td><b>'.$article[$akey]["article_alias"].'</b></td></tr>';
+            $info .= '<tr><td>ALIAS:</td><td><b>'.js_tooltip_string($article[$akey]["article_alias"]).'</b></td></tr>';
         }
         if(!empty($article[$akey]["article_begin"])) {
-			$info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>';
-			$info .= $article[$akey]["article_begin"] === '0000-00-00 00:00:00' ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;');
+			$info .= '<tr><td>'.js_tooltip_string($BL['be_article_cnt_start']).':</td><td><b>';
+			$info .= $article[$akey]["article_begin"] === '0000-00-00 00:00:00' ? js_tooltip_string($BL['be_not_set']) : js_tooltip_string(phpwcms_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;'));
 			$info .= '</b></td></tr>';
         }
         if(!empty($article[$akey]["article_end"])) {
-			$info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>';
-			$info .= $article[$akey]["article_end"] === '0000-00-00 00:00:00' ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;');
+			$info .= '<tr><td>'.js_tooltip_string($BL['be_article_cnt_end']).':</td><td><b>';
+			$info .= $article[$akey]["article_end"] === '0000-00-00 00:00:00' ? js_tooltip_string($BL['be_not_set']) : js_tooltip_string(phpwcms_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;'));
 			$info .= '</b></td></tr>';
         }
-        $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$article[$akey]["article_sort"].'</td></tr>';
+        $info .= '<tr><td>'.js_tooltip_string($BL['be_cnt_sortvalue']).':</td><td>'.$article[$akey]["article_sort"].'</td></tr>';
         if(isset($article[$akey]["article_end"])) {
-            $info .= '<tr><td>'.$BL['be_priorize'].':</td><td>'.$article[$akey]["article_priorize"].'</td></tr>';
+            $info .= '<tr><td>'.js_tooltip_string($BL['be_priorize']).':</td><td>'.$article[$akey]["article_priorize"].'</td></tr>';
         }
         $info .= '</table>';
 
@@ -338,7 +338,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
             $a .= "<a href=\"include/inc_act/act_articlecontent.php?do=1,".$article[$akey]["article_id"];
             $a .= "\" title=\"".$BL['be_func_struct_del_article']." \n[".$at."]\" ";
-            $a .= "onclick=\"return confirm('".$BL['be_func_struct_del_jsmsg']." \\n[".js_singlequote($at)."] ');\">";
+            $a .= "onclick=\"return confirm('".js_inline_string($BL['be_func_struct_del_jsmsg'])." \\n[".js_inline_string($article[$akey]["article_title"])."] ');\">";
             $a .= "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
         } else {
             $a .= "<img src=\"img/button/del_11x11_0.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
@@ -436,13 +436,13 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $info  = "Tip('";
             $info .= 'ID: '.$article_content["acontent_id"];
             if($article_content['acontent_title']) {
-                $info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_cnt_ctitle'].': '.html(js_singlequote($article_content['acontent_title'])).'</nobr>';
+                $info .= '<br /><nobr>' . js_tooltip_string($GLOBALS['BL']['be_article_cnt_ctitle']).': '.js_tooltip_string($article_content['acontent_title']).'</nobr>';
             }
             if($article_content['acontent_title']) {
-                $info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_asubtitle'].': '.html(js_singlequote($article_content['acontent_subtitle'])).'</nobr>';
+                $info .= '<br /><nobr>' . js_tooltip_string($GLOBALS['BL']['be_article_asubtitle']).': '.js_tooltip_string($article_content['acontent_subtitle']).'</nobr>';
             }
             if($article_content["acontent_comment"]) {
-                $info .= '<br />' . nl2br( html(js_singlequote($article_content["acontent_comment"])) );
+                $info .= '<br />' . js_inline_string(nl2br(html($article_content["acontent_comment"])));
             }
             $info .= "');";
 
@@ -531,7 +531,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             if($article_content["acontent_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
                 $a .= "<a href=\"include/inc_act/act_articlecontent.php?do=9,".$article_content["acontent_aid"].",".$article_content["acontent_id"];
                 $a .= "\" title=\"".$GLOBALS['BL']['be_article_cnt_delpart']." [".$at."]\" ";
-                $a .= "onclick=\"return confirm('".$GLOBALS['BL']['be_article_cnt_delpart']." \\n[".js_singlequote($at)."] ');\">";
+                $a .= "onclick=\"return confirm('".js_inline_string($GLOBALS['BL']['be_article_cnt_delpart'])." \\n[".js_inline_string($at)."] ');\">";
                 $a .= "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
             } else {
                 $a .= "<img src=\"img/button/del_11x11_0.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
@@ -551,6 +551,10 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
 }
 
 function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort) {
+
+    // $an is the raw category name: escape it for each output context here
+    $an_raw = $an;
+    $an     = html($an);
 
     // Decide which action available
     $a = '';
@@ -651,7 +655,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 if($struct[$key]["acat_id"]) {
                     $a .= '<a href="include/inc_act/act_structure.php?do=9'.'%7C'.$struct[$key]["acat_id"];
                     $a .= "\" title=\"".$GLOBALS['BL']['be_func_struct_del_struct']." [".$an."]\" ";
-                    $a .= "onclick=\"return confirm('".$GLOBALS['BL']['be_func_struct_del_sjsmsg']." \\n\\n[".js_singlequote($an)."] ');\">";
+                    $a .= "onclick=\"return confirm('".js_inline_string($GLOBALS['BL']['be_func_struct_del_sjsmsg'])." \\n\\n[".js_inline_string($an_raw)."] ');\">";
                     $a .= "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
                 }
                 break;

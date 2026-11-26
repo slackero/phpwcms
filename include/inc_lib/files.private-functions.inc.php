@@ -116,7 +116,7 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID, $phpwcms) {
         if(!$count_wert) {
             echo "<a href=\"include/inc_act/act_file.php?delete=".$row["f_id"].'%7C'."9".
                  "\" title=\"".$GLOBALS['BL']['be_fprivfunc_deldir'].": ".$dirname."\" onclick=\"return confirm('".
-                 $GLOBALS['BL']['be_fprivfunc_jsdeldir'] ." \\n[".$dirname."]? ');\">";
+                 js_inline_string($GLOBALS['BL']['be_fprivfunc_jsdeldir'] ." \n[".$row["f_name"]."]? ")."');\">";
             echo "<img src=\"img/button/trash_13x13_1.gif\" border=\"0\" alt=\"\" /></a>";
         } else {
             echo "<img src=\"img/button/trash_13x13_0.gif\" title=\"";
@@ -164,9 +164,9 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo "<td width=\"13\" class=\"msglist\">";
                     echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" ";
                     echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-                    echo '&lt;br&gt;Name: '.js_inline_string($file_row["f_name"]);
+                    echo '&lt;br&gt;Name: '.js_tooltip_string($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
-                        echo '&lt;br&gt;&copy;: '.js_inline_string($file_row["f_copyright"]);
+                        echo '&lt;br&gt;&copy;: '.js_tooltip_string($file_row["f_copyright"]);
                     }
                     echo '\');" onmouseout="UnTip()" alt=""';
                     echo " /></td>\n";
@@ -202,7 +202,7 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID, $phpwcms) {
                         //if user is owner then delete button is active
                         echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"].'%7C'."1".
                          "\" title=\"".$GLOBALS['BL']['be_fprivfunc_movetrash'].": ".$filename."\" onclick=\"return confirm('".
-                         $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'].
+                         js_inline_string($GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\n[".$file_row["f_name"]."]\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2']).
                          "');\">".
                          "<img src=\"img/button/trash_13x13_1.gif\" border=\"0\" alt=\"\" /></a>";
                     } else {
@@ -236,9 +236,9 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID, $phpwcms) {
                                 echo $file_row["edit"];
                                 echo '<img src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].' ';
                                 echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-                                echo '&lt;br&gt;Name: '.js_inline_string($file_row["f_name"]);
+                                echo '&lt;br&gt;Name: '.js_tooltip_string($file_row["f_name"]);
                                 if($file_row["f_copyright"]) {
-                                    echo '&lt;br&gt;&copy;: '.js_inline_string($file_row["f_copyright"]);
+                                    echo '&lt;br&gt;&copy;: '.js_tooltip_string($file_row["f_copyright"]);
                                 }
                                 echo '\');" onmouseout="UnTip()" alt=""';
                                 echo " /></a></td>\n";
@@ -256,9 +256,9 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID, $phpwcms) {
                             echo $file_row["edit"];
                             echo '<img src="' . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-width:'.$phpwcms["img_list_width"].'px;height:auto;" ';
                             echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-                            echo '&lt;br&gt;Name: '.js_inline_string($file_row["f_name"]);
+                            echo '&lt;br&gt;Name: '.js_tooltip_string($file_row["f_name"]);
                             if($file_row["f_copyright"]) {
-                                echo '&lt;br&gt;&copy;: '.js_inline_string($file_row["f_copyright"]);
+                                echo '&lt;br&gt;&copy;: '.js_tooltip_string($file_row["f_copyright"]);
                             }
                             echo '\');" onmouseout="UnTip()" alt=""';
                             echo " /></a></td>\n";

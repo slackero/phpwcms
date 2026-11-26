@@ -6,6 +6,7 @@ composer.lock
 !/content/images/index.html
 /content/tmp/*.*
 !/content/tmp/index.html
+/content/tmp/htmlpurifier/
 /content/form/*.*
 !/content/form/.htaccess
 !/content/form/index.html

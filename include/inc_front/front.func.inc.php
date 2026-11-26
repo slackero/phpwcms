@@ -816,9 +816,9 @@ function build_levels($struct, $level, $temp_tree, $act_cat_id, $nav_table_struc
             if($nav_table_struct["js_over_effects"]) {
 
                 if($redirect['target'] != ' target="_blank"') {
-                    $js .= " onclick=\"location.href='".js_singlequote($link)."';return false;\"";
+                    $js .= " onclick=\"location.href='".js_inline_string_encoded($link)."';return false;\"";
                 } else {
-                    $js .= " onclick=\"window.open('".js_singlequote($link)."', 'phpwcmnewwin');return false;\"";
+                    $js .= " onclick=\"window.open('".js_inline_string_encoded($link)."', 'phpwcmnewwin');return false;\"";
                 }
 
                 $js_act = $js;
@@ -2672,7 +2672,9 @@ function include_url($url, $ignore_ssl=false) {
 
     if($url && $cache) {
 
-        $cache_filename = md5($url).'-url'; // set cache file name
+        // the name carries the sanitizer generation: pages cached before the
+        // HTMLPurifier switch hold unprefixed IDs and are refetched once
+        $cache_filename = md5($url).'-url-sanitized'; // set cache file name
         $cache_file     = PHPWCMS_CONTENT.'tmp/'.$cache_filename;   // set caching file
         $cache_status   = check_cache($cache_file, $cache); // ceck existence
 
@@ -2730,7 +2732,9 @@ function include_url($url, $ignore_ssl=false) {
 
             $k = str_replace(array('<?', '?>', '<%', '%>'), array('&lt;?', '?&gt;', '&lt;&#37;', '&#37;&gt;'), $k);
             $k = preg_replace_callback('/(href|src|action)=[\'|"]{0,1}(.*?)[\'|"]{0,1}( .*?){0,1}>/i', 'make_absoluteURL', $k);
-            $k = htmlfilter_sanitize( trim($k) , array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
+            // allowlist the included page before it is cached and rendered;
+            // prefix its IDs so they cannot override the layout's own
+            $k = phpwcms_purify_html(trim($k), 'ext-');
 
             if($charset != false) {
                 $k = makeCharsetConversion($k, $charset, PHPWCMS_CHARSET, 1);

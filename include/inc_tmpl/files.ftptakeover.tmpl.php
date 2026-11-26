@@ -472,7 +472,7 @@ $(function() {
 
     deleteFiles.on('click', function(evt) {
         evt.preventDefault();
-        if(confirm('<?php echo str_replace("'", "\\'", html_entity_decode($BL['be_delete_selected_files_confirm'], ENT_QUOTES, PHPWCMS_CHARSET)) ?>')) {
+        if(confirm('<?php echo js_string(html_entity_decode($BL['be_delete_selected_files_confirm'], ENT_QUOTES, PHPWCMS_CHARSET)) ?>')) {
             ftpTakeOverForm.attr('action', 'phpwcms.php'+'?<?php echo get_token_get_string(); ?>&do=files&p=8').submit();
         }
     });

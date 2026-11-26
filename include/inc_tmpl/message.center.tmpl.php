@@ -199,8 +199,8 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             }
 ?>
         <tr onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $phpwcms["site"].$goto ?>';">
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo html($row["msg_subject"]) ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo html($row["msg_subject"]) ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
           <td width="93" bgcolor="<?php echo $bg_color ?>" class="msglist"><?php echo $row["msg_date"] ?></td>
           <td width="60" align="right" bgcolor="<?php echo $bg_color ?>" class="v10"><a href="phpwcms.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
     </tr>
@@ -261,8 +261,8 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             }
 ?>
         <tr bgcolor="<?php echo $bg_color ?>" onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $phpwcms["site"].$goto ?>';">
-          <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+          <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo html($row["msg_subject"]) ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo html($row["msg_subject"]) ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
           <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
           <td width="60" align="right" class="v10"><a href="phpwcms.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
         </tr>
@@ -324,8 +324,8 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             }
 ?>
     <tr onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $phpwcms["site"].$goto ?>';">
-        <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-        <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+        <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo html($row["msg_subject"]) ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+        <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo html($row["msg_subject"]) ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
         <td width="93" bgcolor="<?php echo $bg_color ?>" class="msglist"><?php echo $row["msg_date"] ?></td>
         <td width="60" align="right" bgcolor="<?php echo $bg_color ?>" class="v10"><a href="phpwcms.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
     </tr>
@@ -398,8 +398,8 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             }
 ?>
         <tr onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $phpwcms["site"].$goto ?>';">
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo html($row["msg_subject"]) ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo html($row["msg_subject"]) ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
           <td width="93" bgcolor="<?php echo $bg_color ?>" class="msglist"><?php echo $row["msg_date"] ?></td>
           <td width="60" align="right" bgcolor="<?php echo $bg_color ?>" class="v10"><a href="include/inc_act/act_message.php?do=<?php echo $do_undo ?>.<?php echo $row["msg_id"] ?>.0"><img src="img/button/undo_message.gif" alt="" width="29" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=<?php echo $do_del ?>.<?php echo $row["msg_id"] ?>.9"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0"></a></td>
     </tr>
