@@ -92,12 +92,17 @@ if($action === 'form' && $acat_id) {
 }
 
 if($action === 'update') {
-    if(phpwcms_alias_too_long(phpwcms_alias_sanitize($_REQUEST['article_alias'] ?? '', 'ARTICLE'))) {
+    $article_row    = _dbGet('article', 'article_cid,article_title', 'article_id='._dbEscape($article_id), '', '', 1);
+    $article_cid    = (int)($article_row[0]['article_cid'] ?? 0);
+    $article_title  = (string)($article_row[0]['article_title'] ?? '');
+    $article_alias_path = phpwcms_alias_path_candidate($alias, 'ARTICLE', $article_cid, $article_title);
+
+    if(phpwcms_alias_too_long(phpwcms_alias_sanitize($_REQUEST['article_alias'] ?? '', 'ARTICLE')) || ($article_alias_path !== '' && phpwcms_alias_too_long($article_alias_path))) {
         echo '<div class="p-2 text-danger">'.sprintf($BL['be_alias_err_too_long'], PHPWCMS_ALIAS_MAXLEN).'</div>';
         exit;
     }
 
-    $article_alias = proof_alias($article_id, $alias, 'ARTICLE');
+    $article_alias = phpwcms_alias_resolve($article_id, $alias, 'ARTICLE', $article_cid, $article_title);
 
     $sql_alias = "UPDATE ".DB_PREPEND."article SET ";
     $sql_alias .= " article_alias = '".aporeplace($article_alias)."', ";
@@ -115,18 +120,28 @@ if($action === 'update') {
 }
 
 if($action === 'updatecat') {
-    if(phpwcms_alias_too_long(phpwcms_alias_sanitize($_REQUEST['acat_alias'] ?? '', 'CATEGORY'))) {
+    $acat_row      = _dbGet('articlecat', 'acat_struct,acat_name', 'acat_id='._dbEscape($acat_id), '', '', 1);
+    $acat_parent   = (int)($acat_row[0]['acat_struct'] ?? 0);
+    $acat_name     = (string)($acat_row[0]['acat_name'] ?? '');
+    $acat_old_path = phpwcms_alias_auto_path_enabled() ? phpwcms_alias_structure_path($acat_id) : '';
+    $acat_alias_path = phpwcms_alias_path_candidate($acatalias, 'CATEGORY', $acat_parent, $acat_name);
+
+    if(phpwcms_alias_too_long(phpwcms_alias_sanitize($_REQUEST['acat_alias'] ?? '', 'CATEGORY')) || ($acat_alias_path !== '' && phpwcms_alias_too_long($acat_alias_path))) {
         echo '<div class="p-2 text-danger">'.sprintf($BL['be_alias_err_too_long'], PHPWCMS_ALIAS_MAXLEN).'</div>';
         exit;
     }
 
-    $acat_alias = proof_alias($acat_id, $acatalias, 'CATEGORY');
+    $acat_alias = phpwcms_alias_resolve($acat_id, $acatalias, 'CATEGORY', $acat_parent, $acat_name);
 
     $sql_alias = "UPDATE ".DB_PREPEND."articlecat SET ";
     $sql_alias .= " acat_alias = '".aporeplace($acat_alias)."', ";
     $sql_alias .= " acat_pagetitle = '".aporeplace($acat_pagetitle)."' ";
     $sql_alias .= " WHERE acat_id = ".$acat_id;
     _dbQuery($sql_alias, 'UPDATE');
+
+    if (phpwcms_alias_auto_path_enabled()) {
+        phpwcms_alias_repath_branch($acat_id, $acat_old_path, phpwcms_alias_structure_path($acat_id));
+    }
 
     echo '<div class="btn btn-sm '.(empty($acat_alias) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
     echo '<div class="btn btn-sm '.(empty($acat_pagetitle) ? "btn-danger" : "btn-success").' me-1" data-bs-toggle="tooltip" title="'.$BL['be_acat_redirect'].'">T</div>';

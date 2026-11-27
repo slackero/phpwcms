@@ -1839,3 +1839,18 @@ if (typeof document !== 'undefined') {
 }
 
 
+
+// Auto-open modals the server flags as a one-shot confirmation dialog.
+function initAutoOpenModals() {
+    if (typeof bootstrap === 'undefined') {
+        return;
+    }
+    document.querySelectorAll('[data-auto-open="1"]').forEach(function (element) {
+        bootstrap.Modal.getOrCreateInstance(element).show();
+    });
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAutoOpenModals);
+} else {
+    initAutoOpenModals();
+}

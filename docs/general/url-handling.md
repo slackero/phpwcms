@@ -30,10 +30,19 @@ Alias resolution runs one UNION query: a matching `articlecat.acat_alias` wins o
 | `rewrite_ext` | `.html` | Suffix of rewritten URLs; `/` renders directory style (`/alias/`) |
 | `alias_allow_slash` | 1 | Allows `/` inside aliases for path-like aliases |
 | `alias_allow_utf8` | 1 | Keeps UTF-8 characters in aliases (requires `charset = utf-8`) |
+| `alias_auto_path` | 0 | Prefixes category and article aliases with their structure path (`folder/folder/article`); needs `alias_allow_slash` |
 | `allow_empty_alias` | false | When true, empty alias fields no longer auto-generate an alias |
 | `reserved_alias` | empty array | Alias names blocked from use |
 
 Outgoing markup rewrites by itself: `url_search()` in `front.func.inc.php` converts `href="index.php?…"` and `onclick="location.href='index.php?…'"` attributes into `<value><rewrite_ext>` paths (an old style `id=<cat>,<aid>` becomes `<cat>.<aid>`), and the image handler URL `img/cmsimage.php` shortens to `im`. The webserver side needs matching rewrite rules delivering `/alias.html` back to `index.php?<alias>`.
+
+## Structure path aliases
+
+With `alias_auto_path = 1` (and `alias_allow_slash = 1`), a category or article alias is built from its position in the structure: top level `services`, child `web`, article `audit` becomes `services/web/audit`. Only the last segment comes from the alias field or the title; the prefix always follows the menu, so a manual alias cannot escape its branch. `allow_empty_alias = true` still wins and leaves the alias empty.
+
+Renaming or moving a category re-roots the aliases of its articles and subcategories in the same request. Aliases that do not start with the old path (manual overrides) stay unchanged, and the old URLs are not redirected; add redirects through the redirects admin when paths change. Enabling the option does not rewrite existing aliases in bulk, each item picks up the path on its next save.
+
+Administrators can rebuild all aliases at once in **Admin → Alias**. The form has two modes: keep the current own segment and apply the structure path, or regenerate the segment from the category name or article title. Submitting the form always opens a preview modal with every planned change; confirming there runs the write. The confirmation is bound to a pending plan token and re-runs the plan before writing. If aliases changed meanwhile, the refreshed plan is shown for confirmation again. "Store 301 redirects from the old aliases" is on by default and writes a redirect entry for every changed alias, so old URLs keep working; existing redirect entries are never overwritten. Aliases containing `%` or `_` are not redirected, because the redirect lookup uses SQL `LIKE` and those characters are wildcards. Trashed items and the start page are skipped, and the endpoint is restricted to full administrators.
 
 ## rel_url and abs_url
 

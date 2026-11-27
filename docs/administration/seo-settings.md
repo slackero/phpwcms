@@ -18,6 +18,7 @@ All values are `include/config/conf.inc.php` keys; defaults quoted from `dist.co
 | `rewrite_ext` | string | `'.html'` | URL suffix: `/alias.html` (default) or a trailing `/` when set to `/`. |
 | `alias_allow_slash` | bool | `1` | Permits `/` inside structure/article aliases. |
 | `alias_allow_utf8` | bool | `1` | Keeps UTF-8 special characters in aliases (charset must be utf-8). |
+| `alias_auto_path` | bool | `0` | Builds category and article aliases from the structure path (`folder/folder/article`); requires `alias_allow_slash`. Renaming or moving a level re-roots the subtree aliases. |
 | `allow_empty_alias` | bool | `false` | `true` prevents phpwcms from auto-creating an alias when the alias field is left empty. |
 | `reserved_alias` | array | `[]` | List of alias names that may never be used (e.g. `array('admin', 'download')`). |
 | `force301_id2alias` | bool | `false` | Sends a 301 redirect when an article/structure has an alias but the page is called by ID. |
@@ -28,6 +29,8 @@ All values are `include/config/conf.inc.php` keys; defaults quoted from `dist.co
 | `disable_next_prev` | bool | `false` | `true` suppresses the `<link rel="prev">`/`<link rel="next">` head tags that content-part pagination emits (the pagination links themselves still render). |
 
 Rewriting only works when the web server passes unmatched requests to `index.php` — ship the matching rewrite config (`_.htaccess` renamed to `.htaccess` for Apache is created by the setup wizard; [Setup wizard](../installation/setup-wizard.md)). A missing `mode_rewrite`-style rewrite setup yields `index.php?alias` URLs but no broken pages, because both forms render.
+
+Full administrators can rebuild all structure and article aliases in **Admin → Alias**. The form offers two modes: keep the current own segment and apply the configured structure path, or regenerate the segment from the category name or article title. Submitting always opens a preview modal; confirming there runs the write. The confirmation expires after 15 minutes, and if aliases changed meanwhile the refreshed plan is shown again. "Store 301 redirects from the old aliases" is on by default and keeps old URLs working; existing redirect entries are never overwritten. Trashed items and the start page are skipped. See [Structure path aliases](../general/url-handling.md#structure-path-aliases) for the path rules.
 
 ## Meta tags from structure levels and articles
 

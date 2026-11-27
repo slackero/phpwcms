@@ -148,10 +148,19 @@ Alias resolution runs one UNION query: a matching `articlecat.acat_alias` wins o
 | `rewrite_ext` | `.html` | Suffix of rewritten URLs; `/` renders directory style (`/alias/`) |
 | `alias_allow_slash` | 1 | Allows `/` inside aliases for path-like aliases |
 | `alias_allow_utf8` | 1 | Keeps UTF-8 characters in aliases (requires `charset = utf-8`) |
+| `alias_auto_path` | 0 | Prefixes category and article aliases with their structure path (`folder/folder/article`); needs `alias_allow_slash` |
 | `allow_empty_alias` | false | When true, empty alias fields no longer auto-generate an alias |
 | `reserved_alias` | empty array | Alias names blocked from use |
 
 Outgoing markup rewrites by itself: `url_search()` in `front.func.inc.php` converts `href="index.php?…"` and `onclick="location.href='index.php?…'"` attributes into `<value><rewrite_ext>` paths (an old style `id=<cat>,<aid>` becomes `<cat>.<aid>`), and the image handler URL `img/cmsimage.php` shortens to `im`. The webserver side needs matching rewrite rules delivering `/alias.html` back to `index.php?<alias>`.
+
+## Structure path aliases
+
+With `alias_auto_path = 1` (and `alias_allow_slash = 1`), a category or article alias is built from its position in the structure: top level `services`, child `web`, article `audit` becomes `services/web/audit`. Only the last segment comes from the alias field or the title; the prefix always follows the menu, so a manual alias cannot escape its branch. `allow_empty_alias = true` still wins and leaves the alias empty.
+
+Renaming or moving a category re-roots the aliases of its articles and subcategories in the same request. Aliases that do not start with the old path (manual overrides) stay unchanged, and the old URLs are not redirected; add redirects through the redirects admin when paths change. Enabling the option does not rewrite existing aliases in bulk, each item picks up the path on its next save.
+
+Administrators can rebuild all aliases at once in **Admin → Alias**. The form has two modes: keep the current own segment and apply the structure path, or regenerate the segment from the category name or article title. Submitting the form always opens a preview modal with every planned change; confirming there runs the write. The confirmation is bound to a pending plan token and re-runs the plan before writing. If aliases changed meanwhile, the refreshed plan is shown for confirmation again. "Store 301 redirects from the old aliases" is on by default and writes a redirect entry for every changed alias, so old URLs keep working; existing redirect entries are never overwritten. Aliases containing `%` or `_` are not redirected, because the redirect lookup uses SQL `LIKE` and those characters are wildcards. Trashed items and the start page are skipped, and the endpoint is restricted to full administrators.
 
 ## rel_url and abs_url
 
@@ -635,6 +644,7 @@ See [SEO settings](../administration/seo-settings.md) for rendering details.
 | `rewrite_ext` | string | `'.html'` | Suffix of rewritten URLs (`/alias.html`, `/alias/`). |
 | `alias_allow_slash` | bool | `1` | Allow `/` in aliases. |
 | `alias_allow_utf8` | bool | `1` | Keep UTF-8 special characters in aliases (charset utf-8). |
+| `alias_auto_path` | bool | `0` | Build aliases from the structure path (`folder/folder/article`). Requires `alias_allow_slash`. |
 | `allow_empty_alias` | bool | `false` | `true` disables alias auto-creation when the field is empty. |
 | `reserved_alias` | array | `[]` | Alias names that must stay free. |
 | `force301_id2alias` | bool | `false` | 301 redirect from ID URL to alias URL. |
@@ -1112,6 +1122,7 @@ All values are `include/config/conf.inc.php` keys; defaults quoted from `dist.co
 | `rewrite_ext` | string | `'.html'` | URL suffix: `/alias.html` (default) or a trailing `/` when set to `/`. |
 | `alias_allow_slash` | bool | `1` | Permits `/` inside structure/article aliases. |
 | `alias_allow_utf8` | bool | `1` | Keeps UTF-8 special characters in aliases (charset must be utf-8). |
+| `alias_auto_path` | bool | `0` | Builds category and article aliases from the structure path (`folder/folder/article`); requires `alias_allow_slash`. Renaming or moving a level re-roots the subtree aliases. |
 | `allow_empty_alias` | bool | `false` | `true` prevents phpwcms from auto-creating an alias when the alias field is left empty. |
 | `reserved_alias` | array | `[]` | List of alias names that may never be used (e.g. `array('admin', 'download')`). |
 | `force301_id2alias` | bool | `false` | Sends a 301 redirect when an article/structure has an alias but the page is called by ID. |
@@ -1122,6 +1133,8 @@ All values are `include/config/conf.inc.php` keys; defaults quoted from `dist.co
 | `disable_next_prev` | bool | `false` | `true` suppresses the `<link rel="prev">`/`<link rel="next">` head tags that content-part pagination emits (the pagination links themselves still render). |
 
 Rewriting only works when the web server passes unmatched requests to `index.php` — ship the matching rewrite config (`_.htaccess` renamed to `.htaccess` for Apache is created by the setup wizard; [Setup wizard](../installation/setup-wizard.md)). A missing `mode_rewrite`-style rewrite setup yields `index.php?alias` URLs but no broken pages, because both forms render.
+
+Full administrators can rebuild all structure and article aliases in **Admin → Alias**. The form offers two modes: keep the current own segment and apply the configured structure path, or regenerate the segment from the category name or article title. Submitting always opens a preview modal; confirming there runs the write. The confirmation expires after 15 minutes, and if aliases changed meanwhile the refreshed plan is shown again. "Store 301 redirects from the old aliases" is on by default and keeps old URLs working; existing redirect entries are never overwritten. Trashed items and the start page are skipped. See [Structure path aliases](../general/url-handling.md#structure-path-aliases) for the path rules.
 
 ## Meta tags from structure levels and articles
 

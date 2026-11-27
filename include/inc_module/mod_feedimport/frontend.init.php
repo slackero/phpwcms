@@ -140,7 +140,7 @@ if(!empty($_getVar['feedimport'])) {
 				}
 
                 $article_title          = decode_entities($rssvalue->get_title());
-                $article_alias          = proof_alias(0, $article_title, 'ARTICLE');
+                $article_alias          = phpwcms_alias_resolve(0, $article_title, 'ARTICLE', (int)$feedimport_result['cnt_object']['structure_level_id']);
                 $article_begin          = $rssvalue->get_date('U');
                 $article_end            = now()+(3600*24*365*10);
                 $article_summary        = $rssvalue->get_description();

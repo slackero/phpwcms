@@ -101,6 +101,7 @@ See [SEO settings](../administration/seo-settings.md) for rendering details.
 | `rewrite_ext` | string | `'.html'` | Suffix of rewritten URLs (`/alias.html`, `/alias/`). |
 | `alias_allow_slash` | bool | `1` | Allow `/` in aliases. |
 | `alias_allow_utf8` | bool | `1` | Keep UTF-8 special characters in aliases (charset utf-8). |
+| `alias_auto_path` | bool | `0` | Build aliases from the structure path (`folder/folder/article`). Requires `alias_allow_slash`. |
 | `allow_empty_alias` | bool | `false` | `true` disables alias auto-creation when the field is empty. |
 | `reserved_alias` | array | `[]` | Alias names that must stay free. |
 | `force301_id2alias` | bool | `false` | 301 redirect from ID URL to alias URL. |

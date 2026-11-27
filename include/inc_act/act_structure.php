@@ -245,7 +245,7 @@ if(has_admin_permission('artstruc')) { // Only for admin users
                 intval($_POST["acat_template"]).",".
                 $acat_sort_fallback.",".
                 $_SESSION["wcs_user_id"].",'".
-                proof_alias($_POST["acat_id"], $_POST["acat_alias"])."',".
+                phpwcms_alias_resolve($_POST["acat_id"], $_POST["acat_alias"] ?? '', 'CATEGORY', intval($_POST["acat_struct"]))."',".
                 $acat_hidden.", ".
                 intval($_POST["acat_topcount"]).",'".
                 getpostvar($_POST["acat_redirect"])."', ".
@@ -274,13 +274,27 @@ if(has_admin_permission('artstruc')) { // Only for admin users
                 $cache_timeout = 0; //check if cache = Off
             }
 
+            $acat_update_id     = (int)$_POST["acat_id"];
+            $acat_update_parent = (int)$_POST["acat_struct"];
+            $acat_old_path      = '';
+            $acat_path_changed  = true;
+            if (phpwcms_alias_auto_path_enabled()) {
+                $acat_current   = _dbGet('articlecat', 'acat_struct,acat_alias', 'acat_id='._dbEscape($acat_update_id), '', '', 1);
+                $acat_old_path  = phpwcms_alias_structure_path($acat_update_id);
+            }
+            $acat_new_alias = phpwcms_alias_resolve($acat_update_id, $_POST["acat_alias"] ?? '', 'CATEGORY', $acat_update_parent);
+            if (phpwcms_alias_auto_path_enabled()) {
+                $acat_path_changed = $acat_new_alias !== (string)($acat_current[0]['acat_alias'] ?? '')
+                    || $acat_update_parent !== (int)($acat_current[0]['acat_struct'] ?? 0);
+            }
+
             $sql = "UPDATE ".DB_PREPEND."articlecat SET ".
                 "acat_name='".getpostvar($_POST["acat_name"], 2000)."', ".
                 "acat_title='".getpostvar($_POST["acat_title"], 2000)."', ".
                 "acat_info='".getpostvar($_POST["acat_info"], 32000)."', ".
-                "acat_alias="._dbEscape(proof_alias($_POST["acat_id"], $_POST["acat_alias"])).", ".
+                "acat_alias="._dbEscape($acat_new_alias).", ".
                 "acat_aktiv=".(isset($_POST["acat_aktiv"]) ? 1 : 0).", ".
-                "acat_struct=".intval($_POST["acat_struct"]).", ".
+                "acat_struct=".$acat_update_parent.", ".
                 "acat_template=".intval($_POST["acat_template"]).", ".
                 "acat_sort=".$acat_sort_fallback.", ".
                 "acat_uid=".$_SESSION["wcs_user_id"].", ".
@@ -314,6 +328,14 @@ if(has_admin_permission('artstruc')) { // Only for admin users
             " WHERE acat_id=".intval($_POST["acat_id"]);
 
             _dbQuery($sql, 'UPDATE');
+
+            if (phpwcms_alias_auto_path_enabled() && $acat_path_changed) {
+                phpwcms_alias_repath_branch(
+                    $acat_update_id,
+                    $acat_old_path,
+                    phpwcms_alias_structure_path($acat_update_id)
+                );
+            }
         }
     }
 
@@ -335,8 +357,26 @@ if($action) {
             $do[2] = intval($do[2]); //paste ID
             $do[3] = intval($do[3]); //sort Number
             if($do[1]) { // && $do[2] = 0 for Root
+                $acat_old_parent = 0;
+                $acat_old_path   = '';
+                if (phpwcms_alias_auto_path_enabled()) {
+                    $acat_move_row   = _dbGet('articlecat', 'acat_struct', 'acat_id='._dbEscape($do[1]), '', '', 1);
+                    $acat_old_parent = (int)($acat_move_row[0]['acat_struct'] ?? 0);
+                    $acat_old_path   = phpwcms_alias_structure_path($do[1]);
+                }
+
                 $sql =  "UPDATE ".DB_PREPEND."articlecat SET acat_struct=".$do[2].", acat_sort=".$do[3]." WHERE acat_id=".$do[1];
                 _dbQuery($sql, 'UPDATE');
+
+                if (phpwcms_alias_auto_path_enabled() && $acat_old_parent !== $do[2]) {
+                    $acat_new_path = phpwcms_alias_structure_path($do[1]);
+                    $acat_new_alias = proof_alias($do[1], $acat_new_path, 'CATEGORY');
+                    _dbQuery(
+                        "UPDATE ".DB_PREPEND."articlecat SET acat_alias="._dbEscape($acat_new_alias)." WHERE acat_id=".$do[1],
+                        'UPDATE'
+                    );
+                    phpwcms_alias_repath_branch($do[1], $acat_old_path, $acat_new_path);
+                }
             }
 
         // Change sorting
@@ -421,9 +461,19 @@ if($action) {
         $do[2] = intval($do[2]); //paste level ID
         if($do[1]) { // && $do[2] = 0 for Root
             $new_sort = getArticleSortValue($do[2]);
-            $sql =  "UPDATE ".DB_PREPEND."article SET article_cid=".$do[2].", article_sort=".$new_sort." WHERE article_id=".$do[1].
-                    article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
-            _dbQuery($sql, 'UPDATE');
+
+            if (phpwcms_alias_auto_path_enabled()) {
+                $article_alias_row = _dbGet('article', 'article_alias', 'article_id='._dbEscape($do[1]), '', '', 1);
+                $article_alias     = phpwcms_alias_resolve($do[1], $article_alias_row[0]['article_alias'] ?? '', 'ARTICLE', $do[2]);
+                $sql =  "UPDATE ".DB_PREPEND."article SET article_cid=".$do[2].", article_sort=".$new_sort.
+                        ", article_alias="._dbEscape($article_alias)." WHERE article_id=".$do[1].
+                        article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
+                _dbQuery($sql, 'UPDATE');
+            } else {
+                $sql =  "UPDATE ".DB_PREPEND."article SET article_cid=".$do[2].", article_sort=".$new_sort." WHERE article_id=".$do[1].
+                        article_owner_restriction((int)$_SESSION["wcs_user_id"], has_article_edit_all_permission());
+                _dbQuery($sql, 'UPDATE');
+            }
         }
 
     // Change sorting of articles
@@ -561,7 +611,7 @@ function copy_article_to_level($do) {
         $row["article_created"]  = now();
         $row["article_tstamp"]   = date('Y-m-d H:i:s', now() );
         $row["article_sort"]     = getArticleSortValue($row["article_cid"]);
-        $row["article_alias"]    = proof_alias(0, empty($row["article_alias"]) ? $row['article_title'] : $row["article_alias"], 'ARTICLE');
+        $row["article_alias"]    = phpwcms_alias_resolve(0, empty($row["article_alias"]) ? $row['article_title'] : $row["article_alias"], 'ARTICLE', $do[2]);
 
         // Check if the owner of the article needs to be updated
         if($_SESSION["wcs_user_admin"] === 0 && intval($row["article_uid"]) !== intval($_SESSION["wcs_user_id"])) {
@@ -642,7 +692,7 @@ function copy_level_to_level($do) {
         $row = $result[0];
         $row["acat_struct"] = $do[2];
         $row["acat_sort"]   = $do[3];
-        $row["acat_alias"]  = proof_alias(0, empty($row["acat_alias"]) ? $row['acat_name'] : $row["acat_alias"], 'CATEGORY');
+        $row["acat_alias"]  = phpwcms_alias_resolve(0, empty($row["acat_alias"]) ? $row['acat_name'] : $row["acat_alias"], 'CATEGORY', $do[2]);
 
         // Check if the owner of the structure level needs to be updated
         if($_SESSION["wcs_user_admin"] === 0 && intval($row["acat_uid"]) !== intval($_SESSION["wcs_user_id"])) {

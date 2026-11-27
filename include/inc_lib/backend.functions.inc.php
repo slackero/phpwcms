@@ -839,16 +839,11 @@ function _get_unique_alias_candidate($alias, $existing_aliases = [], $pad_length
     return $candidate;
 }
 
-// checks for alias and sets unique value
-function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name='') {
+/**
+ * Alias names that must stay free for routing.
+ */
+function phpwcms_alias_reserved() {
     global $phpwcms;
-
-    // normalize the id so strict 'index' comparisons behave the same
-    // regardless of the caller passing int, numeric string or 'index'
-    $current_id = (string)$current_id;
-
-    $allow_slash = !($mode === 'FILE') && PHPWCMS_ALIAS_WSLASH;
-    $alias       = phpwcms_alias_sanitize($alias, $mode);
 
     $reserved = [
         'print',
@@ -876,6 +871,26 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
         'favicon'
     ];
 
+    if(isset($phpwcms['reserved_alias']) && is_array($phpwcms['reserved_alias']) && count($phpwcms['reserved_alias'])) {
+        $reserved = array_merge($reserved, $phpwcms['reserved_alias']);
+    }
+
+    return $reserved;
+}
+
+// checks for alias and sets unique value
+function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name='') {
+    global $phpwcms;
+
+    // normalize the id so strict 'index' comparisons behave the same
+    // regardless of the caller passing int, numeric string or 'index'
+    $current_id = (string)$current_id;
+
+    $allow_slash = !($mode === 'FILE') && PHPWCMS_ALIAS_WSLASH;
+    $alias       = phpwcms_alias_sanitize($alias, $mode);
+
+    $reserved = phpwcms_alias_reserved();
+
     if($alias === '') {
         if ($mode !== 'FILE' && !empty($GLOBALS['phpwcms']['allow_empty_alias'])) {
             return '';
@@ -885,6 +900,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
             $alias = $_POST['acat_name'];
         } elseif($mode === 'ARTICLE' && isset($_POST['article_title'])) {
             $alias = $_POST['article_title'];
+        } elseif($fallback_name !== '' && ($mode === 'CATEGORY' || $mode === 'ARTICLE')) {
+            $alias = $fallback_name;
         } elseif($mode === 'CONTENT' && ( isset($_POST['cnt_title']) || isset($_POST['cnt_name']) )) {
             $alias = trim($_POST['cnt_title'] ?? '') !== '' ? $_POST['cnt_title'] : ($_POST['cnt_name'] ?? '');
         } elseif($mode === 'FILE') {
@@ -949,11 +966,6 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
         if($alias_proof_suffix_count) {
             $alias = phpwcms_alias_limit($alias, $alias_proof_suffix);
         }
-    }
-
-    // new reserved alias can be defined in $phpwcms['reserved_alias']
-    if(isset($phpwcms['reserved_alias']) && is_array($phpwcms['reserved_alias']) && count($phpwcms['reserved_alias'])) {
-        $reserved = array_merge($reserved, $phpwcms['reserved_alias']);
     }
 
     if($alias === '' || in_array($alias, $reserved) || ($alias === 'index' && $current_id !== 'index') ) {
@@ -1042,6 +1054,458 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name=''
 
 function proof_file_alias($file_id, $alias = '', $fallback_name = '') {
     return proof_alias($file_id, $alias, 'FILE', $fallback_name);
+}
+
+/**
+ * Whether aliases should carry the structure path (folder/folder/item).
+ */
+function phpwcms_alias_auto_path_enabled() {
+    return defined('PHPWCMS_ALIAS_AUTO_PATH') && PHPWCMS_ALIAS_AUTO_PATH;
+}
+
+/**
+ * Return the last path segment of an alias.
+ */
+function phpwcms_alias_leaf($alias) {
+    $alias = trim((string)$alias, '/');
+    if ($alias === '') {
+        return '';
+    }
+    $pos = strrpos($alias, '/');
+    return $pos === false ? $alias : substr($alias, $pos + 1);
+}
+
+/**
+ * Build the alias path of a structure level from its ancestors. Stored
+ * aliases are reduced to their leaf so an already pathed parent does not
+ * duplicate its segments in child aliases.
+ */
+function phpwcms_alias_structure_path($acat_id) {
+    $acat_id  = (int)$acat_id;
+    $segments = [];
+    $guard    = 0;
+
+    while ($acat_id > 0 && $guard++ < 1000) {
+        $row = _dbGet(
+            'articlecat',
+            'acat_id,acat_struct,acat_name,acat_alias',
+            'acat_id=' . _dbEscape($acat_id),
+            '',
+            '',
+            1
+        );
+        if (empty($row[0]['acat_id'])) {
+            break;
+        }
+        $segment = phpwcms_alias_leaf($row[0]['acat_alias']);
+        if ($segment === '') {
+            $segment = phpwcms_alias_leaf(phpwcms_alias_sanitize($row[0]['acat_name'], 'CATEGORY'));
+        }
+        if ($segment !== '') {
+            array_unshift($segments, $segment);
+        }
+        $acat_id = (int)$row[0]['acat_struct'];
+    }
+
+    return implode('/', $segments);
+}
+
+/**
+ * Build the structure-prefixed candidate for an alias without checking
+ * uniqueness. Used by the resolver and by callers that must validate the
+ * final length before the value is truncated by proof_alias().
+ */
+function phpwcms_alias_path_candidate($alias, $mode = 'CATEGORY', $parent_acat_id = 0, $fallback_name = '') {
+    if (!phpwcms_alias_auto_path_enabled() || $mode === 'FILE' || $mode === 'CONTENT') {
+        return '';
+    }
+
+    $leaf = phpwcms_alias_leaf(phpwcms_alias_sanitize($alias, $mode));
+
+    if ($leaf === '') {
+        if (!empty($GLOBALS['phpwcms']['allow_empty_alias'])) {
+            return '';
+        }
+        $fallback = $fallback_name;
+        if ($fallback === '') {
+            if ($mode === 'CATEGORY' && isset($_POST['acat_name'])) {
+                $fallback = $_POST['acat_name'];
+            } elseif ($mode === 'ARTICLE' && isset($_POST['article_title'])) {
+                $fallback = $_POST['article_title'];
+            }
+        }
+        $leaf = phpwcms_alias_leaf(phpwcms_alias_sanitize($fallback, $mode));
+    }
+
+    if ($leaf === '') {
+        return '';
+    }
+
+    $path = phpwcms_alias_structure_path($parent_acat_id);
+
+    return $path === '' ? $leaf : $path . '/' . $leaf;
+}
+
+/**
+ * Resolve an alias to its final value, optionally prefixed with the
+ * structure path when $phpwcms['alias_auto_path'] is enabled. In path mode
+ * only the own, last segment is taken from the input, so manual overrides
+ * cannot escape the structure prefix.
+ */
+function phpwcms_alias_resolve($current_id, $alias, $mode = 'CATEGORY', $parent_acat_id = 0, $fallback_name = '') {
+    $candidate = phpwcms_alias_path_candidate($alias, $mode, $parent_acat_id, $fallback_name);
+
+    if ($candidate !== '') {
+        return proof_alias($current_id, $candidate, $mode);
+    }
+
+    return proof_alias($current_id, $alias, $mode, $fallback_name);
+}
+
+/**
+ * Rebuild all category and article aliases in bulk.
+ *
+ * Mode 'structure' keeps the own leaf and applies the current path setting,
+ * mode 'title' regenerates the leaf from the category name or article title.
+ * The index page (acat_id 0) and items in trashed categories are left
+ * untouched.
+ *
+ * @return array{mode: string, auto_path: bool, rows: array<int, array{type: string, id: int, name: string, old: string, new: string}>}
+ */
+function phpwcms_alias_recalc($mode = 'structure') {
+    $mode = $mode === 'title' ? 'title' : 'structure';
+    $auto = phpwcms_alias_auto_path_enabled();
+
+    $categories = _dbGet('articlecat', 'acat_id,acat_struct,acat_name,acat_alias', 'acat_trash=0 AND acat_id>0', '', 'acat_struct,acat_sort,acat_id');
+    $categories = is_array($categories) ? $categories : [];
+
+    // Reserved names and aliases that are not recalculated stay blocked.
+    $used = [];
+    foreach (phpwcms_alias_reserved() as $reserved) {
+        $used[$reserved] = true;
+    }
+
+    // Root-level rewrite files are collected once instead of stat'ing every candidate.
+    $rewrite_files = [];
+    if (PHPWCMS_REWRITE_EXT !== '') {
+        $found = glob(PHPWCMS_ROOT . '/*' . PHPWCMS_REWRITE_EXT);
+        if (is_array($found)) {
+            foreach ($found as $path) {
+                $rewrite_files[basename($path, PHPWCMS_REWRITE_EXT)] = true;
+            }
+        }
+    }
+
+    $cat_scope = [];
+    $cat_rows  = [];
+    foreach ($categories as $category) {
+        $cat_scope[(int)$category['acat_id']] = true;
+        $cat_rows[(int)$category['acat_id']]  = $category;
+    }
+
+    $blocked_categories = _dbGet('articlecat', 'acat_id,acat_alias', "acat_trash!=0 AND acat_alias!=''");
+    if (is_array($blocked_categories)) {
+        foreach ($blocked_categories as $row) {
+            if (!isset($cat_rows[(int)$row['acat_id']])) {
+                $used[$row['acat_alias']] = true;
+            }
+        }
+    }
+    $blocked_articles = _dbGet('article', 'article_id,article_alias', "article_deleted!=0 AND article_alias!=''");
+    if (is_array($blocked_articles)) {
+        foreach ($blocked_articles as $row) {
+            $used[$row['article_alias']] = true;
+        }
+    }
+    $content_aliases = _dbGet('content', 'cnt_alias', "cnt_alias!=''");
+    if (is_array($content_aliases)) {
+        foreach ($content_aliases as $row) {
+            $used[$row['cnt_alias']] = true;
+        }
+    }
+
+    // Walk categories parent first so child paths know the new parent alias.
+    $children = [];
+    foreach ($cat_rows as $id => $row) {
+        $children[(int)$row['acat_struct']][] = $id;
+    }
+    $ordered = [];
+    $seen    = [];
+    $queue   = $children[0] ?? [];
+    for ($i = 0; $i < count($queue); $i++) {
+        $id = $queue[$i];
+        if (!isset($cat_rows[$id]) || isset($seen[$id])) {
+            continue;
+        }
+        $seen[$id] = true;
+        $ordered[] = $cat_rows[$id];
+        foreach ($children[$id] ?? [] as $child) {
+            $queue[] = $child;
+        }
+    }
+    foreach ($cat_rows as $id => $row) {
+        if (isset($seen[$id])) {
+            continue;
+        }
+        $parent = (int)$row['acat_struct'];
+        if ($parent > 0 && !isset($cat_rows[$parent])) {
+            // parent is trashed or outside the tree: keep the alias unchanged
+            if ((string)$row['acat_alias'] !== '') {
+                $used[$row['acat_alias']] = true;
+            }
+            continue;
+        }
+        $ordered[] = $row;
+    }
+
+    $rows    = [];
+    $cat_new = [];
+
+    foreach ($ordered as $category) {
+        $id   = (int)$category['acat_id'];
+        $old  = (string)$category['acat_alias'];
+        $leaf = $mode === 'title' ? '' : phpwcms_alias_leaf($old);
+        if ($leaf === '') {
+            $leaf = phpwcms_alias_leaf(phpwcms_alias_sanitize($category['acat_name'], 'CATEGORY'));
+        }
+        $parent = (int)$category['acat_struct'];
+        if ($auto && $parent > 0 && !isset($cat_new[$parent])) {
+            // parent is not part of the recalculated tree, keep the whole branch
+            if ($old !== '') {
+                $used[$old] = true;
+            }
+            continue;
+        }
+        $prefix  = $auto && $parent > 0 ? $cat_new[$parent] : '';
+        $desired = $leaf === '' ? '' : ($prefix === '' ? $leaf : $prefix . '/' . $leaf);
+        if ($desired === '') {
+            // no usable leaf: keep the current alias instead of clearing it
+            if ($old !== '') {
+                $used[$old] = true;
+            }
+            $cat_new[$id] = $old;
+            continue;
+        }
+        $new     = $desired;
+        $counter = 1;
+        while (
+            isset($used[$new]) ||
+            isset($rewrite_files[$new]) ||
+            (str_contains($new, '/') && is_file(PHPWCMS_ROOT.'/'.$new.PHPWCMS_REWRITE_EXT))
+        ) {
+            $new = phpwcms_alias_limit($desired, '-' . $counter);
+            $counter++;
+        }
+        $used[$new]   = true;
+        $cat_new[$id] = $new;
+        if ($new !== $old) {
+            $rows[] = ['type' => 'category', 'id' => $id, 'name' => (string)$category['acat_name'], 'old' => $old, 'new' => $new];
+        }
+    }
+
+    // Articles are processed in keyset batches to keep the database result small.
+    $batch_size = 1000;
+    $last_id    = 0;
+    do {
+        $batch = _dbGet('article', 'article_id,article_cid,article_alias', 'article_deleted=0 AND article_id>' . (int)$last_id, '', 'article_id', $batch_size);
+        $batch = is_array($batch) ? $batch : [];
+        foreach ($batch as $article) {
+            $last_id = (int)$article['article_id'];
+            $cid     = (int)$article['article_cid'];
+            if ($cid > 0 && !isset($cat_new[$cid]) && (string)$article['article_alias'] !== '') {
+                $used[$article['article_alias']] = true;
+            }
+        }
+    } while (count($batch) === $batch_size);
+
+    $last_id = 0;
+    do {
+        $batch = _dbGet('article', 'article_id,article_cid,article_title,article_alias', 'article_deleted=0 AND article_id>' . (int)$last_id, '', 'article_id', $batch_size);
+        $batch = is_array($batch) ? $batch : [];
+        foreach ($batch as $article) {
+            $id      = (int)$article['article_id'];
+            $last_id = $id;
+            $cid     = (int)$article['article_cid'];
+            if ($cid > 0 && !isset($cat_new[$cid])) {
+                continue; // category is trashed or outside the recalculated tree
+            }
+            $old  = (string)$article['article_alias'];
+            $leaf = $mode === 'title' ? '' : phpwcms_alias_leaf($old);
+            if ($leaf === '') {
+                $leaf = phpwcms_alias_leaf(phpwcms_alias_sanitize($article['article_title'], 'ARTICLE'));
+            }
+            $prefix  = $auto && $cid > 0 ? $cat_new[$cid] : '';
+            $desired = $leaf === '' ? '' : ($prefix === '' ? $leaf : $prefix . '/' . $leaf);
+            if ($desired === '') {
+                if ($old !== '') {
+                    $used[$old] = true;
+                }
+                continue;
+            }
+            $new     = $desired;
+            $counter = 1;
+            while (
+                isset($used[$new]) ||
+                isset($rewrite_files[$new]) ||
+                (str_contains($new, '/') && is_file(PHPWCMS_ROOT.'/'.$new.PHPWCMS_REWRITE_EXT))
+            ) {
+                $new = phpwcms_alias_limit($desired, '-' . $counter);
+                $counter++;
+            }
+            $used[$new] = true;
+            if ($new !== $old) {
+                $rows[] = ['type' => 'article', 'id' => $id, 'name' => (string)$article['article_title'], 'old' => $old, 'new' => $new];
+            }
+        }
+    } while (count($batch) === $batch_size);
+
+    return [
+        'mode'      => $mode,
+        'auto_path' => $auto,
+        'rows'      => $rows,
+    ];
+}
+
+/**
+ * Build 301 redirect entries for changed aliases. Redirect lookups in the
+ * frontend use LIKE, so aliases containing wildcard characters are skipped.
+ *
+ * @param array<int, array{type: string, id: int, name: string, old: string, new: string}> $rows
+ * @return array<int, array{alias: string, type: string, target: string, code: string, active: int}>
+ */
+function phpwcms_alias_redirect_entries($rows) {
+    $entries = [];
+    if (!is_array($rows)) {
+        return $entries;
+    }
+    $new_aliases = [];
+    foreach ($rows as $row) {
+        $new_aliases[(string)($row['new'] ?? '')] = true;
+    }
+    foreach ($rows as $row) {
+        $old = (string)($row['old'] ?? '');
+        $new = (string)($row['new'] ?? '');
+        if ($old === '' || $new === '' || $old === $new) {
+            continue;
+        }
+        if (\voku\helper\UTF8::strlen($old) > 255) {
+            continue;
+        }
+        if (str_contains($old, '_') || str_contains($old, '%')) {
+            continue; // LIKE wildcards would match unrelated URLs
+        }
+        if (isset($new_aliases[$old])) {
+            continue; // alias is reused by another row, the redirect could never fire
+        }
+        $entries[] = ['alias' => $old, 'type' => 'alias', 'target' => $new, 'code' => '301', 'active' => 1];
+    }
+
+    return $entries;
+}
+
+/**
+ * Validate a pending confirmation plan against the posted token and its TTL.
+ *
+ * @param mixed  $pending Pending plan: ['pending' => bool, 'token' => string, 'time' => int]
+ * @param string $token   Token submitted with the confirm request
+ */
+function phpwcms_alias_pending_valid($pending, $token, $now = null, $ttl = 900) {
+    if (!is_array($pending) || empty($pending['pending']) || !is_string($token) || $token === '') {
+        return false;
+    }
+    $now = $now === null ? time() : (int)$now;
+    if ($now - (int)($pending['time'] ?? 0) > $ttl) {
+        return false;
+    }
+
+    return hash_equals((string)($pending['token'] ?? ''), $token);
+}
+
+/**
+ * Stable signature of a planned alias change set.
+ *
+ * @param array<int, array{type: string, id: int, old: string, new: string}> $rows
+ */
+function phpwcms_alias_plan_signature($rows) {
+    $canonical = [];
+    foreach ((array)$rows as $row) {
+        $canonical[] = [(string)($row['type'] ?? ''), (int)($row['id'] ?? 0), (string)($row['old'] ?? ''), (string)($row['new'] ?? '')];
+    }
+    sort($canonical);
+
+    return md5(json_encode($canonical));
+}
+
+/**
+ * Re-root descendant aliases after a structure level changed its path.
+ * Only aliases that still start with the old path are rewritten, so manual
+ * aliases inside the branch keep their value.
+ */
+function phpwcms_alias_repath_branch($acat_id, $old_path, $new_path, $depth = 0) {
+    if (!phpwcms_alias_auto_path_enabled() || $old_path === $new_path || $depth > 1000) {
+        return;
+    }
+
+    $acat_id    = (int)$acat_id;
+    $old_prefix = $old_path === '' ? '' : $old_path . '/';
+    $new_prefix = $new_path === '' ? '' : $new_path . '/';
+
+    if ($acat_id < 1) {
+        return;
+    }
+
+    $articles = _dbGet(
+        'article',
+        'article_id,article_alias',
+        'article_deleted=0 AND article_cid=' . _dbEscape($acat_id)
+    );
+    if (!empty($articles)) {
+        foreach ($articles as $article) {
+            $alias = (string)$article['article_alias'];
+            if ($old_prefix !== '' && !str_starts_with($alias, $old_prefix)) {
+                continue;
+            }
+            $leaf = $old_prefix === '' ? $alias : substr($alias, strlen($old_prefix));
+            if ($leaf === '') {
+                continue;
+            }
+            $new_alias = proof_alias((int)$article['article_id'], $new_prefix . $leaf, 'ARTICLE');
+            if ($new_alias !== $alias) {
+                _dbQuery(
+                    'UPDATE ' . DB_PREPEND . 'article SET article_alias=' . _dbEscape($new_alias) .
+                    ' WHERE article_id=' . (int)$article['article_id'],
+                    'UPDATE'
+                );
+            }
+        }
+    }
+
+    $children = _dbGet(
+        'articlecat',
+        'acat_id,acat_alias',
+        'acat_trash=0 AND acat_struct=' . _dbEscape($acat_id)
+    );
+    if (!empty($children)) {
+        foreach ($children as $child) {
+            $alias = (string)$child['acat_alias'];
+            if ($old_prefix !== '' && !str_starts_with($alias, $old_prefix)) {
+                continue;
+            }
+            $leaf = $old_prefix === '' ? $alias : substr($alias, strlen($old_prefix));
+            if ($leaf === '') {
+                continue;
+            }
+            $new_alias = proof_alias((int)$child['acat_id'], $new_prefix . $leaf, 'CATEGORY');
+            if ($new_alias !== $alias) {
+                _dbQuery(
+                    'UPDATE ' . DB_PREPEND . 'articlecat SET acat_alias=' . _dbEscape($new_alias) .
+                    ' WHERE acat_id=' . (int)$child['acat_id'],
+                    'UPDATE'
+                );
+            }
+            phpwcms_alias_repath_branch((int)$child['acat_id'], $old_prefix . $leaf, $new_prefix . $leaf, $depth + 1);
+        }
+    }
 }
 
 function _getTime($time='', $delimeter=':', $default_time='H:i:s') {

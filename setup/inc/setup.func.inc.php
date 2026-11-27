@@ -213,6 +213,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
     $conf_file .= "\$phpwcms['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
     $conf_file .= "\$phpwcms['alias_maxlength'] = 170; // Max. character length of an alias (50-500)\n";
+    $conf_file .= "\$phpwcms['alias_auto_path'] = 0; // build aliases from the structure path (folder/folder/article); 0 = own name only\n";
     $allowed_lang = !empty($val['allowed_lang']) && is_array($val['allowed_lang'])
         ? array_values(array_filter(array_map('trim', $val['allowed_lang'])))
         : ['en', 'de', 'fr', 'es'];

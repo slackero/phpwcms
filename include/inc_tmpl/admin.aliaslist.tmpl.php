@@ -17,6 +17,118 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
 
 <h1 class="text-center text-sm-start"><?php echo $BL['be_alias'] ?></h1>
+<?php
+if (!empty($_SESSION['wcs_user_admin'])) {
+
+    $recalc_key = 'alias_recalc_result_' . (int)$_SESSION['wcs_user_id'];
+    $recalc         = $_SESSION[$recalc_key] ?? null;
+    $recalc_expired = false;
+    if (!empty($recalc) && !empty($recalc['pending']) && time() - (int)($recalc['time'] ?? 0) > 900) {
+        unset($_SESSION[$recalc_key]); // stale confirmation
+        $recalc         = null;
+        $recalc_expired = true;
+    }
+    if (!empty($recalc) && empty($recalc['pending'])) {
+        unset($_SESSION[$recalc_key]);
+    } elseif (!empty($recalc)) {
+        // Auto-open only once, directly after the plan was queued.
+        $_SESSION[$recalc_key]['auto_open'] = false;
+    }
+    ?>
+<div class="card mb-4">
+  <div class="card-header"><h2><?php echo html($BL['be_alias_recalc']); ?></h2></div>
+  <div class="card-body">
+    <p class="text-muted"><?php echo html($BL['be_alias_recalc_desc']); ?></p>
+<?php if (!empty($recalc_expired)) { ?>
+    <p class="text-warning"><?php echo html($BL['be_alias_recalc_expired']); ?></p>
+<?php } ?>
+    <form action="include/inc_act/act_aliasrecalc.php" method="post" class="row g-2">
+      <div class="col-12">
+        <select name="recalc_mode" id="recalc_mode" class="form-select form-select-sm w-auto" aria-label="<?php echo html($BL['be_alias']); ?>">
+          <option value="structure"><?php echo html($BL['be_alias_recalc_structure']); ?></option>
+          <option value="title"><?php echo html($BL['be_alias_recalc_titles']); ?></option>
+        </select>
+      </div>
+      <div class="col-12">
+        <div class="form-check mb-0">
+          <input type="checkbox" name="recalc_redirect" id="recalc_redirect" value="1" class="form-check-input" checked="checked" />
+          <label for="recalc_redirect" class="form-check-label"><?php echo html($BL['be_alias_recalc_redirect']); ?></label>
+        </div>
+      </div>
+      <div class="col-12">
+        <?php // Disabled only for the blocked response; a reload retries with fresh data. ?>
+        <button type="submit" id="recalc_submit" class="btn btn-sm btn-blue"<?php echo !empty($recalc['error']) ? ' disabled="disabled"' : ''; ?>><i class="fa-solid fa-rotate"></i> <?php echo html($BL['be_alias_recalc_run']); ?></button>
+      </div>
+    </form>
+  </div>
+</div>
+<?php if (!empty($recalc)) { ?>
+<div class="modal fade" id="aliasRecalcModal" tabindex="-1" aria-labelledby="aliasRecalcModalLabel" aria-hidden="true"<?php echo !empty($recalc['auto_open']) ? ' data-auto-open="1"' : ''; ?>>
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" style="max-width: 95vw;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="aliasRecalcModalLabel"><?php echo html($BL['be_alias_recalc']); ?><?php if (!empty($recalc['row_count'])) { ?> (<?php echo (int)$recalc['row_count']; ?>)<?php } ?></h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+<?php if (empty($recalc['pending'])) { ?>
+        <p class="mb-2"><?php echo html(sprintf($BL['be_alias_recalc_done'], (int)($recalc['row_count'] ?? count($recalc['rows'])))); ?></p>
+<?php } ?>
+<?php if (!empty($recalc['error'])) { ?>
+        <p class="mb-0 text-danger"><?php echo html($recalc['error']); ?></p>
+<?php } elseif (empty($recalc['rows'])) { ?>
+        <p class="mb-0 text-muted"><?php echo html($BL['be_alias_recalc_none']); ?></p>
+<?php } else { ?>
+        <div class="table-responsive" style="max-height: 60vh;">
+          <table class="table table-sm table-hover table-valign-middle mb-0">
+            <thead>
+              <tr>
+                <th><?php echo html($BL['be_alias_recalc_type']); ?></th>
+                <th><?php echo html($BL['be_alias_recalc_name']); ?></th>
+                <th><?php echo html($BL['be_alias']); ?></th>
+                <th><?php echo html($BL['be_alias_recalc_new']); ?></th>
+              </tr>
+            </thead>
+            <tbody>
+<?php foreach ($recalc['rows'] as $row) { ?>
+              <tr>
+                <td><?php echo html($row['type'] === 'category' ? $BL['be_alias_recalc_category'] : $BL['be_alias_recalc_article']); ?></td>
+                <td><?php echo html($row['name']); ?></td>
+                <td><code><?php echo html($row['old'] === '' ? '-' : $row['old']); ?></code></td>
+                <td><code><?php echo html($row['new'] === '' ? '-' : $row['new']); ?></code></td>
+              </tr>
+<?php } ?>
+            </tbody>
+          </table>
+        </div>
+<?php } ?>
+      </div>
+<?php if (!empty($recalc['pending']) && empty($recalc['error'])) { ?>
+      <div class="modal-footer flex-column align-items-start justify-content-start text-start">
+        <form action="include/inc_act/act_aliasrecalc.php" method="post" class="d-flex flex-column align-items-start gap-2">
+          <p class="mb-0 text-danger fw-bold"><?php echo html($BL['be_alias_recalc_confirm']); ?></p>
+          <div class="form-check mb-0">
+            <input type="checkbox" name="recalc_redirect" id="recalc_redirect_modal" value="1" class="form-check-input"<?php echo !empty($recalc['redirects']) ? ' checked="checked"' : ''; ?> />
+            <label for="recalc_redirect_modal" class="form-check-label"><?php echo html($BL['be_alias_recalc_redirect']); ?></label>
+          </div>
+          <input type="hidden" name="recalc_mode" value="<?php echo html($recalc['mode']); ?>" />
+          <input type="hidden" name="recalc_token" value="<?php echo html($recalc['token'] ?? ''); ?>" />
+          <div class="d-flex gap-2">
+            <button type="submit" name="recalc_cancel" value="1" class="btn btn-sm btn-secondary"><?php echo html($BL['modal_cancel'] ?? 'Cancel'); ?></button>
+            <button type="submit" class="btn btn-sm btn-danger" data-confirm="<?php echo html($BL['be_alias_recalc_confirm'], true); ?>" data-confirm-type="danger" data-confirm-action="<?php echo html($BL['modal_ok'] ?? 'OK', true); ?>"><i class="fa-solid fa-triangle-exclamation"></i> <?php echo html($BL['be_alias_recalc_run']); ?></button>
+          </div>
+        </form>
+      </div>
+<?php } elseif (!empty($recalc['redirect_error'])) { ?>
+      <div class="modal-footer">
+        <p class="mb-0 text-warning"><?php echo html($BL['be_alias_recalc_redirect'] . ': ' . $BL['be_error_while_save']); ?></p>
+      </div>
+<?php } ?>
+    </div>
+  </div>
+</div>
+<?php } ?>
+<?php } ?>
 <div class="card mb-2">
   <div class="card-header"><h2><?php echo $BL['be_article_urlalias'] ?> <?php echo $BL['be_ftptakeover_active'] ?></h2></div>
   <div class="card-body">
