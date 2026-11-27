@@ -14,7 +14,9 @@ FIXTURES=(
     content/form/probe.txt
     content/images/probe.txt
     include/config/probe.txt
-    include/vendor/probe.txt
+    include/vendor/guzzlehttp/probe.txt
+    include/vendor/tinymce/probe.txt
+    include/vendor/mklkj/tinymce-i18n/probe.txt
     include/inc_lib/probe.php
     include/inc_css/probe.css
     include/inc_ext/ckeditor/probe.txt
@@ -33,7 +35,7 @@ DENY=(
     content/cache/probe.txt
     content/log/probe.txt
     include/config/probe.txt
-    include/vendor/probe.txt
+    include/vendor/guzzlehttp/probe.txt
     include/inc_lib/probe.php
     tests/probe.txt
     upload/probe.txt
@@ -47,6 +49,8 @@ ALLOW=(
     content/images/probe.txt
     include/inc_css/probe.css
     include/inc_ext/ckeditor/probe.txt
+    include/vendor/tinymce/probe.txt
+    include/vendor/mklkj/tinymce-i18n/probe.txt
     template/probe.txt
     img/probe.txt
 )

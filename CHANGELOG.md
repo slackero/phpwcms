@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **TinyMCE Editor Assets:** the default WYSIWYG editor loads TinyMCE and its language packs from `include/vendor/`, which the web server default-deny of 1.12.9 made unreachable, so the editor never initialized in the backend. `include/vendor/tinymce/` and `include/vendor/mklkj/tinymce-i18n/` are exempt again in Apache, nginx and IIS, the vendor deny file grants both paths and still blocks PHP inside them, the nginx and IIS public allowlists cover them, and `tests/web/path-protection.sh` checks both paths.
 
 ---
 

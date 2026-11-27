@@ -8,7 +8,10 @@ RedirectMatch 404 /(composer\.(json|lock)|package(-lock)?\.json|Dockerfile|docke
 # Patterns are not anchored to the document root, so they also apply to
 # installations in a subfolder.
 RedirectMatch 404 /content/(tmp|cache|log|backup)/
-RedirectMatch 404 /include/(config|vendor|inc_act|inc_front|inc_help|inc_lang|inc_lib|inc_module|inc_tmpl)/
+# Vendor stays private except TinyMCE and its language packs, which the
+# browser loads as editor assets straight from the vendor directory.
+RedirectMatch 404 /include/vendor/(?!tinymce/|mklkj/tinymce-i18n/)
+RedirectMatch 404 /include/(config|inc_act|inc_front|inc_help|inc_lang|inc_lib|inc_module|inc_tmpl)/
 RedirectMatch 404 /include/inc_ext/(?!ckeditor/)
 # upload/ is private. filearchive/ is controlled by its own .htaccess,
 # which also toggles the direct-download option of file list content parts.

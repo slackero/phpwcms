@@ -1,8 +1,20 @@
-# Private: Composer packages must never be served
+# Private: Composer packages must never be served. The two exceptions are
+# TinyMCE and its language packs, which the WYSIWYG editor loads over HTTP.
 <IfModule mod_authz_core.c>
-    Require all denied
+    <RequireAny>
+        Require expr "%{REQUEST_URI} =~ m#/include/vendor/(tinymce|mklkj/tinymce-i18n)/#"
+        Require all denied
+    </RequireAny>
+    <FilesMatch "\.php$">
+        Require all denied
+    </FilesMatch>
 </IfModule>
 <IfModule !mod_authz_core.c>
+    SetEnvIf Request_URI "/include/vendor/(tinymce|mklkj/tinymce-i18n)/" PHPWCMS_EDITOR_ASSET
     Order allow,deny
     Deny from all
+    Allow from env=PHPWCMS_EDITOR_ASSET
+    <FilesMatch "\.php$">
+        Deny from all
+    </FilesMatch>
 </IfModule>
